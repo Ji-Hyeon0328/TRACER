@@ -1,0 +1,16 @@
+# ROS / Gazebo / catkin artifacts
+build/
+devel/
+install/
+logs/
+*.bag
+*.log
+.ros/
+
+# Python
+__pycache__/
+*.pyc
+
+# Runtime / crash outputs
+*.core
+core

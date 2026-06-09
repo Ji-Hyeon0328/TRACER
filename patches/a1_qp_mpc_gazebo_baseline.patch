@@ -1,0 +1,72 @@
+From 79c91302b5855cf245a852aefa7162449bf4ac9e Mon Sep 17 00:00:00 2001
+From: Shuo <shuoyang@andrew.cmu.edu>
+Date: Mon, 5 Dec 2022 14:20:40 -0500
+Subject: [PATCH 1/2] introduce the new codebase
+
+---
+ README.md | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/README.md b/README.md
+index 45216b9..8edbeeb 100644
+--- a/README.md
++++ b/README.md
+@@ -1,4 +1,11 @@
+ # A1-QP-MPC-Controller
++
++## Update 2022-12-05
++
++Dear friends, since the release of this code base we got feedback on various aspects. A revised MPC controller is developed at [CMU REX Lab Github](https://github.com/RoboticExplorationLab/legged_mpc_control). Please try the revised version. I will continue the development there. 
++
++
++
+ ## Introduction
+ 
+ This repo provides a quadruped control stack that controls the Unitree A1 robot, one of the most popular quadruped robots used in academic research in recent years. This control stack implements two famous model base control methods [1][2]. Additionally, we use Docker and ROS1 to make it easy to install and develop.
+-- 
+2.34.1
+
+
+From e29bb48702a5820a832d352db482e97349f5fff3 Mon Sep 17 00:00:00 2001
+From: Ji-Hyeon0328 <jihyeony@buffalo.edu>
+Date: Tue, 9 Jun 2026 16:11:13 -0400
+Subject: [PATCH 2/2] Build a1_cpp without optional test targets
+
+---
+ src/a1_cpp/CMakeLists.txt | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
+
+diff --git a/src/a1_cpp/CMakeLists.txt b/src/a1_cpp/CMakeLists.txt
+index fb00f8c..6c09cff 100644
+--- a/src/a1_cpp/CMakeLists.txt
++++ b/src/a1_cpp/CMakeLists.txt
+@@ -111,16 +111,16 @@ target_link_libraries(hardware_a1_ctrl
+ 
+ # tests
+ # Declare a cpp executable
+-
+-add_executable(test_rotation src/test/test_rotation.cpp
+-        src/utils/Utils.cpp
+-        src/utils/Utils.h
+-        )
+-
+-add_executable(test_bezier src/test/test_bezier.cpp
+-        src/utils/Utils.cpp
+-        src/utils/Utils.h
+-        )
++# 
++# add_executable(test_rotation src/test/test_rotation.cpp
++#         src/utils/Utils.cpp
++#         src/utils/Utils.h
++#         )
++# 
++# add_executable(test_bezier src/test/test_bezier.cpp
++#         src/utils/Utils.cpp
++#         src/utils/Utils.h
++#         )
+ 
+ add_executable(test_mpc src/test/test_mpc.cpp)
+ target_link_libraries(test_mpc
+-- 
+2.34.1
+
