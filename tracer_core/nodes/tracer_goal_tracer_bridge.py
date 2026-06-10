@@ -125,6 +125,11 @@ class GoalTracerBridge(object):
         self.reached = False
         self.last_target_vx_axis = self.max_vx_axis
 
+        # button[0] is a toggle, not an explicit stand/walk command.
+        # Track whether this node believes it turned walking mode on.
+        self.walking_mode_owned = False
+        self.shutdown_handled = False
+
         self.ram = RobustAdaptationModule(history_len=self.mismatch_history_len)
         self.objective_selector = ObjectiveSelector(
             mismatch_soft=self.mismatch_soft,
@@ -241,6 +246,16 @@ class GoalTracerBridge(object):
         rospy.sleep(0.25)
         self.pub.publish(make_joy(0.0, 0.0, toggle=False))
         rospy.sleep(0.25)
+
+    def toggle_walk_on(self):
+        if not self.walking_mode_owned:
+            self.toggle_button0()
+            self.walking_mode_owned = True
+
+    def toggle_walk_off(self):
+        if self.walking_mode_owned:
+            self.toggle_button0()
+            self.walking_mode_owned = False
 
     def publish_zero_for(self, sec):
         rate = rospy.Rate(self.rate_hz)
@@ -402,13 +417,19 @@ class GoalTracerBridge(object):
         ])
 
     def on_shutdown(self):
+        if self.shutdown_handled:
+            return
+        self.shutdown_handled = True
+
         rospy.loginfo("GoalTracer shutdown: sending safe stop commands.")
         try:
             if self.shutdown_zero:
                 self.publish_zero_for(0.5)
 
-            if self.shutdown_toggle_stand:
-                self.toggle_button0()
+            # button[0] is a toggle. Only toggle off if this node believes it
+            # previously toggled walking mode on and has not turned it off yet.
+            if self.shutdown_toggle_stand and self.walking_mode_owned:
+                self.toggle_walk_off()
                 self.publish_zero_for(0.5)
         except Exception as e:
             rospy.logwarn("GoalTracer shutdown failed: %s", str(e))
@@ -431,7 +452,7 @@ class GoalTracerBridge(object):
 
         if self.toggle_walk:
             rospy.loginfo("GoalTracer: toggling walking mode on.")
-            self.toggle_button0()
+            self.toggle_walk_on()
 
         self.publish_zero_for(2.0)
 
@@ -546,7 +567,7 @@ class GoalTracerBridge(object):
 
         if self.toggle_stand_on_exit:
             rospy.loginfo("GoalTracer: toggling walking mode off.")
-            self.toggle_button0()
+            self.toggle_walk_off()
 
         self.publish_zero_for(1.0)
 
