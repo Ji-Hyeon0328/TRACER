@@ -1,6 +1,7 @@
 import math
 
 from tracer_core.adaptation.robust_adaptation_module import RobustAdaptationModule
+from tracer_core.objective.objective_selector import ObjectiveSelector
 
 
 def quat_to_roll_pitch_yaw(x, y, z, w):
@@ -27,13 +28,16 @@ def clamp(x, lo, hi):
 
 class RuleBasedHighLevelPlanner(object):
     """
-    M7: TRACER planner with separated RAM-style adaptation module.
+    M8: TRACER planner with separated RAM and Objective Selector.
 
     RAM:
-        state + last command -> rho/sigma mismatch statistics
+        state + last command -> mismatch statistics
+
+    ObjectiveSelector:
+        posture + rho/sigma -> beta/mode
 
     Planner:
-        posture + RAM output -> beta/mode/ref command
+        beta -> target_vx_axis
     """
 
     def __init__(self,
@@ -54,12 +58,14 @@ class RuleBasedHighLevelPlanner(object):
         self.max_roll_pitch_hard = max_roll_pitch_hard
         self.min_base_height = min_base_height
 
-        self.mismatch_soft = mismatch_soft
-        self.mismatch_hard = mismatch_hard
-        self.sigma_soft = sigma_soft
-        self.sigma_hard = sigma_hard
-
         self.ram = RobustAdaptationModule(history_len=history_len)
+        self.objective_selector = ObjectiveSelector(
+            mismatch_soft=mismatch_soft,
+            mismatch_hard=mismatch_hard,
+            sigma_soft=sigma_soft,
+            sigma_hard=sigma_hard,
+        )
+
         self.last_target_vx_axis = self.nominal_vx_axis
 
     def compute_theta(self, state):
@@ -107,17 +113,17 @@ class RuleBasedHighLevelPlanner(object):
         rho = max(rho_posture, rho_v_mean)
         sigma = max(sigma_posture, sigma_v)
 
+        # Hard safety remains outside the objective selector.
         if z < self.min_base_height or rp_abs > self.max_roll_pitch_hard:
-            beta_v, beta_s, beta_e = 0.0, 1.0, 0.0
             target = 0.0
             theta = self._theta(
                 mode="recovery",
                 walk=False,
                 target_vx_axis=target,
                 emergency_stop=True,
-                beta_v=beta_v,
-                beta_s=beta_s,
-                beta_e=beta_e,
+                beta_v=0.0,
+                beta_s=1.0,
+                beta_e=0.0,
                 rho=rho,
                 sigma=sigma,
                 roll=roll,
@@ -127,70 +133,21 @@ class RuleBasedHighLevelPlanner(object):
             self.last_target_vx_axis = target
             return theta
 
-        if rp_abs > self.max_roll_pitch_soft:
-            beta_v, beta_s, beta_e = 0.2, 0.7, 0.1
-            target = self.beta_to_vx_axis(beta_v, beta_s, beta_e)
-            theta = self._theta(
-                mode="conservative_posture",
-                walk=True,
-                target_vx_axis=target,
-                emergency_stop=False,
-                beta_v=beta_v,
-                beta_s=beta_s,
-                beta_e=beta_e,
-                rho=rho,
-                sigma=sigma,
-                roll=roll,
-                pitch=pitch,
-                ram_out=ram_out,
-            )
-            self.last_target_vx_axis = target
-            return theta
+        objective = self.objective_selector.select(
+            posture_conservative=(rp_abs > self.max_roll_pitch_soft),
+            rho_v_mean=rho_v_mean,
+            sigma_v=sigma_v,
+        )
 
-        if rho_v_mean > self.mismatch_hard or sigma_v > self.sigma_hard:
-            beta_v, beta_s, beta_e = 0.25, 0.45, 0.30
-            target = self.beta_to_vx_axis(beta_v, beta_s, beta_e)
-            theta = self._theta(
-                mode="conservative_mismatch",
-                walk=True,
-                target_vx_axis=target,
-                emergency_stop=False,
-                beta_v=beta_v,
-                beta_s=beta_s,
-                beta_e=beta_e,
-                rho=rho,
-                sigma=sigma,
-                roll=roll,
-                pitch=pitch,
-                ram_out=ram_out,
-            )
-            self.last_target_vx_axis = target
-            return theta
+        beta_v = objective["beta_v"]
+        beta_s = objective["beta_s"]
+        beta_e = objective["beta_e"]
+        mode = objective["mode"]
 
-        if rho_v_mean > self.mismatch_soft or sigma_v > self.sigma_soft:
-            beta_v, beta_s, beta_e = 0.45, 0.35, 0.20
-            target = self.beta_to_vx_axis(beta_v, beta_s, beta_e)
-            theta = self._theta(
-                mode="cautious_mismatch",
-                walk=True,
-                target_vx_axis=target,
-                emergency_stop=False,
-                beta_v=beta_v,
-                beta_s=beta_s,
-                beta_e=beta_e,
-                rho=rho,
-                sigma=sigma,
-                roll=roll,
-                pitch=pitch,
-                ram_out=ram_out,
-            )
-            self.last_target_vx_axis = target
-            return theta
-
-        beta_v, beta_s, beta_e = 0.7, 0.2, 0.1
         target = self.beta_to_vx_axis(beta_v, beta_s, beta_e)
+
         theta = self._theta(
-            mode="nominal",
+            mode=mode,
             walk=True,
             target_vx_axis=target,
             emergency_stop=False,
