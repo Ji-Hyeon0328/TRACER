@@ -13,7 +13,7 @@ class ThetaToRefMapper(object):
     RefCommand -> Gazebo /joy is handled by the adapter in tracer_cmd_bridge.py.
     """
 
-    def __init__(self, vx_min=0.0, vx_max=0.05, yaw_max=0.05, accel_limit=0.005):
+    def __init__(self, vx_min=0.0, vx_max=0.02, yaw_max=0.03, accel_limit=0.002):
         self.vx_min = vx_min
         self.vx_max = vx_max
         self.yaw_max = yaw_max
