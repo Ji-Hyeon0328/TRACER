@@ -14,3 +14,12 @@ __pycache__/
 # Runtime / crash outputs
 *.core
 core
+
+# TRACER generated datasets
+datasets/ram/*.npz
+datasets/ram/*_meta.csv
+datasets/ram/*_info.json
+
+# TRACER generated checkpoints
+checkpoints/ram/*.npz
+checkpoints/ram/*_stats.json
