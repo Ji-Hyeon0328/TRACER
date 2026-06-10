@@ -136,6 +136,21 @@ def main():
         print("No representative cfg rows found.")
         return
 
+    # Keep only one representative row per (goal, RAM type).
+    # If multiple logs exist, use the lexicographically latest filename,
+    # which corresponds to the latest timestamp suffix in our log naming.
+    latest_by_group = {}
+    for row in rows:
+        key = (row["_goal_key"], row["_ram_type"])
+        fname = row.get("file", "")
+        if key not in latest_by_group:
+            latest_by_group[key] = row
+        else:
+            old_fname = latest_by_group[key].get("file", "")
+            if fname > old_fname:
+                latest_by_group[key] = row
+
+    rows = latest_by_group.values()
     rows = sorted(rows, key=lambda x: (x["_goal_key"], x["_ram_key"], x["_short_name"]))
 
     out_csv = os.path.join(log_dir, "tracer_ram_comparison_table.csv")

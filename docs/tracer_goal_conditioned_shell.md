@@ -186,3 +186,80 @@ M15: Add yaw beta-modulation for conservative modes.
 M16: Replace proxy RAM with learned/history encoder.
 M17: Replace rule-based ObjectiveSelector with learned beta selector.
 M18: Evaluate on multiple terrain worlds.
+
+---
+
+## M17-M20: Learned RAM baseline
+
+After validating the proxy RAM version of the goal-conditioned TRACER shell, we added a learned RAM baseline.
+
+### Dataset construction
+
+GoalTracer logs are converted into a sequence dataset:
+
+```text
+X: [N, H, F]
+Y: [N, 2]
+where: 
+H = 40 history steps
+F = 11 features
+Y = [rho_v_mean, sigma_v]
+
+The current feature vector includes:
+raw_vx_axis, vx_axis,
+raw_yaw_axis, yaw_axis,
+goal_dist,
+vx_mod_error, yaw_mod_error,
+beta_v, beta_s, beta_e,
+mode_id
+
+This dataset currently imitates the proxy RAM behavior. It is not yet a privileged teacher-student RAM trained from terrain/contact labels.
+
+## Learned RAM model
+
+The first learned RAM baseline is a numpy ridge-regression model:
+history window
+→ flattened history vector
+→ ridge regression
+→ rho_hat, sigma_hat
+
+This is not the final neural RAM architecture, but it verifies that RAM can be represented as a learned estimator.
+
+## Online integration
+
+The learned RAM is integrated into GoalTracer as an optional module:
+_use_learned_ram:=true
+_learned_ram_model:=<model_path>
+
+The online estimator uses a one-step delayed structure:
+previous finalized command history
+→ learned RAM predicts rho/sigma
+→ ObjectiveSelector chooses beta/mode
+→ TRACER computes vx/yaw
+→ finalized command is appended to RAM history
+
+This avoids circular dependency because RAM features include beta, mode, and finalized commands.
+
+## Verified behavior
+
+The learned RAM version was tested on three relative goal tasks:
+Forward 1.0 m
+Forward 1.0 m + lateral 0.5 m
+Forward 0.5 m + lateral 1.0 m
+
+All tasks were reached with no emergency stop.
+
+The logs include ram_source, which records whether each timestep used:
+proxy_warmup
+learned
+reached
+
+This confirms that after the initial warmup window, the online ObjectiveSelector uses learned RAM predictions.
+
+## Current interpretation
+
+The learned RAM baseline should not yet be claimed as a full sim-to-real adaptation module. The current result shows:
+A learned RAM estimator can replace the proxy RAM in the online TRACER loop
+while preserving goal-reaching behavior in Gazebo.
+
+The next step is to train a stronger learned RAM in Isaac Lab using richer terrain/contact histories and privileged labels.
