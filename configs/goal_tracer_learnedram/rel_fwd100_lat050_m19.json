@@ -1,0 +1,37 @@
+{
+  "relative_goal": true,
+  "relative_goal_x": 1.0,
+  "relative_goal_y": 0.5,
+
+  "max_vx_axis": 0.12,
+  "conservative_vx_axis": 0.05,
+  "max_yaw_axis": 0.20,
+
+  "k_v": 0.20,
+  "k_yaw": 0.35,
+  "goal_tolerance": 0.30,
+  "duration_limit": 90.0,
+
+  "mismatch_soft": 0.60,
+  "mismatch_hard": 0.90,
+  "sigma_soft": 0.25,
+  "sigma_hard": 0.45,
+  "mismatch_history_len": 40,
+
+  "yaw_scale_nominal": 1.00,
+  "yaw_scale_cautious": 0.85,
+  "yaw_scale_conservative": 0.65,
+  "yaw_scale_posture": 0.50,
+
+  "use_learned_ram": true,
+  "learned_ram_model": "/root/TRACER/checkpoints/ram/ram_ridge_v0_20260610_143854.npz",
+  "learned_ram_warmup_proxy": true,
+
+  "toggle_walk": true,
+  "toggle_stand_on_exit": true,
+  "shutdown_zero": true,
+  "shutdown_toggle_stand": false,
+
+  "tag": "cfg_learnedram_rel_fwd100_lat050_m19",
+  "log_dir": "/root/TRACER/logs"
+}
