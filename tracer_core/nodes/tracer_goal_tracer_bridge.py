@@ -13,6 +13,11 @@ from nav_msgs.msg import Odometry
 from tracer_core.adaptation.robust_adaptation_module import RobustAdaptationModule
 from tracer_core.objective.objective_selector import ObjectiveSelector
 
+try:
+    from tracer_core.adaptation.learned_ram_ridge import LearnedRamRidge
+except Exception:
+    LearnedRamRidge = None
+
 
 def clamp(x, lo, hi):
     return max(lo, min(hi, x))
@@ -116,6 +121,10 @@ class GoalTracerBridge(object):
         self.sigma_hard = rospy.get_param("~sigma_hard", 0.35)
         self.mismatch_history_len = rospy.get_param("~mismatch_history_len", 40)
 
+        self.use_learned_ram = rospy.get_param("~use_learned_ram", False)
+        self.learned_ram_model = rospy.get_param("~learned_ram_model", "")
+        self.learned_ram_warmup_proxy = rospy.get_param("~learned_ram_warmup_proxy", True)
+
         # Runtime params
         self.duration_limit = rospy.get_param("~duration_limit", 60.0)
         self.rate_hz = rospy.get_param("~rate", 20.0)
@@ -140,6 +149,7 @@ class GoalTracerBridge(object):
 
         self.ram = RobustAdaptationModule(history_len=self.mismatch_history_len)
         self.objective_selector = ObjectiveSelector(
+
             mismatch_soft=self.mismatch_soft,
             mismatch_hard=self.mismatch_hard,
             sigma_soft=self.sigma_soft,
@@ -155,6 +165,15 @@ class GoalTracerBridge(object):
         )
 
         self.file = None
+        self.learned_ram = None
+        if self.use_learned_ram:
+            if LearnedRamRidge is None:
+                raise RuntimeError("use_learned_ram=True but LearnedRamRidge import failed.")
+            if not self.learned_ram_model:
+                raise RuntimeError("use_learned_ram=True but learned_ram_model is empty.")
+            self.learned_ram = LearnedRamRidge(self.learned_ram_model)
+            rospy.loginfo("GoalTracer: loaded learned RAM model: %s", self.learned_ram_model)
+
         self.writer = None
         self.log_path = ""
 
@@ -193,6 +212,7 @@ class GoalTracerBridge(object):
                 "beta_e",
                 "rho",
                 "sigma",
+                "ram_source",
                 "v_cmd",
                 "v_meas",
                 "rho_v_inst",
@@ -346,6 +366,27 @@ class GoalTracerBridge(object):
             1.0,
         )
 
+        ram_source = "proxy"
+
+        if self.learned_ram is not None:
+            learned_out = self.learned_ram.predict()
+            if learned_out is not None:
+                ram_out["rho_v_mean"] = learned_out.get(
+                    "rho_v_mean",
+                    ram_out["rho_v_mean"]
+                )
+                ram_out["sigma_v"] = learned_out.get(
+                    "sigma_v",
+                    ram_out["sigma_v"]
+                )
+                ram_source = "learned"
+            elif not self.learned_ram_warmup_proxy:
+                ram_out["rho_v_mean"] = 0.0
+                ram_out["sigma_v"] = 0.0
+                ram_source = "learned_warmup_zero"
+            else:
+                ram_source = "proxy_warmup"
+
         rho_v_mean = ram_out["rho_v_mean"]
         sigma_v = ram_out["sigma_v"]
 
@@ -361,6 +402,7 @@ class GoalTracerBridge(object):
                 "rho": rho,
                 "sigma": sigma,
                 "ram_out": ram_out,
+                "ram_source": ram_source,
                 "emergency_stop": True,
                 "target_vx_axis": 0.0,
             }
@@ -390,6 +432,7 @@ class GoalTracerBridge(object):
             "rho": rho,
             "sigma": sigma,
             "ram_out": ram_out,
+            "ram_source": ram_source,
             "emergency_stop": False,
             "target_vx_axis": target_vx_axis,
         }
@@ -400,7 +443,7 @@ class GoalTracerBridge(object):
                 raw_vx_axis, raw_yaw_axis,
                 vx_axis, yaw_axis,
                 beta_v, beta_s, beta_e,
-                rho, sigma, ram_out,
+                rho, sigma, ram_out, ram_source,
                 reached, emergency_stop):
         if self.writer is None:
             return
@@ -428,6 +471,7 @@ class GoalTracerBridge(object):
             beta_e,
             rho,
             sigma,
+            ram_source,
             ram_out.get("v_cmd", 0.0),
             ram_out.get("v_meas", 0.0),
             ram_out.get("rho_v_inst", 0.0),
@@ -517,6 +561,7 @@ class GoalTracerBridge(object):
                         "rho_v_mean": 0.0,
                         "sigma_v": 0.0,
                     },
+                    "reached",
                     True,
                     False,
                 )
@@ -546,6 +591,20 @@ class GoalTracerBridge(object):
 
             self.last_target_vx_axis = vx_axis
 
+            if self.learned_ram is not None:
+                learned_obs = {
+                    "raw_vx_axis": raw_vx_axis,
+                    "vx_axis": vx_axis,
+                    "raw_yaw_axis": raw_yaw_axis,
+                    "yaw_axis": yaw_axis,
+                    "goal_dist": dist,
+                    "beta_v": tracer["beta_v"],
+                    "beta_s": tracer["beta_s"],
+                    "beta_e": tracer["beta_e"],
+                    "mode": tracer["mode"],
+                }
+                self.learned_ram.update(learned_obs)
+
             self.log_row(
                 "track",
                 tracer["mode"],
@@ -561,6 +620,7 @@ class GoalTracerBridge(object):
                 tracer["rho"],
                 tracer["sigma"],
                 tracer["ram_out"],
+                tracer.get("ram_source", "proxy"),
                 False,
                 tracer["emergency_stop"],
             )
