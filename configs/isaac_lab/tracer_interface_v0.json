@@ -1,0 +1,86 @@
+{
+  "name": "tracer_isaac_interface_v0",
+
+  "goal": {
+    "inputs": [
+      "goal_distance",
+      "goal_heading_error",
+      "raw_vx_cmd",
+      "raw_yaw_cmd"
+    ],
+    "outputs": [
+      "vx_cmd",
+      "yaw_cmd"
+    ]
+  },
+
+  "history": {
+    "history_len": 40,
+    "features": [
+      "raw_vx_cmd",
+      "vx_cmd",
+      "raw_yaw_cmd",
+      "yaw_cmd",
+      "goal_distance",
+      "vx_tracking_error",
+      "yaw_tracking_error",
+      "base_height",
+      "roll",
+      "pitch",
+      "mode_id"
+    ]
+  },
+
+  "ram": {
+    "inputs": [
+      "history"
+    ],
+    "outputs": [
+      "rho",
+      "sigma",
+      "latent_z"
+    ]
+  },
+
+  "objective_selector": {
+    "inputs": [
+      "rho",
+      "sigma",
+      "context",
+      "goal_command"
+    ],
+    "outputs": [
+      "beta_v",
+      "beta_s",
+      "beta_e",
+      "mode"
+    ]
+  },
+
+  "theta_decoder": {
+    "inputs": [
+      "beta_v",
+      "beta_s",
+      "beta_e",
+      "rho",
+      "sigma",
+      "context"
+    ],
+    "outputs": [
+      "vx_scale",
+      "yaw_scale",
+      "body_height_offset",
+      "foot_clearance",
+      "gait_frequency_scale",
+      "impedance_scale"
+    ]
+  },
+
+  "training_priority": [
+    "reproduce_gazebo_command_modulation",
+    "learn_ram_from_history",
+    "learn_objective_selector",
+    "add_theta_decoder",
+    "connect_beta_to_low_level_controller"
+  ]
+}
