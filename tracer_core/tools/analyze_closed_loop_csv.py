@@ -65,6 +65,9 @@ def main():
     avg_v_cmd = avg_field("v_cmd")
     avg_v_meas = avg_field("v_meas")
     avg_rho_v = avg_field("rho_v")
+    avg_rho_v_inst = avg_field("rho_v_inst")
+    avg_rho_v_mean = avg_field("rho_v_mean")
+    avg_sigma_v = avg_field("sigma_v")
 
     estop_count = sum(1 for r in rows if r.get("emergency_stop", "") == "True")
     recovery_count = sum(1 for r in rows if r.get("mode", "") == "recovery")
@@ -84,6 +87,12 @@ def main():
         print("avg v_meas: %.4f m/s" % avg_v_meas)
     if avg_rho_v is not None:
         print("avg rho_v: %.4f" % avg_rho_v)
+    if avg_rho_v_inst is not None:
+        print("avg rho_v_inst: %.4f" % avg_rho_v_inst)
+    if avg_rho_v_mean is not None:
+        print("avg rho_v_mean: %.4f" % avg_rho_v_mean)
+    if avg_sigma_v is not None:
+        print("avg sigma_v: %.4f" % avg_sigma_v)
     print("estop rows:", estop_count)
     print("recovery rows:", recovery_count)
 

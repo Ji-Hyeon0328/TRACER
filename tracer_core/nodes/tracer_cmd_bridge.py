@@ -60,6 +60,7 @@ class CsvLogger(object):
             "beta_v", "beta_s", "beta_e",
             "rho", "sigma",
             "v_cmd", "v_meas", "rho_v",
+            "rho_v_inst", "rho_v_mean", "sigma_v",
         ])
         self.f.flush()
 
@@ -86,6 +87,9 @@ class CsvLogger(object):
             theta.get("v_cmd", 0.0),
             theta.get("v_meas", 0.0),
             theta.get("rho_v", 0.0),
+            theta.get("rho_v_inst", 0.0),
+            theta.get("rho_v_mean", 0.0),
+            theta.get("sigma_v", 0.0),
         ])
         self.f.flush()
 
@@ -102,6 +106,9 @@ class TracerCmdBridge(object):
         self.vx_max = rospy.get_param("~vx_max", 0.03)
         self.mismatch_soft = rospy.get_param("~mismatch_soft", 0.65)
         self.mismatch_hard = rospy.get_param("~mismatch_hard", 0.90)
+        self.sigma_soft = rospy.get_param("~sigma_soft", 0.18)
+        self.sigma_hard = rospy.get_param("~sigma_hard", 0.30)
+        self.mismatch_history_len = rospy.get_param("~mismatch_history_len", 40)
         self.vx_axis_sign = rospy.get_param("~vx_axis_sign", 1.0)
 
         self.auto_walk = rospy.get_param("~auto_walk", True)
@@ -131,6 +138,9 @@ class TracerCmdBridge(object):
             conservative_vx_axis=self.conservative_vx_axis,
             mismatch_soft=self.mismatch_soft,
             mismatch_hard=self.mismatch_hard,
+            sigma_soft=self.sigma_soft,
+            sigma_hard=self.sigma_hard,
+            history_len=self.mismatch_history_len,
         )
         self.mapper = ThetaToRefMapper(vx_max=self.vx_max)
         self.adapter = GazeboJoyAdapter(vx_axis_sign=self.vx_axis_sign)
