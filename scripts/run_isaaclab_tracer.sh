@@ -10,8 +10,7 @@ export TRACER_ROOT="${TRACER_ROOT:-$HOME/Tracer/TRACER}"
 export ISAACLAB_ROOT="${ISAACLAB_ROOT:-$HOME/IsaacLab}"
 
 export PYTHONPATH="$TRACER_ROOT:$PYTHONPATH"
-export LD_LIBRARY_PATH="$CONDA_PREFIX/lib:$LD_LIBRARY_PATH"
 
 cd "$ISAACLAB_ROOT"
 
-./isaaclab.sh -p "$@"
+LD_PRELOAD="$CONDA_PREFIX/lib/libstdc++.so.6" ./isaaclab.sh -p "$@"
