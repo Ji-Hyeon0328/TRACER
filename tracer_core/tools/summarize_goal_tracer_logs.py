@@ -82,6 +82,12 @@ def summarize_one(path):
     if avg_raw_vx is not None and abs(avg_raw_vx) > 1e-6 and avg_vx is not None:
         modulation_ratio = avg_vx / avg_raw_vx
 
+    avg_raw_yaw = avg_field("raw_yaw_axis")
+    avg_yaw = avg_field("yaw_axis")
+    yaw_modulation_ratio = None
+    if avg_raw_yaw is not None and abs(avg_raw_yaw) > 1e-6 and avg_yaw is not None:
+        yaw_modulation_ratio = avg_yaw / avg_raw_yaw
+
     valid_for_report = 1
     if emergency_stop_rows > 0:
         valid_for_report = 0
@@ -109,8 +115,9 @@ def summarize_one(path):
         "avg_raw_vx_axis": avg_raw_vx,
         "avg_vx_axis": avg_vx,
         "vx_modulation_ratio": modulation_ratio,
-        "avg_raw_yaw_axis": avg_field("raw_yaw_axis"),
-        "avg_yaw_axis": avg_field("yaw_axis"),
+        "avg_raw_yaw_axis": avg_raw_yaw,
+        "avg_yaw_axis": avg_yaw,
+        "yaw_modulation_ratio": yaw_modulation_ratio,
         "avg_rho_v_mean": avg_field("rho_v_mean"),
         "avg_sigma_v": avg_field("sigma_v"),
         "avg_beta_v": avg_field("beta_v"),
@@ -164,6 +171,7 @@ def main():
         "vx_modulation_ratio",
         "avg_raw_yaw_axis",
         "avg_yaw_axis",
+        "yaw_modulation_ratio",
         "avg_rho_v_mean",
         "avg_sigma_v",
         "avg_beta_v",
@@ -199,7 +207,8 @@ def main():
             mod_ratio = -1.0
 
         print("%s | valid=%d | dur=%.1f s | start=%.3f end=%.3f red=%.3f | "
-              "travel=%.3f | reached=%d | raw_vx=%.4f vx=%.4f ratio=%.3f | "
+              "travel=%.3f | reached=%d | raw_vx=%.4f vx=%.4f vx_ratio=%.3f | "
+              "raw_yaw=%.4f yaw=%.4f yaw_ratio=%.3f | "
               "rho=%.3f sigma=%.3f | N/C/CM=%d/%d/%d | estop=%d" % (
                   s["file"],
                   s["valid_for_report"],
@@ -212,6 +221,9 @@ def main():
                   s["avg_raw_vx_axis"] if s["avg_raw_vx_axis"] is not None else -1.0,
                   s["avg_vx_axis"] if s["avg_vx_axis"] is not None else -1.0,
                   mod_ratio,
+                  s["avg_raw_yaw_axis"] if s["avg_raw_yaw_axis"] is not None else -1.0,
+                  s["avg_yaw_axis"] if s["avg_yaw_axis"] is not None else -1.0,
+                  s["yaw_modulation_ratio"] if s["yaw_modulation_ratio"] is not None else -1.0,
                   s["avg_rho_v_mean"] if s["avg_rho_v_mean"] is not None else -1.0,
                   s["avg_sigma_v"] if s["avg_sigma_v"] is not None else -1.0,
                   s["mode_nominal"],
