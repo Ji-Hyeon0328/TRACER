@@ -1,6 +1,6 @@
-from __future__ import annotations
-
 import torch
+
+from isaaclab_tracer.utils.paths import tracer_config_path
 
 from isaaclab_tracer.envs.tracer_task_spec import TracerTaskSpec
 from isaaclab_tracer.networks.tracer_modules import TracerHighLevel
@@ -13,7 +13,7 @@ from isaaclab_tracer.mdp.tracer_terminations import goal_reached, base_fallen
 
 
 def main():
-    spec = TracerTaskSpec.from_json("configs/isaac_lab/tracer_task_v0.json")
+    spec = TracerTaskSpec.from_json(tracer_config_path("configs/isaac_lab/tracer_task_v0.json"))
 
     num_envs = 8
     device = "cpu"

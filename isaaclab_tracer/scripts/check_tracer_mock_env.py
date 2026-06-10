@@ -1,6 +1,6 @@
-from __future__ import annotations
-
 import torch
+
+from isaaclab_tracer.utils.paths import tracer_config_path
 
 from isaaclab_tracer.envs.tracer_task_spec import TracerTaskSpec
 from isaaclab_tracer.envs.tracer_mock_env import TracerMockEnv
@@ -8,7 +8,7 @@ from isaaclab_tracer.envs.tracer_isaac_env_cfg import TracerIsaacEnvCfg
 
 
 def main():
-    spec = TracerTaskSpec.from_json("configs/isaac_lab/tracer_task_v0.json")
+    spec = TracerTaskSpec.from_json(tracer_config_path("configs/isaac_lab/tracer_task_v0.json"))
 
     env = TracerMockEnv(
         spec=spec,

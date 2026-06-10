@@ -1,6 +1,6 @@
-from __future__ import annotations
-
 import torch
+
+from isaaclab_tracer.utils.paths import tracer_config_path
 
 from isaaclab_tracer.envs.tracer_task_spec import TracerTaskSpec
 from isaaclab_tracer.envs.tracer_highlevel_loop import TracerHighLevelLoop
@@ -52,7 +52,7 @@ def make_fake_obs(num_envs: int, device: str, step_idx: int):
 
 
 def main():
-    spec = TracerTaskSpec.from_json("configs/isaac_lab/tracer_task_v0.json")
+    spec = TracerTaskSpec.from_json(tracer_config_path("configs/isaac_lab/tracer_task_v0.json"))
 
     num_envs = 8
     device = "cpu"
