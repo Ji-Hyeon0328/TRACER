@@ -1,0 +1,32 @@
+{
+  "log_dir": "/root/TRACER/logs",
+  "output_dir": "/root/TRACER/datasets/ram",
+  "output_name": "ram_goal_tracer_v0",
+
+  "only_valid_for_report": true,
+  "only_cfg_logs": false,
+
+  "history_len": 40,
+  "stride": 1,
+
+  "min_duration_sec": 10.0,
+
+  "feature_fields": [
+    "raw_vx_axis",
+    "vx_axis",
+    "raw_yaw_axis",
+    "yaw_axis",
+    "goal_dist",
+    "vx_mod_error",
+    "yaw_mod_error",
+    "beta_v",
+    "beta_s",
+    "beta_e",
+    "mode_id"
+  ],
+
+  "label_fields": [
+    "rho_v_mean",
+    "sigma_v"
+  ]
+}
