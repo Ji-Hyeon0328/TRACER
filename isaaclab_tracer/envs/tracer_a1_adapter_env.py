@@ -44,15 +44,15 @@ def make_tracer_a1_adapter_env_class():
 
     @configclass
     class TracerA1AdapterEnvCfg(DirectRLEnvCfg):
-        episode_length_s = 4.0
-        decimation = 1
+        episode_length_s = 20.0
+        decimation = 4
 
         action_space = 12
         observation_space = 58
         state_space = 0
 
         sim: SimulationCfg = SimulationCfg(
-            dt=0.02,
+            dt=0.005,
             render_interval=decimation,
         )
 
@@ -93,7 +93,15 @@ def make_tracer_a1_adapter_env_class():
             self.robot = Articulation(self.cfg.robot)
             self.scene.articulations["robot"] = self.robot
 
-            ground_cfg = sim_utils.GroundPlaneCfg()
+            ground_cfg = sim_utils.GroundPlaneCfg(
+                physics_material=sim_utils.RigidBodyMaterialCfg(
+                    friction_combine_mode="multiply",
+                    restitution_combine_mode="multiply",
+                    static_friction=1.0,
+                    dynamic_friction=1.0,
+                    restitution=0.0,
+                )
+            )
             ground_cfg.func("/World/defaultGroundPlane", ground_cfg)
 
             self.scene.clone_environments(copy_from_source=False)
