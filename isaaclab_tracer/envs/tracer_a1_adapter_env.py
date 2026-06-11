@@ -67,13 +67,16 @@ def make_tracer_a1_adapter_env_class():
 
         tracer_goal_x = 1.0
         tracer_goal_y = 0.5
-        residual_scale = 0.10
+        residual_scale = 0.0
+        hold_default_pose = False
 
     class TracerA1AdapterEnv(DirectRLEnv):
         cfg: TracerA1AdapterEnvCfg
 
         def __init__(self, cfg: TracerA1AdapterEnvCfg, render_mode=None, **kwargs):
             self.robot = None
+            self._residual_scale = float(cfg.residual_scale)
+            self._hold_default_pose = bool(cfg.hold_default_pose)
 
             self._actions = None
             self._previous_action = None
@@ -144,11 +147,10 @@ def make_tracer_a1_adapter_env_class():
 
             highlevel_loop = self.tracer_loop
 
-            # Avoid accessing config/spec dynamic attributes inside IsaacLab reset path.
-            # For this smoke test, use explicit constants.
+            # Avoid accessing spec dynamic attributes inside IsaacLab reset path.
+            # Cache cfg values in __init__, then use the cached value here.
             success_tolerance = 0.30
-            residual_scale = 0.10
-
+            residual_scale = self._residual_scale
 
             adapter = TracerStepAdapter(
                 highlevel_loop=highlevel_loop,
@@ -170,62 +172,61 @@ def make_tracer_a1_adapter_env_class():
 
             roll, pitch, yaw = quat_wxyz_to_rpy(root_quat_w)
 
-            root_lin_vel_b = self.robot.data.root_lin_vel_b
-            root_ang_vel_b = self.robot.data.root_ang_vel_b
-
             try:
                 projected_gravity = self.robot.data.projected_gravity_b
             except Exception:
                 projected_gravity = torch.zeros(self.num_envs, 3, device=self.device)
                 projected_gravity[:, 2] = -1.0
 
-            height_scan = torch.zeros(self.num_envs, 10, device=self.device)
+            height_scan = torch.zeros(self.num_envs, 1, device=self.device)
 
-            if self._previous_action is None:
-                self._previous_action = torch.zeros(
-                    self.num_envs,
-                    self.cfg.action_space,
-                    device=self.device,
-                )
-
-            return {
+            obs = {
                 "base_xy": root_pos_w[:, 0:2],
-                "base_yaw": yaw,
-                "base_lin_vel_body": root_lin_vel_b,
-                "base_ang_vel_body": root_ang_vel_b,
-                "base_yaw_rate": root_ang_vel_b[:, 2:3],
-                "projected_gravity": projected_gravity,
-                "height_scan": height_scan,
+                "base_pos_xy": root_pos_w[:, 0:2],
                 "base_height": root_pos_w[:, 2:3],
+                "height_scan": height_scan,
+                "base_quat_w": root_quat_w,
                 "roll": roll,
                 "pitch": pitch,
+                "yaw": yaw,
+                "base_yaw": yaw,
+                "base_lin_vel_body": self.robot.data.root_lin_vel_b,
+                "base_ang_vel_body": self.robot.data.root_ang_vel_b,
+                "base_yaw_rate": self.robot.data.root_ang_vel_b[:, 2:3],
+                "base_lin_vel": self.robot.data.root_lin_vel_b,
+                "base_ang_vel": self.robot.data.root_ang_vel_b,
+                "projected_gravity": projected_gravity,
                 "joint_pos": self.robot.data.joint_pos,
                 "joint_vel": self.robot.data.joint_vel,
-                "previous_action": self._previous_action,
             }
 
-        def _pre_physics_step(self, actions):
-            self._init_tracer_if_needed()
+            return obs
 
-            self._actions = torch.clamp(actions, -1.0, 1.0)
+        def _pre_physics_step(self, actions):
+            self._actions = actions.detach().clone()
+
+            if self._previous_action is None:
+                self._previous_action = torch.zeros_like(self._actions)
 
             obs_dict = self._make_tracer_obs_dict()
-            adapter_out = self.tracer_adapter.step(obs_dict, self._actions)
+            obs_dict["previous_action"] = self._previous_action
 
-            self._policy_obs = adapter_out.policy_obs
-            self._joint_pos_target = adapter_out.joint_pos_target
-            self._reward = adapter_out.reward
-            self._terminated = adapter_out.done
-            self._previous_action = self._actions.detach()
+            out = self.tracer_adapter.step(
+                obs_dict,
+                self._actions,
+            )
 
-            self.extras["tracer/goal_distance_mean"] = adapter_out.tracer.goal_features[:, 0].mean()
-            self.extras["tracer/vx_cmd_mean"] = adapter_out.tracer.tracer_cmd[:, 0].mean()
-            self.extras["tracer/yaw_cmd_mean"] = adapter_out.tracer.tracer_cmd[:, 1].mean()
-            self.extras["tracer/rho_mean"] = adapter_out.tracer.rho.mean()
-            self.extras["tracer/sigma_mean"] = adapter_out.tracer.sigma.mean()
-            self.extras["tracer/beta_v_mean"] = adapter_out.tracer.beta[:, 0].mean()
-            self.extras["tracer/beta_s_mean"] = adapter_out.tracer.beta[:, 1].mean()
-            self.extras["tracer/beta_e_mean"] = adapter_out.tracer.beta[:, 2].mean()
+            self._policy_obs = out.policy_obs
+            self._reward = out.reward
+            self._terminated = out.done
+            self._truncated = torch.zeros_like(out.done, dtype=torch.bool)
+
+            if self._hold_default_pose:
+                self._joint_pos_target = self.robot.data.default_joint_pos.detach().clone()
+            else:
+                self._joint_pos_target = out.joint_pos_target
+
+            self._previous_action = self._actions.detach().clone()
 
         def _apply_action(self):
             if self._joint_pos_target is None:
@@ -261,7 +262,14 @@ def make_tracer_a1_adapter_env_class():
             height_fail = root_height < 0.18
             terminated = torch.logical_or(terminated, height_fail)
 
-            truncated = self.episode_length_buf >= self.max_episode_length - 1
+            if self._truncated is None:
+                truncated = self.episode_length_buf >= self.max_episode_length - 1
+            else:
+                truncated = torch.logical_or(
+                    self._truncated,
+                    self.episode_length_buf >= self.max_episode_length - 1,
+                )
+
             return terminated, truncated
 
         def _reset_idx(self, env_ids):
@@ -272,14 +280,38 @@ def make_tracer_a1_adapter_env_class():
             if env_ids is None:
                 env_ids = torch.arange(self.num_envs, device=self.device, dtype=torch.long)
 
+            # Explicitly reset the robot to IsaacLab's default standing state.
+            root_state = self.robot.data.default_root_state[env_ids].clone()
+            root_state[:, :3] += self.scene.env_origins[env_ids]
+
+            joint_pos = self.robot.data.default_joint_pos[env_ids].clone()
+            joint_vel = torch.zeros_like(joint_pos)
+
+            self.robot.write_root_pose_to_sim(root_state[:, :7], env_ids=env_ids)
+            self.robot.write_root_velocity_to_sim(root_state[:, 7:], env_ids=env_ids)
+            self.robot.write_joint_state_to_sim(joint_pos, joint_vel, env_ids=env_ids)
+
             self.tracer_adapter.reset(env_ids)
+
+            if self._previous_action is None:
+                self._previous_action = torch.zeros(
+                    self.num_envs,
+                    self.cfg.action_space,
+                    device=self.device,
+                )
             self._previous_action[env_ids] = 0.0
 
-            if self._policy_obs is not None:
-                self._policy_obs[env_ids] = 0.0
+            if self._policy_obs is None:
+                self._policy_obs = torch.zeros(
+                    self.num_envs,
+                    self.cfg.observation_space,
+                    device=self.device,
+                )
+            self._policy_obs[env_ids] = 0.0
 
             self._reward = None
             self._terminated = None
-            self._joint_pos_target = None
+            self._truncated = None
+            self._joint_pos_target = self.robot.data.default_joint_pos.detach().clone()
 
     return TracerA1AdapterEnv, TracerA1AdapterEnvCfg
