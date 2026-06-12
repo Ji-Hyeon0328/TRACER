@@ -59,6 +59,14 @@ class TracerLowLevelStub(Node):
         self.declare_parameter("publish_hz", 50.0)
         self.declare_parameter("kp", 35.0)
         self.declare_parameter("kd", 2.0)
+
+        # Optional torque-path test.
+        # torque_test_joint_index:
+        #   -1 disables torque test
+        #   0..11 applies torque feedforward to that joint.
+        self.declare_parameter("torque_test_joint_index", -1)
+        self.declare_parameter("torque_test_tau", 0.0)
+        self.declare_parameter("torque_test_mode", 3.0)
         self.declare_parameter("mode", 1.0)
 
         # hold_policy:
@@ -224,6 +232,14 @@ class TracerLowLevelStub(Node):
         out[25:37] = [kp_val] * 12
         out[37:49] = [kd_val] * 12
         out[49:61] = [0.0] * 12
+
+        # Apply optional torque-path test.
+        torque_test_joint_index = int(self.get_parameter("torque_test_joint_index").value)
+        torque_test_tau = float(self.get_parameter("torque_test_tau").value)
+        torque_test_mode = float(self.get_parameter("torque_test_mode").value)
+        if 0 <= torque_test_joint_index < 12 and abs(torque_test_tau) > 0.0:
+            out[0] = torque_test_mode
+            out[49 + torque_test_joint_index] = torque_test_tau
 
         msg = Float64MultiArray()
         msg.data = out
