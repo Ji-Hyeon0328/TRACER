@@ -11,7 +11,6 @@
 
 #include "A1CtrlStates.h"
 #include "A1RobotControl.h"
-#include <Eigen/Geometry>
 
 namespace {
 constexpr std::array<int, 12> ISAAC_TO_LEG_MAJOR = {
@@ -42,24 +41,6 @@ std::array<double, 12> leg_major_to_isaac_order(const std::array<double, 12> &q_
   }
   return q_isaac;
 }
-
-Eigen::Vector3d rotation_matrix_to_rpy(const Eigen::Matrix3d &R) {
-  const double roll = std::atan2(R(2, 1), R(2, 2));
-
-  double sin_pitch = -R(2, 0);
-  if (sin_pitch > 1.0) {
-    sin_pitch = 1.0;
-  }
-  if (sin_pitch < -1.0) {
-    sin_pitch = -1.0;
-  }
-
-  const double pitch = std::asin(sin_pitch);
-  const double yaw = std::atan2(R(1, 0), R(0, 0));
-
-  return Eigen::Vector3d(roll, pitch, yaw);
-}
-
 }  // namespace
 
 class TracerA1QpmcAdapterNode : public rclcpp::Node {
@@ -95,7 +76,6 @@ public:
     );
 
     a1_state_.reset();
-    init_a1_default_params();
 
     RCLCPP_INFO(
       this->get_logger(),
@@ -181,109 +161,6 @@ private:
     return true;
   }
 
-
-
-  void init_a1_default_params() {
-    // ROS-free initialization aligned with external_baselines/A1-QP-MPC-Controller
-    // config/isaac_a1_mpc.yaml.
-
-    a1_state_.stance_leg_control_type = 1;  // 0: QP, 1: MPC
-    a1_state_.plan_dt = 0.02;               // Isaac env step in current adapter check.
-    a1_state_.robot_mass = 12.0;
-
-    a1_state_.a1_trunk_inertia.setZero();
-    a1_state_.a1_trunk_inertia(0, 0) = 0.0158533;
-    a1_state_.a1_trunk_inertia(0, 1) = 0.0;
-    a1_state_.a1_trunk_inertia(0, 2) = 0.0;
-    a1_state_.a1_trunk_inertia(1, 0) = 0.0;
-    a1_state_.a1_trunk_inertia(1, 1) = 0.0377999;
-    a1_state_.a1_trunk_inertia(1, 2) = 0.0;
-    a1_state_.a1_trunk_inertia(2, 0) = 0.0;
-    a1_state_.a1_trunk_inertia(2, 1) = 0.0;
-    a1_state_.a1_trunk_inertia(2, 2) = 0.0456542;
-
-    a1_state_.default_foot_pos.setZero();
-    // Columns: FL, FR, RL, RR.
-    a1_state_.default_foot_pos.col(0) = Eigen::Vector3d( 0.24,  0.15, -0.35);
-    a1_state_.default_foot_pos.col(1) = Eigen::Vector3d( 0.24, -0.15, -0.35);
-    a1_state_.default_foot_pos.col(2) = Eigen::Vector3d(-0.17,  0.15, -0.35);
-    a1_state_.default_foot_pos.col(3) = Eigen::Vector3d(-0.17, -0.15, -0.35);
-
-    a1_state_.gait_counter_speed << 2.5, 2.5, 2.5, 2.5;
-
-    a1_state_.q_weights.resize(MPC_STATE_DIM);
-    a1_state_.q_weights <<
-      100.0, 100.0, 50.0,
-      0.0, 0.0, 420.0,
-      0.01, 0.01, 0.05,
-      30.0, 30.0, 10.0,
-      0.0;
-
-    a1_state_.r_weights.resize(NUM_DOF);
-    a1_state_.r_weights <<
-      1e-7, 1e-7, 1e-7,
-      1e-7, 1e-7, 1e-7,
-      1e-7, 1e-7, 1e-7,
-      1e-7, 1e-7, 1e-7;
-
-    a1_state_.root_pos_d = Eigen::Vector3d(0.0, 0.0, 0.30);
-    a1_state_.root_euler_d = Eigen::Vector3d(0.0, 0.0, 0.0);
-    a1_state_.root_lin_vel_d = Eigen::Vector3d(0.0, 0.0, 0.0);
-    a1_state_.root_ang_vel_d = Eigen::Vector3d(0.0, 0.0, 0.0);
-  }
-
-  void sync_a1_state_from_robot_state(const RobotState &state) {
-    a1_state_.root_pos = Eigen::Vector3d(
-      state.base_pos[0],
-      state.base_pos[1],
-      state.base_pos[2]
-    );
-
-    // Incoming quaternion is xyzw. Eigen constructor is wxyz.
-    Eigen::Quaterniond q(
-      state.base_quat_xyzw[3],
-      state.base_quat_xyzw[0],
-      state.base_quat_xyzw[1],
-      state.base_quat_xyzw[2]
-    );
-
-    if (q.norm() > 1e-9) {
-      q.normalize();
-    } else {
-      q = Eigen::Quaterniond::Identity();
-    }
-
-    a1_state_.root_quat = q;
-    a1_state_.root_rot_mat = q.toRotationMatrix();
-    a1_state_.root_euler = rotation_matrix_to_rpy(a1_state_.root_rot_mat);
-
-    const double yaw = a1_state_.root_euler[2];
-    a1_state_.root_rot_mat_z =
-      Eigen::AngleAxisd(yaw, Eigen::Vector3d::UnitZ()).toRotationMatrix();
-
-    a1_state_.root_lin_vel = Eigen::Vector3d(
-      state.base_lin_vel[0],
-      state.base_lin_vel[1],
-      state.base_lin_vel[2]
-    );
-
-    a1_state_.root_ang_vel = Eigen::Vector3d(
-      state.base_ang_vel[0],
-      state.base_ang_vel[1],
-      state.base_ang_vel[2]
-    );
-
-    for (int i = 0; i < 12; ++i) {
-      a1_state_.joint_pos[i] = state.joint_pos_leg_major[i];
-      a1_state_.joint_vel[i] = state.joint_vel_leg_major[i];
-    }
-
-    for (int i = 0; i < 4; ++i) {
-      a1_state_.isaac_contact_flag[i] = state.foot_contact[i];
-      a1_state_.foot_force[i] = state.foot_contact[i];
-    }
-  }
-
   void on_timer() {
     const double mode = this->get_parameter("mode").as_double();
     const double kp = this->get_parameter("kp").as_double();
@@ -299,32 +176,6 @@ private:
     double state_age_s = 1e9;
     const bool has_state = get_latest_state(state, state_age_s);
     const bool state_fresh = has_state && state_age_s <= state_timeout_s;
-
-    if (has_state) {
-      sync_a1_state_from_robot_state(state);
-    }
-
-
-    if (print_baseline_debug && has_state) {
-      RCLCPP_INFO_THROTTLE(
-        this->get_logger(),
-        *this->get_clock(),
-        2000,
-        "a1_state_sync root_z=%.3f rpy=[%.3f %.3f %.3f] a1_q_FL=[%.3f %.3f %.3f] contact=[%.0f %.0f %.0f %.0f]",
-        a1_state_.root_pos[2],
-        a1_state_.root_euler[0],
-        a1_state_.root_euler[1],
-        a1_state_.root_euler[2],
-        a1_state_.joint_pos[0],
-        a1_state_.joint_pos[1],
-        a1_state_.joint_pos[2],
-        a1_state_.isaac_contact_flag[0],
-        a1_state_.isaac_contact_flag[1],
-        a1_state_.isaac_contact_flag[2],
-        a1_state_.isaac_contact_flag[3]
-      );
-    }
-
 
     // Isaac joint order:
     // [FL_hip, FR_hip, RL_hip, RR_hip,
