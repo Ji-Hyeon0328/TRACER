@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>tracer_a1_qpmc_adapter</name>
+  <version>0.0.1</version>
+  <description>TRACER A1 QP-MPC adapter node for Isaac low-level bridge</description>
+
+  <maintainer email="prince31663@gmail.com">JiHyun Yu</maintainer>
+  <license>MIT</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>rclcpp</depend>
+  <depend>std_msgs</depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

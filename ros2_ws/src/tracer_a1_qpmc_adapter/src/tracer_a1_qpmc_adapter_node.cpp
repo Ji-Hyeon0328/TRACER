@@ -1,0 +1,259 @@
+#include <array>
+#include <chrono>
+#include <cmath>
+#include <memory>
+#include <mutex>
+#include <string>
+#include <vector>
+
+#include "rclcpp/rclcpp.hpp"
+#include "std_msgs/msg/float64_multi_array.hpp"
+
+namespace {
+constexpr std::array<int, 12> ISAAC_TO_LEG_MAJOR = {
+  0, 4, 8,
+  1, 5, 9,
+  2, 6, 10,
+  3, 7, 11
+};
+
+constexpr std::array<int, 12> LEG_MAJOR_TO_ISAAC = {
+  0, 3, 6, 9,
+  1, 4, 7, 10,
+  2, 5, 8, 11
+};
+
+std::array<double, 12> isaac_to_leg_major_order(const std::array<double, 12> &q_isaac) {
+  std::array<double, 12> q_leg{};
+  for (int i = 0; i < 12; ++i) {
+    q_leg[i] = q_isaac[ISAAC_TO_LEG_MAJOR[i]];
+  }
+  return q_leg;
+}
+
+std::array<double, 12> leg_major_to_isaac_order(const std::array<double, 12> &q_leg) {
+  std::array<double, 12> q_isaac{};
+  for (int i = 0; i < 12; ++i) {
+    q_isaac[i] = q_leg[LEG_MAJOR_TO_ISAAC[i]];
+  }
+  return q_isaac;
+}
+}  // namespace
+
+class TracerA1QpmcAdapterNode : public rclcpp::Node {
+public:
+  TracerA1QpmcAdapterNode() : Node("tracer_a1_qpmc_adapter_node") {
+    this->declare_parameter<double>("publish_hz", 100.0);
+    this->declare_parameter<double>("mode", 3.0);
+    this->declare_parameter<double>("kp", 45.0);
+    this->declare_parameter<double>("kd", 3.0);
+    this->declare_parameter<int>("tau_joint_index", 0);
+    this->declare_parameter<double>("tau_value", 0.02);
+    this->declare_parameter<std::string>("tau_test_order", "isaac");
+    this->declare_parameter<double>("state_timeout_s", 0.5);
+    this->declare_parameter<bool>("print_state_debug", true);
+
+    state_sub_ = this->create_subscription<std_msgs::msg::Float64MultiArray>(
+      "/tracer/robot_state",
+      10,
+      std::bind(&TracerA1QpmcAdapterNode::on_robot_state, this, std::placeholders::_1)
+    );
+
+    cmd_pub_ = this->create_publisher<std_msgs::msg::Float64MultiArray>(
+      "/tracer/low_level_cmd", 10
+    );
+
+    const double publish_hz = this->get_parameter("publish_hz").as_double();
+    const auto period_ns = static_cast<int64_t>(1e9 / std::max(1.0, publish_hz));
+
+    timer_ = this->create_wall_timer(
+      std::chrono::nanoseconds(period_ns),
+      std::bind(&TracerA1QpmcAdapterNode::on_timer, this)
+    );
+
+    RCLCPP_INFO(
+      this->get_logger(),
+      "TracerA1QpmcAdapterNode started. Subscribing /tracer/robot_state, publishing /tracer/low_level_cmd"
+    );
+  }
+
+private:
+  struct RobotState {
+    bool valid = false;
+    rclcpp::Time recv_time;
+
+    std::array<double, 3> base_pos{};
+    std::array<double, 4> base_quat_xyzw{};
+    std::array<double, 3> base_lin_vel{};
+    std::array<double, 3> base_ang_vel{};
+    std::array<double, 12> joint_pos{};
+    std::array<double, 12> joint_vel{};
+    std::array<double, 12> joint_pos_leg_major{};
+    std::array<double, 12> joint_vel_leg_major{};
+    std::array<double, 4> foot_contact{};
+  };
+
+  void on_robot_state(const std_msgs::msg::Float64MultiArray::SharedPtr msg) {
+    const auto &d = msg->data;
+    if (d.size() < 42) {
+      RCLCPP_WARN_THROTTLE(
+        this->get_logger(),
+        *this->get_clock(),
+        1000,
+        "Received short /tracer/robot_state length=%zu, expected >=42",
+        d.size()
+      );
+      return;
+    }
+
+    RobotState s;
+    s.valid = true;
+    s.recv_time = this->now();
+
+    // Layout:
+    // [0] stamp_sec
+    // [1:4] base_pos
+    // [4:8] base_quat_xyzw
+    // [8:11] base_lin_vel
+    // [11:14] base_ang_vel
+    // [14:26] joint_pos
+    // [26:38] joint_vel
+    // [38:42] foot_contact
+    for (int i = 0; i < 3; ++i) {
+      s.base_pos[i] = d[1 + i];
+      s.base_lin_vel[i] = d[8 + i];
+      s.base_ang_vel[i] = d[11 + i];
+    }
+    for (int i = 0; i < 4; ++i) {
+      s.base_quat_xyzw[i] = d[4 + i];
+      s.foot_contact[i] = d[38 + i];
+    }
+    for (int i = 0; i < 12; ++i) {
+      s.joint_pos[i] = d[14 + i];
+      s.joint_vel[i] = d[26 + i];
+    }
+
+    s.joint_pos_leg_major = isaac_to_leg_major_order(s.joint_pos);
+    s.joint_vel_leg_major = isaac_to_leg_major_order(s.joint_vel);
+
+    {
+      std::lock_guard<std::mutex> lock(state_mutex_);
+      latest_state_ = s;
+    }
+
+    state_count_ += 1;
+  }
+
+  bool get_latest_state(RobotState &out, double &age_s) {
+    std::lock_guard<std::mutex> lock(state_mutex_);
+    if (!latest_state_.valid) {
+      age_s = 1e9;
+      return false;
+    }
+    out = latest_state_;
+    age_s = (this->now() - latest_state_.recv_time).seconds();
+    return true;
+  }
+
+  void on_timer() {
+    const double mode = this->get_parameter("mode").as_double();
+    const double kp = this->get_parameter("kp").as_double();
+    const double kd = this->get_parameter("kd").as_double();
+    const int tau_joint_index = this->get_parameter("tau_joint_index").as_int();
+    const double tau_value = this->get_parameter("tau_value").as_double();
+    const std::string tau_test_order = this->get_parameter("tau_test_order").as_string();
+    const double state_timeout_s = this->get_parameter("state_timeout_s").as_double();
+    const bool print_state_debug = this->get_parameter("print_state_debug").as_bool();
+
+    RobotState state;
+    double state_age_s = 1e9;
+    const bool has_state = get_latest_state(state, state_age_s);
+    const bool state_fresh = has_state && state_age_s <= state_timeout_s;
+
+    // Isaac joint order:
+    // [FL_hip, FR_hip, RL_hip, RR_hip,
+    //  FL_thigh, FR_thigh, RL_thigh, RR_thigh,
+    //  FL_calf, FR_calf, RL_calf, RR_calf]
+    const std::array<double, 12> default_q = {
+      0.1, -0.1, 0.1, -0.1,
+      0.8, 0.8, 1.0, 1.0,
+      -1.5, -1.5, -1.5, -1.5
+    };
+
+    std_msgs::msg::Float64MultiArray msg;
+    msg.data.assign(61, 0.0);
+
+    msg.data[0] = mode;
+
+    for (int i = 0; i < 12; ++i) {
+      msg.data[1 + i] = default_q[i];
+      msg.data[13 + i] = 0.0;
+      msg.data[25 + i] = kp;
+      msg.data[37 + i] = kd;
+      msg.data[49 + i] = 0.0;
+    }
+
+    std::array<double, 12> tau_isaac{};
+    tau_isaac.fill(0.0);
+
+    if (0 <= tau_joint_index && tau_joint_index < 12 && std::isfinite(tau_value)) {
+      if (tau_test_order == "leg_major") {
+        std::array<double, 12> tau_leg_major{};
+        tau_leg_major.fill(0.0);
+        tau_leg_major[tau_joint_index] = tau_value;
+        tau_isaac = leg_major_to_isaac_order(tau_leg_major);
+      } else {
+        tau_isaac[tau_joint_index] = tau_value;
+      }
+    }
+
+    double tau_l1 = 0.0;
+    for (int i = 0; i < 12; ++i) {
+      msg.data[49 + i] = tau_isaac[i];
+      tau_l1 += std::abs(tau_isaac[i]);
+    }
+
+    cmd_pub_->publish(msg);
+
+    if (print_state_debug) {
+      RCLCPP_INFO_THROTTLE(
+        this->get_logger(),
+        *this->get_clock(),
+        1000,
+        "state_count=%ld fresh=%d age=%.3f base_z=%.3f q_isaac0=%.3f dq_isaac0=%.3f q_leg_FL=[%.3f %.3f %.3f] contact=[%.0f %.0f %.0f %.0f] cmd_mode=%.1f tau_order=%s tau0=%.3f tau_l1=%.3f",
+        state_count_,
+        state_fresh ? 1 : 0,
+        state_age_s,
+        has_state ? state.base_pos[2] : -1.0,
+        has_state ? state.joint_pos[0] : 0.0,
+        has_state ? state.joint_vel[0] : 0.0,
+        has_state ? state.joint_pos_leg_major[0] : 0.0,
+        has_state ? state.joint_pos_leg_major[1] : 0.0,
+        has_state ? state.joint_pos_leg_major[2] : 0.0,
+        has_state ? state.foot_contact[0] : 0.0,
+        has_state ? state.foot_contact[1] : 0.0,
+        has_state ? state.foot_contact[2] : 0.0,
+        has_state ? state.foot_contact[3] : 0.0,
+        mode,
+        tau_test_order.c_str(),
+        msg.data[49],
+        tau_l1
+      );
+    }
+  }
+
+  rclcpp::Subscription<std_msgs::msg::Float64MultiArray>::SharedPtr state_sub_;
+  rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr cmd_pub_;
+  rclcpp::TimerBase::SharedPtr timer_;
+
+  std::mutex state_mutex_;
+  RobotState latest_state_;
+  long state_count_ = 0;
+};
+
+int main(int argc, char **argv) {
+  rclcpp::init(argc, argv);
+  rclcpp::spin(std::make_shared<TracerA1QpmcAdapterNode>());
+  rclcpp::shutdown();
+  return 0;
+}
