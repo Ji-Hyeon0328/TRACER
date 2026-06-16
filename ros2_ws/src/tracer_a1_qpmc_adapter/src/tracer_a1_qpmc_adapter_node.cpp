@@ -11,6 +11,7 @@
 
 #include "A1CtrlStates.h"
 #include "A1RobotControl.h"
+#include "A1Kinematics.h"
 #include <Eigen/Geometry>
 
 namespace {
@@ -75,12 +76,59 @@ public:
     this->declare_parameter<double>("state_timeout_s", 0.5);
     this->declare_parameter<bool>("print_state_debug", true);
     this->declare_parameter<bool>("print_baseline_debug", true);
+    this->declare_parameter<bool>("dry_run_baseline_torque", false);
+    this->declare_parameter<bool>("dry_run_swing_debug", false);
+    this->declare_parameter<bool>("use_swing_ik_target", false);
+    this->declare_parameter<double>("swing_ik_blend", 0.05);
+    this->declare_parameter<double>("swing_ik_clearance", 0.03);
+    this->declare_parameter<double>("swing_ik_xy_scale", 0.50);
+    this->declare_parameter<bool>("swing_ik_cmd_bias_enable", false);
+    this->declare_parameter<double>("swing_ik_vx_bias_gain", 0.0);
+    this->declare_parameter<double>("swing_ik_vy_bias_gain", 0.0);
+    this->declare_parameter<double>("swing_ik_cmd_bias_limit", 0.02);
+    this->declare_parameter<double>("swing_ik_max_joint_delta", 0.08);
+    this->declare_parameter<double>("swing_ik_max_msg_delta", 0.025);
+    this->declare_parameter<bool>("enable_activation_warmup", true);
+    this->declare_parameter<int>("warmup_settled_count", 20);
+    this->declare_parameter<double>("warmup_min_base_z", 0.265);
+    this->declare_parameter<double>("warmup_max_base_z", 0.295);
+    this->declare_parameter<double>("warmup_max_abs_roll_pitch", 0.12);
+    this->declare_parameter<double>("warmup_max_abs_vz", 0.20);
+    this->declare_parameter<double>("swing_ik_dls_lambda", 0.05);
+    this->declare_parameter<int>("swing_ik_iters", 6);
+    this->declare_parameter<double>("swing_debug_vx", 0.0);
+    this->declare_parameter<double>("swing_debug_vy", 0.0);
+    this->declare_parameter<double>("swing_debug_yaw_rate", 0.0);
+    this->declare_parameter<bool>("use_baseline_torque", false);
+    this->declare_parameter<double>("baseline_tau_scale", 0.05);
+    this->declare_parameter<double>("baseline_tau_limit", 2.0);
+    this->declare_parameter<bool>("lock_stand_reference", true);
+    this->declare_parameter<double>("stand_height_d", 0.275);
+    this->declare_parameter<bool>("use_highlevel_body_height", false);
+    this->declare_parameter<bool>("use_highlevel_velocity", false);
+    this->declare_parameter<double>("cmd_vx_min", -0.20);
+    this->declare_parameter<double>("cmd_vx_max", 0.20);
+    this->declare_parameter<double>("cmd_vy_min", -0.10);
+    this->declare_parameter<double>("cmd_vy_max", 0.10);
+    this->declare_parameter<double>("cmd_yaw_rate_min", -0.30);
+    this->declare_parameter<double>("cmd_yaw_rate_max", 0.30);
+    this->declare_parameter<double>("body_height_min", 0.24);
+    this->declare_parameter<double>("body_height_max", 0.34);
+    this->declare_parameter<double>("baseline_walk_cmd_deadband", 0.02);
+    this->declare_parameter<bool>("baseline_force_walk_enable", false);
 
     state_sub_ = this->create_subscription<std_msgs::msg::Float64MultiArray>(
       "/tracer/robot_state",
       10,
       std::bind(&TracerA1QpmcAdapterNode::on_robot_state, this, std::placeholders::_1)
     );
+
+    highlevel_sub_ = this->create_subscription<std_msgs::msg::Float64MultiArray>(
+      "/tracer/high_level_cmd",
+      10,
+      std::bind(&TracerA1QpmcAdapterNode::on_highlevel_cmd, this, std::placeholders::_1)
+    );
+
 
     cmd_pub_ = this->create_publisher<std_msgs::msg::Float64MultiArray>(
       "/tracer/low_level_cmd", 10
@@ -216,7 +264,7 @@ private:
       100.0, 100.0, 50.0,
       0.0, 0.0, 420.0,
       0.01, 0.01, 0.05,
-      30.0, 30.0, 10.0,
+      200.0, 200.0, 10.0,
       0.0;
 
     a1_state_.r_weights.resize(NUM_DOF);
@@ -284,6 +332,609 @@ private:
     }
   }
 
+
+  void update_foot_kinematics_from_a1_state() {
+    // A1Kinematics convention:
+    // rho_opt = contact offset [cx, cy, cz].
+    // rho_fix = [body_offset_x, body_offset_y, thigh_offset, upper_leg_length, lower_leg_length].
+    //
+    // We start with nominal A1 geometry. This is used for dry-run validation first.
+    // If FK signs do not match expected foot positions, we will adjust side signs before torque publish.
+
+    Eigen::VectorXd rho_opt(3);
+    rho_opt.setZero();
+
+    a1_state_.j_foot.setZero();
+
+    for (int leg = 0; leg < NUM_LEG; ++leg) {
+      const bool is_front = (leg == 0 || leg == 1);
+      const bool is_left = (leg == 0 || leg == 2);
+
+      const double body_x = is_front ? 0.1805 : -0.1805;
+      const double body_y = is_left ? 0.0470 : -0.0470;
+      const double thigh_offset = is_left ? 0.0838 : -0.0838;
+
+      Eigen::VectorXd rho_fix(5);
+      rho_fix << body_x, body_y, thigh_offset, 0.2000, 0.2000;
+
+      const Eigen::Vector3d q_leg = a1_state_.joint_pos.segment<3>(3 * leg);
+      const Eigen::Vector3d dq_leg = a1_state_.joint_vel.segment<3>(3 * leg);
+
+      const Eigen::Vector3d p_rel = a1_kin_.fk(q_leg, rho_opt, rho_fix);
+      const Eigen::Matrix3d J = a1_kin_.jac(q_leg, rho_opt, rho_fix);
+      const Eigen::Vector3d v_rel = J * dq_leg;
+
+      a1_state_.foot_pos_rel.col(leg) = p_rel;
+      a1_state_.foot_vel_rel.col(leg) = v_rel;
+
+      a1_state_.foot_pos_abs.col(leg) = a1_state_.root_rot_mat * p_rel;
+      a1_state_.foot_vel_abs.col(leg) = a1_state_.root_rot_mat * v_rel;
+
+      a1_state_.foot_pos_world.col(leg) =
+        a1_state_.root_pos + a1_state_.foot_pos_abs.col(leg);
+
+      a1_state_.foot_vel_world.col(leg) =
+        a1_state_.root_lin_vel + a1_state_.foot_vel_abs.col(leg);
+
+      a1_state_.foot_pos_abs_mpc.col(leg) = a1_state_.foot_pos_abs.col(leg);
+
+      a1_state_.j_foot.block<3, 3>(3 * leg, 3 * leg) = J;
+
+      const bool contact = a1_state_.isaac_contact_flag[leg] > 0.5;
+      a1_state_.contacts[leg] = contact;
+      a1_state_.plan_contacts[leg] = contact;
+      a1_state_.early_contacts[leg] = false;
+      a1_state_.estimated_contacts[leg] = contact;
+    }
+  }
+
+
+  void update_stand_reference(double stand_height_d, bool lock_stand_reference) {
+    if (!lock_stand_reference) {
+      // Follow the current horizontal pose/yaw without repeatedly "locking" or logging.
+      stand_ref_x_ = a1_state_.root_pos[0];
+      stand_ref_y_ = a1_state_.root_pos[1];
+      stand_ref_yaw_ = a1_state_.root_euler[2];
+      stand_ref_initialized_ = false;
+    } else if (!stand_ref_initialized_) {
+      stand_ref_x_ = a1_state_.root_pos[0];
+      stand_ref_y_ = a1_state_.root_pos[1];
+      stand_ref_yaw_ = a1_state_.root_euler[2];
+      stand_ref_initialized_ = true;
+
+      RCLCPP_INFO(
+        this->get_logger(),
+        "stand_ref_locked x=%.3f y=%.3f yaw=%.3f h=%.3f",
+        stand_ref_x_,
+        stand_ref_y_,
+        stand_ref_yaw_,
+        stand_height_d
+      );
+    }
+
+    a1_state_.root_pos_d = Eigen::Vector3d(
+      stand_ref_x_,
+      stand_ref_y_,
+      stand_height_d
+    );
+
+    a1_state_.root_euler_d = Eigen::Vector3d(
+      0.0,
+      0.0,
+      stand_ref_yaw_
+    );
+
+    a1_state_.root_lin_vel_d = Eigen::Vector3d::Zero();
+    a1_state_.root_ang_vel_d = Eigen::Vector3d::Zero();
+
+    // State order used by the baseline ConvexMPC is:
+    // [roll, pitch, yaw, x, y, z, wx, wy, wz, vx, vy, vz, gravity]
+    if (a1_state_.mpc_states.size() >= 13) {
+      a1_state_.mpc_states[0] = a1_state_.root_euler[0];
+      a1_state_.mpc_states[1] = a1_state_.root_euler[1];
+      a1_state_.mpc_states[2] = a1_state_.root_euler[2];
+
+      a1_state_.mpc_states[3] = a1_state_.root_pos[0];
+      a1_state_.mpc_states[4] = a1_state_.root_pos[1];
+      a1_state_.mpc_states[5] = a1_state_.root_pos[2];
+
+      a1_state_.mpc_states[6] = a1_state_.root_ang_vel[0];
+      a1_state_.mpc_states[7] = a1_state_.root_ang_vel[1];
+      a1_state_.mpc_states[8] = a1_state_.root_ang_vel[2];
+
+      a1_state_.mpc_states[9] = a1_state_.root_lin_vel[0];
+      a1_state_.mpc_states[10] = a1_state_.root_lin_vel[1];
+      a1_state_.mpc_states[11] = a1_state_.root_lin_vel[2];
+
+      a1_state_.mpc_states[12] = -9.8;
+    }
+
+    if (a1_state_.mpc_states_d.size() >= 13) {
+      a1_state_.mpc_states_d[0] = 0.0;
+      a1_state_.mpc_states_d[1] = 0.0;
+      a1_state_.mpc_states_d[2] = stand_ref_yaw_;
+
+      a1_state_.mpc_states_d[3] = stand_ref_x_;
+      a1_state_.mpc_states_d[4] = stand_ref_y_;
+      a1_state_.mpc_states_d[5] = stand_height_d;
+
+      a1_state_.mpc_states_d[6] = 0.0;
+      a1_state_.mpc_states_d[7] = 0.0;
+      a1_state_.mpc_states_d[8] = 0.0;
+
+      a1_state_.mpc_states_d[9] = 0.0;
+      a1_state_.mpc_states_d[10] = 0.0;
+      a1_state_.mpc_states_d[11] = 0.0;
+
+      a1_state_.mpc_states_d[12] = -9.8;
+    }
+  }
+
+
+
+  void on_highlevel_cmd(const std_msgs::msg::Float64MultiArray::SharedPtr msg) {
+    if (msg->data.size() < 4) {
+      RCLCPP_WARN_THROTTLE(
+        this->get_logger(),
+        *this->get_clock(),
+        1000,
+        "Ignoring /tracer/high_level_cmd with size=%zu, expected >=4",
+        msg->data.size()
+      );
+      return;
+    }
+
+    std::lock_guard<std::mutex> lock(highlevel_mutex_);
+    hl_cmd_vx_ = msg->data[0];
+    hl_cmd_vy_ = msg->data[1];
+    hl_cmd_yaw_rate_ = msg->data[2];
+    hl_body_height_ = msg->data[3];
+    have_highlevel_cmd_ = true;
+  }
+
+
+  void debug_swing_plan_dry_run() {
+    if (!swing_debug_state_initialized_) {
+      swing_debug_state_ = a1_state_;
+      swing_debug_state_initialized_ = true;
+    }
+
+    // Keep the gait/planner memory in swing_debug_state_,
+    // but refresh the robot state from the live Isaac-synced a1_state_.
+    const auto gait_counter_keep = swing_debug_state_.gait_counter;
+    const auto foot_pos_recent_contact_keep = swing_debug_state_.foot_pos_recent_contact;
+    const auto foot_pos_start_keep = swing_debug_state_.foot_pos_start;
+    const auto foot_pos_target_last_time_keep = swing_debug_state_.foot_pos_target_last_time;
+    const auto foot_pos_rel_last_time_keep = swing_debug_state_.foot_pos_rel_last_time;
+
+    swing_debug_state_ = a1_state_;
+
+    swing_debug_state_.gait_counter = gait_counter_keep;
+    swing_debug_state_.foot_pos_recent_contact = foot_pos_recent_contact_keep;
+    swing_debug_state_.foot_pos_start = foot_pos_start_keep;
+    swing_debug_state_.foot_pos_target_last_time = foot_pos_target_last_time_keep;
+    swing_debug_state_.foot_pos_rel_last_time = foot_pos_rel_last_time_keep;
+
+    // For swing dry-run only: enable gait scheduling and align nominal feet
+    // to the current Isaac/FK standing footprint, avoiding the original
+    // YAML default z=-0.35 pushing targets below the ground.
+    swing_debug_state_.movement_mode = true;
+    swing_debug_state_.default_foot_pos = swing_debug_state_.foot_pos_rel;
+
+    const double swing_debug_vx = this->get_parameter("swing_debug_vx").as_double();
+    const double swing_debug_vy = this->get_parameter("swing_debug_vy").as_double();
+    const double swing_debug_yaw_rate = this->get_parameter("swing_debug_yaw_rate").as_double();
+
+    // Debug-only desired velocity. This does not affect the published command;
+    // it only lets us inspect whether the baseline foothold planner moves targets.
+    swing_debug_state_.root_lin_vel_d[0] = swing_debug_vx;
+    swing_debug_state_.root_lin_vel_d[1] = swing_debug_vy;
+    swing_debug_state_.root_lin_vel_d[2] = 0.0;
+
+    swing_debug_state_.root_lin_vel_d_world[0] = swing_debug_vx;
+    swing_debug_state_.root_lin_vel_d_world[1] = swing_debug_vy;
+    swing_debug_state_.root_lin_vel_d_world[2] = 0.0;
+
+    swing_debug_state_.root_ang_vel_d[0] = 0.0;
+    swing_debug_state_.root_ang_vel_d[1] = 0.0;
+    swing_debug_state_.root_ang_vel_d[2] = swing_debug_yaw_rate;
+
+    // Dry-run only: do not publish the resulting swing forces or joint torques.
+    a1_control_.update_plan(swing_debug_state_, swing_debug_state_.plan_dt);
+    a1_control_.generate_swing_legs_ctrl(swing_debug_state_, swing_debug_state_.control_dt);
+
+    const Eigen::Vector3d swing_lin_vel_body =
+      swing_debug_state_.root_rot_mat_z.transpose() * swing_debug_state_.root_lin_vel;
+
+    RCLCPP_INFO_THROTTLE(
+      this->get_logger(),
+      *this->get_clock(),
+      1000,
+      "swing_foothold_debug cmd_v=[%.3f %.3f %.3f] cur_v_world=[%.3f %.3f %.3f] cur_v_body=[%.3f %.3f %.3f] "
+      "gait_counter=[%.1f %.1f %.1f %.1f] plan=[%d %d %d %d] "
+      "default_x=[%.3f %.3f %.3f %.3f] start_x=[%.3f %.3f %.3f %.3f] "
+      "cur_rel_x=[%.3f %.3f %.3f %.3f] tgt_rel_x=[%.3f %.3f %.3f %.3f] delta_rel_x=[%.3f %.3f %.3f %.3f] "
+      "cur_world_x=[%.3f %.3f %.3f %.3f] tgt_world_x=[%.3f %.3f %.3f %.3f]",
+      swing_debug_state_.root_lin_vel_d[0],
+      swing_debug_state_.root_lin_vel_d[1],
+      swing_debug_state_.root_ang_vel_d[2],
+      swing_debug_state_.root_lin_vel[0],
+      swing_debug_state_.root_lin_vel[1],
+      swing_debug_state_.root_lin_vel[2],
+      swing_lin_vel_body[0],
+      swing_lin_vel_body[1],
+      swing_lin_vel_body[2],
+      swing_debug_state_.gait_counter[0],
+      swing_debug_state_.gait_counter[1],
+      swing_debug_state_.gait_counter[2],
+      swing_debug_state_.gait_counter[3],
+      static_cast<int>(swing_debug_state_.plan_contacts[0]),
+      static_cast<int>(swing_debug_state_.plan_contacts[1]),
+      static_cast<int>(swing_debug_state_.plan_contacts[2]),
+      static_cast<int>(swing_debug_state_.plan_contacts[3]),
+      swing_debug_state_.default_foot_pos(0, 0),
+      swing_debug_state_.default_foot_pos(0, 1),
+      swing_debug_state_.default_foot_pos(0, 2),
+      swing_debug_state_.default_foot_pos(0, 3),
+      swing_debug_state_.foot_pos_start(0, 0),
+      swing_debug_state_.foot_pos_start(0, 1),
+      swing_debug_state_.foot_pos_start(0, 2),
+      swing_debug_state_.foot_pos_start(0, 3),
+      swing_debug_state_.foot_pos_rel(0, 0),
+      swing_debug_state_.foot_pos_rel(0, 1),
+      swing_debug_state_.foot_pos_rel(0, 2),
+      swing_debug_state_.foot_pos_rel(0, 3),
+      swing_debug_state_.foot_pos_target_rel(0, 0),
+      swing_debug_state_.foot_pos_target_rel(0, 1),
+      swing_debug_state_.foot_pos_target_rel(0, 2),
+      swing_debug_state_.foot_pos_target_rel(0, 3),
+      swing_debug_state_.foot_pos_target_rel(0, 0) - swing_debug_state_.default_foot_pos(0, 0),
+      swing_debug_state_.foot_pos_target_rel(0, 1) - swing_debug_state_.default_foot_pos(0, 1),
+      swing_debug_state_.foot_pos_target_rel(0, 2) - swing_debug_state_.default_foot_pos(0, 2),
+      swing_debug_state_.foot_pos_target_rel(0, 3) - swing_debug_state_.default_foot_pos(0, 3),
+      swing_debug_state_.foot_pos_world(0, 0),
+      swing_debug_state_.foot_pos_world(0, 1),
+      swing_debug_state_.foot_pos_world(0, 2),
+      swing_debug_state_.foot_pos_world(0, 3),
+      swing_debug_state_.foot_pos_target_world(0, 0),
+      swing_debug_state_.foot_pos_target_world(0, 1),
+      swing_debug_state_.foot_pos_target_world(0, 2),
+      swing_debug_state_.foot_pos_target_world(0, 3)
+    );
+
+    RCLCPP_INFO_THROTTLE(
+      this->get_logger(),
+      *this->get_clock(),
+      1000,
+      "swing_debug_stateful gait_counter=[%.1f %.1f %.1f %.1f] contact=[%d %d %d %d] plan_contact=[%d %d %d %d] "
+      "cur_z=[%.3f %.3f %.3f %.3f] tgt_z=[%.3f %.3f %.3f %.3f] "
+      "FL_cur=[%.3f %.3f %.3f] FL_tgt=[%.3f %.3f %.3f] "
+      "FR_cur=[%.3f %.3f %.3f] FR_tgt=[%.3f %.3f %.3f] "
+      "RL_cur=[%.3f %.3f %.3f] RL_tgt=[%.3f %.3f %.3f] "
+      "RR_cur=[%.3f %.3f %.3f] RR_tgt=[%.3f %.3f %.3f]",
+      swing_debug_state_.gait_counter[0],
+      swing_debug_state_.gait_counter[1],
+      swing_debug_state_.gait_counter[2],
+      swing_debug_state_.gait_counter[3],
+
+      static_cast<int>(swing_debug_state_.contacts[0]),
+      static_cast<int>(swing_debug_state_.contacts[1]),
+      static_cast<int>(swing_debug_state_.contacts[2]),
+      static_cast<int>(swing_debug_state_.contacts[3]),
+
+      static_cast<int>(swing_debug_state_.plan_contacts[0]),
+      static_cast<int>(swing_debug_state_.plan_contacts[1]),
+      static_cast<int>(swing_debug_state_.plan_contacts[2]),
+      static_cast<int>(swing_debug_state_.plan_contacts[3]),
+
+      swing_debug_state_.foot_pos_world(2, 0),
+      swing_debug_state_.foot_pos_world(2, 1),
+      swing_debug_state_.foot_pos_world(2, 2),
+      swing_debug_state_.foot_pos_world(2, 3),
+
+      swing_debug_state_.foot_pos_target_world(2, 0),
+      swing_debug_state_.foot_pos_target_world(2, 1),
+      swing_debug_state_.foot_pos_target_world(2, 2),
+      swing_debug_state_.foot_pos_target_world(2, 3),
+
+      swing_debug_state_.foot_pos_world(0, 0),
+      swing_debug_state_.foot_pos_world(1, 0),
+      swing_debug_state_.foot_pos_world(2, 0),
+      swing_debug_state_.foot_pos_target_world(0, 0),
+      swing_debug_state_.foot_pos_target_world(1, 0),
+      swing_debug_state_.foot_pos_target_world(2, 0),
+
+      swing_debug_state_.foot_pos_world(0, 1),
+      swing_debug_state_.foot_pos_world(1, 1),
+      swing_debug_state_.foot_pos_world(2, 1),
+      swing_debug_state_.foot_pos_target_world(0, 1),
+      swing_debug_state_.foot_pos_target_world(1, 1),
+      swing_debug_state_.foot_pos_target_world(2, 1),
+
+      swing_debug_state_.foot_pos_world(0, 2),
+      swing_debug_state_.foot_pos_world(1, 2),
+      swing_debug_state_.foot_pos_world(2, 2),
+      swing_debug_state_.foot_pos_target_world(0, 2),
+      swing_debug_state_.foot_pos_target_world(1, 2),
+      swing_debug_state_.foot_pos_target_world(2, 2),
+
+      swing_debug_state_.foot_pos_world(0, 3),
+      swing_debug_state_.foot_pos_world(1, 3),
+      swing_debug_state_.foot_pos_world(2, 3),
+      swing_debug_state_.foot_pos_target_world(0, 3),
+      swing_debug_state_.foot_pos_target_world(1, 3),
+      swing_debug_state_.foot_pos_target_world(2, 3)
+    );
+  }
+
+
+  static double clamp_scalar(double v, double lo, double hi) {
+    return std::max(lo, std::min(hi, v));
+  }
+
+  Eigen::VectorXd make_a1_rho_fix_for_leg(int leg) const {
+    const bool is_front = (leg == 0 || leg == 1);
+    const bool is_left = (leg == 0 || leg == 2);
+
+    const double body_x = is_front ? 0.1805 : -0.1805;
+    const double body_y = is_left ? 0.0470 : -0.0470;
+    const double thigh_offset = is_left ? 0.0838 : -0.0838;
+
+    Eigen::VectorXd rho_fix(5);
+    rho_fix << body_x, body_y, thigh_offset, 0.2000, 0.2000;
+    return rho_fix;
+  }
+
+  Eigen::Vector3d solve_leg_ik_dls(
+    int leg,
+    const Eigen::Vector3d& q_seed,
+    const Eigen::Vector3d& p_target,
+    int iters,
+    double lambda,
+    double max_joint_delta
+  ) {
+    Eigen::Vector3d q = q_seed;
+    Eigen::VectorXd rho_opt(3);
+    rho_opt.setZero();
+    Eigen::VectorXd rho_fix = make_a1_rho_fix_for_leg(leg);
+
+    const Eigen::Vector3d q0 = q_seed;
+
+    for (int k = 0; k < iters; ++k) {
+      const Eigen::Vector3d p = a1_kin_.fk(q, rho_opt, rho_fix);
+      const Eigen::Vector3d err = p_target - p;
+
+      Eigen::Matrix3d J = a1_kin_.jac(q, rho_opt, rho_fix);
+      Eigen::Matrix3d A = J * J.transpose()
+                        + lambda * lambda * Eigen::Matrix3d::Identity();
+
+      Eigen::Vector3d dq = J.transpose() * A.ldlt().solve(err);
+
+      for (int j = 0; j < 3; ++j) {
+        dq[j] = clamp_scalar(dq[j], -0.03, 0.03);
+      }
+
+      q += dq;
+
+      for (int j = 0; j < 3; ++j) {
+        q[j] = clamp_scalar(q[j], q0[j] - max_joint_delta, q0[j] + max_joint_delta);
+      }
+    }
+
+    return q;
+  }
+
+  bool activation_warmup_ready(bool state_fresh) {
+    const bool enable = this->get_parameter("enable_activation_warmup").as_bool();
+    if (!enable) {
+      warmup_settled_counter_ = 999999;
+      return true;
+    }
+
+    if (!state_fresh) {
+      warmup_settled_counter_ = 0;
+      warmup_ready_logged_ = false;
+      return false;
+    }
+
+    const int required_count = static_cast<int>(
+      std::max<int64_t>(1, this->get_parameter("warmup_settled_count").as_int())
+    );
+
+    const double min_z = this->get_parameter("warmup_min_base_z").as_double();
+    const double max_z = this->get_parameter("warmup_max_base_z").as_double();
+    const double max_abs_rp = this->get_parameter("warmup_max_abs_roll_pitch").as_double();
+    const double max_abs_vz = this->get_parameter("warmup_max_abs_vz").as_double();
+
+    const double base_z = a1_state_.root_pos[2];
+    const double roll = a1_state_.root_euler[0];
+    const double pitch = a1_state_.root_euler[1];
+    const double vz = a1_state_.root_lin_vel[2];
+
+    bool all_contacts = true;
+    for (int leg = 0; leg < NUM_LEG; ++leg) {
+      all_contacts = all_contacts && a1_state_.contacts[leg];
+    }
+
+    const bool height_ok = (base_z >= min_z && base_z <= max_z);
+    const bool rpy_ok = (std::abs(roll) <= max_abs_rp && std::abs(pitch) <= max_abs_rp);
+    const bool vz_ok = (std::abs(vz) <= max_abs_vz);
+    const bool settled_now = height_ok && rpy_ok && vz_ok && all_contacts;
+
+    if (settled_now) {
+      warmup_settled_counter_ += 1;
+    } else {
+      warmup_settled_counter_ = 0;
+      warmup_ready_logged_ = false;
+    }
+
+    const bool ready = warmup_settled_counter_ >= required_count;
+
+    RCLCPP_INFO_THROTTLE(
+      this->get_logger(),
+      *this->get_clock(),
+      500,
+      "activation_gate ready=%d settled_count=%d/%d base_z=%.3f roll=%.3f pitch=%.3f vz=%.3f contacts=[%d %d %d %d]",
+      ready ? 1 : 0,
+      warmup_settled_counter_,
+      required_count,
+      base_z,
+      roll,
+      pitch,
+      vz,
+      static_cast<int>(a1_state_.contacts[0]),
+      static_cast<int>(a1_state_.contacts[1]),
+      static_cast<int>(a1_state_.contacts[2]),
+      static_cast<int>(a1_state_.contacts[3])
+    );
+
+    if (ready && !warmup_ready_logged_) {
+      RCLCPP_INFO(
+        this->get_logger(),
+        "activation_gate_ready: enabling swing IK / torque assist outputs after settling."
+      );
+      warmup_ready_logged_ = true;
+    }
+
+    return ready;
+  }
+
+
+  void apply_swing_ik_target_to_msg(std::vector<double>& data) {
+    if (data.size() < 61) {
+      return;
+    }
+    if (!swing_debug_state_initialized_) {
+      return;
+    }
+
+    const double blend = clamp_scalar(this->get_parameter("swing_ik_blend").as_double(), 0.0, 0.30);
+    const double clearance = clamp_scalar(this->get_parameter("swing_ik_clearance").as_double(), 0.0, 0.10);
+    const double xy_scale = clamp_scalar(this->get_parameter("swing_ik_xy_scale").as_double(), 0.0, 1.0);
+    const double max_joint_delta = clamp_scalar(this->get_parameter("swing_ik_max_joint_delta").as_double(), 0.0, 0.30);
+    const double max_msg_delta_limit = clamp_scalar(this->get_parameter("swing_ik_max_msg_delta").as_double(), 0.0, 0.20);
+    const double lambda = clamp_scalar(this->get_parameter("swing_ik_dls_lambda").as_double(), 1e-4, 1.0);
+    const int iters = static_cast<int>(std::max<int64_t>(1, this->get_parameter("swing_ik_iters").as_int()));
+
+    const bool cmd_bias_enable = this->get_parameter("swing_ik_cmd_bias_enable").as_bool();
+    const double vx_bias_gain = this->get_parameter("swing_ik_vx_bias_gain").as_double();
+    const double vy_bias_gain = this->get_parameter("swing_ik_vy_bias_gain").as_double();
+    const double cmd_bias_limit = clamp_scalar(
+      this->get_parameter("swing_ik_cmd_bias_limit").as_double(), 0.0, 0.10);
+
+    double bias_cmd_vx = 0.0;
+    double bias_cmd_vy = 0.0;
+    if (cmd_bias_enable) {
+      const bool use_highlevel_velocity = this->get_parameter("use_highlevel_velocity").as_bool();
+      if (use_highlevel_velocity) {
+        const double cmd_vx_min = this->get_parameter("cmd_vx_min").as_double();
+        const double cmd_vx_max = this->get_parameter("cmd_vx_max").as_double();
+        const double cmd_vy_min = this->get_parameter("cmd_vy_min").as_double();
+        const double cmd_vy_max = this->get_parameter("cmd_vy_max").as_double();
+
+        std::lock_guard<std::mutex> lock(highlevel_mutex_);
+        if (have_highlevel_cmd_) {
+          bias_cmd_vx = clamp_scalar(hl_cmd_vx_, cmd_vx_min, cmd_vx_max);
+          bias_cmd_vy = clamp_scalar(hl_cmd_vy_, cmd_vy_min, cmd_vy_max);
+        }
+      } else {
+        // Fallback for pure dry-run tests without /tracer/high_level_cmd.
+        bias_cmd_vx = this->get_parameter("swing_debug_vx").as_double();
+        bias_cmd_vy = this->get_parameter("swing_debug_vy").as_double();
+      }
+    }
+
+    const double swing_cmd_bias_x = clamp_scalar(vx_bias_gain * bias_cmd_vx, -cmd_bias_limit, cmd_bias_limit);
+    const double swing_cmd_bias_y = clamp_scalar(vy_bias_gain * bias_cmd_vy, -cmd_bias_limit, cmd_bias_limit);
+
+    double max_applied_delta = 0.0;
+    int swing_count = 0;
+
+    for (int leg = 0; leg < NUM_LEG; ++leg) {
+      // Only apply to planned swing legs.
+      if (swing_debug_state_.plan_contacts[leg]) {
+        continue;
+      }
+
+      const double counter = swing_debug_state_.gait_counter[leg];
+      const double swing_start = swing_debug_state_.counter_per_swing;
+      double phase = 0.0;
+      if (counter > swing_start) {
+        phase = (counter - swing_start) / swing_debug_state_.counter_per_swing;
+      }
+      phase = clamp_scalar(phase, 0.0, 1.0);
+
+      const Eigen::Vector3d p_cur = a1_state_.foot_pos_rel.col(leg);
+      const Eigen::Vector3d p_plan = swing_debug_state_.foot_pos_target_rel.col(leg);
+
+      Eigen::Vector3d p_target = p_cur;
+      p_target[0] = p_cur[0] + xy_scale * (p_plan[0] - p_cur[0]);
+      p_target[1] = p_cur[1] + xy_scale * (p_plan[1] - p_cur[1]);
+
+      // TRACER diagnostic: add an explicit command-dependent foothold bias.
+      // Positive body x is forward in the A1 kinematics convention used here.
+      // This lets us check whether different high-level vx commands can create
+      // different swing-leg joint targets, instead of only changing MPC torque.
+      p_target[0] += swing_cmd_bias_x;
+      p_target[1] += swing_cmd_bias_y;
+
+      // Lift foot in body/relative z. In this convention, larger z is upward
+      // relative to the current foot position after FK sync.
+      const double lift = clearance * std::sin(3.14159265358979323846 * phase);
+      p_target[2] = p_cur[2] + lift;
+
+      const Eigen::Vector3d q_seed = a1_state_.joint_pos.segment<3>(3 * leg);
+      const Eigen::Vector3d q_ik = solve_leg_ik_dls(
+        leg,
+        q_seed,
+        p_target,
+        iters,
+        lambda,
+        max_joint_delta
+      );
+
+      for (int j = 0; j < 3; ++j) {
+        const int leg_major_i = 3 * leg + j;
+        const int isaac_i = LEG_MAJOR_TO_ISAAC[leg_major_i];
+        const int msg_i = 1 + isaac_i;
+
+        const double old_target = data[msg_i];
+        const double raw_delta = blend * (q_ik[j] - old_target);
+        const double clamped_delta = clamp_scalar(raw_delta, -max_msg_delta_limit, max_msg_delta_limit);
+        const double new_target = old_target + clamped_delta;
+        data[msg_i] = new_target;
+
+        max_applied_delta = std::max(max_applied_delta, std::abs(clamped_delta));
+      }
+
+      swing_count += 1;
+    }
+
+    RCLCPP_INFO_THROTTLE(
+      this->get_logger(),
+      *this->get_clock(),
+      1000,
+      "swing_ik_applied enabled=1 swing_count=%d blend=%.3f clearance=%.3f xy_scale=%.3f "
+      "cmd_bias_enable=%d cmd_bias=[%.4f %.4f] bias_cmd=[%.3f %.3f] "
+      "max_msg_delta=%.5f max_msg_delta_limit=%.5f plan_contact=[%d %d %d %d]",
+      swing_count,
+      blend,
+      clearance,
+      xy_scale,
+      cmd_bias_enable ? 1 : 0,
+      swing_cmd_bias_x,
+      swing_cmd_bias_y,
+      bias_cmd_vx,
+      bias_cmd_vy,
+      max_applied_delta,
+      max_msg_delta_limit,
+      static_cast<int>(swing_debug_state_.plan_contacts[0]),
+      static_cast<int>(swing_debug_state_.plan_contacts[1]),
+      static_cast<int>(swing_debug_state_.plan_contacts[2]),
+      static_cast<int>(swing_debug_state_.plan_contacts[3])
+    );
+  }
+
   void on_timer() {
     const double mode = this->get_parameter("mode").as_double();
     const double kp = this->get_parameter("kp").as_double();
@@ -294,14 +945,550 @@ private:
     const double state_timeout_s = this->get_parameter("state_timeout_s").as_double();
     const bool print_state_debug = this->get_parameter("print_state_debug").as_bool();
     const bool print_baseline_debug = this->get_parameter("print_baseline_debug").as_bool();
+    const bool dry_run_baseline_torque = this->get_parameter("dry_run_baseline_torque").as_bool();
+    const bool dry_run_swing_debug = this->get_parameter("dry_run_swing_debug").as_bool();
+    const bool use_swing_ik_target = this->get_parameter("use_swing_ik_target").as_bool();
+    const bool use_baseline_torque = this->get_parameter("use_baseline_torque").as_bool();
+    const double baseline_tau_scale = this->get_parameter("baseline_tau_scale").as_double();
+    const double baseline_tau_limit = this->get_parameter("baseline_tau_limit").as_double();
+    const bool lock_stand_reference = this->get_parameter("lock_stand_reference").as_bool();
+    double stand_height_d = this->get_parameter("stand_height_d").as_double();
+    const bool use_highlevel_body_height = this->get_parameter("use_highlevel_body_height").as_bool();
+    const double body_height_min = this->get_parameter("body_height_min").as_double();
+    const double body_height_max = this->get_parameter("body_height_max").as_double();
+
+    if (use_highlevel_body_height) {
+      std::lock_guard<std::mutex> lock(highlevel_mutex_);
+      if (have_highlevel_cmd_) {
+        stand_height_d = std::max(body_height_min, std::min(body_height_max, hl_body_height_));
+      }
+    }
+
+    double hl_vx_cmd = 0.0;
+    double hl_vy_cmd = 0.0;
+    double hl_yaw_rate_cmd = 0.0;
+    const bool use_highlevel_velocity = this->get_parameter("use_highlevel_velocity").as_bool();
+
+    if (use_highlevel_velocity) {
+      const double cmd_vx_min = this->get_parameter("cmd_vx_min").as_double();
+      const double cmd_vx_max = this->get_parameter("cmd_vx_max").as_double();
+      const double cmd_vy_min = this->get_parameter("cmd_vy_min").as_double();
+      const double cmd_vy_max = this->get_parameter("cmd_vy_max").as_double();
+      const double cmd_yaw_rate_min = this->get_parameter("cmd_yaw_rate_min").as_double();
+      const double cmd_yaw_rate_max = this->get_parameter("cmd_yaw_rate_max").as_double();
+
+      std::lock_guard<std::mutex> lock(highlevel_mutex_);
+      if (have_highlevel_cmd_) {
+        hl_vx_cmd = std::max(cmd_vx_min, std::min(cmd_vx_max, hl_cmd_vx_));
+        hl_vy_cmd = std::max(cmd_vy_min, std::min(cmd_vy_max, hl_cmd_vy_));
+        hl_yaw_rate_cmd = std::max(cmd_yaw_rate_min, std::min(cmd_yaw_rate_max, hl_cmd_yaw_rate_));
+      }
+    }
+
+    const double walk_deadband =
+      std::max(0.0, this->get_parameter("baseline_walk_cmd_deadband").as_double());
+    const bool force_walk_enable =
+      this->get_parameter("baseline_force_walk_enable").as_bool();
+
+    // Gate gait execution by actual commanded motion.
+    // If high-level velocity is not used, fall back to swing_debug_* commands
+    // so old debug tests can still intentionally enable walking.
+    const double gate_vx_cmd =
+      use_highlevel_velocity ? hl_vx_cmd : this->get_parameter("swing_debug_vx").as_double();
+    const double gate_vy_cmd =
+      use_highlevel_velocity ? hl_vy_cmd : this->get_parameter("swing_debug_vy").as_double();
+    const double gate_yaw_cmd =
+      use_highlevel_velocity ? hl_yaw_rate_cmd : this->get_parameter("swing_debug_yaw_rate").as_double();
+
+    const double cmd_norm_xy = std::max(std::abs(gate_vx_cmd), std::abs(gate_vy_cmd));
+    const double cmd_norm = std::max(cmd_norm_xy, std::abs(gate_yaw_cmd));
+    const bool baseline_walk_requested = force_walk_enable || (cmd_norm > walk_deadband);
 
     RobotState state;
     double state_age_s = 1e9;
     const bool has_state = get_latest_state(state, state_age_s);
     const bool state_fresh = has_state && state_age_s <= state_timeout_s;
+    bool activation_ready = false;
+    bool allow_swing_ik_target = false;
+    bool allow_baseline_torque = false;
+
 
     if (has_state) {
       sync_a1_state_from_robot_state(state);
+      update_foot_kinematics_from_a1_state();
+      activation_ready = activation_warmup_ready(state_fresh);
+      allow_swing_ik_target =
+        this->get_parameter("use_swing_ik_target").as_bool() &&
+        activation_ready &&
+        baseline_walk_requested;
+      allow_baseline_torque =
+        this->get_parameter("use_baseline_torque").as_bool() &&
+        activation_ready &&
+        baseline_walk_requested;
+
+      if (state_fresh && activation_ready && !baseline_walk_requested &&
+          (this->get_parameter("use_swing_ik_target").as_bool() ||
+           this->get_parameter("use_baseline_torque").as_bool() ||
+           dry_run_swing_debug ||
+           dry_run_baseline_torque)) {
+        RCLCPP_INFO_THROTTLE(
+          this->get_logger(),
+          *this->get_clock(),
+          500,
+          "baseline_walk_gate_idle cmd_norm=%.4f deadband=%.4f force=%d -> hold ready/stand",
+          cmd_norm,
+          walk_deadband,
+          force_walk_enable ? 1 : 0
+        );
+      }
+
+      if (state_fresh && !activation_ready &&
+          (this->get_parameter("use_swing_ik_target").as_bool() ||
+           this->get_parameter("use_baseline_torque").as_bool())) {
+        RCLCPP_INFO_THROTTLE(
+          this->get_logger(),
+          *this->get_clock(),
+          500,
+          "activation_gate_blocked_outputs swing_ik_req=%d torque_req=%d",
+          this->get_parameter("use_swing_ik_target").as_bool() ? 1 : 0,
+          this->get_parameter("use_baseline_torque").as_bool() ? 1 : 0
+        );
+      }
+
+
+      if ((dry_run_swing_debug || use_swing_ik_target) && state_fresh && baseline_walk_requested) {
+        debug_swing_plan_dry_run();
+      }
+
+      if (state_fresh) {
+        update_stand_reference(stand_height_d, lock_stand_reference);
+      if (state_fresh && !baseline_walk_requested) {
+        a1_state_.movement_mode = false;
+        for (int leg = 0; leg < NUM_LEG; ++leg) {
+          a1_state_.plan_contacts[leg] = true;
+          a1_state_.contacts[leg] = true;
+          a1_state_.estimated_contacts[leg] = true;
+          a1_state_.early_contacts[leg] = false;
+        }
+      }
+
+      if (use_highlevel_velocity) {
+        // Body-frame command is used as desired world-frame velocity for this first test.
+        // Later we can rotate body-frame cmd into world frame using yaw.
+        a1_state_.root_lin_vel_d[0] = hl_vx_cmd;
+        a1_state_.root_lin_vel_d[1] = hl_vy_cmd;
+        a1_state_.root_lin_vel_d[2] = 0.0;
+
+        a1_state_.root_lin_vel_d_world[0] = hl_vx_cmd;
+        a1_state_.root_lin_vel_d_world[1] = hl_vy_cmd;
+        a1_state_.root_lin_vel_d_world[2] = 0.0;
+
+        a1_state_.root_ang_vel_d[0] = 0.0;
+        a1_state_.root_ang_vel_d[1] = 0.0;
+        a1_state_.root_ang_vel_d[2] = hl_yaw_rate_cmd;
+
+        a1_state_.mpc_states_d[9] = hl_vx_cmd;
+        a1_state_.mpc_states_d[10] = hl_vy_cmd;
+        a1_state_.mpc_states_d[11] = 0.0;
+
+        RCLCPP_INFO_THROTTLE(
+          this->get_logger(),
+          *this->get_clock(),
+          1000,
+          "highlevel_cmd_applied vx=%.3f vy=%.3f yaw_rate=%.3f body_h=%.3f",
+          hl_vx_cmd,
+          hl_vy_cmd,
+          hl_yaw_rate_cmd,
+          stand_height_d
+        );
+      }
+      }
+    }
+
+    if ((dry_run_baseline_torque || use_baseline_torque) && state_fresh && baseline_walk_requested) {
+      // Dry-run only:
+      // 1) update contact/foothold plan,
+      // 2) compute GRF through baseline controller,
+      // 3) compute joint torques,
+      // 4) log values.
+      //
+      // We still do NOT publish these torques to Isaac yet.
+      // TRACER actual baseline gait test:
+      // When we actually publish baseline torques, allow the real controller state
+      // to enter movement mode. Previously only swing_debug_state_ was walking,
+      // while a1_state_ stayed movement_mode=0 / raw_plan=[1 1 1 1].
+      static bool baseline_gait_start_initialized = false;
+      const bool enable_baseline_gait_motion =
+        baseline_walk_requested && (use_baseline_torque || use_swing_ik_target);
+
+      if (enable_baseline_gait_motion) {
+        a1_state_.movement_mode = true;
+
+        // Align baseline nominal feet to the synced Isaac/FK standing footprint.
+        // This avoids the original YAML default foot layout dominating the current sim pose.
+
+        // First gait-entry initialization:
+        // Without this, some legs can keep foot_pos_start at zero on the first
+        // swing phase, producing a huge artificial swing kinematic force.
+        if (!baseline_gait_start_initialized) {
+          // Freeze nominal/default foot positions once at gait start.
+          // Do not update this every tick, otherwise the foot-placement planner
+          // chases the current feet and commanded vx cannot accumulate into steps.
+          a1_state_.default_foot_pos = a1_state_.foot_pos_rel;
+          a1_state_.foot_pos_start = a1_state_.foot_pos_rel;
+          a1_state_.foot_pos_target_rel = a1_state_.foot_pos_rel;
+          a1_state_.foot_pos_target_world = a1_state_.foot_pos_world;
+          baseline_gait_start_initialized = true;
+
+          RCLCPP_WARN(
+            this->get_logger(),
+            "baseline_gait_start_init default_foot_pos and foot_pos_start frozen from current FK foot positions");
+        }
+      } else {
+        baseline_gait_start_initialized = false;
+      }
+
+      a1_control_.update_plan(a1_state_, a1_state_.plan_dt);
+
+      if (use_baseline_torque) {
+        // For the actual torque path, make GRF/MPC use the gait planner's contact schedule,
+        // not Isaac's raw all-contact reading.
+        for (int leg = 0; leg < NUM_LEG; ++leg) {
+          const bool planned_contact = a1_state_.plan_contacts[leg];
+          a1_state_.contacts[leg] = planned_contact;
+          a1_state_.estimated_contacts[leg] = planned_contact;
+          a1_state_.early_contacts[leg] = false;
+        }
+      }
+
+      RCLCPP_INFO_THROTTLE(
+        this->get_logger(),
+        *this->get_clock(),
+        500,
+        "baseline_actual_gait_debug use_tau=%d movement=%d plan=[%d %d %d %d] contacts=[%d %d %d %d] "
+        "default_x=[%.3f %.3f %.3f %.3f] cur_rel_x=[%.3f %.3f %.3f %.3f] "
+        "tgt_rel_x=[%.3f %.3f %.3f %.3f] tgt_world_x=[%.3f %.3f %.3f %.3f] "
+        "des_v=[%.3f %.3f %.3f]",
+        static_cast<int>(use_baseline_torque),
+        static_cast<int>(a1_state_.movement_mode),
+        static_cast<int>(a1_state_.plan_contacts[0]),
+        static_cast<int>(a1_state_.plan_contacts[1]),
+        static_cast<int>(a1_state_.plan_contacts[2]),
+        static_cast<int>(a1_state_.plan_contacts[3]),
+        static_cast<int>(a1_state_.contacts[0]),
+        static_cast<int>(a1_state_.contacts[1]),
+        static_cast<int>(a1_state_.contacts[2]),
+        static_cast<int>(a1_state_.contacts[3]),
+        a1_state_.default_foot_pos(0,0),
+        a1_state_.default_foot_pos(0,1),
+        a1_state_.default_foot_pos(0,2),
+        a1_state_.default_foot_pos(0,3),
+        a1_state_.foot_pos_rel(0,0),
+        a1_state_.foot_pos_rel(0,1),
+        a1_state_.foot_pos_rel(0,2),
+        a1_state_.foot_pos_rel(0,3),
+        a1_state_.foot_pos_target_rel(0,0),
+        a1_state_.foot_pos_target_rel(0,1),
+        a1_state_.foot_pos_target_rel(0,2),
+        a1_state_.foot_pos_target_rel(0,3),
+        a1_state_.foot_pos_target_world(0,0),
+        a1_state_.foot_pos_target_world(0,1),
+        a1_state_.foot_pos_target_world(0,2),
+        a1_state_.foot_pos_target_world(0,3),
+        a1_state_.root_lin_vel_d[0],
+        a1_state_.root_lin_vel_d[1],
+        a1_state_.root_lin_vel_d[2]);
+
+
+
+      const Eigen::Vector3d a1_lin_vel_body =
+        a1_state_.root_rot_mat_z.transpose() * a1_state_.root_lin_vel;
+
+      RCLCPP_INFO_THROTTLE(
+        this->get_logger(),
+        *this->get_clock(),
+        1000,
+        "baseline_foothold_debug cmd_v=[%.3f %.3f %.3f] cur_v_world=[%.3f %.3f %.3f] cur_v_body=[%.3f %.3f %.3f] "
+        "movement=%d gait_counter=[%.1f %.1f %.1f %.1f] raw_plan=[%d %d %d %d] "
+        "default_x=[%.3f %.3f %.3f %.3f] start_x=[%.3f %.3f %.3f %.3f] "
+        "cur_rel_x=[%.3f %.3f %.3f %.3f] tgt_rel_x=[%.3f %.3f %.3f %.3f] delta_rel_x=[%.3f %.3f %.3f %.3f] "
+        "cur_world_x=[%.3f %.3f %.3f %.3f] tgt_world_x=[%.3f %.3f %.3f %.3f]",
+        a1_state_.root_lin_vel_d[0],
+        a1_state_.root_lin_vel_d[1],
+        a1_state_.root_ang_vel_d[2],
+        a1_state_.root_lin_vel[0],
+        a1_state_.root_lin_vel[1],
+        a1_state_.root_lin_vel[2],
+        a1_lin_vel_body[0],
+        a1_lin_vel_body[1],
+        a1_lin_vel_body[2],
+        a1_state_.movement_mode ? 1 : 0,
+        a1_state_.gait_counter[0],
+        a1_state_.gait_counter[1],
+        a1_state_.gait_counter[2],
+        a1_state_.gait_counter[3],
+        static_cast<int>(a1_state_.plan_contacts[0]),
+        static_cast<int>(a1_state_.plan_contacts[1]),
+        static_cast<int>(a1_state_.plan_contacts[2]),
+        static_cast<int>(a1_state_.plan_contacts[3]),
+        a1_state_.default_foot_pos(0, 0),
+        a1_state_.default_foot_pos(0, 1),
+        a1_state_.default_foot_pos(0, 2),
+        a1_state_.default_foot_pos(0, 3),
+        a1_state_.foot_pos_start(0, 0),
+        a1_state_.foot_pos_start(0, 1),
+        a1_state_.foot_pos_start(0, 2),
+        a1_state_.foot_pos_start(0, 3),
+        a1_state_.foot_pos_rel(0, 0),
+        a1_state_.foot_pos_rel(0, 1),
+        a1_state_.foot_pos_rel(0, 2),
+        a1_state_.foot_pos_rel(0, 3),
+        a1_state_.foot_pos_target_rel(0, 0),
+        a1_state_.foot_pos_target_rel(0, 1),
+        a1_state_.foot_pos_target_rel(0, 2),
+        a1_state_.foot_pos_target_rel(0, 3),
+        a1_state_.foot_pos_target_rel(0, 0) - a1_state_.default_foot_pos(0, 0),
+        a1_state_.foot_pos_target_rel(0, 1) - a1_state_.default_foot_pos(0, 1),
+        a1_state_.foot_pos_target_rel(0, 2) - a1_state_.default_foot_pos(0, 2),
+        a1_state_.foot_pos_target_rel(0, 3) - a1_state_.default_foot_pos(0, 3),
+        a1_state_.foot_pos_world(0, 0),
+        a1_state_.foot_pos_world(0, 1),
+        a1_state_.foot_pos_world(0, 2),
+        a1_state_.foot_pos_world(0, 3),
+        a1_state_.foot_pos_target_world(0, 0),
+        a1_state_.foot_pos_target_world(0, 1),
+        a1_state_.foot_pos_target_world(0, 2),
+        a1_state_.foot_pos_target_world(0, 3)
+      );
+
+      RCLCPP_INFO_THROTTLE(
+        this->get_logger(),
+        *this->get_clock(),
+        1000,
+        "mpc_ref_debug cur_rpy_xyz=[%.3f %.3f %.3f %.3f %.3f %.3f] des_rpy_xyz=[%.3f %.3f %.3f %.3f %.3f %.3f] cur_v=[%.3f %.3f %.3f] des_v=[%.3f %.3f %.3f]",
+        a1_state_.mpc_states[0],
+        a1_state_.mpc_states[1],
+        a1_state_.mpc_states[2],
+        a1_state_.mpc_states[3],
+        a1_state_.mpc_states[4],
+        a1_state_.mpc_states[5],
+        a1_state_.mpc_states_d[0],
+        a1_state_.mpc_states_d[1],
+        a1_state_.mpc_states_d[2],
+        a1_state_.mpc_states_d[3],
+        a1_state_.mpc_states_d[4],
+        a1_state_.mpc_states_d[5],
+        a1_state_.mpc_states[9],
+        a1_state_.mpc_states[10],
+        a1_state_.mpc_states[11],
+        a1_state_.mpc_states_d[9],
+        a1_state_.mpc_states_d[10],
+        a1_state_.mpc_states_d[11]
+      );
+
+      // TRACER_CONTACT_OVERRIDE_DEBUG
+      // Force controller-internal contact to follow the same planned gait
+      // used by swing_debug_state_, rather than raw Isaac contact.
+      if (dry_run_swing_debug) {
+        for (int leg = 0; leg < 4; ++leg) {
+          const bool planned_contact = swing_debug_state_.plan_contacts[leg];
+
+          a1_state_.plan_contacts[leg] = planned_contact;
+          a1_state_.early_contacts[leg] = false;
+          a1_state_.estimated_contacts[leg] = planned_contact;
+          a1_state_.contacts[leg] = planned_contact;
+        }
+
+        RCLCPP_INFO_THROTTLE(
+          this->get_logger(), *this->get_clock(), 500,
+          "contact_override_debug swing_plan=[%d %d %d %d] a1_plan=[%d %d %d %d] contacts=[%d %d %d %d]",
+          static_cast<int>(swing_debug_state_.plan_contacts[0]),
+          static_cast<int>(swing_debug_state_.plan_contacts[1]),
+          static_cast<int>(swing_debug_state_.plan_contacts[2]),
+          static_cast<int>(swing_debug_state_.plan_contacts[3]),
+          static_cast<int>(a1_state_.plan_contacts[0]),
+          static_cast<int>(a1_state_.plan_contacts[1]),
+          static_cast<int>(a1_state_.plan_contacts[2]),
+          static_cast<int>(a1_state_.plan_contacts[3]),
+          static_cast<int>(a1_state_.contacts[0]),
+          static_cast<int>(a1_state_.contacts[1]),
+          static_cast<int>(a1_state_.contacts[2]),
+          static_cast<int>(a1_state_.contacts[3]));
+      }
+
+
+      // TRACER plan-master debug:
+      // Use the already-validated swing_debug_state_ gait schedule as the actual
+      // torque path's contact-plan master. This prevents occasional all-stance
+      // plan=[1 1 1 1] blips caused by raw Isaac contacts / early-contact handling.
+      if (use_baseline_torque && dry_run_swing_debug) {
+        // Hard deterministic trot phase. Do not trust raw contacts or swing_debug_state_
+        // here, because both can briefly become [1 1 1 1] near contact/phase transitions.
+        double hard_trot_phase0 = a1_state_.gait_counter[0];
+        while (hard_trot_phase0 >= 240.0) {
+          hard_trot_phase0 -= 240.0;
+        }
+        while (hard_trot_phase0 < 0.0) {
+          hard_trot_phase0 += 240.0;
+        }
+
+        const bool hard_diag_a = hard_trot_phase0 < 120.0;
+        const bool hard_trot_contacts[4] = {
+          hard_diag_a,       // FL
+          !hard_diag_a,      // FR
+          !hard_diag_a,      // RL
+          hard_diag_a        // RR
+        };
+
+        for (int leg = 0; leg < NUM_LEG; ++leg) {
+          const bool planned_contact = hard_trot_contacts[leg];
+          a1_state_.plan_contacts[leg] = planned_contact;
+          a1_state_.contacts[leg] = planned_contact;
+          a1_state_.estimated_contacts[leg] = planned_contact;
+          a1_state_.early_contacts[leg] = false;
+        }
+
+        RCLCPP_INFO_THROTTLE(
+          this->get_logger(),
+          *this->get_clock(),
+          500,
+          "hard_trot_plan_override phase0=%.1f hard_plan=[%d %d %d %d] applied_plan=[%d %d %d %d] contacts=[%d %d %d %d]",
+          hard_trot_phase0,
+          static_cast<int>(hard_trot_contacts[0]),
+          static_cast<int>(hard_trot_contacts[1]),
+          static_cast<int>(hard_trot_contacts[2]),
+          static_cast<int>(hard_trot_contacts[3]),
+          static_cast<int>(a1_state_.plan_contacts[0]),
+          static_cast<int>(a1_state_.plan_contacts[1]),
+          static_cast<int>(a1_state_.plan_contacts[2]),
+          static_cast<int>(a1_state_.plan_contacts[3]),
+          static_cast<int>(a1_state_.contacts[0]),
+          static_cast<int>(a1_state_.contacts[1]),
+          static_cast<int>(a1_state_.contacts[2]),
+          static_cast<int>(a1_state_.contacts[3]));
+
+        RCLCPP_INFO_THROTTLE(
+          this->get_logger(),
+          *this->get_clock(),
+          500,
+          "baseline_plan_master_debug swing_plan=[%d %d %d %d] applied_plan=[%d %d %d %d] contacts=[%d %d %d %d]",
+          static_cast<int>(swing_debug_state_.plan_contacts[0]),
+          static_cast<int>(swing_debug_state_.plan_contacts[1]),
+          static_cast<int>(swing_debug_state_.plan_contacts[2]),
+          static_cast<int>(swing_debug_state_.plan_contacts[3]),
+          static_cast<int>(a1_state_.plan_contacts[0]),
+          static_cast<int>(a1_state_.plan_contacts[1]),
+          static_cast<int>(a1_state_.plan_contacts[2]),
+          static_cast<int>(a1_state_.plan_contacts[3]),
+          static_cast<int>(a1_state_.contacts[0]),
+          static_cast<int>(a1_state_.contacts[1]),
+          static_cast<int>(a1_state_.contacts[2]),
+          static_cast<int>(a1_state_.contacts[3]));
+      }
+
+      // TRACER actual baseline gait path:
+      // The baseline controller expects this order:
+      // update_plan -> generate_swing_legs_ctrl -> compute_grf -> compute_joint_torques.
+      // Without generate_swing_legs_ctrl(), swing-foot forces and contacts can stay stale/raw.
+      a1_control_.generate_swing_legs_ctrl(a1_state_, a1_state_.control_dt);
+
+      // For this debug stage, force the actual torque path to follow the planned gait contacts.
+      // This removes Isaac raw all-contact readings from the GRF/MPC contact mask.
+      if (use_baseline_torque) {
+        for (int leg = 0; leg < NUM_LEG; ++leg) {
+          const bool planned_contact = a1_state_.plan_contacts[leg];
+          a1_state_.early_contacts[leg] = false;
+          a1_state_.estimated_contacts[leg] = planned_contact;
+          a1_state_.contacts[leg] = planned_contact;
+        }
+      }
+
+      RCLCPP_INFO_THROTTLE(
+        this->get_logger(),
+        *this->get_clock(),
+        500,
+        "baseline_after_swing_ctrl movement=%d plan=[%d %d %d %d] contacts=[%d %d %d %d] "
+        "foot_kin_norm=%.3f foot_kin_max=%.3f "
+        "start_x=[%.3f %.3f %.3f %.3f] cur_rel_x=[%.3f %.3f %.3f %.3f] "
+        "tgt_rel_x=[%.3f %.3f %.3f %.3f]",
+        static_cast<int>(a1_state_.movement_mode),
+        static_cast<int>(a1_state_.plan_contacts[0]),
+        static_cast<int>(a1_state_.plan_contacts[1]),
+        static_cast<int>(a1_state_.plan_contacts[2]),
+        static_cast<int>(a1_state_.plan_contacts[3]),
+        static_cast<int>(a1_state_.contacts[0]),
+        static_cast<int>(a1_state_.contacts[1]),
+        static_cast<int>(a1_state_.contacts[2]),
+        static_cast<int>(a1_state_.contacts[3]),
+        a1_state_.foot_forces_kin.norm(),
+        a1_state_.foot_forces_kin.cwiseAbs().maxCoeff(),
+        a1_state_.foot_pos_start(0,0),
+        a1_state_.foot_pos_start(0,1),
+        a1_state_.foot_pos_start(0,2),
+        a1_state_.foot_pos_start(0,3),
+        a1_state_.foot_pos_rel(0,0),
+        a1_state_.foot_pos_rel(0,1),
+        a1_state_.foot_pos_rel(0,2),
+        a1_state_.foot_pos_rel(0,3),
+        a1_state_.foot_pos_target_rel(0,0),
+        a1_state_.foot_pos_target_rel(0,1),
+        a1_state_.foot_pos_target_rel(0,2),
+        a1_state_.foot_pos_target_rel(0,3));
+
+      a1_state_.foot_forces_grf = a1_control_.compute_grf(a1_state_, a1_state_.plan_dt);
+      a1_control_.compute_joint_torques(a1_state_);
+
+      const double tau_norm = a1_state_.joint_torques.norm();
+      const double tau_max = a1_state_.joint_torques.cwiseAbs().maxCoeff();
+      const bool tau_finite = a1_state_.joint_torques.allFinite();
+
+      const double grf_norm = a1_state_.foot_forces_grf.norm();
+      const double grf_max = a1_state_.foot_forces_grf.cwiseAbs().maxCoeff();
+      const bool grf_finite = a1_state_.foot_forces_grf.allFinite();
+
+      RCLCPP_INFO_THROTTLE(
+        this->get_logger(),
+        *this->get_clock(),
+        1000,
+        "baseline_torque_dry_run finite=%d grf_finite=%d tau_norm=%.3f tau_max=%.3f grf_norm=%.3f grf_max=%.3f "
+        "tau_FL=[%.3f %.3f %.3f] tau_FR=[%.3f %.3f %.3f] tau_RL=[%.3f %.3f %.3f] tau_RR=[%.3f %.3f %.3f] "
+        "grf_FL=[%.3f %.3f %.3f] grf_FR=[%.3f %.3f %.3f] grf_RL=[%.3f %.3f %.3f] grf_RR=[%.3f %.3f %.3f] "
+        "contacts=[%d %d %d %d]",
+        tau_finite ? 1 : 0,
+        grf_finite ? 1 : 0,
+        tau_norm,
+        tau_max,
+        grf_norm,
+        grf_max,
+        a1_state_.joint_torques[0],
+        a1_state_.joint_torques[1],
+        a1_state_.joint_torques[2],
+        a1_state_.joint_torques[3],
+        a1_state_.joint_torques[4],
+        a1_state_.joint_torques[5],
+        a1_state_.joint_torques[6],
+        a1_state_.joint_torques[7],
+        a1_state_.joint_torques[8],
+        a1_state_.joint_torques[9],
+        a1_state_.joint_torques[10],
+        a1_state_.joint_torques[11],
+        a1_state_.foot_forces_grf(0, 0),
+        a1_state_.foot_forces_grf(1, 0),
+        a1_state_.foot_forces_grf(2, 0),
+        a1_state_.foot_forces_grf(0, 1),
+        a1_state_.foot_forces_grf(1, 1),
+        a1_state_.foot_forces_grf(2, 1),
+        a1_state_.foot_forces_grf(0, 2),
+        a1_state_.foot_forces_grf(1, 2),
+        a1_state_.foot_forces_grf(2, 2),
+        a1_state_.foot_forces_grf(0, 3),
+        a1_state_.foot_forces_grf(1, 3),
+        a1_state_.foot_forces_grf(2, 3),
+        a1_state_.contacts[0] ? 1 : 0,
+        a1_state_.contacts[1] ? 1 : 0,
+        a1_state_.contacts[2] ? 1 : 0,
+        a1_state_.contacts[3] ? 1 : 0
+      );
     }
 
 
@@ -322,6 +1509,31 @@ private:
         a1_state_.isaac_contact_flag[1],
         a1_state_.isaac_contact_flag[2],
         a1_state_.isaac_contact_flag[3]
+      );
+    }
+
+    if (print_baseline_debug && has_state) {
+      RCLCPP_INFO_THROTTLE(
+        this->get_logger(),
+        *this->get_clock(),
+        2000,
+        "foot_kin rel FL=[%.3f %.3f %.3f] FR=[%.3f %.3f %.3f] RL=[%.3f %.3f %.3f] RR=[%.3f %.3f %.3f] world_z=[%.3f %.3f %.3f %.3f] J_norm=[%.3f %.3f %.3f %.3f] contact=[%d %d %d %d]",
+        a1_state_.foot_pos_rel(0, 0), a1_state_.foot_pos_rel(1, 0), a1_state_.foot_pos_rel(2, 0),
+        a1_state_.foot_pos_rel(0, 1), a1_state_.foot_pos_rel(1, 1), a1_state_.foot_pos_rel(2, 1),
+        a1_state_.foot_pos_rel(0, 2), a1_state_.foot_pos_rel(1, 2), a1_state_.foot_pos_rel(2, 2),
+        a1_state_.foot_pos_rel(0, 3), a1_state_.foot_pos_rel(1, 3), a1_state_.foot_pos_rel(2, 3),
+        a1_state_.foot_pos_world(2, 0),
+        a1_state_.foot_pos_world(2, 1),
+        a1_state_.foot_pos_world(2, 2),
+        a1_state_.foot_pos_world(2, 3),
+        a1_state_.j_foot.block<3, 3>(0, 0).norm(),
+        a1_state_.j_foot.block<3, 3>(3, 3).norm(),
+        a1_state_.j_foot.block<3, 3>(6, 6).norm(),
+        a1_state_.j_foot.block<3, 3>(9, 9).norm(),
+        a1_state_.contacts[0] ? 1 : 0,
+        a1_state_.contacts[1] ? 1 : 0,
+        a1_state_.contacts[2] ? 1 : 0,
+        a1_state_.contacts[3] ? 1 : 0
       );
     }
 
@@ -363,12 +1575,36 @@ private:
       }
     }
 
+    if (allow_baseline_torque && state_fresh && a1_state_.joint_torques.allFinite()) {
+      for (int isaac_i = 0; isaac_i < 12; ++isaac_i) {
+        const int leg_i = ISAAC_TO_LEG_MAJOR[isaac_i];
+        double tau = baseline_tau_scale * a1_state_.joint_torques[leg_i];
+        tau = std::max(-baseline_tau_limit, std::min(baseline_tau_limit, tau));
+        tau_isaac[isaac_i] = tau;
+      }
+
+      RCLCPP_INFO_THROTTLE(
+        this->get_logger(),
+        *this->get_clock(),
+        1000,
+        "baseline_torque_publish scale=%.3f limit=%.3f tau_isaac=[%.3f %.3f %.3f %.3f %.3f %.3f %.3f %.3f %.3f %.3f %.3f %.3f]",
+        baseline_tau_scale,
+        baseline_tau_limit,
+        tau_isaac[0], tau_isaac[1], tau_isaac[2], tau_isaac[3],
+        tau_isaac[4], tau_isaac[5], tau_isaac[6], tau_isaac[7],
+        tau_isaac[8], tau_isaac[9], tau_isaac[10], tau_isaac[11]
+      );
+    }
+
     double tau_l1 = 0.0;
     for (int i = 0; i < 12; ++i) {
       msg.data[49 + i] = tau_isaac[i];
       tau_l1 += std::abs(tau_isaac[i]);
     }
 
+    if (allow_swing_ik_target && state_fresh) {
+      apply_swing_ik_target_to_msg(msg.data);
+    }
     cmd_pub_->publish(msg);
 
     if (print_baseline_debug) {
@@ -416,6 +1652,20 @@ private:
   }
 
   rclcpp::Subscription<std_msgs::msg::Float64MultiArray>::SharedPtr state_sub_;
+  rclcpp::Subscription<std_msgs::msg::Float64MultiArray>::SharedPtr highlevel_sub_;
+
+  std::mutex highlevel_mutex_;
+  bool have_highlevel_cmd_{false};
+  double hl_cmd_vx_{0.0};
+  double hl_cmd_vy_{0.0};
+  double hl_cmd_yaw_rate_{0.0};
+  double hl_body_height_{0.275};
+
+  bool stand_ref_initialized_{false};
+  double stand_ref_x_{0.0};
+  double stand_ref_y_{0.0};
+  double stand_ref_yaw_{0.0};
+
   rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr cmd_pub_;
   rclcpp::TimerBase::SharedPtr timer_;
 
@@ -425,6 +1675,12 @@ private:
 
   A1CtrlStates a1_state_;
   A1RobotControl a1_control_;
+  A1CtrlStates swing_debug_state_;
+  bool swing_debug_state_initialized_{false};
+  int warmup_settled_counter_{0};
+  bool warmup_ready_logged_{false};
+
+  A1Kinematics a1_kin_;
 };
 
 int main(int argc, char **argv) {
