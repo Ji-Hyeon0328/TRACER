@@ -88,6 +88,9 @@ public:
     this->declare_parameter<double>("swing_ik_cmd_bias_limit", 0.02);
     this->declare_parameter<double>("swing_ik_max_joint_delta", 0.08);
     this->declare_parameter<double>("swing_ik_max_msg_delta", 0.025);
+    this->declare_parameter<bool>("swing_ik_speed_scaled_msg_delta", false);
+    this->declare_parameter<double>("swing_ik_min_msg_delta", 0.015);
+    this->declare_parameter<double>("swing_ik_speed_ref", 0.12);
     this->declare_parameter<bool>("enable_activation_warmup", true);
     this->declare_parameter<int>("warmup_settled_count", 20);
     this->declare_parameter<double>("warmup_min_base_z", 0.265);
@@ -812,7 +815,57 @@ private:
     const double clearance = clamp_scalar(this->get_parameter("swing_ik_clearance").as_double(), 0.0, 0.10);
     const double xy_scale = clamp_scalar(this->get_parameter("swing_ik_xy_scale").as_double(), 0.0, 1.0);
     const double max_joint_delta = clamp_scalar(this->get_parameter("swing_ik_max_joint_delta").as_double(), 0.0, 0.30);
-    const double max_msg_delta_limit = clamp_scalar(this->get_parameter("swing_ik_max_msg_delta").as_double(), 0.0, 0.20);
+    const double fixed_max_msg_delta_limit =
+      clamp_scalar(this->get_parameter("swing_ik_max_msg_delta").as_double(), 0.0, 0.20);
+    const bool speed_scaled_msg_delta =
+      this->get_parameter("swing_ik_speed_scaled_msg_delta").as_bool();
+    const double min_msg_delta_limit =
+      clamp_scalar(this->get_parameter("swing_ik_min_msg_delta").as_double(), 0.0, fixed_max_msg_delta_limit);
+    const double speed_ref =
+      clamp_scalar(this->get_parameter("swing_ik_speed_ref").as_double(), 1.0e-6, 10.0);
+
+    // Use the same command source as the gait gate / high-level command path.
+    // When high-level velocity is disabled, fall back to swing_debug_* for manual tests.
+    double msg_delta_cmd_vx = this->get_parameter("swing_debug_vx").as_double();
+    double msg_delta_cmd_vy = this->get_parameter("swing_debug_vy").as_double();
+    double msg_delta_cmd_yaw = this->get_parameter("swing_debug_yaw_rate").as_double();
+
+    if (this->get_parameter("use_highlevel_velocity").as_bool()) {
+      std::lock_guard<std::mutex> lock(highlevel_mutex_);
+      if (have_highlevel_cmd_) {
+        msg_delta_cmd_vx = hl_cmd_vx_;
+        msg_delta_cmd_vy = hl_cmd_vy_;
+        msg_delta_cmd_yaw = hl_cmd_yaw_rate_;
+      }
+    }
+
+    const double msg_delta_cmd_norm_xy =
+      std::max(std::abs(msg_delta_cmd_vx), std::abs(msg_delta_cmd_vy));
+    const double msg_delta_cmd_norm =
+      std::max(msg_delta_cmd_norm_xy, std::abs(msg_delta_cmd_yaw));
+
+    const double speed_alpha = speed_scaled_msg_delta
+      ? clamp_scalar(msg_delta_cmd_norm / speed_ref, 0.0, 1.0)
+      : 1.0;
+
+    const double max_msg_delta_limit = speed_scaled_msg_delta
+      ? min_msg_delta_limit + speed_alpha * (fixed_max_msg_delta_limit - min_msg_delta_limit)
+      : fixed_max_msg_delta_limit;
+
+    RCLCPP_INFO_THROTTLE(
+      this->get_logger(),
+      *this->get_clock(),
+      1000,
+      "swing_ik_msg_delta_scale enabled=%d cmd_norm=%.4f speed_ref=%.4f alpha=%.3f min=%.5f fixed_max=%.5f applied=%.5f",
+      speed_scaled_msg_delta ? 1 : 0,
+      msg_delta_cmd_norm,
+      speed_ref,
+      speed_alpha,
+      min_msg_delta_limit,
+      fixed_max_msg_delta_limit,
+      max_msg_delta_limit
+    );
+
     const double lambda = clamp_scalar(this->get_parameter("swing_ik_dls_lambda").as_double(), 1e-4, 1.0);
     const int iters = static_cast<int>(std::max<int64_t>(1, this->get_parameter("swing_ik_iters").as_int()));
 
