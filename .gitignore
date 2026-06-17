@@ -23,3 +23,7 @@ datasets/ram/*_info.json
 # TRACER generated checkpoints
 checkpoints/ram/*.npz
 checkpoints/ram/*_stats.json
+
+# TRACER generated datasets and checkpoints
+data/*.npz
+checkpoints/
