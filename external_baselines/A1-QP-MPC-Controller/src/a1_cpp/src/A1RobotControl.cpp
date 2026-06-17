@@ -3,6 +3,7 @@
 //
 
 #include "A1RobotControl.h"
+#include <cmath>
 
 A1RobotControl::A1RobotControl() {
     std::cout << "init A1RobotControl" << std::endl;

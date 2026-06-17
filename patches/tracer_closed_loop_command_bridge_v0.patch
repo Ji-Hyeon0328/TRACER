@@ -1,0 +1,176 @@
+diff --git a/external_baselines/A1-QP-MPC-Controller/src/a1_cpp/src/A1CtrlStates.h b/external_baselines/A1-QP-MPC-Controller/src/a1_cpp/src/A1CtrlStates.h
+index 8dc23d4..953adbb 100644
+--- a/external_baselines/A1-QP-MPC-Controller/src/a1_cpp/src/A1CtrlStates.h
++++ b/external_baselines/A1-QP-MPC-Controller/src/a1_cpp/src/A1CtrlStates.h
+@@ -388,6 +388,10 @@ public:
+ 
+     double walking_surface_height_tmp;
+     double walking_surface_height;
++
++    // Additional swing clearance commanded by TRACER high-level.
++    // This is added as a smooth z bump during swing phase.
++    double tracer_swing_clearance = 0.0;
+     int walking_surface_fit_count;
+ 
+     Eigen::Matrix<double, 3, NUM_LEG> foot_pos_target_world; // in the world frame
+diff --git a/external_baselines/A1-QP-MPC-Controller/src/a1_cpp/src/A1RobotControl.cpp b/external_baselines/A1-QP-MPC-Controller/src/a1_cpp/src/A1RobotControl.cpp
+index ceb2980..69ac385 100755
+--- a/external_baselines/A1-QP-MPC-Controller/src/a1_cpp/src/A1RobotControl.cpp
++++ b/external_baselines/A1-QP-MPC-Controller/src/a1_cpp/src/A1RobotControl.cpp
+@@ -3,6 +3,7 @@
+ //
+ 
+ #include "A1RobotControl.h"
++#include <cmath>
+ 
+ A1RobotControl::A1RobotControl() {
+     std::cout << "init A1RobotControl" << std::endl;
+diff --git a/external_baselines/A1-QP-MPC-Controller/src/a1_cpp/src/GazeboA1ROS.cpp b/external_baselines/A1-QP-MPC-Controller/src/a1_cpp/src/GazeboA1ROS.cpp
+index 56f20fa..7c2186d 100755
+--- a/external_baselines/A1-QP-MPC-Controller/src/a1_cpp/src/GazeboA1ROS.cpp
++++ b/external_baselines/A1-QP-MPC-Controller/src/a1_cpp/src/GazeboA1ROS.cpp
+@@ -3,6 +3,7 @@
+ //
+ 
+ #include "GazeboA1ROS.h"
++#include <algorithm>
+ 
+ // constructor
+ GazeboA1ROS::GazeboA1ROS(ros::NodeHandle &_nh) {
+@@ -56,6 +57,11 @@ GazeboA1ROS::GazeboA1ROS(ros::NodeHandle &_nh) {
+     sub_foot_contact_msg[3] = nh.subscribe("/visual/RR_foot_contact/the_force", 2, &GazeboA1ROS::RR_foot_contact_callback, this);
+ 
+     sub_joy_msg = nh.subscribe("/joy", 1000, &GazeboA1ROS::joy_callback, this);
++    sub_tracer_mpc_reference_msg = nh.subscribe(
++            "/tracer/mpc_reference",
++            10,
++            &GazeboA1ROS::tracer_mpc_reference_callback,
++            this);
+ 
+     joy_cmd_ctrl_state = 0;
+     joy_cmd_ctrl_state_change_request = false;
+@@ -137,6 +143,31 @@ bool GazeboA1ROS::main_update(double t, double dt) {
+ //        joy_cmd_body_height = JOY_CMD_BODY_HEIGHT_MIN + a1_ctrl_states.walking_surface_height;
+ //    }
+ 
++
++    // TRACER high-level reference override.
++    // Layout: [counter, vx, yaw_rate, body_height, clearance, enable_walking]
++    const double tracer_now = ros::Time::now().toSec();
++    const bool tracer_ref_fresh =
++            tracer_ref_enable &&
++            tracer_cmd_last_time > 0.0 &&
++            ((tracer_now - tracer_cmd_last_time) < tracer_cmd_timeout);
++
++    if (tracer_ref_fresh) {
++        joy_cmd_velx = tracer_cmd_vx;
++        joy_cmd_vely = 0.0;
++        joy_cmd_velz = 0.0;
++        joy_cmd_yaw_rate = tracer_cmd_yaw_rate;
++        joy_cmd_body_height = tracer_cmd_body_height;
++
++        // Let TRACER command directly enter walking mode.
++        joy_cmd_ctrl_state = 1;
++
++        // Clearance is consumed by A1RobotControl::generate_swing_legs_ctrl().
++        a1_ctrl_states.tracer_swing_clearance = tracer_cmd_clearance;
++    } else {
++        a1_ctrl_states.tracer_swing_clearance = 0.0;
++    }
++
+     prev_joy_cmd_ctrl_state = joy_cmd_ctrl_state;
+ 
+     if (joy_cmd_ctrl_state_change_request) {
+@@ -407,3 +438,47 @@ joy_callback(const sensor_msgs::Joy::ConstPtr &joy_msg) {
+         joy_cmd_exit = true;
+     }
+ }
++
++void GazeboA1ROS::tracer_mpc_reference_callback(const std_msgs::Float64MultiArray::ConstPtr &msg) {
++    if (msg->data.size() < 5) {
++        ROS_WARN_THROTTLE(
++            1.0,
++            "[TRACER] short /tracer/mpc_reference message. expected >=5, got %zu",
++            msg->data.size()
++        );
++        return;
++    }
++
++    const double vx = msg->data[1];
++    const double yaw_rate = msg->data[2];
++    const double body_height = msg->data[3];
++    const double clearance = msg->data[4];
++
++    tracer_ref_enable = true;
++    tracer_cmd_vx = std::max(-0.30, std::min(0.30, vx));
++    tracer_cmd_yaw_rate = std::max(-0.60, std::min(0.60, yaw_rate));
++    tracer_cmd_body_height = std::max(
++        (double)JOY_CMD_BODY_HEIGHT_MIN,
++        std::min((double)JOY_CMD_BODY_HEIGHT_MAX, body_height)
++    );
++    tracer_cmd_clearance = std::max(0.0, std::min(0.12, clearance));
++    tracer_cmd_last_time = ros::Time::now().toSec();
++
++    if (msg->data.size() >= 6) {
++        if (msg->data[5] > 0.5) {
++            joy_cmd_ctrl_state = 1;
++        } else {
++            joy_cmd_ctrl_state = 0;
++        }
++    }
++
++    ROS_INFO_THROTTLE(
++        1.0,
++        "[TRACER] mpc_reference vx=%.3f yaw_rate=%.3f body_height=%.3f clearance=%.3f enable=%.1f",
++        tracer_cmd_vx,
++        tracer_cmd_yaw_rate,
++        tracer_cmd_body_height,
++        tracer_cmd_clearance,
++        msg->data.size() >= 6 ? msg->data[5] : 1.0
++    );
++}
+diff --git a/external_baselines/A1-QP-MPC-Controller/src/a1_cpp/src/GazeboA1ROS.h b/external_baselines/A1-QP-MPC-Controller/src/a1_cpp/src/GazeboA1ROS.h
+index 9eef064..49616aa 100755
+--- a/external_baselines/A1-QP-MPC-Controller/src/a1_cpp/src/GazeboA1ROS.h
++++ b/external_baselines/A1-QP-MPC-Controller/src/a1_cpp/src/GazeboA1ROS.h
+@@ -29,6 +29,7 @@
+ #include <geometry_msgs/Vector3Stamped.h>
+ #include <geometry_msgs/WrenchStamped.h>
+ #include <geometry_msgs/PointStamped.h>
++#include <std_msgs/Float64MultiArray.h>
+ #include <unitree_legged_msgs/MotorState.h>
+ #include <unitree_legged_msgs/MotorCmd.h>
+ #include <unitree_legged_msgs/LowCmd.h>
+@@ -61,6 +62,8 @@ public:
+ 
+     void joy_callback(const sensor_msgs::Joy::ConstPtr &joy_msg);
+ 
++    void tracer_mpc_reference_callback(const std_msgs::Float64MultiArray::ConstPtr &msg);
++
+     void FL_hip_state_callback(const unitree_legged_msgs::MotorState &a1_joint_state);
+ 
+     void FL_thigh_state_callback(const unitree_legged_msgs::MotorState &a1_joint_state);
+@@ -110,6 +113,7 @@ private:
+     ros::Subscriber sub_gt_pose_msg;
+     ros::Subscriber sub_imu_msg;
+     ros::Subscriber sub_joy_msg;
++    ros::Subscriber sub_tracer_mpc_reference_msg;
+ 
+     // debug estimation
+     ros::Publisher pub_estimated_pose;
+@@ -129,6 +133,15 @@ private:
+     double joy_cmd_roll_ang = 0.0;
+     double joy_cmd_body_height = 0.3;
+ 
++    // TRACER high-level reference override
++    bool tracer_ref_enable = false;
++    double tracer_cmd_vx = 0.0;
++    double tracer_cmd_yaw_rate = 0.0;
++    double tracer_cmd_body_height = 0.3;
++    double tracer_cmd_clearance = 0.0;
++    double tracer_cmd_last_time = -1.0;
++    double tracer_cmd_timeout = 0.5;
++
+     //  0 is standing, 1 is walking
+     int joy_cmd_ctrl_state = 0;
+     bool joy_cmd_ctrl_state_change_request = false;

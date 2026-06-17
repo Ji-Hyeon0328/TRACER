@@ -29,6 +29,7 @@
 #include <geometry_msgs/Vector3Stamped.h>
 #include <geometry_msgs/WrenchStamped.h>
 #include <geometry_msgs/PointStamped.h>
+#include <std_msgs/Float64MultiArray.h>
 #include <unitree_legged_msgs/MotorState.h>
 #include <unitree_legged_msgs/MotorCmd.h>
 #include <unitree_legged_msgs/LowCmd.h>
@@ -60,6 +61,8 @@ public:
     void imu_callback(const sensor_msgs::Imu::ConstPtr &imu);
 
     void joy_callback(const sensor_msgs::Joy::ConstPtr &joy_msg);
+
+    void tracer_mpc_reference_callback(const std_msgs::Float64MultiArray::ConstPtr &msg);
 
     void FL_hip_state_callback(const unitree_legged_msgs::MotorState &a1_joint_state);
 
@@ -110,6 +113,7 @@ private:
     ros::Subscriber sub_gt_pose_msg;
     ros::Subscriber sub_imu_msg;
     ros::Subscriber sub_joy_msg;
+    ros::Subscriber sub_tracer_mpc_reference_msg;
 
     // debug estimation
     ros::Publisher pub_estimated_pose;
@@ -128,6 +132,15 @@ private:
     double joy_cmd_pitch_ang = 0.0;
     double joy_cmd_roll_ang = 0.0;
     double joy_cmd_body_height = 0.3;
+
+    // TRACER high-level reference override
+    bool tracer_ref_enable = false;
+    double tracer_cmd_vx = 0.0;
+    double tracer_cmd_yaw_rate = 0.0;
+    double tracer_cmd_body_height = 0.3;
+    double tracer_cmd_clearance = 0.0;
+    double tracer_cmd_last_time = -1.0;
+    double tracer_cmd_timeout = 0.5;
 
     //  0 is standing, 1 is walking
     int joy_cmd_ctrl_state = 0;

@@ -388,6 +388,10 @@ public:
 
     double walking_surface_height_tmp;
     double walking_surface_height;
+
+    // Additional swing clearance commanded by TRACER high-level.
+    // This is added as a smooth z bump during swing phase.
+    double tracer_swing_clearance = 0.0;
     int walking_surface_fit_count;
 
     Eigen::Matrix<double, 3, NUM_LEG> foot_pos_target_world; // in the world frame
