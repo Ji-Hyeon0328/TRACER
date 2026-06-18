@@ -98,7 +98,7 @@ echo
 echo "============================================================"
 echo "[1/10] Reset to qwer state"
 echo "============================================================"
-scripts/runtime/tracer_reset_to_qwer_state.sh
+scripts/runtime/tracer_robust_reset_to_qwer_state.sh
 
 echo
 echo "============================================================"
