@@ -1,0 +1,259 @@
+#!/usr/bin/env python3
+
+import math
+import time
+from typing import Optional, Tuple
+
+import rclpy
+from rclpy.node import Node
+from std_msgs.msg import Float64MultiArray
+
+
+def clamp(x: float, lo: float, hi: float) -> float:
+    return max(lo, min(hi, x))
+
+
+def wrap_to_pi(a: float) -> float:
+    while a > math.pi:
+        a -= 2.0 * math.pi
+    while a < -math.pi:
+        a += 2.0 * math.pi
+    return a
+
+
+def yaw_from_quat(q0: float, q1: float, q2: float, q3: float, order: str) -> float:
+    # Supports both Isaac-style wxyz and ROS-style xyzw.
+    if order == "xyzw":
+        x, y, z, w = q0, q1, q2, q3
+    else:
+        w, x, y, z = q0, q1, q2, q3
+
+    # yaw around z
+    siny_cosp = 2.0 * (w * z + x * y)
+    cosy_cosp = 1.0 - 2.0 * (y * y + z * z)
+    return math.atan2(siny_cosp, cosy_cosp)
+
+
+class TracerGoalTracker(Node):
+    def __init__(self):
+        super().__init__("tracer_goal_tracker_node")
+
+        # Goal mode
+        self.declare_parameter("use_relative_goal", True)
+        self.declare_parameter("relative_goal_x", 0.35)
+        self.declare_parameter("relative_goal_y", 0.0)
+        self.declare_parameter("relative_goal_yaw", 0.0)
+
+        # Absolute goal fallback
+        self.declare_parameter("goal_x", 0.35)
+        self.declare_parameter("goal_y", 0.0)
+        self.declare_parameter("goal_yaw", 0.0)
+
+        # Controller gains
+        self.declare_parameter("kp_x", 0.8)
+        self.declare_parameter("kp_y", 0.6)
+        self.declare_parameter("kp_yaw", 1.0)
+
+        # Limits
+        self.declare_parameter("vx_max", 0.12)
+        self.declare_parameter("vy_max", 0.04)
+        self.declare_parameter("yaw_rate_max", 0.30)
+        self.declare_parameter("max_cmd_step", 0.02)
+
+        # Stop conditions
+        self.declare_parameter("goal_tolerance", 0.07)
+        self.declare_parameter("yaw_tolerance", 0.20)
+        self.declare_parameter("allow_lateral", False)
+        self.declare_parameter("allow_backward", False)
+
+        # High-level command fields
+        self.declare_parameter("body_height", 0.275)
+        self.declare_parameter("quat_order", "wxyz")  # wxyz or xyzw
+        self.declare_parameter("publish_hz", 10.0)
+
+        self.robot_state_sub = self.create_subscription(
+            Float64MultiArray,
+            "/tracer/robot_state",
+            self.robot_state_callback,
+            10,
+        )
+        self.cmd_pub = self.create_publisher(
+            Float64MultiArray,
+            "/tracer/high_level_cmd",
+            10,
+        )
+
+        self.latest_state: Optional[Tuple[float, float, float]] = None
+        self.start_pose: Optional[Tuple[float, float, float]] = None
+        self.goal_pose: Optional[Tuple[float, float, float]] = None
+
+        self.prev_vx = 0.0
+        self.prev_vy = 0.0
+        self.prev_yaw_rate = 0.0
+        self.last_print_time = 0.0
+        self.reached_goal = False
+
+        hz = max(1.0, float(self.get_parameter("publish_hz").value))
+        self.timer = self.create_timer(1.0 / hz, self.timer_callback)
+
+        self.get_logger().info(
+            "Tracer goal tracker started. Waiting for /tracer/robot_state..."
+        )
+
+    def robot_state_callback(self, msg: Float64MultiArray):
+        data = list(msg.data)
+        if len(data) < 7:
+            return
+
+        x = float(data[0])
+        y = float(data[1])
+
+        q0, q1, q2, q3 = map(float, data[3:7])
+        quat_order = str(self.get_parameter("quat_order").value)
+        yaw = yaw_from_quat(q0, q1, q2, q3, quat_order)
+
+        self.latest_state = (x, y, yaw)
+
+        if self.start_pose is None:
+            self.start_pose = (x, y, yaw)
+
+            use_relative = bool(self.get_parameter("use_relative_goal").value)
+            if use_relative:
+                dx = float(self.get_parameter("relative_goal_x").value)
+                dy = float(self.get_parameter("relative_goal_y").value)
+                dyaw = float(self.get_parameter("relative_goal_yaw").value)
+
+                c = math.cos(yaw)
+                s = math.sin(yaw)
+
+                gx = x + c * dx - s * dy
+                gy = y + s * dx + c * dy
+                gyaw = wrap_to_pi(yaw + dyaw)
+            else:
+                gx = float(self.get_parameter("goal_x").value)
+                gy = float(self.get_parameter("goal_y").value)
+                gyaw = float(self.get_parameter("goal_yaw").value)
+
+            self.goal_pose = (gx, gy, gyaw)
+
+            self.get_logger().info(
+                f"Initialized goal: start=({x:.3f}, {y:.3f}, yaw={yaw:.3f}), "
+                f"goal=({gx:.3f}, {gy:.3f}, yaw={gyaw:.3f})"
+            )
+
+    def build_highlevel_cmd(self, vx: float, vy: float, yaw_rate: float) -> Float64MultiArray:
+        body_h = float(self.get_parameter("body_height").value)
+
+        # Keep the same 32-field layout we have been publishing manually.
+        data = [
+            vx, vy, yaw_rate, body_h,
+            0.33, 0.33, 0.34,
+
+            # reserved / latent / context fields
+            0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+            0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+            0.0,
+
+            # gait meta fields
+            0.5, 0.5, 0.04, 0.05,
+            1.0, 1.0, 1.0,
+            0.0,
+        ]
+
+        msg = Float64MultiArray()
+        msg.data = data
+        return msg
+
+    def rate_limit(self, target: float, prev: float, max_step: float) -> float:
+        return prev + clamp(target - prev, -max_step, max_step)
+
+    def timer_callback(self):
+        if self.latest_state is None or self.goal_pose is None:
+            return
+
+        x, y, yaw = self.latest_state
+        gx, gy, gyaw = self.goal_pose
+
+        ex_w = gx - x
+        ey_w = gy - y
+        dist = math.sqrt(ex_w * ex_w + ey_w * ey_w)
+
+        # World error -> body error.
+        c = math.cos(yaw)
+        s = math.sin(yaw)
+        ex_b = c * ex_w + s * ey_w
+        ey_b = -s * ex_w + c * ey_w
+
+        yaw_err = wrap_to_pi(gyaw - yaw)
+
+        goal_tol = float(self.get_parameter("goal_tolerance").value)
+        yaw_tol = float(self.get_parameter("yaw_tolerance").value)
+
+        kp_x = float(self.get_parameter("kp_x").value)
+        kp_y = float(self.get_parameter("kp_y").value)
+        kp_yaw = float(self.get_parameter("kp_yaw").value)
+
+        vx_max = abs(float(self.get_parameter("vx_max").value))
+        vy_max = abs(float(self.get_parameter("vy_max").value))
+        yaw_rate_max = abs(float(self.get_parameter("yaw_rate_max").value))
+
+        max_cmd_step = abs(float(self.get_parameter("max_cmd_step").value))
+
+        allow_lateral = bool(self.get_parameter("allow_lateral").value)
+        allow_backward = bool(self.get_parameter("allow_backward").value)
+
+        if dist < goal_tol and abs(yaw_err) < yaw_tol:
+            vx_des = 0.0
+            vy_des = 0.0
+            yaw_rate_des = 0.0
+            self.reached_goal = True
+        else:
+            vx_des = clamp(kp_x * ex_b, -vx_max, vx_max)
+            if not allow_backward:
+                vx_des = max(0.0, vx_des)
+
+            vy_des = clamp(kp_y * ey_b, -vy_max, vy_max) if allow_lateral else 0.0
+            yaw_rate_des = clamp(kp_yaw * yaw_err, -yaw_rate_max, yaw_rate_max)
+
+            # For the first straight-line test, avoid yaw twitch unless lateral/yaw error is meaningful.
+            if abs(yaw_err) < yaw_tol:
+                yaw_rate_des = 0.0
+
+            self.reached_goal = False
+
+        vx_cmd = self.rate_limit(vx_des, self.prev_vx, max_cmd_step)
+        vy_cmd = self.rate_limit(vy_des, self.prev_vy, max_cmd_step)
+        yaw_rate_cmd = self.rate_limit(yaw_rate_des, self.prev_yaw_rate, max_cmd_step)
+
+        self.prev_vx = vx_cmd
+        self.prev_vy = vy_cmd
+        self.prev_yaw_rate = yaw_rate_cmd
+
+        self.cmd_pub.publish(self.build_highlevel_cmd(vx_cmd, vy_cmd, yaw_rate_cmd))
+
+        now = time.time()
+        if now - self.last_print_time > 1.0:
+            self.last_print_time = now
+            self.get_logger().info(
+                f"goal_track pos=({x:.3f},{y:.3f}) "
+                f"goal=({gx:.3f},{gy:.3f}) "
+                f"err_body=({ex_b:.3f},{ey_b:.3f}) dist={dist:.3f} "
+                f"cmd=({vx_cmd:.3f},{vy_cmd:.3f},{yaw_rate_cmd:.3f}) "
+                f"reached={int(self.reached_goal)}"
+            )
+
+
+def main():
+    rclpy.init()
+    node = TracerGoalTracker()
+    try:
+        rclpy.spin(node)
+    except KeyboardInterrupt:
+        pass
+    finally:
+        node.destroy_node()
+        rclpy.shutdown()
+
+
+if __name__ == "__main__":
+    main()

@@ -137,19 +137,12 @@ public:
     this->declare_parameter<double>("debug_crawl_swing_clearance", 0.025);
     this->declare_parameter<double>("debug_crawl_swing_max_joint_delta", 0.20);
     this->declare_parameter<double>("debug_crawl_swing_max_msg_delta", 0.040);
-    this->declare_parameter<double>("debug_crawl_swing_hip_max_msg_delta", 0.005);
-    this->declare_parameter<double>("debug_crawl_swing_thigh_max_msg_delta", 0.080);
-    this->declare_parameter<double>("debug_crawl_swing_calf_max_msg_delta", 0.120);
     this->declare_parameter<double>("debug_crawl_swing_dls_lambda", 0.08);
     this->declare_parameter<bool>("debug_crawl_swing_manual_enable", false);
     this->declare_parameter<int>("debug_crawl_swing_manual_leg", 0);
     this->declare_parameter<double>("debug_crawl_swing_manual_phase", 0.5);
     this->declare_parameter<double>("debug_crawl_swing_z_sign", 1.0);
     this->declare_parameter<int>("debug_crawl_swing_ik_iters", 6);
-    this->declare_parameter<bool>("use_debug_stance_support_torque", false);
-    this->declare_parameter<double>("debug_stance_support_force_n", 8.0);
-    this->declare_parameter<double>("debug_stance_support_tau_limit", 4.0);
-    this->declare_parameter<double>("debug_stance_support_z_sign", 1.0);
     this->declare_parameter<std::string>("debug_contact_pattern", "trot");
 
     state_sub_ = this->create_subscription<std_msgs::msg::Float64MultiArray>(
@@ -1034,76 +1027,6 @@ private:
     return swing_leg;
   }
 
-  void apply_debug_stance_support_torque_to_msg(std::vector<double>& data) {
-    if (!this->get_parameter("use_debug_stance_support_torque").as_bool()) {
-      return;
-    }
-    if (data.size() < 61) {
-      return;
-    }
-
-    bool hard_contacts[4] = {true, true, true, true};
-    compute_hard_trot_contacts(hard_contacts);
-
-    const double fz_per_stance =
-      clamp_scalar(this->get_parameter("debug_stance_support_force_n").as_double(), 0.0, 80.0);
-    const double tau_limit =
-      clamp_scalar(this->get_parameter("debug_stance_support_tau_limit").as_double(), 0.0, 40.0);
-    const double z_sign =
-      this->get_parameter("debug_stance_support_z_sign").as_double() >= 0.0 ? 1.0 : -1.0;
-
-    double tau_l1_add = 0.0;
-    int stance_count = 0;
-    double max_tau_add = 0.0;
-
-    for (int leg = 0; leg < 4; ++leg) {
-      if (!hard_contacts[leg]) {
-        continue;  // no support torque on swing leg
-      }
-
-      stance_count += 1;
-
-      Eigen::Vector3d f_foot = Eigen::Vector3d::Zero();
-      f_foot[2] = z_sign * fz_per_stance;
-
-      const Eigen::Matrix3d J =
-        a1_state_.j_foot.block<3, 3>(3 * leg, 3 * leg);
-
-      Eigen::Vector3d tau_leg = J.transpose() * f_foot;
-
-      for (int j = 0; j < 3; ++j) {
-        tau_leg[j] = clamp_scalar(tau_leg[j], -tau_limit, tau_limit);
-
-        const int leg_major_i = 3 * leg + j;
-        const int isaac_i = ISAAC_TO_LEG_MAJOR[leg_major_i];  // leg-major -> Isaac
-        const int msg_i = 49 + isaac_i;
-
-        data[msg_i] += tau_leg[j];
-
-        tau_l1_add += std::abs(tau_leg[j]);
-        max_tau_add = std::max(max_tau_add, std::abs(tau_leg[j]));
-      }
-    }
-
-    RCLCPP_INFO_THROTTLE(
-      this->get_logger(),
-      *this->get_clock(),
-      500,
-      "debug_stance_support_torque enabled=1 stance_count=%d fz_per_stance=%.2f z_sign=%.1f "
-      "tau_limit=%.2f tau_l1_add=%.3f max_tau_add=%.3f hard_contact=[%d %d %d %d]",
-      stance_count,
-      fz_per_stance,
-      z_sign,
-      tau_limit,
-      tau_l1_add,
-      max_tau_add,
-      hard_contacts[0] ? 1 : 0,
-      hard_contacts[1] ? 1 : 0,
-      hard_contacts[2] ? 1 : 0,
-      hard_contacts[3] ? 1 : 0
-    );
-  }
-
   void apply_debug_crawl_swing_ik_to_msg(std::vector<double>& data) {
     if (!this->get_parameter("use_debug_crawl_swing_ik").as_bool()) {
       return;
@@ -1172,29 +1095,7 @@ private:
 
       const double nominal_target = data[msg_i];
       const double raw_delta = q_ik[j] - q_seed[j];
-
-      double joint_max_msg_delta = max_msg_delta;
-      if (j == 0) {
-        joint_max_msg_delta = clamp_scalar(
-          this->get_parameter("debug_crawl_swing_hip_max_msg_delta").as_double(),
-          0.0,
-          max_msg_delta
-        );
-      } else if (j == 1) {
-        joint_max_msg_delta = clamp_scalar(
-          this->get_parameter("debug_crawl_swing_thigh_max_msg_delta").as_double(),
-          0.0,
-          max_msg_delta
-        );
-      } else {
-        joint_max_msg_delta = clamp_scalar(
-          this->get_parameter("debug_crawl_swing_calf_max_msg_delta").as_double(),
-          0.0,
-          max_msg_delta
-        );
-      }
-
-      const double clamped_delta = clamp_scalar(raw_delta, -joint_max_msg_delta, joint_max_msg_delta);
+      const double clamped_delta = clamp_scalar(raw_delta, -max_msg_delta, max_msg_delta);
 
       data[msg_i] = nominal_target + clamped_delta;
       max_applied_delta = std::max(max_applied_delta, std::abs(clamped_delta));
@@ -2239,11 +2140,6 @@ private:
     if (activation_ready && allow_gait_tasks && state_fresh) {
       apply_swing_joint_lift_bias_to_msg(msg.data);
     }
-
-    if (activation_ready && allow_gait_tasks && state_fresh) {
-      apply_debug_stance_support_torque_to_msg(msg.data);
-    }
-
     cmd_pub_->publish(msg);
 
     if (print_baseline_debug) {

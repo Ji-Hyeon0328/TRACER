@@ -27,3 +27,12 @@ checkpoints/ram/*_stats.json
 # TRACER generated datasets and checkpoints
 data/*.npz
 checkpoints/
+
+# TRACER runtime outputs
+logs/
+data/mission_logs/
+data/ablations/
+*.bag
+*.db3
+__pycache__/
+*.pyc

@@ -61,6 +61,20 @@ Eigen::Vector3d rotation_matrix_to_rpy(const Eigen::Matrix3d &R) {
   return Eigen::Vector3d(roll, pitch, yaw);
 }
 
+void update_debug_contact_phase() {
+  const double speed =
+    clamp_scalar(this->get_parameter("debug_gait_counter_speed").as_double(), 0.0, 2.5);
+
+  debug_contact_phase_ += speed;
+
+  while (debug_contact_phase_ >= 240.0) {
+    debug_contact_phase_ -= 240.0;
+  }
+  while (debug_contact_phase_ < 0.0) {
+    debug_contact_phase_ += 240.0;
+  }
+}
+
 }  // namespace
 
 class TracerA1QpmcAdapterNode : public rclcpp::Node {
@@ -133,23 +147,6 @@ public:
     this->declare_parameter<int>("stance_foot_lock_iters", 4);
     this->declare_parameter<double>("stance_foot_lock_err_limit", 0.08);
     this->declare_parameter<bool>("swing_joint_lift_phase_shape", true);
-    this->declare_parameter<bool>("use_debug_crawl_swing_ik", false);
-    this->declare_parameter<double>("debug_crawl_swing_clearance", 0.025);
-    this->declare_parameter<double>("debug_crawl_swing_max_joint_delta", 0.20);
-    this->declare_parameter<double>("debug_crawl_swing_max_msg_delta", 0.040);
-    this->declare_parameter<double>("debug_crawl_swing_hip_max_msg_delta", 0.005);
-    this->declare_parameter<double>("debug_crawl_swing_thigh_max_msg_delta", 0.080);
-    this->declare_parameter<double>("debug_crawl_swing_calf_max_msg_delta", 0.120);
-    this->declare_parameter<double>("debug_crawl_swing_dls_lambda", 0.08);
-    this->declare_parameter<bool>("debug_crawl_swing_manual_enable", false);
-    this->declare_parameter<int>("debug_crawl_swing_manual_leg", 0);
-    this->declare_parameter<double>("debug_crawl_swing_manual_phase", 0.5);
-    this->declare_parameter<double>("debug_crawl_swing_z_sign", 1.0);
-    this->declare_parameter<int>("debug_crawl_swing_ik_iters", 6);
-    this->declare_parameter<bool>("use_debug_stance_support_torque", false);
-    this->declare_parameter<double>("debug_stance_support_force_n", 8.0);
-    this->declare_parameter<double>("debug_stance_support_tau_limit", 4.0);
-    this->declare_parameter<double>("debug_stance_support_z_sign", 1.0);
     this->declare_parameter<std::string>("debug_contact_pattern", "trot");
 
     state_sub_ = this->create_subscription<std_msgs::msg::Float64MultiArray>(
@@ -843,20 +840,6 @@ private:
     return ready;
   }
 
-  void update_debug_contact_phase() {
-    const double speed =
-      clamp_scalar(this->get_parameter("debug_gait_counter_speed").as_double(), 0.0, 2.5);
-
-    debug_contact_phase_ += speed;
-
-    while (debug_contact_phase_ >= 240.0) {
-      debug_contact_phase_ -= 240.0;
-    }
-    while (debug_contact_phase_ < 0.0) {
-      debug_contact_phase_ += 240.0;
-    }
-  }
-
   void compute_hard_trot_contacts(bool hard_contacts[4]) {
     const std::string pattern =
       this->get_parameter("debug_contact_pattern").as_string();
@@ -971,15 +954,10 @@ private:
         const int isaac_i = ISAAC_TO_LEG_MAJOR[leg_major_i];  // leg-major index -> Isaac joint index
         const int msg_i = 1 + isaac_i;
 
-        // Important:
-        // Do NOT replace the stance target with the measured q_seed.
-        // That makes the target follow a falling posture and kills the stand restoring behavior.
-        // Instead, keep the existing nominal q target and add only a small stance-lock correction.
-        const double correction = clamp_scalar(q_ik[j] - q_seed[j], -max_joint_delta, max_joint_delta);
-        const double nominal_target = data[msg_i];
-        data[msg_i] = nominal_target + correction;
+        const double dq = clamp_scalar(q_ik[j] - q_seed[j], -max_joint_delta, max_joint_delta);
+        data[msg_i] = q_seed[j] + dq;
 
-        max_q_delta = std::max(max_q_delta, std::abs(correction));
+        max_q_delta = std::max(max_q_delta, std::abs(dq));
       }
 
       locked_count += 1;
@@ -1005,214 +983,6 @@ private:
       stance_anchor_valid_[1] ? 1 : 0,
       stance_anchor_valid_[2] ? 1 : 0,
       stance_anchor_valid_[3] ? 1 : 0
-    );
-  }
-
-  int get_debug_crawl_swing_leg_and_phase(double &phase) {
-    double phase0 = debug_contact_phase_;
-    while (phase0 >= 240.0) phase0 -= 240.0;
-    while (phase0 < 0.0) phase0 += 240.0;
-
-    int swing_leg = 0;
-    double local_phase = 0.0;
-
-    if (phase0 < 60.0) {
-      swing_leg = 0;              // FL
-      local_phase = phase0 / 60.0;
-    } else if (phase0 < 120.0) {
-      swing_leg = 3;              // RR
-      local_phase = (phase0 - 60.0) / 60.0;
-    } else if (phase0 < 180.0) {
-      swing_leg = 1;              // FR
-      local_phase = (phase0 - 120.0) / 60.0;
-    } else {
-      swing_leg = 2;              // RL
-      local_phase = (phase0 - 180.0) / 60.0;
-    }
-
-    phase = clamp_scalar(local_phase, 0.0, 1.0);
-    return swing_leg;
-  }
-
-  void apply_debug_stance_support_torque_to_msg(std::vector<double>& data) {
-    if (!this->get_parameter("use_debug_stance_support_torque").as_bool()) {
-      return;
-    }
-    if (data.size() < 61) {
-      return;
-    }
-
-    bool hard_contacts[4] = {true, true, true, true};
-    compute_hard_trot_contacts(hard_contacts);
-
-    const double fz_per_stance =
-      clamp_scalar(this->get_parameter("debug_stance_support_force_n").as_double(), 0.0, 80.0);
-    const double tau_limit =
-      clamp_scalar(this->get_parameter("debug_stance_support_tau_limit").as_double(), 0.0, 40.0);
-    const double z_sign =
-      this->get_parameter("debug_stance_support_z_sign").as_double() >= 0.0 ? 1.0 : -1.0;
-
-    double tau_l1_add = 0.0;
-    int stance_count = 0;
-    double max_tau_add = 0.0;
-
-    for (int leg = 0; leg < 4; ++leg) {
-      if (!hard_contacts[leg]) {
-        continue;  // no support torque on swing leg
-      }
-
-      stance_count += 1;
-
-      Eigen::Vector3d f_foot = Eigen::Vector3d::Zero();
-      f_foot[2] = z_sign * fz_per_stance;
-
-      const Eigen::Matrix3d J =
-        a1_state_.j_foot.block<3, 3>(3 * leg, 3 * leg);
-
-      Eigen::Vector3d tau_leg = J.transpose() * f_foot;
-
-      for (int j = 0; j < 3; ++j) {
-        tau_leg[j] = clamp_scalar(tau_leg[j], -tau_limit, tau_limit);
-
-        const int leg_major_i = 3 * leg + j;
-        const int isaac_i = ISAAC_TO_LEG_MAJOR[leg_major_i];  // leg-major -> Isaac
-        const int msg_i = 49 + isaac_i;
-
-        data[msg_i] += tau_leg[j];
-
-        tau_l1_add += std::abs(tau_leg[j]);
-        max_tau_add = std::max(max_tau_add, std::abs(tau_leg[j]));
-      }
-    }
-
-    RCLCPP_INFO_THROTTLE(
-      this->get_logger(),
-      *this->get_clock(),
-      500,
-      "debug_stance_support_torque enabled=1 stance_count=%d fz_per_stance=%.2f z_sign=%.1f "
-      "tau_limit=%.2f tau_l1_add=%.3f max_tau_add=%.3f hard_contact=[%d %d %d %d]",
-      stance_count,
-      fz_per_stance,
-      z_sign,
-      tau_limit,
-      tau_l1_add,
-      max_tau_add,
-      hard_contacts[0] ? 1 : 0,
-      hard_contacts[1] ? 1 : 0,
-      hard_contacts[2] ? 1 : 0,
-      hard_contacts[3] ? 1 : 0
-    );
-  }
-
-  void apply_debug_crawl_swing_ik_to_msg(std::vector<double>& data) {
-    if (!this->get_parameter("use_debug_crawl_swing_ik").as_bool()) {
-      return;
-    }
-    if (data.size() < 13) {
-      return;
-    }
-
-    double phase = 0.0;
-    int swing_leg = get_debug_crawl_swing_leg_and_phase(phase);
-
-    if (this->get_parameter("debug_crawl_swing_manual_enable").as_bool()) {
-      swing_leg = static_cast<int>(
-        clamp_scalar(
-          static_cast<double>(this->get_parameter("debug_crawl_swing_manual_leg").as_int()),
-          0.0,
-          3.0
-        )
-      );
-      phase = clamp_scalar(
-        this->get_parameter("debug_crawl_swing_manual_phase").as_double(),
-        0.0,
-        1.0
-      );
-    }
-
-    const double clearance =
-      clamp_scalar(this->get_parameter("debug_crawl_swing_clearance").as_double(), 0.0, 0.12);
-    const double max_joint_delta =
-      clamp_scalar(this->get_parameter("debug_crawl_swing_max_joint_delta").as_double(), 0.0, 0.50);
-    const double max_msg_delta =
-      clamp_scalar(this->get_parameter("debug_crawl_swing_max_msg_delta").as_double(), 0.0, 0.20);
-    const double lambda =
-      clamp_scalar(this->get_parameter("debug_crawl_swing_dls_lambda").as_double(), 1.0e-4, 1.0);
-    const int iters = static_cast<int>(
-      std::max<int64_t>(1, this->get_parameter("debug_crawl_swing_ik_iters").as_int())
-    );
-
-    const double lift = clearance * std::sin(3.14159265358979323846 * phase);
-
-    const Eigen::Vector3d p_cur = a1_state_.foot_pos_rel.col(swing_leg);
-    Eigen::Vector3d p_target = p_cur;
-
-    // In this FK convention, increasing relative z should be upward.
-    // z_sign lets us A/B test the sign if the visual motion does not match.
-    const double z_sign =
-      this->get_parameter("debug_crawl_swing_z_sign").as_double() >= 0.0 ? 1.0 : -1.0;
-    p_target[2] = p_cur[2] + z_sign * lift;
-
-    const Eigen::Vector3d q_seed = a1_state_.joint_pos.segment<3>(3 * swing_leg);
-    const Eigen::Vector3d q_ik = solve_leg_ik_dls(
-      swing_leg,
-      q_seed,
-      p_target,
-      iters,
-      lambda,
-      max_joint_delta
-    );
-
-    double max_applied_delta = 0.0;
-
-    for (int j = 0; j < 3; ++j) {
-      const int leg_major_i = 3 * swing_leg + j;
-      const int isaac_i = ISAAC_TO_LEG_MAJOR[leg_major_i];  // leg-major -> Isaac
-      const int msg_i = 1 + isaac_i;
-
-      const double nominal_target = data[msg_i];
-      const double raw_delta = q_ik[j] - q_seed[j];
-
-      double joint_max_msg_delta = max_msg_delta;
-      if (j == 0) {
-        joint_max_msg_delta = clamp_scalar(
-          this->get_parameter("debug_crawl_swing_hip_max_msg_delta").as_double(),
-          0.0,
-          max_msg_delta
-        );
-      } else if (j == 1) {
-        joint_max_msg_delta = clamp_scalar(
-          this->get_parameter("debug_crawl_swing_thigh_max_msg_delta").as_double(),
-          0.0,
-          max_msg_delta
-        );
-      } else {
-        joint_max_msg_delta = clamp_scalar(
-          this->get_parameter("debug_crawl_swing_calf_max_msg_delta").as_double(),
-          0.0,
-          max_msg_delta
-        );
-      }
-
-      const double clamped_delta = clamp_scalar(raw_delta, -joint_max_msg_delta, joint_max_msg_delta);
-
-      data[msg_i] = nominal_target + clamped_delta;
-      max_applied_delta = std::max(max_applied_delta, std::abs(clamped_delta));
-    }
-
-    RCLCPP_INFO_THROTTLE(
-      this->get_logger(),
-      *this->get_clock(),
-      500,
-      "debug_crawl_swing_ik enabled=1 swing_leg=%d phase=%.3f lift=%.4f clearance=%.4f "
-      "p_cur_z=%.4f p_tgt_z=%.4f max_msg_delta=%.4f",
-      swing_leg,
-      phase,
-      lift,
-      clearance,
-      p_cur[2],
-      p_target[2],
-      max_applied_delta
     );
   }
 
@@ -1443,55 +1213,15 @@ private:
     const int calf_j = 8 + leg;
 
     double lift_shape = 1.0;
-    if (this->get_parameter("swing_joint_lift_phase_shape").as_bool()) {
-      double phase0 = debug_contact_phase_;
-      while (phase0 >= 240.0) phase0 -= 240.0;
-      while (phase0 < 0.0) phase0 += 240.0;
-
-      const std::string pattern =
-        this->get_parameter("debug_contact_pattern").as_string();
-
+    if (this->get_parameter("swing_joint_lift_phase_shape").as_bool() &&
+        swing_debug_state_initialized_) {
+      const double counter = swing_debug_state_.gait_counter[leg];
+      const double swing_start = swing_debug_state_.counter_per_swing;
       double phase = 0.0;
-
-      if (pattern == "crawl") {
-        int active_swing_leg = 0;
-        double local_phase = 0.0;
-
-        if (phase0 < 60.0) {
-          active_swing_leg = 0;          // FL
-          local_phase = phase0 / 60.0;
-        } else if (phase0 < 120.0) {
-          active_swing_leg = 3;          // RR
-          local_phase = (phase0 - 60.0) / 60.0;
-        } else if (phase0 < 180.0) {
-          active_swing_leg = 1;          // FR
-          local_phase = (phase0 - 120.0) / 60.0;
-        } else {
-          active_swing_leg = 2;          // RL
-          local_phase = (phase0 - 180.0) / 60.0;
-        }
-
-        if (leg == active_swing_leg) {
-          phase = clamp_scalar(local_phase, 0.0, 1.0);
-        } else {
-          phase = 0.0;
-        }
-      } else {
-        // Trot fallback.
-        const bool diag_a = phase0 < 120.0;
-        const bool leg_is_swing =
-          diag_a
-            ? (leg == 1 || leg == 2)
-            : (leg == 0 || leg == 3);
-
-        if (leg_is_swing) {
-          phase = diag_a ? (phase0 / 120.0) : ((phase0 - 120.0) / 120.0);
-          phase = clamp_scalar(phase, 0.0, 1.0);
-        } else {
-          phase = 0.0;
-        }
+      if (counter > swing_start) {
+        phase = (counter - swing_start) / swing_debug_state_.counter_per_swing;
       }
-
+      phase = clamp_scalar(phase, 0.0, 1.0);
       lift_shape = std::sin(3.14159265358979323846 * phase);
     }
 
@@ -2220,30 +1950,21 @@ private:
       tau_l1 += std::abs(tau_isaac[i]);
     }
     
-    if (activation_ready && allow_gait_tasks && state_fresh) {
+    if (allow_gait_tasks && state_fresh) {
       update_debug_contact_phase();
     }
 
-    if (activation_ready && allow_gait_tasks && state_fresh) {
+    if (allow_gait_tasks && state_fresh) {
       apply_stance_foot_lock_to_msg(msg.data);
-    }
-
-    if (activation_ready && allow_gait_tasks && state_fresh) {
-      apply_debug_crawl_swing_ik_to_msg(msg.data);
     }
 
     if (allow_swing_ik_target && state_fresh) {
       apply_swing_ik_target_to_msg(msg.data);
     }
 
-    if (activation_ready && allow_gait_tasks && state_fresh) {
+    if (allow_gait_tasks && state_fresh) {
       apply_swing_joint_lift_bias_to_msg(msg.data);
     }
-
-    if (activation_ready && allow_gait_tasks && state_fresh) {
-      apply_debug_stance_support_torque_to_msg(msg.data);
-    }
-
     cmd_pub_->publish(msg);
 
     if (print_baseline_debug) {
@@ -2318,6 +2039,8 @@ private:
   bool swing_debug_state_initialized_{false};
   int warmup_settled_counter_{0};
   bool warmup_ready_logged_{false};
+  bool activation_output_latched_{false};
+  double debug_contact_phase_{0.0};
   bool activation_output_latched_{false};
   double debug_contact_phase_{0.0};
 

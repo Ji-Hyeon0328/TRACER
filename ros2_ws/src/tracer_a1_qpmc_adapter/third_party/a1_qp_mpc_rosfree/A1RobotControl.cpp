@@ -111,6 +111,23 @@ void A1RobotControl::update_plan(A1CtrlStates &state, double dt) {
 
         state.foot_pos_target_abs.block<3, 1>(0, i) = state.root_rot_mat * state.foot_pos_target_rel.block<3, 1>(0, i);
         state.foot_pos_target_world.block<3, 1>(0, i) = state.foot_pos_target_abs.block<3, 1>(0, i) + state.root_pos;
+
+        // TRACER debug patch:
+        // The original Raibert foothold update changes mostly x/y.
+        // For Isaac adapter visualization/debugging, explicitly lift swing-foot target z.
+        // In this gait convention: plan_contacts[i] == false means swing.
+        if (state.movement_mode && !state.plan_contacts[i]) {
+            double swing_phase = 0.0;
+            const double denom = std::max(1e-6, state.counter_per_gait - state.counter_per_swing);
+            swing_phase = (state.gait_counter(i) - state.counter_per_swing) / denom;
+            if (swing_phase < 0.0) swing_phase = 0.0;
+            if (swing_phase > 1.0) swing_phase = 1.0;
+
+            constexpr double tracer_swing_clearance = 0.04;  // 4 cm debug lift
+            const double lift = tracer_swing_clearance * std::sin(M_PI * swing_phase);
+
+            state.foot_pos_target_world(2, i) += lift;
+        }
     }
 }
 
@@ -194,7 +211,8 @@ void A1RobotControl::generate_swing_legs_ctrl(A1CtrlStates &state, double dt) {
         }
     }
 
-    std::cout << "foot_pos_recent_contact z: " << state.foot_pos_recent_contact.block<1, 4>(2, 0) << std::endl;
+    // Disabled in TRACER adapter: too verbose for ROS2 dry-run logs.
+    // std::cout << "foot_pos_recent_contact z: " << state.foot_pos_recent_contact.block<1, 4>(2, 0) << std::endl;
 
     state.foot_forces_kin = foot_forces_kin;
 }
@@ -244,8 +262,10 @@ Eigen::Matrix<double, 3, NUM_LEG> A1RobotControl::compute_grf(A1CtrlStates &stat
         euler_error(2) = state.root_euler_d(2) + 3.1415926 * 2 - state.root_euler(2);
     }
 
-    // only do terrain adaptation in MPC
-    if (state.stance_leg_control_type == 1) {
+    // 0: QP-style stance force control, 1: Convex MPC.
+    // The original ROS-free port had this as == 1, which made the later
+    // ConvexMPC else-if branch unreachable.
+    if (state.stance_leg_control_type == 0) {
         Eigen::Vector3d surf_coef = compute_walking_surface(state);
         Eigen::Vector3d flat_ground_coef;
         flat_ground_coef << 0, 0, 1;
@@ -369,12 +389,18 @@ Eigen::Matrix<double, 3, NUM_LEG> A1RobotControl::compute_grf(A1CtrlStates &stat
         // if the thread is slowed down, dt becomes large, then MPC will output very large force and torque value
         // which will cause over current. Here we use a new mpc_dt, this should be roughly close to the average dt
         // of thread 1 
-        double mpc_dt = 0.0025;
-
+        //double mpc_dt = 0.0025;
+	
         // in simulation, use dt has no problem
-        if (use_sim_time == "true") {
-            mpc_dt = dt;
-        }
+        //if (use_sim_time == "true") {
+        //    mpc_dt = dt;
+        //}
+
+       	double mpc_dt = state.plan_dt;
+       	
+       	if (mpc_dt <= 1e-6) {
+       		mpc_dt=0.02;
+       	}
 
         // initialize the desired mpc states trajectory
         state.root_lin_vel_d_world = state.root_rot_mat * state.root_lin_vel_d;
