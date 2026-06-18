@@ -1,0 +1,47 @@
+style_set_name: tracer_style_presets_v0
+
+styles:
+  - name: cautious
+    beta_hint: [0.20, 0.65, 0.15]
+    command:
+      vx: 0.12
+      yaw_rate: 0.0
+      body_height: 0.31
+      swing_clearance: 0.060
+      enable: 1.0
+
+  - name: nominal
+    beta_hint: [0.3333333333, 0.3333333333, 0.3333333333]
+    command:
+      vx: 0.21
+      yaw_rate: 0.0
+      body_height: 0.30
+      swing_clearance: 0.035
+      enable: 1.0
+
+  - name: fast
+    beta_hint: [0.70, 0.20, 0.10]
+    command:
+      vx: 0.28
+      yaw_rate: 0.0
+      body_height: 0.295
+      swing_clearance: 0.030
+      enable: 1.0
+
+  - name: high_clearance
+    beta_hint: [0.25, 0.55, 0.20]
+    command:
+      vx: 0.18
+      yaw_rate: 0.0
+      body_height: 0.31
+      swing_clearance: 0.070
+      enable: 1.0
+
+  - name: energy_saving
+    beta_hint: [0.20, 0.25, 0.55]
+    command:
+      vx: 0.16
+      yaw_rate: 0.0
+      body_height: 0.295
+      swing_clearance: 0.025
+      enable: 1.0
