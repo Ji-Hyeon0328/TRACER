@@ -14,6 +14,12 @@ ps -eo pid,comm,args | awk '\''$2=="gazebo_a1_ctrl" || ($2=="python" && $0 ~ /ro
 '
 
 echo
+echo "[TRACER] clear previous controller launch log"
+sudo docker exec "$CTRL_CONTAINER" bash --noprofile --norc -lc '
+: > /tmp/tracer_a1_ctrl.launch.log
+' || true
+
+echo
 echo "[TRACER] start roslaunch a1_cpp a1_ctrl.launch type:=gazebo solver_type:=mpc"
 sudo docker exec -d "$CTRL_CONTAINER" bash --noprofile --norc -lc '
 source /opt/ros/melodic/setup.bash
