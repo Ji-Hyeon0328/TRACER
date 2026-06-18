@@ -52,24 +52,24 @@ enable = float(os.environ.get("TRACER_STYLE_ENABLE", "1.0"))
 hz = float(os.environ.get("TRACER_STYLE_HZ", "20"))
 duration = float(os.environ.get("TRACER_STYLE_DURATION_SEC", "30"))
 
-rospy.init_node("tracer_style_mpc_ref_ros1_publisher", anonymous=True)
+rospy.init_node("tracer_style_mpc_ref_ros1_publisher", anonymous=True, disable_signals=True)
 pub = rospy.Publisher("/tracer/mpc_reference", Float64MultiArray, queue_size=10)
 
 time.sleep(0.5)
 
-rate = rospy.Rate(hz)
+dt = 1.0 / max(hz, 1.0)
 t0 = time.time()
 counter = 0
 
-print("[TRACER] ROS1 style publisher started: style=%s vx=%.3f yaw=%.3f h=%.3f clear=%.3f enable=%.1f duration=%.1f" %
-      (style_name, vx, yaw_rate, body_height, clearance, enable, duration))
+print("[TRACER] ROS1 style publisher started: style=%s vx=%.3f yaw=%.3f h=%.3f clear=%.3f enable=%.1f duration=%.1f hz=%.1f" %
+      (style_name, vx, yaw_rate, body_height, clearance, enable, duration, hz))
 
 while not rospy.is_shutdown() and (time.time() - t0) < duration:
     msg = Float64MultiArray()
     msg.data = [float(counter), vx, yaw_rate, body_height, clearance, enable]
     pub.publish(msg)
     counter += 1
-    rate.sleep()
+    time.sleep(dt)
 
 print("[TRACER] ROS1 style publisher finished: sent=%d" % counter)
 PY
