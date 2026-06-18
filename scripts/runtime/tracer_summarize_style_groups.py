@@ -89,7 +89,11 @@ def main():
         .sort_values(["terrain", "style"])
     )
 
-    out_csv = Path(args.out) if args.out else csv_path.with_name("style_mission_group_summary.csv")
+    if args.out:
+        out_csv = Path(args.out)
+    else:
+        suffix = "_success_only" if args.success_only else ""
+        out_csv = csv_path.with_name(f"style_mission_group_summary{suffix}.csv")
     out_md = out_csv.with_suffix(".md")
 
     group.to_csv(out_csv, index=False)
