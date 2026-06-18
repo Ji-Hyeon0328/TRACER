@@ -1,98 +1,112 @@
 terrain_set_name: gazebo_terrain_set_v0
-
 terrains:
-  - name: flat_normal
-    world_name: earth
-    category: flat
-    description: nominal flat Gazebo earth world
-    params:
-      mu: 0.9
-      mu2: 0.9
-      slope_deg: 0.0
-      roughness_amp_m: 0.0
-      slip: 0.0
-      contact_profile: nominal
-
-  - name: slope_5deg
-    world_name: tracer_slope_5deg
-    category: slope
-    description: approximated rigid slope
-    params:
-      mu: 0.8
-      mu2: 0.8
-      slope_deg: 5.0
-      roughness_amp_m: 0.0
-      slip: 0.0
-      contact_profile: nominal
-
-  - name: slope_10deg
-    world_name: tracer_slope_10deg
-    category: slope
-    description: approximated rigid slope
-    params:
-      mu: 0.8
-      mu2: 0.8
-      slope_deg: 10.0
-      roughness_amp_m: 0.0
-      slip: 0.0
-      contact_profile: nominal
-
-  - name: rough_low
-    world_name: tracer_rough_low
-    category: rough
-    description: random rough plane with low height perturbation
-    params:
-      mu: 0.8
-      mu2: 0.8
-      slope_deg: 0.0
-      roughness_amp_m: 0.02
-      slip: 0.0
-      contact_profile: nominal
-
-  - name: rough_mid
-    world_name: tracer_rough_mid
-    category: rough
-    description: random rough plane with medium height perturbation
-    params:
-      mu: 0.8
-      mu2: 0.8
-      slope_deg: 0.0
-      roughness_amp_m: 0.04
-      slip: 0.0
-      contact_profile: nominal
-
-  - name: slippery_flat
-    world_name: tracer_slippery_flat
-    category: slippery
-    description: icy/muddy/sandy-like low friction approximation on flat ground
-    params:
-      mu: 0.25
-      mu2: 0.25
-      slope_deg: 0.0
-      roughness_amp_m: 0.0
-      slip: 0.2
-      contact_profile: low_friction
-
-  - name: slippery_slope_5deg
-    world_name: tracer_slippery_slope_5deg
-    category: slippery_slope
-    description: icy slope approximation
-    params:
-      mu: 0.25
-      mu2: 0.25
-      slope_deg: 5.0
-      roughness_amp_m: 0.0
-      slip: 0.2
-      contact_profile: low_friction
-
-  - name: sponge_like_flat
-    world_name: tracer_sponge_like_flat
-    category: soft_contact
-    description: sponge-like soft contact approximation using damping/slip profile
-    params:
-      mu: 0.6
-      mu2: 0.6
-      slope_deg: 0.0
-      roughness_amp_m: 0.0
-      slip: 0.1
-      contact_profile: soft_damped
+- name: flat_normal
+  world_name: earth
+  category: flat
+  description: nominal flat Gazebo earth world
+  params:
+    mu: 0.9
+    mu2: 0.9
+    slope_deg: 0.0
+    roughness_amp_m: 0.0
+    slip: 0.0
+    contact_profile: nominal
+- name: slope_5deg
+  world_name: tracer_slope_5deg
+  category: slope
+  description: approximated rigid slope
+  params:
+    mu: 0.8
+    mu2: 0.8
+    slope_deg: 5.0
+    roughness_amp_m: 0.0
+    slip: 0.0
+    contact_profile: nominal
+- name: slope_10deg
+  world_name: tracer_slope_10deg
+  category: slope
+  description: approximated rigid slope
+  params:
+    mu: 0.8
+    mu2: 0.8
+    slope_deg: 10.0
+    roughness_amp_m: 0.0
+    slip: 0.0
+    contact_profile: nominal
+- name: slippery_mild_flat
+  world_name: tracer_slippery_mild_flat
+  category: slippery
+  description: mild low-friction flat terrain for stable slippery sanity tests
+  params:
+    mu: 0.55
+    mu2: 0.55
+    slope_deg: 0.0
+    roughness_amp_m: 0.0
+    slip: 0.03
+    contact_profile: low_friction
+- name: slippery_mid_flat
+  world_name: tracer_slippery_mid_flat
+  category: slippery
+  description: moderate low-friction flat terrain
+  params:
+    mu: 0.4
+    mu2: 0.4
+    slope_deg: 0.0
+    roughness_amp_m: 0.0
+    slip: 0.08
+    contact_profile: low_friction
+- name: slippery_high_flat
+  world_name: tracer_slippery_high_flat
+  category: slippery
+  description: extreme low-friction flat terrain, close to icy/slipping failure case
+  params:
+    mu: 0.25
+    mu2: 0.25
+    slope_deg: 0.0
+    roughness_amp_m: 0.0
+    slip: 0.2
+    contact_profile: low_friction
+- name: rough_low
+  world_name: tracer_rough_low
+  category: rough
+  description: random rough plane with low height perturbation
+  params:
+    mu: 0.8
+    mu2: 0.8
+    slope_deg: 0.0
+    roughness_amp_m: 0.02
+    slip: 0.0
+    contact_profile: nominal
+- name: rough_mid
+  world_name: tracer_rough_mid
+  category: rough
+  description: random rough plane with medium height perturbation
+  params:
+    mu: 0.8
+    mu2: 0.8
+    slope_deg: 0.0
+    roughness_amp_m: 0.04
+    slip: 0.0
+    contact_profile: nominal
+- name: slippery_slope_5deg
+  world_name: tracer_slippery_slope_5deg
+  category: slippery_slope
+  description: icy slope approximation
+  params:
+    mu: 0.25
+    mu2: 0.25
+    slope_deg: 5.0
+    roughness_amp_m: 0.0
+    slip: 0.2
+    contact_profile: low_friction
+- name: sponge_like_flat
+  world_name: tracer_sponge_like_flat
+  category: soft_contact
+  description: sponge-like soft contact approximation using damping/slip profile
+  params:
+    mu: 0.6
+    mu2: 0.6
+    slope_deg: 0.0
+    roughness_amp_m: 0.0
+    slip: 0.1
+    contact_profile: soft_damped

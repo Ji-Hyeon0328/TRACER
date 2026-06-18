@@ -122,6 +122,10 @@ echo
 echo "============================================================"
 echo "[5/10] Ensure MPC reference bridge/subscriber"
 echo "============================================================"
+echo
+echo "[TRACER] restart controller after robust reset/qwerty cleanup"
+scripts/runtime/tracer_restart_a1_qpmc_controller_only.sh
+
 scripts/runtime/tracer_ensure_mpc_ref_bridge.sh || true
 
 echo
