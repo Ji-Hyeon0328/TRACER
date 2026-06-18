@@ -43,6 +43,15 @@ mkdir -p "$OUT_DIR" "$LOG_DIR"
 
 STYLE_PUB_PID=""
 
+
+restore_terminal() {
+  if [ -n "${ORIG_STTY:-}" ]; then
+    stty "$ORIG_STTY" 2>/dev/null || stty sane 2>/dev/null || true
+  else
+    stty sane 2>/dev/null || true
+  fi
+}
+
 cleanup() {
   set +e
   echo
@@ -77,6 +86,7 @@ cleanup() {
   else
     stty sane 2>/dev/null || true
   fi
+  restore_terminal
 }
 trap cleanup EXIT
 
@@ -142,7 +152,7 @@ echo "============================================================"
 echo "[7/10] Generate waypoints from current odom"
 echo "============================================================"
 export TRACER_WAYPOINT_DISTANCES="$WAYPOINT_DISTANCES"
-scripts/runtime/tracer_generate_waypoints_from_current_odom.sh
+scripts/runtime/tracer_generate_waypoints_from_current_odom.sh "$WAYPOINT_DISTANCES"
 
 WAYPOINT_LOG="$(ls -td "$ROOT"/logs/waypoint_overlay_* 2>/dev/null | head -1)/waypoint_manager_v1.log"
 echo "[TRACER] waypoint log: $WAYPOINT_LOG"
@@ -279,6 +289,8 @@ trap - EXIT
 cleanup >/dev/null 2>&1 || true
 
 echo
+restore_terminal
+
 echo "============================================================"
 echo "[TRACER] Style preset mission finished"
 echo "============================================================"

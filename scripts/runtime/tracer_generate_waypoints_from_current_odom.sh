@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 set -eo pipefail
+
+# TRACER_WAYPOINT_DISTANCE_OVERRIDE_PATCH
+# Prefer first positional argument, then environment variable, then default.
+TRACER_WAYPOINT_DISTANCES="${1:-${TRACER_WAYPOINT_DISTANCES:-1.0,2.0,3.0}}"
+
 export AMENT_TRACE_SETUP_FILES="${AMENT_TRACE_SETUP_FILES:-}"
 
 ROOT="${TRACER_ROOT:-$HOME/Tracer/TRACER}"
