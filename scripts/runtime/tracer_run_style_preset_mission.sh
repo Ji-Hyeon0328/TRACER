@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 set -eo pipefail
 
+# Save terminal state because docker/ROS background shutdown can occasionally
+# leave the interactive terminal in a broken line discipline state.
+ORIG_STTY="$(stty -g 2>/dev/null || true)"
+
 ROOT="${TRACER_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)}"
 cd "$ROOT"
 
@@ -44,9 +48,18 @@ cleanup() {
   echo
   echo "[TRACER] cleanup style mission"
   if [ -n "$STYLE_PUB_PID" ]; then
-    kill "$STYLE_PUB_PID" 2>/dev/null || true
+    # Try to stop the whole background publisher process tree.
+    kill -INT "$STYLE_PUB_PID" 2>/dev/null || true
+    sleep 0.2
+    kill -TERM "$STYLE_PUB_PID" 2>/dev/null || true
     wait "$STYLE_PUB_PID" 2>/dev/null || true
   fi
+
+  # In case a ROS1 Python publisher remains inside the controller container.
+  sudo docker exec "${TRACER_A1_CONTAINER:-a1_cpp_ctrl_docker}" bash --noprofile --norc -lc '
+  pkill -f "tracer_style_mpc_ref_ros1_publisher" || true
+  ' >/dev/null 2>&1 || true
+
 
   TRACER_STYLE_NAME=stop \
   TRACER_STYLE_VX=0.0 \
@@ -58,6 +71,12 @@ cleanup() {
   scripts/runtime/tracer_publish_style_mpc_ref_ros1.sh >/tmp/tracer_style_stop.log 2>&1 || true
 
   scripts/runtime/tracer_stop_mission.sh >/tmp/tracer_style_stop_mission.log 2>&1 || true
+
+  if [ -n "$ORIG_STTY" ]; then
+    stty "$ORIG_STTY" 2>/dev/null || true
+  else
+    stty sane 2>/dev/null || true
+  fi
 }
 trap cleanup EXIT
 
@@ -122,7 +141,7 @@ echo
 echo "============================================================"
 echo "[7/10] Generate waypoints from current odom"
 echo "============================================================"
-TRACER_WAYPOINT_DISTANCES="$WAYPOINT_DISTANCES" \
+export TRACER_WAYPOINT_DISTANCES="$WAYPOINT_DISTANCES"
 scripts/runtime/tracer_generate_waypoints_from_current_odom.sh
 
 WAYPOINT_LOG="$(ls -td "$ROOT"/logs/waypoint_overlay_* 2>/dev/null | head -1)/waypoint_manager_v1.log"
@@ -140,7 +159,7 @@ echo "[9/10] Start style publisher and unpause mission"
 echo "============================================================"
 TRACER_STYLE_HZ="$STYLE_HZ" \
 TRACER_STYLE_DURATION_SEC="$STYLE_DURATION_SEC" \
-scripts/runtime/tracer_publish_style_mpc_ref_ros1.sh > "$LOG_DIR/style_publisher.log" 2>&1 &
+scripts/runtime/tracer_publish_style_mpc_ref_ros1.sh > "$LOG_DIR/style_publisher.log" 2>&1 < /dev/null &
 STYLE_PUB_PID=$!
 
 sleep 1
@@ -264,4 +283,8 @@ echo "============================================================"
 echo "[TRACER] Style preset mission finished"
 echo "============================================================"
 echo "[TRACER] status:  $MISSION_STATUS"
+if [ -n "$ORIG_STTY" ]; then
+  stty "$ORIG_STTY" 2>/dev/null || stty sane 2>/dev/null || true
+fi
+
 echo "[TRACER] out dir: $OUT_DIR"
