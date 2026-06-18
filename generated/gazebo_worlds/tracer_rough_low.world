@@ -1,0 +1,4123 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="default">
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <physics name="default_physics" type="ode">
+      <max_step_size>0.00025</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+      <ode>
+        <solver>
+          <type>quick</type>
+          <iters>50</iters>
+          <sor>1.3</sor>
+        </solver>
+        <constraints>
+          <cfm>0.0</cfm>
+          <erp>0.2</erp>
+          <contact_max_correcting_vel>100.0</contact_max_correcting_vel>
+          <contact_surface_layer>0.001</contact_surface_layer>
+        </constraints>
+      </ode>
+    </physics>
+
+    <model name="tracer_base_ground">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>30 12</size>
+            </plane>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>30 12</size>
+            </plane>
+          </geometry>
+          <material>
+            <ambient>0.45 0.45 0.45 1</ambient>
+            <diffuse>0.55 0.55 0.55 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_0_0">
+      <static>true</static>
+      <pose>0.500 -0.900 0.0049 0 0 -0.4276</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.201 0.271 0.0099</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.201 0.271 0.0099</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_0_1">
+      <static>true</static>
+      <pose>0.500 -0.450 0.0065 0 0 0.0074</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.231 0.188 0.0130</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.231 0.188 0.0130</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_0_2">
+      <static>true</static>
+      <pose>0.500 0.000 0.0028 0 0 -0.4093</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.241 0.190 0.0056</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.241 0.190 0.0056</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_0_3">
+      <static>true</static>
+      <pose>0.500 0.450 0.0057 0 0 -0.2768</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.296 0.197 0.0114</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.296 0.197 0.0114</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_0_4">
+      <static>true</static>
+      <pose>0.500 0.900 0.0072 0 0 -0.1033</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.313 0.261 0.0144</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.313 0.261 0.0144</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_1_0">
+      <static>true</static>
+      <pose>0.950 -0.900 0.0098 0 0 -0.2104</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.187 0.300 0.0196</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.187 0.300 0.0196</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_1_1">
+      <static>true</static>
+      <pose>0.950 -0.450 0.0036 0 0 0.3161</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.196 0.223 0.0072</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.196 0.223 0.0072</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_1_2">
+      <static>true</static>
+      <pose>0.950 0.000 0.0039 0 0 -0.1276</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.261 0.269 0.0077</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.261 0.269 0.0077</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_1_3">
+      <static>true</static>
+      <pose>0.950 0.450 0.0066 0 0 -0.2940</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.189 0.188 0.0132</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.189 0.188 0.0132</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_1_4">
+      <static>true</static>
+      <pose>0.950 0.900 0.0076 0 0 0.0856</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.240 0.224 0.0152</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.240 0.224 0.0152</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_2_0">
+      <static>true</static>
+      <pose>1.400 -0.900 0.0059 0 0 0.1990</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.222 0.291 0.0118</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.222 0.291 0.0118</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_2_1">
+      <static>true</static>
+      <pose>1.400 -0.450 0.0043 0 0 0.3751</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.260 0.254 0.0087</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.260 0.254 0.0087</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_2_2">
+      <static>true</static>
+      <pose>1.400 0.000 0.0080 0 0 -0.3819</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.220 0.317 0.0159</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.220 0.317 0.0159</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_2_3">
+      <static>true</static>
+      <pose>1.400 0.450 0.0056 0 0 -0.0110</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.286 0.201 0.0113</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.286 0.201 0.0113</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_2_4">
+      <static>true</static>
+      <pose>1.400 0.900 0.0028 0 0 0.0730</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.274 0.287 0.0056</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.274 0.287 0.0056</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_3_0">
+      <static>true</static>
+      <pose>1.850 -0.900 0.0091 0 0 0.0944</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.224 0.277 0.0181</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.224 0.277 0.0181</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_3_1">
+      <static>true</static>
+      <pose>1.850 -0.450 0.0068 0 0 0.4447</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.244 0.298 0.0137</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.244 0.298 0.0137</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_3_2">
+      <static>true</static>
+      <pose>1.850 0.000 0.0061 0 0 0.2015</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.273 0.188 0.0121</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.273 0.188 0.0121</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_3_3">
+      <static>true</static>
+      <pose>1.850 0.450 0.0074 0 0 -0.2154</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.319 0.295 0.0147</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.319 0.295 0.0147</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_3_4">
+      <static>true</static>
+      <pose>1.850 0.900 0.0054 0 0 -0.0383</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.274 0.183 0.0108</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.274 0.183 0.0108</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_4_0">
+      <static>true</static>
+      <pose>2.300 -0.900 0.0038 0 0 0.2682</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.196 0.188 0.0075</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.196 0.188 0.0075</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_4_1">
+      <static>true</static>
+      <pose>2.300 -0.450 0.0035 0 0 0.3714</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.215 0.235 0.0069</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.215 0.235 0.0069</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_4_2">
+      <static>true</static>
+      <pose>2.300 0.000 0.0031 0 0 0.3834</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.243 0.257 0.0062</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.243 0.257 0.0062</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_4_3">
+      <static>true</static>
+      <pose>2.300 0.450 0.0086 0 0 -0.0847</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.301 0.219 0.0173</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.301 0.219 0.0173</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_4_4">
+      <static>true</static>
+      <pose>2.300 0.900 0.0052 0 0 -0.3491</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.304 0.314 0.0104</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.304 0.314 0.0104</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_5_0">
+      <static>true</static>
+      <pose>2.750 -0.900 0.0038 0 0 -0.0150</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.212 0.213 0.0076</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.212 0.213 0.0076</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_5_1">
+      <static>true</static>
+      <pose>2.750 -0.450 0.0069 0 0 -0.0811</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.217 0.181 0.0138</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.217 0.181 0.0138</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_5_2">
+      <static>true</static>
+      <pose>2.750 0.000 0.0053 0 0 0.1905</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.259 0.313 0.0105</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.259 0.313 0.0105</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_5_3">
+      <static>true</static>
+      <pose>2.750 0.450 0.0064 0 0 -0.4460</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.266 0.275 0.0127</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.266 0.275 0.0127</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_5_4">
+      <static>true</static>
+      <pose>2.750 0.900 0.0092 0 0 0.2979</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.289 0.302 0.0185</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.289 0.302 0.0185</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_6_0">
+      <static>true</static>
+      <pose>3.200 -0.900 0.0054 0 0 0.1343</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.236 0.194 0.0109</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.236 0.194 0.0109</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_6_1">
+      <static>true</static>
+      <pose>3.200 -0.450 0.0030 0 0 -0.3377</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.189 0.209 0.0059</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.189 0.209 0.0059</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_6_2">
+      <static>true</static>
+      <pose>3.200 0.000 0.0051 0 0 -0.3487</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.187 0.180 0.0101</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.187 0.180 0.0101</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_6_3">
+      <static>true</static>
+      <pose>3.200 0.450 0.0033 0 0 0.3743</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.231 0.184 0.0065</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.231 0.184 0.0065</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_6_4">
+      <static>true</static>
+      <pose>3.200 0.900 0.0071 0 0 -0.1526</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.201 0.215 0.0142</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.201 0.215 0.0142</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_7_0">
+      <static>true</static>
+      <pose>3.650 -0.900 0.0052 0 0 0.4931</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.197 0.299 0.0105</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.197 0.299 0.0105</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_7_1">
+      <static>true</static>
+      <pose>3.650 -0.450 0.0060 0 0 -0.3978</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.248 0.192 0.0120</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.248 0.192 0.0120</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_7_2">
+      <static>true</static>
+      <pose>3.650 0.000 0.0051 0 0 -0.3386</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.217 0.296 0.0101</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.217 0.296 0.0101</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_7_3">
+      <static>true</static>
+      <pose>3.650 0.450 0.0027 0 0 -0.3534</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.313 0.254 0.0053</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.313 0.254 0.0053</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_7_4">
+      <static>true</static>
+      <pose>3.650 0.900 0.0066 0 0 0.4785</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.184 0.254 0.0131</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.184 0.254 0.0131</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_8_0">
+      <static>true</static>
+      <pose>4.100 -0.900 0.0090 0 0 -0.1333</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.277 0.217 0.0179</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.277 0.217 0.0179</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_8_1">
+      <static>true</static>
+      <pose>4.100 -0.450 0.0038 0 0 0.2791</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.288 0.255 0.0075</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.288 0.255 0.0075</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_8_2">
+      <static>true</static>
+      <pose>4.100 0.000 0.0050 0 0 0.4849</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.211 0.294 0.0099</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.211 0.294 0.0099</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_8_3">
+      <static>true</static>
+      <pose>4.100 0.450 0.0089 0 0 0.2399</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.293 0.295 0.0178</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.293 0.295 0.0178</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_8_4">
+      <static>true</static>
+      <pose>4.100 0.900 0.0042 0 0 -0.4710</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.252 0.230 0.0084</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.252 0.230 0.0084</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_9_0">
+      <static>true</static>
+      <pose>4.550 -0.900 0.0027 0 0 0.1925</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.219 0.216 0.0054</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.219 0.216 0.0054</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_9_1">
+      <static>true</static>
+      <pose>4.550 -0.450 0.0097 0 0 0.4880</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.243 0.311 0.0193</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.243 0.311 0.0193</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_9_2">
+      <static>true</static>
+      <pose>4.550 0.000 0.0097 0 0 -0.2732</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.231 0.211 0.0193</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.231 0.211 0.0193</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_9_3">
+      <static>true</static>
+      <pose>4.550 0.450 0.0040 0 0 0.4003</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.209 0.267 0.0080</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.209 0.267 0.0080</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_9_4">
+      <static>true</static>
+      <pose>4.550 0.900 0.0088 0 0 0.2996</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.247 0.271 0.0176</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.247 0.271 0.0176</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_10_0">
+      <static>true</static>
+      <pose>5.000 -0.900 0.0031 0 0 0.2823</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.272 0.307 0.0063</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.272 0.307 0.0063</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_10_1">
+      <static>true</static>
+      <pose>5.000 -0.450 0.0081 0 0 0.2891</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.247 0.205 0.0163</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.247 0.205 0.0163</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_10_2">
+      <static>true</static>
+      <pose>5.000 0.000 0.0050 0 0 -0.1042</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.292 0.316 0.0100</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.292 0.316 0.0100</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_10_3">
+      <static>true</static>
+      <pose>5.000 0.450 0.0055 0 0 -0.3300</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.313 0.281 0.0110</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.313 0.281 0.0110</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_10_4">
+      <static>true</static>
+      <pose>5.000 0.900 0.0035 0 0 0.3065</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.201 0.307 0.0069</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.201 0.307 0.0069</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_11_0">
+      <static>true</static>
+      <pose>5.450 -0.900 0.0036 0 0 0.1573</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.296 0.317 0.0072</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.296 0.317 0.0072</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_11_1">
+      <static>true</static>
+      <pose>5.450 -0.450 0.0051 0 0 -0.4858</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.257 0.198 0.0103</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.257 0.198 0.0103</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_11_2">
+      <static>true</static>
+      <pose>5.450 0.000 0.0098 0 0 0.4336</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.271 0.254 0.0196</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.271 0.254 0.0196</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_11_3">
+      <static>true</static>
+      <pose>5.450 0.450 0.0058 0 0 -0.2890</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.302 0.296 0.0115</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.302 0.296 0.0115</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_11_4">
+      <static>true</static>
+      <pose>5.450 0.900 0.0044 0 0 0.0864</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.221 0.214 0.0088</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.221 0.214 0.0088</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_12_0">
+      <static>true</static>
+      <pose>5.900 -0.900 0.0044 0 0 0.4100</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.239 0.198 0.0089</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.239 0.198 0.0089</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_12_1">
+      <static>true</static>
+      <pose>5.900 -0.450 0.0052 0 0 0.4043</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.244 0.262 0.0103</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.244 0.262 0.0103</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_12_2">
+      <static>true</static>
+      <pose>5.900 0.000 0.0057 0 0 0.0318</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.308 0.250 0.0113</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.308 0.250 0.0113</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_12_3">
+      <static>true</static>
+      <pose>5.900 0.450 0.0064 0 0 -0.3169</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.183 0.242 0.0129</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.183 0.242 0.0129</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_12_4">
+      <static>true</static>
+      <pose>5.900 0.900 0.0025 0 0 -0.0265</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.292 0.204 0.0051</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.292 0.204 0.0051</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_13_0">
+      <static>true</static>
+      <pose>6.350 -0.900 0.0079 0 0 0.0183</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.258 0.226 0.0159</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.258 0.226 0.0159</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_13_1">
+      <static>true</static>
+      <pose>6.350 -0.450 0.0067 0 0 0.0603</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.290 0.195 0.0133</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.290 0.195 0.0133</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_13_2">
+      <static>true</static>
+      <pose>6.350 0.000 0.0044 0 0 0.0077</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.219 0.288 0.0087</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.219 0.288 0.0087</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_13_3">
+      <static>true</static>
+      <pose>6.350 0.450 0.0067 0 0 -0.0568</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.286 0.308 0.0134</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.286 0.308 0.0134</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_13_4">
+      <static>true</static>
+      <pose>6.350 0.900 0.0071 0 0 0.1927</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.251 0.252 0.0142</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.251 0.252 0.0142</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_14_0">
+      <static>true</static>
+      <pose>6.800 -0.900 0.0059 0 0 0.4415</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.255 0.247 0.0118</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.255 0.247 0.0118</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_14_1">
+      <static>true</static>
+      <pose>6.800 -0.450 0.0077 0 0 -0.2404</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.303 0.312 0.0155</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.303 0.312 0.0155</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_14_2">
+      <static>true</static>
+      <pose>6.800 0.000 0.0067 0 0 -0.3629</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.312 0.298 0.0134</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.312 0.298 0.0134</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_14_3">
+      <static>true</static>
+      <pose>6.800 0.450 0.0034 0 0 -0.2594</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.242 0.190 0.0068</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.242 0.190 0.0068</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_14_4">
+      <static>true</static>
+      <pose>6.800 0.900 0.0030 0 0 0.3970</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.274 0.290 0.0061</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.274 0.290 0.0061</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_15_0">
+      <static>true</static>
+      <pose>7.250 -0.900 0.0037 0 0 -0.3570</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.280 0.272 0.0073</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.280 0.272 0.0073</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_15_1">
+      <static>true</static>
+      <pose>7.250 -0.450 0.0091 0 0 0.4525</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.315 0.211 0.0182</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.315 0.211 0.0182</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_15_2">
+      <static>true</static>
+      <pose>7.250 0.000 0.0055 0 0 0.3324</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.248 0.319 0.0110</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.248 0.319 0.0110</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_15_3">
+      <static>true</static>
+      <pose>7.250 0.450 0.0037 0 0 -0.1609</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.240 0.252 0.0074</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.240 0.252 0.0074</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_15_4">
+      <static>true</static>
+      <pose>7.250 0.900 0.0040 0 0 -0.4805</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.225 0.281 0.0079</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.225 0.281 0.0079</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_16_0">
+      <static>true</static>
+      <pose>7.700 -0.900 0.0067 0 0 -0.1685</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.242 0.183 0.0133</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.242 0.183 0.0133</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_16_1">
+      <static>true</static>
+      <pose>7.700 -0.450 0.0072 0 0 0.4851</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.252 0.189 0.0144</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.252 0.189 0.0144</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_16_2">
+      <static>true</static>
+      <pose>7.700 0.000 0.0084 0 0 -0.2344</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.316 0.195 0.0168</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.316 0.195 0.0168</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_16_3">
+      <static>true</static>
+      <pose>7.700 0.450 0.0028 0 0 -0.3704</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.289 0.218 0.0056</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.289 0.218 0.0056</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_16_4">
+      <static>true</static>
+      <pose>7.700 0.900 0.0057 0 0 -0.2414</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.308 0.295 0.0113</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.308 0.295 0.0113</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_17_0">
+      <static>true</static>
+      <pose>8.150 -0.900 0.0036 0 0 0.2004</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.309 0.260 0.0072</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.309 0.260 0.0072</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_17_1">
+      <static>true</static>
+      <pose>8.150 -0.450 0.0032 0 0 -0.0747</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.188 0.276 0.0063</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.188 0.276 0.0063</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_17_2">
+      <static>true</static>
+      <pose>8.150 0.000 0.0030 0 0 0.3016</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.311 0.269 0.0061</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.311 0.269 0.0061</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_17_3">
+      <static>true</static>
+      <pose>8.150 0.450 0.0031 0 0 0.3628</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.300 0.189 0.0063</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.300 0.189 0.0063</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name="rough_patch_17_4">
+      <static>true</static>
+      <pose>8.150 0.900 0.0059 0 0 0.4267</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.227 0.257 0.0118</size>
+            </box>
+          </geometry>
+
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1000000.0</kp>
+                <kd>100.0</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.227 0.257 0.0118</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.38 0.34 0.28 1</ambient>
+            <diffuse>0.50 0.43 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+  </world>
+</sdf>
