@@ -10,6 +10,8 @@ cd "$ROOT"
 
 STYLE_CFG="${TRACER_STYLE_CONFIG:-configs/style_presets/style_presets_v0.yaml}"
 STYLE_NAME="${TRACER_STYLE_NAME:-nominal}"
+TERRAIN_NAME="${TRACER_TERRAIN_NAME:-unknown}"
+WORLD_NAME="${TRACER_WORLD_NAME:-unknown}"
 WAYPOINT_DISTANCES="${TRACER_WAYPOINT_DISTANCES:-1.0,2.0,3.0}"
 TIMEOUT_SEC="${TRACER_MISSION_TIMEOUT_SEC:-60}"
 STYLE_HZ="${TRACER_STYLE_HZ:-20}"
@@ -22,6 +24,8 @@ echo "============================================================"
 echo "[TRACER] root:      $ROOT"
 echo "[TRACER] style cfg: $STYLE_CFG"
 echo "[TRACER] style:     $STYLE_NAME"
+echo "[TRACER] terrain:   $TERRAIN_NAME"
+echo "[TRACER] world:     $WORLD_NAME"
 echo "[TRACER] distances: $WAYPOINT_DISTANCES"
 echo "[TRACER] timeout:   $TIMEOUT_SEC"
 
@@ -128,6 +132,21 @@ source /root/unitree_ws/devel/setup.bash
 source /root/A1_ctrl_ws/devel/setup.bash
 rostopic info /tracer/mpc_reference || true
 '
+
+echo
+echo "[TRACER] require /gazebo_a1_ctrl subscriber on /tracer/mpc_reference"
+if ! sudo docker exec "${TRACER_A1_CONTAINER:-a1_cpp_ctrl_docker}" bash --noprofile --norc -lc '
+source /opt/ros/melodic/setup.bash
+source /root/unitree_ws/devel/setup.bash
+source /root/A1_ctrl_ws/devel/setup.bash
+rostopic info /tracer/mpc_reference 2>/dev/null | grep -q "/gazebo_a1_ctrl"
+'; then
+  echo "[ERROR] /gazebo_a1_ctrl is not subscribed to /tracer/mpc_reference."
+  echo "[ERROR] Start or restart the A1-QP-MPC controller first:"
+  echo "        scripts/runtime/tracer_start_a1_qpmc_controller_only.sh"
+  exit 20
+fi
+echo "[TRACER] /gazebo_a1_ctrl subscriber confirmed."
 
 echo
 echo "============================================================"
@@ -255,6 +274,8 @@ meta = {
     "mission_status": "$MISSION_STATUS",
     "style_config": "$STYLE_CFG",
     "style_name": "$TRACER_STYLE_NAME",
+    "terrain_name": "$TERRAIN_NAME",
+    "world_name": "$WORLD_NAME",
     "style_command": {
         "vx": float("$TRACER_STYLE_VX"),
         "yaw_rate": float("$TRACER_STYLE_YAW_RATE"),
