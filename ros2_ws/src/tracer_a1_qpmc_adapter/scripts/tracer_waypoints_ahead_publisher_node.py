@@ -22,21 +22,29 @@ def parse_distances_csv(s: str):
 
 class TracerWaypointsAheadPublisherNode(Node):
     """
-    Publish /tracer/waypoints based on current odom frame.
+    Publish /tracer/waypoints ahead of the current robot pose.
 
-    Input:
-      /tracer/robot_odom_flat = [stamp, x, y, yaw, vx, vy]
+    Modes:
+      source_mode="odom":
+        wait for /tracer/robot_odom_flat = [stamp, x, y, yaw, vx, vy]
+
+      source_mode="gazebo_state" or "fixed_pose":
+        use initial_x, initial_y, initial_yaw parameters directly.
+        This is useful when Gazebo physics is paused and we do not want to
+        unpause only to get an odom sample.
 
     Outputs:
       /tracer/waypoints = [x0, y0, x1, y1, ...]
       /tracer/mission_cmd = [3] reset, then [1] start
-
-    This avoids using world-origin waypoints like [1.5, 0.0],
-    which can be wrong when odom x/y are already offset.
     """
 
     def __init__(self):
         super().__init__("tracer_waypoints_ahead_publisher_node")
+
+        self.declare_parameter("source_mode", "odom")
+        self.declare_parameter("initial_x", 0.0)
+        self.declare_parameter("initial_y", 0.0)
+        self.declare_parameter("initial_yaw", 0.0)
 
         self.declare_parameter("odom_topic", "/tracer/robot_odom_flat")
         self.declare_parameter("waypoints_topic", "/tracer/waypoints")
@@ -46,6 +54,11 @@ class TracerWaypointsAheadPublisherNode(Node):
         self.declare_parameter("publish_hz", 2.0)
         self.declare_parameter("publish_duration_sec", 5.0)
         self.declare_parameter("start_mission", True)
+
+        self.source_mode = str(self.get_parameter("source_mode").value)
+        self.initial_x = float(self.get_parameter("initial_x").value)
+        self.initial_y = float(self.get_parameter("initial_y").value)
+        self.initial_yaw = float(self.get_parameter("initial_yaw").value)
 
         self.odom_topic = self.get_parameter("odom_topic").value
         self.waypoints_topic = self.get_parameter("waypoints_topic").value
@@ -62,20 +75,35 @@ class TracerWaypointsAheadPublisherNode(Node):
         self.pub_waypoints = self.create_publisher(Float64MultiArray, self.waypoints_topic, 10)
         self.pub_mission = self.create_publisher(Float64MultiArray, self.mission_cmd_topic, 10)
 
-        self.create_subscription(Float64MultiArray, self.odom_topic, self.odom_callback, 10)
+        if self.source_mode == "odom":
+            self.create_subscription(Float64MultiArray, self.odom_topic, self.odom_callback, 10)
+            self.get_logger().info(
+                f"waypoints ahead publisher waiting for odom. "
+                f"distances={self.distances}, publish_duration={self.publish_duration_sec:.1f}s"
+            )
+        else:
+            self.last_odom = [
+                0.0,
+                self.initial_x,
+                self.initial_y,
+                self.initial_yaw,
+                0.0,
+                0.0,
+            ]
+            self.get_logger().info(
+                f"waypoints ahead publisher using fixed pose source={self.source_mode}: "
+                f"x={self.initial_x:.4f}, y={self.initial_y:.4f}, yaw={self.initial_yaw:.4f}, "
+                f"distances={self.distances}, publish_duration={self.publish_duration_sec:.1f}s"
+            )
 
         self.start_time = None
         self.did_reset = False
         self.did_start = False
+        self.done = False
 
         self.timer = self.create_timer(
             1.0 / max(0.1, self.publish_hz),
             self.timer_callback,
-        )
-
-        self.get_logger().info(
-            f"waypoints ahead publisher waiting for odom. "
-            f"distances={self.distances}, publish_duration={self.publish_duration_sec:.1f}s"
         )
 
     def odom_callback(self, msg):
@@ -104,7 +132,7 @@ class TracerWaypointsAheadPublisherNode(Node):
         self.start_time = self.get_clock().now()
 
         self.get_logger().info(
-            f"generated waypoints from robot=({x:.2f},{y:.2f}, yaw={yaw:.2f}): {wps}"
+            f"generated waypoints from robot=({x:.3f},{y:.3f}, yaw={yaw:.3f}): {wps}"
         )
 
     def publish_mission_cmd(self, cmd):
@@ -113,6 +141,9 @@ class TracerWaypointsAheadPublisherNode(Node):
         self.pub_mission.publish(msg)
 
     def timer_callback(self):
+        if self.done:
+            return
+
         if self.generated_waypoints is None:
             self.generate_waypoints_once()
 
@@ -122,19 +153,18 @@ class TracerWaypointsAheadPublisherNode(Node):
 
         elapsed = (self.get_clock().now() - self.start_time).nanoseconds * 1e-9
 
-        # Publish waypoints for a few seconds to make sure waypoint manager receives them.
         if elapsed <= self.publish_duration_sec:
             msg = Float64MultiArray()
             msg.data = list(self.generated_waypoints)
             self.pub_waypoints.publish(msg)
 
             if self.start_mission and not self.did_reset:
-                self.publish_mission_cmd(3.0)  # reset
+                self.publish_mission_cmd(3.0)
                 self.did_reset = True
                 self.get_logger().info("mission_cmd reset [3]")
 
             elif self.start_mission and self.did_reset and not self.did_start:
-                self.publish_mission_cmd(1.0)  # start/resume
+                self.publish_mission_cmd(1.0)
                 self.did_start = True
                 self.get_logger().info("mission_cmd start [1]")
 
@@ -143,20 +173,22 @@ class TracerWaypointsAheadPublisherNode(Node):
                 throttle_duration_sec=1.0,
             )
         else:
-            self.get_logger().info(
-                "finished publishing waypoints. Node can be stopped with Ctrl-C.",
-                throttle_duration_sec=2.0,
-            )
+            self.get_logger().info("finished publishing waypoints.")
+            self.done = True
 
 
 def main():
     rclpy.init()
     node = TracerWaypointsAheadPublisherNode()
     try:
-        rclpy.spin(node)
+        while rclpy.ok() and not node.done:
+            rclpy.spin_once(node, timeout_sec=0.1)
+    except KeyboardInterrupt:
+        pass
     finally:
         node.destroy_node()
-        rclpy.shutdown()
+        if rclpy.ok():
+            rclpy.shutdown()
 
 
 if __name__ == "__main__":

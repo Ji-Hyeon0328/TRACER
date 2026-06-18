@@ -177,13 +177,36 @@ echo "============================================================"
 export TRACER_WAYPOINT_DISTANCES="$WAYPOINT_DISTANCES"
 scripts/runtime/tracer_generate_waypoints_from_current_odom.sh "$WAYPOINT_DISTANCES"
 
-WAYPOINT_LOG="$(ls -td "$ROOT"/logs/waypoint_overlay_* 2>/dev/null | head -1)/waypoint_manager_v1.log"
+WAYPOINT_OVERLAY_DIR="$(
+  ROOT="$ROOT" python3 - <<'PY2'
+import glob
+import os
+
+root = os.environ["ROOT"]
+dirs = glob.glob(os.path.join(root, "logs", "waypoint_overlay_*"))
+dirs = [d for d in dirs if os.path.isdir(d)]
+if not dirs:
+    raise SystemExit(1)
+dirs.sort(key=os.path.getmtime, reverse=True)
+print(dirs[0])
+PY2
+)"
+WAYPOINT_LOG="$WAYPOINT_OVERLAY_DIR/waypoint_manager_v1.log"
+echo "[TRACER] waypoint overlay dir: $WAYPOINT_OVERLAY_DIR"
 echo "[TRACER] waypoint log: $WAYPOINT_LOG"
 
 echo
 echo "============================================================"
 echo "[8/10] Start mission logger"
 echo "============================================================"
+echo
+echo "[TRACER] final ready-standing validation before mission logger/unpause"
+if ! scripts/runtime/tracer_validate_a1_ready_standing_pose.sh; then
+  echo "[ERROR] robot is not in ready-standing pose after waypoint generation."
+  echo "[ERROR] aborting before style publisher/unpause to avoid contaminated dataset."
+  exit 31
+fi
+
 scripts/runtime/tracer_start_mission_logger.sh
 
 echo
