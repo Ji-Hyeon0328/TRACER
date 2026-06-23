@@ -107,6 +107,30 @@ set -u
 ros2 topic echo /tracer/objective_weights --once || true
 
 echo
+echo "========== optional online RAM monitor =========="
+if [ "${TRACER_ENABLE_RAM_MONITOR:-0}" = "1" ]; then
+  echo "[TRACER] online RAM monitor enabled"
+  "$ROOT/scripts/runtime/tracer_start_odom_bridge_only.sh"
+
+  export TRACER_RAM_REQUIRE_ODOM="${TRACER_RAM_REQUIRE_ODOM:-1}"
+  export TRACER_RAM_CLIENT_LOG="${TRACER_RAM_CLIENT_LOG:-/tmp/tracer_online_ram_${TAG}.log}"
+
+  "$ROOT/scripts/runtime/tracer_start_online_ram_client_v0.sh"
+
+  if [ "${TRACER_ENABLE_RAM_GATE_MONITOR:-0}" = "1" ]; then
+    echo "[TRACER] RAM gate monitor enabled"
+    export TRACER_GATE_POLICY_TERRAIN="$POLICY_TERRAIN"
+    export TRACER_GATE_POLICY_JSON="${TRACER_GATE_POLICY_JSON:-$TRACER_FUSION_POLICY_JSON}"
+    export TRACER_RAM_GATE_MONITOR_LOG="${TRACER_RAM_GATE_MONITOR_LOG:-/tmp/tracer_ram_gate_monitor_${TAG}.log}"
+    "$ROOT/scripts/runtime/tracer_start_ram_gate_monitor_v0.sh" "$POLICY_TERRAIN"
+  else
+    echo "[TRACER] RAM gate monitor disabled"
+  fi
+else
+  echo "[TRACER] online RAM monitor disabled"
+fi
+
+echo
 echo "========== logger + physics pulse =========="
 "$ROOT/scripts/runtime/tracer_start_mission_logger.sh" "$TAG"
 "$ROOT/scripts/runtime/tracer_pulse_gazebo_physics.sh" "$DURATION"
@@ -180,6 +204,30 @@ TRACER_WORLD_NAME="$WORLD" \
 TRACER_SANITY_TAG="$TAG" \
 TRACER_FUSION_POLICY_JSON="${TRACER_FUSION_POLICY_JSON:-$ROOT/configs/highlevel_policy/tracer_fusion_policy_v0.json}" \
 "$ROOT/scripts/runtime/tracer_append_latest_sanity_result.py" || true
+
+echo
+echo "========== optional RAM monitor summary =========="
+if [ "${TRACER_ENABLE_RAM_MONITOR:-0}" = "1" ]; then
+  TRACER_TERRAIN_KEY="$POLICY_TERRAIN" \
+  TRACER_WORLD_NAME="$WORLD" \
+  TRACER_SANITY_TAG="$TAG" \
+  TRACER_RAM_CLIENT_LOG="${TRACER_RAM_CLIENT_LOG:-/tmp/tracer_online_ram_${TAG}.log}" \
+  "$ROOT/scripts/runtime/tracer_summarize_ram_client_log.py" || true
+else
+  echo "[TRACER] online RAM monitor summary skipped"
+fi
+
+echo
+echo "========== optional RAM gate monitor summary =========="
+if [ "${TRACER_ENABLE_RAM_GATE_MONITOR:-0}" = "1" ]; then
+  TRACER_TERRAIN_KEY="$POLICY_TERRAIN" \
+  TRACER_WORLD_NAME="$WORLD" \
+  TRACER_SANITY_TAG="$TAG" \
+  TRACER_RAM_GATE_MONITOR_LOG="${TRACER_RAM_GATE_MONITOR_LOG:-/tmp/tracer_ram_gate_monitor_${TAG}.log}" \
+  "$ROOT/scripts/runtime/tracer_summarize_ram_gate_log.py" || true
+else
+  echo "[TRACER] RAM gate monitor summary skipped"
+fi
 
 echo
 echo "[TRACER] fusion sanity run done"
