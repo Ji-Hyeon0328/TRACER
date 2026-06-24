@@ -32,6 +32,10 @@ from tracer_core.highlevel.decoder_mapper import (  # noqa: E402
     meta_gait_from_gms,
 )
 from tracer_core.highlevel.meta_gait import ObjectiveWeights  # noqa: E402
+from tracer_core.highlevel.policy_input_builder import (  # noqa: E402
+    build_high_level_policy_input,
+    high_level_policy_input_summary,
+)
 
 
 def find_default_policy() -> Path:
@@ -260,6 +264,7 @@ class TracerFusionPolicyMpcRefNode(Node):
                 "fallen_prob": 0.0,
                 "recovery_prob": 0.0,
                 "sigma_mean": None,
+            "rho_norm": None,
             }
 
         age = now_wall - self.latest_gate_wall_time
@@ -271,6 +276,7 @@ class TracerFusionPolicyMpcRefNode(Node):
                 "fallen_prob": 0.0,
                 "recovery_prob": 0.0,
                 "sigma_mean": None,
+                "rho_norm": None,
             }
 
         return {
@@ -280,11 +286,12 @@ class TracerFusionPolicyMpcRefNode(Node):
             "fallen_prob": _as_float(self.latest_gate.get("fallen_prob"), 0.0),
             "recovery_prob": _as_float(self.latest_gate.get("recovery_prob"), 0.0),
             "sigma_mean": _as_float(self.latest_gate.get("sigma_mean"), 0.0),
+            "rho_norm": _as_float(self.latest_gate.get("rho_norm"), 0.0),
         }
 
     def _select_command(self, base_command: dict[str, float], now_wall: float):
         if not self.enable_gms:
-            return base_command, None, None, None, None
+            return base_command, None, None, None, None, None
 
         gate = self._gate_context(now_wall)
         gms_in = input_from_policy_entry(
@@ -299,6 +306,16 @@ class TracerFusionPolicyMpcRefNode(Node):
         gms_out = select_gait_mode(gms_in)
 
         beta = ObjectiveWeights.from_mapping(self.entry.get("beta", {}))
+        policy_input = build_high_level_policy_input(
+            policy_entry=self.entry,
+            gms_in=gms_in,
+            gms_out=gms_out,
+            gate=gate,
+            context=[],
+            robot_state=[],
+            goal=[],
+        )
+
         meta = meta_gait_from_gms(base_command, gms_out, beta=beta)
         low_ref = decode_meta_gait_to_low_level_ref(meta)
 
@@ -309,7 +326,7 @@ class TracerFusionPolicyMpcRefNode(Node):
             "swing_clearance": float(low_ref.swing_clearance),
             "enable": float(low_ref.enable),
         }
-        return final_command, gms_in, gms_out, meta, low_ref
+        return final_command, gms_in, gms_out, meta, low_ref, policy_input
 
     def on_timer(self):
         now = time.time()
@@ -325,7 +342,7 @@ class TracerFusionPolicyMpcRefNode(Node):
             return
 
         base_command = self._ramped_base_command(elapsed)
-        final_command, gms_in, gms_out, meta, low_ref = self._select_command(base_command, now)
+        final_command, gms_in, gms_out, meta, low_ref, policy_input = self._select_command(base_command, now)
 
         msg = Float64MultiArray()
         msg.data = [
@@ -375,6 +392,9 @@ class TracerFusionPolicyMpcRefNode(Node):
                     f"theta_period={meta.gait_period if meta else -1.0:.3f} "
                     f"theta_duty={meta.duty_factor if meta else -1.0:.3f} "
                     f"theta_imp={meta.impedance_scale if meta else -1.0:.3f} "
+                    f"pi_beta_s={policy_input.beta.stability if policy_input else -1.0:.3f} "
+                    f"pi_sigma={policy_input.ram.sigma if policy_input else -1.0:.3f} "
+                    f"pi_rho_dim={len(policy_input.ram.rho) if policy_input else -1} "
                     f"data={msg.data}"
                 )
 
