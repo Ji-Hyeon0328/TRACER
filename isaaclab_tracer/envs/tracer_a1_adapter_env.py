@@ -86,6 +86,11 @@ def make_tracer_a1_adapter_env_class():
         external_lowlevel_timeout_s = 0.20
         external_lowlevel_env_index = 0
 
+        # Actuator PD gains for external low-level / torque-FF diagnostics.
+        # Lowering these reduces default-position PD dominance in mode=3.
+        adapter_actuator_stiffness = 60.0
+        adapter_actuator_damping = 2.0
+
     class TracerA1AdapterEnv(DirectRLEnv):
         cfg: TracerA1AdapterEnvCfg
 
@@ -113,6 +118,19 @@ def make_tracer_a1_adapter_env_class():
             super().__init__(cfg, render_mode=render_mode, **kwargs)
 
         def _setup_scene(self):
+            try:
+                actuator = self.cfg.robot.actuators["base_legs"]
+                actuator.stiffness = float(self.cfg.adapter_actuator_stiffness)
+                actuator.damping = float(self.cfg.adapter_actuator_damping)
+                print(
+                    "[A1Adapter] override actuator gains:",
+                    "stiffness=", actuator.stiffness,
+                    "damping=", actuator.damping,
+                    flush=True,
+                )
+            except Exception as e:
+                print("[A1Adapter][WARN] could not override actuator gains:", e, flush=True)
+
             self.robot = Articulation(self.cfg.robot)
             self.scene.articulations["robot"] = self.robot
 

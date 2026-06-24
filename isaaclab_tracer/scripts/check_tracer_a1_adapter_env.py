@@ -30,6 +30,9 @@ def main():
     parser.add_argument("--external_lowlevel_timeout_s", type=float, default=0.20)
     parser.add_argument("--external_lowlevel_env_index", type=int, default=0)
 
+    parser.add_argument("--adapter_actuator_stiffness", type=float, default=60.0)
+    parser.add_argument("--adapter_actuator_damping", type=float, default=2.0)
+
     parser.add_argument("--use_nominal_gait", action="store_true")
     parser.add_argument("--gait_cmd_x", type=float, default=0.0)
     parser.add_argument("--gait_cmd_y", type=float, default=0.0)
@@ -126,6 +129,8 @@ def main():
         cfg.use_external_lowlevel = args_cli.use_external_lowlevel
         cfg.external_lowlevel_timeout_s = args_cli.external_lowlevel_timeout_s
         cfg.external_lowlevel_env_index = args_cli.external_lowlevel_env_index
+        cfg.adapter_actuator_stiffness = args_cli.adapter_actuator_stiffness
+        cfg.adapter_actuator_damping = args_cli.adapter_actuator_damping
         if args_cli.use_external_lowlevel:
             cfg.scene.num_envs = 1
 
@@ -168,6 +173,8 @@ def main():
         print("cfg action dim:", cfg.action_space, flush=True)
         print("residual_scale:", cfg.residual_scale, flush=True)
         print("num_steps:", args_cli.num_steps, flush=True)
+        print("adapter_actuator_stiffness:", cfg.adapter_actuator_stiffness, flush=True)
+        print("adapter_actuator_damping:", cfg.adapter_actuator_damping, flush=True)
         print("use_nominal_gait:", args_cli.use_nominal_gait, flush=True)
         print("gait_cmd_x:", args_cli.gait_cmd_x, flush=True)
         print("gait_cmd_y:", args_cli.gait_cmd_y, flush=True)
