@@ -109,6 +109,12 @@ preferred = [
 cols = [c for c in preferred if c in joined.columns]
 compact = joined[cols].copy()
 
+filter_prefix = os.environ.get("TRACER_JOIN_FILTER_PREFIX", "").strip()
+if filter_prefix:
+    compact = compact[
+        compact["sanity_tag"].astype(str).str.startswith(filter_prefix)
+    ].copy()
+
 out_csv.parent.mkdir(parents=True, exist_ok=True)
 compact.to_csv(out_csv, index=False)
 
@@ -117,5 +123,7 @@ print("  fusion:", fusion_csv)
 print("  ram:   ", ram_csv)
 print("  gate:  ", gate_csv)
 print("  out:   ", out_csv)
+if filter_prefix:
+    print("  filter_prefix:", filter_prefix)
 print()
 print(compact.tail(20).to_string(index=False))

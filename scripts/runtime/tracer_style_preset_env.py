@@ -34,7 +34,7 @@ def main():
         "TRACER_STYLE_VX": cmd.get("vx", 0.0),
         "TRACER_STYLE_YAW_RATE": cmd.get("yaw_rate", 0.0),
         "TRACER_STYLE_BODY_HEIGHT": cmd.get("body_height", 0.30),
-        "TRACER_STYLE_CLEARANCE": cmd.get("swing_clearance", 0.035),
+        "TRACER_STYLE_CLEARANCE": cmd.get("swing_clearance", cmd.get("clearance", 0.035)),
         "TRACER_STYLE_ENABLE": cmd.get("enable", 1.0),
         "TRACER_STYLE_BETA_HINT": beta_csv,
     }

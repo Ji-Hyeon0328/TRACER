@@ -110,3 +110,70 @@ terrains:
     roughness_amp_m: 0.0
     slip: 0.1
     contact_profile: soft_damped
+- name: sponge_grippy_flat
+  world_name: tracer_sponge_grippy_flat
+  category: soft_contact
+  description: easier sponge-like terrain with higher friction and lower slip
+  params:
+    mu: 0.75
+    mu2: 0.75
+    slope_deg: 0.0
+    roughness_amp_m: 0.0
+    slip: 0.05
+    contact_profile: soft_damped
+- name: sponge_firm_flat
+  world_name: tracer_sponge_firm_flat
+  category: soft_contact
+  description: firmer sponge-like terrain with higher friction and reduced slip
+  params:
+    mu: 0.75
+    mu2: 0.75
+    slope_deg: 0.0
+    roughness_amp_m: 0.0
+    slip: 0.03
+    contact_profile: soft_damped
+- name: slippery_downslope_5deg
+  world_name: tracer_slippery_downslope_5deg
+  category: low_friction_slope
+  description: 5 degree slippery downslope; +X is downhill for forward downhill walking
+  params:
+    mu: 0.25
+    mu2: 0.25
+    slope_deg: -5.0
+    roughness_amp_m: 0.0
+    slip: 0.2
+    contact_profile: nominal
+- name: downslope_5deg
+  world_name: tracer_downslope_5deg
+  category: slope
+  description: 5 degree normal downslope; +X is downhill for forward downhill walking
+  params:
+    mu: 0.8
+    mu2: 0.8
+    slope_deg: -5.0
+    roughness_amp_m: 0.0
+    slip: 0.0
+    contact_profile: nominal
+- name: sponge_grippy_downslope_5deg
+  world_name: tracer_sponge_grippy_downslope_5deg
+  category: soft_contact_slope
+  description: 5 degree sponge/grippy downslope; +X is downhill
+  params:
+    mu: 0.75
+    mu2: 0.75
+    slope_deg: -5.0
+    roughness_amp_m: 0.0
+    slip: 0.05
+    contact_profile: soft_damped
+- name: sponge_grippy_slope_5deg
+  world_name: tracer_sponge_grippy_slope_5deg
+  category: soft_contact_slope
+  description: 5 degree sponge/grippy upslope; +X is uphill, useful for downhill backstep
+    with negative vx
+  params:
+    mu: 0.75
+    mu2: 0.75
+    slope_deg: 5.0
+    roughness_amp_m: 0.0
+    slip: 0.05
+    contact_profile: soft_damped

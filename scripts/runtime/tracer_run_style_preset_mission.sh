@@ -96,9 +96,19 @@ trap cleanup EXIT
 
 echo
 echo "============================================================"
+maybe_slope_relative_reset() {
+  if [ "${TRACER_USE_SLOPE_RELATIVE_RESET:-0}" = "1" ]; then
+    echo "[TRACER] slope-relative reset enabled"
+    TRACER_RESET_REL_Z="${TRACER_RESET_REL_Z:-0.34}" \
+    TRACER_GROUND_THICKNESS="${TRACER_GROUND_THICKNESS:-0.10}" \
+      scripts/runtime/tracer_slope_relative_reset_a1_pose.sh
+  fi
+}
+
 echo "[1/10] Reset to qwer state"
 echo "============================================================"
 scripts/runtime/tracer_robust_reset_to_qwer_state.sh
+maybe_slope_relative_reset
 
 echo
 echo "============================================================"
@@ -111,6 +121,7 @@ echo "============================================================"
 echo "[3/10] Start qwerty state"
 echo "============================================================"
 scripts/runtime/tracer_start_qwerty_state.sh
+maybe_slope_relative_reset
 
 echo
 echo "============================================================"
