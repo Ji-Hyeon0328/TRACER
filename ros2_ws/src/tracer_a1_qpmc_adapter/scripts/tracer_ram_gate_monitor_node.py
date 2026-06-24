@@ -43,6 +43,9 @@ SEMANTIC_CODE = {
     "no_valid_simple_primitive": 2.0,
     "cautious_locomotion": 3.0,
     "recovery_needed": 4.0,
+    "candidate_conditional_micro_brake": 5.0,
+    "failed_candidate_conditional_micro_brake": 6.0,
+    "no_valid_high_level_velocity_primitive": 7.0,
 }
 
 GATE_LEVEL_CODE = {
@@ -57,6 +60,8 @@ ACTION_CODE = {
     "would_conservative_probe": 2.0,
     "prior_avoid_keep": 3.0,
     "prior_recovery_keep": 4.0,
+    "no_valid_keep": 5.0,
+    "failed_candidate_keep": 6.0,
     "unknown": -1.0,
 }
 
@@ -163,8 +168,20 @@ class RamGateMonitor(Node):
         # this only recommends what would have happened.
         # It never publishes /tracer/mpc_reference.
 
-        if fused_mode == "avoid_required" or semantic_mode == "no_valid_simple_primitive":
-            return "prior_avoid_keep", 0.0, 1.0, 0.0, 0.0
+        no_valid_semantics = {
+            "no_valid_simple_primitive",
+            "no_valid_high_level_velocity_primitive",
+        }
+
+        failed_candidate_semantics = {
+            "failed_candidate_conditional_micro_brake",
+        }
+
+        if fused_mode == "avoid_required" or semantic_mode in no_valid_semantics:
+            return "no_valid_keep", 0.0, 1.0, 0.0, 0.0
+
+        if semantic_mode in failed_candidate_semantics:
+            return "failed_candidate_keep", 0.0, 1.0, 0.0, 0.0
 
         if fused_mode == "recovery_needed" or semantic_mode == "recovery_needed":
             return "prior_recovery_keep", 0.0, 1.0, 0.0, 0.0
