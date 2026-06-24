@@ -177,3 +177,26 @@ terrains:
     roughness_amp_m: 0.0
     slip: 0.05
     contact_profile: soft_damped
+
+- name: sponge_firm_downslope_5deg
+  world_name: tracer_sponge_firm_downslope_5deg
+  category: soft_contact_slope
+  description: 5 degree firmer sponge-like downslope; +X is downhill
+  params:
+    mu: 0.75
+    mu2: 0.75
+    slope_deg: -5.0
+    roughness_amp_m: 0.0
+    slip: 0.03
+    contact_profile: soft_damped
+- name: sponge_firm_slope_5deg
+  world_name: tracer_sponge_firm_slope_5deg
+  category: soft_contact_slope
+  description: 5 degree firmer sponge-like upslope; +X is uphill
+  params:
+    mu: 0.75
+    mu2: 0.75
+    slope_deg: 5.0
+    roughness_amp_m: 0.0
+    slip: 0.03
+    contact_profile: soft_damped
