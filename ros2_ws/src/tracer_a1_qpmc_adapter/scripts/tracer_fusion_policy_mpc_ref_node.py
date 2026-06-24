@@ -24,10 +24,14 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from tracer_core.highlevel.gait_mode_selector import (  # noqa: E402
-    apply_gait_mode_to_command,
     input_from_policy_entry,
     select_gait_mode,
 )
+from tracer_core.highlevel.decoder_mapper import (  # noqa: E402
+    decode_meta_gait_to_low_level_ref,
+    meta_gait_from_gms,
+)
+from tracer_core.highlevel.meta_gait import ObjectiveWeights  # noqa: E402
 
 
 def find_default_policy() -> Path:
@@ -280,7 +284,7 @@ class TracerFusionPolicyMpcRefNode(Node):
 
     def _select_command(self, base_command: dict[str, float], now_wall: float):
         if not self.enable_gms:
-            return base_command, None, None
+            return base_command, None, None, None, None
 
         gate = self._gate_context(now_wall)
         gms_in = input_from_policy_entry(
@@ -293,8 +297,19 @@ class TracerFusionPolicyMpcRefNode(Node):
             sigma_mean=gate["sigma_mean"],  # type: ignore[arg-type]
         )
         gms_out = select_gait_mode(gms_in)
-        final_command = apply_gait_mode_to_command(base_command, gms_out)
-        return final_command, gms_in, gms_out
+
+        beta = ObjectiveWeights.from_mapping(self.entry.get("beta", {}))
+        meta = meta_gait_from_gms(base_command, gms_out, beta=beta)
+        low_ref = decode_meta_gait_to_low_level_ref(meta)
+
+        final_command = {
+            "vx": float(low_ref.vx),
+            "yaw_rate": float(low_ref.yaw_rate),
+            "body_height": float(low_ref.body_height),
+            "swing_clearance": float(low_ref.swing_clearance),
+            "enable": float(low_ref.enable),
+        }
+        return final_command, gms_in, gms_out, meta, low_ref
 
     def on_timer(self):
         now = time.time()
@@ -310,7 +325,7 @@ class TracerFusionPolicyMpcRefNode(Node):
             return
 
         base_command = self._ramped_base_command(elapsed)
-        final_command, gms_in, gms_out = self._select_command(base_command, now)
+        final_command, gms_in, gms_out, meta, low_ref = self._select_command(base_command, now)
 
         msg = Float64MultiArray()
         msg.data = [
@@ -357,6 +372,9 @@ class TracerFusionPolicyMpcRefNode(Node):
                     f"final_h={final_command['body_height']:.3f} "
                     f"final_clr={final_command['swing_clearance']:.3f} "
                     f"enable={final_command['enable']:.1f} "
+                    f"theta_period={meta.gait_period if meta else -1.0:.3f} "
+                    f"theta_duty={meta.duty_factor if meta else -1.0:.3f} "
+                    f"theta_imp={meta.impedance_scale if meta else -1.0:.3f} "
                     f"data={msg.data}"
                 )
 
