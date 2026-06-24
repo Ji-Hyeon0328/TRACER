@@ -802,12 +802,28 @@
       },
       "true_run_valid": 0.7432432432432432,
       "true_run_fallen": 0.2567567567567567,
-      "semantic_mode": "validated_locomotion",
+      "semantic_mode": "cautious_locomotion",
       "validated_by_online_sanity": true,
-      "decision_note": "Online sanity with sponge_tall_10_c080 produced stable locomotion. Absolute min z looked low, but terrain-relative min z was about 0.19 and relative fall heuristic was false.",
+      "decision_note": "Terrain-relative sanity repeats remained deployable with sponge_tall_10_c080, but RAM/gate repeat showed persistent instability and ended with action_last=would_conservative_probe. Treat this terrain as cautious/conservative locomotion rather than fully validated nominal locomotion.",
       "v1_decision": {
-        "label": "validated_locomotion",
-        "reason": "Online sanity with sponge_tall_10_c080 produced stable locomotion. Absolute min z looked low, but terrain-relative min z was about 0.19 and relative fall heuristic was false."
+        "label": "cautious_locomotion",
+        "reason": "Online terrain-relative sanity was valid, but RAM/gate repeat2 reported unstable_frac=0.556, would_override_mean=0.667, fallen_tail5=0.781, sigma_tail5=0.830, and action_last=would_conservative_probe."
+      },
+      "validated_by_ram_gate": false,
+      "ram_gate_decision": {
+        "label": "conservative_probe_recommended",
+        "source_tag": "sponge_firm_downslope_repeat2",
+        "ram_level_last": "unstable",
+        "action_last": "would_conservative_probe",
+        "stable_frac": 0.333333,
+        "caution_frac": 0.111111,
+        "unstable_frac": 0.555556,
+        "would_override_mean": 0.666667,
+        "would_override_tail3_mean": 1.0,
+        "would_override_tail5_mean": 1.0,
+        "ctrl_ema_tail5": 0.2428,
+        "fallen_tail5": 0.7808,
+        "sigma_tail5": 0.83
       }
     },
     "sponge_firm_downslope_5deg_forward_repeat": {
