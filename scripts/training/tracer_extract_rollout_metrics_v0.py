@@ -86,10 +86,12 @@ def extract_one(
     proprio = np.asarray(data["proprio"], dtype=float) if "proprio" in data else np.empty((0, 0), dtype=float)
     mpc = np.asarray(data["mpc_reference"], dtype=float) if "mpc_reference" in data else np.empty((0, 0), dtype=float)
     objective = np.asarray(data["objective"], dtype=float) if "objective" in data else np.empty((0, 0), dtype=float)
+    odom = np.asarray(data["odom"], dtype=float) if "odom" in data else np.empty((0, 0), dtype=float)
 
     proprio_mask = finite_row_mask(proprio) if proprio.size else np.zeros((0,), dtype=bool)
     mpc_mask = finite_row_mask(mpc) if mpc.size else np.zeros((0,), dtype=bool)
     objective_mask = finite_row_mask(objective) if objective.size else np.zeros((0,), dtype=bool)
+    odom_mask = finite_row_mask(odom) if odom.size else np.zeros((0,), dtype=bool)
 
     result: dict[str, Any] = {
         "npz_path": str(npz_path),
@@ -101,6 +103,8 @@ def extract_one(
         "proprio_finite_rows": int(np.sum(proprio_mask)),
         "mpc_rows": int(mpc.shape[0]) if mpc.ndim >= 1 else 0,
         "mpc_finite_rows": int(np.sum(mpc_mask)),
+        "odom_rows": int(odom.shape[0]) if odom.ndim >= 1 else 0,
+        "odom_finite_rows": int(np.sum(odom_mask)),
     }
 
     # MPC reference convention:
@@ -124,22 +128,40 @@ def extract_one(
             "mpc_enable_mean": float("nan"),
         })
 
-    # Existing analyzer convention:
-    # proprio[:, 0:3] = xyz
-    # proprio[:, 3:6] = rpy
-    if proprio.ndim == 2 and proprio.shape[1] >= 6 and np.any(proprio_mask):
-        i0, i1, first, last = first_last_valid_rows(proprio, proprio_mask)
+    # Motion metrics should use world-frame odometry when available.
+    # The proprio vector is a flattened policy input and its first columns are not
+    # guaranteed to be [x, y, z, roll, pitch, yaw].
+    pose_source = "none"
+    pose = np.empty((0, 0), dtype=float)
+    pose_mask = np.zeros((0,), dtype=bool)
+
+    if odom.ndim == 2 and odom.shape[1] >= 6 and np.any(odom_mask):
+        pose_source = "odom"
+        pose = odom
+        pose_mask = odom_mask
+    elif proprio.ndim == 2 and proprio.shape[1] >= 6 and np.any(proprio_mask):
+        pose_source = "proprio_fallback"
+        pose = proprio
+        pose_mask = proprio_mask
+
+    result["pose_source"] = pose_source
+
+    # Pose convention for odom:
+    # pose[:, 0:3] = xyz
+    # pose[:, 3:6] = rpy
+    if pose.ndim == 2 and pose.shape[1] >= 6 and np.any(pose_mask):
+        i0, i1, first, last = first_last_valid_rows(pose, pose_mask)
         assert first is not None and last is not None
 
         xyz0 = first[:3]
         xyz1 = last[:3]
-        rpy = proprio[:, 3:6]
+        rpy = pose[:, 3:6]
 
         dx, dy, dz = (xyz1 - xyz0).tolist()
-        min_z = min_valid(proprio[:, 2], proprio_mask)
-        max_z = float(np.max(proprio[proprio_mask, 2]))
-        max_abs_roll = max_abs_valid(rpy[:, 0], proprio_mask)
-        max_abs_pitch = max_abs_valid(rpy[:, 1], proprio_mask)
+        min_z = min_valid(pose[:, 2], pose_mask)
+        max_z = float(np.max(pose[pose_mask, 2]))
+        max_abs_roll = max_abs_valid(rpy[:, 0], pose_mask)
+        max_abs_pitch = max_abs_valid(rpy[:, 1], pose_mask)
 
         obs_vx = dx / duration if duration and math.isfinite(duration) and duration > 1e-9 else float("nan")
         obs_vy = dy / duration if duration and math.isfinite(duration) and duration > 1e-9 else float("nan")
