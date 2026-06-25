@@ -1,8 +1,12 @@
 from __future__ import annotations
 
+import json
+import os
+import socket
+import time
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Protocol
+from typing import Any, Protocol
 
 from tracer_core.highlevel.decoder_mapper import beta_adjusted_defaults
 from tracer_core.highlevel.meta_gait import HighLevelPolicyInput, MetaGaitCommand
@@ -260,6 +264,92 @@ class TorchMetaGaitPolicy:
         )
 
 
+@dataclass
+class UdpMetaGaitPolicy:
+    """UDP client for learned meta-gait policy server.
+
+    This class intentionally does not import torch. It is safe to use from the
+    ROS2 /usr/bin/python3 runtime. Torch inference runs in env_isaaclab through
+    scripts/runtime/tracer_meta_gait_policy_udp_server_v0.py.
+    """
+
+    host: str = os.environ.get("TRACER_META_GAIT_POLICY_UDP_HOST", "127.0.0.1")
+    port: int = int(os.environ.get("TRACER_META_GAIT_POLICY_UDP_PORT", "50310"))
+    timeout_sec: float = float(os.environ.get("TRACER_META_GAIT_POLICY_UDP_TIMEOUT_SEC", "0.20"))
+    max_bytes: int = int(os.environ.get("TRACER_META_GAIT_POLICY_UDP_MAX_BYTES", "65535"))
+
+    def __post_init__(self):
+        self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        self.sock.settimeout(float(self.timeout_sec))
+
+    def _request_from_input(self, inp: HighLevelPolicyInput) -> dict[str, Any]:
+        return {
+            "request_id": f"meta_gait_{time.time():.6f}",
+            "gait_mode": str(inp.gait_mode),
+            "context": list(inp.context),
+            "robot_state": list(inp.robot_state),
+            "goal": list(inp.goal),
+            "beta": {
+                "motion": float(inp.beta.motion),
+                "stability": float(inp.beta.stability),
+                "energy": float(inp.beta.energy),
+            },
+            "ram": {
+                "rho": list(inp.ram.rho),
+                "sigma": float(inp.ram.sigma),
+                "ram_level": str(inp.ram.ram_level),
+                "control_risk": float(inp.ram.control_risk),
+                "fallen_prob": float(inp.ram.fallen_prob),
+                "recovery_prob": float(inp.ram.recovery_prob),
+            },
+        }
+
+    def _meta_from_response(self, resp: dict[str, Any], inp: HighLevelPolicyInput) -> MetaGaitCommand:
+        if not resp.get("ok", False):
+            raise RuntimeError(
+                f"UDP meta-gait policy error: "
+                f"{resp.get('error_type', 'Error')}: {resp.get('error', '<unknown>')}"
+            )
+
+        meta = resp.get("meta_gait", {})
+        if not isinstance(meta, dict):
+            raise RuntimeError("UDP meta-gait policy response missing meta_gait object")
+
+        return MetaGaitCommand(
+            vx=_clamp(float(meta.get("vx", 0.0)), -0.20, 0.40),
+            yaw_rate=_clamp(float(meta.get("yaw_rate", 0.0)), -0.80, 0.80),
+            body_height=_clamp(float(meta.get("body_height", 0.30)), 0.20, 0.45),
+            swing_clearance=_clamp(float(meta.get("swing_clearance", 0.05)), 0.0, 0.20),
+            enable=_clamp(float(meta.get("enable", 0.0)), 0.0, 1.0),
+            gait_period=_clamp(float(meta.get("gait_period", 0.45)), 0.15, 1.50),
+            duty_factor=_clamp(float(meta.get("duty_factor", 0.60)), 0.35, 0.90),
+            step_length=_clamp(float(meta.get("step_length", 0.05)), 0.0, 0.30),
+            stance_width=_clamp(float(meta.get("stance_width", 0.25)), 0.15, 0.45),
+            impedance_scale=_clamp(float(meta.get("impedance_scale", 1.0)), 0.40, 2.50),
+            residual_gain_scale=_clamp(float(meta.get("residual_gain_scale", 1.0)), 0.20, 2.50),
+            risk_scale=_clamp(float(meta.get("risk_scale", 1.0)), 0.50, 3.00),
+            source_mode=str(meta.get("source_mode", inp.gait_mode)),
+            source_reason=str(meta.get("source_reason", "udp_meta_gait_policy")),
+            extras={
+                **(dict(meta.get("extras", {})) if isinstance(meta.get("extras", {}), dict) else {}),
+                "policy_type": "udp_meta_gait_policy",
+                "server": f"{self.host}:{self.port}",
+            },
+        )
+
+    def predict(self, inp: HighLevelPolicyInput) -> MetaGaitCommand:
+        req = self._request_from_input(inp)
+        packet = json.dumps(req).encode("utf-8")
+        self.sock.sendto(packet, (self.host, int(self.port)))
+
+        data, _addr = self.sock.recvfrom(int(self.max_bytes))
+        resp = json.loads(data.decode("utf-8"))
+        if not isinstance(resp, dict):
+            raise RuntimeError("UDP meta-gait policy response must be a JSON object")
+
+        return self._meta_from_response(resp, inp)
+
+
 def make_meta_gait_policy(kind: str = "rule_based", model_path: str | None = None) -> MetaGaitPolicy:
     kind = str(kind).strip().lower()
 
@@ -270,5 +360,8 @@ def make_meta_gait_policy(kind: str = "rule_based", model_path: str | None = Non
         if not model_path:
             raise ValueError("model_path is required for learned/torch meta-gait policy")
         return TorchMetaGaitPolicy(Path(model_path).expanduser())
+
+    if kind in {"udp", "udp_learned", "remote"}:
+        return UdpMetaGaitPolicy()
 
     raise ValueError(f"Unknown meta-gait policy kind: {kind}")
