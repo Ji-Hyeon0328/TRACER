@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import gymnasium as gym
 
-from isaaclab_tasks.manager_based.locomotion.velocity.config.go1 import agents as go1_agents
+
+GO1_RSL_RL_CFG = "isaaclab_tasks.manager_based.locomotion.velocity.config.go1.agents.rsl_rl_ppo_cfg"
+GO1_SKRL_AGENTS = "isaaclab_tasks.manager_based.locomotion.velocity.config.go1.agents"
 
 
 gym.register(
@@ -11,8 +13,8 @@ gym.register(
     disable_env_checker=True,
     kwargs={
         "env_cfg_entry_point": "isaaclab_tracer.tasks.go1_velocity_tracer_env_cfg:TracerGo1FlatEnvCfg",
-        "rsl_rl_cfg_entry_point": f"{go1_agents.__name__}.rsl_rl_ppo_cfg:UnitreeGo1FlatPPORunnerCfg",
-        "skrl_cfg_entry_point": f"{go1_agents.__name__}:skrl_flat_ppo_cfg.yaml",
+        "rsl_rl_cfg_entry_point": f"{GO1_RSL_RL_CFG}:UnitreeGo1FlatPPORunnerCfg",
+        "skrl_cfg_entry_point": f"{GO1_SKRL_AGENTS}:skrl_flat_ppo_cfg.yaml",
     },
 )
 
@@ -22,7 +24,7 @@ gym.register(
     disable_env_checker=True,
     kwargs={
         "env_cfg_entry_point": "isaaclab_tracer.tasks.go1_velocity_tracer_env_cfg:TracerGo1RoughEnvCfg",
-        "rsl_rl_cfg_entry_point": f"{go1_agents.__name__}.rsl_rl_ppo_cfg:UnitreeGo1RoughPPORunnerCfg",
-        "skrl_cfg_entry_point": f"{go1_agents.__name__}:skrl_rough_ppo_cfg.yaml",
+        "rsl_rl_cfg_entry_point": f"{GO1_RSL_RL_CFG}:UnitreeGo1RoughPPORunnerCfg",
+        "skrl_cfg_entry_point": f"{GO1_SKRL_AGENTS}:skrl_rough_ppo_cfg.yaml",
     },
 )
