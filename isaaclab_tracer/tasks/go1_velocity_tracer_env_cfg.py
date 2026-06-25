@@ -9,6 +9,24 @@ from isaaclab_tasks.manager_based.locomotion.velocity.config.go1.flat_env_cfg im
 from isaaclab_tasks.manager_based.locomotion.velocity.config.go1.rough_env_cfg import UnitreeGo1RoughEnvCfg
 
 
+
+def attach_tracer_slide_reward(rewards, *, weight: float = 0.5) -> None:
+    """Attach TRACER slide reward to an Isaac Lab reward config object."""
+    rewards.tracer_slide_reward = RewTerm(
+        func=tracer_mdp.tracer_slide_reward_total,
+        weight=weight,
+        params={
+            "command_name": "base_velocity",
+            "asset_cfg": SceneEntityCfg("robot"),
+            "beta_motion": 1.0 / 3.0,
+            "beta_stability": 1.0 / 3.0,
+            "beta_energy": 1.0 / 3.0,
+            "lambda_energy": 0.5,
+            "aux_scale": 1.5,
+        },
+    )
+
+
 @configclass
 class TracerGo1FlatEnvCfg(UnitreeGo1FlatEnvCfg):
     """TRACER wrapper config for the Isaac Lab Go1 flat velocity task.
@@ -38,38 +56,7 @@ class TracerGo1FlatEnvCfg(UnitreeGo1FlatEnvCfg):
         self.rewards.track_ang_vel_z_exp.weight = 0.75
         self.rewards.flat_orientation_l2.weight = -2.5
         self.rewards.dof_torques_l2.weight = -0.0002
-
-        # TRACER slide reward v0.
-        # Kept as an additional positive term first; base Isaac Lab rewards remain active.
-        self.rewards.tracer_slide_reward = RewTerm(
-            func=tracer_mdp.tracer_slide_reward_total,
-            weight=0.5,
-            params={
-                "command_name": "base_velocity",
-                "asset_cfg": SceneEntityCfg("robot"),
-                "beta_motion": 1.0 / 3.0,
-                "beta_stability": 1.0 / 3.0,
-                "beta_energy": 1.0 / 3.0,
-                "lambda_energy": 0.5,
-                "aux_scale": 1.5,
-            },
-        )
-
-        # TRACER slide reward v0.
-        # Kept as an additional positive term first; base Isaac Lab rewards remain active.
-        self.rewards.tracer_slide_reward = RewTerm(
-            func=tracer_mdp.tracer_slide_reward_total,
-            weight=0.5,
-            params={
-                "command_name": "base_velocity",
-                "asset_cfg": SceneEntityCfg("robot"),
-                "beta_motion": 1.0 / 3.0,
-                "beta_stability": 1.0 / 3.0,
-                "beta_energy": 1.0 / 3.0,
-                "lambda_energy": 0.5,
-                "aux_scale": 1.5,
-            },
-        )
+        attach_tracer_slide_reward(self.rewards, weight=0.5)
 
 
 @configclass
@@ -95,3 +82,4 @@ class TracerGo1RoughEnvCfg(UnitreeGo1RoughEnvCfg):
         self.rewards.track_lin_vel_xy_exp.weight = 1.5
         self.rewards.track_ang_vel_z_exp.weight = 0.75
         self.rewards.dof_torques_l2.weight = -0.0002
+        attach_tracer_slide_reward(self.rewards, weight=0.5)
