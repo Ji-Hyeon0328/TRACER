@@ -48,7 +48,10 @@ class RuleBasedMetaGaitPolicy:
             clearance = 0.035
             enable = 1.0
         elif mode == "conservative":
-            vx = 0.05
+            # Keep conservative locomotion slow. In sponge downslope sanity,
+            # vx=0.050 reduced lateral drift but significantly reduced
+            # terrain-relative height margin and increased roll/pitch.
+            vx = 0.035
             body_height = 0.350
             clearance = 0.110
             enable = 1.0
