@@ -10,12 +10,15 @@ PIDFILE="/tmp/tracer_fusion_policy_mpc_ref.pid"
 META_POLICY_KIND="${TRACER_META_GAIT_POLICY_KIND:-rule_based}"
 META_POLICY_UDP_HOST="${TRACER_META_GAIT_POLICY_UDP_HOST:-127.0.0.1}"
 META_POLICY_UDP_PORT="${TRACER_META_GAIT_POLICY_UDP_PORT:-50310}"
+ENABLE_GMS="${TRACER_ENABLE_GMS:-1}"
+GMS_USE_RAM_GATE="${TRACER_GMS_USE_RAM_GATE:-0}"
 
 echo "[TRACER] starting fusion policy overlay from qwerty"
 echo "[TRACER] terrain:     $TERRAIN"
 echo "[TRACER] duration:    $DURATION"
 echo "[TRACER] meta_policy: $META_POLICY_KIND"
 echo "[TRACER] meta_udp:    $META_POLICY_UDP_HOST:$META_POLICY_UDP_PORT"
+echo "[TRACER] gms:         enable=$ENABLE_GMS use_ram_gate=$GMS_USE_RAM_GATE"
 echo "[TRACER] log:         $LOG"
 
 # Stop previous fusion policy publisher only.
