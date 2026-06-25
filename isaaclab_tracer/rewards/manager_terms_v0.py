@@ -27,24 +27,76 @@ def _projected_gravity(asset) -> torch.Tensor:
     return quat_apply_inverse(asset.data.root_quat_w, gravity_w)
 
 
+def _base_velocity_yaw(asset) -> torch.Tensor:
+    """Root velocity expressed in the yaw-aligned base frame."""
+    return quat_apply_inverse(yaw_quat(asset.data.root_quat_w), asset.data.root_lin_vel_w[:, :3])
+
+
+def _command_activity_progress(
+    env: "ManagerBasedRLEnv",
+    asset,
+    command_name: str,
+    *,
+    active_min_speed: float = 0.10,
+    active_full_speed: float = 0.50,
+    eps: float = 1.0e-6,
+) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
+    """Return command, yaw-frame velocity, command activity, progress, command speed, actual speed.
+
+    progress is directional:
+      1.0 means actual horizontal velocity matches the command direction and magnitude.
+      0.0 means no progress or movement opposite to the command.
+    """
+    command = _command(env, command_name)
+    vel_yaw = _base_velocity_yaw(asset)
+
+    cmd_xy = command[:, :2]
+    vel_xy = vel_yaw[:, :2]
+
+    cmd_speed = torch.linalg.norm(cmd_xy, dim=1)
+    actual_speed = torch.linalg.norm(vel_xy, dim=1)
+
+    progress = torch.sum(vel_xy * cmd_xy, dim=1) / (cmd_speed * cmd_speed + eps)
+    progress = torch.clamp(progress, 0.0, 1.0)
+
+    denom = max(active_full_speed - active_min_speed, eps)
+    cmd_active = torch.clamp((cmd_speed - active_min_speed) / denom, 0.0, 1.0)
+
+    return command, vel_yaw, cmd_active, progress, cmd_speed, actual_speed
+
+
 def tracer_motion_tracking_reward(
     env: "ManagerBasedRLEnv",
     command_name: str = "base_velocity",
     asset_cfg: SceneEntityCfg = SceneEntityCfg("robot"),
-    std: float = 0.5,
+    std: float = 0.35,
+    active_min_speed: float = 0.10,
+    active_full_speed: float = 0.50,
+    progress_floor: float = 0.05,
 ) -> torch.Tensor:
-    """TRACER online motion reward.
+    """TRACER online motion reward with command-active anti-abandonment gating.
 
-    For Isaac Lab v0, this is velocity tracking in the yaw-aligned base frame.
-    This corresponds to the online form of R_motion.
+    V0 gave non-trivial reward to standing under forward commands.
+    V1 keeps the original tracking form, but gates active-command motion by
+    directional progress so that pose-hold is not a good solution when a
+    non-zero velocity command is given.
     """
     asset = _robot(env, asset_cfg)
-    command = _command(env, command_name)
+    command, vel_yaw, cmd_active, progress, _, _ = _command_activity_progress(
+        env,
+        asset,
+        command_name,
+        active_min_speed=active_min_speed,
+        active_full_speed=active_full_speed,
+    )
 
-    vel_yaw = quat_apply_inverse(yaw_quat(asset.data.root_quat_w), asset.data.root_lin_vel_w[:, :3])
     lin_vel_error = torch.sum(torch.square(command[:, :2] - vel_yaw[:, :2]), dim=1)
+    r_track = torch.exp(-lin_vel_error / max(std**2, 1.0e-9))
 
-    return torch.exp(-lin_vel_error / (std**2))
+    progress_gate = progress_floor + (1.0 - progress_floor) * progress
+    r_active = r_track * progress_gate
+
+    return torch.clamp((1.0 - cmd_active) * r_track + cmd_active * r_active, 0.0, 1.0)
 
 
 def tracer_stability_reward(
@@ -62,7 +114,7 @@ def tracer_stability_reward(
     asset = _robot(env, asset_cfg)
 
     base_z = asset.data.root_pos_w[:, 2]
-    height_score = torch.clamp((base_z - z_fail) / max(z_good - z_fail, 1e-9), 0.0, 1.0)
+    height_score = torch.clamp((base_z - z_fail) / max(z_good - z_fail, 1.0e-9), 0.0, 1.0)
 
     projected_gravity = _projected_gravity(asset)
     tilt_error = torch.linalg.norm(projected_gravity[:, :2], dim=1)
@@ -73,14 +125,18 @@ def tracer_stability_reward(
 
 def tracer_energy_reward(
     env: "ManagerBasedRLEnv",
+    command_name: str = "base_velocity",
     asset_cfg: SceneEntityCfg = SceneEntityCfg("robot"),
     torque_scale: float = 2.0e-4,
     power_scale: float = 2.0e-4,
+    active_min_speed: float = 0.10,
+    active_full_speed: float = 0.50,
+    progress_floor: float = 0.05,
 ) -> torch.Tensor:
-    """TRACER online energy reward.
+    """TRACER online energy reward with progress gating.
 
-    Unlike Gazebo v0, Isaac Lab can expose torque and joint velocity.
-    This is still a v0 proxy, but it is closer to real energy than command-only cost.
+    Energy efficiency should mean low energy while accomplishing the commanded
+    motion, not zero energy by refusing to move.
     """
     asset = _robot(env, asset_cfg)
 
@@ -94,17 +150,34 @@ def tracer_energy_reward(
         joint_power = torch.mean(torch.abs(torque * joint_vel), dim=1)
         effort = torque_scale * torque_l2 + power_scale * joint_power
 
-    return torch.exp(-effort)
+    r_energy_raw = torch.exp(-effort)
+
+    _, _, cmd_active, progress, _, _ = _command_activity_progress(
+        env,
+        asset,
+        command_name,
+        active_min_speed=active_min_speed,
+        active_full_speed=active_full_speed,
+    )
+    progress_gate = progress_floor + (1.0 - progress_floor) * progress
+
+    return torch.clamp((1.0 - cmd_active) * r_energy_raw + cmd_active * r_energy_raw * progress_gate, 0.0, 1.0)
 
 
 def tracer_aux_penalty(
     env: "ManagerBasedRLEnv",
+    command_name: str = "base_velocity",
     asset_cfg: SceneEntityCfg = SceneEntityCfg("robot"),
     z_fail: float = 0.18,
     orientation_limit: float = 0.70,
     vertical_velocity_scale: float = 1.0,
+    active_min_speed: float = 0.10,
+    active_full_speed: float = 0.50,
+    hold_speed_threshold: float = 0.15,
+    active_hold_penalty_weight: float = 0.80,
+    no_progress_penalty_weight: float = 0.40,
 ) -> torch.Tensor:
-    """Auxiliary penalty for unsafe posture and unstable vertical motion.
+    """Auxiliary penalty for unsafe posture, unstable vertical motion, and active-command hold.
 
     This is the online counterpart of R_aux.
     It returns a non-negative penalty, not a reward.
@@ -112,15 +185,33 @@ def tracer_aux_penalty(
     asset = _robot(env, asset_cfg)
 
     base_z = asset.data.root_pos_w[:, 2]
-    low_z_penalty = torch.clamp((z_fail - base_z) / max(z_fail, 1e-9), 0.0, 1.0)
+    low_z_penalty = torch.clamp((z_fail - base_z) / max(z_fail, 1.0e-9), 0.0, 1.0)
 
     projected_gravity = _projected_gravity(asset)
     tilt_error = torch.linalg.norm(projected_gravity[:, :2], dim=1)
-    orientation_penalty = torch.clamp(tilt_error / max(orientation_limit, 1e-9), 0.0, 1.0)
+    orientation_penalty = torch.clamp(tilt_error / max(orientation_limit, 1.0e-9), 0.0, 1.0)
 
     vertical_vel_penalty = torch.clamp(torch.abs(asset.data.root_lin_vel_w[:, 2]) * vertical_velocity_scale, 0.0, 1.0)
 
-    return 0.5 * low_z_penalty + 0.3 * orientation_penalty + 0.2 * vertical_vel_penalty
+    _, _, cmd_active, progress, _, actual_speed = _command_activity_progress(
+        env,
+        asset,
+        command_name,
+        active_min_speed=active_min_speed,
+        active_full_speed=active_full_speed,
+    )
+
+    hold_penalty = torch.clamp((hold_speed_threshold - actual_speed) / max(hold_speed_threshold, 1.0e-9), 0.0, 1.0)
+    active_hold_penalty = active_hold_penalty_weight * cmd_active * hold_penalty
+    no_progress_penalty = no_progress_penalty_weight * cmd_active * (1.0 - progress)
+
+    return (
+        0.5 * low_z_penalty
+        + 0.3 * orientation_penalty
+        + 0.2 * vertical_vel_penalty
+        + active_hold_penalty
+        + no_progress_penalty
+    )
 
 
 def tracer_slide_reward_total(
@@ -132,16 +223,52 @@ def tracer_slide_reward_total(
     beta_energy: float = 1.0 / 3.0,
     lambda_energy: float = 0.5,
     aux_scale: float = 1.5,
+    motion_std: float = 0.35,
+    active_min_speed: float = 0.10,
+    active_full_speed: float = 0.50,
+    progress_floor: float = 0.05,
+    active_hold_penalty_weight: float = 0.80,
+    no_progress_penalty_weight: float = 0.40,
 ) -> torch.Tensor:
     """Manager-based online TRACER slide reward.
 
-    R = (beta_m R_motion + beta_s R_stability + beta_e lambda_E R_energy) / N
-        * exp(-c_aux R_aux)
+    Same high-level reward form as V0:
+
+        R = (beta_m R_motion + beta_s R_stability + beta_e lambda_E R_energy) / N
+            * exp(-c_aux R_aux)
+
+    V1 refinement:
+      - R_motion is command-active and progress-gated.
+      - R_energy is progress-gated under active commands.
+      - R_aux includes active-command hold/no-progress penalties.
     """
-    r_motion = tracer_motion_tracking_reward(env, command_name=command_name, asset_cfg=asset_cfg)
+    r_motion = tracer_motion_tracking_reward(
+        env,
+        command_name=command_name,
+        asset_cfg=asset_cfg,
+        std=motion_std,
+        active_min_speed=active_min_speed,
+        active_full_speed=active_full_speed,
+        progress_floor=progress_floor,
+    )
     r_stability = tracer_stability_reward(env, asset_cfg=asset_cfg)
-    r_energy = tracer_energy_reward(env, asset_cfg=asset_cfg)
-    r_aux = tracer_aux_penalty(env, asset_cfg=asset_cfg)
+    r_energy = tracer_energy_reward(
+        env,
+        command_name=command_name,
+        asset_cfg=asset_cfg,
+        active_min_speed=active_min_speed,
+        active_full_speed=active_full_speed,
+        progress_floor=progress_floor,
+    )
+    r_aux = tracer_aux_penalty(
+        env,
+        command_name=command_name,
+        asset_cfg=asset_cfg,
+        active_min_speed=active_min_speed,
+        active_full_speed=active_full_speed,
+        active_hold_penalty_weight=active_hold_penalty_weight,
+        no_progress_penalty_weight=no_progress_penalty_weight,
+    )
 
     beta_m = torch.full_like(r_motion, float(beta_motion))
     beta_s = torch.full_like(r_motion, float(beta_stability))
