@@ -83,3 +83,44 @@ class TracerGo1RoughEnvCfg(UnitreeGo1RoughEnvCfg):
         self.rewards.track_ang_vel_z_exp.weight = 0.75
         self.rewards.dof_torques_l2.weight = -0.0002
         attach_tracer_slide_reward(self.rewards, weight=0.5)
+
+
+@configclass
+class TracerGo1FlatForwardEvalEnvCfg(TracerGo1FlatEnvCfg):
+    """Forward-only evaluation config for TRACER Go1 flat locomotion."""
+
+    def __post_init__(self):
+        super().__post_init__()
+
+        # Keep eval small and deterministic-ish.
+        self.scene.num_envs = 16
+        self.scene.env_spacing = 2.5
+
+        # Force forward command. This separates command-induced backstep
+        # from policy/reward-induced backstep.
+        self.commands.base_velocity.ranges.lin_vel_x = (0.5, 0.5)
+        self.commands.base_velocity.ranges.lin_vel_y = (0.0, 0.0)
+        self.commands.base_velocity.ranges.ang_vel_z = (0.0, 0.0)
+
+        # Avoid heading command from overriding yaw-rate command if present.
+        if hasattr(self.commands.base_velocity, "heading_command"):
+            self.commands.base_velocity.heading_command = False
+
+
+@configclass
+class TracerGo1RoughForwardEvalEnvCfg(TracerGo1RoughEnvCfg):
+    """Forward-only evaluation config for TRACER Go1 rough locomotion."""
+
+    def __post_init__(self):
+        super().__post_init__()
+
+        self.scene.num_envs = 16
+        self.scene.env_spacing = 2.5
+
+        self.commands.base_velocity.ranges.lin_vel_x = (0.5, 0.5)
+        self.commands.base_velocity.ranges.lin_vel_y = (0.0, 0.0)
+        self.commands.base_velocity.ranges.ang_vel_z = (0.0, 0.0)
+
+        if hasattr(self.commands.base_velocity, "heading_command"):
+            self.commands.base_velocity.heading_command = False
+
