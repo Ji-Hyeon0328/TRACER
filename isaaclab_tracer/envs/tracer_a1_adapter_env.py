@@ -89,6 +89,31 @@ def make_tracer_a1_adapter_env_class():
         # Blend stance-leg IK target with default joint pose.
         # 0.0 = old behavior, 1.0 = full stance IK target.
         meta_stance_ik_blend = 0.6
+        # PPO safety defaults for early meta-gait training.
+        # V0 trains only the forward velocity residual. Other theta dimensions
+        # are kept frozen until the gait basin is robust enough.
+        meta_train_vx_only = True
+        meta_theta_smoothing_alpha = 0.90
+        meta_done_min_height = 0.22
+        meta_done_lateral_dist = 0.35
+        meta_done_backward_dist = 0.25
+        # PPO reward defaults for meta_gait_theta.
+        # These are intentionally conservative: first learn to improve
+        # forward progress without destroying the stable weak-forward prior.
+        meta_reward_forward_vel = 4.0
+        meta_reward_forward_progress = 2.0
+        meta_penalty_lateral_vel = 0.5
+        meta_penalty_yaw_rate = 0.15
+        meta_penalty_ang_vel = 0.05
+        meta_penalty_height = 4.0
+        meta_target_height = 0.285
+        meta_penalty_low_height = 8.0
+        meta_safe_min_height = 0.255
+        meta_penalty_joint_vel = 0.002
+        meta_penalty_torque = 0.0005
+        meta_penalty_action = 0.02
+        meta_penalty_action_rate = 0.02
+        meta_fall_penalty = 10.0
 
         # Debug/diagnostic option:
         # Ignore TracerStepAdapter done signals and only use env-level safety
@@ -394,7 +419,7 @@ def make_tracer_a1_adapter_env_class():
                 True if external command branch handled this step.
                 False if caller should use the normal internal controller branch.
             """
-            if not bool(self.cfg.use_external_lowlevel):
+            if not bool(getattr(self.cfg, "use_external_lowlevel", False)):
                 return False
 
             self._init_lowlevel_udp_if_needed()
@@ -513,7 +538,27 @@ def make_tracer_a1_adapter_env_class():
                 # theta[3] -> extra swing clearance
                 # theta[4] -> gait-speed/period proxy, reserved for later
                 # theta[5] -> residual/gain proxy, reserved for later
-                theta = torch.clamp(self._actions, -1.0, 1.0)
+                theta_raw = torch.clamp(self._actions, -1.0, 1.0)
+
+                # Early PPO safety:
+                # Train only theta[0] = forward velocity residual.
+                # Keep body height / clearance / other meta dimensions frozen
+                # until the stable gait basin is wider.
+                if bool(getattr(self.cfg, "meta_train_vx_only", True)):
+                    theta_raw = theta_raw.clone()
+                    if theta_raw.shape[1] > 1:
+                        theta_raw[:, 1:] = 0.0
+
+                # Low-pass filter meta actions. Direct per-step random theta
+                # is too aggressive for the current IK gait target.
+                alpha = float(getattr(self.cfg, "meta_theta_smoothing_alpha", 0.90))
+                alpha = max(0.0, min(0.99, alpha))
+                if not hasattr(self, "_meta_theta_smooth") or self._meta_theta_smooth is None:
+                    self._meta_theta_smooth = torch.zeros_like(theta_raw)
+                if self._meta_theta_smooth.shape != theta_raw.shape:
+                    self._meta_theta_smooth = torch.zeros_like(theta_raw)
+                self._meta_theta_smooth = alpha * self._meta_theta_smooth + (1.0 - alpha) * theta_raw
+                theta = self._meta_theta_smooth
 
                 self._joint_effort_target = torch.zeros_like(self.robot.data.default_joint_pos)
 
@@ -940,7 +985,7 @@ def make_tracer_a1_adapter_env_class():
             if self._joint_effort_target is None:
                 self._joint_effort_target = torch.zeros_like(self.robot.data.default_joint_pos)
 
-            if bool(self.cfg.use_grf_torque) or bool(self.cfg.use_external_lowlevel):
+            if bool(getattr(self.cfg, "use_grf_torque", False)) or bool(getattr(self.cfg, "use_external_lowlevel", False)):
                 self.robot.set_joint_position_target(self._joint_pos_target)
                 self.robot.set_joint_effort_target(self._joint_effort_target)
             else:
@@ -957,6 +1002,70 @@ def make_tracer_a1_adapter_env_class():
             return {"policy": self._policy_obs}
 
         def _get_rewards(self):
+            action_type = str(getattr(self.cfg, "action_type", "joint_position_residual")).lower()
+
+            if action_type == "meta_gait_theta":
+                # PPO-facing reward for the structured TRACER meta-gait action.
+                #
+                # Coordinate convention:
+                # - We reward actual root/body forward velocity in world x.
+                # - The low-level gait command sign may be flipped internally
+                #   through meta_gait_x_sign, but reward should measure real motion.
+                root_lin_vel_w = self.robot.data.root_lin_vel_w
+                root_lin_vel_b = self.robot.data.root_lin_vel_b
+                root_ang_vel_b = self.robot.data.root_ang_vel_b
+                root_height = self.robot.data.root_pos_w[:, 2]
+
+                forward_vel = root_lin_vel_w[:, 0]
+                lateral_vel = root_lin_vel_w[:, 1]
+                yaw_rate = root_ang_vel_b[:, 2]
+                ang_vel_xy = torch.linalg.norm(root_ang_vel_b[:, :2], dim=-1)
+
+                height_err = root_height - float(getattr(self.cfg, "meta_target_height", 0.285))
+                low_height = torch.relu(float(getattr(self.cfg, "meta_safe_min_height", 0.255)) - root_height)
+
+                joint_vel = self.robot.data.joint_vel
+                joint_vel_pen = torch.mean(torch.square(joint_vel), dim=-1)
+
+                if hasattr(self.robot.data, "applied_torque") and self.robot.data.applied_torque is not None:
+                    torque = self.robot.data.applied_torque
+                    torque_pen = torch.mean(torch.square(torque), dim=-1)
+                else:
+                    torque_pen = torch.zeros(self.num_envs, device=self.device)
+
+                if self._actions is None:
+                    action_pen = torch.zeros(self.num_envs, device=self.device)
+                else:
+                    action_pen = torch.mean(torch.square(self._actions), dim=-1)
+
+                if self._previous_action is None or self._actions is None:
+                    action_rate_pen = torch.zeros(self.num_envs, device=self.device)
+                else:
+                    # If action dimensions differ due to old buffers, skip safely.
+                    if self._previous_action.shape == self._actions.shape:
+                        action_rate_pen = torch.mean(torch.square(self._actions - self._previous_action), dim=-1)
+                    else:
+                        action_rate_pen = torch.zeros(self.num_envs, device=self.device)
+
+                fall = root_height < 0.18
+
+                reward = torch.zeros(self.num_envs, device=self.device)
+                reward = reward + float(getattr(self.cfg, "meta_reward_forward_vel", 4.0)) * forward_vel
+                reward = reward + float(getattr(self.cfg, "meta_reward_forward_progress", 2.0)) * torch.relu(forward_vel)
+
+                reward = reward - float(getattr(self.cfg, "meta_penalty_lateral_vel", 0.5)) * torch.square(lateral_vel)
+                reward = reward - float(getattr(self.cfg, "meta_penalty_yaw_rate", 0.15)) * torch.square(yaw_rate)
+                reward = reward - float(getattr(self.cfg, "meta_penalty_ang_vel", 0.05)) * torch.square(ang_vel_xy)
+                reward = reward - float(getattr(self.cfg, "meta_penalty_height", 4.0)) * torch.square(height_err)
+                reward = reward - float(getattr(self.cfg, "meta_penalty_low_height", 8.0)) * torch.square(low_height)
+                reward = reward - float(getattr(self.cfg, "meta_penalty_joint_vel", 0.002)) * joint_vel_pen
+                reward = reward - float(getattr(self.cfg, "meta_penalty_torque", 0.0005)) * torque_pen
+                reward = reward - float(getattr(self.cfg, "meta_penalty_action", 0.02)) * action_pen
+                reward = reward - float(getattr(self.cfg, "meta_penalty_action_rate", 0.02)) * action_rate_pen
+                reward = reward - float(getattr(self.cfg, "meta_fall_penalty", 10.0)) * fall.float()
+
+                return reward
+
             if self._reward is None:
                 return torch.zeros(self.num_envs, device=self.device)
 
@@ -968,9 +1077,28 @@ def make_tracer_a1_adapter_env_class():
             else:
                 terminated = self._terminated
 
-            root_height = self.robot.data.root_pos_w[:, 2]
-            height_fail = root_height < 0.18
+            root_pos = self.robot.data.root_pos_w
+            root_height = root_pos[:, 2]
+
+            action_type = str(getattr(self.cfg, "action_type", "joint_position_residual")).lower()
+            if action_type == "meta_gait_theta":
+                height_threshold = float(getattr(self.cfg, "meta_done_min_height", 0.22))
+            else:
+                height_threshold = 0.18
+
+            height_fail = root_height < height_threshold
             terminated = torch.logical_or(terminated, height_fail)
+
+            if action_type == "meta_gait_theta":
+                # Keep early PPO rollouts inside a conservative stable basin.
+                env_origins = self.scene.env_origins
+                rel_x = root_pos[:, 0] - env_origins[:, 0]
+                rel_y = root_pos[:, 1] - env_origins[:, 1]
+
+                lateral_fail = torch.abs(rel_y) > float(getattr(self.cfg, "meta_done_lateral_dist", 0.35))
+                backward_fail = rel_x < -float(getattr(self.cfg, "meta_done_backward_dist", 0.25))
+                terminated = torch.logical_or(terminated, lateral_fail)
+                terminated = torch.logical_or(terminated, backward_fail)
 
             if self._truncated is None:
                 truncated = self.episode_length_buf >= self.max_episode_length - 1
@@ -1020,6 +1148,8 @@ def make_tracer_a1_adapter_env_class():
                     device=self.device,
                 )
             self._previous_action[env_ids] = 0.0
+            if hasattr(self, "_meta_theta_smooth") and self._meta_theta_smooth is not None:
+                self._meta_theta_smooth[env_ids] = 0.0
 
             if self._policy_obs is None:
                 self._policy_obs = torch.zeros(
