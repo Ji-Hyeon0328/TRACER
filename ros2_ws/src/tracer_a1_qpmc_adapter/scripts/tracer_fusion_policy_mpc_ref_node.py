@@ -303,6 +303,26 @@ class TracerFusionPolicyMpcRefNode(Node):
         }
 
     def _select_command(self, base_command: dict[str, float], now_wall: float):
+        semantic_mode = str(self.entry.get("semantic_mode", self.entry.get("semantic", "unknown")))
+        raw_vx = float(base_command.get("vx", 0.0))
+
+        # Primitive-evaluation commands are intentionally hand-authored low-level
+        # references. In particular, micro/true backstep tests need vx < 0 to be
+        # preserved exactly. Do not let GMS/meta-gait rewrite them into a
+        # conservative forward command.
+        primitive_bypass = (
+            semantic_mode.startswith("primitive_eval_")
+            or semantic_mode in {
+                "backstep_braking_locomotion",
+                "backstep_locomotion",
+                "micro_backstep_locomotion",
+                "true_backstep_locomotion",
+            }
+            or raw_vx < -1e-9
+        )
+        if primitive_bypass:
+            return base_command, None, None, None, None, None
+
         if not self.enable_gms:
             return base_command, None, None, None, None, None
 
