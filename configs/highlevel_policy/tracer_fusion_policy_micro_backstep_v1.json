@@ -1,0 +1,1246 @@
+{
+  "name": "tracer_fusion_policy_micro_backstep_v1",
+  "source_csv": "/home/shoko/Tracer/TRACER/artifacts/tracer_highlevel_fusion_v0/fusion_terrain_summary.csv",
+  "topic": "/tracer/mpc_reference",
+  "message_layout": [
+    "counter",
+    "vx",
+    "yaw_rate",
+    "body_height",
+    "swing_clearance",
+    "enable"
+  ],
+  "note": "Oracle-context fusion policy exported from Objective IRL V1 + RAM V0. This JSON contains no torch dependency and can be used by ROS2 runtime.",
+  "style_commands": {
+    "nominal": {
+      "vx": 0.21,
+      "yaw_rate": 0.0,
+      "body_height": 0.3,
+      "swing_clearance": 0.035,
+      "enable": 1.0
+    },
+    "fast": {
+      "vx": 0.28,
+      "yaw_rate": 0.0,
+      "body_height": 0.295,
+      "swing_clearance": 0.03,
+      "enable": 1.0
+    },
+    "cautious": {
+      "vx": 0.12,
+      "yaw_rate": 0.0,
+      "body_height": 0.31,
+      "swing_clearance": 0.06,
+      "enable": 1.0
+    },
+    "high_clearance": {
+      "vx": 0.18,
+      "yaw_rate": 0.0,
+      "body_height": 0.31,
+      "swing_clearance": 0.07,
+      "enable": 1.0
+    },
+    "slip_crawl_06_lowclear": {
+      "vx": 0.06,
+      "yaw_rate": 0.0,
+      "body_height": 0.318,
+      "swing_clearance": 0.05,
+      "enable": 1.0
+    },
+    "backstep_highclear": {
+      "vx": -0.08,
+      "yaw_rate": 0.0,
+      "body_height": 0.315,
+      "swing_clearance": 0.065,
+      "enable": 1.0
+    },
+    "backstep_crawl": {
+      "vx": -0.04,
+      "yaw_rate": 0.0,
+      "body_height": 0.318,
+      "swing_clearance": 0.05,
+      "enable": 1.0
+    },
+    "sponge_tall_10_c080": {
+      "vx": 0.1,
+      "yaw_rate": 0.0,
+      "body_height": 0.335,
+      "swing_clearance": 0.08,
+      "enable": 1.0
+    },
+    "safe_stop": {
+      "vx": 0.0,
+      "yaw_rate": 0.0,
+      "body_height": 0.31,
+      "swing_clearance": 0.05,
+      "enable": 0.0
+    },
+    "active_hold_h305_c055": {
+      "vx": 0.0,
+      "yaw_rate": 0.0,
+      "body_height": 0.305,
+      "swing_clearance": 0.055,
+      "enable": 1.0
+    },
+    "true_backstep_baseline_active_hold_h305_c055": {
+      "vx": 0.0,
+      "yaw_rate": 0.0,
+      "body_height": 0.305,
+      "swing_clearance": 0.055,
+      "enable": 1.0
+    },
+    "true_backstep_vx_m001_h305_c055": {
+      "vx": -0.01,
+      "yaw_rate": 0.0,
+      "body_height": 0.305,
+      "swing_clearance": 0.055,
+      "enable": 1.0
+    },
+    "true_backstep_vx_m002_h305_c055": {
+      "vx": -0.02,
+      "yaw_rate": 0.0,
+      "body_height": 0.305,
+      "swing_clearance": 0.055,
+      "enable": 1.0
+    },
+    "true_backstep_vx_m002_h310_c065": {
+      "vx": -0.02,
+      "yaw_rate": 0.0,
+      "body_height": 0.31,
+      "swing_clearance": 0.065,
+      "enable": 1.0
+    },
+    "micro_backstep_vx_m0p003_h305_c055": {
+      "vx": -0.003,
+      "yaw_rate": 0.0,
+      "body_height": 0.305,
+      "swing_clearance": 0.055,
+      "enable": 1.0
+    },
+    "micro_backstep_vx_m0p005_h305_c055": {
+      "vx": -0.005,
+      "yaw_rate": 0.0,
+      "body_height": 0.305,
+      "swing_clearance": 0.055,
+      "enable": 1.0
+    },
+    "micro_backstep_vx_m0p0075_h305_c055": {
+      "vx": -0.0075,
+      "yaw_rate": 0.0,
+      "body_height": 0.305,
+      "swing_clearance": 0.055,
+      "enable": 1.0
+    },
+    "micro_backstep_vx_m0p01_h305_c055": {
+      "vx": -0.01,
+      "yaw_rate": 0.0,
+      "body_height": 0.305,
+      "swing_clearance": 0.055,
+      "enable": 1.0
+    },
+    "active_hold_h310_c065": {
+      "vx": 0.0,
+      "yaw_rate": 0.0,
+      "body_height": 0.31,
+      "swing_clearance": 0.065,
+      "enable": 1.0
+    }
+  },
+  "terrains": {
+    "downslope_10deg_backstep": {
+      "terrain": "downslope_10deg_backstep",
+      "fused_mode": "locomotion",
+      "suggested_style": "backstep_highclear",
+      "fused_risk": 0.0004316309746994,
+      "objective_recovery_prob": 0.0003678478999999,
+      "sigma_mean": 0.0994598109625668,
+      "beta": {
+        "motion": 0.1189007824533951,
+        "stability": 0.7817249652877855,
+        "energy": 0.0993742522588193
+      },
+      "command": {
+        "vx": -0.08,
+        "yaw_rate": 0.0,
+        "body_height": 0.315,
+        "swing_clearance": 0.065,
+        "enable": 1.0
+      },
+      "true_run_valid": 1.0,
+      "true_run_fallen": 0.0
+    },
+    "downslope_10deg_forward": {
+      "terrain": "downslope_10deg_forward",
+      "fused_mode": "locomotion",
+      "suggested_style": "nominal",
+      "fused_risk": 0.0240661272034349,
+      "objective_recovery_prob": 2.1824464e-05,
+      "sigma_mean": 0.1353522991724138,
+      "beta": {
+        "motion": 0.2560267918389893,
+        "stability": 0.5190010696073066,
+        "energy": 0.224972138553704
+      },
+      "command": {
+        "vx": 0.21,
+        "yaw_rate": 0.0,
+        "body_height": 0.3,
+        "swing_clearance": 0.035,
+        "enable": 1.0
+      },
+      "true_run_valid": 1.0,
+      "true_run_fallen": 0.0
+    },
+    "downslope_5deg_backstep_postfix": {
+      "terrain": "downslope_5deg_backstep_postfix",
+      "fused_mode": "locomotion",
+      "suggested_style": "backstep_highclear",
+      "fused_risk": 0.0027415969749394,
+      "objective_recovery_prob": 1.3601206e-05,
+      "sigma_mean": 0.103347926061674,
+      "beta": {
+        "motion": 0.1203828389105182,
+        "stability": 0.778440796203932,
+        "energy": 0.1011763648855498
+      },
+      "command": {
+        "vx": -0.08,
+        "yaw_rate": 0.0,
+        "body_height": 0.315,
+        "swing_clearance": 0.065,
+        "enable": 1.0
+      },
+      "true_run_valid": 1.0,
+      "true_run_fallen": 0.0
+    },
+    "downslope_5deg_forward_postfix": {
+      "terrain": "downslope_5deg_forward_postfix",
+      "fused_mode": "locomotion",
+      "suggested_style": "nominal",
+      "fused_risk": 0.0019760555793892,
+      "objective_recovery_prob": 1.7861267e-06,
+      "sigma_mean": 0.1045101423928571,
+      "beta": {
+        "motion": 0.259835621612478,
+        "stability": 0.5120287936230806,
+        "energy": 0.2281355847644414
+      },
+      "command": {
+        "vx": 0.21,
+        "yaw_rate": 0.0,
+        "body_height": 0.3,
+        "swing_clearance": 0.035,
+        "enable": 1.0
+      },
+      "true_run_valid": 1.0,
+      "true_run_fallen": 0.0
+    },
+    "flat_normal": {
+      "terrain": "flat_normal",
+      "fused_mode": "locomotion",
+      "suggested_style": "fast",
+      "fused_risk": 0.0006515411589307,
+      "objective_recovery_prob": 1.6186392e-05,
+      "sigma_mean": 0.1006643829244604,
+      "beta": {
+        "motion": 0.4084911031627325,
+        "stability": 0.3951651457535264,
+        "energy": 0.196343751083741
+      },
+      "command": {
+        "vx": 0.28,
+        "yaw_rate": 0.0,
+        "body_height": 0.295,
+        "swing_clearance": 0.03,
+        "enable": 1.0
+      },
+      "true_run_valid": 0.5323741007194245,
+      "true_run_fallen": 0.0,
+      "semantic_mode": "validated_locomotion",
+      "validated_by_online_sanity": true,
+      "decision_note": "Online sanity confirmed fast command routes correctly and produces valid forward motion.",
+      "v1_decision": {
+        "label": "validated_locomotion",
+        "reason": "Online sanity confirmed fast command routes correctly and produces valid forward motion."
+      }
+    },
+    "rough_low": {
+      "terrain": "rough_low",
+      "fused_mode": "locomotion",
+      "suggested_style": "fast",
+      "fused_risk": 0.0017210085383824,
+      "objective_recovery_prob": 9.936636e-05,
+      "sigma_mean": 0.1017584924934497,
+      "beta": {
+        "motion": 0.4084370085490213,
+        "stability": 0.3954795588985834,
+        "energy": 0.1960834325523952
+      },
+      "command": {
+        "vx": 0.28,
+        "yaw_rate": 0.0,
+        "body_height": 0.295,
+        "swing_clearance": 0.03,
+        "enable": 1.0
+      },
+      "true_run_valid": 1.0,
+      "true_run_fallen": 0.0
+    },
+    "rough_mid": {
+      "terrain": "rough_mid",
+      "fused_mode": "locomotion",
+      "suggested_style": "fast",
+      "fused_risk": 0.0009876888139676,
+      "objective_recovery_prob": 0.00019298117,
+      "sigma_mean": 0.1007318144728863,
+      "beta": {
+        "motion": 0.4008358286545214,
+        "stability": 0.3912107977456069,
+        "energy": 0.2079533735998716
+      },
+      "command": {
+        "vx": 0.28,
+        "yaw_rate": 0.0,
+        "body_height": 0.295,
+        "swing_clearance": 0.03,
+        "enable": 1.0
+      },
+      "true_run_valid": 1.0,
+      "true_run_fallen": 0.0
+    },
+    "slippery_downslope_5deg_backstep_postfix": {
+      "terrain": "slippery_downslope_5deg_backstep_postfix",
+      "fused_mode": "recovery_needed",
+      "suggested_style": "safe_stop",
+      "fused_risk": 0.9446814040416608,
+      "objective_recovery_prob": 1.0,
+      "sigma_mean": 1.0015011317543858,
+      "beta": {
+        "motion": 0.1511848786473951,
+        "stability": 0.6872747103909884,
+        "energy": 0.1615404109616164
+      },
+      "command": {
+        "vx": 0.0,
+        "yaw_rate": 0.0,
+        "body_height": 0.31,
+        "swing_clearance": 0.05,
+        "enable": 0.0
+      },
+      "true_run_valid": 0.0,
+      "true_run_fallen": 1.0
+    },
+    "slippery_downslope_5deg_forward": {
+      "terrain": "slippery_downslope_5deg_forward",
+      "fused_mode": "recovery_needed",
+      "suggested_style": "safe_stop",
+      "fused_risk": 0.9509405987689292,
+      "objective_recovery_prob": 1.0,
+      "sigma_mean": 0.9991146589954336,
+      "beta": {
+        "motion": 0.1441813533672541,
+        "stability": 0.6885064029402561,
+        "energy": 0.1673122436924897
+      },
+      "command": {
+        "vx": 0.0,
+        "yaw_rate": 0.0,
+        "body_height": 0.31,
+        "swing_clearance": 0.05,
+        "enable": 0.0
+      },
+      "true_run_valid": 0.0,
+      "true_run_fallen": 1.0
+    },
+    "slippery_downslope_5deg_forward_postfix": {
+      "terrain": "slippery_downslope_5deg_forward_postfix",
+      "fused_mode": "recovery_needed",
+      "suggested_style": "safe_stop",
+      "fused_risk": 0.7925950729368174,
+      "objective_recovery_prob": 0.9999999000000002,
+      "sigma_mean": 0.9822670086842106,
+      "beta": {
+        "motion": 0.1413403850597884,
+        "stability": 0.7040989423270317,
+        "energy": 0.1545606726131798
+      },
+      "command": {
+        "vx": 0.0,
+        "yaw_rate": 0.0,
+        "body_height": 0.31,
+        "swing_clearance": 0.05,
+        "enable": 0.0
+      },
+      "true_run_valid": 0.0,
+      "true_run_fallen": 1.0
+    },
+    "slippery_high_flat": {
+      "terrain": "slippery_high_flat",
+      "fused_mode": "recovery_needed",
+      "suggested_style": "safe_stop",
+      "fused_risk": 0.9085045475960362,
+      "objective_recovery_prob": 0.9999976,
+      "sigma_mean": 0.9931262977748692,
+      "beta": {
+        "motion": 0.1362839804229611,
+        "stability": 0.7077723144336612,
+        "energy": 0.1559437051433777
+      },
+      "command": {
+        "vx": 0.0,
+        "yaw_rate": 0.0,
+        "body_height": 0.31,
+        "swing_clearance": 0.05,
+        "enable": 0.0
+      },
+      "true_run_valid": 0.0,
+      "true_run_fallen": 1.0
+    },
+    "slippery_mid_downslope_10deg_forward": {
+      "terrain": "slippery_mid_downslope_10deg_forward",
+      "fused_mode": "recovery_needed",
+      "suggested_style": "safe_stop",
+      "fused_risk": 0.9255658429862504,
+      "objective_recovery_prob": 0.99953735,
+      "sigma_mean": 0.9991870461001318,
+      "beta": {
+        "motion": 0.1495257639189694,
+        "stability": 0.6916175594352976,
+        "energy": 0.1588566766457329
+      },
+      "command": {
+        "vx": 0.0,
+        "yaw_rate": 0.0,
+        "body_height": 0.31,
+        "swing_clearance": 0.05,
+        "enable": 0.0
+      },
+      "true_run_valid": 0.0,
+      "true_run_fallen": 1.0
+    },
+    "slippery_mid_downslope_5deg_backstep_postfix": {
+      "terrain": "slippery_mid_downslope_5deg_backstep_postfix",
+      "fused_mode": "recovery_needed",
+      "suggested_style": "safe_stop",
+      "fused_risk": 0.89223743596927,
+      "objective_recovery_prob": 0.9999573000000002,
+      "sigma_mean": 0.9961808982432432,
+      "beta": {
+        "motion": 0.1319013278760531,
+        "stability": 0.7250320869012835,
+        "energy": 0.1430665852226634
+      },
+      "command": {
+        "vx": 0.0,
+        "yaw_rate": 0.0,
+        "body_height": 0.31,
+        "swing_clearance": 0.05,
+        "enable": 0.0
+      },
+      "true_run_valid": 0.0,
+      "true_run_fallen": 1.0
+    },
+    "slippery_mid_downslope_5deg_forward_candidate_repeat": {
+      "terrain": "slippery_mid_downslope_5deg_forward_candidate_repeat",
+      "fused_mode": "locomotion",
+      "suggested_style": "slip_crawl_06_lowclear",
+      "fused_risk": 0.4603166335359211,
+      "objective_recovery_prob": 1.8827795e-05,
+      "sigma_mean": 0.7467391111323529,
+      "beta": {
+        "motion": 0.0802876777838702,
+        "stability": 0.8190223861501912,
+        "energy": 0.1006899360659386
+      },
+      "command": {
+        "vx": 0.06,
+        "yaw_rate": 0.0,
+        "body_height": 0.318,
+        "swing_clearance": 0.05,
+        "enable": 1.0
+      },
+      "true_run_valid": 0.2941176470588235,
+      "true_run_fallen": 0.7058823529411765
+    },
+    "slippery_mid_downslope_5deg_forward_postfix": {
+      "terrain": "slippery_mid_downslope_5deg_forward_postfix",
+      "fused_mode": "avoid_required",
+      "suggested_style": "active_hold_h305_c055",
+      "fused_risk": 0.2903078583727412,
+      "objective_recovery_prob": 0.0007306126,
+      "sigma_mean": 0.5213633802289156,
+      "beta": {
+        "motion": 0.1228191974242467,
+        "stability": 0.759424119786174,
+        "energy": 0.1177566827895794
+      },
+      "command": {
+        "vx": 0.0,
+        "yaw_rate": 0.0,
+        "body_height": 0.305,
+        "swing_clearance": 0.055,
+        "enable": 1.0
+      },
+      "true_run_valid": 0.5301204819277109,
+      "true_run_fallen": 0.4698795180722891,
+      "semantic_mode": "no_valid_simple_primitive",
+      "runtime_fallback": "active_hold_h305_c055",
+      "validated_by_online_sanity": true,
+      "decision_note": "This terrain still requires avoid-before-entry or a new traversal primitive. However, online primitive evaluation showed that passive safe_stop is not a good runtime fallback. The runtime fallback command is updated to active_hold_h305_c055 as the current best active stabilization candidate.",
+      "v1_decision": {
+        "label": "avoid_required",
+        "reason": "This terrain still requires avoid-before-entry or a new traversal primitive. However, online primitive evaluation showed that passive safe_stop is not a good runtime fallback. The runtime fallback command is updated to active_hold_h305_c055 as the current best active stabilization candidate.",
+        "tested_primitives": [
+          "cautious",
+          "slip_crawl_06_lowclear",
+          "safe_stop",
+          "active_hold",
+          "active_hold_h300_c050",
+          "active_hold_h305_c055"
+        ],
+        "runtime_behavior": "fallback_to_active_hold_h305_c055_because_safe_stop_showed_passive_sliding_or_fall"
+      }
+    },
+    "slippery_mid_flat": {
+      "terrain": "slippery_mid_flat",
+      "fused_mode": "cautious_locomotion",
+      "suggested_style": "slip_crawl_06_lowclear",
+      "fused_risk": 0.7678542254690865,
+      "objective_recovery_prob": 0.0015215123,
+      "sigma_mean": 0.9354054698896606,
+      "beta": {
+        "motion": 0.1073802309507058,
+        "stability": 0.7807159492688354,
+        "energy": 0.1119038197804587
+      },
+      "command": {
+        "vx": 0.06,
+        "yaw_rate": 0.0,
+        "body_height": 0.318,
+        "swing_clearance": 0.05,
+        "enable": 1.0
+      },
+      "true_run_valid": 0.0285493827160493,
+      "true_run_fallen": 0.9444444444444444
+    },
+    "slippery_mild_downslope_10deg_forward": {
+      "terrain": "slippery_mild_downslope_10deg_forward",
+      "fused_mode": "locomotion",
+      "suggested_style": "slip_crawl_06_lowclear",
+      "fused_risk": 0.6157967394120841,
+      "objective_recovery_prob": 0.002553016,
+      "sigma_mean": 0.9153510846797386,
+      "beta": {
+        "motion": 0.1774096729207461,
+        "stability": 0.632264213534015,
+        "energy": 0.1903261135452389
+      },
+      "command": {
+        "vx": 0.06,
+        "yaw_rate": 0.0,
+        "body_height": 0.318,
+        "swing_clearance": 0.05,
+        "enable": 1.0
+      },
+      "true_run_valid": 0.065359477124183,
+      "true_run_fallen": 0.934640522875817
+    },
+    "slippery_mild_downslope_5deg_backstep_postfix": {
+      "terrain": "slippery_mild_downslope_5deg_backstep_postfix",
+      "fused_mode": "locomotion",
+      "suggested_style": "backstep_highclear",
+      "fused_risk": 0.0013927362044832,
+      "objective_recovery_prob": 0.0008411838,
+      "sigma_mean": 0.1024070788806584,
+      "beta": {
+        "motion": 0.1203201204638544,
+        "stability": 0.7804253813887031,
+        "energy": 0.0992544981474425
+      },
+      "command": {
+        "vx": -0.08,
+        "yaw_rate": 0.0,
+        "body_height": 0.315,
+        "swing_clearance": 0.065,
+        "enable": 1.0
+      },
+      "true_run_valid": 0.3991769547325103,
+      "true_run_fallen": 0.0
+    },
+    "slippery_mild_downslope_5deg_forward_postfix": {
+      "terrain": "slippery_mild_downslope_5deg_forward_postfix",
+      "fused_mode": "locomotion",
+      "suggested_style": "nominal",
+      "fused_risk": 0.0480323314226447,
+      "objective_recovery_prob": 5.4806223e-06,
+      "sigma_mean": 0.1801974717222222,
+      "beta": {
+        "motion": 0.2099999746555854,
+        "stability": 0.5980195461817464,
+        "energy": 0.1919804791626682
+      },
+      "command": {
+        "vx": 0.21,
+        "yaw_rate": 0.0,
+        "body_height": 0.3,
+        "swing_clearance": 0.035,
+        "enable": 1.0
+      },
+      "true_run_valid": 1.0,
+      "true_run_fallen": 0.0
+    },
+    "slippery_mild_flat": {
+      "terrain": "slippery_mild_flat",
+      "fused_mode": "locomotion",
+      "suggested_style": "slip_crawl_06_lowclear",
+      "fused_risk": 0.4256230680289484,
+      "objective_recovery_prob": 2.0343561e-05,
+      "sigma_mean": 0.7617826246184873,
+      "beta": {
+        "motion": 0.2572142791093734,
+        "stability": 0.5670337682398543,
+        "energy": 0.1757519526507723
+      },
+      "command": {
+        "vx": 0.06,
+        "yaw_rate": 0.0,
+        "body_height": 0.318,
+        "swing_clearance": 0.05,
+        "enable": 1.0
+      },
+      "true_run_valid": 0.2067226890756302,
+      "true_run_fallen": 0.7932773109243697
+    },
+    "slippery_slope_5deg": {
+      "terrain": "slippery_slope_5deg",
+      "fused_mode": "locomotion",
+      "suggested_style": "nominal",
+      "fused_risk": 0.0355226631506454,
+      "objective_recovery_prob": 0.00058965856,
+      "sigma_mean": 0.1580533023306122,
+      "beta": {
+        "motion": 0.2109585728679511,
+        "stability": 0.5965986874772852,
+        "energy": 0.1924427396547637
+      },
+      "command": {
+        "vx": 0.21,
+        "yaw_rate": 0.0,
+        "body_height": 0.3,
+        "swing_clearance": 0.035,
+        "enable": 1.0
+      },
+      "true_run_valid": 1.0,
+      "true_run_fallen": 0.0
+    },
+    "slippery_slope_5deg_backstep_negvx": {
+      "terrain": "slippery_slope_5deg_backstep_negvx",
+      "fused_mode": "locomotion",
+      "suggested_style": "backstep_highclear",
+      "fused_risk": 0.0023527044745681,
+      "objective_recovery_prob": 2.3562503e-05,
+      "sigma_mean": 0.1031259543439153,
+      "beta": {
+        "motion": 0.1190068929551455,
+        "stability": 0.7793733095584965,
+        "energy": 0.1016197974863579
+      },
+      "command": {
+        "vx": -0.08,
+        "yaw_rate": 0.0,
+        "body_height": 0.315,
+        "swing_clearance": 0.065,
+        "enable": 1.0
+      },
+      "true_run_valid": 1.0,
+      "true_run_fallen": 0.0
+    },
+    "slope_10deg": {
+      "terrain": "slope_10deg",
+      "fused_mode": "locomotion",
+      "suggested_style": "nominal",
+      "fused_risk": 0.0082898556627008,
+      "objective_recovery_prob": 9.611608e-06,
+      "sigma_mean": 0.109337786247619,
+      "beta": {
+        "motion": 0.2575723476521222,
+        "stability": 0.5154186062125958,
+        "energy": 0.2270090461352819
+      },
+      "command": {
+        "vx": 0.21,
+        "yaw_rate": 0.0,
+        "body_height": 0.3,
+        "swing_clearance": 0.035,
+        "enable": 1.0
+      },
+      "true_run_valid": 1.0,
+      "true_run_fallen": 0.0
+    },
+    "slope_5deg": {
+      "terrain": "slope_5deg",
+      "fused_mode": "locomotion",
+      "suggested_style": "fast",
+      "fused_risk": 0.0008028249845858,
+      "objective_recovery_prob": 3.3598106e-05,
+      "sigma_mean": 0.100527108845252,
+      "beta": {
+        "motion": 0.439147493780451,
+        "stability": 0.3755423396506112,
+        "energy": 0.1853101665689378
+      },
+      "command": {
+        "vx": 0.28,
+        "yaw_rate": 0.0,
+        "body_height": 0.295,
+        "swing_clearance": 0.03,
+        "enable": 1.0
+      },
+      "true_run_valid": 0.8464243845252052,
+      "true_run_fallen": 0.0
+    },
+    "sponge_firm_downslope_5deg_backstep": {
+      "terrain": "sponge_firm_downslope_5deg_backstep",
+      "fused_mode": "recovery_needed",
+      "suggested_style": "safe_stop",
+      "fused_risk": 0.7201368079840426,
+      "objective_recovery_prob": 0.999902,
+      "sigma_mean": 0.9907454830894308,
+      "beta": {
+        "motion": 0.1391352079135208,
+        "stability": 0.707349479234948,
+        "energy": 0.1535153128515313
+      },
+      "command": {
+        "vx": 0.0,
+        "yaw_rate": 0.0,
+        "body_height": 0.31,
+        "swing_clearance": 0.05,
+        "enable": 0.0
+      },
+      "true_run_valid": 0.0,
+      "true_run_fallen": 1.0
+    },
+    "sponge_firm_downslope_5deg_forward": {
+      "terrain": "sponge_firm_downslope_5deg_forward",
+      "fused_mode": "locomotion",
+      "suggested_style": "sponge_tall_10_c080",
+      "fused_risk": 0.1712248602652616,
+      "objective_recovery_prob": 0.00080592005,
+      "sigma_mean": 0.3658389969864865,
+      "beta": {
+        "motion": 0.1853254204719328,
+        "stability": 0.635800229992366,
+        "energy": 0.1788743495357011
+      },
+      "command": {
+        "vx": 0.1,
+        "yaw_rate": 0.0,
+        "body_height": 0.335,
+        "swing_clearance": 0.08,
+        "enable": 1.0
+      },
+      "true_run_valid": 0.7432432432432432,
+      "true_run_fallen": 0.2567567567567567,
+      "semantic_mode": "validated_locomotion",
+      "validated_by_online_sanity": true,
+      "decision_note": "Online sanity with sponge_tall_10_c080 produced stable locomotion. Absolute min z looked low, but terrain-relative min z was about 0.19 and relative fall heuristic was false.",
+      "v1_decision": {
+        "label": "validated_locomotion",
+        "reason": "Online sanity with sponge_tall_10_c080 produced stable locomotion. Absolute min z looked low, but terrain-relative min z was about 0.19 and relative fall heuristic was false."
+      }
+    },
+    "sponge_firm_downslope_5deg_forward_repeat": {
+      "terrain": "sponge_firm_downslope_5deg_forward_repeat",
+      "fused_mode": "locomotion",
+      "suggested_style": "sponge_tall_10_c080",
+      "fused_risk": 0.1274213222792783,
+      "objective_recovery_prob": 1.2606152000000002e-05,
+      "sigma_mean": 0.2531031017447916,
+      "beta": {
+        "motion": 0.2063116495837902,
+        "stability": 0.5886660585762165,
+        "energy": 0.2050222918399934
+      },
+      "command": {
+        "vx": 0.1,
+        "yaw_rate": 0.0,
+        "body_height": 0.335,
+        "swing_clearance": 0.08,
+        "enable": 1.0
+      },
+      "true_run_valid": 0.90625,
+      "true_run_fallen": 0.09375
+    },
+    "sponge_firm_flat": {
+      "terrain": "sponge_firm_flat",
+      "fused_mode": "locomotion",
+      "suggested_style": "sponge_tall_10_c080",
+      "fused_risk": 0.0058585492015701,
+      "objective_recovery_prob": 6.0110553e-05,
+      "sigma_mean": 0.1089667595263157,
+      "beta": {
+        "motion": 0.2269347245612532,
+        "stability": 0.55458615918031,
+        "energy": 0.2184791162584368
+      },
+      "command": {
+        "vx": 0.1,
+        "yaw_rate": 0.0,
+        "body_height": 0.335,
+        "swing_clearance": 0.08,
+        "enable": 1.0
+      },
+      "true_run_valid": 1.0,
+      "true_run_fallen": 0.0
+    },
+    "sponge_grippy_downslope_5deg_backstep": {
+      "terrain": "sponge_grippy_downslope_5deg_backstep",
+      "fused_mode": "recovery_needed",
+      "suggested_style": "safe_stop",
+      "fused_risk": 0.7565987068058193,
+      "objective_recovery_prob": 0.99999976,
+      "sigma_mean": 0.9984251869284064,
+      "beta": {
+        "motion": 0.1473429359937174,
+        "stability": 0.6905108855204354,
+        "energy": 0.1621461784858471
+      },
+      "command": {
+        "vx": 0.0,
+        "yaw_rate": 0.0,
+        "body_height": 0.31,
+        "swing_clearance": 0.05,
+        "enable": 0.0
+      },
+      "true_run_valid": 0.0,
+      "true_run_fallen": 1.0
+    },
+    "sponge_grippy_downslope_5deg_forward": {
+      "terrain": "sponge_grippy_downslope_5deg_forward",
+      "fused_mode": "recovery_needed",
+      "suggested_style": "safe_stop",
+      "fused_risk": 0.6382635697627417,
+      "objective_recovery_prob": 0.99966455,
+      "sigma_mean": 0.9850838850980392,
+      "beta": {
+        "motion": 0.1455605377004484,
+        "stability": 0.6987374250363683,
+        "energy": 0.1557020372631833
+      },
+      "command": {
+        "vx": 0.0,
+        "yaw_rate": 0.0,
+        "body_height": 0.31,
+        "swing_clearance": 0.05,
+        "enable": 0.0
+      },
+      "true_run_valid": 0.0,
+      "true_run_fallen": 1.0
+    },
+    "sponge_grippy_downslope_5deg_forward_repeat": {
+      "terrain": "sponge_grippy_downslope_5deg_forward_repeat",
+      "fused_mode": "locomotion",
+      "suggested_style": "sponge_tall_10_c080",
+      "fused_risk": 0.440167830159938,
+      "objective_recovery_prob": 0.00027676416,
+      "sigma_mean": 0.7449734940944445,
+      "beta": {
+        "motion": 0.1346838485072158,
+        "stability": 0.7145383750518083,
+        "energy": 0.1507777764409758
+      },
+      "command": {
+        "vx": 0.1,
+        "yaw_rate": 0.0,
+        "body_height": 0.335,
+        "swing_clearance": 0.08,
+        "enable": 1.0
+      },
+      "true_run_valid": 0.2888888888888888,
+      "true_run_fallen": 0.7111111111111111
+    },
+    "sponge_grippy_flat": {
+      "terrain": "sponge_grippy_flat",
+      "fused_mode": "locomotion",
+      "suggested_style": "sponge_tall_10_c080",
+      "fused_risk": 0.537406052001666,
+      "objective_recovery_prob": 0.0013464816,
+      "sigma_mean": 0.8505477745266822,
+      "beta": {
+        "motion": 0.159120289059386,
+        "stability": 0.6938901716945712,
+        "energy": 0.1469895392460427
+      },
+      "command": {
+        "vx": 0.1,
+        "yaw_rate": 0.0,
+        "body_height": 0.335,
+        "swing_clearance": 0.08,
+        "enable": 1.0
+      },
+      "true_run_valid": 0.0974477958236658,
+      "true_run_fallen": 0.902552204176334
+    },
+    "sponge_like_flat": {
+      "terrain": "sponge_like_flat",
+      "fused_mode": "recovery_needed",
+      "suggested_style": "safe_stop",
+      "fused_risk": 0.841518385015641,
+      "objective_recovery_prob": 0.9998628,
+      "sigma_mean": 0.9959351025677712,
+      "beta": {
+        "motion": 0.1531527690684723,
+        "stability": 0.6892170567578294,
+        "energy": 0.1576301741736983
+      },
+      "command": {
+        "vx": 0.0,
+        "yaw_rate": 0.0,
+        "body_height": 0.31,
+        "swing_clearance": 0.05,
+        "enable": 0.0
+      },
+      "true_run_valid": 0.0,
+      "true_run_fallen": 1.0
+    },
+    "slippery_true_backstep_v0_active_hold_h305_c055": {
+      "terrain": "slippery_true_backstep_v0_active_hold_h305_c055",
+      "fused_mode": "locomotion",
+      "suggested_style": "true_backstep_baseline_active_hold_h305_c055",
+      "fused_risk": 0.2903078583727412,
+      "objective_recovery_prob": 0.0007306126,
+      "sigma_mean": 0.5213633802289156,
+      "beta": {
+        "motion": 0.1228191974242467,
+        "stability": 0.759424119786174,
+        "energy": 0.1177566827895794
+      },
+      "command": {
+        "vx": 0.0,
+        "yaw_rate": 0.0,
+        "body_height": 0.305,
+        "swing_clearance": 0.055,
+        "enable": 1.0
+      },
+      "true_run_valid": 0.5301204819277109,
+      "true_run_fallen": 0.4698795180722891,
+      "semantic_mode": "primitive_eval_true_backstep",
+      "runtime_fallback": "true_backstep_baseline_active_hold_h305_c055",
+      "validated_by_online_sanity": false,
+      "decision_note": "baseline on reversed slippery slope: active hold with yaw=0, vx=0, h=0.305, clearance=0.055.",
+      "v1_decision": {
+        "label": "primitive_eval_true_backstep",
+        "reason": "baseline on reversed slippery slope: active hold with yaw=0, vx=0, h=0.305, clearance=0.055.",
+        "base_terrain": "slippery_mid_downslope_5deg_forward_postfix",
+        "primitive_style": "true_backstep_baseline_active_hold_h305_c055",
+        "reset_yaw_required": 0.0,
+        "world_slope_variant": "tracer_slippery_mid_slope_5deg",
+        "command_semantics": "yaw=0 and vx<0 means body-backwards motion along the reversed downslope direction"
+      }
+    },
+    "slippery_true_backstep_v0_vx_m001_h305_c055": {
+      "terrain": "slippery_true_backstep_v0_vx_m001_h305_c055",
+      "fused_mode": "locomotion",
+      "suggested_style": "true_backstep_vx_m001_h305_c055",
+      "fused_risk": 0.2903078583727412,
+      "objective_recovery_prob": 0.0007306126,
+      "sigma_mean": 0.5213633802289156,
+      "beta": {
+        "motion": 0.1228191974242467,
+        "stability": 0.759424119786174,
+        "energy": 0.1177566827895794
+      },
+      "command": {
+        "vx": -0.01,
+        "yaw_rate": 0.0,
+        "body_height": 0.305,
+        "swing_clearance": 0.055,
+        "enable": 1.0
+      },
+      "true_run_valid": 0.5301204819277109,
+      "true_run_fallen": 0.4698795180722891,
+      "semantic_mode": "primitive_eval_true_backstep",
+      "runtime_fallback": "true_backstep_vx_m001_h305_c055",
+      "validated_by_online_sanity": false,
+      "decision_note": "conservative true backstep: reversed slippery slope, yaw=0, vx=-0.01, h=0.305, clearance=0.055.",
+      "v1_decision": {
+        "label": "primitive_eval_true_backstep",
+        "reason": "conservative true backstep: reversed slippery slope, yaw=0, vx=-0.01, h=0.305, clearance=0.055.",
+        "base_terrain": "slippery_mid_downslope_5deg_forward_postfix",
+        "primitive_style": "true_backstep_vx_m001_h305_c055",
+        "reset_yaw_required": 0.0,
+        "world_slope_variant": "tracer_slippery_mid_slope_5deg",
+        "command_semantics": "yaw=0 and vx<0 means body-backwards motion along the reversed downslope direction"
+      }
+    },
+    "slippery_true_backstep_v0_vx_m002_h305_c055": {
+      "terrain": "slippery_true_backstep_v0_vx_m002_h305_c055",
+      "fused_mode": "locomotion",
+      "suggested_style": "true_backstep_vx_m002_h305_c055",
+      "fused_risk": 0.2903078583727412,
+      "objective_recovery_prob": 0.0007306126,
+      "sigma_mean": 0.5213633802289156,
+      "beta": {
+        "motion": 0.1228191974242467,
+        "stability": 0.759424119786174,
+        "energy": 0.1177566827895794
+      },
+      "command": {
+        "vx": -0.02,
+        "yaw_rate": 0.0,
+        "body_height": 0.305,
+        "swing_clearance": 0.055,
+        "enable": 1.0
+      },
+      "true_run_valid": 0.5301204819277109,
+      "true_run_fallen": 0.4698795180722891,
+      "semantic_mode": "primitive_eval_true_backstep",
+      "runtime_fallback": "true_backstep_vx_m002_h305_c055",
+      "validated_by_online_sanity": false,
+      "decision_note": "true backstep candidate: reversed slippery slope, yaw=0, vx=-0.02, h=0.305, clearance=0.055.",
+      "v1_decision": {
+        "label": "primitive_eval_true_backstep",
+        "reason": "true backstep candidate: reversed slippery slope, yaw=0, vx=-0.02, h=0.305, clearance=0.055.",
+        "base_terrain": "slippery_mid_downslope_5deg_forward_postfix",
+        "primitive_style": "true_backstep_vx_m002_h305_c055",
+        "reset_yaw_required": 0.0,
+        "world_slope_variant": "tracer_slippery_mid_slope_5deg",
+        "command_semantics": "yaw=0 and vx<0 means body-backwards motion along the reversed downslope direction"
+      }
+    },
+    "slippery_true_backstep_v0_vx_m002_h310_c065": {
+      "terrain": "slippery_true_backstep_v0_vx_m002_h310_c065",
+      "fused_mode": "locomotion",
+      "suggested_style": "true_backstep_vx_m002_h310_c065",
+      "fused_risk": 0.2903078583727412,
+      "objective_recovery_prob": 0.0007306126,
+      "sigma_mean": 0.5213633802289156,
+      "beta": {
+        "motion": 0.1228191974242467,
+        "stability": 0.759424119786174,
+        "energy": 0.1177566827895794
+      },
+      "command": {
+        "vx": -0.02,
+        "yaw_rate": 0.0,
+        "body_height": 0.31,
+        "swing_clearance": 0.065,
+        "enable": 1.0
+      },
+      "true_run_valid": 0.5301204819277109,
+      "true_run_fallen": 0.4698795180722891,
+      "semantic_mode": "primitive_eval_true_backstep",
+      "runtime_fallback": "true_backstep_vx_m002_h310_c065",
+      "validated_by_online_sanity": false,
+      "decision_note": "true backstep candidate with slightly taller body and clearance: yaw=0, vx=-0.02, h=0.310, clearance=0.065.",
+      "v1_decision": {
+        "label": "primitive_eval_true_backstep",
+        "reason": "true backstep candidate with slightly taller body and clearance: yaw=0, vx=-0.02, h=0.310, clearance=0.065.",
+        "base_terrain": "slippery_mid_downslope_5deg_forward_postfix",
+        "primitive_style": "true_backstep_vx_m002_h310_c065",
+        "reset_yaw_required": 0.0,
+        "world_slope_variant": "tracer_slippery_mid_slope_5deg",
+        "command_semantics": "yaw=0 and vx<0 means body-backwards motion along the reversed downslope direction"
+      }
+    },
+    "slippery_micro_backstep_v1_vx_m0p003_h305_c055": {
+      "terrain": "slippery_micro_backstep_v1_vx_m0p003_h305_c055",
+      "fused_mode": "locomotion",
+      "suggested_style": "micro_backstep_vx_m0p003_h305_c055",
+      "fused_risk": 0.2903078583727412,
+      "objective_recovery_prob": 0.0007306126,
+      "sigma_mean": 0.5213633802289156,
+      "beta": {
+        "motion": 0.1228191974242467,
+        "stability": 0.759424119786174,
+        "energy": 0.1177566827895794
+      },
+      "command": {
+        "vx": -0.003,
+        "yaw_rate": 0.0,
+        "body_height": 0.305,
+        "swing_clearance": 0.055,
+        "enable": 1.0
+      },
+      "true_run_valid": 0.5301204819277109,
+      "true_run_fallen": 0.4698795180722891,
+      "semantic_mode": "primitive_eval_micro_backstep",
+      "runtime_fallback": "micro_backstep_vx_m0p003_h305_c055",
+      "validated_by_online_sanity": false,
+      "decision_note": "micro-backstep candidate on reversed slippery slope: yaw=0, vx=-0.003, h=0.305, clearance=0.055. This tests a small braking/backward bias rather than full backstep gait.",
+      "v1_decision": {
+        "label": "primitive_eval_micro_backstep",
+        "reason": "micro-backstep candidate on reversed slippery slope: yaw=0, vx=-0.003, h=0.305, clearance=0.055. This tests a small braking/backward bias rather than full backstep gait.",
+        "base_terrain": "slippery_true_backstep_v0_active_hold_h305_c055",
+        "primitive_style": "micro_backstep_vx_m0p003_h305_c055",
+        "reset_yaw_required": 0.0,
+        "world_slope_variant": "tracer_slippery_mid_slope_5deg"
+      }
+    },
+    "slippery_micro_backstep_v1_vx_m0p005_h305_c055": {
+      "terrain": "slippery_micro_backstep_v1_vx_m0p005_h305_c055",
+      "fused_mode": "locomotion",
+      "suggested_style": "micro_backstep_vx_m0p005_h305_c055",
+      "fused_risk": 0.2903078583727412,
+      "objective_recovery_prob": 0.0007306126,
+      "sigma_mean": 0.5213633802289156,
+      "beta": {
+        "motion": 0.1228191974242467,
+        "stability": 0.759424119786174,
+        "energy": 0.1177566827895794
+      },
+      "command": {
+        "vx": -0.005,
+        "yaw_rate": 0.0,
+        "body_height": 0.305,
+        "swing_clearance": 0.055,
+        "enable": 1.0
+      },
+      "true_run_valid": 0.5301204819277109,
+      "true_run_fallen": 0.4698795180722891,
+      "semantic_mode": "primitive_eval_micro_backstep",
+      "runtime_fallback": "micro_backstep_vx_m0p005_h305_c055",
+      "validated_by_online_sanity": false,
+      "decision_note": "micro-backstep candidate on reversed slippery slope: yaw=0, vx=-0.005, h=0.305, clearance=0.055. This tests a small braking/backward bias rather than full backstep gait.",
+      "v1_decision": {
+        "label": "primitive_eval_micro_backstep",
+        "reason": "micro-backstep candidate on reversed slippery slope: yaw=0, vx=-0.005, h=0.305, clearance=0.055. This tests a small braking/backward bias rather than full backstep gait.",
+        "base_terrain": "slippery_true_backstep_v0_active_hold_h305_c055",
+        "primitive_style": "micro_backstep_vx_m0p005_h305_c055",
+        "reset_yaw_required": 0.0,
+        "world_slope_variant": "tracer_slippery_mid_slope_5deg"
+      }
+    },
+    "slippery_micro_backstep_v1_vx_m0p0075_h305_c055": {
+      "terrain": "slippery_micro_backstep_v1_vx_m0p0075_h305_c055",
+      "fused_mode": "locomotion",
+      "suggested_style": "micro_backstep_vx_m0p0075_h305_c055",
+      "fused_risk": 0.2903078583727412,
+      "objective_recovery_prob": 0.0007306126,
+      "sigma_mean": 0.5213633802289156,
+      "beta": {
+        "motion": 0.1228191974242467,
+        "stability": 0.759424119786174,
+        "energy": 0.1177566827895794
+      },
+      "command": {
+        "vx": -0.0075,
+        "yaw_rate": 0.0,
+        "body_height": 0.305,
+        "swing_clearance": 0.055,
+        "enable": 1.0
+      },
+      "true_run_valid": 0.5301204819277109,
+      "true_run_fallen": 0.4698795180722891,
+      "semantic_mode": "primitive_eval_micro_backstep",
+      "runtime_fallback": "micro_backstep_vx_m0p0075_h305_c055",
+      "validated_by_online_sanity": false,
+      "decision_note": "micro-backstep candidate on reversed slippery slope: yaw=0, vx=-0.0075, h=0.305, clearance=0.055. This tests a small braking/backward bias rather than full backstep gait.",
+      "v1_decision": {
+        "label": "primitive_eval_micro_backstep",
+        "reason": "micro-backstep candidate on reversed slippery slope: yaw=0, vx=-0.0075, h=0.305, clearance=0.055. This tests a small braking/backward bias rather than full backstep gait.",
+        "base_terrain": "slippery_true_backstep_v0_active_hold_h305_c055",
+        "primitive_style": "micro_backstep_vx_m0p0075_h305_c055",
+        "reset_yaw_required": 0.0,
+        "world_slope_variant": "tracer_slippery_mid_slope_5deg"
+      }
+    },
+    "slippery_micro_backstep_v1_vx_m0p01_h305_c055": {
+      "terrain": "slippery_micro_backstep_v1_vx_m0p01_h305_c055",
+      "fused_mode": "locomotion",
+      "suggested_style": "micro_backstep_vx_m0p01_h305_c055",
+      "fused_risk": 0.2903078583727412,
+      "objective_recovery_prob": 0.0007306126,
+      "sigma_mean": 0.5213633802289156,
+      "beta": {
+        "motion": 0.1228191974242467,
+        "stability": 0.759424119786174,
+        "energy": 0.1177566827895794
+      },
+      "command": {
+        "vx": -0.01,
+        "yaw_rate": 0.0,
+        "body_height": 0.305,
+        "swing_clearance": 0.055,
+        "enable": 1.0
+      },
+      "true_run_valid": 0.5301204819277109,
+      "true_run_fallen": 0.4698795180722891,
+      "semantic_mode": "primitive_eval_micro_backstep",
+      "runtime_fallback": "micro_backstep_vx_m0p01_h305_c055",
+      "validated_by_online_sanity": false,
+      "decision_note": "micro-backstep candidate on reversed slippery slope: yaw=0, vx=-0.01, h=0.305, clearance=0.055. This tests a small braking/backward bias rather than full backstep gait.",
+      "v1_decision": {
+        "label": "primitive_eval_micro_backstep",
+        "reason": "micro-backstep candidate on reversed slippery slope: yaw=0, vx=-0.01, h=0.305, clearance=0.055. This tests a small braking/backward bias rather than full backstep gait.",
+        "base_terrain": "slippery_true_backstep_v0_active_hold_h305_c055",
+        "primitive_style": "micro_backstep_vx_m0p01_h305_c055",
+        "reset_yaw_required": 0.0,
+        "world_slope_variant": "tracer_slippery_mid_slope_5deg"
+      }
+    },
+    "slippery_mid_slope_5deg_active_hold_h310_c065": {
+      "terrain": "slippery_mid_slope_5deg_active_hold_h310_c065",
+      "fused_mode": "locomotion",
+      "suggested_style": "active_hold_h310_c065",
+      "fused_risk": 0.2903078583727412,
+      "objective_recovery_prob": 0.0007306126,
+      "sigma_mean": 0.5213633802289156,
+      "beta": {
+        "motion": 0.1228191974242467,
+        "stability": 0.759424119786174,
+        "energy": 0.1177566827895794
+      },
+      "command": {
+        "vx": 0.0,
+        "yaw_rate": 0.0,
+        "body_height": 0.31,
+        "swing_clearance": 0.065,
+        "enable": 1.0
+      },
+      "true_run_valid": 0.5301204819277109,
+      "true_run_fallen": 0.4698795180722891,
+      "semantic_mode": "deployable_active_hold_fallback",
+      "runtime_fallback": "active_hold_h310_c065",
+      "validated_by_online_sanity": true,
+      "decision_note": "Best deployable fallback found for reversed slippery 5deg slope. Negative-vx micro/true backstep caused fall-like behavior, while active_hold_h310_c065 kept fall_like=False with lower lateral drift and better minimum z than h305_c055.",
+      "v1_decision": {
+        "label": "primitive_eval_true_backstep",
+        "reason": "baseline on reversed slippery slope: active hold with yaw=0, vx=0, h=0.305, clearance=0.055.",
+        "base_terrain": "slippery_mid_downslope_5deg_forward_postfix",
+        "primitive_style": "true_backstep_baseline_active_hold_h305_c055",
+        "reset_yaw_required": 0.0,
+        "world_slope_variant": "tracer_slippery_mid_slope_5deg",
+        "command_semantics": "yaw=0 and vx<0 means body-backwards motion along the reversed downslope direction"
+      },
+      "online_sanity_result": {
+        "world": "tracer_slippery_mid_slope_5deg",
+        "duration_sec": 6.45,
+        "dx": -0.3341669308737148,
+        "dy": 0.015506906687415379,
+        "min_z": 0.22919004177364652,
+        "max_abs_roll": 0.10960806972007216,
+        "max_abs_pitch": 0.4760258679757505,
+        "fall_like": false
+      }
+    }
+  },
+  "policy_version": "micro_backstep_v1",
+  "base_policy": "configs/highlevel_policy/tracer_fusion_policy_true_backstep_v0.json",
+  "v1_notes": [
+    {
+      "summary": "V1 adds semantic labels from online sanity tests. It distinguishes locomotion-capable terrains from avoid-required or no-valid-simple-primitive terrains.",
+      "important_distinction": {
+        "safe_stop": "Robot can stably stop in place.",
+        "avoid_required": "Robot should not enter this terrain; stopping on it may still fail.",
+        "no_valid_simple_primitive": "Current walking/stop/hold primitives are insufficient."
+      }
+    },
+    "v2_active_hold_fallback keeps slippery downslope as avoid_required/no_valid_simple_primitive, but replaces runtime safe_stop fallback with active_hold_h305_c055.",
+    "This change is based on top2 repeat evaluation where h305_c055 achieved valid_rate=1.0, fallen_rate=0.0, and better min_rel_z/RAM tail metrics than h300_c050.",
+    "true_backstep_v0 tests reversed slippery slope world with yaw=0 and negative body-frame vx.",
+    "In this setup, slope direction is reversed instead of changing robot heading; therefore yaw reset remains 0.",
+    "The goal is to test controlled backstep-downslope rather than passive active-hold stabilization."
+  ]
+}
