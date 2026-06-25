@@ -36,3 +36,6 @@ data/ablations/
 *.db3
 __pycache__/
 *.pyc
+
+# Hydra / local training outputs
+outputs/
