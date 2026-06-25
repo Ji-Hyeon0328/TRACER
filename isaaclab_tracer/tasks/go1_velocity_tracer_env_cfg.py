@@ -130,9 +130,18 @@ class TracerGo1FlatForwardEvalEnvCfg(TracerGo1FlatEnvCfg):
         self.commands.base_velocity.ranges.lin_vel_y = (0.0, 0.0)
         self.commands.base_velocity.ranges.ang_vel_z = (0.0, 0.0)
 
+        # Critical for video/eval:
+        # the parent velocity task can sample "standing" envs with zero command.
+        # Since RecordVideo usually shows env_0, even a small standing probability
+        # can make the recorded robot look stuck although the policy is not.
+        self.commands.base_velocity.rel_standing_envs = 0.0
+        self.commands.base_velocity.rel_heading_envs = 0.0
+
         # Avoid heading command from overriding yaw-rate command if present.
         if hasattr(self.commands.base_velocity, "heading_command"):
             self.commands.base_velocity.heading_command = False
+        if hasattr(self.commands.base_velocity.ranges, "heading"):
+            self.commands.base_velocity.ranges.heading = (0.0, 0.0)
 
 
 @configclass
@@ -149,6 +158,11 @@ class TracerGo1RoughForwardEvalEnvCfg(TracerGo1RoughEnvCfg):
         self.commands.base_velocity.ranges.lin_vel_y = (0.0, 0.0)
         self.commands.base_velocity.ranges.ang_vel_z = (0.0, 0.0)
 
+        self.commands.base_velocity.rel_standing_envs = 0.0
+        self.commands.base_velocity.rel_heading_envs = 0.0
+
         if hasattr(self.commands.base_velocity, "heading_command"):
             self.commands.base_velocity.heading_command = False
+        if hasattr(self.commands.base_velocity.ranges, "heading"):
+            self.commands.base_velocity.ranges.heading = (0.0, 0.0)
 
