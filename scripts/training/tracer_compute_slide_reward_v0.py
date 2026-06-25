@@ -289,6 +289,26 @@ def compute_slide_reward(
     return out
 
 
+def is_unknown_value(x: Any) -> bool:
+    return str(x).strip().lower() in {"", "unknown", "none", "nan"}
+
+
+def keep_row(
+    row: dict[str, Any],
+    *,
+    require_known_world: bool,
+    require_known_style: bool,
+    drop_disabled: bool,
+) -> bool:
+    if require_known_world and is_unknown_value(row.get("world")):
+        return False
+    if require_known_style and is_unknown_value(row.get("style")):
+        return False
+    if drop_disabled and as_float(row.get("command_enable"), 1.0) < 0.5:
+        return False
+    return True
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument(
@@ -298,9 +318,21 @@ def main() -> None:
     ap.add_argument("--out-dir", default="data/rollout_rewards")
     ap.add_argument("--lambda-energy", type=float, default=0.5)
     ap.add_argument("--aux-scale", type=float, default=1.5)
+    ap.add_argument("--require-known-world", action="store_true")
+    ap.add_argument("--require-known-style", action="store_true")
+    ap.add_argument("--drop-disabled", action="store_true")
     args = ap.parse_args()
 
-    rows = read_csv(Path(args.manifest_csv))
+    rows_all = read_csv(Path(args.manifest_csv))
+    rows = [
+        r for r in rows_all
+        if keep_row(
+            r,
+            require_known_world=args.require_known_world,
+            require_known_style=args.require_known_style,
+            drop_disabled=args.drop_disabled,
+        )
+    ]
 
     rewards = [
         compute_slide_reward(
@@ -320,16 +352,24 @@ def main() -> None:
     for i, r in enumerate(rewards_sorted, start=1):
         r["rank_by_slide_reward"] = i
 
+    filtered = any([
+        args.require_known_world,
+        args.require_known_style,
+        args.drop_disabled,
+    ])
+    suffix = "filtered" if filtered else "all"
+
     out_dir = Path(args.out_dir)
-    out_csv = out_dir / "tracer_slide_reward_v0.csv"
-    out_jsonl = out_dir / "tracer_slide_reward_v0.jsonl"
+    out_csv = out_dir / f"tracer_slide_reward_v0_{suffix}.csv"
+    out_jsonl = out_dir / f"tracer_slide_reward_v0_{suffix}.jsonl"
 
     write_csv(out_csv, rewards_sorted)
     write_jsonl(out_jsonl, rewards_sorted)
 
-    print(f"[TRACER] input rows:  {len(rows)}")
-    print(f"[TRACER] wrote csv:   {out_csv}")
-    print(f"[TRACER] wrote jsonl: {out_jsonl}")
+    print(f"[TRACER] input rows:    {len(rows_all)}")
+    print(f"[TRACER] output rows:   {len(rows)}")
+    print(f"[TRACER] wrote csv:     {out_csv}")
+    print(f"[TRACER] wrote jsonl:   {out_jsonl}")
 
     print("\n[TRACER] slide reward ranking:")
     for r in rewards_sorted[:20]:
