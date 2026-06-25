@@ -180,6 +180,11 @@ def write_jsonl(path: Path, rows: list[dict[str, Any]]) -> None:
 def flatten_for_csv(row: dict[str, Any]) -> dict[str, Any]:
     out: dict[str, Any] = {}
     for k, v in row.items():
+        # Keep full nested winner/loser metric dictionaries in JSONL only.
+        # CSV is intended to be a compact human-readable table.
+        if k in {"winner", "loser"}:
+            continue
+
         if isinstance(v, (dict, list)):
             out[k] = json.dumps(v, sort_keys=True)
         else:
