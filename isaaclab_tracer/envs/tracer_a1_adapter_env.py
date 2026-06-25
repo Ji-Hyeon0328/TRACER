@@ -580,7 +580,9 @@ def make_tracer_a1_adapter_env_class():
                 # Yaw/lateral gait modulation will be added after forward gait is stable.
                 cmd_body[:, 1] = 0.0
 
-                warmup_done = bool(self.common_step_counter >= int(self.cfg.gait_warmup_steps))
+                warmup_done = bool(
+                    torch.min(self.episode_length_buf).item() >= int(self.cfg.gait_warmup_steps)
+                )
                 vx_active = bool(
                     torch.max(torch.abs(vx_cmd)).item()
                     > float(getattr(self.cfg, "meta_movement_vx_threshold", 0.02))
@@ -702,7 +704,9 @@ def make_tracer_a1_adapter_env_class():
                     cmd_body[:, 0] = float(self.cfg.gait_cmd_x)
                     cmd_body[:, 1] = float(self.cfg.gait_cmd_y)
 
-                    movement_mode = bool(self.common_step_counter >= int(self.cfg.gait_warmup_steps))
+                    movement_mode = bool(
+                        torch.min(self.episode_length_buf).item() >= int(self.cfg.gait_warmup_steps)
+                    )
 
                     gait_out = self.gait_core.step(
                         foot_pos_cur_rel=foot_cur,
@@ -949,7 +953,9 @@ def make_tracer_a1_adapter_env_class():
                 cmd_body[:, 0] = float(self.cfg.gait_cmd_x)
                 cmd_body[:, 1] = float(self.cfg.gait_cmd_y)
 
-                movement_mode = bool(self.common_step_counter >= int(self.cfg.gait_warmup_steps))
+                movement_mode = bool(
+                    torch.min(self.episode_length_buf).item() >= int(self.cfg.gait_warmup_steps)
+                )
 
                 gait_out = self.gait_core.step(
                     foot_pos_cur_rel=foot_cur,
