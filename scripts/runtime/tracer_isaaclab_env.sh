@@ -9,8 +9,11 @@
 # Usage:
 #   source scripts/runtime/tracer_isaaclab_env.sh
 
-set -e
-
+# NOTE:
+# This file is meant to be sourced into an interactive shell.
+# Do not use `set -e` here because it leaks into the caller shell and can
+# close the terminal when a later command returns non-zero, e.g. `git commit`
+# with nothing staged.
 source "$HOME/anaconda3/etc/profile.d/conda.sh"
 conda activate env_isaaclab
 
