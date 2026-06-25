@@ -7,10 +7,16 @@ DURATION="${2:-${TRACER_PUBLISH_DURATION:-0.0}}"
 LOG="/tmp/tracer_fusion_policy_mpc_ref_${TERRAIN}.log"
 PIDFILE="/tmp/tracer_fusion_policy_mpc_ref.pid"
 
+META_POLICY_KIND="${TRACER_META_GAIT_POLICY_KIND:-rule_based}"
+META_POLICY_UDP_HOST="${TRACER_META_GAIT_POLICY_UDP_HOST:-127.0.0.1}"
+META_POLICY_UDP_PORT="${TRACER_META_GAIT_POLICY_UDP_PORT:-50310}"
+
 echo "[TRACER] starting fusion policy overlay from qwerty"
-echo "[TRACER] terrain:  $TERRAIN"
-echo "[TRACER] duration: $DURATION"
-echo "[TRACER] log:      $LOG"
+echo "[TRACER] terrain:     $TERRAIN"
+echo "[TRACER] duration:    $DURATION"
+echo "[TRACER] meta_policy: $META_POLICY_KIND"
+echo "[TRACER] meta_udp:    $META_POLICY_UDP_HOST:$META_POLICY_UDP_PORT"
+echo "[TRACER] log:         $LOG"
 
 # Stop previous fusion policy publisher only.
 if [ -f "$PIDFILE" ]; then
