@@ -25,21 +25,44 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--residual_scale", type=float, default=0.0)
     parser.add_argument("--num_steps", type=int, default=80)
+    parser.add_argument("--reset_root_height", type=float, default=None)
+    parser.add_argument(
+        "--action_type",
+        type=str,
+        default="joint_position_residual",
+        choices=["joint_position_residual", "meta_gait_theta"],
+    )
     parser.add_argument("--hold_default_pose", action="store_true")
+    parser.add_argument("--ignore_adapter_done", action="store_true")
     parser.add_argument("--use_external_lowlevel", action="store_true")
     parser.add_argument("--external_lowlevel_timeout_s", type=float, default=0.20)
     parser.add_argument("--external_lowlevel_env_index", type=int, default=0)
 
     parser.add_argument("--adapter_actuator_stiffness", type=float, default=60.0)
     parser.add_argument("--adapter_actuator_damping", type=float, default=2.0)
+    parser.add_argument("--adapter_actuator_effort_limit", type=float, default=None)
+
 
     parser.add_argument("--use_nominal_gait", action="store_true")
     parser.add_argument("--gait_cmd_x", type=float, default=0.0)
     parser.add_argument("--gait_cmd_y", type=float, default=0.0)
-    parser.add_argument("--gait_clearance2", type=float, default=0.20)
-    parser.add_argument("--gait_warmup_steps", type=int, default=40)
-    parser.add_argument("--gait_counter_speed", type=float, default=0.5)
-    parser.add_argument("--gait_pattern", type=str, default="trot", choices=["trot", "crawl"])
+    parser.add_argument("--gait_clearance2", type=float, default=None)
+    parser.add_argument("--gait_foot_delta_x_limit", type=float, default=None)
+    parser.add_argument("--gait_foot_delta_y_limit", type=float, default=None)
+
+    parser.add_argument("--gait_warmup_steps", type=int, default=None)
+    parser.add_argument("--gait_counter_speed", type=float, default=None)
+    parser.add_argument("--gait_pattern", type=str, default=None)
+    parser.add_argument("--meta_debug", action="store_true")
+    parser.add_argument("--meta_base_vx", type=float, default=None)
+    parser.add_argument("--meta_min_vx", type=float, default=None)
+    parser.add_argument("--meta_max_vx", type=float, default=None)
+    parser.add_argument("--meta_movement_vx_threshold", type=float, default=None)
+    parser.add_argument("--meta_stance_push_gain", type=float, default=None)
+    parser.add_argument("--meta_stance_ik_blend", type=float, default=None)
+
+
+
 
     parser.add_argument("--use_grf_torque", action="store_true")
     parser.add_argument("--grf_mass", type=float, default=12.5)
@@ -124,8 +147,17 @@ def main():
         print("[M41] imported env class factory.", flush=True)
         cfg = TracerA1AdapterEnvCfg()
 
+        if args_cli.reset_root_height is not None:
+            cfg.reset_root_height = float(args_cli.reset_root_height)
+
+        cfg.action_type = args_cli.action_type
+        if args_cli.action_type == "meta_gait_theta":
+            cfg.action_space = 6
+            cfg.use_nominal_gait = True
+            cfg.hold_default_pose = False
         cfg.residual_scale = args_cli.residual_scale
-        cfg.hold_default_pose = args_cli.hold_default_pose
+        cfg.hold_default_pose = args_cli.hold_default_pose if args_cli.action_type != "meta_gait_theta" else False
+        cfg.ignore_adapter_done = args_cli.ignore_adapter_done
         cfg.use_external_lowlevel = args_cli.use_external_lowlevel
         cfg.external_lowlevel_timeout_s = args_cli.external_lowlevel_timeout_s
         cfg.external_lowlevel_env_index = args_cli.external_lowlevel_env_index
@@ -137,10 +169,31 @@ def main():
         cfg.use_nominal_gait = args_cli.use_nominal_gait
         cfg.gait_cmd_x = args_cli.gait_cmd_x
         cfg.gait_cmd_y = args_cli.gait_cmd_y
-        cfg.gait_clearance2 = args_cli.gait_clearance2
-        cfg.gait_warmup_steps = args_cli.gait_warmup_steps
-        cfg.gait_counter_speed = args_cli.gait_counter_speed
-        cfg.gait_pattern = args_cli.gait_pattern
+        if args_cli.gait_clearance2 is not None:
+            cfg.gait_clearance2 = float(args_cli.gait_clearance2)
+        if args_cli.gait_foot_delta_x_limit is not None:
+            cfg.gait_foot_delta_x_limit = float(args_cli.gait_foot_delta_x_limit)
+        if args_cli.gait_foot_delta_y_limit is not None:
+            cfg.gait_foot_delta_y_limit = float(args_cli.gait_foot_delta_y_limit)
+        if args_cli.gait_warmup_steps is not None:
+            cfg.gait_warmup_steps = int(args_cli.gait_warmup_steps)
+        if args_cli.gait_counter_speed is not None:
+            cfg.gait_counter_speed = float(args_cli.gait_counter_speed)
+        if args_cli.gait_pattern is not None:
+            cfg.gait_pattern = str(args_cli.gait_pattern)
+        cfg.meta_debug = args_cli.meta_debug
+        if args_cli.meta_base_vx is not None:
+            cfg.meta_base_vx = float(args_cli.meta_base_vx)
+        if args_cli.meta_min_vx is not None:
+            cfg.meta_min_vx = float(args_cli.meta_min_vx)
+        if args_cli.meta_max_vx is not None:
+            cfg.meta_max_vx = float(args_cli.meta_max_vx)
+        if args_cli.meta_movement_vx_threshold is not None:
+            cfg.meta_movement_vx_threshold = float(args_cli.meta_movement_vx_threshold)
+        if args_cli.meta_stance_push_gain is not None:
+            cfg.meta_stance_push_gain = float(args_cli.meta_stance_push_gain)
+        if args_cli.meta_stance_ik_blend is not None:
+            cfg.meta_stance_ik_blend = float(args_cli.meta_stance_ik_blend)
 
         cfg.use_grf_torque = args_cli.use_grf_torque
         cfg.grf_mass = args_cli.grf_mass
@@ -171,6 +224,8 @@ def main():
         print("cfg num_envs:", cfg.scene.num_envs, flush=True)
         print("cfg obs dim:", cfg.observation_space, flush=True)
         print("cfg action dim:", cfg.action_space, flush=True)
+        print("action_type:", cfg.action_type, flush=True)
+        print("reset_root_height:", getattr(cfg, "reset_root_height", None), flush=True)
         print("residual_scale:", cfg.residual_scale, flush=True)
         print("num_steps:", args_cli.num_steps, flush=True)
         print("adapter_actuator_stiffness:", cfg.adapter_actuator_stiffness, flush=True)
@@ -178,10 +233,20 @@ def main():
         print("use_nominal_gait:", args_cli.use_nominal_gait, flush=True)
         print("gait_cmd_x:", args_cli.gait_cmd_x, flush=True)
         print("gait_cmd_y:", args_cli.gait_cmd_y, flush=True)
-        print("gait_clearance2:", args_cli.gait_clearance2, flush=True)
-        print("gait_warmup_steps:", args_cli.gait_warmup_steps, flush=True)
-        print("gait_counter_speed:", args_cli.gait_counter_speed, flush=True)
-        print("gait_pattern:", args_cli.gait_pattern, flush=True)
+        print("gait_clearance2:", getattr(cfg, "gait_clearance2", None), flush=True)
+        print("gait_warmup_steps:", getattr(cfg, "gait_warmup_steps", None), flush=True)
+        print("gait_counter_speed:", getattr(cfg, "gait_counter_speed", None), flush=True)
+        print("gait_pattern:", getattr(cfg, "gait_pattern", None), flush=True)
+        print("meta_debug:", cfg.meta_debug, flush=True)
+        print("gait_foot_delta_x_limit:", getattr(cfg, "gait_foot_delta_x_limit", None), flush=True)
+        print("gait_foot_delta_y_limit:", getattr(cfg, "gait_foot_delta_y_limit", None), flush=True)
+        print("meta_base_vx:", cfg.meta_base_vx, flush=True)
+        print("meta_min_vx:", cfg.meta_min_vx, flush=True)
+        print("meta_max_vx:", cfg.meta_max_vx, flush=True)
+        print("meta_movement_vx_threshold:", cfg.meta_movement_vx_threshold, flush=True)
+        print("meta_gait_x_sign:", cfg.meta_gait_x_sign, flush=True)
+        print("meta_stance_push_gain:", getattr(cfg, "meta_stance_push_gain", None), flush=True)
+        print("meta_stance_ik_blend:", getattr(cfg, "meta_stance_ik_blend", None), flush=True)
         print("use_grf_torque:", args_cli.use_grf_torque, flush=True)
         print("grf_mass:", args_cli.grf_mass, flush=True)
         print("grf_scale:", args_cli.grf_scale, flush=True)
@@ -207,6 +272,7 @@ def main():
         print("grf_yaw_kd:", args_cli.grf_yaw_kd, flush=True)
         print("grf_xy_wrench_damping:", args_cli.grf_xy_wrench_damping, flush=True)
         print("hold_default_pose:", cfg.hold_default_pose, flush=True)
+        print("ignore_adapter_done:", cfg.ignore_adapter_done, flush=True)
         print("action_mode:", args_cli.action_mode, flush=True)
         print("action_value:", args_cli.action_value, flush=True)
         print("sin_period:", args_cli.sin_period, flush=True)
@@ -219,8 +285,45 @@ def main():
         print("env created", flush=True)
         print("env.num_envs:", env.num_envs, flush=True)
         print("env.device:", env.device, flush=True)
+
+        if args_cli.adapter_actuator_effort_limit is not None:
+            effort_limit = float(args_cli.adapter_actuator_effort_limit)
+            print("[A1AdapterCheck] override runtime actuator effort_limit:", effort_limit, flush=True)
+            for act_name, act in env.robot.actuators.items():
+                try:
+                    if hasattr(act, "effort_limit") and act.effort_limit is not None:
+                        act.effort_limit[:] = effort_limit
+                    if hasattr(act, "effort_limit_sim") and act.effort_limit_sim is not None:
+                        # Keep sim-side limit permissive for diagnostics.
+                        act.effort_limit_sim[:] = max(effort_limit, 1.0e9)
+                    print("[A1AdapterCheck] effort override applied to", act_name, flush=True)
+                except Exception as exc:
+                    print("[WARN] effort override failed for", act_name, repr(exc), flush=True)
+
         print("joint names:", env.robot.data.joint_names, flush=True)
         print("body names:", env.robot.data.body_names, flush=True)
+
+        print("", flush=True)
+        print("========== runtime actuator info ==========", flush=True)
+        try:
+            print("robot actuators keys:", list(env.robot.actuators.keys()), flush=True)
+            for act_name, act in env.robot.actuators.items():
+                print("ACTUATOR:", act_name, flush=True)
+                for k in [
+                    "joint_names_expr",
+                    "stiffness",
+                    "damping",
+                    "effort_limit",
+                    "effort_limit_sim",
+                    "velocity_limit",
+                    "velocity_limit_sim",
+                    "armature",
+                    "friction",
+                ]:
+                    print(f"  {k}: {getattr(act, k, None)}", flush=True)
+        except Exception as exc:
+            print("[WARN] actuator info failed:", repr(exc), flush=True)
+        print("==========================================", flush=True)
         print("", flush=True)
 
         obs, extras = env.reset()
@@ -230,6 +333,22 @@ def main():
         print("reset joint pos mean:", env.robot.data.joint_pos.mean().item(), flush=True)
         print("reset default joint pos[0]:", env.robot.data.default_joint_pos[0].detach().cpu().numpy(), flush=True)
         print("reset joint pos[0]:", env.robot.data.joint_pos[0].detach().cpu().numpy(), flush=True)
+
+        # Actual Isaac asset foot body positions.
+        # This checks whether reset_root_height is consistent with the USD body geometry,
+        # not only with the custom FK model.
+        try:
+            foot_names = ["FL_foot", "FR_foot", "RL_foot", "RR_foot"]
+            foot_ids = [env.robot.data.body_names.index(name) for name in foot_names]
+            foot_pos_w = env.robot.data.body_pos_w[:, foot_ids, :]
+            print("reset foot body names:", foot_names, flush=True)
+            print("reset foot body z env0:", foot_pos_w[0, :, 2].detach().cpu().numpy(), flush=True)
+            print("reset foot body z mean:", foot_pos_w[:, :, 2].mean().item(), flush=True)
+            print("reset foot body z min:", foot_pos_w[:, :, 2].min().item(), flush=True)
+            print("reset foot body z max:", foot_pos_w[:, :, 2].max().item(), flush=True)
+        except Exception as exc:
+            print("[WARN] could not print reset foot body positions:", repr(exc), flush=True)
+
         print("", flush=True)
 
         min_h = 999.0
@@ -304,7 +423,7 @@ def main():
 
             obs, reward, terminated, truncated, extras = env.step(actions)
 
-            if i == args_cli.gait_warmup_steps:
+            if i == int(getattr(cfg, "gait_warmup_steps", -1)):
                 gait_xy0 = env.robot.data.root_pos_w[:, :2].detach().clone()
                 try:
                     gait_yaw0 = env._make_tracer_obs_dict()["yaw"].detach().clone()
@@ -351,6 +470,36 @@ def main():
 
                 print("  target mean:", target.mean().item(), flush=True)
                 print("  target-default abs mean:", (target - default).abs().mean().item(), flush=True)
+                joint_pos = env.robot.data.joint_pos
+                joint_vel = env.robot.data.joint_vel
+                root_h = env.robot.data.root_pos_w[:, 2]
+                print("  joint-default abs mean:", (joint_pos - default).abs().mean().item(), flush=True)
+                print("  joint-target abs mean:", (joint_pos - target).abs().mean().item(), flush=True)
+                print("  joint-vel abs mean:", joint_vel.abs().mean().item(), flush=True)
+                try:
+                    if hasattr(env.robot.data, "applied_torque"):
+                        tau = env.robot.data.applied_torque
+                        print("  applied_torque abs mean:", tau.abs().mean().item(), flush=True)
+                        print("  applied_torque abs max:", tau.abs().max().item(), flush=True)
+                    if hasattr(env.robot.data, "computed_torque"):
+                        ctau = env.robot.data.computed_torque
+                        print("  computed_torque abs mean:", ctau.abs().mean().item(), flush=True)
+                        print("  computed_torque abs max:", ctau.abs().max().item(), flush=True)
+                except Exception as exc:
+                    print("  [WARN] torque diagnostic failed:", repr(exc), flush=True)
+                print("  root height min:", root_h.min().item(), flush=True)
+                print("  root height max:", root_h.max().item(), flush=True)
+                print("  height_fail_count:", int((root_h < 0.18).sum().item()), flush=True)
+                try:
+                    adapter_done = int(env._terminated.sum().item()) if env._terminated is not None else -1
+                    print("  adapter_done_count:", adapter_done, flush=True)
+                except Exception:
+                    pass
+                try:
+                    print("  root lin vel z mean:", env.robot.data.root_lin_vel_w[:, 2].mean().item(), flush=True)
+                    print("  root ang vel abs mean:", env.robot.data.root_ang_vel_b.abs().mean().item(), flush=True)
+                except Exception:
+                    pass
 
         print("", flush=True)
         print("summary", flush=True)

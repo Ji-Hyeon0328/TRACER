@@ -54,6 +54,47 @@ def make_tracer_a1_adapter_env_class():
         observation_space = 58
         state_space = 0
 
+        # TRACER action semantics.
+        #
+        # joint_position_residual:
+        #   existing behavior. PPO action is a 12D joint residual.
+        #
+        # meta_gait_theta:
+        #   PPO action is a 6D structured meta-gait plan theta.
+        #   The env maps theta -> gait command / gait proxy -> IK joint targets.
+        action_type = "joint_position_residual"
+        meta_theta_dim = 6
+        meta_base_vx = 0.10
+        meta_vx_scale = 0.07
+        meta_min_vx = 0.00
+        meta_max_vx = 0.18
+        meta_yaw_scale = 0.15
+        meta_body_height_delta = 0.04
+        meta_clearance_delta = 0.08
+        meta_debug = False
+
+        # Do not start the gait oscillator when commanded vx is near zero.
+        # This prevents zero-command stepping drift during diagnostics/training.
+        meta_movement_vx_threshold = 0.02
+
+        # Isaac/A1 gait-core body-frame x convention is opposite to TRACER's
+        # external forward-vx convention. Keep TRACER vx positive-forward,
+        # but flip it before sending into A1GaitCore.
+        meta_gait_x_sign = -1.0
+
+        # Small stance-foot backward drift in body frame.
+        # This creates forward propulsion while swing legs reposition.
+        meta_stance_push_gain = 1.0
+
+        # Blend stance-leg IK target with default joint pose.
+        # 0.0 = old behavior, 1.0 = full stance IK target.
+        meta_stance_ik_blend = 0.6
+
+        # Debug/diagnostic option:
+        # Ignore TracerStepAdapter done signals and only use env-level safety
+        # termination. Useful for standing/controller diagnostics.
+        ignore_adapter_done = False
+
         sim: SimulationCfg = SimulationCfg(
             dt=0.005,
             render_interval=decimation,
@@ -70,12 +111,23 @@ def make_tracer_a1_adapter_env_class():
 
         tracer_goal_x = 1.0
         tracer_goal_y = 0.5
+
+        # Reset height should be consistent with default_joint_pos FK.
+        # For current A1 default pose, mean foot z is about -0.299 m.
+        # Spawning at 0.42 m leaves the feet floating and causes drop/termination.
+        reset_root_height = 0.385
+
         residual_scale = 0.0
         hold_default_pose = False
         use_nominal_gait = False
         gait_cmd_x = 0.0
         gait_cmd_y = 0.0
-        gait_clearance2 = 0.20
+        gait_pattern = "trot"
+        gait_warmup_steps = 80
+        gait_counter_speed = 2.0
+        gait_clearance2 = 0.03
+        gait_foot_delta_x_limit = 0.05
+        gait_foot_delta_y_limit = 0.03
 
         # External low-level controller bridge.
         # This keeps Isaac Lab in conda Python and talks to ROS2 through UDP.
@@ -90,6 +142,7 @@ def make_tracer_a1_adapter_env_class():
         # Lowering these reduces default-position PD dominance in mode=3.
         adapter_actuator_stiffness = 60.0
         adapter_actuator_damping = 2.0
+        adapter_actuator_effort_limit = 120.0
 
     class TracerA1AdapterEnv(DirectRLEnv):
         cfg: TracerA1AdapterEnvCfg
@@ -101,6 +154,7 @@ def make_tracer_a1_adapter_env_class():
 
             self._actions = None
             self._previous_action = None
+            self._previous_adapter_action = None
             self._policy_obs = None
             self._reward = None
             self._terminated = None
@@ -201,6 +255,8 @@ def make_tracer_a1_adapter_env_class():
             gait_cfg = A1GaitCoreCfg()
             gait_cfg.foot_swing_clearance2 = float(self.cfg.gait_clearance2)
             gait_cfg.gait_counter_speed = (float(self.cfg.gait_counter_speed),) * 4
+            gait_cfg.foot_delta_x_limit = float(getattr(self.cfg, "gait_foot_delta_x_limit", gait_cfg.foot_delta_x_limit))
+            gait_cfg.foot_delta_y_limit = float(getattr(self.cfg, "gait_foot_delta_y_limit", gait_cfg.foot_delta_y_limit))
             if str(self.cfg.gait_pattern).lower() == "crawl":
                 # Crawl-like schedule:
                 # - 75% stance, 25% swing
@@ -231,6 +287,11 @@ def make_tracer_a1_adapter_env_class():
             self._previous_action = torch.zeros(
                 self.num_envs,
                 self.cfg.action_space,
+                device=self.device,
+            )
+            self._previous_adapter_action = torch.zeros(
+                self.num_envs,
+                12,
                 device=self.device,
             )
 
@@ -399,24 +460,181 @@ def make_tracer_a1_adapter_env_class():
         def _pre_physics_step(self, actions):
             self._actions = actions.detach().clone()
 
+            action_type = str(getattr(self.cfg, "action_type", "joint_position_residual")).lower()
+            is_meta_theta = action_type == "meta_gait_theta"
+
             if self._previous_action is None:
                 self._previous_action = torch.zeros_like(self._actions)
 
+            if self._previous_adapter_action is None:
+                self._previous_adapter_action = torch.zeros(self.num_envs, 12, device=self.device)
+
             obs_dict = self._make_tracer_obs_dict()
-            obs_dict["previous_action"] = self._previous_action
+
+            # TracerStepAdapter and policy_obs_v0 still expect a 12D low-level previous action.
+            # In meta-gait mode, PPO action is theta, so feed a safe 12D zero adapter action
+            # into the legacy adapter/reward path.
+            if is_meta_theta:
+                if self._actions.shape[-1] != int(getattr(self.cfg, "meta_theta_dim", 6)):
+                    raise ValueError(
+                        f"meta_gait_theta expects action dim {int(getattr(self.cfg, 'meta_theta_dim', 6))}, "
+                        f"got {self._actions.shape[-1]}"
+                    )
+                adapter_action = torch.zeros(self.num_envs, 12, device=self.device)
+                obs_dict["previous_action"] = self._previous_adapter_action
+            else:
+                adapter_action = self._actions
+                obs_dict["previous_action"] = self._previous_action
 
             out = self.tracer_adapter.step(
                 obs_dict,
-                self._actions,
+                adapter_action,
             )
 
             self._policy_obs = out.policy_obs
             self._reward = out.reward
-            self._terminated = out.done
+            if bool(getattr(self.cfg, "ignore_adapter_done", False)):
+                self._terminated = torch.zeros_like(out.done, dtype=torch.bool)
+            else:
+                self._terminated = out.done
             self._truncated = torch.zeros_like(out.done, dtype=torch.bool)
 
             if self._apply_external_lowlevel_if_available():
                 self._previous_action = self._actions.detach().clone()
+                self._previous_adapter_action = adapter_action.detach().clone()
+                return
+
+            if is_meta_theta:
+                # Structured TRACER meta-gait action.
+                #
+                # theta[0] -> forward velocity command around a positive walking prior
+                # theta[1] -> lateral/yaw proxy, reserved for later
+                # theta[2] -> body-height proxy through foot z offset
+                # theta[3] -> extra swing clearance
+                # theta[4] -> gait-speed/period proxy, reserved for later
+                # theta[5] -> residual/gain proxy, reserved for later
+                theta = torch.clamp(self._actions, -1.0, 1.0)
+
+                self._joint_effort_target = torch.zeros_like(self.robot.data.default_joint_pos)
+
+                foot_cur = self.a1_kin.fk_isaac(self.robot.data.joint_pos.detach())
+
+                cmd_body = torch.zeros(self.num_envs, 3, device=self.device)
+                vx_cmd = (
+                    float(getattr(self.cfg, "meta_base_vx", 0.18))
+                    + float(getattr(self.cfg, "meta_vx_scale", 0.12)) * theta[:, 0]
+                )
+                vx_cmd = torch.clamp(
+                    vx_cmd,
+                    float(getattr(self.cfg, "meta_min_vx", 0.03)),
+                    float(getattr(self.cfg, "meta_max_vx", 0.30)),
+                )
+                cmd_body[:, 0] = float(getattr(self.cfg, "meta_gait_x_sign", -1.0)) * vx_cmd
+
+                # V0 stability: no lateral command proxy yet.
+                # Yaw/lateral gait modulation will be added after forward gait is stable.
+                cmd_body[:, 1] = 0.0
+
+                warmup_done = bool(self.common_step_counter >= int(self.cfg.gait_warmup_steps))
+                vx_active = bool(
+                    torch.max(torch.abs(vx_cmd)).item()
+                    > float(getattr(self.cfg, "meta_movement_vx_threshold", 0.02))
+                )
+                movement_mode = warmup_done and vx_active
+
+                gait_out = self.gait_core.step(
+                    foot_pos_cur_rel=foot_cur,
+                    root_lin_vel_body=self.robot.data.root_lin_vel_b.detach(),
+                    root_lin_vel_cmd_body=cmd_body,
+                    movement_mode=movement_mode,
+                )
+
+                foot_target = gait_out["foot_pos_target_rel"].clone()
+
+                if movement_mode:
+                    # Body-height proxy:
+                    # Foot z is negative in body frame. Making feet more negative
+                    # corresponds to a higher nominal body stance.
+                    body_height_delta = float(getattr(self.cfg, "meta_body_height_delta", 0.04)) * theta[:, 2:3]
+                    foot_target[:, 2, :] = foot_target[:, 2, :] - body_height_delta
+
+                    # Swing-clearance proxy:
+                    # Positive theta[3] increases clearance only on swing legs.
+                    swing_mask = gait_out["swing_mask"].float()
+                    clearance_extra = float(getattr(self.cfg, "meta_clearance_delta", 0.08)) * torch.relu(theta[:, 3:4])
+                    foot_target[:, 2, :] = foot_target[:, 2, :] + clearance_extra * swing_mask
+
+                    # Stance propulsion proxy:
+                    # Positive TRACER vx means forward body motion.
+                    # To push the body forward, stance feet should move slightly backward
+                    # in the body frame. Keep this tiny; large values can destabilize contact.
+                    stance_mask = 1.0 - swing_mask
+                    stance_push_gain = float(getattr(self.cfg, "meta_stance_push_gain", 0.0))
+                    if stance_push_gain != 0.0:
+                        control_dt = float(getattr(self.gait_core.cfg, "control_dt", 0.02))
+                        stance_dx = -vx_cmd.view(-1, 1) * control_dt * stance_push_gain
+                        foot_target[:, 0, :] = foot_target[:, 0, :] + stance_dx * stance_mask
+
+                    nominal_joint_target = self.a1_kin.ik_foot_targets(
+                        self.robot.data.joint_pos.detach(),
+                        foot_target,
+                        num_iters=10,
+                        damping=1.0e-3,
+                        step_size=0.8,
+                    )
+                else:
+                    nominal_joint_target = self.robot.data.default_joint_pos.detach().clone()
+
+                if movement_mode:
+                    # Safety V1:
+                    # Apply IK target only to swing legs.
+                    # Keep stance legs near the default support pose so the position drive
+                    # does not pull supporting feet away and collapse the body.
+                    swing_leg_mask = gait_out["swing_mask"].float()
+
+                    swing_joint_mask = torch.zeros(self.num_envs, 12, device=self.device)
+                    # IsaacLab joint order:
+                    # [FL_hip, FR_hip, RL_hip, RR_hip,
+                    #  FL_thigh, FR_thigh, RL_thigh, RR_thigh,
+                    #  FL_calf, FR_calf, RL_calf, RR_calf]
+                    swing_joint_mask[:, 0] = swing_leg_mask[:, 0]
+                    swing_joint_mask[:, 1] = swing_leg_mask[:, 1]
+                    swing_joint_mask[:, 2] = swing_leg_mask[:, 2]
+                    swing_joint_mask[:, 3] = swing_leg_mask[:, 3]
+                    swing_joint_mask[:, 4] = swing_leg_mask[:, 0]
+                    swing_joint_mask[:, 5] = swing_leg_mask[:, 1]
+                    swing_joint_mask[:, 6] = swing_leg_mask[:, 2]
+                    swing_joint_mask[:, 7] = swing_leg_mask[:, 3]
+                    swing_joint_mask[:, 8] = swing_leg_mask[:, 0]
+                    swing_joint_mask[:, 9] = swing_leg_mask[:, 1]
+                    swing_joint_mask[:, 10] = swing_leg_mask[:, 2]
+                    swing_joint_mask[:, 11] = swing_leg_mask[:, 3]
+
+                    stance_joint_default = self.robot.data.default_joint_pos.detach().clone()
+                    stance_ik_blend = float(getattr(self.cfg, "meta_stance_ik_blend", 0.0))
+                    stance_ik_blend = max(0.0, min(1.0, stance_ik_blend))
+                    stance_joint_target = stance_joint_default + stance_ik_blend * (
+                        nominal_joint_target - stance_joint_default
+                    )
+                    self._joint_pos_target = torch.where(
+                        swing_joint_mask > 0.5,
+                        nominal_joint_target,
+                        stance_joint_target,
+                    )
+                else:
+                    self._joint_pos_target = nominal_joint_target
+
+                if bool(getattr(self.cfg, "meta_debug", False)) and int(self.common_step_counter) % 20 == 0:
+                    print(
+                        "[A1Adapter][meta_gait_theta] "
+                        f"step={int(self.common_step_counter)} "
+                        f"vx_mean={vx_cmd.mean().item():.3f} "
+                        f"theta_mean={theta.mean(dim=0).detach().cpu().tolist()}",
+                        flush=True,
+                    )
+
+                self._previous_action = self._actions.detach().clone()
+                self._previous_adapter_action = adapter_action.detach().clone()
                 return
 
             if bool(self.cfg.use_grf_torque):
@@ -713,6 +931,7 @@ def make_tracer_a1_adapter_env_class():
                 self._joint_pos_target = out.joint_pos_target
 
             self._previous_action = self._actions.detach().clone()
+            self._previous_adapter_action = adapter_action.detach().clone()
 
         def _apply_action(self):
             if self._joint_pos_target is None:
@@ -774,6 +993,11 @@ def make_tracer_a1_adapter_env_class():
             # Explicitly reset the robot to IsaacLab's default standing state.
             root_state = self.robot.data.default_root_state[env_ids].clone()
             root_state[:, :3] += self.scene.env_origins[env_ids]
+
+            # Use FK-consistent reset height instead of asset default height.
+            # This avoids dropping from an overly high spawn pose before the
+            # controller/gait branch even starts.
+            root_state[:, 2] = self.scene.env_origins[env_ids, 2] + float(self.cfg.reset_root_height)
 
             joint_pos = self.robot.data.default_joint_pos[env_ids].clone()
             joint_vel = torch.zeros_like(joint_pos)
