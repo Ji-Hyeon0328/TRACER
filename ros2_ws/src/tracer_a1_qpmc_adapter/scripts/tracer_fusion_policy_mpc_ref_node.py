@@ -27,11 +27,8 @@ from tracer_core.highlevel.gait_mode_selector import (  # noqa: E402
     input_from_policy_entry,
     select_gait_mode,
 )
-from tracer_core.highlevel.decoder_mapper import (  # noqa: E402
-    decode_meta_gait_to_low_level_ref,
-    meta_gait_from_gms,
-)
-from tracer_core.highlevel.meta_gait import ObjectiveWeights  # noqa: E402
+from tracer_core.highlevel.decoder_mapper import decode_meta_gait_to_low_level_ref  # noqa: E402
+from tracer_core.highlevel.meta_gait_policy import make_meta_gait_policy  # noqa: E402
 from tracer_core.highlevel.policy_input_builder import (  # noqa: E402
     build_high_level_policy_input,
     high_level_policy_input_summary,
@@ -88,6 +85,12 @@ class TracerFusionPolicyMpcRefNode(Node):
         self.declare_parameter("gms_use_ram_gate", int(os.environ.get("TRACER_GMS_USE_RAM_GATE", "1")))
         self.declare_parameter("gms_gate_freshness_sec", float(os.environ.get("TRACER_GMS_GATE_FRESHNESS_SEC", "2.0")))
 
+        # Meta-gait policy interface.
+        # rule_based is the current runtime-safe implementation.
+        # learned/torch is reserved for a future exported model.
+        self.declare_parameter("meta_gait_policy_kind", os.environ.get("TRACER_META_GAIT_POLICY_KIND", "rule_based"))
+        self.declare_parameter("meta_gait_policy_model", os.environ.get("TRACER_META_GAIT_POLICY_MODEL", ""))
+
         # Optional terrain-aware command transition ramp.
         # Used for slippery active fallback experiments.
         self.declare_parameter("ramp_body_height_enable", int(os.environ.get("TRACER_RAMP_BODY_HEIGHT_ENABLE", "0")))
@@ -110,6 +113,12 @@ class TracerFusionPolicyMpcRefNode(Node):
         self.enable_gms = bool(int(self.get_parameter("enable_gms").value))
         self.gms_use_ram_gate = bool(int(self.get_parameter("gms_use_ram_gate").value))
         self.gms_gate_freshness_sec = max(0.0, float(self.get_parameter("gms_gate_freshness_sec").value))
+        self.meta_gait_policy_kind = str(self.get_parameter("meta_gait_policy_kind").value)
+        self.meta_gait_policy_model = str(self.get_parameter("meta_gait_policy_model").value)
+        self.meta_gait_policy = make_meta_gait_policy(
+            self.meta_gait_policy_kind,
+            self.meta_gait_policy_model or None,
+        )
 
         self.ramp_body_height_enable = bool(int(self.get_parameter("ramp_body_height_enable").value))
         self.ramp_body_height_start = float(self.get_parameter("ramp_body_height_start").value)
@@ -180,6 +189,10 @@ class TracerFusionPolicyMpcRefNode(Node):
             f"GMS enable={int(self.enable_gms)} "
             f"use_ram_gate={int(self.gms_use_ram_gate)} "
             f"gate_freshness={self.gms_gate_freshness_sec:.2f}s"
+        )
+        self.get_logger().info(
+            f"meta_gait_policy kind={self.meta_gait_policy_kind} "
+            f"model={self.meta_gait_policy_model or '<none>'}"
         )
 
         if self.ramp_body_height_enable:
@@ -305,7 +318,6 @@ class TracerFusionPolicyMpcRefNode(Node):
         )
         gms_out = select_gait_mode(gms_in)
 
-        beta = ObjectiveWeights.from_mapping(self.entry.get("beta", {}))
         policy_input = build_high_level_policy_input(
             policy_entry=self.entry,
             gms_in=gms_in,
@@ -316,7 +328,17 @@ class TracerFusionPolicyMpcRefNode(Node):
             goal=[],
         )
 
-        meta = meta_gait_from_gms(base_command, gms_out, beta=beta)
+        # Current implementation uses RuleBasedMetaGaitPolicy. Later this call will
+        # be replaced by an exported learned policy without changing the mapper.
+        meta = self.meta_gait_policy.predict(policy_input)
+
+        # Preserve the base command's yaw if the current rule-based policy did not
+        # explicitly choose one.
+        if abs(meta.yaw_rate) < 1e-12 and abs(base_command.get("yaw_rate", 0.0)) > 1e-12:
+            meta = meta.__class__(
+                **{**meta.__dict__, "yaw_rate": float(base_command.get("yaw_rate", 0.0))}
+            )
+
         low_ref = decode_meta_gait_to_low_level_ref(meta)
 
         final_command = {
