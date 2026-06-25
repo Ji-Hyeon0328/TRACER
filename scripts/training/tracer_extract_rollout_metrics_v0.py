@@ -134,32 +134,41 @@ def extract_one(
     pose_source = "none"
     pose = np.empty((0, 0), dtype=float)
     pose_mask = np.zeros((0,), dtype=bool)
+    pose_offset = 0
 
     if odom.ndim == 2 and odom.shape[1] >= 6 and np.any(odom_mask):
+        # odom convention, when available:
+        #   [x, y, z, roll, pitch, yaw]
         pose_source = "odom"
         pose = odom
         pose_mask = odom_mask
+        pose_offset = 0
     elif proprio.ndim == 2 and proprio.shape[1] >= 6 and np.any(proprio_mask):
+        # Current mission logger / analyzer convention:
+        #   proprio[:, 0] = timestamp
+        #   proprio[:, 1:4] = xyz
+        #   proprio[:, 4:6] = roll, pitch
         pose_source = "proprio_fallback"
         pose = proprio
         pose_mask = proprio_mask
+        pose_offset = 1
 
     result["pose_source"] = pose_source
+    result["pose_offset"] = pose_offset
 
-    # Pose convention for odom:
-    # pose[:, 0:3] = xyz
-    # pose[:, 3:6] = rpy
-    if pose.ndim == 2 and pose.shape[1] >= 6 and np.any(pose_mask):
+    if pose.ndim == 2 and pose.shape[1] >= pose_offset + 5 and np.any(pose_mask):
         i0, i1, first, last = first_last_valid_rows(pose, pose_mask)
         assert first is not None and last is not None
 
-        xyz0 = first[:3]
-        xyz1 = last[:3]
-        rpy = pose[:, 3:6]
+        xyz0 = first[pose_offset : pose_offset + 3]
+        xyz1 = last[pose_offset : pose_offset + 3]
+        roll_col = pose_offset + 3
+        pitch_col = pose_offset + 4
+        rpy = pose[:, roll_col : pitch_col + 1]
 
         dx, dy, dz = (xyz1 - xyz0).tolist()
-        min_z = min_valid(pose[:, 2], pose_mask)
-        max_z = float(np.max(pose[pose_mask, 2]))
+        min_z = min_valid(pose[:, pose_offset + 2], pose_mask)
+        max_z = float(np.max(pose[pose_mask, pose_offset + 2]))
         max_abs_roll = max_abs_valid(rpy[:, 0], pose_mask)
         max_abs_pitch = max_abs_valid(rpy[:, 1], pose_mask)
 
