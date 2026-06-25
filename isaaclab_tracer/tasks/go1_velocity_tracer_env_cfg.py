@@ -11,7 +11,12 @@ from isaaclab_tasks.manager_based.locomotion.velocity.config.go1.rough_env_cfg i
 
 
 def attach_tracer_slide_reward(rewards, *, weight: float = 0.5) -> None:
-    """Attach TRACER slide reward to an Isaac Lab reward config object."""
+    """Attach TRACER slide reward to an Isaac Lab reward config object.
+
+    V2 additionally exposes anti-abandonment terms as explicit reward terms:
+    - progress reward encourages moving in the commanded direction.
+    - active hold penalty discourages standing still under non-zero commands.
+    """
     rewards.tracer_slide_reward = RewTerm(
         func=tracer_mdp.tracer_slide_reward_total,
         weight=weight,
@@ -23,6 +28,29 @@ def attach_tracer_slide_reward(rewards, *, weight: float = 0.5) -> None:
             "beta_energy": 1.0 / 3.0,
             "lambda_energy": 0.5,
             "aux_scale": 1.5,
+        },
+    )
+
+    rewards.tracer_command_progress_reward = RewTerm(
+        func=tracer_mdp.tracer_command_progress_reward,
+        weight=1.0,
+        params={
+            "command_name": "base_velocity",
+            "asset_cfg": SceneEntityCfg("robot"),
+            "active_min_speed": 0.10,
+            "active_full_speed": 0.50,
+        },
+    )
+
+    rewards.tracer_active_hold_penalty = RewTerm(
+        func=tracer_mdp.tracer_active_hold_penalty,
+        weight=-1.0,
+        params={
+            "command_name": "base_velocity",
+            "asset_cfg": SceneEntityCfg("robot"),
+            "active_min_speed": 0.10,
+            "active_full_speed": 0.50,
+            "hold_speed_threshold": 0.20,
         },
     )
 

@@ -285,3 +285,57 @@ def tracer_slide_reward_total(
         lambda_energy=lambda_energy,
         aux_scale=aux_scale,
     )
+
+
+def tracer_command_progress_reward(
+    env: "ManagerBasedRLEnv",
+    command_name: str = "base_velocity",
+    asset_cfg: SceneEntityCfg = SceneEntityCfg("robot"),
+    active_min_speed: float = 0.10,
+    active_full_speed: float = 0.50,
+) -> torch.Tensor:
+    """Explicit command-progress reward.
+
+    This term is intentionally separate from tracer_slide_reward so that
+    PPO cannot obtain high return by simply holding a stable pose under
+    non-zero velocity commands.
+    """
+    asset = _robot(env, asset_cfg)
+    _, _, cmd_active, progress, _, _ = _command_activity_progress(
+        env,
+        asset,
+        command_name,
+        active_min_speed=active_min_speed,
+        active_full_speed=active_full_speed,
+    )
+    return torch.clamp(cmd_active * progress, 0.0, 1.0)
+
+
+def tracer_active_hold_penalty(
+    env: "ManagerBasedRLEnv",
+    command_name: str = "base_velocity",
+    asset_cfg: SceneEntityCfg = SceneEntityCfg("robot"),
+    active_min_speed: float = 0.10,
+    active_full_speed: float = 0.50,
+    hold_speed_threshold: float = 0.20,
+) -> torch.Tensor:
+    """Explicit active-command hold penalty.
+
+    Returns a positive penalty. Use a negative RewardTerm weight.
+    """
+    asset = _robot(env, asset_cfg)
+    _, _, cmd_active, _, _, actual_speed = _command_activity_progress(
+        env,
+        asset,
+        command_name,
+        active_min_speed=active_min_speed,
+        active_full_speed=active_full_speed,
+    )
+
+    hold = torch.clamp(
+        (hold_speed_threshold - actual_speed) / max(hold_speed_threshold, 1.0e-9),
+        0.0,
+        1.0,
+    )
+    return torch.clamp(cmd_active * hold, 0.0, 1.0)
+
