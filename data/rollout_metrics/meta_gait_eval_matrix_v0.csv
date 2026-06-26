@@ -1,0 +1,16 @@
+name,reward_mean,final_dx,directional_dx,final_dy,abs_final_dy,done_count,mean_theta0,label,log_path
+icy_slippery_downslope5_forward,-3.30623,0.15492,0.15492,-0.008472,0.008472,40,-0.248344,unstable_slip_or_drift,logs/tracer_runs/eval_active0_icy_slippery_downslope5_forward_legacy_noctx_model19_20260626_012417.log
+icy_slippery_even_forward,-5.954946,0.062006,0.062006,-0.088156,0.088156,15,0.008428,unstable_slip_or_drift,logs/tracer_runs/eval_active0_icy_slippery_even_forward_legacy_noctx_model19_20260626_011155.log
+icy_slippery_upslope5_forward,-6.561584,-0.002605,-0.002605,2.6e-05,2.6e-05,64,0.268168,failure,logs/tracer_runs/eval_active0_icy_slippery_upslope5_forward_legacy_noctx_model19_20260626_013044.log
+mud_slippery_downslope5_forward,-3.529641,0.048977,0.048977,-0.003,0.003,40,0.181494,unstable_slip_or_drift,logs/tracer_runs/eval_active0_mud_slippery_downslope5_forward_legacy_noctx_model19_20260626_012505.log
+mud_slippery_even_forward,-6.041593,-0.009315,-0.009315,-0.053452,0.053452,24,0.21693,failure,logs/tracer_runs/eval_active0_mud_slippery_even_forward_legacy_noctx_model19_20260626_011244.log
+mud_slippery_upslope5_forward,-6.591571,-0.002961,-0.002961,2.4e-05,2.4e-05,64,0.067971,failure,logs/tracer_runs/eval_active0_mud_slippery_upslope5_forward_legacy_noctx_model19_20260626_013132.log
+rough_bumps_start018_forward,0.040052,0.009999,0.009999,-0.000283,0.000283,0,0.025269,borderline,logs/tracer_runs/eval_active0_rough_bumps_start018_forward_legacy_noctx_model19_20260626_013811.log
+rough_bumps_start020_forward,0.045273,0.028048,0.028048,-0.000931,0.000931,0,0.185164,stable,logs/tracer_runs/eval_active0_rough_bumps_start020_forward_legacy_noctx_model19_20260626_013717.log
+solid_downslope5_backward,0.034403,-0.032469,0.032469,-0.008856,0.008856,0,0.187599,stable,logs/tracer_runs/eval_active0_solid_downslope5_backward_legacy_noctx_model19_20260626_010124.log
+solid_downslope5_forward,0.045904,0.050602,0.050602,-0.003608,0.003608,0,-0.356015,stable,logs/tracer_runs/eval_active0_solid_downslope5_forward_legacy_noctx_model19_20260626_005922.log
+solid_even_forward,0.045035,0.028664,0.028664,-0.001238,0.001238,0,0.127866,stable,logs/tracer_runs/eval_active0_solid_even_forward_legacy_noctx_model19_20260626_011105.log
+solid_upslope5_forward,0.031098,-0.022638,-0.022638,0.001229,0.001229,0,0.027992,safe_no_progress,logs/tracer_runs/eval_active0_solid_upslope5_forward_legacy_noctx_model19_20260626_011853.log
+sponge_like_downslope5_forward,-4.163631,0.126863,0.126863,-0.081235,0.081235,32,0.061821,unstable_slip_or_drift,logs/tracer_runs/eval_active0_sponge_like_downslope5_forward_legacy_noctx_model19_20260626_012553.log
+sponge_like_even_forward,-4.483765,0.057194,0.057194,-0.132297,0.132297,18,-0.032204,unstable_slip_or_drift,logs/tracer_runs/eval_active0_sponge_like_even_forward_legacy_noctx_model19_20260626_011334.log
+sponge_like_upslope5_forward,-6.547353,-0.00395,-0.00395,1.8e-05,1.8e-05,64,-0.047913,failure,logs/tracer_runs/eval_active0_sponge_like_upslope5_forward_legacy_noctx_model19_20260626_013220.log
