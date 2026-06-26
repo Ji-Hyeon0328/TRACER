@@ -1,0 +1,182 @@
+{
+  "cases": [
+    {
+      "finite_motion": {
+        "delta_x": 1.7578750378564423,
+        "delta_y": -0.318556057669444,
+        "first_finite_xyz": [
+          0.0002728181015430963,
+          5.7623021179082495e-06,
+          0.3231560548335012
+        ],
+        "first_z_below_0p18_index": 172,
+        "last_finite_xyz": [
+          1.7581478559579853,
+          -0.3185502953673261,
+          0.12684692663957461
+        ],
+        "max_abs_pitch": 0.46993920828240304,
+        "max_abs_roll": 0.11625163608464997,
+        "max_z": 0.3231560548335012,
+        "min_z": 0.12232921463178734,
+        "total_proprio": 213,
+        "valid_proprio": 209
+      },
+      "log": "data/mission_logs/tracer_mission_log_20260626_023305.npz",
+      "mpc_reference": {
+        "first": [
+          0.0,
+          0.025,
+          0.0,
+          0.32499999999999996,
+          0.04,
+          1.0
+        ],
+        "last": [
+          0.0,
+          0.025,
+          0.0,
+          0.32499999999999996,
+          0.04,
+          1.0
+        ],
+        "max": [
+          0.0,
+          0.025,
+          0.0,
+          0.32499999999999996,
+          0.04,
+          1.0
+        ],
+        "mean": [
+          0.0,
+          0.02500000000000004,
+          0.0,
+          0.3250000000000013,
+          0.03999999999999997,
+          1.0
+        ],
+        "min": [
+          0.0,
+          0.025,
+          0.0,
+          0.32499999999999996,
+          0.04,
+          1.0
+        ],
+        "total_mpc": 213,
+        "valid_mpc": 213
+      },
+      "name": "sponge_like_downslope5_forward_slow_probe_vx0025",
+      "summary": "data/mission_logs/tracer_mission_summary_20260626_023305.json",
+      "summary_json": {
+        "duration_sec": 10.599981784820557,
+        "log_hz": 20.0,
+        "mpc_body_height_mean": 0.3250000000000001,
+        "mpc_clearance_mean": 0.04,
+        "mpc_enable_fraction": 1.0,
+        "mpc_vx_max": 0.025,
+        "mpc_vx_mean": 0.024999999999999998,
+        "num_samples": 213,
+        "objective_mean": [
+          0.33333333333333365,
+          0.33333333333333365,
+          0.33333333333333365
+        ],
+        "output_npz": "/home/shoko/Tracer/TRACER/data/mission_logs/tracer_mission_log_20260626_023305.npz",
+        "success_radius": 0.6
+      }
+    },
+    {
+      "finite_motion": {
+        "delta_x": 1.7014879376120056,
+        "delta_y": 0.26994906749101394,
+        "first_finite_xyz": [
+          0.0002258898550653237,
+          4.313111847541358e-06,
+          0.3234658976346841
+        ],
+        "first_z_below_0p18_index": 170,
+        "last_finite_xyz": [
+          1.701713827467071,
+          0.2699533806028615,
+          0.06809021714862072
+        ],
+        "max_abs_pitch": 0.46445389585631813,
+        "max_abs_roll": 0.1367250038036824,
+        "max_z": 0.3234658976346841,
+        "min_z": 0.06809021714862072,
+        "total_proprio": 214,
+        "valid_proprio": 210
+      },
+      "log": "data/mission_logs/tracer_mission_log_20260626_140654.npz",
+      "mpc_reference": {
+        "first": [
+          0.0,
+          0.0,
+          0.0,
+          0.32499999999999996,
+          0.04,
+          1.0
+        ],
+        "last": [
+          0.0,
+          0.0,
+          0.0,
+          0.32499999999999996,
+          0.04,
+          1.0
+        ],
+        "max": [
+          0.0,
+          0.0,
+          0.0,
+          0.32499999999999996,
+          0.04,
+          1.0
+        ],
+        "mean": [
+          0.0,
+          0.0,
+          0.0,
+          0.3250000000000013,
+          0.03999999999999997,
+          1.0
+        ],
+        "min": [
+          0.0,
+          0.0,
+          0.0,
+          0.32499999999999996,
+          0.04,
+          1.0
+        ],
+        "total_mpc": 214,
+        "valid_mpc": 213
+      },
+      "name": "sponge_like_downslope5_forward_zero_vx_hold_after_reset",
+      "summary": "data/mission_logs/tracer_mission_summary_20260626_140654.json",
+      "summary_json": {
+        "duration_sec": 10.65001630783081,
+        "log_hz": 20.0,
+        "mpc_body_height_mean": 0.3250000000000001,
+        "mpc_clearance_mean": 0.04,
+        "mpc_enable_fraction": 1.0,
+        "mpc_vx_max": 0.0,
+        "mpc_vx_mean": 0.0,
+        "num_samples": 214,
+        "objective_mean": [
+          0.3333333333333337,
+          0.3333333333333337,
+          0.3333333333333337
+        ],
+        "output_npz": "/home/shoko/Tracer/TRACER/data/mission_logs/tracer_mission_log_20260626_140654.npz",
+        "success_radius": 0.6
+      }
+    }
+  ],
+  "decision": "downgrade_to_no_valid_forward_recovery_needed",
+  "reason": "zero-vx hold after reset still produced large downslope displacement and body-height collapse",
+  "terrain_name": "sponge_like_downslope5_forward",
+  "world": "tracer_sponge_firm_downslope_5deg"
+}
