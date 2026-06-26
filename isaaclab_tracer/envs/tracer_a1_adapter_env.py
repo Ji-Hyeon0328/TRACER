@@ -84,6 +84,7 @@ def make_tracer_a1_adapter_env_class():
         # external forward-vx convention. Keep TRACER vx positive-forward,
         # but flip it before sending into A1GaitCore.
         meta_gait_x_sign = -1.0
+        meta_progress_sign = 1.0
 
         # Small stance-foot backward drift in body frame.
         # This creates forward propulsion while swing legs reposition.
@@ -1244,7 +1245,9 @@ def make_tracer_a1_adapter_env_class():
                 root_ang_vel_b = self.robot.data.root_ang_vel_b
                 root_height = self.robot.data.root_pos_w[:, 2]
 
-                forward_vel = root_lin_vel_w[:, 0]
+                raw_forward_vel = root_lin_vel_w[:, 0]
+                progress_sign = float(getattr(self.cfg, "meta_progress_sign", 1.0))
+                forward_vel = progress_sign * raw_forward_vel
                 lateral_vel = root_lin_vel_w[:, 1]
                 yaw_rate = root_ang_vel_b[:, 2]
                 ang_vel_xy = torch.linalg.norm(root_ang_vel_b[:, :2], dim=-1)

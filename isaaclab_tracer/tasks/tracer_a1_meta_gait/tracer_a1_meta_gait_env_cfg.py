@@ -261,6 +261,24 @@ class TracerA1MetaGaitEnvCfg(_TracerA1AdapterEnvCfg):
         self.adapter_actuator_stiffness = 60.0
         self.adapter_actuator_damping = 2.0
         self.meta_base_vx = 0.10
-        self.meta_gait_x_sign = -1.0
+        # Gait direction is a traversal primitive, not a terrain material.
+        #
+        # Current convention:
+        #   forward  : meta_gait_x_sign=-1 makes the robot move +world-x.
+        #   backward : flip the low-level command sign and reward -world-x progress.
+        gait_direction_raw = os.environ.get("TRACER_GAIT_DIRECTION", "forward").strip().lower()
+        if gait_direction_raw in ("forward", "fwd"):
+            self.gait_direction = "forward"
+            self.meta_gait_x_sign = -1.0
+            self.meta_progress_sign = 1.0
+        elif gait_direction_raw in ("backward", "back", "bwd"):
+            self.gait_direction = "backward"
+            self.meta_gait_x_sign = 1.0
+            self.meta_progress_sign = -1.0
+        else:
+            raise ValueError(
+                f"Unknown TRACER_GAIT_DIRECTION={gait_direction_raw!r}. "
+                "Expected one of: forward, backward."
+            )
         self.meta_stance_push_gain = 1.0
         self.meta_stance_ik_blend = 0.6
