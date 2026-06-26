@@ -1,0 +1,54 @@
+{
+  "num_samples": 44,
+  "num_features": 13,
+  "labels": [
+    "cautious_probe",
+    "high_clearance_slow_probe",
+    "no_valid_forward_recovery_needed",
+    "validated_locomotion"
+  ],
+  "class_counts": {
+    "validated_locomotion": 2,
+    "cautious_probe": 3,
+    "high_clearance_slow_probe": 3,
+    "no_valid_forward_recovery_needed": 36
+  },
+  "accuracy_train_set": 0.9545454545454546,
+  "per_label": {
+    "cautious_probe": {
+      "total": 3,
+      "correct": 2,
+      "accuracy": 0.6666666666666666,
+      "pred_counts": {
+        "high_clearance_slow_probe": 1,
+        "cautious_probe": 2
+      }
+    },
+    "high_clearance_slow_probe": {
+      "total": 3,
+      "correct": 3,
+      "accuracy": 1.0,
+      "pred_counts": {
+        "high_clearance_slow_probe": 3
+      }
+    },
+    "no_valid_forward_recovery_needed": {
+      "total": 36,
+      "correct": 35,
+      "accuracy": 0.9722222222222222,
+      "pred_counts": {
+        "cautious_probe": 1,
+        "no_valid_forward_recovery_needed": 35
+      }
+    },
+    "validated_locomotion": {
+      "total": 2,
+      "correct": 2,
+      "accuracy": 1.0,
+      "pred_counts": {
+        "validated_locomotion": 2
+      }
+    }
+  },
+  "warning": "This is a seed-data nearest-centroid baseline, not a final learned Objective Selector. Use it to validate dataset contract and runtime wiring before neural training."
+}

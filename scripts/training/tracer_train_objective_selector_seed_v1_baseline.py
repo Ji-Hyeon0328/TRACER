@@ -19,6 +19,12 @@ MODEL_JSON = OUT_DIR / "model.json"
 EVAL_JSON = OUT_DIR / "eval_summary.json"
 PRED_CSV = OUT_DIR / "predictions.csv"
 
+# Tracked copies. The artifacts/ directory is ignored by git, so keep
+# compact reproducibility outputs under data/preference_datasets as well.
+TRACKED_MODEL_JSON = ROOT / "data/preference_datasets/tracer_objective_selector_seed_v1_baseline_model.json"
+TRACKED_EVAL_JSON = ROOT / "data/preference_datasets/tracer_objective_selector_seed_v1_baseline_eval.json"
+TRACKED_PRED_CSV = ROOT / "data/preference_datasets/tracer_objective_selector_seed_v1_baseline_predictions.csv"
+
 FEATURES = [
     "dx",
     "dy",
@@ -204,9 +210,20 @@ def main() -> None:
         writer.writeheader()
         writer.writerows(preds)
 
+    TRACKED_MODEL_JSON.parent.mkdir(parents=True, exist_ok=True)
+    TRACKED_MODEL_JSON.write_text(json.dumps(model, indent=2) + "\n")
+    TRACKED_EVAL_JSON.write_text(json.dumps(eval_summary, indent=2) + "\n")
+    with TRACKED_PRED_CSV.open("w", newline="") as fp:
+        writer = csv.DictWriter(fp, fieldnames=list(preds[0].keys()))
+        writer.writeheader()
+        writer.writerows(preds)
+
     print("[TRACER] wrote", MODEL_JSON)
     print("[TRACER] wrote", EVAL_JSON)
     print("[TRACER] wrote", PRED_CSV)
+    print("[TRACER] wrote", TRACKED_MODEL_JSON)
+    print("[TRACER] wrote", TRACKED_EVAL_JSON)
+    print("[TRACER] wrote", TRACKED_PRED_CSV)
     print(json.dumps(eval_summary, indent=2))
 
 
