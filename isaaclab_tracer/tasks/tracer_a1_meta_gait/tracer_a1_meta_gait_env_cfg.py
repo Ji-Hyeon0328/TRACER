@@ -305,5 +305,16 @@ class TracerA1MetaGaitEnvCfg(_TracerA1AdapterEnvCfg):
                 f"Unknown TRACER_GAIT_DIRECTION={gait_direction_raw!r}. "
                 "Expected one of: forward, backward."
             )
+
+        # Optional override for research cases where body gait direction and
+        # world travel direction are intentionally decoupled.
+        #
+        # Example:
+        #   backstep descent on a +x downslope:
+        #     TRACER_GAIT_DIRECTION=backward
+        #     TRACER_PROGRESS_SIGN=1.0
+        progress_sign_raw = os.environ.get("TRACER_PROGRESS_SIGN", "").strip()
+        if progress_sign_raw:
+            self.meta_progress_sign = float(progress_sign_raw)
         self.meta_stance_push_gain = 1.0
         self.meta_stance_ik_blend = 0.6
