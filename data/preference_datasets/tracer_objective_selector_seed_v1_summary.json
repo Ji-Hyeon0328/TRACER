@@ -1,0 +1,24 @@
+{
+  "num_samples": 44,
+  "num_base_samples": 9,
+  "num_negative_csv_samples": 33,
+  "num_sponge_negative_samples": 2,
+  "num_pairwise_preferences": 16,
+  "outputs": {
+    "csv": "data/preference_datasets/tracer_objective_selector_seed_v1.csv",
+    "jsonl": "data/preference_datasets/tracer_objective_selector_seed_v1.jsonl",
+    "pairwise_jsonl": "data/preference_datasets/tracer_objective_selector_pairwise_preferences_v1.jsonl",
+    "summary": "data/preference_datasets/tracer_objective_selector_seed_v1_summary.json"
+  },
+  "role_counts": {
+    "positive": 7,
+    "invalid_or_risky": 36,
+    "calibration_warning": 1
+  },
+  "semantic_target_counts": {
+    "validated_locomotion": 2,
+    "cautious_probe": 3,
+    "high_clearance_slow_probe": 3,
+    "no_valid_forward_recovery_needed": 36
+  }
+}

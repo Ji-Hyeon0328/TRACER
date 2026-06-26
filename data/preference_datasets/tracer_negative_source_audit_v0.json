@@ -1,0 +1,1860 @@
+[
+  {
+    "path": "data/rollout_metrics/gms_sponge_downslope_hold_evidence_v0.json",
+    "type": "json",
+    "num_rows": 1,
+    "num_columns": 5,
+    "interesting_keys": [
+      "cases",
+      "decision",
+      "terrain_name",
+      "world"
+    ],
+    "sample_values": {
+      "cases": [
+        "[{'finite_motion': {'delta_x': 1.7578750378564423, 'delta_y': -0.318556057669444, 'first_finite_xyz': [0.0002728181015430963, 5.7623021179082495e-06, 0.3231560548335012], 'first_z_below_0p18_index': 172, 'last_finite_xyz': [1.7581478559579853, -0.3185502953673261, 0.12684692663957461], 'max_abs_pitch': 0.46993920828240304, 'max_abs_roll': 0.11625163608464997, 'max_z': 0.3231560548335012, 'min_z': 0.12232921463178734, 'total_proprio': 213, 'valid_proprio': 209}, 'log': 'data/mission_logs/tracer_mission_log_20260626_023305.npz', 'mpc_reference': {'first': [0.0, 0.025, 0.0, 0.32499999999999996, 0.04, 1.0], 'last': [0.0, 0.025, 0.0, 0.32499999999999996, 0.04, 1.0], 'max': [0.0, 0.025, 0.0, 0.32499999999999996, 0.04, 1.0], 'mean': [0.0, 0.02500000000000004, 0.0, 0.3250000000000013, 0.03999999999999997, 1.0], 'min': [0.0, 0.025, 0.0, 0.32499999999999996, 0.04, 1.0], 'total_mpc': 213, 'valid_mpc': 213}, 'name': 'sponge_like_downslope5_forward_slow_probe_vx0025', 'summary': 'data/mission_logs/tracer_mission_summary_20260626_023305.json', 'summary_json': {'duration_sec': 10.599981784820557, 'log_hz': 20.0, 'mpc_body_height_mean': 0.3250000000000001, 'mpc_clearance_mean': 0.04, 'mpc_enable_fraction': 1.0, 'mpc_vx_max': 0.025, 'mpc_vx_mean': 0.024999999999999998, 'num_samples': 213, 'objective_mean': [0.33333333333333365, 0.33333333333333365, 0.33333333333333365], 'output_npz': '/home/shoko/Tracer/TRACER/data/mission_logs/tracer_mission_log_20260626_023305.npz', 'success_radius': 0.6}}, {'finite_motion': {'delta_x': 1.7014879376120056, 'delta_y': 0.26994906749101394, 'first_finite_xyz': [0.0002258898550653237, 4.313111847541358e-06, 0.3234658976346841], 'first_z_below_0p18_index': 170, 'last_finite_xyz': [1.701713827467071, 0.2699533806028615, 0.06809021714862072], 'max_abs_pitch': 0.46445389585631813, 'max_abs_roll': 0.1367250038036824, 'max_z': 0.3234658976346841, 'min_z': 0.06809021714862072, 'total_proprio': 214, 'valid_proprio': 210}, 'log': 'data/mission_logs/tracer_mission_log_20260626_140654.npz', 'mpc_reference': {'first': [0.0, 0.0, 0.0, 0.32499999999999996, 0.04, 1.0], 'last': [0.0, 0.0, 0.0, 0.32499999999999996, 0.04, 1.0], 'max': [0.0, 0.0, 0.0, 0.32499999999999996, 0.04, 1.0], 'mean': [0.0, 0.0, 0.0, 0.3250000000000013, 0.03999999999999997, 1.0], 'min': [0.0, 0.0, 0.0, 0.32499999999999996, 0.04, 1.0], 'total_mpc': 214, 'valid_mpc': 213}, 'name': 'sponge_like_downslope5_forward_zero_vx_hold_after_reset', 'summary': 'data/mission_logs/tracer_mission_summary_20260626_140654.json', 'summary_json': {'duration_sec': 10.65001630783081, 'log_hz': 20.0, 'mpc_body_height_mean': 0.3250000000000001, 'mpc_clearance_mean': 0.04, 'mpc_enable_fraction': 1.0, 'mpc_vx_max': 0.0, 'mpc_vx_mean': 0.0, 'num_samples': 214, 'objective_mean': [0.3333333333333337, 0.3333333333333337, 0.3333333333333337], 'output_npz': '/home/shoko/Tracer/TRACER/data/mission_logs/tracer_mission_log_20260626_140654.npz', 'success_radius': 0.6}}]"
+      ],
+      "decision": [
+        "downgrade_to_no_valid_forward_recovery_needed"
+      ],
+      "terrain_name": [
+        "sponge_like_downslope5_forward"
+      ],
+      "world": [
+        "tracer_sponge_firm_downslope_5deg"
+      ]
+    },
+    "rows_with_fall_like_true": 0,
+    "rows_with_valid_like_false": 0,
+    "rows_with_invalid_like_true": 0,
+    "rows_with_success_like_false": 0
+  },
+  {
+    "path": "data/sanity_results/tracer_fusion_ram_gate_joined_gate_eval_closed_slippery_20260624_151729.csv",
+    "type": "csv",
+    "num_rows": 3,
+    "num_columns": 37,
+    "interesting_keys": [
+      "sanity_tag",
+      "terrain_key_fusion",
+      "world_name_fusion",
+      "semantic_mode",
+      "style",
+      "decision",
+      "valid_locomotion_candidate",
+      "fallen_relative_z_based",
+      "min_rel_z",
+      "fallen_mean",
+      "fallen_tail3_mean",
+      "fallen_tail5_mean",
+      "num_gate_samples",
+      "semantic_last",
+      "ctrl_ema_tail5_mean_gate",
+      "fallen_tail5_mean_gate",
+      "sigma_tail5_mean_gate"
+    ],
+    "sample_values": {
+      "sanity_tag": [
+        "gate_eval_closed_slippery_20260624_151729_flat_normal",
+        "gate_eval_closed_slippery_20260624_151729_sponge_firm_downslope",
+        "gate_eval_closed_slippery_20260624_151729_slippery_mid_downslope_avoid"
+      ],
+      "terrain_key_fusion": [
+        "flat_normal",
+        "sponge_firm_downslope_5deg_forward",
+        "slippery_mid_downslope_5deg_forward_postfix"
+      ],
+      "world_name_fusion": [
+        "earth",
+        "tracer_sponge_firm_downslope_5deg",
+        "tracer_slippery_mid_downslope_5deg"
+      ],
+      "semantic_mode": [
+        "validated_locomotion",
+        "no_valid_high_level_velocity_primitive"
+      ],
+      "style": [
+        "fast",
+        "sponge_tall_10_c080",
+        "no_deployable_high_level_fallback"
+      ],
+      "decision": [
+        "validated_locomotion",
+        "no_valid_high_level_velocity_primitive"
+      ],
+      "valid_locomotion_candidate": [
+        "True",
+        "False"
+      ],
+      "fallen_relative_z_based": [
+        "False"
+      ],
+      "min_rel_z": [
+        "0.2615320737487477",
+        "0.1947864001197298",
+        "0.1845387418731698"
+      ],
+      "fallen_mean": [
+        "0.0969",
+        "0.7918",
+        "0.8517142857142858"
+      ],
+      "fallen_tail3_mean": [
+        "0.0",
+        "1.0",
+        "0.6546666666666666"
+      ],
+      "fallen_tail5_mean": [
+        "0.0",
+        "0.9996",
+        "0.7928"
+      ],
+      "num_gate_samples": [
+        "9",
+        "7"
+      ],
+      "semantic_last": [
+        "validated_locomotion",
+        "no_valid_high_level_velocity_primitive"
+      ],
+      "ctrl_ema_tail5_mean_gate": [
+        "0.008",
+        "0.298",
+        "0.3162"
+      ],
+      "fallen_tail5_mean_gate": [
+        "0.0",
+        "0.9962",
+        "0.5298"
+      ],
+      "sigma_tail5_mean_gate": [
+        "0.1002",
+        "1.0226",
+        "0.7989999999999999"
+      ]
+    },
+    "rows_with_fall_like_true": 0,
+    "rows_with_valid_like_false": 1,
+    "rows_with_invalid_like_true": 0,
+    "rows_with_success_like_false": 0
+  },
+  {
+    "path": "data/sanity_results/tracer_slippery_active_hold_joined_slip_active_hold_v2_20260623_212626.csv",
+    "type": "csv",
+    "num_rows": 5,
+    "num_columns": 37,
+    "interesting_keys": [
+      "sanity_tag",
+      "terrain_key_fusion",
+      "world_name_fusion",
+      "semantic_mode",
+      "style",
+      "decision",
+      "valid_locomotion_candidate",
+      "fallen_relative_z_based",
+      "min_rel_z",
+      "fallen_mean",
+      "fallen_tail3_mean",
+      "fallen_tail5_mean",
+      "num_gate_samples",
+      "semantic_last",
+      "ctrl_ema_tail5_mean_gate",
+      "fallen_tail5_mean_gate",
+      "sigma_tail5_mean_gate"
+    ],
+    "sample_values": {
+      "sanity_tag": [
+        "slip_active_hold_v2_20260623_212626_h300_c050",
+        "slip_active_hold_v2_20260623_212626_h300_c060",
+        "slip_active_hold_v2_20260623_212626_h300_c070"
+      ],
+      "terrain_key_fusion": [
+        "slippery_active_hold_v2_h300_c050",
+        "slippery_active_hold_v2_h300_c060",
+        "slippery_active_hold_v2_h300_c070"
+      ],
+      "world_name_fusion": [
+        "tracer_slippery_mid_downslope_5deg"
+      ],
+      "semantic_mode": [
+        "primitive_eval"
+      ],
+      "style": [
+        "active_hold_h300_c050",
+        "active_hold_h300_c060",
+        "active_hold_h300_c070"
+      ],
+      "decision": [
+        "primitive_eval"
+      ],
+      "valid_locomotion_candidate": [
+        "True",
+        "False"
+      ],
+      "fallen_relative_z_based": [
+        "False",
+        "True"
+      ],
+      "min_rel_z": [
+        "0.174224642887898",
+        "0.0802094344030262",
+        "0.1284451053573714"
+      ],
+      "fallen_mean": [
+        "0.4137142857142857",
+        "1.0",
+        "0.8472857142857143"
+      ],
+      "fallen_tail3_mean": [
+        "0.6683333333333333",
+        "1.0",
+        "0.6436666666666666"
+      ],
+      "fallen_tail5_mean": [
+        "0.5784",
+        "1.0",
+        "0.7862"
+      ],
+      "num_gate_samples": [
+        "7",
+        "6"
+      ],
+      "semantic_last": [
+        "primitive_eval"
+      ],
+      "ctrl_ema_tail5_mean_gate": [
+        "0.2308",
+        "0.8",
+        "0.3"
+      ],
+      "fallen_tail5_mean_gate": [
+        "0.7978",
+        "1.0",
+        "0.7832"
+      ],
+      "sigma_tail5_mean_gate": [
+        "0.8876",
+        "1.0168",
+        "1.0072"
+      ]
+    },
+    "rows_with_fall_like_true": 1,
+    "rows_with_valid_like_false": 1,
+    "rows_with_invalid_like_true": 0,
+    "rows_with_success_like_false": 0
+  },
+  {
+    "path": "data/sanity_results/tracer_slippery_active_hold_top2_joined_slip_active_hold_top2_v2_20260623_215051.csv",
+    "type": "csv",
+    "num_rows": 6,
+    "num_columns": 37,
+    "interesting_keys": [
+      "sanity_tag",
+      "terrain_key_fusion",
+      "world_name_fusion",
+      "semantic_mode",
+      "style",
+      "decision",
+      "valid_locomotion_candidate",
+      "fallen_relative_z_based",
+      "min_rel_z",
+      "fallen_mean",
+      "fallen_tail3_mean",
+      "fallen_tail5_mean",
+      "num_gate_samples",
+      "semantic_last",
+      "ctrl_ema_tail5_mean_gate",
+      "fallen_tail5_mean_gate",
+      "sigma_tail5_mean_gate"
+    ],
+    "sample_values": {
+      "sanity_tag": [
+        "slip_active_hold_top2_v2_20260623_215051_r1_h300_c050",
+        "slip_active_hold_top2_v2_20260623_215051_r1_h305_c055",
+        "slip_active_hold_top2_v2_20260623_215051_r2_h300_c050"
+      ],
+      "terrain_key_fusion": [
+        "slippery_active_hold_v2_h300_c050",
+        "slippery_active_hold_v2_h305_c055"
+      ],
+      "world_name_fusion": [
+        "tracer_slippery_mid_downslope_5deg"
+      ],
+      "semantic_mode": [
+        "primitive_eval"
+      ],
+      "style": [
+        "active_hold_h300_c050",
+        "active_hold_h305_c055"
+      ],
+      "decision": [
+        "primitive_eval"
+      ],
+      "valid_locomotion_candidate": [
+        "True",
+        "False"
+      ],
+      "fallen_relative_z_based": [
+        "False",
+        "True"
+      ],
+      "min_rel_z": [
+        "0.1484024347299569",
+        "0.2197245791197878",
+        "0.0715611941895134"
+      ],
+      "fallen_mean": [
+        "0.1301666666666666",
+        "0.2004285714285714",
+        "1.0"
+      ],
+      "fallen_tail3_mean": [
+        "0.2523333333333333",
+        "0.0173333333333333",
+        "1.0"
+      ],
+      "fallen_tail5_mean": [
+        "0.1514",
+        "0.0814",
+        "1.0"
+      ],
+      "num_gate_samples": [
+        "6",
+        "7"
+      ],
+      "semantic_last": [
+        "primitive_eval"
+      ],
+      "ctrl_ema_tail5_mean_gate": [
+        "0.2104",
+        "0.1336",
+        "0.8180000000000001"
+      ],
+      "fallen_tail5_mean_gate": [
+        "0.264",
+        "0.3661999999999999",
+        "1.0"
+      ],
+      "sigma_tail5_mean_gate": [
+        "0.5032",
+        "0.6542",
+        "1.0056"
+      ]
+    },
+    "rows_with_fall_like_true": 1,
+    "rows_with_valid_like_false": 1,
+    "rows_with_invalid_like_true": 0,
+    "rows_with_success_like_false": 0
+  },
+  {
+    "path": "data/sanity_results/tracer_slippery_micro_brake_staged_v4_joined_slippery_micro_brake_late_vx_v5_20260623_234853.csv",
+    "type": "csv",
+    "num_rows": 3,
+    "num_columns": 37,
+    "interesting_keys": [
+      "sanity_tag",
+      "terrain_key_fusion",
+      "world_name_fusion",
+      "semantic_mode",
+      "style",
+      "decision",
+      "valid_locomotion_candidate",
+      "fallen_relative_z_based",
+      "min_rel_z",
+      "fallen_mean",
+      "fallen_tail3_mean",
+      "fallen_tail5_mean",
+      "num_gate_samples",
+      "semantic_last",
+      "ctrl_ema_tail5_mean_gate",
+      "fallen_tail5_mean_gate",
+      "sigma_tail5_mean_gate"
+    ],
+    "sample_values": {
+      "sanity_tag": [
+        "slippery_micro_brake_late_vx_v5_20260623_234853_r1",
+        "slippery_micro_brake_late_vx_v5_20260623_234853_r2",
+        "slippery_micro_brake_late_vx_v5_20260623_234853_r3"
+      ],
+      "terrain_key_fusion": [
+        "slippery_micro_brake_v3_downhill_behind_body"
+      ],
+      "world_name_fusion": [
+        "tracer_slippery_mid_slope_5deg"
+      ],
+      "semantic_mode": [
+        "candidate_conditional_micro_brake"
+      ],
+      "style": [
+        "micro_brake_vx_m0p005_h305_c055"
+      ],
+      "decision": [
+        "candidate_conditional_micro_brake"
+      ],
+      "valid_locomotion_candidate": [
+        "False",
+        "True"
+      ],
+      "fallen_relative_z_based": [
+        "True",
+        "False"
+      ],
+      "min_rel_z": [
+        "0.0796260783968806",
+        "0.1388490715571566",
+        "0.0776527045715554"
+      ],
+      "fallen_mean": [
+        "1.0"
+      ],
+      "fallen_tail3_mean": [
+        "1.0"
+      ],
+      "fallen_tail5_mean": [
+        "1.0"
+      ],
+      "num_gate_samples": [
+        "7",
+        "6"
+      ],
+      "semantic_last": [
+        "candidate_conditional_micro_brake"
+      ],
+      "ctrl_ema_tail5_mean_gate": [
+        "0.9534",
+        "0.5138",
+        "0.8132"
+      ],
+      "fallen_tail5_mean_gate": [
+        "1.0"
+      ],
+      "sigma_tail5_mean_gate": [
+        "1.0118",
+        "1.0122",
+        "1.0206"
+      ]
+    },
+    "rows_with_fall_like_true": 2,
+    "rows_with_valid_like_false": 2,
+    "rows_with_invalid_like_true": 0,
+    "rows_with_success_like_false": 0
+  },
+  {
+    "path": "data/sanity_results/tracer_slippery_micro_brake_staged_v4_joined_slippery_micro_brake_no_vx_v6_20260623_235523.csv",
+    "type": "csv",
+    "num_rows": 3,
+    "num_columns": 37,
+    "interesting_keys": [
+      "sanity_tag",
+      "terrain_key_fusion",
+      "world_name_fusion",
+      "semantic_mode",
+      "style",
+      "decision",
+      "valid_locomotion_candidate",
+      "fallen_relative_z_based",
+      "min_rel_z",
+      "fallen_mean",
+      "fallen_tail3_mean",
+      "fallen_tail5_mean",
+      "num_gate_samples",
+      "semantic_last",
+      "ctrl_ema_tail5_mean_gate",
+      "fallen_tail5_mean_gate",
+      "sigma_tail5_mean_gate"
+    ],
+    "sample_values": {
+      "sanity_tag": [
+        "slippery_micro_brake_no_vx_v6_20260623_235523_r1",
+        "slippery_micro_brake_no_vx_v6_20260623_235523_r2",
+        "slippery_micro_brake_no_vx_v6_20260623_235523_r3"
+      ],
+      "terrain_key_fusion": [
+        "slippery_micro_brake_v3_downhill_behind_body"
+      ],
+      "world_name_fusion": [
+        "tracer_slippery_mid_slope_5deg"
+      ],
+      "semantic_mode": [
+        "candidate_conditional_micro_brake"
+      ],
+      "style": [
+        "micro_brake_vx_m0p005_h305_c055"
+      ],
+      "decision": [
+        "candidate_conditional_micro_brake"
+      ],
+      "valid_locomotion_candidate": [
+        "True",
+        "False"
+      ],
+      "fallen_relative_z_based": [
+        "False",
+        "True"
+      ],
+      "min_rel_z": [
+        "0.1394987765802465",
+        "0.1069858658549422",
+        "0.0731218579614914"
+      ],
+      "fallen_mean": [
+        "0.9992857142857144",
+        "1.0",
+        "0.9994285714285714"
+      ],
+      "fallen_tail3_mean": [
+        "0.9996666666666668",
+        "1.0"
+      ],
+      "fallen_tail5_mean": [
+        "0.999",
+        "1.0"
+      ],
+      "num_gate_samples": [
+        "6",
+        "7"
+      ],
+      "semantic_last": [
+        "candidate_conditional_micro_brake"
+      ],
+      "ctrl_ema_tail5_mean_gate": [
+        "0.6098",
+        "0.539",
+        "0.8192"
+      ],
+      "fallen_tail5_mean_gate": [
+        "1.0"
+      ],
+      "sigma_tail5_mean_gate": [
+        "1.0066",
+        "1.0134",
+        "1.0032"
+      ]
+    },
+    "rows_with_fall_like_true": 2,
+    "rows_with_valid_like_false": 2,
+    "rows_with_invalid_like_true": 0,
+    "rows_with_success_like_false": 0
+  },
+  {
+    "path": "data/sanity_results/tracer_slippery_micro_brake_staged_v4_joined_slippery_micro_brake_staged_v4_20260623_232815.csv",
+    "type": "csv",
+    "num_rows": 3,
+    "num_columns": 37,
+    "interesting_keys": [
+      "sanity_tag",
+      "terrain_key_fusion",
+      "world_name_fusion",
+      "semantic_mode",
+      "style",
+      "decision",
+      "valid_locomotion_candidate",
+      "fallen_relative_z_based",
+      "min_rel_z",
+      "fallen_mean",
+      "fallen_tail3_mean",
+      "fallen_tail5_mean",
+      "num_gate_samples",
+      "semantic_last",
+      "ctrl_ema_tail5_mean_gate",
+      "fallen_tail5_mean_gate",
+      "sigma_tail5_mean_gate"
+    ],
+    "sample_values": {
+      "sanity_tag": [
+        "slippery_micro_brake_staged_v4_20260623_232815_r1",
+        "slippery_micro_brake_staged_v4_20260623_232815_r2",
+        "slippery_micro_brake_staged_v4_20260623_232815_r3"
+      ],
+      "terrain_key_fusion": [
+        "slippery_micro_brake_v3_downhill_behind_body"
+      ],
+      "world_name_fusion": [
+        "tracer_slippery_mid_slope_5deg"
+      ],
+      "semantic_mode": [
+        "candidate_conditional_micro_brake"
+      ],
+      "style": [
+        "micro_brake_vx_m0p005_h305_c055"
+      ],
+      "decision": [
+        "candidate_conditional_micro_brake"
+      ],
+      "valid_locomotion_candidate": [
+        "False",
+        "True"
+      ],
+      "fallen_relative_z_based": [
+        "True",
+        "False"
+      ],
+      "min_rel_z": [
+        "0.0572472855566913",
+        "0.0604157336094045",
+        "0.199531947260532"
+      ],
+      "fallen_mean": [
+        "1.0"
+      ],
+      "fallen_tail3_mean": [
+        "1.0"
+      ],
+      "fallen_tail5_mean": [
+        "1.0"
+      ],
+      "num_gate_samples": [
+        "6",
+        "7"
+      ],
+      "semantic_last": [
+        "candidate_conditional_micro_brake"
+      ],
+      "ctrl_ema_tail5_mean_gate": [
+        "0.8068000000000001",
+        "0.8616",
+        "0.5"
+      ],
+      "fallen_tail5_mean_gate": [
+        "1.0"
+      ],
+      "sigma_tail5_mean_gate": [
+        "1.0148",
+        "1.0092",
+        "0.9912"
+      ]
+    },
+    "rows_with_fall_like_true": 2,
+    "rows_with_valid_like_false": 2,
+    "rows_with_invalid_like_true": 0,
+    "rows_with_success_like_false": 0
+  },
+  {
+    "path": "data/sanity_results/tracer_slippery_micro_brake_staged_v4_joined_slippery_micro_brake_staged_v4_fixed_20260623_234222.csv",
+    "type": "csv",
+    "num_rows": 3,
+    "num_columns": 37,
+    "interesting_keys": [
+      "sanity_tag",
+      "terrain_key_fusion",
+      "world_name_fusion",
+      "semantic_mode",
+      "style",
+      "decision",
+      "valid_locomotion_candidate",
+      "fallen_relative_z_based",
+      "min_rel_z",
+      "fallen_mean",
+      "fallen_tail3_mean",
+      "fallen_tail5_mean",
+      "num_gate_samples",
+      "semantic_last",
+      "ctrl_ema_tail5_mean_gate",
+      "fallen_tail5_mean_gate",
+      "sigma_tail5_mean_gate"
+    ],
+    "sample_values": {
+      "sanity_tag": [
+        "slippery_micro_brake_staged_v4_fixed_20260623_234222_r1",
+        "slippery_micro_brake_staged_v4_fixed_20260623_234222_r2",
+        "slippery_micro_brake_staged_v4_fixed_20260623_234222_r3"
+      ],
+      "terrain_key_fusion": [
+        "slippery_micro_brake_v3_downhill_behind_body"
+      ],
+      "world_name_fusion": [
+        "tracer_slippery_mid_slope_5deg"
+      ],
+      "semantic_mode": [
+        "candidate_conditional_micro_brake"
+      ],
+      "style": [
+        "micro_brake_vx_m0p005_h305_c055"
+      ],
+      "decision": [
+        "candidate_conditional_micro_brake"
+      ],
+      "valid_locomotion_candidate": [
+        "False",
+        "True"
+      ],
+      "fallen_relative_z_based": [
+        "True",
+        "False"
+      ],
+      "min_rel_z": [
+        "0.0721173138712269",
+        "0.1685020864153885",
+        "0.0844496796650288"
+      ],
+      "fallen_mean": [
+        "1.0"
+      ],
+      "fallen_tail3_mean": [
+        "1.0"
+      ],
+      "fallen_tail5_mean": [
+        "1.0"
+      ],
+      "num_gate_samples": [
+        "6",
+        "7"
+      ],
+      "semantic_last": [
+        "candidate_conditional_micro_brake"
+      ],
+      "ctrl_ema_tail5_mean_gate": [
+        "0.8908",
+        "0.494",
+        "0.8002"
+      ],
+      "fallen_tail5_mean_gate": [
+        "1.0"
+      ],
+      "sigma_tail5_mean_gate": [
+        "1.0134",
+        "0.9942",
+        "1.0072"
+      ]
+    },
+    "rows_with_fall_like_true": 2,
+    "rows_with_valid_like_false": 2,
+    "rows_with_invalid_like_true": 0,
+    "rows_with_success_like_false": 0
+  },
+  {
+    "path": "data/sanity_results/tracer_slippery_micro_brake_v3_joined_slippery_micro_brake_v3_20260623_232039.csv",
+    "type": "csv",
+    "num_rows": 3,
+    "num_columns": 37,
+    "interesting_keys": [
+      "sanity_tag",
+      "terrain_key_fusion",
+      "world_name_fusion",
+      "semantic_mode",
+      "style",
+      "decision",
+      "valid_locomotion_candidate",
+      "fallen_relative_z_based",
+      "min_rel_z",
+      "fallen_mean",
+      "fallen_tail3_mean",
+      "fallen_tail5_mean",
+      "num_gate_samples",
+      "semantic_last",
+      "ctrl_ema_tail5_mean_gate",
+      "fallen_tail5_mean_gate",
+      "sigma_tail5_mean_gate"
+    ],
+    "sample_values": {
+      "sanity_tag": [
+        "slippery_micro_brake_v3_20260623_232039_r1",
+        "slippery_micro_brake_v3_20260623_232039_r2",
+        "slippery_micro_brake_v3_20260623_232039_r3"
+      ],
+      "terrain_key_fusion": [
+        "slippery_micro_brake_v3_downhill_behind_body"
+      ],
+      "world_name_fusion": [
+        "tracer_slippery_mid_slope_5deg"
+      ],
+      "semantic_mode": [
+        "validated_conditional_micro_brake"
+      ],
+      "style": [
+        "micro_brake_vx_m0p005_h305_c055"
+      ],
+      "decision": [
+        "validated_conditional_micro_brake"
+      ],
+      "valid_locomotion_candidate": [
+        "True",
+        "False"
+      ],
+      "fallen_relative_z_based": [
+        "False",
+        "True"
+      ],
+      "min_rel_z": [
+        "0.1849353130102226",
+        "0.0783257232514411",
+        "0.0743679794895882"
+      ],
+      "fallen_mean": [
+        "1.0"
+      ],
+      "fallen_tail3_mean": [
+        "1.0"
+      ],
+      "fallen_tail5_mean": [
+        "1.0"
+      ],
+      "num_gate_samples": [
+        "6",
+        "7"
+      ],
+      "semantic_last": [
+        "validated_conditional_micro_brake"
+      ],
+      "ctrl_ema_tail5_mean_gate": [
+        "0.5",
+        "0.8566",
+        "0.875"
+      ],
+      "fallen_tail5_mean_gate": [
+        "1.0"
+      ],
+      "sigma_tail5_mean_gate": [
+        "1.0078",
+        "1.0156",
+        "1.0146"
+      ]
+    },
+    "rows_with_fall_like_true": 2,
+    "rows_with_valid_like_false": 2,
+    "rows_with_invalid_like_true": 0,
+    "rows_with_success_like_false": 0
+  },
+  {
+    "path": "data/sanity_results/tracer_slippery_primitive_joined_slip_primitive_v0_20260623_204322.csv",
+    "type": "csv",
+    "num_rows": 4,
+    "num_columns": 37,
+    "interesting_keys": [
+      "sanity_tag",
+      "terrain_key_fusion",
+      "world_name_fusion",
+      "semantic_mode",
+      "style",
+      "decision",
+      "valid_locomotion_candidate",
+      "fallen_relative_z_based",
+      "min_rel_z",
+      "fallen_mean",
+      "fallen_tail3_mean",
+      "fallen_tail5_mean",
+      "num_gate_samples",
+      "semantic_last",
+      "ctrl_ema_tail5_mean_gate",
+      "fallen_tail5_mean_gate",
+      "sigma_tail5_mean_gate"
+    ],
+    "sample_values": {
+      "sanity_tag": [
+        "slip_primitive_v0_20260623_204322_safe_stop",
+        "slip_primitive_v0_20260623_204322_active_hold",
+        "slip_primitive_v0_20260623_204322_slow_forward_probe"
+      ],
+      "terrain_key_fusion": [
+        "slippery_primitive_v0_safe_stop",
+        "slippery_primitive_v0_active_hold",
+        "slippery_primitive_v0_slow_forward_probe"
+      ],
+      "world_name_fusion": [
+        "tracer_slippery_mid_downslope_5deg"
+      ],
+      "semantic_mode": [
+        "primitive_eval"
+      ],
+      "style": [
+        "safe_stop",
+        "active_hold",
+        "slow_forward_probe"
+      ],
+      "decision": [
+        "primitive_eval"
+      ],
+      "valid_locomotion_candidate": [
+        "False",
+        "True"
+      ],
+      "fallen_relative_z_based": [
+        "True",
+        "False"
+      ],
+      "min_rel_z": [
+        "0.0851855875966383",
+        "0.157753618314304",
+        "0.1836234293780329"
+      ],
+      "fallen_mean": [
+        "0.8668571428571429",
+        "1.0",
+        "0.9988333333333334"
+      ],
+      "fallen_tail3_mean": [
+        "0.9943333333333332",
+        "1.0",
+        "0.9976666666666668"
+      ],
+      "fallen_tail5_mean": [
+        "0.8244",
+        "1.0",
+        "0.9986"
+      ],
+      "num_gate_samples": [
+        "6",
+        "7"
+      ],
+      "semantic_last": [
+        "primitive_eval"
+      ],
+      "ctrl_ema_tail5_mean_gate": [
+        "0.5548",
+        "0.4246",
+        "0.2998"
+      ],
+      "fallen_tail5_mean_gate": [
+        "0.9976",
+        "1.0",
+        "0.9996"
+      ],
+      "sigma_tail5_mean_gate": [
+        "0.9666",
+        "1.0122",
+        "1.014"
+      ]
+    },
+    "rows_with_fall_like_true": 2,
+    "rows_with_valid_like_false": 2,
+    "rows_with_invalid_like_true": 0,
+    "rows_with_success_like_false": 0
+  },
+  {
+    "path": "data/sanity_results/tracer_slippery_primitive_joined_slip_primitive_v0_repeat1_20260623_205154.csv",
+    "type": "csv",
+    "num_rows": 4,
+    "num_columns": 37,
+    "interesting_keys": [
+      "sanity_tag",
+      "terrain_key_fusion",
+      "world_name_fusion",
+      "semantic_mode",
+      "style",
+      "decision",
+      "valid_locomotion_candidate",
+      "fallen_relative_z_based",
+      "min_rel_z",
+      "fallen_mean",
+      "fallen_tail3_mean",
+      "fallen_tail5_mean",
+      "num_gate_samples",
+      "semantic_last",
+      "ctrl_ema_tail5_mean_gate",
+      "fallen_tail5_mean_gate",
+      "sigma_tail5_mean_gate"
+    ],
+    "sample_values": {
+      "sanity_tag": [
+        "slip_primitive_v0_repeat1_20260623_205154_safe_stop",
+        "slip_primitive_v0_repeat1_20260623_205154_active_hold",
+        "slip_primitive_v0_repeat1_20260623_205154_slow_forward_probe"
+      ],
+      "terrain_key_fusion": [
+        "slippery_primitive_v0_safe_stop",
+        "slippery_primitive_v0_active_hold",
+        "slippery_primitive_v0_slow_forward_probe"
+      ],
+      "world_name_fusion": [
+        "tracer_slippery_mid_downslope_5deg"
+      ],
+      "semantic_mode": [
+        "primitive_eval"
+      ],
+      "style": [
+        "safe_stop",
+        "active_hold",
+        "slow_forward_probe"
+      ],
+      "decision": [
+        "primitive_eval"
+      ],
+      "valid_locomotion_candidate": [
+        "False",
+        "True"
+      ],
+      "fallen_relative_z_based": [
+        "False",
+        "True"
+      ],
+      "min_rel_z": [
+        "0.1439316091887607",
+        "0.1567294552632306",
+        "0.0742222114375952"
+      ],
+      "fallen_mean": [
+        "0.8351428571428572",
+        "0.8008571428571428",
+        "1.0"
+      ],
+      "fallen_tail3_mean": [
+        "0.9636666666666668",
+        "0.8303333333333334",
+        "1.0"
+      ],
+      "fallen_tail5_mean": [
+        "0.77",
+        "0.733",
+        "1.0"
+      ],
+      "num_gate_samples": [
+        "6"
+      ],
+      "semantic_last": [
+        "primitive_eval"
+      ],
+      "ctrl_ema_tail5_mean_gate": [
+        "0.2368",
+        "0.228",
+        "0.8166"
+      ],
+      "fallen_tail5_mean_gate": [
+        "0.8056",
+        "0.582",
+        "1.0"
+      ],
+      "sigma_tail5_mean_gate": [
+        "0.8068",
+        "0.8314",
+        "1.0134"
+      ]
+    },
+    "rows_with_fall_like_true": 1,
+    "rows_with_valid_like_false": 2,
+    "rows_with_invalid_like_true": 0,
+    "rows_with_success_like_false": 0
+  },
+  {
+    "path": "data/sanity_results/tracer_slippery_primitive_joined_slip_primitive_v0_repeat2_20260623_205733.csv",
+    "type": "csv",
+    "num_rows": 4,
+    "num_columns": 37,
+    "interesting_keys": [
+      "sanity_tag",
+      "terrain_key_fusion",
+      "world_name_fusion",
+      "semantic_mode",
+      "style",
+      "decision",
+      "valid_locomotion_candidate",
+      "fallen_relative_z_based",
+      "min_rel_z",
+      "fallen_mean",
+      "fallen_tail3_mean",
+      "fallen_tail5_mean",
+      "num_gate_samples",
+      "semantic_last",
+      "ctrl_ema_tail5_mean_gate",
+      "fallen_tail5_mean_gate",
+      "sigma_tail5_mean_gate"
+    ],
+    "sample_values": {
+      "sanity_tag": [
+        "slip_primitive_v0_repeat2_20260623_205733_safe_stop",
+        "slip_primitive_v0_repeat2_20260623_205733_active_hold",
+        "slip_primitive_v0_repeat2_20260623_205733_slow_forward_probe"
+      ],
+      "terrain_key_fusion": [
+        "slippery_primitive_v0_safe_stop",
+        "slippery_primitive_v0_active_hold",
+        "slippery_primitive_v0_slow_forward_probe"
+      ],
+      "world_name_fusion": [
+        "tracer_slippery_mid_downslope_5deg"
+      ],
+      "semantic_mode": [
+        "primitive_eval"
+      ],
+      "style": [
+        "safe_stop",
+        "active_hold",
+        "slow_forward_probe"
+      ],
+      "decision": [
+        "primitive_eval"
+      ],
+      "valid_locomotion_candidate": [
+        "False",
+        "True"
+      ],
+      "fallen_relative_z_based": [
+        "True",
+        "False"
+      ],
+      "min_rel_z": [
+        "0.0785487778625612",
+        "0.1854282451460059",
+        "0.1563881539116765"
+      ],
+      "fallen_mean": [
+        "0.8561428571428571",
+        "0.7974285714285714",
+        "0.2425714285714285"
+      ],
+      "fallen_tail3_mean": [
+        "1.0",
+        "0.9476666666666668",
+        "0.241"
+      ],
+      "fallen_tail5_mean": [
+        "0.9982",
+        "0.9352",
+        "0.1446"
+      ],
+      "num_gate_samples": [
+        "6",
+        "7"
+      ],
+      "semantic_last": [
+        "primitive_eval"
+      ],
+      "ctrl_ema_tail5_mean_gate": [
+        "0.7238",
+        "0.3922",
+        "0.1144"
+      ],
+      "fallen_tail5_mean_gate": [
+        "0.8652",
+        "0.7412",
+        "0.0014"
+      ],
+      "sigma_tail5_mean_gate": [
+        "0.9852",
+        "0.837",
+        "0.3076"
+      ]
+    },
+    "rows_with_fall_like_true": 2,
+    "rows_with_valid_like_false": 2,
+    "rows_with_invalid_like_true": 0,
+    "rows_with_success_like_false": 0
+  },
+  {
+    "path": "data/sanity_results/tracer_slippery_primitive_joined_slip_primitive_v0_repeat3_20260623_210310.csv",
+    "type": "csv",
+    "num_rows": 4,
+    "num_columns": 37,
+    "interesting_keys": [
+      "sanity_tag",
+      "terrain_key_fusion",
+      "world_name_fusion",
+      "semantic_mode",
+      "style",
+      "decision",
+      "valid_locomotion_candidate",
+      "fallen_relative_z_based",
+      "min_rel_z",
+      "fallen_mean",
+      "fallen_tail3_mean",
+      "fallen_tail5_mean",
+      "num_gate_samples",
+      "semantic_last",
+      "ctrl_ema_tail5_mean_gate",
+      "fallen_tail5_mean_gate",
+      "sigma_tail5_mean_gate"
+    ],
+    "sample_values": {
+      "sanity_tag": [
+        "slip_primitive_v0_repeat3_20260623_210310_safe_stop",
+        "slip_primitive_v0_repeat3_20260623_210310_active_hold",
+        "slip_primitive_v0_repeat3_20260623_210310_slow_forward_probe"
+      ],
+      "terrain_key_fusion": [
+        "slippery_primitive_v0_safe_stop",
+        "slippery_primitive_v0_active_hold",
+        "slippery_primitive_v0_slow_forward_probe"
+      ],
+      "world_name_fusion": [
+        "tracer_slippery_mid_downslope_5deg"
+      ],
+      "semantic_mode": [
+        "primitive_eval"
+      ],
+      "style": [
+        "safe_stop",
+        "active_hold",
+        "slow_forward_probe"
+      ],
+      "decision": [
+        "primitive_eval"
+      ],
+      "valid_locomotion_candidate": [
+        "False"
+      ],
+      "fallen_relative_z_based": [
+        "True"
+      ],
+      "min_rel_z": [
+        "0.0754320307715072",
+        "0.116597741894311",
+        "0.0574812256265115"
+      ],
+      "fallen_mean": [
+        "1.0",
+        "0.9957142857142856",
+        "0.9997142857142856"
+      ],
+      "fallen_tail3_mean": [
+        "1.0",
+        "0.9986666666666668",
+        "0.9993333333333332"
+      ],
+      "fallen_tail5_mean": [
+        "1.0",
+        "0.997",
+        "0.9996"
+      ],
+      "num_gate_samples": [
+        "6"
+      ],
+      "semantic_last": [
+        "primitive_eval"
+      ],
+      "ctrl_ema_tail5_mean_gate": [
+        "0.8072",
+        "0.3923999999999999",
+        "0.8002"
+      ],
+      "fallen_tail5_mean_gate": [
+        "1.0",
+        "0.9958"
+      ],
+      "sigma_tail5_mean_gate": [
+        "1.008",
+        "1.0138",
+        "1.004"
+      ]
+    },
+    "rows_with_fall_like_true": 4,
+    "rows_with_valid_like_false": 4,
+    "rows_with_invalid_like_true": 0,
+    "rows_with_success_like_false": 0
+  },
+  {
+    "path": "data/sanity_results/tracer_slippery_primitive_joined_slip_primitive_v1_20260623_211152.csv",
+    "type": "csv",
+    "num_rows": 6,
+    "num_columns": 37,
+    "interesting_keys": [
+      "sanity_tag",
+      "terrain_key_fusion",
+      "world_name_fusion",
+      "semantic_mode",
+      "style",
+      "decision",
+      "valid_locomotion_candidate",
+      "fallen_relative_z_based",
+      "min_rel_z",
+      "fallen_mean",
+      "fallen_tail3_mean",
+      "fallen_tail5_mean",
+      "num_gate_samples",
+      "semantic_last",
+      "ctrl_ema_tail5_mean_gate",
+      "fallen_tail5_mean_gate",
+      "sigma_tail5_mean_gate"
+    ],
+    "sample_values": {
+      "sanity_tag": [
+        "slip_primitive_v1_20260623_211152_safe_stop",
+        "slip_primitive_v1_20260623_211152_active_hold_h031",
+        "slip_primitive_v1_20260623_211152_active_hold_h030"
+      ],
+      "terrain_key_fusion": [
+        "slippery_primitive_v1_safe_stop",
+        "slippery_primitive_v1_active_hold_h031",
+        "slippery_primitive_v1_active_hold_h030"
+      ],
+      "world_name_fusion": [
+        "tracer_slippery_mid_downslope_5deg"
+      ],
+      "semantic_mode": [
+        "primitive_eval"
+      ],
+      "style": [
+        "safe_stop",
+        "active_hold_h031",
+        "active_hold_h030"
+      ],
+      "decision": [
+        "primitive_eval"
+      ],
+      "valid_locomotion_candidate": [
+        "False",
+        "True"
+      ],
+      "fallen_relative_z_based": [
+        "False",
+        "True"
+      ],
+      "min_rel_z": [
+        "0.1274393506914705",
+        "0.0743253586616687",
+        "0.1437695506175879"
+      ],
+      "fallen_mean": [
+        "0.4218571428571429",
+        "1.0",
+        "0.9997142857142856"
+      ],
+      "fallen_tail3_mean": [
+        "0.0",
+        "1.0"
+      ],
+      "fallen_tail5_mean": [
+        "0.193",
+        "1.0",
+        "0.9996"
+      ],
+      "num_gate_samples": [
+        "6"
+      ],
+      "semantic_last": [
+        "primitive_eval"
+      ],
+      "ctrl_ema_tail5_mean_gate": [
+        "0.1584",
+        "0.8",
+        "0.4574"
+      ],
+      "fallen_tail5_mean_gate": [
+        "0.1916",
+        "1.0",
+        "0.9994"
+      ],
+      "sigma_tail5_mean_gate": [
+        "0.372",
+        "1.007",
+        "1.0152"
+      ]
+    },
+    "rows_with_fall_like_true": 4,
+    "rows_with_valid_like_false": 5,
+    "rows_with_invalid_like_true": 0,
+    "rows_with_success_like_false": 0
+  },
+  {
+    "path": "data/sanity_results/tracer_slippery_primitive_v1_compact_latest.csv",
+    "type": "csv",
+    "num_rows": 6,
+    "num_columns": 15,
+    "interesting_keys": [
+      "sanity_tag",
+      "terrain_key_fusion",
+      "style",
+      "valid_locomotion_candidate",
+      "fallen_relative_z_based",
+      "min_rel_z",
+      "ctrl_ema_tail5_mean_gate",
+      "fallen_tail5_mean_gate",
+      "sigma_tail5_mean_gate"
+    ],
+    "sample_values": {
+      "sanity_tag": [
+        "slip_primitive_v1_20260623_211152_safe_stop",
+        "slip_primitive_v1_20260623_211152_active_hold_h031",
+        "slip_primitive_v1_20260623_211152_active_hold_h030"
+      ],
+      "terrain_key_fusion": [
+        "slippery_primitive_v1_safe_stop",
+        "slippery_primitive_v1_active_hold_h031",
+        "slippery_primitive_v1_active_hold_h030"
+      ],
+      "style": [
+        "safe_stop",
+        "active_hold_h031",
+        "active_hold_h030"
+      ],
+      "valid_locomotion_candidate": [
+        "False",
+        "True"
+      ],
+      "fallen_relative_z_based": [
+        "False",
+        "True"
+      ],
+      "min_rel_z": [
+        "0.1274393506914705",
+        "0.0743253586616687",
+        "0.1437695506175879"
+      ],
+      "ctrl_ema_tail5_mean_gate": [
+        "0.1584",
+        "0.8",
+        "0.4574"
+      ],
+      "fallen_tail5_mean_gate": [
+        "0.1916",
+        "1.0",
+        "0.9994"
+      ],
+      "sigma_tail5_mean_gate": [
+        "0.372",
+        "1.007",
+        "1.0152"
+      ]
+    },
+    "rows_with_fall_like_true": 4,
+    "rows_with_valid_like_false": 5,
+    "rows_with_invalid_like_true": 0,
+    "rows_with_success_like_false": 0
+  },
+  {
+    "path": "data/sanity_results/tracer_micro_backstep_joined_micro_backstep_v1_20260623_225107.csv",
+    "type": "csv",
+    "num_rows": 5,
+    "num_columns": 37,
+    "interesting_keys": [
+      "sanity_tag",
+      "terrain_key_fusion",
+      "world_name_fusion",
+      "semantic_mode",
+      "style",
+      "decision",
+      "valid_locomotion_candidate",
+      "fallen_relative_z_based",
+      "min_rel_z",
+      "fallen_mean",
+      "fallen_tail3_mean",
+      "fallen_tail5_mean",
+      "num_gate_samples",
+      "semantic_last",
+      "ctrl_ema_tail5_mean_gate",
+      "fallen_tail5_mean_gate",
+      "sigma_tail5_mean_gate"
+    ],
+    "sample_values": {
+      "sanity_tag": [
+        "micro_backstep_v1_20260623_225107_baseline_active_hold",
+        "micro_backstep_v1_20260623_225107_vx_m0003",
+        "micro_backstep_v1_20260623_225107_vx_m0005"
+      ],
+      "terrain_key_fusion": [
+        "slippery_true_backstep_v0_active_hold_h305_c055",
+        "slippery_micro_backstep_v1_vx_m0p003_h305_c055",
+        "slippery_micro_backstep_v1_vx_m0p005_h305_c055"
+      ],
+      "world_name_fusion": [
+        "tracer_slippery_mid_slope_5deg"
+      ],
+      "semantic_mode": [
+        "primitive_eval_true_backstep",
+        "primitive_eval_micro_backstep"
+      ],
+      "style": [
+        "true_backstep_baseline_active_hold_h305_c055",
+        "micro_backstep_vx_m0p003_h305_c055",
+        "micro_backstep_vx_m0p005_h305_c055"
+      ],
+      "decision": [
+        "primitive_eval_true_backstep",
+        "primitive_eval_micro_backstep"
+      ],
+      "valid_locomotion_candidate": [
+        "True",
+        "False"
+      ],
+      "fallen_relative_z_based": [
+        "False",
+        "True"
+      ],
+      "min_rel_z": [
+        "0.1616674911690937",
+        "0.1984534072327161",
+        "0.1663346482949859"
+      ],
+      "fallen_mean": [
+        "1.0"
+      ],
+      "fallen_tail3_mean": [
+        "1.0"
+      ],
+      "fallen_tail5_mean": [
+        "1.0"
+      ],
+      "num_gate_samples": [
+        "6"
+      ],
+      "semantic_last": [
+        "primitive_eval_true_backstep",
+        "primitive_eval_micro_backstep"
+      ],
+      "ctrl_ema_tail5_mean_gate": [
+        "0.5066",
+        "0.5614",
+        "0.5"
+      ],
+      "fallen_tail5_mean_gate": [
+        "1.0"
+      ],
+      "sigma_tail5_mean_gate": [
+        "1.0148",
+        "1.011",
+        "1.014"
+      ]
+    },
+    "rows_with_fall_like_true": 2,
+    "rows_with_valid_like_false": 2,
+    "rows_with_invalid_like_true": 0,
+    "rows_with_success_like_false": 0
+  },
+  {
+    "path": "data/sanity_results/tracer_micro_backstep_top2_repeat_joined_micro_backstep_top2_repeat_v1_20260623_230155.csv",
+    "type": "csv",
+    "num_rows": 9,
+    "num_columns": 37,
+    "interesting_keys": [
+      "sanity_tag",
+      "terrain_key_fusion",
+      "world_name_fusion",
+      "semantic_mode",
+      "style",
+      "decision",
+      "valid_locomotion_candidate",
+      "fallen_relative_z_based",
+      "min_rel_z",
+      "fallen_mean",
+      "fallen_tail3_mean",
+      "fallen_tail5_mean",
+      "num_gate_samples",
+      "semantic_last",
+      "ctrl_ema_tail5_mean_gate",
+      "fallen_tail5_mean_gate",
+      "sigma_tail5_mean_gate"
+    ],
+    "sample_values": {
+      "sanity_tag": [
+        "micro_backstep_top2_repeat_v1_20260623_230155_r1_baseline_active_hold",
+        "micro_backstep_top2_repeat_v1_20260623_230155_r1_vx_m0003",
+        "micro_backstep_top2_repeat_v1_20260623_230155_r1_vx_m0005"
+      ],
+      "terrain_key_fusion": [
+        "slippery_true_backstep_v0_active_hold_h305_c055",
+        "slippery_micro_backstep_v1_vx_m0p003_h305_c055",
+        "slippery_micro_backstep_v1_vx_m0p005_h305_c055"
+      ],
+      "world_name_fusion": [
+        "tracer_slippery_mid_slope_5deg"
+      ],
+      "semantic_mode": [
+        "primitive_eval_true_backstep",
+        "primitive_eval_micro_backstep"
+      ],
+      "style": [
+        "true_backstep_baseline_active_hold_h305_c055",
+        "micro_backstep_vx_m0p003_h305_c055",
+        "micro_backstep_vx_m0p005_h305_c055"
+      ],
+      "decision": [
+        "primitive_eval_true_backstep",
+        "primitive_eval_micro_backstep"
+      ],
+      "valid_locomotion_candidate": [
+        "False",
+        "True"
+      ],
+      "fallen_relative_z_based": [
+        "True",
+        "False"
+      ],
+      "min_rel_z": [
+        "0.07488721160609",
+        "0.099751353109952",
+        "0.1361042970657591"
+      ],
+      "fallen_mean": [
+        "1.0",
+        "0.9998571428571428"
+      ],
+      "fallen_tail3_mean": [
+        "1.0",
+        "0.9996666666666668"
+      ],
+      "fallen_tail5_mean": [
+        "1.0",
+        "0.9998"
+      ],
+      "num_gate_samples": [
+        "7",
+        "6"
+      ],
+      "semantic_last": [
+        "primitive_eval_true_backstep",
+        "primitive_eval_micro_backstep"
+      ],
+      "ctrl_ema_tail5_mean_gate": [
+        "0.802",
+        "0.766",
+        "0.5836"
+      ],
+      "fallen_tail5_mean_gate": [
+        "1.0"
+      ],
+      "sigma_tail5_mean_gate": [
+        "1.0166",
+        "1.019",
+        "1.008"
+      ]
+    },
+    "rows_with_fall_like_true": 6,
+    "rows_with_valid_like_false": 6,
+    "rows_with_invalid_like_true": 0,
+    "rows_with_success_like_false": 0
+  },
+  {
+    "path": "data/sanity_results/tracer_true_backstep_joined_true_backstep_v0_20260623_223008.csv",
+    "type": "csv",
+    "num_rows": 4,
+    "num_columns": 37,
+    "interesting_keys": [
+      "sanity_tag",
+      "terrain_key_fusion",
+      "world_name_fusion",
+      "semantic_mode",
+      "style",
+      "decision",
+      "valid_locomotion_candidate",
+      "fallen_relative_z_based",
+      "min_rel_z",
+      "fallen_mean",
+      "fallen_tail3_mean",
+      "fallen_tail5_mean",
+      "num_gate_samples",
+      "semantic_last",
+      "ctrl_ema_tail5_mean_gate",
+      "fallen_tail5_mean_gate",
+      "sigma_tail5_mean_gate"
+    ],
+    "sample_values": {
+      "sanity_tag": [
+        "true_backstep_v0_20260623_223008_active_hold_h305_c055",
+        "true_backstep_v0_20260623_223008_vx_m001_h305_c055",
+        "true_backstep_v0_20260623_223008_vx_m002_h305_c055"
+      ],
+      "terrain_key_fusion": [
+        "slippery_true_backstep_v0_active_hold_h305_c055",
+        "slippery_true_backstep_v0_vx_m001_h305_c055",
+        "slippery_true_backstep_v0_vx_m002_h305_c055"
+      ],
+      "world_name_fusion": [
+        "tracer_slippery_mid_slope_5deg"
+      ],
+      "semantic_mode": [
+        "primitive_eval_true_backstep"
+      ],
+      "style": [
+        "true_backstep_baseline_active_hold_h305_c055",
+        "true_backstep_vx_m001_h305_c055",
+        "true_backstep_vx_m002_h305_c055"
+      ],
+      "decision": [
+        "primitive_eval_true_backstep"
+      ],
+      "valid_locomotion_candidate": [
+        "False",
+        "True"
+      ],
+      "fallen_relative_z_based": [
+        "True",
+        "False"
+      ],
+      "min_rel_z": [
+        "0.0718719118383466",
+        "0.0797908880316514",
+        "0.1250288823208216"
+      ],
+      "fallen_mean": [
+        "1.0"
+      ],
+      "fallen_tail3_mean": [
+        "1.0"
+      ],
+      "fallen_tail5_mean": [
+        "1.0"
+      ],
+      "num_gate_samples": [
+        "6",
+        "7"
+      ],
+      "semantic_last": [
+        "primitive_eval_true_backstep"
+      ],
+      "ctrl_ema_tail5_mean_gate": [
+        "0.811",
+        "0.501",
+        "0.5012"
+      ],
+      "fallen_tail5_mean_gate": [
+        "1.0"
+      ],
+      "sigma_tail5_mean_gate": [
+        "1.0196",
+        "1.0132",
+        "1.0234"
+      ]
+    },
+    "rows_with_fall_like_true": 3,
+    "rows_with_valid_like_false": 3,
+    "rows_with_invalid_like_true": 0,
+    "rows_with_success_like_false": 0
+  },
+  {
+    "path": "data/sanity_results/tracer_true_backstep_top1_repeat_joined_true_backstep_top1_repeat_v0_20260623_223809.csv",
+    "type": "csv",
+    "num_rows": 6,
+    "num_columns": 37,
+    "interesting_keys": [
+      "sanity_tag",
+      "terrain_key_fusion",
+      "world_name_fusion",
+      "semantic_mode",
+      "style",
+      "decision",
+      "valid_locomotion_candidate",
+      "fallen_relative_z_based",
+      "min_rel_z",
+      "fallen_mean",
+      "fallen_tail3_mean",
+      "fallen_tail5_mean",
+      "num_gate_samples",
+      "semantic_last",
+      "ctrl_ema_tail5_mean_gate",
+      "fallen_tail5_mean_gate",
+      "sigma_tail5_mean_gate"
+    ],
+    "sample_values": {
+      "sanity_tag": [
+        "true_backstep_top1_repeat_v0_20260623_223809_r1_active_hold",
+        "true_backstep_top1_repeat_v0_20260623_223809_r1_vx_m002",
+        "true_backstep_top1_repeat_v0_20260623_223809_r2_active_hold"
+      ],
+      "terrain_key_fusion": [
+        "slippery_true_backstep_v0_active_hold_h305_c055",
+        "slippery_true_backstep_v0_vx_m002_h305_c055"
+      ],
+      "world_name_fusion": [
+        "tracer_slippery_mid_slope_5deg"
+      ],
+      "semantic_mode": [
+        "primitive_eval_true_backstep"
+      ],
+      "style": [
+        "true_backstep_baseline_active_hold_h305_c055",
+        "true_backstep_vx_m002_h305_c055"
+      ],
+      "decision": [
+        "primitive_eval_true_backstep"
+      ],
+      "valid_locomotion_candidate": [
+        "True",
+        "False"
+      ],
+      "fallen_relative_z_based": [
+        "False",
+        "True"
+      ],
+      "min_rel_z": [
+        "0.1552363079520106",
+        "0.0721970814079303",
+        "0.1168013436564558"
+      ],
+      "fallen_mean": [
+        "1.0"
+      ],
+      "fallen_tail3_mean": [
+        "1.0"
+      ],
+      "fallen_tail5_mean": [
+        "1.0"
+      ],
+      "num_gate_samples": [
+        "6",
+        "7"
+      ],
+      "semantic_last": [
+        "primitive_eval_true_backstep"
+      ],
+      "ctrl_ema_tail5_mean_gate": [
+        "0.502",
+        "0.8018000000000001",
+        "0.6538"
+      ],
+      "fallen_tail5_mean_gate": [
+        "1.0"
+      ],
+      "sigma_tail5_mean_gate": [
+        "1.0118",
+        "1.012",
+        "1.0206"
+      ]
+    },
+    "rows_with_fall_like_true": 5,
+    "rows_with_valid_like_false": 5,
+    "rows_with_invalid_like_true": 0,
+    "rows_with_success_like_false": 0
+  },
+  {
+    "path": "data/style_missions/style_mission_summary_fall.csv",
+    "type": "csv",
+    "num_rows": 226,
+    "num_columns": 27,
+    "interesting_keys": [
+      "style",
+      "terrain",
+      "world",
+      "success",
+      "body_height_cmd",
+      "fall_metric_status",
+      "min_base_z_world",
+      "fallen",
+      "valid_locomotion"
+    ],
+    "sample_values": {
+      "style": [
+        "nominal",
+        "fast",
+        "cautious"
+      ],
+      "terrain": [
+        "flat_normal",
+        "slope_5deg",
+        "slippery_high_flat"
+      ],
+      "world": [
+        "earth",
+        "tracer_slope_5deg",
+        "tracer_slippery_high_flat"
+      ],
+      "success": [
+        "True",
+        "False"
+      ],
+      "body_height_cmd": [
+        "0.3",
+        "0.295",
+        "0.31"
+      ],
+      "fall_metric_status": [
+        "ok",
+        "missing_npz"
+      ],
+      "min_base_z_world": [
+        "0.31592883274607636",
+        "0.29116410541930493",
+        "0.3022510845915398"
+      ],
+      "fallen": [
+        "False",
+        "True"
+      ],
+      "valid_locomotion": [
+        "True",
+        "False"
+      ]
+    },
+    "rows_with_fall_like_true": 107,
+    "rows_with_valid_like_false": 125,
+    "rows_with_invalid_like_true": 0,
+    "rows_with_success_like_false": 49
+  }
+]
