@@ -1,0 +1,5 @@
+terrain_name,world_name,command,log_path,summary_path,valid_proprio,valid_mpc,delta_x,delta_y,min_z,max_z,max_abs_roll,max_abs_pitch,first_z_below_0p18_index,hold_feasible,decision,evidence_note
+icy_slippery_even_forward,tracer_slippery_flat,"[0.0, 0.0, 0.0, 0.325, 0.04, 1.0]",,,,,0.195,0.28,0.064,,3.131,0.226,17,False,no_valid_forward_recovery_needed,zero-vx hold failed: collapse/roll instability on slippery flat
+sponge_like_even_forward,tracer_sponge_like_flat,"[0.0, 0.0, 0.0, 0.325, 0.04, 1.0]",,,,,-0.49,-0.052,0.123,,,0.335,52,False,no_valid_forward_recovery_needed,zero-vx hold failed: body height dropped below threshold on sponge-like flat
+icy_slippery_downslope5_forward,tracer_slippery_downslope_5deg,"[0.0, 0.0, 0.0, 0.325, 0.04, 1.0]",,,,,1.752,0.245,-0.04,,3.125,0.79,75,False,no_valid_forward_recovery_needed,zero-vx hold failed: large downhill drift and collapse
+sponge_like_downslope5_forward,tracer_sponge_firm_downslope_5deg,"[0.0, 0.0, 0.0, 0.325, 0.04, 1.0]",,,,,1.701,0.27,0.068,,,,170,False,no_valid_forward_recovery_needed,zero-vx hold failed: large drift and collapse on sponge downslope
