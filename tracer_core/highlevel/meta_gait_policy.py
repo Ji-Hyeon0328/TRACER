@@ -51,6 +51,21 @@ class RuleBasedMetaGaitPolicy:
             body_height = 0.300
             clearance = 0.035
             enable = 1.0
+        elif mode == "cautious_probe":
+            # Feasible rough terrain probe.
+            # Less conservative than the generic sponge/slippery fallback,
+            # but still slower and higher-clearance than normal walking.
+            vx = 0.055
+            body_height = 0.305
+            clearance = 0.050
+            enable = 1.0
+        elif mode == "high_clearance_slow_probe":
+            # Feasible slope / obstacle-like probe.
+            # Keep forward progress slow while increasing body height and clearance.
+            vx = 0.045
+            body_height = 0.315
+            clearance = 0.060
+            enable = 1.0
         elif mode == "conservative":
             # Keep conservative locomotion slow. In sponge downslope sanity,
             # vx=0.050 reduced lateral drift but significantly reduced
@@ -171,6 +186,8 @@ def _policy_input_feature_map(inp: HighLevelPolicyInput) -> dict[str, float]:
         "mode_fast": mode_is("fast"),
         "mode_normal": mode_is("normal"),
         "mode_conservative": mode_is("conservative"),
+        "mode_cautious_probe": mode_is("cautious_probe"),
+        "mode_high_clearance_slow_probe": mode_is("high_clearance_slow_probe"),
         "mode_recovery": mode_is("recovery"),
         "mode_avoid": mode_is("avoid"),
         "mode_no_valid": mode_is("no_valid"),

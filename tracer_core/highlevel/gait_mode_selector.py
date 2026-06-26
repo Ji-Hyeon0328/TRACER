@@ -17,6 +17,14 @@ CAUTIOUS_SEMANTICS = {
     "candidate_conditional_micro_brake",
 }
 
+CAUTIOUS_PROBE_SEMANTICS = {
+    "cautious_probe",
+}
+
+HIGH_CLEARANCE_SLOW_PROBE_SEMANTICS = {
+    "high_clearance_slow_probe",
+}
+
 RECOVERY_SEMANTICS = {
     "recovery_needed",
     "recovery_locomotion",
@@ -132,6 +140,30 @@ def select_gait_mode(gms_in: GaitModeInput) -> GaitModeOutput:
             yaw_scale=0.5,
             body_height_delta=0.015,
             clearance_delta=0.03,
+            allow_motion=True,
+            command_enable_override=None,
+        )
+
+    if semantic in CAUTIOUS_PROBE_SEMANTICS:
+        return GaitModeOutput(
+            mode="cautious_probe",
+            reason=f"cautious_probe semantic: semantic={semantic}, ram_level={ram_level}",
+            vx_scale=0.20,
+            yaw_scale=0.6,
+            body_height_delta=0.010,
+            clearance_delta=0.020,
+            allow_motion=True,
+            command_enable_override=None,
+        )
+
+    if semantic in HIGH_CLEARANCE_SLOW_PROBE_SEMANTICS:
+        return GaitModeOutput(
+            mode="high_clearance_slow_probe",
+            reason=f"high_clearance_slow_probe semantic: semantic={semantic}, ram_level={ram_level}",
+            vx_scale=0.16,
+            yaw_scale=0.6,
+            body_height_delta=0.020,
+            clearance_delta=0.030,
             allow_motion=True,
             command_enable_override=None,
         )

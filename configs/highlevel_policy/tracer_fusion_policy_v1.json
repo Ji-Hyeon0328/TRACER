@@ -219,7 +219,7 @@
     "rough_mid": {
       "terrain": "rough_mid",
       "fused_mode": "locomotion",
-      "suggested_style": "fast",
+      "suggested_style": "cautious",
       "fused_risk": 0.0009876888139676,
       "objective_recovery_prob": 0.00019298117,
       "sigma_mean": 0.1007318144728863,
@@ -236,7 +236,14 @@
         "enable": 1.0
       },
       "true_run_valid": 1.0,
-      "true_run_fallen": 0.0
+      "true_run_fallen": 0.0,
+      "semantic_mode": "cautious_probe",
+      "validated_by_feasible_closed_loop_v0": true,
+      "decision_note": "Feasible closed-loop GMS-on sanity showed stable locomotion, but previous run used semantic=unknown and default conservative fallback. This entry is updated to terrain-specific cautious_probe for semantic-specific validation.",
+      "v1_decision": {
+        "label": "cautious_probe",
+        "reason": "Rough terrain is feasible but should not rely on unknown/default conservative fallback. Use cautious_probe and rerun closed-loop validation."
+      }
     },
     "slippery_downslope_5deg_backstep_postfix": {
       "terrain": "slippery_downslope_5deg_backstep_postfix",
@@ -608,7 +615,7 @@
     "slope_5deg": {
       "terrain": "slope_5deg",
       "fused_mode": "locomotion",
-      "suggested_style": "fast",
+      "suggested_style": "high_clearance",
       "fused_risk": 0.0008028249845858,
       "objective_recovery_prob": 3.3598106e-05,
       "sigma_mean": 0.100527108845252,
@@ -625,7 +632,14 @@
         "enable": 1.0
       },
       "true_run_valid": 0.8464243845252052,
-      "true_run_fallen": 0.0
+      "true_run_fallen": 0.0,
+      "semantic_mode": "high_clearance_slow_probe",
+      "validated_by_feasible_closed_loop_v0": true,
+      "decision_note": "Feasible closed-loop GMS-on sanity showed stable but slow locomotion, but previous run used semantic=unknown and default conservative fallback. This entry is updated to terrain-specific high_clearance_slow_probe for semantic-specific validation.",
+      "v1_decision": {
+        "label": "high_clearance_slow_probe",
+        "reason": "Upslope terrain is feasible but should use a higher-clearance slower probe instead of unknown/default fallback."
+      }
     },
     "sponge_firm_downslope_5deg_backstep": {
       "terrain": "sponge_firm_downslope_5deg_backstep",
