@@ -170,6 +170,16 @@ def make_tracer_a1_adapter_env_class():
         terrain_rough_bump_spacing_x = 0.10
         terrain_rough_bump_y = 0.0
 
+        # Slope scaffold.
+        # Slope is represented as a tilted cuboid slab per environment.
+        terrain_slope_type = "even"
+        terrain_slope_deg = 0.0
+        terrain_slope_length = 2.0
+        terrain_slope_width = 2.0
+        terrain_slope_thickness = 0.05
+        terrain_slope_center_x = 0.0
+        terrain_slope_center_y = 0.0
+
         # Debug/diagnostic option:
         # Ignore TracerStepAdapter done signals and only use env-level safety
         # termination. Useful for standing/controller diagnostics.
@@ -250,6 +260,83 @@ def make_tracer_a1_adapter_env_class():
             self.lowlevel_udp = None
 
             super().__init__(cfg, render_mode=render_mode, **kwargs)
+
+        def _spawn_slope_terrain(self):
+            """Spawn a tilted cuboid slab as an upslope/downslope terrain scaffold."""
+            slope_type = str(getattr(self.cfg, "terrain_slope_type", "even")).lower()
+            if slope_type in ("even", "flat", "none"):
+                return
+
+            slope_deg = abs(float(getattr(self.cfg, "terrain_slope_deg", 0.0)))
+            if slope_deg <= 1.0e-6:
+                return
+
+            if slope_type not in ("upslope", "downslope"):
+                raise ValueError(
+                    f"Unknown terrain_slope_type={slope_type!r}. "
+                    "Expected one of: even, upslope, downslope."
+                )
+
+            # Rotation convention:
+            #   positive pitch around +Y makes the top surface descend as +X increases.
+            #   Therefore upslope(+X rises) uses negative pitch.
+            pitch = math.radians(slope_deg)
+            if slope_type == "upslope":
+                pitch = -pitch
+
+            qw = math.cos(0.5 * pitch)
+            qy = math.sin(0.5 * pitch)
+            quat_wxyz = (qw, 0.0, qy, 0.0)
+
+            length = float(getattr(self.cfg, "terrain_slope_length", 2.0))
+            width = float(getattr(self.cfg, "terrain_slope_width", 2.0))
+            thickness = float(getattr(self.cfg, "terrain_slope_thickness", 0.05))
+            center_x = float(getattr(self.cfg, "terrain_slope_center_x", 0.0))
+            center_y = float(getattr(self.cfg, "terrain_slope_center_y", 0.0))
+
+            # Place the top surface approximately at z=0 at the slab center.
+            center_z = -0.5 * thickness * math.cos(pitch)
+
+            slope_cfg = sim_utils.CuboidCfg(
+                size=(length, width, thickness),
+                collision_props=sim_utils.CollisionPropertiesCfg(),
+                physics_material=sim_utils.RigidBodyMaterialCfg(
+                    friction_combine_mode="multiply",
+                    restitution_combine_mode="multiply",
+                    static_friction=float(getattr(self.cfg, "terrain_static_friction", 1.0)),
+                    dynamic_friction=float(getattr(self.cfg, "terrain_dynamic_friction", 1.0)),
+                    restitution=float(getattr(self.cfg, "terrain_restitution", 0.0)),
+                ),
+            )
+
+            try:
+                origins = self.scene.env_origins.detach().cpu()
+            except Exception:
+                origins = torch.zeros(self.num_envs, 3)
+                spacing = float(getattr(self.cfg.scene, "env_spacing", 2.5))
+                origins[:, 0] = torch.arange(self.num_envs, dtype=torch.float32) * spacing
+
+            for env_id in range(self.num_envs):
+                ox = float(origins[env_id, 0])
+                oy = float(origins[env_id, 1])
+                prim_path = f"/World/TRACER_Slopes/env_{env_id}/slope"
+                slope_cfg.func(
+                    prim_path,
+                    slope_cfg,
+                    translation=(ox + center_x, oy + center_y, center_z),
+                    orientation=quat_wxyz,
+                )
+
+            print(
+                "[A1Adapter] slope terrain:",
+                "type=", slope_type,
+                "deg=", slope_deg,
+                "length=", length,
+                "width=", width,
+                "thickness=", thickness,
+                "center_x=", center_x,
+                flush=True,
+            )
 
         def _spawn_rough_bumps(self):
             # Spawn simple cuboid bump bars as a geometry-rough terrain scaffold.
@@ -335,22 +422,33 @@ def make_tracer_a1_adapter_env_class():
                 flush=True,
             )
 
-            ground_cfg = sim_utils.GroundPlaneCfg(
-                physics_material=sim_utils.RigidBodyMaterialCfg(
-                    friction_combine_mode="multiply",
-                    restitution_combine_mode="multiply",
-                    static_friction=terrain_static_friction,
-                    dynamic_friction=terrain_dynamic_friction,
-                    restitution=terrain_restitution,
+            slope_type = str(getattr(self.cfg, "terrain_slope_type", "even")).lower()
+            slope_deg = abs(float(getattr(self.cfg, "terrain_slope_deg", 0.0)))
+            use_slope_terrain = slope_type not in ("even", "flat", "none") and slope_deg > 1.0e-6
+
+            if not use_slope_terrain:
+                ground_cfg = sim_utils.GroundPlaneCfg(
+                    physics_material=sim_utils.RigidBodyMaterialCfg(
+                        friction_combine_mode="multiply",
+                        restitution_combine_mode="multiply",
+                        static_friction=terrain_static_friction,
+                        dynamic_friction=terrain_dynamic_friction,
+                        restitution=terrain_restitution,
+                    )
                 )
-            )
-            ground_cfg.func("/World/defaultGroundPlane", ground_cfg)
+                ground_cfg.func("/World/defaultGroundPlane", ground_cfg)
 
             self.scene.clone_environments(copy_from_source=False)
 
+            if use_slope_terrain:
+                self._spawn_slope_terrain()
             if terrain_preset == 'rough_bumps':
                 self._spawn_rough_bumps()
-            self.scene.filter_collisions(global_prim_paths=["/World/defaultGroundPlane"])
+
+            if not use_slope_terrain:
+                self.scene.filter_collisions(global_prim_paths=["/World/defaultGroundPlane"])
+            else:
+                self.scene.filter_collisions(global_prim_paths=[])
 
             light_cfg = sim_utils.DomeLightCfg(
                 intensity=2000.0,

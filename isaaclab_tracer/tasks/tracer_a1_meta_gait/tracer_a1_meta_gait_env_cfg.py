@@ -137,6 +137,31 @@ class TracerA1MetaGaitEnvCfg(_TracerA1AdapterEnvCfg):
                     "static[,dynamic]"
                 )
 
+        # Optional slope scaffold overrides.
+        slope_type_raw = os.environ.get("TRACER_SLOPE_TYPE", "").strip().lower()
+        if slope_type_raw:
+            if slope_type_raw not in ("even", "flat", "none", "upslope", "downslope"):
+                raise ValueError(
+                    f"Unknown TRACER_SLOPE_TYPE={slope_type_raw!r}. "
+                    "Expected one of: even, upslope, downslope."
+                )
+            if slope_type_raw in ("flat", "none"):
+                slope_type_raw = "even"
+            self.terrain_slope_type = slope_type_raw
+
+        if os.environ.get("TRACER_SLOPE_DEG", "").strip():
+            self.terrain_slope_deg = float(os.environ["TRACER_SLOPE_DEG"])
+        if os.environ.get("TRACER_SLOPE_LENGTH", "").strip():
+            self.terrain_slope_length = float(os.environ["TRACER_SLOPE_LENGTH"])
+        if os.environ.get("TRACER_SLOPE_WIDTH", "").strip():
+            self.terrain_slope_width = float(os.environ["TRACER_SLOPE_WIDTH"])
+        if os.environ.get("TRACER_SLOPE_THICKNESS", "").strip():
+            self.terrain_slope_thickness = float(os.environ["TRACER_SLOPE_THICKNESS"])
+        if os.environ.get("TRACER_SLOPE_CENTER_X", "").strip():
+            self.terrain_slope_center_x = float(os.environ["TRACER_SLOPE_CENTER_X"])
+        if os.environ.get("TRACER_SLOPE_CENTER_Y", "").strip():
+            self.terrain_slope_center_y = float(os.environ["TRACER_SLOPE_CENTER_Y"])
+
         # Optional rough bump geometry overrides.
         if os.environ.get("TRACER_ROUGH_BUMP_COUNT", "").strip():
             self.terrain_rough_bump_count = int(os.environ["TRACER_ROUGH_BUMP_COUNT"])
