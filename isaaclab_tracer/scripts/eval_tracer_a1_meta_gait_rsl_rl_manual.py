@@ -133,6 +133,8 @@ def main():
         obs = reset_out[0] if isinstance(reset_out, tuple) else reset_out
         obs = get_policy_obs(obs)
         print("[manual-eval] after reset obs shape:", tuple(obs.shape), flush=True)
+        cfg_obj = getattr(getattr(env, "unwrapped", env), "cfg", None)
+        progress_sign = float(getattr(cfg_obj, "meta_progress_sign", 1.0))
 
         x0 = env_unwrapped.robot.data.root_pos_w[:, 0].detach().clone()
         y0 = env_unwrapped.robot.data.root_pos_w[:, 1].detach().clone()
@@ -176,6 +178,7 @@ def main():
                     f"[manual-eval] step {i + 1}/{int(args.num_steps)} "
                     f"rew={rew.mean().item():+.5f} "
                     f"dx={dx_now.mean().item():+.5f} "
+                    f"dir_dx={progress_sign * dx_now.mean().item():+.5f} "
                     f"dy={dy_now.mean().item():+.5f} "
                     f"h={env_unwrapped.robot.data.root_pos_w[:, 2].mean().item():.5f} "
                     f"done_sum={int(dones.sum().item())} "
@@ -205,6 +208,7 @@ def main():
         print(f"  reward_min: {rew_all.min().item():+.6f}", flush=True)
         print(f"  reward_max: {rew_all.max().item():+.6f}", flush=True)
         print(f"  final_dx: {dx.mean().item():+.6f}", flush=True)
+        print(f"  directional_dx: {progress_sign * dx.mean().item():+.6f}", flush=True)
         print(f"  final_dy: {dy.mean().item():+.6f}", flush=True)
         print(f"  min_h: {min_h.min().item():.6f}", flush=True)
         print(f"  final_h: {env_unwrapped.robot.data.root_pos_w[:, 2].mean().item():.6f}", flush=True)
