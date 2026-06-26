@@ -52,6 +52,28 @@ class TracerA1MetaGaitEnvCfg(_TracerA1AdapterEnvCfg):
         
         self.action_space = len(self.meta_active_theta_indices)
 
+        # Optional hand-coded beta override for terrain-aware reward experiments.
+        # Format:
+        #   TRACER_META_BETA=velocity,stability,energy
+        #   TRACER_META_BETA=velocity,stability,energy,clearance
+        #
+        # Examples:
+        #   flat:      1.0,1.0,1.0,0.0
+        #   rough:     0.8,1.5,1.0,1.0
+        #   slippery:  0.5,2.0,0.8,0.5
+        beta_raw = os.environ.get("TRACER_META_BETA", "")
+        if beta_raw.strip():
+            beta_vals = [float(x.strip()) for x in beta_raw.split(",") if x.strip() != ""]
+            if len(beta_vals) not in (3, 4):
+                raise ValueError(
+                    "TRACER_META_BETA must have 3 or 4 values: "
+                    "velocity,stability,energy[,clearance]"
+                )
+            self.meta_beta_velocity = beta_vals[0]
+            self.meta_beta_stability = beta_vals[1]
+            self.meta_beta_energy = beta_vals[2]
+            self.meta_beta_clearance = beta_vals[3] if len(beta_vals) == 4 else 0.0
+
         # Keep the stable internal low-level gait branch.
         self.ignore_adapter_done = True
         self.meta_debug = False
