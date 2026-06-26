@@ -133,6 +133,7 @@ def make_tracer_a1_adapter_env_class():
         meta_beta_energy = 1.0
         meta_beta_clearance = 0.0
         meta_reward_clearance = 0.0
+        meta_use_beta_reward = False
 
         # Debug/diagnostic option:
         # Ignore TracerStepAdapter done signals and only use env-level safety
@@ -1133,54 +1134,76 @@ def make_tracer_a1_adapter_env_class():
 
                 fall = root_height < 0.18
 
-                # Decomposed TRACER reward terms.
+                # Legacy V0 reward path is the default.
                 #
-                # Keep the default beta values equal to the old fixed reward behavior:
-                #   beta_velocity = beta_stability = beta_energy = 1.0
-                #   beta_clearance = 0.0
+                # Important: the flat-ground V0 learner is our stable regression baseline.
+                # The beta-weighted reward scaffold is only enabled explicitly through
+                # cfg.meta_use_beta_reward / TRACER_META_USE_BETA_REWARD or TRACER_META_BETA.
+                use_beta_reward = bool(getattr(self.cfg, "meta_use_beta_reward", False))
+                
+                if not use_beta_reward:
+                    reward = torch.zeros(self.num_envs, device=self.device)
+                    reward = reward + float(getattr(self.cfg, "meta_reward_forward_vel", 4.0)) * forward_vel
+                    reward = reward + float(getattr(self.cfg, "meta_reward_forward_progress", 2.0)) * torch.relu(forward_vel)
+                
+                    reward = reward - float(getattr(self.cfg, "meta_penalty_lateral_vel", 0.5)) * torch.square(lateral_vel)
+                    reward = reward - float(getattr(self.cfg, "meta_penalty_yaw_rate", 0.15)) * torch.square(yaw_rate)
+                    reward = reward - float(getattr(self.cfg, "meta_penalty_ang_vel", 0.05)) * torch.square(ang_vel_xy)
+                    reward = reward - float(getattr(self.cfg, "meta_penalty_height", 4.0)) * torch.square(height_err)
+                    reward = reward - float(getattr(self.cfg, "meta_penalty_low_height", 8.0)) * torch.square(low_height)
+                    reward = reward - float(getattr(self.cfg, "meta_penalty_joint_vel", 0.002)) * joint_vel_pen
+                    reward = reward - float(getattr(self.cfg, "meta_penalty_torque", 0.0005)) * torque_pen
+                    reward = reward - float(getattr(self.cfg, "meta_penalty_action", 0.02)) * action_pen
+                    reward = reward - float(getattr(self.cfg, "meta_penalty_action_rate", 0.02)) * action_rate_pen
+                    reward = reward - float(getattr(self.cfg, "meta_fall_penalty", 10.0)) * fall.float()
+                
+                    self._last_meta_reward_terms = {
+                        "reward_mode": "legacy_v0",
+                    }
+                    return reward
+                
+                # Beta-weighted TRACER reward scaffold.
                 velocity_reward = (
                     float(getattr(self.cfg, "meta_reward_forward_vel", 4.0)) * forward_vel
                     + float(getattr(self.cfg, "meta_reward_forward_progress", 2.0)) * torch.relu(forward_vel)
                 )
-
+                
                 stability_penalty = (
                     float(getattr(self.cfg, "meta_penalty_lateral_vel", 0.5)) * torch.square(lateral_vel)
                     + float(getattr(self.cfg, "meta_penalty_yaw_rate", 0.15)) * torch.square(yaw_rate)
                     + float(getattr(self.cfg, "meta_penalty_ang_vel", 0.05)) * torch.square(ang_vel_xy)
                 )
-
+                
                 posture_penalty = (
                     float(getattr(self.cfg, "meta_penalty_height", 4.0)) * torch.square(height_err)
                     + float(getattr(self.cfg, "meta_penalty_low_height", 8.0)) * torch.square(low_height)
                 )
-
+                
                 energy_penalty = (
                     float(getattr(self.cfg, "meta_penalty_joint_vel", 0.002)) * joint_vel_pen
                     + float(getattr(self.cfg, "meta_penalty_torque", 0.0005)) * torque_pen
                 )
-
+                
                 action_regularization = (
                     float(getattr(self.cfg, "meta_penalty_action", 0.02)) * action_pen
                     + float(getattr(self.cfg, "meta_penalty_action_rate", 0.02)) * action_rate_pen
                 )
-
-                # Clearance/style scaffold.
-                # Default meta_reward_clearance=0.0 and beta_clearance=0.0, so flat V0 is unchanged.
+                
                 theta = getattr(self, "_last_meta_theta", None)
                 if theta is not None and theta.shape[-1] > 3:
                     clearance_proxy = torch.relu(theta[:, 3])
                 else:
                     clearance_proxy = torch.zeros(self.num_envs, device=self.device)
-
+                
                 clearance_reward = float(getattr(self.cfg, "meta_reward_clearance", 0.0)) * clearance_proxy
-
+                
                 beta_v = float(getattr(self.cfg, "meta_beta_velocity", 1.0))
                 beta_s = float(getattr(self.cfg, "meta_beta_stability", 1.0))
                 beta_e = float(getattr(self.cfg, "meta_beta_energy", 1.0))
                 beta_c = float(getattr(self.cfg, "meta_beta_clearance", 0.0))
-
+                
                 fall_penalty = float(getattr(self.cfg, "meta_fall_penalty", 10.0)) * fall.float()
-
+                
                 reward = torch.zeros(self.num_envs, device=self.device)
                 reward = reward + beta_v * velocity_reward
                 reward = reward - beta_s * (stability_penalty + posture_penalty)
@@ -1188,9 +1211,9 @@ def make_tracer_a1_adapter_env_class():
                 reward = reward + beta_c * clearance_reward
                 reward = reward - action_regularization
                 reward = reward - fall_penalty
-
-                # Store terms for debugging / future logging.
+                
                 self._last_meta_reward_terms = {
+                    "reward_mode": "beta_weighted",
                     "velocity_reward": velocity_reward.detach(),
                     "stability_penalty": stability_penalty.detach(),
                     "posture_penalty": posture_penalty.detach(),
@@ -1203,7 +1226,7 @@ def make_tracer_a1_adapter_env_class():
                     "beta_energy": beta_e,
                     "beta_clearance": beta_c,
                 }
-
+                
                 return reward
 
             if self._reward is None:

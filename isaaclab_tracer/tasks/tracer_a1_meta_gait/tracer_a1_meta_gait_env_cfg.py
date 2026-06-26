@@ -74,6 +74,16 @@ class TracerA1MetaGaitEnvCfg(_TracerA1AdapterEnvCfg):
             self.meta_beta_energy = beta_vals[2]
             self.meta_beta_clearance = beta_vals[3] if len(beta_vals) == 4 else 0.0
 
+        # Reward-mode gate.
+        # auto:
+        #   default V0 uses the legacy fixed reward;
+        #   providing TRACER_META_BETA automatically enables beta-weighted reward.
+        use_beta_raw = os.environ.get("TRACER_META_USE_BETA_REWARD", "auto").strip().lower()
+        if use_beta_raw == "auto":
+            self.meta_use_beta_reward = bool(beta_raw.strip())
+        else:
+            self.meta_use_beta_reward = use_beta_raw in ("1", "true", "yes", "on")
+
         # Keep the stable internal low-level gait branch.
         self.ignore_adapter_done = True
         self.meta_debug = False
