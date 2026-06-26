@@ -12,7 +12,12 @@ ROOT = Path(__file__).resolve().parents[2]
 
 SANITY_CSV = ROOT / "data/sanity_results/tracer_fusion_sanity_results.csv"
 RAM_CSV = ROOT / "data/sanity_results/tracer_ram_monitor_results_v2.csv"
-GATE_CSV = ROOT / "data/sanity_results/tracer_ram_gate_monitor_results.csv"
+GATE_CSV = Path(
+    __import__("os").environ.get(
+        "TRACER_CALIBRATED_GATE_SUMMARY_CSV",
+        str(ROOT / "data/rollout_metrics/feasible_closed_loop_gms_ramgate_calibrated_gate_summary_v0.csv"),
+    )
+)
 
 OUT_CSV = ROOT / "data/rollout_metrics/feasible_closed_loop_gms_ramgate_calibrated_v0.csv"
 OUT_JSON = ROOT / "data/rollout_metrics/feasible_closed_loop_gms_ramgate_calibrated_v0.json"
