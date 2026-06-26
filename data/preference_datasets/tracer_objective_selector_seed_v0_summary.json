@@ -1,0 +1,26 @@
+{
+  "num_samples": 9,
+  "num_pairwise_preferences": 2,
+  "sources": {
+    "gms_only": "data/rollout_metrics/feasible_closed_loop_gms_on_v0.json",
+    "ramgate_raw": "data/rollout_metrics/feasible_closed_loop_gms_ramgate_v0.json",
+    "ramgate_calibrated": "data/rollout_metrics/feasible_closed_loop_gms_ramgate_calibrated_v0.json"
+  },
+  "outputs": {
+    "csv": "data/preference_datasets/tracer_objective_selector_seed_v0.csv",
+    "jsonl": "data/preference_datasets/tracer_objective_selector_seed_v0.jsonl",
+    "pairwise_jsonl": "data/preference_datasets/tracer_objective_selector_pairwise_preferences_v0.jsonl",
+    "summary": "data/preference_datasets/tracer_objective_selector_seed_v0_summary.json"
+  },
+  "role_counts": {
+    "positive": 7,
+    "invalid_or_risky": 1,
+    "calibration_warning": 1
+  },
+  "semantic_target_counts": {
+    "validated_locomotion": 2,
+    "cautious_probe": 3,
+    "high_clearance_slow_probe": 3,
+    "no_valid_forward_recovery_needed": 1
+  }
+}
