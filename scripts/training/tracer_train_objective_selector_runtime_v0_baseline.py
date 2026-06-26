@@ -54,6 +54,20 @@ LABEL = "semantic_target"
 DEPLOY_LABEL = "deploy_label"
 BETA_KEYS = ["beta_v_target", "beta_s_target", "beta_e_target"]
 
+SAFETY_OVERRIDE_LABEL = "no_valid_forward_recovery_needed"
+SAFETY_OVERRIDE_THRESHOLDS = {
+    "ram_fallen_prob": 0.50,
+    "ram_ctrl_risk": 0.75,
+    "ram_recovery_prob": 0.60,
+    "gate_unstable_prob": 0.50,
+    "gate_override_prob": 0.50,
+}
+SAFETY_ACTIONS = {
+    "would_conservative_probe",
+    "failed_candidate_keep",
+    "no_valid_keep",
+}
+
 
 def f(x: Any, default: float = 0.0) -> float:
     try:
@@ -184,7 +198,58 @@ def fit_model(rows: list[dict[str, Any]]) -> dict[str, Any]:
         "deploy_by_label": deploy_by_label,
         "class_counts": class_counts,
         "training_source": str(DATA_CSV.relative_to(ROOT)),
+        "safety_override_label": SAFETY_OVERRIDE_LABEL,
+        "safety_override_thresholds": SAFETY_OVERRIDE_THRESHOLDS,
+        "safety_actions": sorted(SAFETY_ACTIONS),
+        "safety_override_note": (
+            "Runtime safety override forces no_valid_forward_recovery_needed "
+            "when online RAM/gate risk exceeds threshold, before centroid "
+            "classification is trusted."
+        ),
     }
+
+
+def safety_override_label(row: dict[str, Any], model: dict[str, Any]) -> str | None:
+    """Safety-first runtime override.
+
+    The nearest-centroid model is allowed to classify normal/cautious/high-clearance
+    cases, but online RAM/gate evidence should dominate when it indicates a
+    currently invalid primitive. This prevents terrain/style priors such as
+    flat+fast from overriding strong mismatch/risk signals.
+    """
+    thresholds = model.get("safety_override_thresholds", SAFETY_OVERRIDE_THRESHOLDS)
+
+    ram_fallen = f(row.get("ram_fallen_prob", 0.0), 0.0)
+    ram_ctrl = f(row.get("ram_ctrl_risk", 0.0), 0.0)
+    ram_recovery = f(row.get("ram_recovery_prob", 0.0), 0.0)
+    gate_unstable = f(row.get("gate_unstable_prob", 0.0), 0.0)
+    gate_override = f(row.get("gate_override_prob", 0.0), 0.0)
+
+    gate_first = str(row.get("gate_first_action", ""))
+    gate_last = str(row.get("gate_last_action", ""))
+
+    strong_risk = (
+        ram_fallen >= thresholds["ram_fallen_prob"]
+        or ram_ctrl >= thresholds["ram_ctrl_risk"]
+        or ram_recovery >= thresholds["ram_recovery_prob"]
+        or gate_unstable >= thresholds["gate_unstable_prob"]
+        or gate_override >= thresholds["gate_override_prob"]
+    )
+
+    action_risk = (
+        gate_first in SAFETY_ACTIONS
+        or gate_last in SAFETY_ACTIONS
+    ) and (
+        ram_fallen >= 0.30
+        or ram_ctrl >= 0.25
+        or gate_unstable >= 0.30
+        or gate_override >= 0.30
+    )
+
+    if strong_risk or action_risk:
+        return SAFETY_OVERRIDE_LABEL
+
+    return None
 
 
 def predict(model: dict[str, Any], row: dict[str, Any]) -> tuple[str, str, list[float], dict[str, float]]:
@@ -196,6 +261,12 @@ def predict(model: dict[str, Any], row: dict[str, Any]) -> tuple[str, str, list[
         scores[label] = -dist2(z, c)
 
     pred = max(scores.items(), key=lambda kv: kv[1])[0]
+
+    forced = safety_override_label(row, model)
+    if forced is not None:
+        scores["__safety_override__"] = 999.0
+        pred = forced
+
     deploy = model["deploy_by_label"][pred]
     beta = model["beta_by_label"][pred]
     return pred, deploy, beta, scores

@@ -21,8 +21,8 @@
     "deploy_forward": 8,
     "do_not_deploy_forward": 36
   },
-  "semantic_accuracy_train_set": 0.9772727272727273,
-  "deploy_accuracy_train_set": 0.9772727272727273,
+  "semantic_accuracy_train_set": 1.0,
+  "deploy_accuracy_train_set": 1.0,
   "semantic_confusion": {
     "validated_locomotion": {
       "validated_locomotion": 2
@@ -34,8 +34,7 @@
       "high_clearance_slow_probe": 3
     },
     "no_valid_forward_recovery_needed": {
-      "validated_locomotion": 1,
-      "no_valid_forward_recovery_needed": 35
+      "no_valid_forward_recovery_needed": 36
     }
   },
   "deploy_confusion": {
@@ -43,8 +42,7 @@
       "deploy_forward": 8
     },
     "do_not_deploy_forward": {
-      "deploy_forward": 1,
-      "do_not_deploy_forward": 35
+      "do_not_deploy_forward": 36
     }
   },
   "warning": "Runtime v0 baseline uses runtime-feasible features only. It is still trained/evaluated on a small seed dataset and should be used for wiring/smoke tests before neural Objective Selector training."

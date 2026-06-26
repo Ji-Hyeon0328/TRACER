@@ -550,5 +550,19 @@
     "high_clearance_slow_probe": 3,
     "no_valid_forward_recovery_needed": 36
   },
-  "training_source": "data/preference_datasets/tracer_objective_selector_runtime_v0.csv"
+  "training_source": "data/preference_datasets/tracer_objective_selector_runtime_v0.csv",
+  "safety_override_label": "no_valid_forward_recovery_needed",
+  "safety_override_thresholds": {
+    "ram_fallen_prob": 0.5,
+    "ram_ctrl_risk": 0.75,
+    "ram_recovery_prob": 0.6,
+    "gate_unstable_prob": 0.5,
+    "gate_override_prob": 0.5
+  },
+  "safety_actions": [
+    "failed_candidate_keep",
+    "no_valid_keep",
+    "would_conservative_probe"
+  ],
+  "safety_override_note": "Runtime safety override forces no_valid_forward_recovery_needed when online RAM/gate risk exceeds threshold, before centroid classification is trusted."
 }
