@@ -3,6 +3,12 @@ from __future__ import annotations
 
 from pathlib import Path
 import json
+import sys
+
+
+ROOT = Path(__file__).resolve().parents[2]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 from tracer_core.highlevel.objective_selector import (
     RuntimeBaselineObjectiveSelector,
@@ -10,7 +16,6 @@ from tracer_core.highlevel.objective_selector import (
 )
 
 
-ROOT = Path(__file__).resolve().parents[2]
 MODEL = ROOT / "data/preference_datasets/tracer_objective_selector_runtime_v0_baseline_model.json"
 
 
