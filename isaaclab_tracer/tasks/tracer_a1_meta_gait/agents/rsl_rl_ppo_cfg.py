@@ -13,10 +13,16 @@ class TracerA1MetaGaitPPORunnerCfg(RslRlOnPolicyRunnerCfg):
     seed = 7
     num_steps_per_env = 192
     max_iterations = 100
-    save_interval = 25
+    save_interval = 1
     experiment_name = "tracer_a1_meta_gait_v0"
     run_name = "vx_only_rsl_rl_smoke"
     empirical_normalization = False
+    # Explicitly map Isaac Lab observation group "policy" to rsl_rl actor/critic.
+    # This removes rsl_rl's fallback warning and makes the config future-proof.
+    obs_groups = {
+        "actor": ["policy"],
+        "critic": ["policy"],
+    }
 
     policy = RslRlPpoActorCriticCfg(
         init_noise_std=0.20,

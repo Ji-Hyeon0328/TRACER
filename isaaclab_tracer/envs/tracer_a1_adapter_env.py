@@ -500,6 +500,26 @@ def make_tracer_a1_adapter_env_class():
             # In meta-gait mode, PPO action is theta, so feed a safe 12D zero adapter action
             # into the legacy adapter/reward path.
             if is_meta_theta:
+                # TRACER meta-gait curriculum support:
+                # allow RL backends to expose only active theta dimensions.
+                # V0 uses 1D action = theta[0], then pads to full meta_theta_dim internally.
+                theta_dim = int(getattr(self.cfg, "meta_theta_dim", 6))
+                if actions.shape[-1] < theta_dim:
+                    padded_actions = torch.zeros(
+                        (actions.shape[0], theta_dim),
+                        device=actions.device,
+                        dtype=actions.dtype,
+                    )
+                    padded_actions[:, : actions.shape[-1]] = actions
+                    actions = padded_actions
+                elif actions.shape[-1] > theta_dim:
+                    raise ValueError(
+                        f"meta_gait_theta expects action dim <= {theta_dim}, got {actions.shape[-1]}"
+                    )
+
+                # Keep internal cached action consistent with the padded meta-gait theta.
+                self._actions = actions
+
                 if self._actions.shape[-1] != int(getattr(self.cfg, "meta_theta_dim", 6)):
                     raise ValueError(
                         f"meta_gait_theta expects action dim {int(getattr(self.cfg, 'meta_theta_dim', 6))}, "

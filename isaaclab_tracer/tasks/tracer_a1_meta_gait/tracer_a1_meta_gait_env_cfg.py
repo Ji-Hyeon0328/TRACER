@@ -22,7 +22,10 @@ class TracerA1MetaGaitEnvCfg(_TracerA1AdapterEnvCfg):
 
         # RL-facing TRACER meta-gait action.
         self.action_type = "meta_gait_theta"
-        self.action_space = int(getattr(self, "meta_theta_dim", 6))
+
+        # V0 exposes only theta[0] to rsl_rl.
+        # The env pads this 1D action to full meta_theta_dim internally.
+        self.action_space = 1
 
         # Keep the stable internal low-level gait branch.
         self.ignore_adapter_done = True
