@@ -1,0 +1,94 @@
+version: tracer_v0_terrain_gms_rules
+source_matrix: data/rollout_metrics/meta_gait_eval_matrix_v0.csv
+source_selection: data/rollout_metrics/meta_gait_v0_benchmark_selection.csv
+
+label_to_gms:
+  stable:
+    semantic_mode: normal_forward
+    risk_level: low
+    vx_scale: 1.0
+    body_height_delta: 0.0
+    clearance_delta: 0.0
+    impedance_scale: 1.0
+    recovery_needed: false
+    note: "V0 active0 can traverse this terrain."
+
+  safe_no_progress:
+    semantic_mode: high_clearance_slow_probe
+    risk_level: medium
+    vx_scale: 0.45
+    body_height_delta: 0.02
+    clearance_delta: 0.03
+    impedance_scale: 1.15
+    recovery_needed: false
+    note: "Robot remains safe but does not make useful forward progress."
+
+  borderline:
+    semantic_mode: cautious_probe
+    risk_level: medium
+    vx_scale: 0.55
+    body_height_delta: 0.01
+    clearance_delta: 0.02
+    impedance_scale: 1.10
+    recovery_needed: false
+    note: "Traversal is possible but progress is weak."
+
+  unstable_slip_or_drift:
+    semantic_mode: active_hold_or_slow_probe
+    risk_level: high
+    vx_scale: 0.25
+    body_height_delta: 0.03
+    clearance_delta: 0.01
+    impedance_scale: 1.25
+    recovery_needed: true
+    note: "Apparent progress is dominated by slip, drift, or unstable descent."
+
+  failure:
+    semantic_mode: no_valid_forward_recovery_needed
+    risk_level: critical
+    vx_scale: 0.0
+    body_height_delta: 0.04
+    clearance_delta: 0.0
+    impedance_scale: 1.35
+    recovery_needed: true
+    note: "Forward traversal failed for V0 active0 baseline."
+
+terrain_overrides:
+  solid_even_forward:
+    semantic_mode: normal_forward
+
+  solid_downslope5_forward:
+    semantic_mode: normal_forward
+
+  rough_bumps_start020_forward:
+    semantic_mode: normal_forward
+
+  solid_upslope5_forward:
+    semantic_mode: high_clearance_slow_probe
+
+  rough_bumps_start018_forward:
+    semantic_mode: cautious_probe
+
+  icy_slippery_even_forward:
+    semantic_mode: active_hold_or_slow_probe
+
+  sponge_like_even_forward:
+    semantic_mode: active_hold_or_slow_probe
+
+  icy_slippery_downslope5_forward:
+    semantic_mode: active_hold_or_slow_probe
+
+  sponge_like_downslope5_forward:
+    semantic_mode: active_hold_or_slow_probe
+
+  mud_slippery_even_forward:
+    semantic_mode: no_valid_forward_recovery_needed
+
+  icy_slippery_upslope5_forward:
+    semantic_mode: no_valid_forward_recovery_needed
+
+  mud_slippery_upslope5_forward:
+    semantic_mode: no_valid_forward_recovery_needed
+
+  sponge_like_upslope5_forward:
+    semantic_mode: no_valid_forward_recovery_needed
