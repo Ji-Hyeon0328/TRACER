@@ -210,6 +210,8 @@ def main():
         print(f"  final_dx: {dx.mean().item():+.6f}", flush=True)
         print(f"  directional_dx: {progress_sign * dx.mean().item():+.6f}", flush=True)
         print(f"  final_dy: {dy.mean().item():+.6f}", flush=True)
+        print(f"  abs_final_dy: {dy.abs().mean().item():+.6f}", flush=True)
+        print(f"  final_dy: {dy.mean().item():+.6f}", flush=True)
         print(f"  min_h: {min_h.min().item():.6f}", flush=True)
         print(f"  final_h: {env_unwrapped.robot.data.root_pos_w[:, 2].mean().item():.6f}", flush=True)
         print(f"  done_count: {done_count}", flush=True)
