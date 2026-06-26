@@ -171,8 +171,10 @@ class TracerA1MetaGaitEnvCfg(_TracerA1AdapterEnvCfg):
                 beta_raw = "0.8,1.5,1.0,1.0"
                 self.meta_reward_clearance = 0.05
             elif preset_raw == "rough_bumps":
-                beta_raw = "0.7,1.6,1.0,1.5"
-                self.meta_reward_clearance = 0.50
+                # TRACER-consistent setting: beta changes objective priorities,
+                # but theta/clearance is not directly rewarded.
+                beta_raw = "0.7,1.6,1.0,0.0"
+                self.meta_reward_clearance = 0.0
             elif preset_raw == "slippery":
                 beta_raw = "0.5,2.0,0.8,0.2"
                 self.meta_reward_clearance = 0.0
