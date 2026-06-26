@@ -46,15 +46,55 @@ NUM_KEYS = [
 
 def parse_log(path: Path) -> list[dict]:
     rows = []
+
+    required = {
+        "terrain",
+        "v1_mode",
+        "semantic",
+        "style",
+        "ram_level",
+        "action",
+        "would_override",
+        "ctrl_ema",
+        "ctrl_risk",
+        "fallen",
+        "recovery",
+        "sigma",
+        "vx_scale",
+        "h_delta",
+        "clr_delta",
+    }
+
+    optional_defaults = {
+        "raw_ram_level": "",
+        "calibration": "",
+    }
+
     for line in path.read_text(errors="replace").splitlines():
-        m = PAT.search(line)
-        if not m:
+        if "terrain=" not in line or "ram_level=" not in line or "action=" not in line:
             continue
 
-        row = m.groupdict()
+        kv = {}
+        for tok in line.split():
+            if "=" not in tok:
+                continue
+            k, v = tok.split("=", 1)
+            if not k:
+                continue
+            kv[k] = v
+
+        if not required.issubset(kv):
+            continue
+
+        row = {k: kv[k] for k in required}
+        for k, v in optional_defaults.items():
+            row[k] = kv.get(k, v)
+
         for k in NUM_KEYS:
             row[k] = float(row[k])
+
         rows.append(row)
+
     return rows
 
 
@@ -92,9 +132,16 @@ def summarize(rows: list[dict], log_path: Path) -> dict:
         "style_last": last["style"],
         "ram_level_first": first["ram_level"],
         "ram_level_last": last["ram_level"],
+        "raw_ram_level_first": first.get("raw_ram_level", ""),
+        "raw_ram_level_last": last.get("raw_ram_level", ""),
         "action_first": first["action"],
         "action_last": last["action"],
+        "calibration_first": first.get("calibration", ""),
+        "calibration_last": last.get("calibration", ""),
         "stable_frac": frac(rows, "ram_level", "stable"),
+        "raw_stable_frac": frac(rows, "raw_ram_level", "stable"),
+        "raw_caution_frac": frac(rows, "raw_ram_level", "caution"),
+        "raw_unstable_frac": frac(rows, "raw_ram_level", "unstable"),
         "caution_frac": frac(rows, "ram_level", "caution"),
         "unstable_frac": frac(rows, "ram_level", "unstable"),
     }
@@ -141,10 +188,21 @@ def main() -> None:
         f"unstable={summary['unstable_frac']:.3f}",
     )
     print(
+        "  raw levels:",
+        f"stable={summary.get('raw_stable_frac', 0.0):.3f}",
+        f"caution={summary.get('raw_caution_frac', 0.0):.3f}",
+        f"unstable={summary.get('raw_unstable_frac', 0.0):.3f}",
+    )
+    print(
         "  action:",
         f"first={summary['action_first']}",
         f"last={summary['action_last']}",
         f"would_override_frac={summary['would_override_mean']:.3f}",
+    )
+    print(
+        "  calibration:",
+        f"first={summary.get('calibration_first', '')}",
+        f"last={summary.get('calibration_last', '')}",
     )
     print(
         "  ctrl_ema:",
