@@ -46,6 +46,8 @@ SEMANTIC_CODE = {
     "candidate_conditional_micro_brake": 5.0,
     "failed_candidate_conditional_micro_brake": 6.0,
     "no_valid_high_level_velocity_primitive": 7.0,
+    "cautious_probe": 8.0,
+    "high_clearance_slow_probe": 9.0,
 }
 
 GATE_LEVEL_CODE = {
@@ -108,6 +110,35 @@ class RamGateMonitor(Node):
         self.msg_count = 0
         self.skip_initial_msgs = int(os.environ.get("TRACER_GATE_SKIP_INITIAL_MSGS", "3"))
 
+        # Runtime calibration:
+        # - avoid reacting to short RAM warm-up spikes
+        # - require persistent caution/unstable evidence before overriding gait
+        # - protect validated flat/fast locomotion from soft false positives
+        self.active_msg_count = 0
+        self.consecutive_caution = 0
+        self.consecutive_unstable = 0
+
+        self.min_override_msgs = int(os.environ.get("TRACER_GATE_MIN_OVERRIDE_MSGS", "8"))
+        self.caution_consecutive_required = int(
+            os.environ.get("TRACER_GATE_CAUTION_CONSECUTIVE", "3")
+        )
+        self.unstable_consecutive_required = int(
+            os.environ.get("TRACER_GATE_UNSTABLE_CONSECUTIVE", "3")
+        )
+
+        self.validated_fast_protect = (
+            os.environ.get("TRACER_GATE_VALIDATED_FAST_PROTECT", "1") == "1"
+        )
+        self.validated_fast_unstable_ctrl = float(
+            os.environ.get("TRACER_GATE_VALIDATED_FAST_UNSTABLE_CTRL", "0.35")
+        )
+        self.validated_fast_unstable_fallen = float(
+            os.environ.get("TRACER_GATE_VALIDATED_FAST_UNSTABLE_FALLEN", "0.90")
+        )
+        self.validated_fast_unstable_recovery = float(
+            os.environ.get("TRACER_GATE_VALIDATED_FAST_UNSTABLE_RECOVERY", "0.75")
+        )
+
         self.get_logger().info(
             "RAM gate monitor started: "
             f"terrain={self.policy_terrain}, "
@@ -120,7 +151,11 @@ class RamGateMonitor(Node):
             f"ctrl caution/unstable={self.caution_ctrl}/{self.unstable_ctrl}, "
             f"fallen caution/unstable={self.caution_fallen}/{self.unstable_fallen}, "
             f"sigma caution/unstable={self.caution_sigma}/{self.unstable_sigma}, "
-            f"recovery caution/unstable={self.caution_recovery}/{self.unstable_recovery}"
+            f"recovery caution/unstable={self.caution_recovery}/{self.unstable_recovery}, "
+            f"min_override_msgs={self.min_override_msgs}, "
+            f"caution_consecutive={self.caution_consecutive_required}, "
+            f"unstable_consecutive={self.unstable_consecutive_required}, "
+            f"validated_fast_protect={int(self.validated_fast_protect)}"
         )
 
     def _load_policy_entry(self) -> Dict:
@@ -195,6 +230,80 @@ class RamGateMonitor(Node):
 
         return "keep", 0.0, 1.0, 0.0, 0.0
 
+    def calibrate_ram_level(
+        self,
+        *,
+        raw_level: str,
+        ctrl_ema: float,
+        fallen: float,
+        recovery: float,
+        sigma: float,
+        semantic_mode: str,
+        suggested_style: str,
+    ) -> Tuple[str, str]:
+        """Apply runtime hysteresis/warm-up protection to RAM gate levels.
+
+        This does not modify the RAM model output. It only prevents the gate from
+        immediately overriding a known-good gait due to short warm-up spikes.
+        """
+
+        self.active_msg_count += 1
+
+        if raw_level == "unstable":
+            self.consecutive_unstable += 1
+            self.consecutive_caution += 1
+        elif raw_level == "caution":
+            self.consecutive_unstable = 0
+            self.consecutive_caution += 1
+        else:
+            self.consecutive_unstable = 0
+            self.consecutive_caution = 0
+
+        reasons = []
+
+        if self.active_msg_count <= self.min_override_msgs:
+            return "stable", (
+                f"warmup_hold active={self.active_msg_count}/"
+                f"{self.min_override_msgs} raw={raw_level}"
+            )
+
+        calibrated = raw_level
+
+        if raw_level == "unstable" and self.consecutive_unstable < self.unstable_consecutive_required:
+            calibrated = "stable"
+            reasons.append(
+                f"unstable_hysteresis {self.consecutive_unstable}/"
+                f"{self.unstable_consecutive_required}"
+            )
+
+        if raw_level == "caution" and self.consecutive_caution < self.caution_consecutive_required:
+            calibrated = "stable"
+            reasons.append(
+                f"caution_hysteresis {self.consecutive_caution}/"
+                f"{self.caution_consecutive_required}"
+            )
+
+        is_validated_fast = (
+            semantic_mode == "validated_locomotion"
+            and suggested_style == "fast"
+        )
+        if self.validated_fast_protect and is_validated_fast and raw_level in {"caution", "unstable"}:
+            strong_unstable = (
+                ctrl_ema >= self.validated_fast_unstable_ctrl
+                or fallen >= self.validated_fast_unstable_fallen
+                or recovery >= self.validated_fast_unstable_recovery
+                or sigma >= self.unstable_sigma
+            )
+            if not strong_unstable:
+                calibrated = "stable"
+                reasons.append(
+                    "validated_fast_soft_risk_suppressed "
+                    f"raw={raw_level} ctrl_ema={ctrl_ema:.3f} "
+                    f"fallen={fallen:.3f} recovery={recovery:.3f} sigma={sigma:.3f}"
+                )
+
+        return calibrated, ";".join(reasons)
+
     def on_ram_risk(self, msg: Float64MultiArray) -> None:
         self.msg_count += 1
         if self.msg_count <= self.skip_initial_msgs:
@@ -230,11 +339,20 @@ class RamGateMonitor(Node):
         semantic_mode = self.policy_entry.get("semantic_mode", "unknown")
         suggested_style = self.policy_entry.get("suggested_style", "unknown")
 
-        ram_level = self.classify_ram(
+        raw_ram_level = self.classify_ram(
             ctrl_ema=ctrl_ema,
             fallen=fallen,
             recovery=recovery,
             sigma=sigma,
+        )
+        ram_level, calibration_reason = self.calibrate_ram_level(
+            raw_level=raw_ram_level,
+            ctrl_ema=ctrl_ema,
+            fallen=fallen,
+            recovery=recovery,
+            sigma=sigma,
+            semantic_mode=semantic_mode,
+            suggested_style=suggested_style,
         )
         action, would_override, vx_scale, body_h_delta, clearance_delta = self.decide_action(ram_level)
 
@@ -267,7 +385,9 @@ class RamGateMonitor(Node):
             f"v1_mode={fused_mode} "
             f"semantic={semantic_mode} "
             f"style={suggested_style} "
+            f"raw_ram_level={raw_ram_level} "
             f"ram_level={ram_level} "
+            f"calibration={calibration_reason or 'none'} "
             f"action={action} "
             f"would_override={would_override:.0f} "
             f"ctrl_ema={ctrl_ema:.3f} "
