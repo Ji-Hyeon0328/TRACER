@@ -125,6 +125,22 @@ class TracerA1MetaGaitEnvCfg(_TracerA1AdapterEnvCfg):
                     "static[,dynamic]"
                 )
 
+        # Optional rough bump geometry overrides.
+        if os.environ.get("TRACER_ROUGH_BUMP_COUNT", "").strip():
+            self.terrain_rough_bump_count = int(os.environ["TRACER_ROUGH_BUMP_COUNT"])
+        if os.environ.get("TRACER_ROUGH_BUMP_HEIGHT", "").strip():
+            self.terrain_rough_bump_height = float(os.environ["TRACER_ROUGH_BUMP_HEIGHT"])
+        if os.environ.get("TRACER_ROUGH_BUMP_LENGTH", "").strip():
+            self.terrain_rough_bump_length = float(os.environ["TRACER_ROUGH_BUMP_LENGTH"])
+        if os.environ.get("TRACER_ROUGH_BUMP_WIDTH", "").strip():
+            self.terrain_rough_bump_width = float(os.environ["TRACER_ROUGH_BUMP_WIDTH"])
+        if os.environ.get("TRACER_ROUGH_BUMP_START_X", "").strip():
+            self.terrain_rough_bump_start_x = float(os.environ["TRACER_ROUGH_BUMP_START_X"])
+        if os.environ.get("TRACER_ROUGH_BUMP_SPACING_X", "").strip():
+            self.terrain_rough_bump_spacing_x = float(os.environ["TRACER_ROUGH_BUMP_SPACING_X"])
+        if os.environ.get("TRACER_ROUGH_BUMP_Y", "").strip():
+            self.terrain_rough_bump_y = float(os.environ["TRACER_ROUGH_BUMP_Y"])
+
         # Optional hand-coded beta override for terrain-aware reward experiments.
         # Format:
         #   TRACER_META_BETA=velocity,stability,energy
@@ -151,9 +167,12 @@ class TracerA1MetaGaitEnvCfg(_TracerA1AdapterEnvCfg):
             if preset_raw == "flat":
                 beta_raw = "1.0,1.0,1.0,0.0"
                 self.meta_reward_clearance = 0.0
-            elif preset_raw in ("rough", "rough_bumps"):
+            elif preset_raw == "rough":
                 beta_raw = "0.8,1.5,1.0,1.0"
                 self.meta_reward_clearance = 0.05
+            elif preset_raw == "rough_bumps":
+                beta_raw = "0.7,1.6,1.0,1.5"
+                self.meta_reward_clearance = 0.50
             elif preset_raw == "slippery":
                 beta_raw = "0.5,2.0,0.8,0.2"
                 self.meta_reward_clearance = 0.0

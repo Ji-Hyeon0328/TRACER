@@ -71,6 +71,9 @@ def make_tracer_a1_adapter_env_class():
         meta_yaw_scale = 0.15
         meta_body_height_delta = 0.04
         meta_clearance_delta = 0.08
+        # theta[3] is a one-sided clearance parameter.
+        # Negative extra-clearance has no physical meaning in the current decoder.
+        meta_theta3_nonnegative = True
         meta_debug = False
 
         # Do not start the gait oscillator when commanded vx is near zero.
@@ -712,6 +715,12 @@ def make_tracer_a1_adapter_env_class():
                 # theta[4] -> gait-speed/period proxy, reserved for later
                 # theta[5] -> residual/gain proxy, reserved for later
                 theta_raw = torch.clamp(self._actions, -1.0, 1.0)
+
+                # theta[3] is clearance. In the current decoder it is used through
+                # relu(theta[3]), so negative values only add action ambiguity.
+                if bool(getattr(self.cfg, "meta_theta3_nonnegative", True)) and theta_raw.shape[1] > 3:
+                    theta_raw = theta_raw.clone()
+                    theta_raw[:, 3] = torch.relu(theta_raw[:, 3])
 
                 # Early PPO safety:
                 # Train only theta[0] = forward velocity residual.
