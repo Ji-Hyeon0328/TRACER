@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import os
+
 from isaaclab_tracer.envs.tracer_a1_adapter_env import make_tracer_a1_adapter_env_class
 
 
@@ -23,9 +25,32 @@ class TracerA1MetaGaitEnvCfg(_TracerA1AdapterEnvCfg):
         # RL-facing TRACER meta-gait action.
         self.action_type = "meta_gait_theta"
 
-        # V0 exposes only theta[0] to rsl_rl.
-        # The env pads this 1D action to full meta_theta_dim internally.
-        self.action_space = 1
+        # Curriculum-controlled active theta dimensions.
+        # Default V0: "0" -> action[0] maps to theta[0].
+        # V1 examples:
+        #   TRACER_META_ACTIVE_THETA=0,2 -> theta[0] + theta[2]
+        #   TRACER_META_ACTIVE_THETA=0,3 -> theta[0] + theta[3]
+        # Curriculum-controlled active theta dimensions.
+        # Default V0: "0" -> action[0] maps to theta[0].
+        # Example V1: TRACER_META_ACTIVE_THETA=0,3
+        active_raw = os.environ.get("TRACER_META_ACTIVE_THETA", "0")
+        self.meta_active_theta_indices = [
+            int(x.strip()) for x in active_raw.split(",") if x.strip() != ""
+        ]
+        
+        # Optional per-active-dimension scale.
+        # Example: TRACER_META_ACTIVE_THETA_SCALE=1.0,0.25
+        scale_raw = os.environ.get("TRACER_META_ACTIVE_THETA_SCALE", "")
+        if scale_raw.strip():
+            self.meta_active_theta_scales = [
+                float(x.strip()) for x in scale_raw.split(",") if x.strip() != ""
+            ]
+        else:
+            self.meta_active_theta_scales = [
+                1.0 for _ in self.meta_active_theta_indices
+            ]
+        
+        self.action_space = len(self.meta_active_theta_indices)
 
         # Keep the stable internal low-level gait branch.
         self.ignore_adapter_done = True
@@ -39,8 +64,15 @@ class TracerA1MetaGaitEnvCfg(_TracerA1AdapterEnvCfg):
         self.hold_default_pose = False
         self.residual_scale = 0.0
 
-        # V0 curriculum: only theta[0] is active.
-        self.meta_train_vx_only = True
+        # V0 curriculum keeps the old vx-only safety mask.
+        # For multi-theta curricula such as active=[0,3], disable vx-only masking
+        # so the additional active theta dimension can actually affect the decoder.
+        vx_only_raw = os.environ.get("TRACER_META_TRAIN_VX_ONLY", "auto").strip().lower()
+        if vx_only_raw == "auto":
+            self.meta_train_vx_only = self.meta_active_theta_indices == [0]
+        else:
+            self.meta_train_vx_only = vx_only_raw in ("1", "true", "yes", "on")
+
         self.meta_theta_smoothing_alpha = 0.90
 
         # Conservative reset/done safety.

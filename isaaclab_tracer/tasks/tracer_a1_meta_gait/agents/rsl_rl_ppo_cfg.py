@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import os
+
 from isaaclab.utils import configclass
 from isaaclab_rl.rsl_rl import (
     RslRlOnPolicyRunnerCfg,
@@ -15,7 +17,7 @@ class TracerA1MetaGaitPPORunnerCfg(RslRlOnPolicyRunnerCfg):
     max_iterations = 100
     save_interval = 1
     experiment_name = "tracer_a1_meta_gait_v0"
-    run_name = "vx_only_rsl_rl_smoke"
+    run_name = os.environ.get("TRACER_RSL_RL_RUN_NAME", "vx_only_rsl_rl_smoke")
     empirical_normalization = False
     # Explicitly map Isaac Lab observation group "policy" to rsl_rl actor/critic.
     # This removes rsl_rl's fallback warning and makes the config future-proof.

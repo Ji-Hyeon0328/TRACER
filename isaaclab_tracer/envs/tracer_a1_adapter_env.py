@@ -501,25 +501,59 @@ def make_tracer_a1_adapter_env_class():
             # into the legacy adapter/reward path.
             if is_meta_theta:
                 # TRACER meta-gait curriculum support:
-                # allow RL backends to expose only active theta dimensions.
-                # V0 uses 1D action = theta[0], then pads to full meta_theta_dim internally.
+                # Map low-dimensional RL actions into selected full theta indices.
+                # Example: active=[0] means action[0] -> theta[0].
+                #          active=[0, 3] with scales=[1.0, 0.25] means
+                #          action[0] -> theta[0] * 1.0, action[1] -> theta[3] * 0.25.
                 theta_dim = int(getattr(self.cfg, "meta_theta_dim", 6))
-                if actions.shape[-1] < theta_dim:
-                    padded_actions = torch.zeros(
+                active_indices = getattr(self.cfg, "meta_active_theta_indices", None)
+                if active_indices is not None:
+                    active_indices = [int(idx) for idx in active_indices]
+                
+                if active_indices:
+                    if actions.shape[-1] != len(active_indices):
+                        raise ValueError(
+                            f"meta_active_theta_indices expects action dim {len(active_indices)}, got {actions.shape[-1]}"
+                        )
+                
+                    active_scales = getattr(self.cfg, "meta_active_theta_scales", None)
+                    if active_scales is None:
+                        active_scales = [1.0 for _ in active_indices]
+                    active_scales = [float(s) for s in active_scales]
+                
+                    if len(active_scales) != len(active_indices):
+                        raise ValueError(
+                            f"meta_active_theta_scales length {len(active_scales)} must match "
+                            f"meta_active_theta_indices length {len(active_indices)}"
+                        )
+                
+                    full_actions = torch.zeros(
                         (actions.shape[0], theta_dim),
                         device=actions.device,
                         dtype=actions.dtype,
                     )
-                    padded_actions[:, : actions.shape[-1]] = actions
-                    actions = padded_actions
-                elif actions.shape[-1] > theta_dim:
-                    raise ValueError(
-                        f"meta_gait_theta expects action dim <= {theta_dim}, got {actions.shape[-1]}"
-                    )
-
-                # Keep internal cached action consistent with the padded meta-gait theta.
+                    for src_i, theta_i in enumerate(active_indices):
+                        if theta_i < 0 or theta_i >= theta_dim:
+                            raise ValueError(f"Invalid active theta index {theta_i} for theta_dim={theta_dim}")
+                        full_actions[:, theta_i] = actions[:, src_i] * active_scales[src_i]
+                    actions = full_actions
+                else:
+                    if actions.shape[-1] < theta_dim:
+                        padded_actions = torch.zeros(
+                            (actions.shape[0], theta_dim),
+                            device=actions.device,
+                            dtype=actions.dtype,
+                        )
+                        padded_actions[:, : actions.shape[-1]] = actions
+                        actions = padded_actions
+                    elif actions.shape[-1] > theta_dim:
+                        raise ValueError(
+                            f"meta_gait_theta expects action dim <= {theta_dim}, got {actions.shape[-1]}"
+                        )
+                
+                # Keep internal cached action consistent with the full meta-gait theta.
                 self._actions = actions
-
+                
                 if self._actions.shape[-1] != int(getattr(self.cfg, "meta_theta_dim", 6)):
                     raise ValueError(
                         f"meta_gait_theta expects action dim {int(getattr(self.cfg, 'meta_theta_dim', 6))}, "

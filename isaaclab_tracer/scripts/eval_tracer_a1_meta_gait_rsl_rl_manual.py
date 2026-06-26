@@ -22,6 +22,37 @@ def get_policy_obs(obs):
     return obs
 
 
+def fmt_vec(x):
+    vals = x.detach().flatten().cpu().tolist()
+    return "[" + ", ".join(f"{float(v):+.5f}" for v in vals) + "]"
+
+
+def effective_theta_for_print(action, theta_dim=6):
+    import os
+
+    active_raw = os.environ.get("TRACER_META_ACTIVE_THETA", "")
+    scale_raw = os.environ.get("TRACER_META_ACTIVE_THETA_SCALE", "")
+
+    if active_raw.strip():
+        active_indices = [int(x.strip()) for x in active_raw.split(",") if x.strip() != ""]
+        if scale_raw.strip():
+            scales = [float(x.strip()) for x in scale_raw.split(",") if x.strip() != ""]
+        else:
+            scales = [1.0 for _ in active_indices]
+
+        full = action.new_zeros((action.shape[0], theta_dim))
+        for src_i, theta_i in enumerate(active_indices):
+            full[:, theta_i] = action[:, src_i] * scales[src_i]
+        return full
+
+    if action.shape[-1] < theta_dim:
+        full = action.new_zeros((action.shape[0], theta_dim))
+        full[:, : action.shape[-1]] = action
+        return full
+
+    return action
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--task", type=str, default="Isaac-TRACER-A1-MetaGait-v0")
@@ -109,6 +140,8 @@ def main():
 
         rewards = []
         theta0_values = []
+        action_values = []
+        effective_theta_values = []
         done_count = 0
 
         for i in range(int(args.num_steps)):
@@ -117,6 +150,9 @@ def main():
                 action = torch.clamp(action, -1.0, 1.0)
 
             theta0_values.append(action[:, 0].detach().clone())
+            action_values.append(action.detach().clone())
+            effective_theta = effective_theta_for_print(action)
+            effective_theta_values.append(effective_theta.detach().clone())
 
             step_out = env.step(action)
             if len(step_out) == 5:
@@ -143,7 +179,9 @@ def main():
                     f"dy={dy_now.mean().item():+.5f} "
                     f"h={env_unwrapped.robot.data.root_pos_w[:, 2].mean().item():.5f} "
                     f"done_sum={int(dones.sum().item())} "
-                    f"theta0={action[:, 0].mean().item():+.5f}",
+                    f"theta0={action[:, 0].mean().item():+.5f} "
+                    f"action_mean={fmt_vec(action.mean(dim=0))} "
+                    f"effective_theta_mean={fmt_vec(effective_theta.mean(dim=0))}",
                     flush=True,
                 )
 
@@ -152,6 +190,15 @@ def main():
 
         rew_all = torch.stack(rewards, dim=0)
         theta0_all = torch.stack(theta0_values, dim=0)
+        action_all = torch.stack(action_values, dim=0)
+        action_mean = action_all.mean(dim=(0, 1))
+        action_min = action_all.amin(dim=(0, 1))
+        action_max = action_all.amax(dim=(0, 1))
+
+        effective_theta_all = torch.stack(effective_theta_values, dim=0)
+        effective_theta_mean = effective_theta_all.mean(dim=(0, 1))
+        effective_theta_min = effective_theta_all.amin(dim=(0, 1))
+        effective_theta_max = effective_theta_all.amax(dim=(0, 1))
 
         print("summary", flush=True)
         print(f"  reward_mean: {rew_all.mean().item():+.6f}", flush=True)
@@ -165,6 +212,13 @@ def main():
         print(f"  mean_theta0: {theta0_all.mean().item():+.6f}", flush=True)
         print(f"  min_theta0: {theta0_all.min().item():+.6f}", flush=True)
         print(f"  max_theta0: {theta0_all.max().item():+.6f}", flush=True)
+        print(f"  action_dim: {action_all.shape[-1]}", flush=True)
+        print(f"  action_mean: {fmt_vec(action_mean)}", flush=True)
+        print(f"  action_min: {fmt_vec(action_min)}", flush=True)
+        print(f"  action_max: {fmt_vec(action_max)}", flush=True)
+        print(f"  effective_theta_mean: {fmt_vec(effective_theta_mean)}", flush=True)
+        print(f"  effective_theta_min: {fmt_vec(effective_theta_min)}", flush=True)
+        print(f"  effective_theta_max: {fmt_vec(effective_theta_max)}", flush=True)
 
         env.close()
 
