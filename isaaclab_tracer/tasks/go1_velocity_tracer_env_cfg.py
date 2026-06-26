@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 from isaaclab.utils import configclass
 from isaaclab.managers import RewardTermCfg as RewTerm
 from isaaclab.managers import SceneEntityCfg
@@ -10,22 +11,64 @@ from isaaclab_tasks.manager_based.locomotion.velocity.config.go1.rough_env_cfg i
 
 
 
+
+def get_tracer_beta_from_env() -> tuple[float, float, float]:
+    """Read TRACER beta preset from environment variables.
+
+    Defaults to equal weights. Values are normalized to sum to one.
+
+    Env vars:
+      TRACER_BETA_MOTION
+      TRACER_BETA_STABILITY
+      TRACER_BETA_ENERGY
+    """
+    beta_motion = float(os.environ.get("TRACER_BETA_MOTION", "0.3333333333333333"))
+    beta_stability = float(os.environ.get("TRACER_BETA_STABILITY", "0.3333333333333333"))
+    beta_energy = float(os.environ.get("TRACER_BETA_ENERGY", "0.3333333333333333"))
+
+    if beta_motion < 0.0 or beta_stability < 0.0 or beta_energy < 0.0:
+        raise ValueError(
+            "TRACER beta values must be non-negative: "
+            f"motion={beta_motion}, stability={beta_stability}, energy={beta_energy}"
+        )
+
+    beta_sum = beta_motion + beta_stability + beta_energy
+    if beta_sum <= 1.0e-9:
+        raise ValueError("TRACER beta sum must be positive.")
+
+    return beta_motion / beta_sum, beta_stability / beta_sum, beta_energy / beta_sum
+
+
 def attach_tracer_slide_reward(rewards, *, weight: float = 0.5) -> None:
     """Attach TRACER slide reward to an Isaac Lab reward config object.
 
     V2 additionally exposes anti-abandonment terms as explicit reward terms:
     - progress reward encourages moving in the commanded direction.
     - active hold penalty discourages standing still under non-zero commands.
+
+    Beta weights are read from environment variables at config construction time:
+      TRACER_BETA_MOTION, TRACER_BETA_STABILITY, TRACER_BETA_ENERGY.
     """
+    beta_motion, beta_stability, beta_energy = get_tracer_beta_from_env()
+
+    if os.environ.get("TRACER_DEBUG_BETA", "0") == "1":
+        print(
+            "[TRACER] beta preset: "
+            f"motion={beta_motion:.6f}, "
+            f"stability={beta_stability:.6f}, "
+            f"energy={beta_energy:.6f}",
+            flush=True,
+        )
+
     rewards.tracer_slide_reward = RewTerm(
         func=tracer_mdp.tracer_slide_reward_total,
         weight=weight,
         params={
             "command_name": "base_velocity",
             "asset_cfg": SceneEntityCfg("robot"),
-            "beta_motion": 1.0 / 3.0,
-            "beta_stability": 1.0 / 3.0,
-            "beta_energy": 1.0 / 3.0,
+            "beta_motion": beta_motion,
+            "beta_stability": beta_stability,
+            "beta_energy": beta_energy,
             "lambda_energy": 0.5,
             "aux_scale": 1.5,
         },
