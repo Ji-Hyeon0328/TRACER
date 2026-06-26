@@ -240,14 +240,14 @@
     "terrain_name": "icy_slippery_even_forward"
   },
   {
-    "label": "unstable_slip_or_drift",
+    "label": "failure",
     "lowlevel_reference": {
       "mpc_array": [
         0.0,
-        0.025,
         0.0,
-        0.32499999999999996,
-        0.04,
+        0.0,
+        0.33499999999999996,
+        0.03,
         1.0
       ],
       "mpc_array_layout": [
@@ -260,17 +260,17 @@
       ]
     },
     "meta_gait_proposal": {
-      "body_height": 0.32499999999999996,
-      "body_height_delta": 0.03,
-      "clearance_delta": 0.01,
-      "impedance_scale": 1.25,
-      "swing_clearance": 0.04,
-      "vx": 0.025,
-      "vx_scale": 0.25
+      "body_height": 0.33499999999999996,
+      "body_height_delta": 0.04,
+      "clearance_delta": 0.0,
+      "impedance_scale": 1.35,
+      "swing_clearance": 0.03,
+      "vx": 0.0,
+      "vx_scale": 0.0
     },
     "recovery_needed": true,
-    "risk_level": "high",
-    "semantic_mode": "active_hold_or_slow_probe",
+    "risk_level": "critical",
+    "semantic_mode": "no_valid_forward_recovery_needed",
     "source_metrics": {
       "abs_final_dy": 0.132297,
       "directional_dx": 0.057194,
@@ -280,14 +280,14 @@
     "terrain_name": "sponge_like_even_forward"
   },
   {
-    "label": "unstable_slip_or_drift",
+    "label": "failure",
     "lowlevel_reference": {
       "mpc_array": [
         0.0,
-        0.025,
         0.0,
-        0.32499999999999996,
-        0.04,
+        0.0,
+        0.33499999999999996,
+        0.03,
         1.0
       ],
       "mpc_array_layout": [
@@ -300,17 +300,17 @@
       ]
     },
     "meta_gait_proposal": {
-      "body_height": 0.32499999999999996,
-      "body_height_delta": 0.03,
-      "clearance_delta": 0.01,
-      "impedance_scale": 1.25,
-      "swing_clearance": 0.04,
-      "vx": 0.025,
-      "vx_scale": 0.25
+      "body_height": 0.33499999999999996,
+      "body_height_delta": 0.04,
+      "clearance_delta": 0.0,
+      "impedance_scale": 1.35,
+      "swing_clearance": 0.03,
+      "vx": 0.0,
+      "vx_scale": 0.0
     },
     "recovery_needed": true,
-    "risk_level": "high",
-    "semantic_mode": "active_hold_or_slow_probe",
+    "risk_level": "critical",
+    "semantic_mode": "no_valid_forward_recovery_needed",
     "source_metrics": {
       "abs_final_dy": 0.008472,
       "directional_dx": 0.15492,
