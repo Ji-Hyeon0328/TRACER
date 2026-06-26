@@ -1,0 +1,51 @@
+{
+  "num_samples": 44,
+  "num_features": 58,
+  "semantic_labels": [
+    "cautious_probe",
+    "high_clearance_slow_probe",
+    "no_valid_forward_recovery_needed",
+    "validated_locomotion"
+  ],
+  "deploy_labels": [
+    "deploy_forward",
+    "do_not_deploy_forward"
+  ],
+  "class_counts": {
+    "validated_locomotion": 2,
+    "cautious_probe": 3,
+    "high_clearance_slow_probe": 3,
+    "no_valid_forward_recovery_needed": 36
+  },
+  "deploy_counts": {
+    "deploy_forward": 8,
+    "do_not_deploy_forward": 36
+  },
+  "semantic_accuracy_train_set": 0.9772727272727273,
+  "deploy_accuracy_train_set": 0.9772727272727273,
+  "semantic_confusion": {
+    "validated_locomotion": {
+      "validated_locomotion": 2
+    },
+    "cautious_probe": {
+      "cautious_probe": 3
+    },
+    "high_clearance_slow_probe": {
+      "high_clearance_slow_probe": 3
+    },
+    "no_valid_forward_recovery_needed": {
+      "validated_locomotion": 1,
+      "no_valid_forward_recovery_needed": 35
+    }
+  },
+  "deploy_confusion": {
+    "deploy_forward": {
+      "deploy_forward": 8
+    },
+    "do_not_deploy_forward": {
+      "deploy_forward": 1,
+      "do_not_deploy_forward": 35
+    }
+  },
+  "warning": "Runtime v0 baseline uses runtime-feasible features only. It is still trained/evaluated on a small seed dataset and should be used for wiring/smoke tests before neural Objective Selector training."
+}
