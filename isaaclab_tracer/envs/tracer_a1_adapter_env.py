@@ -165,7 +165,7 @@ def make_tracer_a1_adapter_env_class():
         terrain_rough_bump_height = 0.025
         terrain_rough_bump_length = 0.055
         terrain_rough_bump_width = 0.75
-        terrain_rough_bump_start_x = 0.08
+        terrain_rough_bump_start_x = 0.20
         terrain_rough_bump_spacing_x = 0.10
         terrain_rough_bump_y = 0.0
 
