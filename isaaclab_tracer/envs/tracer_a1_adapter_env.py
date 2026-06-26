@@ -259,7 +259,7 @@ def make_tracer_a1_adapter_env_class():
             height = float(getattr(self.cfg, 'terrain_rough_bump_height', 0.025))
             length = float(getattr(self.cfg, 'terrain_rough_bump_length', 0.055))
             width = float(getattr(self.cfg, 'terrain_rough_bump_width', 0.75))
-            start_x = float(getattr(self.cfg, 'terrain_rough_bump_start_x', 0.08))
+            start_x = float(getattr(self.cfg, 'terrain_rough_bump_start_x', 0.20))
             spacing_x = float(getattr(self.cfg, 'terrain_rough_bump_spacing_x', 0.10))
             y0 = float(getattr(self.cfg, 'terrain_rough_bump_y', 0.0))
         
