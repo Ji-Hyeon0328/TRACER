@@ -150,6 +150,16 @@ def make_tracer_a1_adapter_env_class():
         include_terrain_context_obs = False
         terrain_context_dim = 5
 
+        # Rough geometry scaffold: low cuboid bump bars.
+        # Enabled by terrain_preset == 'rough_bumps'.
+        terrain_rough_bump_count = 3
+        terrain_rough_bump_height = 0.025
+        terrain_rough_bump_length = 0.055
+        terrain_rough_bump_width = 0.75
+        terrain_rough_bump_start_x = 0.08
+        terrain_rough_bump_spacing_x = 0.10
+        terrain_rough_bump_y = 0.0
+
         # Debug/diagnostic option:
         # Ignore TracerStepAdapter done signals and only use env-level safety
         # termination. Useful for standing/controller diagnostics.
@@ -231,6 +241,59 @@ def make_tracer_a1_adapter_env_class():
 
             super().__init__(cfg, render_mode=render_mode, **kwargs)
 
+        def _spawn_rough_bumps(self):
+            # Spawn simple cuboid bump bars as a geometry-rough terrain scaffold.
+            count = int(getattr(self.cfg, 'terrain_rough_bump_count', 3))
+            if count <= 0:
+                return
+        
+            height = float(getattr(self.cfg, 'terrain_rough_bump_height', 0.025))
+            length = float(getattr(self.cfg, 'terrain_rough_bump_length', 0.055))
+            width = float(getattr(self.cfg, 'terrain_rough_bump_width', 0.75))
+            start_x = float(getattr(self.cfg, 'terrain_rough_bump_start_x', 0.08))
+            spacing_x = float(getattr(self.cfg, 'terrain_rough_bump_spacing_x', 0.10))
+            y0 = float(getattr(self.cfg, 'terrain_rough_bump_y', 0.0))
+        
+            bump_cfg = sim_utils.CuboidCfg(
+                size=(length, width, height),
+                collision_props=sim_utils.CollisionPropertiesCfg(),
+                physics_material=sim_utils.RigidBodyMaterialCfg(
+                    friction_combine_mode='multiply',
+                    restitution_combine_mode='multiply',
+                    static_friction=float(getattr(self.cfg, 'terrain_static_friction', 1.0)),
+                    dynamic_friction=float(getattr(self.cfg, 'terrain_dynamic_friction', 1.0)),
+                    restitution=float(getattr(self.cfg, 'terrain_restitution', 0.0)),
+                ),
+            )
+        
+            try:
+                origins = self.scene.env_origins.detach().cpu()
+            except Exception:
+                origins = torch.zeros(self.num_envs, 3)
+                spacing = float(getattr(self.cfg.scene, 'env_spacing', 2.5))
+                origins[:, 0] = torch.arange(self.num_envs, dtype=torch.float32) * spacing
+        
+            for env_id in range(self.num_envs):
+                ox = float(origins[env_id, 0])
+                oy = float(origins[env_id, 1])
+                for bump_id in range(count):
+                    x = ox + start_x + bump_id * spacing_x
+                    y = oy + y0
+                    z = 0.5 * height
+                    prim_path = f'/World/TRACER_RoughBumps/env_{env_id}/bump_{bump_id}'
+                    bump_cfg.func(prim_path, bump_cfg, translation=(x, y, z))
+        
+            print(
+                '[A1Adapter] rough bump geometry:',
+                'count=', count,
+                'height=', height,
+                'length=', length,
+                'width=', width,
+                'start_x=', start_x,
+                'spacing_x=', spacing_x,
+                flush=True,
+            )
+
         def _setup_scene(self):
             try:
                 actuator = self.cfg.robot.actuators["base_legs"]
@@ -274,6 +337,9 @@ def make_tracer_a1_adapter_env_class():
             ground_cfg.func("/World/defaultGroundPlane", ground_cfg)
 
             self.scene.clone_environments(copy_from_source=False)
+
+            if terrain_preset == 'rough_bumps':
+                self._spawn_rough_bumps()
             self.scene.filter_collisions(global_prim_paths=["/World/defaultGroundPlane"])
 
             light_cfg = sim_utils.DomeLightCfg(
@@ -1130,7 +1196,7 @@ def make_tracer_a1_adapter_env_class():
         
             preset = str(getattr(self.cfg, "terrain_preset", "flat")).lower()
             if context_dim > 2:
-                ctx[:, 2] = 1.0 if preset == "rough" else 0.0
+                ctx[:, 2] = 1.0 if preset in ("rough", "rough_bumps") else 0.0
             if context_dim > 3:
                 ctx[:, 3] = 1.0 if preset == "slippery" else 0.0
             if context_dim > 4:

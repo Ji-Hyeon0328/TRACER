@@ -80,11 +80,16 @@ class TracerA1MetaGaitEnvCfg(_TracerA1AdapterEnvCfg):
                 self.terrain_dynamic_friction = 1.0
                 self.terrain_restitution = 0.0
             elif terrain_raw == "rough":
-                # Material-only rough scaffold for now.
-                # Heightfield/mesh roughness will be added later.
+                # Material-only rough scaffold.
                 self.terrain_preset = "rough"
                 self.terrain_static_friction = 1.2
                 self.terrain_dynamic_friction = 1.0
+                self.terrain_restitution = 0.0
+            elif terrain_raw == "rough_bumps":
+                # Geometry roughness scaffold: low cuboid bump bars.
+                self.terrain_preset = "rough_bumps"
+                self.terrain_static_friction = 1.0
+                self.terrain_dynamic_friction = 0.9
                 self.terrain_restitution = 0.0
             elif terrain_raw == "slippery":
                 self.terrain_preset = "slippery"
@@ -99,7 +104,7 @@ class TracerA1MetaGaitEnvCfg(_TracerA1AdapterEnvCfg):
             else:
                 raise ValueError(
                     f"Unknown TRACER_TERRAIN_PRESET={terrain_raw!r}. "
-                    "Expected one of: flat, rough, slippery, soft."
+                    "Expected one of: flat, rough, rough_bumps, slippery, soft."
                 )
 
         # Optional direct friction override:
@@ -146,7 +151,7 @@ class TracerA1MetaGaitEnvCfg(_TracerA1AdapterEnvCfg):
             if preset_raw == "flat":
                 beta_raw = "1.0,1.0,1.0,0.0"
                 self.meta_reward_clearance = 0.0
-            elif preset_raw == "rough":
+            elif preset_raw in ("rough", "rough_bumps"):
                 beta_raw = "0.8,1.5,1.0,1.0"
                 self.meta_reward_clearance = 0.05
             elif preset_raw == "slippery":
@@ -158,7 +163,7 @@ class TracerA1MetaGaitEnvCfg(_TracerA1AdapterEnvCfg):
             else:
                 raise ValueError(
                     f"Unknown TRACER_TERRAIN_BETA_PRESET={preset_raw!r}. "
-                    "Expected one of: flat, rough, slippery, soft."
+                    "Expected one of: flat, rough, rough_bumps, slippery, soft."
                 )
 
         if beta_raw.strip():
