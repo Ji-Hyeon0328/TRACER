@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import csv
 import json
+import math
 from pathlib import Path
 from typing import Any
 
@@ -155,6 +156,70 @@ def main() -> None:
                 "ram_recovery_mean": as_float(get(ram_row or {}, "recovery_mean", default="nan")),
             }
         )
+
+
+    # Post-process observation flags.
+    # Some raw monitor CSVs may not expose a stable "samples" column name,
+    # but the presence of gate fractions/actions or RAM risk summaries is
+    # enough to mark the monitor as observed.
+    def _finite(v: Any) -> bool:
+        try:
+            return math.isfinite(float(v))
+        except Exception:
+            return False
+
+    def _f(v: Any, default: float = float("nan")) -> float:
+        try:
+            return float(v)
+        except Exception:
+            return default
+
+    for item in curated:
+        gate_has_fraction = any(
+            _finite(item.get(k))
+            for k in ("gate_stable_frac", "gate_caution_frac", "gate_unstable_frac")
+        )
+        gate_has_action = bool(
+            str(item.get("gate_first_action", "")).strip()
+            or str(item.get("gate_last_action", "")).strip()
+        )
+        ram_has_metric = any(
+            _finite(item.get(k))
+            for k in ("ram_ctrl_risk_mean", "ram_fallen_mean", "ram_recovery_mean")
+        )
+
+        item["ramgate_observed"] = bool(item.get("ramgate_observed")) or gate_has_fraction or gate_has_action
+        item["ram_monitor_observed"] = bool(item.get("ram_monitor_observed")) or ram_has_metric
+
+        # If the raw samples field was not parsed but metrics/actions exist,
+        # leave sample count unknown instead of incorrectly recording 0.
+        if _finite(item.get("gate_samples")) and _f(item.get("gate_samples")) == 0.0 and item["ramgate_observed"]:
+            item["gate_samples"] = None
+        if _finite(item.get("ram_samples")) and _f(item.get("ram_samples")) == 0.0 and item["ram_monitor_observed"]:
+            item["ram_samples"] = None
+
+        if not _finite(item.get("gate_override_frac")):
+            item["gate_override_frac"] = None
+
+        dx = _f(item.get("dx"))
+        min_rel_z = _f(item.get("min_rel_z"))
+        fallen = bool(item.get("fallen_relative"))
+
+        item["no_fall_route_closed"] = (not fallen) and _finite(dx) and dx > 0.03
+        item["strict_height_margin_valid"] = _finite(min_rel_z) and min_rel_z > 0.18
+
+        item["ramgate_calibration_note"] = ""
+        if (
+            item.get("terrain_key") == "flat_normal"
+            and _finite(item.get("gate_unstable_frac"))
+            and _f(item.get("gate_unstable_frac")) >= 0.50
+        ):
+            item["ramgate_calibration_note"] = (
+                "RAM gate likely produced a flat-terrain false positive: "
+                "route stayed closed and no fall was detected, but unstable/override "
+                "fractions were high and strict height margin failed."
+            )
+
 
     OUT_CSV.parent.mkdir(parents=True, exist_ok=True)
     with OUT_CSV.open("w", newline="") as f:
