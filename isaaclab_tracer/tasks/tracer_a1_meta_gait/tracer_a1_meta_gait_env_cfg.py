@@ -52,6 +52,60 @@ class TracerA1MetaGaitEnvCfg(_TracerA1AdapterEnvCfg):
         
         self.action_space = len(self.meta_active_theta_indices)
 
+        # Physical terrain/material preset.
+        #
+        # This affects the Isaac ground-plane material. It is intentionally
+        # separate from TRACER_TERRAIN_BETA_PRESET:
+        #   TRACER_TERRAIN_PRESET      -> physical/material condition
+        #   TRACER_TERRAIN_BETA_PRESET -> objective/reward weighting
+        terrain_raw = os.environ.get("TRACER_TERRAIN_PRESET", "").strip().lower()
+        if terrain_raw:
+            if terrain_raw == "flat":
+                self.terrain_preset = "flat"
+                self.terrain_static_friction = 1.0
+                self.terrain_dynamic_friction = 1.0
+                self.terrain_restitution = 0.0
+            elif terrain_raw == "rough":
+                # Material-only rough scaffold for now.
+                # Heightfield/mesh roughness will be added later.
+                self.terrain_preset = "rough"
+                self.terrain_static_friction = 1.2
+                self.terrain_dynamic_friction = 1.0
+                self.terrain_restitution = 0.0
+            elif terrain_raw == "slippery":
+                self.terrain_preset = "slippery"
+                self.terrain_static_friction = 0.25
+                self.terrain_dynamic_friction = 0.20
+                self.terrain_restitution = 0.0
+            elif terrain_raw == "soft":
+                self.terrain_preset = "soft"
+                self.terrain_static_friction = 0.70
+                self.terrain_dynamic_friction = 0.55
+                self.terrain_restitution = 0.0
+            else:
+                raise ValueError(
+                    f"Unknown TRACER_TERRAIN_PRESET={terrain_raw!r}. "
+                    "Expected one of: flat, rough, slippery, soft."
+                )
+
+        # Optional direct friction override:
+        #   TRACER_TERRAIN_FRICTION=0.8
+        #   TRACER_TERRAIN_FRICTION=0.8,0.6
+        friction_raw = os.environ.get("TRACER_TERRAIN_FRICTION", "").strip()
+        if friction_raw:
+            friction_vals = [float(x.strip()) for x in friction_raw.split(",") if x.strip() != ""]
+            if len(friction_vals) == 1:
+                self.terrain_static_friction = friction_vals[0]
+                self.terrain_dynamic_friction = friction_vals[0]
+            elif len(friction_vals) == 2:
+                self.terrain_static_friction = friction_vals[0]
+                self.terrain_dynamic_friction = friction_vals[1]
+            else:
+                raise ValueError(
+                    "TRACER_TERRAIN_FRICTION must have one or two values: "
+                    "static[,dynamic]"
+                )
+
         # Optional hand-coded beta override for terrain-aware reward experiments.
         # Format:
         #   TRACER_META_BETA=velocity,stability,energy

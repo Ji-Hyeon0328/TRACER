@@ -135,6 +135,16 @@ def make_tracer_a1_adapter_env_class():
         meta_reward_clearance = 0.0
         meta_use_beta_reward = False
 
+        # TRACER terrain/material scaffold.
+        #
+        # This is the first physical hook for terrain-aware gait learning.
+        # For now it controls the ground-plane material/friction. Later this can
+        # be extended to heightfield/mesh rough terrain.
+        terrain_preset = "flat"
+        terrain_static_friction = 1.0
+        terrain_dynamic_friction = 1.0
+        terrain_restitution = 0.0
+
         # Debug/diagnostic option:
         # Ignore TracerStepAdapter done signals and only use env-level safety
         # termination. Useful for standing/controller diagnostics.
@@ -233,13 +243,27 @@ def make_tracer_a1_adapter_env_class():
             self.robot = Articulation(self.cfg.robot)
             self.scene.articulations["robot"] = self.robot
 
+            terrain_preset = str(getattr(self.cfg, "terrain_preset", "flat")).lower()
+            terrain_static_friction = float(getattr(self.cfg, "terrain_static_friction", 1.0))
+            terrain_dynamic_friction = float(getattr(self.cfg, "terrain_dynamic_friction", 1.0))
+            terrain_restitution = float(getattr(self.cfg, "terrain_restitution", 0.0))
+
+            print(
+                "[A1Adapter] terrain material:",
+                "preset=", terrain_preset,
+                "static_friction=", terrain_static_friction,
+                "dynamic_friction=", terrain_dynamic_friction,
+                "restitution=", terrain_restitution,
+                flush=True,
+            )
+
             ground_cfg = sim_utils.GroundPlaneCfg(
                 physics_material=sim_utils.RigidBodyMaterialCfg(
                     friction_combine_mode="multiply",
                     restitution_combine_mode="multiply",
-                    static_friction=1.0,
-                    dynamic_friction=1.0,
-                    restitution=0.0,
+                    static_friction=terrain_static_friction,
+                    dynamic_friction=terrain_dynamic_friction,
+                    restitution=terrain_restitution,
                 )
             )
             ground_cfg.func("/World/defaultGroundPlane", ground_cfg)
