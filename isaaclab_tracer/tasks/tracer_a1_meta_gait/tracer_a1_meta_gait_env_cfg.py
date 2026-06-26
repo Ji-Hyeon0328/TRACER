@@ -87,9 +87,10 @@ class TracerA1MetaGaitEnvCfg(_TracerA1AdapterEnvCfg):
                 self.terrain_restitution = 0.0
             elif terrain_raw == "rough_bumps":
                 # Geometry roughness scaffold: low cuboid bump bars.
+                # Keep material flat-like; roughness should come from geometry, not friction.
                 self.terrain_preset = "rough_bumps"
                 self.terrain_static_friction = 1.0
-                self.terrain_dynamic_friction = 0.9
+                self.terrain_dynamic_friction = 1.0
                 self.terrain_restitution = 0.0
             elif terrain_raw == "slippery":
                 self.terrain_preset = "slippery"
