@@ -33,6 +33,11 @@ from tracer_core.highlevel.policy_input_builder import (  # noqa: E402
     build_high_level_policy_input,
     high_level_policy_input_summary,
 )
+from tracer_core.highlevel.objective_selector import (  # noqa: E402
+    ObjectiveSelectorInput,
+    RuntimeBaselineObjectiveSelector,
+    infer_terrain_family,
+)
 
 
 def find_default_policy() -> Path:
@@ -91,6 +96,18 @@ class TracerFusionPolicyMpcRefNode(Node):
         self.declare_parameter("meta_gait_policy_kind", os.environ.get("TRACER_META_GAIT_POLICY_KIND", "rule_based"))
         self.declare_parameter("meta_gait_policy_model", os.environ.get("TRACER_META_GAIT_POLICY_MODEL", ""))
 
+        self.declare_parameter("objective_selector_kind", os.environ.get("TRACER_OBJECTIVE_SELECTOR_KIND", "disabled"))
+        self.declare_parameter(
+            "objective_selector_model",
+            os.environ.get(
+                "TRACER_OBJECTIVE_SELECTOR_MODEL",
+                "data/preference_datasets/tracer_objective_selector_runtime_v0_baseline_model.json",
+            ),
+        )
+        self.declare_parameter("objective_selector_apply_semantic", int(os.environ.get("TRACER_OBJECTIVE_SELECTOR_APPLY_SEMANTIC", "1")))
+        self.declare_parameter("objective_selector_apply_beta", int(os.environ.get("TRACER_OBJECTIVE_SELECTOR_APPLY_BETA", "1")))
+        self.declare_parameter("objective_selector_block_no_deploy", int(os.environ.get("TRACER_OBJECTIVE_SELECTOR_BLOCK_NO_DEPLOY", "1")))
+
         # Optional terrain-aware command transition ramp.
         # Used for slippery active fallback experiments.
         self.declare_parameter("ramp_body_height_enable", int(os.environ.get("TRACER_RAMP_BODY_HEIGHT_ENABLE", "0")))
@@ -119,6 +136,21 @@ class TracerFusionPolicyMpcRefNode(Node):
             self.meta_gait_policy_kind,
             self.meta_gait_policy_model or None,
         )
+
+        self.objective_selector_kind = str(self.get_parameter("objective_selector_kind").value)
+        self.objective_selector_model = str(self.get_parameter("objective_selector_model").value)
+        self.objective_selector_apply_semantic = bool(int(self.get_parameter("objective_selector_apply_semantic").value))
+        self.objective_selector_apply_beta = bool(int(self.get_parameter("objective_selector_apply_beta").value))
+        self.objective_selector_block_no_deploy = bool(int(self.get_parameter("objective_selector_block_no_deploy").value))
+
+        self.objective_selector = None
+        if self.objective_selector_kind in {"runtime_baseline_json", "baseline_json"}:
+            objective_model_path = Path(self.objective_selector_model)
+            if not objective_model_path.is_absolute():
+                objective_model_path = ROOT / objective_model_path
+            self.objective_selector = RuntimeBaselineObjectiveSelector(objective_model_path)
+        elif self.objective_selector_kind not in {"", "disabled", "none"}:
+            raise RuntimeError(f"Unknown objective_selector_kind={self.objective_selector_kind}")
 
         self.ramp_body_height_enable = bool(int(self.get_parameter("ramp_body_height_enable").value))
         self.ramp_body_height_start = float(self.get_parameter("ramp_body_height_start").value)
@@ -154,6 +186,7 @@ class TracerFusionPolicyMpcRefNode(Node):
 
         self.latest_gate: dict[str, float | str] | None = None
         self.latest_gate_wall_time = 0.0
+        self.latest_objective_selector_output = None
 
         self.pub = self.create_publisher(Float64MultiArray, "/tracer/mpc_reference", 10)
         self.beta_pub = self.create_publisher(Float64MultiArray, "/tracer/objective_weights", 10)
@@ -194,6 +227,13 @@ class TracerFusionPolicyMpcRefNode(Node):
             f"meta_gait_policy kind={self.meta_gait_policy_kind} "
             f"model={self.meta_gait_policy_model or '<none>'}"
         )
+        self.get_logger().info(
+            f"objective_selector kind={self.objective_selector_kind} "
+            f"model={self.objective_selector_model or '<none>'} "
+            f"apply_semantic={int(self.objective_selector_apply_semantic)} "
+            f"apply_beta={int(self.objective_selector_apply_beta)} "
+            f"block_no_deploy={int(self.objective_selector_block_no_deploy)}"
+        )
 
         if self.ramp_body_height_enable:
             self.get_logger().info(
@@ -211,6 +251,41 @@ class TracerFusionPolicyMpcRefNode(Node):
                 f"delay={self.ramp_vx_delay:.3f}s "
                 f"duration={self.ramp_vx_duration:.3f}s"
             )
+
+    def _predict_objective_selector(self, gate: dict[str, Any], entry: dict[str, Any]):
+        if self.objective_selector is None:
+            return None
+
+        semantic_prior = str(entry.get("semantic_mode", entry.get("semantic", "unknown")))
+        style_prior = str(entry.get("suggested_style", entry.get("style", "unknown")))
+        world = str(entry.get("world_name", entry.get("world", "")))
+        terrain_family = infer_terrain_family(self.terrain, world, style_prior)
+
+        ram_level = str(gate.get("ram_level", "unknown"))
+        gate_action = str(gate.get("ram_gate_action", "unknown"))
+
+        x = ObjectiveSelectorInput(
+            terrain_key=self.terrain,
+            world=world or "unknown",
+            terrain_family=terrain_family,
+            semantic_prior=semantic_prior,
+            style_prior=style_prior,
+            ramgate_enabled=self.gms_use_ram_gate,
+            ramgate_calibrated=self.objective_selector_kind not in {"", "disabled", "none"},
+            ramgate_observed=ram_level != "unknown",
+            ram_monitor_observed=ram_level != "unknown",
+            ram_ctrl_risk=_as_float(gate.get("control_risk", gate.get("ctrl_ema", 0.0)), 0.0),
+            ram_fallen_prob=_as_float(gate.get("fallen_prob", gate.get("fallen", 0.0)), 0.0),
+            ram_recovery_prob=_as_float(gate.get("recovery_prob", gate.get("recovery", 0.0)), 0.0),
+            gate_stable_prob=1.0 if ram_level == "stable" else 0.0,
+            gate_caution_prob=1.0 if ram_level == "caution" else 0.0,
+            gate_unstable_prob=1.0 if ram_level == "unstable" else 0.0,
+            gate_override_prob=_as_float(gate.get("would_override", 0.0), 0.0),
+            gate_first_action=gate_action,
+            gate_last_action=gate_action,
+        )
+
+        return self.objective_selector.predict(x)
 
     def on_ram_gate_advice(self, msg: Float64MultiArray) -> None:
         data = list(msg.data)
@@ -327,8 +402,36 @@ class TracerFusionPolicyMpcRefNode(Node):
             return base_command, None, None, None, None, None
 
         gate = self._gate_context(now_wall)
+        selection_entry = dict(self.entry)
+
+        objective_out = self._predict_objective_selector(gate, selection_entry)
+        self.latest_objective_selector_output = objective_out
+
+        if objective_out is not None:
+            if self.objective_selector_apply_semantic:
+                selection_entry["semantic_mode"] = objective_out.semantic_target
+                selection_entry["semantic"] = objective_out.semantic_target
+                selection_entry["decision"] = objective_out.semantic_target
+
+            if self.objective_selector_apply_beta:
+                selection_entry["beta"] = {
+                    "motion": float(objective_out.beta_v),
+                    "stability": float(objective_out.beta_s),
+                    "energy": float(objective_out.beta_e),
+                }
+
+            if (
+                self.objective_selector_block_no_deploy
+                and objective_out.deploy_label == "do_not_deploy_forward"
+            ):
+                final_command = dict(base_command)
+                final_command["vx"] = 0.0
+                final_command["yaw_rate"] = 0.0
+                final_command["enable"] = 0.0
+                return final_command, None, None, None, None, None
+
         gms_in = input_from_policy_entry(
-            self.entry,
+            selection_entry,
             ram_level=str(gate["ram_level"]),
             ram_gate_action=str(gate["ram_gate_action"]),
             control_risk=float(gate["control_risk"]),
@@ -339,7 +442,7 @@ class TracerFusionPolicyMpcRefNode(Node):
         gms_out = select_gait_mode(gms_in)
 
         policy_input = build_high_level_policy_input(
-            policy_entry=self.entry,
+            policy_entry=selection_entry,
             gms_in=gms_in,
             gms_out=gms_out,
             gate=gate,
@@ -397,13 +500,23 @@ class TracerFusionPolicyMpcRefNode(Node):
         ]
         self.pub.publish(msg)
 
-        beta = self.entry.get("beta", {})
         beta_msg = Float64MultiArray()
-        beta_msg.data = [
-            float(beta.get("motion", 1.0 / 3.0)),
-            float(beta.get("stability", 1.0 / 3.0)),
-            float(beta.get("energy", 1.0 / 3.0)),
-        ]
+        if (
+            self.latest_objective_selector_output is not None
+            and self.objective_selector_apply_beta
+        ):
+            beta_msg.data = [
+                float(self.latest_objective_selector_output.beta_v),
+                float(self.latest_objective_selector_output.beta_s),
+                float(self.latest_objective_selector_output.beta_e),
+            ]
+        else:
+            beta = self.entry.get("beta", {})
+            beta_msg.data = [
+                float(beta.get("motion", 1.0 / 3.0)),
+                float(beta.get("stability", 1.0 / 3.0)),
+                float(beta.get("energy", 1.0 / 3.0)),
+            ]
         self.beta_pub.publish(beta_msg)
 
         self.counter += 1.0
