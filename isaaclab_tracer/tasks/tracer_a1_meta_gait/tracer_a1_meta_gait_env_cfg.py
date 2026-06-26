@@ -62,6 +62,37 @@ class TracerA1MetaGaitEnvCfg(_TracerA1AdapterEnvCfg):
         #   rough:     0.8,1.5,1.0,1.0
         #   slippery:  0.5,2.0,0.8,0.5
         beta_raw = os.environ.get("TRACER_META_BETA", "")
+
+        # Terrain-aware beta presets.
+        #
+        # These are hand-coded placeholders for the future Objective Selector.
+        # Later, the Objective Selector should predict beta from terrain/context.
+        #
+        # Priority interpretation:
+        #   beta_velocity  : forward progress priority
+        #   beta_stability : posture / slip-safe / low-risk priority
+        #   beta_energy    : energy-efficiency priority
+        #   beta_clearance : clearance/style priority
+        preset_raw = os.environ.get("TRACER_TERRAIN_BETA_PRESET", "").strip().lower()
+        if preset_raw and not beta_raw.strip():
+            if preset_raw == "flat":
+                beta_raw = "1.0,1.0,1.0,0.0"
+                self.meta_reward_clearance = 0.0
+            elif preset_raw == "rough":
+                beta_raw = "0.8,1.5,1.0,1.0"
+                self.meta_reward_clearance = 0.05
+            elif preset_raw == "slippery":
+                beta_raw = "0.5,2.0,0.8,0.2"
+                self.meta_reward_clearance = 0.0
+            elif preset_raw == "soft":
+                beta_raw = "0.6,1.7,1.2,0.2"
+                self.meta_reward_clearance = 0.0
+            else:
+                raise ValueError(
+                    f"Unknown TRACER_TERRAIN_BETA_PRESET={preset_raw!r}. "
+                    "Expected one of: flat, rough, slippery, soft."
+                )
+
         if beta_raw.strip():
             beta_vals = [float(x.strip()) for x in beta_raw.split(",") if x.strip() != ""]
             if len(beta_vals) not in (3, 4):
@@ -77,7 +108,8 @@ class TracerA1MetaGaitEnvCfg(_TracerA1AdapterEnvCfg):
         # Reward-mode gate.
         # auto:
         #   default V0 uses the legacy fixed reward;
-        #   providing TRACER_META_BETA automatically enables beta-weighted reward.
+        #   providing TRACER_META_BETA or TRACER_TERRAIN_BETA_PRESET
+        #   automatically enables beta-weighted reward.
         use_beta_raw = os.environ.get("TRACER_META_USE_BETA_REWARD", "auto").strip().lower()
         if use_beta_raw == "auto":
             self.meta_use_beta_reward = bool(beta_raw.strip())
