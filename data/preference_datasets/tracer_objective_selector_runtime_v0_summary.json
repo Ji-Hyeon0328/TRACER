@@ -1,0 +1,56 @@
+{
+  "num_samples": 44,
+  "source": "data/preference_datasets/tracer_objective_selector_seed_v1.csv",
+  "outputs": {
+    "csv": "data/preference_datasets/tracer_objective_selector_runtime_v0.csv",
+    "jsonl": "data/preference_datasets/tracer_objective_selector_runtime_v0.jsonl",
+    "summary": "data/preference_datasets/tracer_objective_selector_runtime_v0_summary.json"
+  },
+  "terrain_family_counts": {
+    "flat": 3,
+    "rough": 3,
+    "slope": 3,
+    "sponge": 3,
+    "slippery": 32
+  },
+  "semantic_prior_counts": {
+    "validated_locomotion": 4,
+    "cautious_probe": 3,
+    "high_clearance_slow_probe": 3,
+    "no_valid_high_level_velocity_primitive": 1,
+    "unknown": 6,
+    "validated_conditional_micro_brake": 3,
+    "candidate_conditional_micro_brake": 3,
+    "primitive_eval_true_backstep": 9,
+    "primitive_eval_micro_backstep": 6,
+    "primitive_eval": 4,
+    "downgrade_to_no_valid_forward_recovery_needed": 2
+  },
+  "semantic_target_counts": {
+    "validated_locomotion": 2,
+    "cautious_probe": 3,
+    "high_clearance_slow_probe": 3,
+    "no_valid_forward_recovery_needed": 36
+  },
+  "deploy_label_counts": {
+    "deploy_forward": 8,
+    "do_not_deploy_forward": 36
+  },
+  "role_counts": {
+    "positive": 7,
+    "invalid_or_risky": 36,
+    "calibration_warning": 1
+  },
+  "removed_post_rollout_features": [
+    "dx",
+    "dy",
+    "min_rel_z",
+    "locomotion_valid",
+    "fallen_relative",
+    "strict_height_margin_valid",
+    "mpc_vx_mean",
+    "mpc_body_height_mean",
+    "mpc_clearance_mean"
+  ],
+  "note": "Runtime v0 removes post-rollout metrics from the seed dataset. RAM/gate fields are currently aggregate proxies and should map to instantaneous or short-window readings in runtime."
+}
