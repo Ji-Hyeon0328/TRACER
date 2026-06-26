@@ -136,6 +136,12 @@ def make_tracer_a1_adapter_env_class():
         meta_beta_energy = 1.0
         meta_beta_clearance = 0.0
         meta_reward_clearance = 0.0
+
+        # Clearance reward should not be collectable while standing still.
+        # This prevents rough_bumps policies from increasing theta[3] without traversal.
+        meta_clearance_reward_requires_forward = True
+        meta_clearance_reward_vx_gate = 0.03
+
         meta_use_beta_reward = False
 
         # TRACER terrain/material scaffold.
@@ -1333,6 +1339,13 @@ def make_tracer_a1_adapter_env_class():
                     clearance_proxy = torch.zeros(self.num_envs, device=self.device)
                 
                 clearance_reward = float(getattr(self.cfg, "meta_reward_clearance", 0.0)) * clearance_proxy
+
+                # Prevent reward hacking: theta[3] clearance should be rewarded
+                # only when the robot is actually making forward progress.
+                if bool(getattr(self.cfg, "meta_clearance_reward_requires_forward", True)):
+                    vx_gate = max(float(getattr(self.cfg, "meta_clearance_reward_vx_gate", 0.03)), 1.0e-6)
+                    forward_motion_gate = torch.clamp(torch.relu(forward_vel) / vx_gate, 0.0, 1.0)
+                    clearance_reward = clearance_reward * forward_motion_gate
                 
                 beta_v = float(getattr(self.cfg, "meta_beta_velocity", 1.0))
                 beta_s = float(getattr(self.cfg, "meta_beta_stability", 1.0))
