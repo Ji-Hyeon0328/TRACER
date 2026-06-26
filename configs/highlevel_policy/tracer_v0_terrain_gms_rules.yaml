@@ -70,7 +70,8 @@ terrain_overrides:
     semantic_mode: cautious_probe
 
   icy_slippery_even_forward:
-    semantic_mode: active_hold_or_slow_probe
+    semantic_mode: no_valid_forward_recovery_needed
+    note: "Downgraded after zero-vx hold failure on slippery flat."
 
   sponge_like_even_forward:
     semantic_mode: no_valid_forward_recovery_needed
