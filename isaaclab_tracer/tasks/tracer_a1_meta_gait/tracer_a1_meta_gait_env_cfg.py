@@ -52,6 +52,20 @@ class TracerA1MetaGaitEnvCfg(_TracerA1AdapterEnvCfg):
         
         self.action_space = len(self.meta_active_theta_indices)
 
+        # Optional hand-coded terrain context appended to observation.
+        #
+        # Default off:
+        #   observation_space = 58
+        #
+        # If TRACER_INCLUDE_TERRAIN_CONTEXT=1:
+        #   observation_space = 58 + 5
+        #   obs += [static_friction, dynamic_friction, is_rough, is_slippery, is_soft]
+        include_ctx_raw = os.environ.get("TRACER_INCLUDE_TERRAIN_CONTEXT", "0").strip().lower()
+        self.include_terrain_context_obs = include_ctx_raw in ("1", "true", "yes", "on")
+        self.terrain_context_dim = 5
+        if self.include_terrain_context_obs:
+            self.observation_space = int(self.observation_space) + int(self.terrain_context_dim)
+
         # Physical terrain/material preset.
         #
         # This affects the Isaac ground-plane material. It is intentionally

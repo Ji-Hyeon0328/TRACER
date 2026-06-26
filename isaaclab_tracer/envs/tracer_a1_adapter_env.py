@@ -145,6 +145,11 @@ def make_tracer_a1_adapter_env_class():
         terrain_dynamic_friction = 1.0
         terrain_restitution = 0.0
 
+        # Optional terrain context appended to policy observation.
+        # Default is off to preserve all existing 58D checkpoints / V0 behavior.
+        include_terrain_context_obs = False
+        terrain_context_dim = 5
+
         # Debug/diagnostic option:
         # Ignore TracerStepAdapter done signals and only use env-level safety
         # termination. Useful for standing/controller diagnostics.
@@ -615,6 +620,10 @@ def make_tracer_a1_adapter_env_class():
             )
 
             self._policy_obs = out.policy_obs
+
+            if bool(getattr(self.cfg, "include_terrain_context_obs", False)):
+                terrain_ctx = self._make_terrain_context_obs()
+                self._policy_obs = torch.cat([self._policy_obs, terrain_ctx], dim=-1)
             self._reward = out.reward
             if bool(getattr(self.cfg, "ignore_adapter_done", False)):
                 self._terminated = torch.zeros_like(out.done, dtype=torch.bool)
@@ -1099,6 +1108,35 @@ def make_tracer_a1_adapter_env_class():
                 self.robot.set_joint_effort_target(self._joint_effort_target)
             else:
                 self.robot.set_joint_position_target(self._joint_pos_target)
+
+        def _make_terrain_context_obs(self):
+            """Return a small hand-coded terrain/material context vector.
+        
+            Layout:
+                [static_friction, dynamic_friction, is_rough, is_slippery, is_soft]
+        
+            This is a scaffold for the future learned terrain/context encoder c_t.
+            """
+            context_dim = int(getattr(self.cfg, "terrain_context_dim", 5))
+            ctx = torch.zeros(self.num_envs, context_dim, device=self.device)
+        
+            if context_dim <= 0:
+                return ctx
+        
+            if context_dim > 0:
+                ctx[:, 0] = float(getattr(self.cfg, "terrain_static_friction", 1.0))
+            if context_dim > 1:
+                ctx[:, 1] = float(getattr(self.cfg, "terrain_dynamic_friction", 1.0))
+        
+            preset = str(getattr(self.cfg, "terrain_preset", "flat")).lower()
+            if context_dim > 2:
+                ctx[:, 2] = 1.0 if preset == "rough" else 0.0
+            if context_dim > 3:
+                ctx[:, 3] = 1.0 if preset == "slippery" else 0.0
+            if context_dim > 4:
+                ctx[:, 4] = 1.0 if preset == "soft" else 0.0
+        
+            return ctx
 
         def _get_observations(self):
             if self._policy_obs is None:
