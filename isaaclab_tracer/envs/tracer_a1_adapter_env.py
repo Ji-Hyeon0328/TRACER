@@ -1213,9 +1213,9 @@ def make_tracer_a1_adapter_env_class():
             if context_dim > 2:
                 ctx[:, 2] = 1.0 if preset in ("rough", "rough_bumps") else 0.0
             if context_dim > 3:
-                ctx[:, 3] = 1.0 if preset == "slippery" else 0.0
+                ctx[:, 3] = 1.0 if preset in ("slippery", "icy_slippery", "mud_slippery") else 0.0
             if context_dim > 4:
-                ctx[:, 4] = 1.0 if preset == "soft" else 0.0
+                ctx[:, 4] = 1.0 if preset in ("soft", "sponge_like") else 0.0
         
             return ctx
 

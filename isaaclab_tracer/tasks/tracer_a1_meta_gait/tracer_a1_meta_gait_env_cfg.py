@@ -74,38 +74,49 @@ class TracerA1MetaGaitEnvCfg(_TracerA1AdapterEnvCfg):
         #   TRACER_TERRAIN_BETA_PRESET -> objective/reward weighting
         terrain_raw = os.environ.get("TRACER_TERRAIN_PRESET", "").strip().lower()
         if terrain_raw:
-            if terrain_raw == "flat":
-                self.terrain_preset = "flat"
+            if terrain_raw in ("flat", "solid", "solid_even"):
+                self.terrain_preset = "solid"
                 self.terrain_static_friction = 1.0
                 self.terrain_dynamic_friction = 1.0
                 self.terrain_restitution = 0.0
-            elif terrain_raw == "rough":
+            elif terrain_raw in ("rough",):
                 # Material-only rough scaffold.
                 self.terrain_preset = "rough"
                 self.terrain_static_friction = 1.2
                 self.terrain_dynamic_friction = 1.0
                 self.terrain_restitution = 0.0
-            elif terrain_raw == "rough_bumps":
+            elif terrain_raw in ("rough_bumps", "solid_rough_bumps"):
                 # Geometry roughness scaffold: low cuboid bump bars.
                 # Keep material flat-like; roughness should come from geometry, not friction.
                 self.terrain_preset = "rough_bumps"
                 self.terrain_static_friction = 1.0
                 self.terrain_dynamic_friction = 1.0
                 self.terrain_restitution = 0.0
-            elif terrain_raw == "slippery":
-                self.terrain_preset = "slippery"
+            elif terrain_raw in ("slippery", "icy", "icy_slippery", "ice"):
+                # Approximation of icy/slippery contact: low static/dynamic friction.
+                self.terrain_preset = "icy_slippery"
                 self.terrain_static_friction = 0.25
                 self.terrain_dynamic_friction = 0.20
                 self.terrain_restitution = 0.0
-            elif terrain_raw == "soft":
-                self.terrain_preset = "soft"
+            elif terrain_raw in ("mud", "mud_slippery", "muddy"):
+                # Approximation of muddy slip: moderate-low friction.
+                # True sinkage/deformability will be added later as a separate proxy.
+                self.terrain_preset = "mud_slippery"
+                self.terrain_static_friction = 0.45
+                self.terrain_dynamic_friction = 0.30
+                self.terrain_restitution = 0.0
+            elif terrain_raw in ("soft", "sponge", "sponge_like", "sponge-like"):
+                # Approximation of sponge-like contact.
+                # True compliance will be added later as a separate proxy.
+                self.terrain_preset = "sponge_like"
                 self.terrain_static_friction = 0.70
                 self.terrain_dynamic_friction = 0.55
                 self.terrain_restitution = 0.0
             else:
                 raise ValueError(
                     f"Unknown TRACER_TERRAIN_PRESET={terrain_raw!r}. "
-                    "Expected one of: flat, rough, rough_bumps, slippery, soft."
+                    "Expected one of: flat/solid, rough, rough_bumps, "
+                    "slippery/icy_slippery, mud_slippery, soft/sponge_like."
                 )
 
         # Optional direct friction override:
