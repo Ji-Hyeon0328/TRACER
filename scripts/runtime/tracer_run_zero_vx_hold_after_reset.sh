@@ -40,7 +40,10 @@ scripts/runtime/tracer_ensure_mpc_ref_bridge.sh
 
 echo
 echo "========== start zero-vx ROS2 publisher =========="
+# ROS setup scripts may reference unset variables internally, so disable nounset while sourcing.
+set +u
 source /opt/ros/humble/setup.bash
+set -u
 ros2 topic pub "$TOPIC" std_msgs/msg/Float64MultiArray \
 "{data: [0.0, 0.0, 0.0, ${BODY_H}, ${CLR}, 1.0]}" \
 -r 10 > /tmp/tracer_zero_vx_hold_pub.log 2>&1 &
