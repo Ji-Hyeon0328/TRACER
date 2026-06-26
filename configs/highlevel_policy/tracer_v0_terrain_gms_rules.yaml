@@ -79,7 +79,8 @@ terrain_overrides:
     semantic_mode: active_hold_or_slow_probe
 
   sponge_like_downslope5_forward:
-    semantic_mode: active_hold_or_slow_probe
+    semantic_mode: no_valid_forward_recovery_needed
+    note: "Downgraded after zero-vx hold failure on sponge downslope."
 
   mud_slippery_even_forward:
     semantic_mode: no_valid_forward_recovery_needed
