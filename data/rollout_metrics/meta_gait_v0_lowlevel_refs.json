@@ -1,0 +1,522 @@
+[
+  {
+    "label": "stable",
+    "lowlevel_reference": {
+      "mpc_array": [
+        0.0,
+        0.1,
+        0.0,
+        0.295,
+        0.03,
+        1.0
+      ],
+      "mpc_array_layout": [
+        "yaw_rate",
+        "vx",
+        "vy",
+        "body_height",
+        "swing_clearance",
+        "enable"
+      ]
+    },
+    "meta_gait_proposal": {
+      "body_height": 0.295,
+      "body_height_delta": 0.0,
+      "clearance_delta": 0.0,
+      "impedance_scale": 1.0,
+      "swing_clearance": 0.03,
+      "vx": 0.1,
+      "vx_scale": 1.0
+    },
+    "recovery_needed": false,
+    "risk_level": "low",
+    "semantic_mode": "normal_forward",
+    "source_metrics": {
+      "abs_final_dy": 0.001238,
+      "directional_dx": 0.028664,
+      "done_count": 0,
+      "reward_mean": 0.045035
+    },
+    "terrain_name": "solid_even_forward"
+  },
+  {
+    "label": "stable",
+    "lowlevel_reference": {
+      "mpc_array": [
+        0.0,
+        0.1,
+        0.0,
+        0.295,
+        0.03,
+        1.0
+      ],
+      "mpc_array_layout": [
+        "yaw_rate",
+        "vx",
+        "vy",
+        "body_height",
+        "swing_clearance",
+        "enable"
+      ]
+    },
+    "meta_gait_proposal": {
+      "body_height": 0.295,
+      "body_height_delta": 0.0,
+      "clearance_delta": 0.0,
+      "impedance_scale": 1.0,
+      "swing_clearance": 0.03,
+      "vx": 0.1,
+      "vx_scale": 1.0
+    },
+    "recovery_needed": false,
+    "risk_level": "low",
+    "semantic_mode": "normal_forward",
+    "source_metrics": {
+      "abs_final_dy": 0.003608,
+      "directional_dx": 0.050602,
+      "done_count": 0,
+      "reward_mean": 0.045904
+    },
+    "terrain_name": "solid_downslope5_forward"
+  },
+  {
+    "label": "stable",
+    "lowlevel_reference": {
+      "mpc_array": [
+        0.0,
+        0.1,
+        0.0,
+        0.295,
+        0.03,
+        1.0
+      ],
+      "mpc_array_layout": [
+        "yaw_rate",
+        "vx",
+        "vy",
+        "body_height",
+        "swing_clearance",
+        "enable"
+      ]
+    },
+    "meta_gait_proposal": {
+      "body_height": 0.295,
+      "body_height_delta": 0.0,
+      "clearance_delta": 0.0,
+      "impedance_scale": 1.0,
+      "swing_clearance": 0.03,
+      "vx": 0.1,
+      "vx_scale": 1.0
+    },
+    "recovery_needed": false,
+    "risk_level": "low",
+    "semantic_mode": "normal_forward",
+    "source_metrics": {
+      "abs_final_dy": 0.000931,
+      "directional_dx": 0.028048,
+      "done_count": 0,
+      "reward_mean": 0.045273
+    },
+    "terrain_name": "rough_bumps_start020_forward"
+  },
+  {
+    "label": "safe_no_progress",
+    "lowlevel_reference": {
+      "mpc_array": [
+        0.0,
+        0.045000000000000005,
+        0.0,
+        0.315,
+        0.06,
+        1.0
+      ],
+      "mpc_array_layout": [
+        "yaw_rate",
+        "vx",
+        "vy",
+        "body_height",
+        "swing_clearance",
+        "enable"
+      ]
+    },
+    "meta_gait_proposal": {
+      "body_height": 0.315,
+      "body_height_delta": 0.02,
+      "clearance_delta": 0.03,
+      "impedance_scale": 1.15,
+      "swing_clearance": 0.06,
+      "vx": 0.045000000000000005,
+      "vx_scale": 0.45
+    },
+    "recovery_needed": false,
+    "risk_level": "medium",
+    "semantic_mode": "high_clearance_slow_probe",
+    "source_metrics": {
+      "abs_final_dy": 0.001229,
+      "directional_dx": -0.022638,
+      "done_count": 0,
+      "reward_mean": 0.031098
+    },
+    "terrain_name": "solid_upslope5_forward"
+  },
+  {
+    "label": "borderline",
+    "lowlevel_reference": {
+      "mpc_array": [
+        0.0,
+        0.05500000000000001,
+        0.0,
+        0.305,
+        0.05,
+        1.0
+      ],
+      "mpc_array_layout": [
+        "yaw_rate",
+        "vx",
+        "vy",
+        "body_height",
+        "swing_clearance",
+        "enable"
+      ]
+    },
+    "meta_gait_proposal": {
+      "body_height": 0.305,
+      "body_height_delta": 0.01,
+      "clearance_delta": 0.02,
+      "impedance_scale": 1.1,
+      "swing_clearance": 0.05,
+      "vx": 0.05500000000000001,
+      "vx_scale": 0.55
+    },
+    "recovery_needed": false,
+    "risk_level": "medium",
+    "semantic_mode": "cautious_probe",
+    "source_metrics": {
+      "abs_final_dy": 0.000283,
+      "directional_dx": 0.009999,
+      "done_count": 0,
+      "reward_mean": 0.040052
+    },
+    "terrain_name": "rough_bumps_start018_forward"
+  },
+  {
+    "label": "unstable_slip_or_drift",
+    "lowlevel_reference": {
+      "mpc_array": [
+        0.0,
+        0.025,
+        0.0,
+        0.32499999999999996,
+        0.04,
+        1.0
+      ],
+      "mpc_array_layout": [
+        "yaw_rate",
+        "vx",
+        "vy",
+        "body_height",
+        "swing_clearance",
+        "enable"
+      ]
+    },
+    "meta_gait_proposal": {
+      "body_height": 0.32499999999999996,
+      "body_height_delta": 0.03,
+      "clearance_delta": 0.01,
+      "impedance_scale": 1.25,
+      "swing_clearance": 0.04,
+      "vx": 0.025,
+      "vx_scale": 0.25
+    },
+    "recovery_needed": true,
+    "risk_level": "high",
+    "semantic_mode": "active_hold_or_slow_probe",
+    "source_metrics": {
+      "abs_final_dy": 0.088156,
+      "directional_dx": 0.062006,
+      "done_count": 15,
+      "reward_mean": -5.954946
+    },
+    "terrain_name": "icy_slippery_even_forward"
+  },
+  {
+    "label": "unstable_slip_or_drift",
+    "lowlevel_reference": {
+      "mpc_array": [
+        0.0,
+        0.025,
+        0.0,
+        0.32499999999999996,
+        0.04,
+        1.0
+      ],
+      "mpc_array_layout": [
+        "yaw_rate",
+        "vx",
+        "vy",
+        "body_height",
+        "swing_clearance",
+        "enable"
+      ]
+    },
+    "meta_gait_proposal": {
+      "body_height": 0.32499999999999996,
+      "body_height_delta": 0.03,
+      "clearance_delta": 0.01,
+      "impedance_scale": 1.25,
+      "swing_clearance": 0.04,
+      "vx": 0.025,
+      "vx_scale": 0.25
+    },
+    "recovery_needed": true,
+    "risk_level": "high",
+    "semantic_mode": "active_hold_or_slow_probe",
+    "source_metrics": {
+      "abs_final_dy": 0.132297,
+      "directional_dx": 0.057194,
+      "done_count": 18,
+      "reward_mean": -4.483765
+    },
+    "terrain_name": "sponge_like_even_forward"
+  },
+  {
+    "label": "unstable_slip_or_drift",
+    "lowlevel_reference": {
+      "mpc_array": [
+        0.0,
+        0.025,
+        0.0,
+        0.32499999999999996,
+        0.04,
+        1.0
+      ],
+      "mpc_array_layout": [
+        "yaw_rate",
+        "vx",
+        "vy",
+        "body_height",
+        "swing_clearance",
+        "enable"
+      ]
+    },
+    "meta_gait_proposal": {
+      "body_height": 0.32499999999999996,
+      "body_height_delta": 0.03,
+      "clearance_delta": 0.01,
+      "impedance_scale": 1.25,
+      "swing_clearance": 0.04,
+      "vx": 0.025,
+      "vx_scale": 0.25
+    },
+    "recovery_needed": true,
+    "risk_level": "high",
+    "semantic_mode": "active_hold_or_slow_probe",
+    "source_metrics": {
+      "abs_final_dy": 0.008472,
+      "directional_dx": 0.15492,
+      "done_count": 40,
+      "reward_mean": -3.30623
+    },
+    "terrain_name": "icy_slippery_downslope5_forward"
+  },
+  {
+    "label": "unstable_slip_or_drift",
+    "lowlevel_reference": {
+      "mpc_array": [
+        0.0,
+        0.025,
+        0.0,
+        0.32499999999999996,
+        0.04,
+        1.0
+      ],
+      "mpc_array_layout": [
+        "yaw_rate",
+        "vx",
+        "vy",
+        "body_height",
+        "swing_clearance",
+        "enable"
+      ]
+    },
+    "meta_gait_proposal": {
+      "body_height": 0.32499999999999996,
+      "body_height_delta": 0.03,
+      "clearance_delta": 0.01,
+      "impedance_scale": 1.25,
+      "swing_clearance": 0.04,
+      "vx": 0.025,
+      "vx_scale": 0.25
+    },
+    "recovery_needed": true,
+    "risk_level": "high",
+    "semantic_mode": "active_hold_or_slow_probe",
+    "source_metrics": {
+      "abs_final_dy": 0.081235,
+      "directional_dx": 0.126863,
+      "done_count": 32,
+      "reward_mean": -4.163631
+    },
+    "terrain_name": "sponge_like_downslope5_forward"
+  },
+  {
+    "label": "failure",
+    "lowlevel_reference": {
+      "mpc_array": [
+        0.0,
+        0.0,
+        0.0,
+        0.33499999999999996,
+        0.03,
+        1.0
+      ],
+      "mpc_array_layout": [
+        "yaw_rate",
+        "vx",
+        "vy",
+        "body_height",
+        "swing_clearance",
+        "enable"
+      ]
+    },
+    "meta_gait_proposal": {
+      "body_height": 0.33499999999999996,
+      "body_height_delta": 0.04,
+      "clearance_delta": 0.0,
+      "impedance_scale": 1.35,
+      "swing_clearance": 0.03,
+      "vx": 0.0,
+      "vx_scale": 0.0
+    },
+    "recovery_needed": true,
+    "risk_level": "critical",
+    "semantic_mode": "no_valid_forward_recovery_needed",
+    "source_metrics": {
+      "abs_final_dy": 0.053452,
+      "directional_dx": -0.009315,
+      "done_count": 24,
+      "reward_mean": -6.041593
+    },
+    "terrain_name": "mud_slippery_even_forward"
+  },
+  {
+    "label": "failure",
+    "lowlevel_reference": {
+      "mpc_array": [
+        0.0,
+        0.0,
+        0.0,
+        0.33499999999999996,
+        0.03,
+        1.0
+      ],
+      "mpc_array_layout": [
+        "yaw_rate",
+        "vx",
+        "vy",
+        "body_height",
+        "swing_clearance",
+        "enable"
+      ]
+    },
+    "meta_gait_proposal": {
+      "body_height": 0.33499999999999996,
+      "body_height_delta": 0.04,
+      "clearance_delta": 0.0,
+      "impedance_scale": 1.35,
+      "swing_clearance": 0.03,
+      "vx": 0.0,
+      "vx_scale": 0.0
+    },
+    "recovery_needed": true,
+    "risk_level": "critical",
+    "semantic_mode": "no_valid_forward_recovery_needed",
+    "source_metrics": {
+      "abs_final_dy": 2.6e-05,
+      "directional_dx": -0.002605,
+      "done_count": 64,
+      "reward_mean": -6.561584
+    },
+    "terrain_name": "icy_slippery_upslope5_forward"
+  },
+  {
+    "label": "failure",
+    "lowlevel_reference": {
+      "mpc_array": [
+        0.0,
+        0.0,
+        0.0,
+        0.33499999999999996,
+        0.03,
+        1.0
+      ],
+      "mpc_array_layout": [
+        "yaw_rate",
+        "vx",
+        "vy",
+        "body_height",
+        "swing_clearance",
+        "enable"
+      ]
+    },
+    "meta_gait_proposal": {
+      "body_height": 0.33499999999999996,
+      "body_height_delta": 0.04,
+      "clearance_delta": 0.0,
+      "impedance_scale": 1.35,
+      "swing_clearance": 0.03,
+      "vx": 0.0,
+      "vx_scale": 0.0
+    },
+    "recovery_needed": true,
+    "risk_level": "critical",
+    "semantic_mode": "no_valid_forward_recovery_needed",
+    "source_metrics": {
+      "abs_final_dy": 2.4e-05,
+      "directional_dx": -0.002961,
+      "done_count": 64,
+      "reward_mean": -6.591571
+    },
+    "terrain_name": "mud_slippery_upslope5_forward"
+  },
+  {
+    "label": "failure",
+    "lowlevel_reference": {
+      "mpc_array": [
+        0.0,
+        0.0,
+        0.0,
+        0.33499999999999996,
+        0.03,
+        1.0
+      ],
+      "mpc_array_layout": [
+        "yaw_rate",
+        "vx",
+        "vy",
+        "body_height",
+        "swing_clearance",
+        "enable"
+      ]
+    },
+    "meta_gait_proposal": {
+      "body_height": 0.33499999999999996,
+      "body_height_delta": 0.04,
+      "clearance_delta": 0.0,
+      "impedance_scale": 1.35,
+      "swing_clearance": 0.03,
+      "vx": 0.0,
+      "vx_scale": 0.0
+    },
+    "recovery_needed": true,
+    "risk_level": "critical",
+    "semantic_mode": "no_valid_forward_recovery_needed",
+    "source_metrics": {
+      "abs_final_dy": 1.8e-05,
+      "directional_dx": -0.00395,
+      "done_count": 64,
+      "reward_mean": -6.547353
+    },
+    "terrain_name": "sponge_like_upslope5_forward"
+  }
+]
