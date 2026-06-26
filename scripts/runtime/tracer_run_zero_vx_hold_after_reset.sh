@@ -34,8 +34,13 @@ scripts/runtime/tracer_start_qwerty_state.sh
 
 echo
 echo "========== keep bridge, remove learned publisher =========="
-sleep 1
-pkill -9 -f tracer_learned_high_level_policy_udp_client_v1_node.py 2>/dev/null || true
+# qwerty starts the learned high-level publisher asynchronously.
+# Kill it repeatedly with a broad pattern so this runner has a single zero-vx publisher.
+for _ in 1 2 3 4 5; do
+  pkill -9 -f 'tracer_learned_high_level_policy_udp_client' 2>/dev/null || true
+  pkill -9 -f 'learned_high_level_policy_udp_client' 2>/dev/null || true
+  sleep 0.5
+done
 scripts/runtime/tracer_ensure_mpc_ref_bridge.sh
 
 echo
