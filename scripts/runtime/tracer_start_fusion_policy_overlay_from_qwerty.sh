@@ -4,6 +4,7 @@ set -eo pipefail
 ROOT="${TRACER_ROOT:-$HOME/Tracer/TRACER}"
 TERRAIN="${1:-${TRACER_TERRAIN_KEY:-flat_normal}}"
 DURATION="${2:-${TRACER_PUBLISH_DURATION:-0.0}}"
+POLICY_JSON="${TRACER_POLICY_JSON:-$ROOT/configs/highlevel_policy/tracer_fusion_policy_v1.json}"
 LOG="/tmp/tracer_fusion_policy_mpc_ref_${TERRAIN}.log"
 PIDFILE="/tmp/tracer_fusion_policy_mpc_ref.pid"
 
@@ -23,6 +24,7 @@ OBJECTIVE_SELECTOR_VERBOSE="${TRACER_OBJECTIVE_SELECTOR_VERBOSE:-0}"
 echo "[TRACER] starting fusion policy overlay from qwerty"
 echo "[TRACER] terrain:     $TERRAIN"
 echo "[TRACER] duration:    $DURATION"
+echo "[TRACER] policy_json: $POLICY_JSON"
 echo "[TRACER] meta_policy: $META_POLICY_KIND"
 echo "[TRACER] meta_udp:    $META_POLICY_UDP_HOST:$META_POLICY_UDP_PORT"
 echo "[TRACER] gms:         enable=$ENABLE_GMS use_ram_gate=$GMS_USE_RAM_GATE freshness=${GMS_GATE_FRESHNESS_SEC}s"
@@ -63,6 +65,7 @@ if [ -x "$ROOT/scripts/runtime/tracer_ensure_ros2_mpc_ref_udp_sender.sh" ]; then
 fi
 
 TRACER_PUBLISH_DURATION="$DURATION" \
+TRACER_POLICY_JSON="$POLICY_JSON" \
 TRACER_ENABLE_GMS="$ENABLE_GMS" \
 TRACER_GMS_USE_RAM_GATE="$GMS_USE_RAM_GATE" \
 TRACER_GMS_GATE_FRESHNESS_SEC="$GMS_GATE_FRESHNESS_SEC" \
