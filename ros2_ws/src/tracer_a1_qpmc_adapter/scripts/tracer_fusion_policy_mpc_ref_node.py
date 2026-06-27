@@ -159,6 +159,67 @@ def _ls3_beta_from_policy_input(policy_input: Any, entry: dict[str, Any]) -> lis
 
 
 
+
+
+LEARNED_STACK_V3_BETA_CLAMP_BY_TERRAIN = {
+    # These are conservative shadow-only clamps.
+    # They should not be interpreted as final learned-beta deployment limits.
+    "flat_normal": {
+        "motion": (0.35, 0.65),
+        "stability": (0.20, 0.45),
+        "energy": (0.05, 0.30),
+    },
+    "rough_mid": {
+        "motion": (0.05, 0.30),
+        "stability": (0.55, 0.85),
+        "energy": (0.05, 0.30),
+    },
+    "slope_5deg": {
+        "motion": (0.05, 0.35),
+        "stability": (0.50, 0.85),
+        "energy": (0.05, 0.30),
+    },
+    "default": {
+        "motion": (0.05, 0.70),
+        "stability": (0.20, 0.90),
+        "energy": (0.02, 0.40),
+    },
+}
+
+
+def _ls3_clamp(x: float, lo: float, hi: float) -> float:
+    return min(float(hi), max(float(lo), float(x)))
+
+
+def _ls3_normalize_beta_dict(beta: dict[str, Any]) -> dict[str, float]:
+    m = _as_float(beta.get("motion", beta.get("beta_motion", 0.0)), 0.0)
+    st = _as_float(beta.get("stability", beta.get("beta_stability", 0.0)), 0.0)
+    e = _as_float(beta.get("energy", beta.get("beta_energy", 0.0)), 0.0)
+
+    m = max(0.0, m)
+    st = max(0.0, st)
+    e = max(0.0, e)
+    z = m + st + e
+
+    if z <= 1e-8:
+        return {"motion": 0.34, "stability": 0.56, "energy": 0.10}
+
+    return {"motion": m / z, "stability": st / z, "energy": e / z}
+
+
+def _ls3_clamp_beta_for_terrain(beta: dict[str, float], terrain: str) -> dict[str, float]:
+    limits = LEARNED_STACK_V3_BETA_CLAMP_BY_TERRAIN.get(
+        str(terrain),
+        LEARNED_STACK_V3_BETA_CLAMP_BY_TERRAIN["default"],
+    )
+
+    out = {
+        k: _ls3_clamp(float(beta.get(k, 0.0)), *limits[k])
+        for k in ["motion", "stability", "energy"]
+    }
+    return _ls3_normalize_beta_dict(out)
+
+
 LEARNED_STACK_V3_TERRAIN_ALLOWED_LABELS = {
     "flat_normal": {"fast"},
     "rough_mid": {"cautious_probe", "conservative"},
@@ -347,6 +408,7 @@ class TracerFusionPolicyMpcRefNode(Node):
         self.learned_stack_v3_window: list[dict[str, float]] = []
         self.latest_learned_stack_v3 = None
         self.latest_learned_stack_v3_override = None
+        self.latest_learned_stack_v3_beta_shadow = None
         if self.enable_learned_stack_v3:
             self.learned_stack_v3_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
             self.learned_stack_v3_sock.settimeout(self.learned_stack_v3_timeout_sec)
@@ -597,6 +659,68 @@ class TracerFusionPolicyMpcRefNode(Node):
             "rho_norm": _as_float(self.latest_gate.get("rho_norm"), 0.0),
         }
 
+
+
+
+    def _learned_stack_v3_beta_shadow(
+        self,
+        selection_entry: dict[str, Any],
+    ) -> dict[str, Any]:
+        """Compute learned beta shadow proposal.
+
+        This is intentionally shadow-only:
+          - it reads the previous learned-stack-v3 objective beta,
+          - applies terrain clamps,
+          - compares against current rule/runtime beta,
+          - but does not modify policy_input.beta or command output.
+        """
+
+        info: dict[str, Any] = {
+            "enabled": bool(self.enable_learned_stack_v3),
+            "active": False,
+            "reason": "disabled",
+            "terrain": str(self.terrain),
+            "rule_beta": None,
+            "learned_beta_raw": None,
+            "learned_beta_clamped": None,
+            "delta": None,
+        }
+
+        if not self.enable_learned_stack_v3:
+            info["reason"] = "learned_stack_v3_not_enabled"
+            return info
+
+        prev = self.latest_learned_stack_v3
+        if not isinstance(prev, dict) or not bool(prev.get("ok", False)):
+            info["reason"] = "no_valid_previous_learned_result"
+            return info
+
+        objective = prev.get("objective") or {}
+        raw_beta = objective.get("beta_dict") or {}
+
+        # Fallback for payloads that only expose a beta list.
+        if not raw_beta and isinstance(objective.get("beta"), list) and len(objective.get("beta")) >= 3:
+            b = objective.get("beta")
+            raw_beta = {"motion": b[0], "stability": b[1], "energy": b[2]}
+
+        if not raw_beta:
+            info["reason"] = "missing_learned_beta"
+            return info
+
+        rule_beta = _ls3_normalize_beta_dict(dict(selection_entry.get("beta", {}) or {}))
+        learned_raw = _ls3_normalize_beta_dict(dict(raw_beta))
+        learned_clamped = _ls3_clamp_beta_for_terrain(learned_raw, self.terrain)
+
+        info["active"] = False
+        info["reason"] = "shadow_only"
+        info["rule_beta"] = rule_beta
+        info["learned_beta_raw"] = learned_raw
+        info["learned_beta_clamped"] = learned_clamped
+        info["delta"] = {
+            k: learned_clamped[k] - rule_beta.get(k, 0.0)
+            for k in ["motion", "stability", "energy"]
+        }
+        return info
 
 
     def _learned_stack_v3_apply_gms_only_override(
@@ -1072,6 +1196,7 @@ class TracerFusionPolicyMpcRefNode(Node):
             gate=gate,
         )
         self.latest_learned_stack_v3_override = learned_stack_v3_override
+        self.latest_learned_stack_v3_beta_shadow = self._learned_stack_v3_beta_shadow(selection_entry)
 
         gms_in = input_from_policy_entry(
             selection_entry,
@@ -1166,6 +1291,7 @@ class TracerFusionPolicyMpcRefNode(Node):
                 "policy_input": _jsonable(policy_input),
                 "learned_stack_v3": _jsonable(learned_stack_v3),
                 "learned_stack_v3_override": _jsonable(self.latest_learned_stack_v3_override),
+                "learned_stack_v3_beta_shadow": _jsonable(self.latest_learned_stack_v3_beta_shadow),
             }
             dbg_msg = String()
             dbg_msg.data = json.dumps(dbg)
