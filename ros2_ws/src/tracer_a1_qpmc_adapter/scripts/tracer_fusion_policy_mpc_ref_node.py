@@ -107,6 +107,7 @@ class TracerFusionPolicyMpcRefNode(Node):
         self.declare_parameter("objective_selector_apply_semantic", int(os.environ.get("TRACER_OBJECTIVE_SELECTOR_APPLY_SEMANTIC", "1")))
         self.declare_parameter("objective_selector_apply_beta", int(os.environ.get("TRACER_OBJECTIVE_SELECTOR_APPLY_BETA", "1")))
         self.declare_parameter("objective_selector_block_no_deploy", int(os.environ.get("TRACER_OBJECTIVE_SELECTOR_BLOCK_NO_DEPLOY", "1")))
+        self.declare_parameter("objective_selector_verbose", int(os.environ.get("TRACER_OBJECTIVE_SELECTOR_VERBOSE", "0")))
 
         # Optional terrain-aware command transition ramp.
         # Used for slippery active fallback experiments.
@@ -142,6 +143,7 @@ class TracerFusionPolicyMpcRefNode(Node):
         self.objective_selector_apply_semantic = bool(int(self.get_parameter("objective_selector_apply_semantic").value))
         self.objective_selector_apply_beta = bool(int(self.get_parameter("objective_selector_apply_beta").value))
         self.objective_selector_block_no_deploy = bool(int(self.get_parameter("objective_selector_block_no_deploy").value))
+        self.objective_selector_verbose = bool(int(self.get_parameter("objective_selector_verbose").value))
 
         self.objective_selector = None
         if self.objective_selector_kind in {"runtime_baseline_json", "baseline_json"}:
@@ -232,7 +234,8 @@ class TracerFusionPolicyMpcRefNode(Node):
             f"model={self.objective_selector_model or '<none>'} "
             f"apply_semantic={int(self.objective_selector_apply_semantic)} "
             f"apply_beta={int(self.objective_selector_apply_beta)} "
-            f"block_no_deploy={int(self.objective_selector_block_no_deploy)}"
+            f"block_no_deploy={int(self.objective_selector_block_no_deploy)} "
+            f"verbose={int(self.objective_selector_verbose)}"
         )
 
         if self.ramp_body_height_enable:
@@ -408,19 +411,20 @@ class TracerFusionPolicyMpcRefNode(Node):
         self.latest_objective_selector_output = objective_out
 
         if objective_out is not None:
-            self.get_logger().info(
-                "objective_selector "
-                f"semantic={objective_out.semantic_target} "
-                f"deploy={objective_out.deploy_label} "
-                f"beta=({objective_out.beta_v:.3f},{objective_out.beta_s:.3f},{objective_out.beta_e:.3f}) "
-                f"safety={int(objective_out.safety_override)} "
-                f"reason={objective_out.reason} "
-                f"gate_level={gate.get('ram_level', 'unknown')} "
-                f"gate_action={gate.get('ram_gate_action', 'unknown')} "
-                f"ctrl={float(gate.get('control_risk', 0.0)):.3f} "
-                f"fallen={float(gate.get('fallen_prob', 0.0)):.3f} "
-                f"recovery={float(gate.get('recovery_prob', 0.0)):.3f}"
-            )
+            if self.objective_selector_verbose:
+                self.get_logger().info(
+                    "objective_selector "
+                    f"semantic={objective_out.semantic_target} "
+                    f"deploy={objective_out.deploy_label} "
+                    f"beta=({objective_out.beta_v:.3f},{objective_out.beta_s:.3f},{objective_out.beta_e:.3f}) "
+                    f"safety={int(objective_out.safety_override)} "
+                    f"reason={objective_out.reason} "
+                    f"gate_level={gate.get('ram_level', 'unknown')} "
+                    f"gate_action={gate.get('ram_gate_action', 'unknown')} "
+                    f"ctrl={float(gate.get('control_risk', 0.0)):.3f} "
+                    f"fallen={float(gate.get('fallen_prob', 0.0)):.3f} "
+                    f"recovery={float(gate.get('recovery_prob', 0.0)):.3f}"
+                )
             if self.objective_selector_apply_semantic:
                 selection_entry["semantic_mode"] = objective_out.semantic_target
                 selection_entry["semantic"] = objective_out.semantic_target
