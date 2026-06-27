@@ -45,6 +45,12 @@ def pct(xs: list[float], q: float) -> float:
     return ys[i]
 
 
+def rate_below(xs: list[float], threshold: float) -> float:
+    if not xs:
+        return 0.0
+    return sum(1.0 for x in xs if x <= threshold) / len(xs)
+
+
 class RolloutEpisodeRecorder(Node):
     def __init__(self):
         super().__init__("tracer_rollout_episode_recorder_v0")
@@ -361,6 +367,9 @@ class RolloutEpisodeRecorder(Node):
             "shadow_recovery_trigger_count_max": max(shadow_trigger_count) if shadow_trigger_count else 0.0,
             "shadow_recovery_active_rows_max": max(shadow_active_rows) if shadow_active_rows else 0.0,
             "age_debug_mean": mean(age_debug),
+            "age_debug_p90": pct(age_debug, 0.90),
+            "debug_fresh_rate_0p5s": rate_below(age_debug, 0.5),
+            "debug_fresh_rate_1p0s": rate_below(age_debug, 1.0),
 
             "proprio_abs_mean": mean(proprio_abs),
             "proprio_abs_p90": pct(proprio_abs, 0.90),
