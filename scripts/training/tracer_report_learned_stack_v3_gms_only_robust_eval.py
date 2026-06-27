@@ -127,11 +127,10 @@ def main():
     lines.append("")
     lines.append("Safety: one-step delayed, terrain whitelist, same-or-more-conservative only, rule fallback.")
     lines.append("")
-    lines.append("| terrain | n | success | vx_mean | body_h | clearance | gate_override |")
     passed = all(v.get("success_rate", 0.0) >= 1.0 for v in summary.values())
-    lines.append("")
     lines.append(f"Overall status: {'PASS' if passed else 'FAIL'}")
     lines.append("")
+    lines.append("| terrain | n | success | vx_mean | body_h | clearance | gate_override |")
     lines.append("|---|---:|---:|---:|---:|---:|---:|")
 
     for terrain, s in summary.items():
