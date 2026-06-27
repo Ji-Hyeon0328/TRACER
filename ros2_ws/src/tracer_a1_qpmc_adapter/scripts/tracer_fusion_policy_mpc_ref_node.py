@@ -409,6 +409,7 @@ class TracerFusionPolicyMpcRefNode(Node):
 
         objective_out = self._predict_objective_selector(gate, selection_entry)
         self.latest_objective_selector_output = objective_out
+        objective_hard_protect = False
 
         if objective_out is not None:
             # V0 runtime protection:
@@ -473,6 +474,18 @@ class TracerFusionPolicyMpcRefNode(Node):
                 final_command["yaw_rate"] = 0.0
                 final_command["enable"] = 0.0
                 return final_command, None, None, None, None, None
+
+        if objective_hard_protect:
+            # Keep the raw RAM values visible in RAM/gate logs, but do not feed
+            # the known false-positive flat RAM scalars into the meta-gait policy.
+            gate = dict(gate)
+            gate["ram_level"] = "stable"
+            gate["ram_gate_action"] = "keep"
+            gate["control_risk"] = 0.0
+            gate["fallen_prob"] = 0.0
+            gate["recovery_prob"] = 0.0
+            gate["sigma_mean"] = 0.0
+            gate["rho_norm"] = 0.0
 
         gms_in = input_from_policy_entry(
             selection_entry,
