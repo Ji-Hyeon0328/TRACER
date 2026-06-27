@@ -4,7 +4,7 @@ set -eo pipefail
 ROOT="${TRACER_ROOT:-$HOME/Tracer/TRACER}"
 TERRAIN="${1:-${TRACER_TERRAIN_KEY:-flat_normal}}"
 DURATION="${2:-${TRACER_PUBLISH_DURATION:-0.0}}"
-POLICY_JSON="${TRACER_POLICY_JSON:-$ROOT/configs/highlevel_policy/tracer_fusion_policy_v1.json}"
+POLICY_JSON="${TRACER_FUSION_POLICY_JSON:-${TRACER_POLICY_JSON:-$ROOT/configs/highlevel_policy/tracer_fusion_policy_v1.json}}"
 LOG="/tmp/tracer_fusion_policy_mpc_ref_${TERRAIN}.log"
 PIDFILE="/tmp/tracer_fusion_policy_mpc_ref.pid"
 
@@ -65,7 +65,7 @@ if [ -x "$ROOT/scripts/runtime/tracer_ensure_ros2_mpc_ref_udp_sender.sh" ]; then
 fi
 
 TRACER_PUBLISH_DURATION="$DURATION" \
-TRACER_POLICY_JSON="$POLICY_JSON" \
+TRACER_FUSION_POLICY_JSON="$POLICY_JSON" \
 TRACER_ENABLE_GMS="$ENABLE_GMS" \
 TRACER_GMS_USE_RAM_GATE="$GMS_USE_RAM_GATE" \
 TRACER_GMS_GATE_FRESHNESS_SEC="$GMS_GATE_FRESHNESS_SEC" \
