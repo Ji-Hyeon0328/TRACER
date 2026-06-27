@@ -9,6 +9,65 @@ from rclpy.node import Node
 from std_msgs.msg import Float64MultiArray
 
 
+def _clip(x, lo, hi):
+    x = float(x)
+    if x < lo:
+        return lo
+    if x > hi:
+        return hi
+    return x
+
+
+def sanitize_proprio_vector(values):
+    """Sanitize /tracer/proprio_vector before publishing.
+
+    Expected output layout is 45D:
+      [0:13]  base / IMU / velocity style features
+      [13:25] joint_pos[12]
+      [25:37] joint_vel[12]
+      [37:45] contact / auxiliary features
+
+    The current ROS1 UDP source can leak timestamp/world-frame values into the
+    first base block. Joint position/velocity blocks are mostly valid, so we
+    preserve them with conservative clipping.
+    """
+    xs = [float(v) for v in values]
+
+    if len(xs) < 45:
+        xs = xs + [0.0] * (45 - len(xs))
+    xs = xs[:45]
+
+    # Sanitize base/IMU block. Timestamp/world pose artifacts show up here.
+    for i in range(0, 13):
+        if abs(xs[i]) > 100.0:
+            xs[i] = 0.0
+        else:
+            xs[i] = _clip(xs[i], -20.0, 20.0)
+
+    # Joint positions: radians. Keep broad but finite range.
+    for i in range(13, 25):
+        if abs(xs[i]) > 20.0:
+            xs[i] = 0.0
+        else:
+            xs[i] = _clip(xs[i], -6.5, 6.5)
+
+    # Joint velocities: allow moderate fast motion, reject explosions.
+    for i in range(25, 37):
+        if abs(xs[i]) > 100.0:
+            xs[i] = 0.0
+        else:
+            xs[i] = _clip(xs[i], -50.0, 50.0)
+
+    # Contact / auxiliary block.
+    for i in range(37, 45):
+        if abs(xs[i]) > 100.0:
+            xs[i] = 0.0
+        else:
+            xs[i] = _clip(xs[i], -10.0, 10.0)
+
+    return xs
+
+
 class TracerUdpProprioToRos2Node(Node):
     """
     UDP proprio receiver.
@@ -73,6 +132,7 @@ class TracerUdpProprioToRos2Node(Node):
                 continue
 
             values = struct.unpack(self.packet_fmt, data[:self.packet_size])
+            values = sanitize_proprio_vector(values)
 
             msg = Float64MultiArray()
             msg.data = list(values)
