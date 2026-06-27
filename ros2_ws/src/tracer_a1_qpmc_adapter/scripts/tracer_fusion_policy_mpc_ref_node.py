@@ -445,6 +445,26 @@ class TracerFusionPolicyMpcRefNode(Node):
         self.latest_learned_stack_v3_override = None
         self.latest_learned_stack_v3_beta_shadow = None
         self.latest_learned_stack_v3_beta_blend = None
+
+        # Shadow-only RAM recovery gate. This never changes the active command path.
+        # It only records whether a recovery gate would have triggered.
+        self.ram_recovery_shadow_enable = bool(int(os.environ.get("TRACER_RAM_RECOVERY_SHADOW_ENABLE", "0")))
+        self.ram_recovery_shadow_threshold = float(os.environ.get("TRACER_RAM_RECOVERY_SHADOW_THRESHOLD", "0.60"))
+        self.ram_recovery_shadow_consecutive = int(os.environ.get("TRACER_RAM_RECOVERY_SHADOW_CONSECUTIVE", "3"))
+        self.ram_recovery_shadow_streak = 0
+        self.ram_recovery_shadow_trigger_count = 0
+        self.ram_recovery_shadow_active_rows = 0
+        self.latest_ram_recovery_shadow = {
+            "enabled": self.ram_recovery_shadow_enable,
+            "score": 0.0,
+            "threshold": self.ram_recovery_shadow_threshold,
+            "consecutive": self.ram_recovery_shadow_consecutive,
+            "streak": 0,
+            "would_recover": False,
+            "trigger_count": 0,
+            "active_rows": 0,
+            "reason": "not_updated",
+        }
         self.deploy_learned_stack_v3_beta_blend = bool(int(os.environ.get("TRACER_DEPLOY_LEARNED_STACK_V3_BETA_BLEND", "0")))
         self.learned_stack_v3_beta_blend_alpha = float(os.environ.get("TRACER_LEARNED_STACK_V3_BETA_BLEND_ALPHA", "0.10"))
         if self.enable_learned_stack_v3:
@@ -553,6 +573,12 @@ class TracerFusionPolicyMpcRefNode(Node):
             f"timeout={self.learned_stack_v3_timeout_sec:.3f}s "
             f"min_gms_prob={self.learned_stack_v3_min_gms_prob:.2f} "
             f"min_success={self.learned_stack_v3_min_episode_success:.2f}"
+        )
+
+        self.get_logger().info(
+            f"RAM recovery shadow gate enable={int(self.ram_recovery_shadow_enable)} "
+            f"threshold={self.ram_recovery_shadow_threshold:.3f} "
+            f"consecutive={self.ram_recovery_shadow_consecutive}"
         )
 
         if self.ramp_body_height_enable:
@@ -1379,6 +1405,81 @@ class TracerFusionPolicyMpcRefNode(Node):
 
         return final_command, gms_in, gms_out, meta, low_ref, policy_input, learned_stack_v3
 
+    def _update_ram_recovery_shadow(self, gate: dict[str, Any]) -> dict[str, Any]:
+        """Update shadow-only RAM recovery gate state.
+
+        This method intentionally does not modify final_command, gms_out, or any
+        active policy decision. It only produces a debug payload.
+        """
+        enabled = bool(self.ram_recovery_shadow_enable)
+        threshold = float(self.ram_recovery_shadow_threshold)
+        consecutive = max(1, int(self.ram_recovery_shadow_consecutive))
+
+        score = _as_float(gate.get("recovery_prob", gate.get("recovery", 0.0)), 0.0)
+        gate_level = str(gate.get("ram_level", "unknown"))
+        gate_action = str(gate.get("ram_gate_action", "unknown"))
+
+        if not enabled:
+            self.latest_ram_recovery_shadow = {
+                "enabled": False,
+                "score": float(score),
+                "threshold": threshold,
+                "consecutive": consecutive,
+                "streak": int(self.ram_recovery_shadow_streak),
+                "would_recover": False,
+                "trigger_count": int(self.ram_recovery_shadow_trigger_count),
+                "active_rows": int(self.ram_recovery_shadow_active_rows),
+                "gate_level": gate_level,
+                "gate_action": gate_action,
+                "reason": "disabled",
+            }
+            return self.latest_ram_recovery_shadow
+
+        if gate_level == "unknown" or gate_action == "unknown":
+            self.ram_recovery_shadow_streak = 0
+            self.latest_ram_recovery_shadow = {
+                "enabled": True,
+                "score": float(score),
+                "threshold": threshold,
+                "consecutive": consecutive,
+                "streak": 0,
+                "would_recover": False,
+                "trigger_count": int(self.ram_recovery_shadow_trigger_count),
+                "active_rows": int(self.ram_recovery_shadow_active_rows),
+                "gate_level": gate_level,
+                "gate_action": gate_action,
+                "reason": "no_fresh_gate",
+            }
+            return self.latest_ram_recovery_shadow
+
+        if score >= threshold:
+            self.ram_recovery_shadow_streak += 1
+        else:
+            self.ram_recovery_shadow_streak = 0
+
+        would_recover = self.ram_recovery_shadow_streak >= consecutive
+
+        if self.ram_recovery_shadow_streak == consecutive:
+            self.ram_recovery_shadow_trigger_count += 1
+
+        if would_recover:
+            self.ram_recovery_shadow_active_rows += 1
+
+        self.latest_ram_recovery_shadow = {
+            "enabled": True,
+            "score": float(score),
+            "threshold": threshold,
+            "consecutive": consecutive,
+            "streak": int(self.ram_recovery_shadow_streak),
+            "would_recover": bool(would_recover),
+            "trigger_count": int(self.ram_recovery_shadow_trigger_count),
+            "active_rows": int(self.ram_recovery_shadow_active_rows),
+            "gate_level": gate_level,
+            "gate_action": gate_action,
+            "reason": "would_recover" if would_recover else "below_consecutive_gate",
+        }
+        return self.latest_ram_recovery_shadow
+
     def on_timer(self):
         now = time.time()
         elapsed = now - self.t0
@@ -1394,6 +1495,10 @@ class TracerFusionPolicyMpcRefNode(Node):
 
         base_command = self._ramped_base_command(elapsed)
         final_command, gms_in, gms_out, meta, low_ref, policy_input, learned_stack_v3 = self._select_command(base_command, now)
+
+        # Shadow-only recovery gate. It observes the latest RAM gate context but
+        # never modifies final_command or the published MPC reference.
+        ram_recovery_shadow = self._update_ram_recovery_shadow(self._gate_context(now))
 
         msg = Float64MultiArray()
         msg.data = [
@@ -1422,6 +1527,7 @@ class TracerFusionPolicyMpcRefNode(Node):
                 "learned_stack_v3_override": _jsonable(self.latest_learned_stack_v3_override),
                 "learned_stack_v3_beta_shadow": _jsonable(self.latest_learned_stack_v3_beta_shadow),
                 "learned_stack_v3_beta_blend": _jsonable(self.latest_learned_stack_v3_beta_blend),
+                "ram_recovery_shadow": _jsonable(ram_recovery_shadow),
             }
             dbg_msg = String()
             dbg_msg.data = json.dumps(dbg)
