@@ -10,7 +10,7 @@ from typing import Any
 
 import rclpy
 from rclpy.node import Node
-from std_msgs.msg import Float64MultiArray
+from std_msgs.msg import Float64MultiArray, String
 
 
 def find_repo_root() -> Path:
@@ -71,6 +71,21 @@ def _as_float(x: Any, default: float = 0.0) -> float:
         return float(x)
     except Exception:
         return default
+
+
+def _jsonable(obj):
+    """Best-effort conversion for dataclasses / simple objects / dicts."""
+    if obj is None:
+        return None
+    if isinstance(obj, (str, int, float, bool)):
+        return obj
+    if isinstance(obj, (list, tuple)):
+        return [_jsonable(x) for x in obj]
+    if isinstance(obj, dict):
+        return {str(k): _jsonable(v) for k, v in obj.items()}
+    if hasattr(obj, "__dict__"):
+        return {str(k): _jsonable(v) for k, v in obj.__dict__.items()}
+    return str(obj)
 
 
 class TracerFusionPolicyMpcRefNode(Node):
@@ -191,6 +206,7 @@ class TracerFusionPolicyMpcRefNode(Node):
         self.latest_objective_selector_output = None
 
         self.pub = self.create_publisher(Float64MultiArray, "/tracer/mpc_reference", 10)
+        self.debug_pub = self.create_publisher(String, "/tracer/highlevel_debug", 10)
         self.beta_pub = self.create_publisher(Float64MultiArray, "/tracer/objective_weights", 10)
 
         if self.enable_gms and self.gms_use_ram_gate:
@@ -587,6 +603,26 @@ class TracerFusionPolicyMpcRefNode(Node):
             float(final_command["swing_clearance"]),
             float(final_command["enable"]),
         ]
+
+        try:
+            dbg = {
+                "counter": int(self.counter),
+                "terrain": str(self.terrain),
+                "elapsed_sec": float(elapsed),
+                "base_command": _jsonable(base_command),
+                "final_command": _jsonable(final_command),
+                "gms_in": _jsonable(gms_in),
+                "gms_out": _jsonable(gms_out),
+                "gate": _jsonable(gate) if "gate" in locals() else None,
+                "meta": _jsonable(meta),
+                "low_ref": _jsonable(low_ref),
+                "policy_input": _jsonable(policy_input),
+            }
+            dbg_msg = String()
+            dbg_msg.data = json.dumps(dbg)
+            self.debug_pub.publish(dbg_msg)
+        except Exception as e:
+            self.get_logger().warn(f"failed to publish highlevel debug: {e!r}")
         self.pub.publish(msg)
 
         beta_msg = Float64MultiArray()
