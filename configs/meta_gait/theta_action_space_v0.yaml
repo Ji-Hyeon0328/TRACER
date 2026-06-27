@@ -1,0 +1,76 @@
+name: theta_action_space_v0
+description: >
+  Normalized meta-gait action space for TRACER high-level policy.
+  Policy outputs normalized actions in [-1, 1]. Decoder maps them to
+  bounded gait/control parameters before sending low-level references.
+
+normalized_action_range: [-1.0, 1.0]
+
+dims:
+  - name: gait_period_scale
+    index: 0
+    range: [0.75, 1.35]
+    default: 1.0
+    meaning: multiply nominal gait period
+
+  - name: duty_factor_delta
+    index: 1
+    range: [-0.12, 0.16]
+    default: 0.0
+    meaning: add to nominal duty factor
+
+  - name: step_length_scale
+    index: 2
+    range: [0.35, 1.25]
+    default: 1.0
+    meaning: multiply nominal step length
+
+  - name: stance_width_delta
+    index: 3
+    range: [-0.04, 0.06]
+    default: 0.0
+    unit: m
+    meaning: add to nominal stance width
+
+  - name: body_height_delta
+    index: 4
+    range: [-0.04, 0.06]
+    default: 0.0
+    unit: m
+    meaning: add to nominal body height
+
+  - name: clearance_delta
+    index: 5
+    range: [0.00, 0.09]
+    default: 0.0
+    unit: m
+    meaning: add to nominal swing clearance
+
+  - name: impedance_scale
+    index: 6
+    range: [0.70, 1.60]
+    default: 1.0
+    meaning: scale impedance/residual stiffness target
+
+  - name: residual_scale
+    index: 7
+    range: [0.00, 1.50]
+    default: 0.5
+    meaning: scale adaptive residual authority
+
+safety:
+  min_body_height: 0.24
+  max_body_height: 0.36
+  min_clearance: 0.02
+  max_clearance: 0.12
+  min_gait_period: 0.24
+  max_gait_period: 0.75
+  min_duty_factor: 0.45
+  max_duty_factor: 0.78
+  min_stance_width: 0.18
+  max_stance_width: 0.32
+
+runtime_note: >
+  Current ROS1 low-level bridge only consumes vx, yaw_rate, body_height,
+  swing_clearance, enable. Other theta dimensions are retained for policy
+  training and future LL controller integration.
