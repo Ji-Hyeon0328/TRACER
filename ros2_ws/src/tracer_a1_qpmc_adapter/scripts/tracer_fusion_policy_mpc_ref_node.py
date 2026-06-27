@@ -408,6 +408,19 @@ class TracerFusionPolicyMpcRefNode(Node):
         self.latest_objective_selector_output = objective_out
 
         if objective_out is not None:
+            self.get_logger().info(
+                "objective_selector "
+                f"semantic={objective_out.semantic_target} "
+                f"deploy={objective_out.deploy_label} "
+                f"beta=({objective_out.beta_v:.3f},{objective_out.beta_s:.3f},{objective_out.beta_e:.3f}) "
+                f"safety={int(objective_out.safety_override)} "
+                f"reason={objective_out.reason} "
+                f"gate_level={gate.get('ram_level', 'unknown')} "
+                f"gate_action={gate.get('ram_gate_action', 'unknown')} "
+                f"ctrl={float(gate.get('control_risk', 0.0)):.3f} "
+                f"fallen={float(gate.get('fallen_prob', 0.0)):.3f} "
+                f"recovery={float(gate.get('recovery_prob', 0.0)):.3f}"
+            )
             if self.objective_selector_apply_semantic:
                 selection_entry["semantic_mode"] = objective_out.semantic_target
                 selection_entry["semantic"] = objective_out.semantic_target
