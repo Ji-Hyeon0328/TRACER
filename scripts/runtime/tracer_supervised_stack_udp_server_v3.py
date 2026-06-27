@@ -267,22 +267,29 @@ class SupervisedStackServer:
             probs = torch.sigmoid(self.ram["model"](xn)).cpu()[0].tolist()
 
         labels = self.ram["label_names"]
-        pred = {labels[i]: probs[i] for i in range(len(labels))}
+        pred = {labels[i]: float(probs[i]) for i in range(len(labels))}
 
-        # Compact fields useful for runtime logs.
-        intervention_score = max(
-            pred.get("future_gate_caution", 0.0),
-            pred.get("future_gate_unstable", 0.0),
-            pred.get("future_conservative_probe", 0.0),
-            pred.get("future_low_speed", 0.0),
-        )
+        # RAM shadow v2 semantics:
+        #   future_intervention is the primary intervention score.
+        # RAM intervention v1 compatibility:
+        #   fall back to gate-related future probabilities.
+        if "future_intervention" in pred:
+            intervention_score = float(pred.get("future_intervention", 0.0))
+        else:
+            intervention_score = max(
+                pred.get("future_gate_caution", 0.0),
+                pred.get("future_gate_unstable", 0.0),
+                pred.get("future_conservative_probe", 0.0),
+                pred.get("future_low_speed", 0.0),
+                pred.get("future_disabled", 0.0),
+            )
 
         return {
             "ok": True,
             "labels": pred,
             "intervention_score": intervention_score,
-            "future_override_mean": pred.get("future_override_mean", 0.0),
-            "episode_success": pred.get("episode_success", 0.0),
+            "future_override_mean": float(pred.get("future_override_mean", 0.0)),
+            "episode_success": float(pred.get("episode_success", 0.0)),
         }
 
     def predict_gms(self, x: Optional[list]) -> Optional[Dict[str, Any]]:
