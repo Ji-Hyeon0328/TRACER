@@ -411,6 +411,33 @@ class TracerFusionPolicyMpcRefNode(Node):
         self.latest_objective_selector_output = objective_out
 
         if objective_out is not None:
+            # V0 runtime protection:
+            # If RAM gate monitor has already hard-protected validated flat/fast
+            # as stable/keep, do not let the Objective Selector re-block from
+            # the same raw RAM scalars.
+            objective_hard_protect = (
+                self.terrain == "flat_normal"
+                and semantic_mode == "validated_locomotion"
+                and str(selection_entry.get("suggested_style", selection_entry.get("style", "unknown"))) == "fast"
+                and gate.get("ram_level", "unknown") == "stable"
+                and gate.get("ram_gate_action", "unknown") == "keep"
+                and objective_out.deploy_label == "do_not_deploy_forward"
+                and objective_out.reason == "safety_override"
+            )
+            if objective_hard_protect:
+                self.get_logger().info(
+                    "objective_selector_hard_protect "
+                    "terrain=flat_normal semantic=validated_locomotion style=fast "
+                    "gate=stable/keep raw_safety_override_suppressed"
+                )
+                objective_out.semantic_target = "validated_locomotion"
+                objective_out.deploy_label = "deploy_forward"
+                objective_out.beta_v = 0.55
+                objective_out.beta_s = 0.25
+                objective_out.beta_e = 0.20
+                objective_out.safety_override = False
+                objective_out.reason = "validated_flat_fast_hard_protect"
+
             if self.objective_selector_verbose:
                 self.get_logger().info(
                     "objective_selector "
