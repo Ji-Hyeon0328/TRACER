@@ -148,7 +148,7 @@ def main():
     lines.append("")
     lines.append("Interpretation:")
     lines.append("- Learned beta is logged in shadow-only mode and does not affect the command path.")
-    lines.append("- The observed direction is generally motion down, stability/energy up, especially on rough and slope terrain.")
+    lines.append("- Observed trend: flat shifts motion down and stability/energy up; rough shifts motion down and stability up but energy down; slope remains close to the rule beta.")
     lines.append("- Before active beta deployment, use bounded simplex projection, rate limiting, and low-alpha blending.")
 
     out_md.write_text("\n".join(lines) + "\n")
