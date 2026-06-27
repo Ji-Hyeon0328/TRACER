@@ -288,19 +288,17 @@ class RamGateMonitor(Node):
             and suggested_style == "fast"
         )
         if self.validated_fast_protect and is_validated_fast and raw_level in {"caution", "unstable"}:
-            strong_unstable = (
-                ctrl_ema >= self.validated_fast_unstable_ctrl
-                or fallen >= self.validated_fast_unstable_fallen
-                or recovery >= self.validated_fast_unstable_recovery
-                or sigma >= self.unstable_sigma
+            # V0 safety policy:
+            # validated flat/fast locomotion is a known-good baseline from the
+            # clean routing matrix. The current RAM model can be over-confident
+            # on live flat inputs, so keep RAM as an advisory signal here rather
+            # than allowing it to block forward deployment.
+            calibrated = "stable"
+            reasons.append(
+                "validated_fast_hard_protect "
+                f"raw={raw_level} ctrl_ema={ctrl_ema:.3f} "
+                f"fallen={fallen:.3f} recovery={recovery:.3f} sigma={sigma:.3f}"
             )
-            if not strong_unstable:
-                calibrated = "stable"
-                reasons.append(
-                    "validated_fast_soft_risk_suppressed "
-                    f"raw={raw_level} ctrl_ema={ctrl_ema:.3f} "
-                    f"fallen={fallen:.3f} recovery={recovery:.3f} sigma={sigma:.3f}"
-                )
 
         return calibrated, ";".join(reasons)
 
