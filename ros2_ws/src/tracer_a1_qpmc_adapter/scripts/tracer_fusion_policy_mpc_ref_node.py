@@ -155,6 +155,20 @@ def _ls3_beta_from_policy_input(policy_input: Any, entry: dict[str, Any]) -> lis
         ]
 
 
+
+
+def _ls3_objective_v2_beta_prior_for_ram_window(terrain: str) -> list[float]:
+    # Match learned_stack_shadow_node_v3 RAM-window feature distribution.
+    # This is used only for RAM-shadow-v2 input construction, not for active command.
+    t = str(terrain or "unknown")
+    if t == "flat_normal":
+        return [0.436, 0.327, 0.237]
+    if t == "rough_mid":
+        return [0.108, 0.745, 0.147]
+    if t == "slope_5deg":
+        return [0.143, 0.659, 0.198]
+    return [0.35, 0.55, 0.10]
+
 def _ls3_ram_sigma(policy_input: Any, gate: dict[str, Any]) -> float:
     try:
         return float(policy_input.ram.sigma)
@@ -584,7 +598,7 @@ class TracerFusionPolicyMpcRefNode(Node):
         policy_input: Any,
         final_command: dict[str, float],
     ) -> dict[str, float]:
-        beta = _ls3_beta_from_policy_input(policy_input, selection_entry)
+        beta = _ls3_objective_v2_beta_prior_for_ram_window(self.terrain)
         rule_label = _ls3_label(getattr(gms_out, "mode", "unknown"))
         proxy_intervention = max(
             _as_float(gate.get("would_override", 0.0), 0.0),
