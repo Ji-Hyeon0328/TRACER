@@ -439,6 +439,38 @@ class TracerFusionPolicyMpcRefNode(Node):
                 objective_out.safety_override = False
                 objective_out.reason = "validated_flat_fast_hard_protect"
 
+            # V0 calibrated-gate authority:
+            # For non-flat cautious/high-clearance probes, RAM gate should choose
+            # how to become conservative. Do not let raw RAM heads independently
+            # convert a calibrated probe into no-deploy.
+            objective_probe_protect = (
+                str(selection_entry.get("fused_mode", self.entry.get("fused_mode", "unknown"))) == "locomotion"
+                and semantic_mode in {"cautious_probe", "high_clearance_slow_probe"}
+                and gate.get("ram_gate_action", "unknown") in {
+                    "keep",
+                    "would_cautious",
+                    "would_conservative_probe",
+                }
+                and objective_out.deploy_label == "do_not_deploy_forward"
+                and objective_out.reason == "safety_override"
+            )
+            if objective_probe_protect:
+                self.get_logger().info(
+                    "objective_selector_probe_protect "
+                    f"terrain={self.terrain} semantic={semantic_mode} "
+                    f"gate={gate.get('ram_level', 'unknown')}/"
+                    f"{gate.get('ram_gate_action', 'unknown')} "
+                    "raw_safety_override_suppressed"
+                )
+                objective_out.semantic_target = semantic_mode
+                objective_out.deploy_label = "deploy_forward"
+                beta = selection_entry.get("beta", {})
+                objective_out.beta_v = float(beta.get("motion", objective_out.beta_v))
+                objective_out.beta_s = float(beta.get("stability", objective_out.beta_s))
+                objective_out.beta_e = float(beta.get("energy", objective_out.beta_e))
+                objective_out.safety_override = False
+                objective_out.reason = "calibrated_probe_gate_protect"
+
             if self.objective_selector_verbose:
                 self.get_logger().info(
                     "objective_selector "
