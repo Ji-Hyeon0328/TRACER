@@ -107,6 +107,7 @@ def main():
             ],
         },
         "n_total": len(rows),
+        "pass": all(v.get("success_rate", 0.0) >= 1.0 for v in summary.values()),
         "summary": summary,
     }
 
@@ -127,6 +128,10 @@ def main():
     lines.append("Safety: one-step delayed, terrain whitelist, same-or-more-conservative only, rule fallback.")
     lines.append("")
     lines.append("| terrain | n | success | vx_mean | body_h | clearance | gate_override |")
+    passed = all(v.get("success_rate", 0.0) >= 1.0 for v in summary.values())
+    lines.append("")
+    lines.append(f"Overall status: {'PASS' if passed else 'FAIL'}")
+    lines.append("")
     lines.append("|---|---:|---:|---:|---:|---:|---:|")
 
     for terrain, s in summary.items():
@@ -142,7 +147,7 @@ def main():
     lines.append("Interpretation guide:")
     lines.append("- flat_normal should preserve fast locomotion: vx near 0.28, low gate override, success rate 1.0.")
     lines.append("- rough_mid and slope_5deg should shift toward conservative locomotion: lower vx, higher body height and clearance.")
-    lines.append("- This report validates the active GMS-only path, not full learned beta/RAM deployment.")
+    lines.append("- This report evaluates the active GMS-only path; if any terrain has success rate below 1.0, treat it as a failure-finding report, not a validation report.")
 
     out_md.write_text("\n".join(lines) + "\n")
 
@@ -151,6 +156,7 @@ def main():
         "out_json": str(out_json),
         "out_md": str(out_md),
         "n_total": len(rows),
+        "pass": all(v.get("success_rate", 0.0) >= 1.0 for v in summary.values()),
         "terrains": list(summary.keys()),
     }, indent=2))
 
