@@ -12,7 +12,7 @@ from typing import Any
 
 import rclpy
 from rclpy.node import Node
-from std_msgs.msg import Float64MultiArray
+from std_msgs.msg import Float64MultiArray, String
 
 
 def f(x: Any, default: float = 0.0) -> float:
@@ -75,6 +75,8 @@ class RolloutEpisodeRecorder(Node):
         self.rows: list[dict[str, Any]] = []
 
         self.latest: dict[str, tuple[float, list[float]]] = {}
+        self.latest_debug: dict[str, Any] = {}
+        self.latest_debug_wall_time = 0.0
 
         self.create_subscription(Float64MultiArray, "/tracer/mpc_reference", self.cb("mpc"), 10)
         self.create_subscription(Float64MultiArray, "/tracer/objective_weights", self.cb("beta"), 10)
@@ -82,6 +84,7 @@ class RolloutEpisodeRecorder(Node):
         self.create_subscription(Float64MultiArray, "/tracer/ram_gate_advice", self.cb("gate"), 10)
         self.create_subscription(Float64MultiArray, "/tracer/proprio_vector", self.cb("proprio"), 10)
         self.create_subscription(Float64MultiArray, "/tracer/robot_odom_flat", self.cb("odom"), 10)
+        self.create_subscription(String, "/tracer/highlevel_debug", self.cb_debug, 10)
 
         period = 1.0 / max(0.5, self.sample_hz)
         self.timer = self.create_timer(period, self.on_timer)
@@ -96,6 +99,15 @@ class RolloutEpisodeRecorder(Node):
         def _inner(msg: Float64MultiArray):
             self.latest[name] = (time.time(), list(msg.data))
         return _inner
+
+    def cb_debug(self, msg: String):
+        try:
+            data = json.loads(msg.data)
+            if isinstance(data, dict):
+                self.latest_debug = data
+                self.latest_debug_wall_time = time.time()
+        except Exception:
+            return
 
     def arr(self, name: str) -> list[float] | None:
         return self.latest.get(name, (0.0, None))[1]
@@ -175,6 +187,20 @@ class RolloutEpisodeRecorder(Node):
         odom_z = get(odom, 2, float("nan"))
         odom_vx = get(odom, 3, float("nan"))
 
+        shadow = self.latest_debug.get("ram_recovery_shadow", {})
+        if not isinstance(shadow, dict):
+            shadow = {}
+
+        shadow_enabled = 1.0 if bool(shadow.get("enabled", False)) else 0.0
+        shadow_score = f(shadow.get("score", 0.0))
+        shadow_threshold = f(shadow.get("threshold", 0.0))
+        shadow_consecutive = f(shadow.get("consecutive", 0.0))
+        shadow_streak = f(shadow.get("streak", 0.0))
+        shadow_would_recover = 1.0 if bool(shadow.get("would_recover", False)) else 0.0
+        shadow_trigger_count = f(shadow.get("trigger_count", 0.0))
+        shadow_active_rows = f(shadow.get("active_rows", 0.0))
+        shadow_reason = str(shadow.get("reason", "unknown"))
+
         return {
             "wall_time": now,
             "elapsed": elapsed,
@@ -227,12 +253,23 @@ class RolloutEpisodeRecorder(Node):
             "odom_z": odom_z,
             "odom_vx": odom_vx,
 
+            "shadow_recovery_enabled": shadow_enabled,
+            "shadow_recovery_score": shadow_score,
+            "shadow_recovery_threshold": shadow_threshold,
+            "shadow_recovery_consecutive": shadow_consecutive,
+            "shadow_recovery_streak": shadow_streak,
+            "shadow_recovery_would_recover": shadow_would_recover,
+            "shadow_recovery_trigger_count": shadow_trigger_count,
+            "shadow_recovery_active_rows": shadow_active_rows,
+            "shadow_recovery_reason": shadow_reason,
+
             "age_mpc": self.age("mpc", now),
             "age_beta": self.age("beta", now),
             "age_ram": self.age("ram", now),
             "age_gate": self.age("gate", now),
             "age_proprio": self.age("proprio", now),
             "age_odom": self.age("odom", now),
+            "age_debug": 9999.0 if self.latest_debug_wall_time <= 0.0 else now - self.latest_debug_wall_time,
         }
 
     def write_outputs(self):
@@ -272,6 +309,13 @@ class RolloutEpisodeRecorder(Node):
         override = col("gate_would_override")
         proprio_abs = col("proprio_abs_mean")
 
+        shadow_enabled = col("shadow_recovery_enabled")
+        shadow_score = col("shadow_recovery_score")
+        shadow_would_recover = col("shadow_recovery_would_recover")
+        shadow_trigger_count = col("shadow_recovery_trigger_count")
+        shadow_active_rows = col("shadow_recovery_active_rows")
+        age_debug = col("age_debug")
+
         xs = col("odom_x")
         ys = col("odom_y")
         distance_xy = 0.0
@@ -309,6 +353,14 @@ class RolloutEpisodeRecorder(Node):
             "gate_level_mean": mean(gate_level),
             "gate_action_mean": mean(gate_action),
             "gate_override_mean": mean(override),
+
+            "shadow_recovery_enabled_mean": mean(shadow_enabled),
+            "shadow_recovery_score_mean": mean(shadow_score),
+            "shadow_recovery_score_p90": pct(shadow_score, 0.90),
+            "shadow_recovery_would_recover_mean": mean(shadow_would_recover),
+            "shadow_recovery_trigger_count_max": max(shadow_trigger_count) if shadow_trigger_count else 0.0,
+            "shadow_recovery_active_rows_max": max(shadow_active_rows) if shadow_active_rows else 0.0,
+            "age_debug_mean": mean(age_debug),
 
             "proprio_abs_mean": mean(proprio_abs),
             "proprio_abs_p90": pct(proprio_abs, 0.90),
