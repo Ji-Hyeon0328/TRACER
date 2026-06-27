@@ -696,6 +696,18 @@ class TracerFusionPolicyMpcRefNode(Node):
             return info
 
         objective = prev.get("objective") or {}
+
+        # In the current fusion debug payload, the full supervised-stack UDP response
+        # is preserved under learned_stack_v3["raw"]. The objective beta may therefore
+        # live at either:
+        #   prev["objective"]
+        # or:
+        #   prev["raw"]["objective"]
+        if not objective:
+            raw_resp = prev.get("raw") or {}
+            if isinstance(raw_resp, dict):
+                objective = raw_resp.get("objective") or {}
+
         raw_beta = objective.get("beta_dict") or {}
 
         # Fallback for payloads that only expose a beta list.
