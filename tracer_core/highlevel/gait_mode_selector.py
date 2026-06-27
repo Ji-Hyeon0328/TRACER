@@ -30,6 +30,17 @@ RECOVERY_SEMANTICS = {
     "recovery_locomotion",
 }
 
+# Raw online RAM recovery probability is currently treated as advisory.
+# Hard-stop recovery should be triggered only by explicit high-level/gate decisions,
+# because current online RAM scalars can contain false positives during long rollouts.
+RECOVERY_GATE_ACTIONS = {
+    "recovery_needed",
+    "recovery",
+    "force_recovery",
+    "disable",
+    "force_stop",
+}
+
 
 @dataclass(frozen=True)
 class GaitModeInput:
@@ -117,12 +128,13 @@ def select_gait_mode(gms_in: GaitModeInput) -> GaitModeOutput:
             command_enable_override=0.0,
         )
 
-    if fused_mode == "recovery_needed" or semantic in RECOVERY_SEMANTICS or gms_in.recovery_prob >= 0.6:
+    if fused_mode == "recovery_needed" or semantic in RECOVERY_SEMANTICS or action in RECOVERY_GATE_ACTIONS:
         return GaitModeOutput(
             mode="recovery",
             reason=(
-                f"recovery condition: fused_mode={fused_mode}, "
-                f"semantic={semantic}, recovery_prob={gms_in.recovery_prob:.3f}"
+                f"explicit recovery condition: fused_mode={fused_mode}, "
+                f"semantic={semantic}, gate_action={action}, "
+                f"recovery_prob={gms_in.recovery_prob:.3f}"
             ),
             vx_scale=0.0,
             yaw_scale=0.0,
