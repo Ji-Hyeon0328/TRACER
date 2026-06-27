@@ -161,6 +161,41 @@ def _ls3_beta_from_policy_input(policy_input: Any, entry: dict[str, Any]) -> lis
 
 
 
+
+
+LEARNED_STACK_V3_BETA_BLEND_ALPHA_DEFAULT = 0.10
+LEARNED_STACK_V3_BETA_BLEND_MAX_DELTA = {
+    "flat_normal": {"motion": 0.030, "stability": 0.030, "energy": 0.030},
+    "rough_mid": {"motion": 0.025, "stability": 0.025, "energy": 0.025},
+    "slope_5deg": {"motion": 0.020, "stability": 0.020, "energy": 0.020},
+    "default": {"motion": 0.020, "stability": 0.020, "energy": 0.020},
+}
+
+
+def _ls3_limited_beta_blend(
+    rule_beta: dict[str, float],
+    learned_beta: dict[str, float],
+    terrain: str,
+    alpha: float,
+) -> dict[str, float]:
+    rule = _ls3_normalize_beta_dict(rule_beta)
+    learned = _ls3_normalize_beta_dict(learned_beta)
+
+    limits = LEARNED_STACK_V3_BETA_BLEND_MAX_DELTA.get(
+        str(terrain),
+        LEARNED_STACK_V3_BETA_BLEND_MAX_DELTA["default"],
+    )
+
+    out = {}
+    for k in ["motion", "stability", "energy"]:
+        proposed = rule[k] + float(alpha) * (learned[k] - rule[k])
+        lo = rule[k] - limits[k]
+        hi = rule[k] + limits[k]
+        out[k] = _ls3_clamp(proposed, lo, hi)
+
+    return _ls3_normalize_beta_dict(out)
+
+
 LEARNED_STACK_V3_BETA_CLAMP_BY_TERRAIN = {
     # These are conservative shadow-only clamps.
     # They should not be interpreted as final learned-beta deployment limits.
@@ -409,6 +444,9 @@ class TracerFusionPolicyMpcRefNode(Node):
         self.latest_learned_stack_v3 = None
         self.latest_learned_stack_v3_override = None
         self.latest_learned_stack_v3_beta_shadow = None
+        self.latest_learned_stack_v3_beta_blend = None
+        self.deploy_learned_stack_v3_beta_blend = bool(int(os.environ.get("TRACER_DEPLOY_LEARNED_STACK_V3_BETA_BLEND", "0")))
+        self.learned_stack_v3_beta_blend_alpha = float(os.environ.get("TRACER_LEARNED_STACK_V3_BETA_BLEND_ALPHA", "0.10"))
         if self.enable_learned_stack_v3:
             self.learned_stack_v3_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
             self.learned_stack_v3_sock.settimeout(self.learned_stack_v3_timeout_sec)
@@ -730,6 +768,82 @@ class TracerFusionPolicyMpcRefNode(Node):
         info["learned_beta_clamped"] = learned_clamped
         info["delta"] = {
             k: learned_clamped[k] - rule_beta.get(k, 0.0)
+            for k in ["motion", "stability", "energy"]
+        }
+        return info
+
+
+
+    def _learned_stack_v3_beta_blend_shadow_active(
+        self,
+        selection_entry: dict[str, Any],
+    ) -> dict[str, Any]:
+        """Apply a low-alpha learned-beta blend to selection_entry.
+
+        This is the first limited beta-active path:
+          - only uses learned beta after the shadow path succeeds,
+          - alpha is small by default,
+          - per-terrain max delta limits are applied,
+          - RAM-triggered recovery remains inactive.
+        """
+
+        info: dict[str, Any] = {
+            "enabled": False,
+            "applied": False,
+            "reason": "disabled",
+            "terrain": str(self.terrain),
+            "alpha": 0.0,
+            "rule_beta": None,
+            "learned_beta_clamped": None,
+            "blended_beta": None,
+            "delta_from_rule": None,
+        }
+
+        enabled = bool(getattr(self, "deploy_learned_stack_v3_beta_blend", False))
+        info["enabled"] = enabled
+
+        if not enabled:
+            info["reason"] = "beta_blend_disabled"
+            return info
+
+        bs = getattr(self, "latest_learned_stack_v3_beta_shadow", None) or {}
+        if not isinstance(bs, dict) or bs.get("reason") != "shadow_only":
+            info["reason"] = "no_valid_beta_shadow"
+            return info
+
+        rule_beta = bs.get("rule_beta") or _ls3_normalize_beta_dict(dict(selection_entry.get("beta", {}) or {}))
+        learned_beta = bs.get("learned_beta_clamped") or {}
+
+        if not learned_beta:
+            info["reason"] = "missing_learned_beta_clamped"
+            return info
+
+        alpha = float(getattr(self, "learned_stack_v3_beta_blend_alpha", LEARNED_STACK_V3_BETA_BLEND_ALPHA_DEFAULT))
+        alpha = _ls3_clamp(alpha, 0.0, 0.20)
+
+        blended = _ls3_limited_beta_blend(
+            rule_beta=dict(rule_beta),
+            learned_beta=dict(learned_beta),
+            terrain=str(self.terrain),
+            alpha=alpha,
+        )
+
+        # Mutate selection_entry in-place. Downstream input_from_policy_entry()
+        # will now see the blended beta, but all other learned components remain gated.
+        selection_entry["beta"] = {
+            "motion": float(blended["motion"]),
+            "stability": float(blended["stability"]),
+            "energy": float(blended["energy"]),
+        }
+
+        info["applied"] = True
+        info["reason"] = "low_alpha_limited_beta_blend"
+        info["alpha"] = alpha
+        info["rule_beta"] = dict(rule_beta)
+        info["learned_beta_clamped"] = dict(learned_beta)
+        info["blended_beta"] = dict(blended)
+        info["delta_from_rule"] = {
+            k: blended[k] - float(rule_beta.get(k, 0.0))
             for k in ["motion", "stability", "energy"]
         }
         return info
@@ -1211,6 +1325,7 @@ class TracerFusionPolicyMpcRefNode(Node):
         )
         self.latest_learned_stack_v3_override = learned_stack_v3_override
         self.latest_learned_stack_v3_beta_shadow = self._learned_stack_v3_beta_shadow(selection_entry)
+        self.latest_learned_stack_v3_beta_blend = self._learned_stack_v3_beta_blend_shadow_active(selection_entry)
 
         gms_in = input_from_policy_entry(
             selection_entry,
@@ -1306,6 +1421,7 @@ class TracerFusionPolicyMpcRefNode(Node):
                 "learned_stack_v3": _jsonable(learned_stack_v3),
                 "learned_stack_v3_override": _jsonable(self.latest_learned_stack_v3_override),
                 "learned_stack_v3_beta_shadow": _jsonable(self.latest_learned_stack_v3_beta_shadow),
+                "learned_stack_v3_beta_blend": _jsonable(self.latest_learned_stack_v3_beta_blend),
             }
             dbg_msg = String()
             dbg_msg.data = json.dumps(dbg)
