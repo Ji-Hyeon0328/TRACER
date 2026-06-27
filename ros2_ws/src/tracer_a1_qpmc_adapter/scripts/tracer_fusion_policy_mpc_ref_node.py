@@ -157,6 +157,72 @@ def _ls3_beta_from_policy_input(policy_input: Any, entry: dict[str, Any]) -> lis
 
 
 
+
+
+LEARNED_STACK_V3_TERRAIN_ALLOWED_LABELS = {
+    "flat_normal": {"fast"},
+    "rough_mid": {"cautious_probe", "conservative"},
+    "slope_5deg": {"high_clearance_slow_probe", "conservative"},
+}
+
+LEARNED_STACK_V3_TERRAIN_LABEL_ORDER = {
+    "flat_normal": ["fast"],
+    "rough_mid": ["cautious_probe", "conservative"],
+    "slope_5deg": ["high_clearance_slow_probe", "conservative"],
+    "default": ["fast", "cautious_probe", "high_clearance_slow_probe", "conservative"],
+}
+
+LEARNED_STACK_V3_LABEL_TO_SEMANTIC_STYLE = {
+    "fast": ("validated_locomotion", "fast"),
+    "cautious_probe": ("cautious_probe", "cautious"),
+    "high_clearance_slow_probe": ("high_clearance_slow_probe", "high_clearance"),
+    # select_gait_mode maps cautious_locomotion to mode="conservative".
+    "conservative": ("cautious_locomotion", "cautious"),
+}
+
+
+def _ls3_rule_label_from_selection_entry(entry: dict[str, Any]) -> str:
+    semantic = str(entry.get("semantic_mode", entry.get("semantic", "unknown")))
+    style = str(entry.get("suggested_style", entry.get("style", "unknown")))
+
+    if semantic == "validated_locomotion" and style == "fast":
+        return "fast"
+    if semantic == "cautious_probe":
+        return "cautious_probe"
+    if semantic == "high_clearance_slow_probe":
+        return "high_clearance_slow_probe"
+    if semantic in {
+        "cautious_locomotion",
+        "conservative_probe_recommended",
+        "candidate_conditional_micro_brake",
+    }:
+        return "conservative"
+    return _ls3_label(semantic)
+
+
+def _ls3_is_same_or_more_conservative_for_terrain(
+    terrain: str,
+    rule_label: str,
+    learned_label: str,
+) -> bool:
+    allowed = LEARNED_STACK_V3_TERRAIN_ALLOWED_LABELS.get(
+        str(terrain),
+        set(LEARNED_STACK_V3_TERRAIN_LABEL_ORDER["default"]),
+    )
+    if learned_label not in allowed:
+        return False
+
+    order = LEARNED_STACK_V3_TERRAIN_LABEL_ORDER.get(
+        str(terrain),
+        LEARNED_STACK_V3_TERRAIN_LABEL_ORDER["default"],
+    )
+
+    if rule_label not in order or learned_label not in order:
+        return False
+
+    return order.index(learned_label) >= order.index(rule_label)
+
+
 def _ls3_objective_v2_beta_prior_for_ram_window(terrain: str) -> list[float]:
     # Match learned_stack_shadow_node_v3 RAM-window feature distribution.
     # This is used only for RAM-shadow-v2 input construction, not for active command.
@@ -280,6 +346,7 @@ class TracerFusionPolicyMpcRefNode(Node):
         self.learned_stack_v3_sock = None
         self.learned_stack_v3_window: list[dict[str, float]] = []
         self.latest_learned_stack_v3 = None
+        self.latest_learned_stack_v3_override = None
         if self.enable_learned_stack_v3:
             self.learned_stack_v3_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
             self.learned_stack_v3_sock.settimeout(self.learned_stack_v3_timeout_sec)
@@ -531,6 +598,103 @@ class TracerFusionPolicyMpcRefNode(Node):
         }
 
 
+
+    def _learned_stack_v3_apply_gms_only_override(
+        self,
+        selection_entry: dict[str, Any],
+        gate: dict[str, Any],
+    ) -> tuple[dict[str, Any], dict[str, Any]]:
+        """Apply one-step-delayed learned-stack-v3 GMS override.
+
+        Safety contract:
+          - Only active when TRACER_ENABLE_LEARNED_STACK_V3=1 and
+            TRACER_DEPLOY_LEARNED_STACK_V3=1.
+          - Uses the previous UDP query result, not a same-tick query.
+          - Only allows same-or-more-conservative labels for the current terrain.
+          - Does not use learned beta or learned RAM as active command inputs.
+        """
+
+        info: dict[str, Any] = {
+            "enabled": bool(self.enable_learned_stack_v3),
+            "deploy_requested": bool(self.deploy_learned_stack_v3),
+            "used": False,
+            "reason": "disabled",
+            "terrain": str(self.terrain),
+            "rule_label": None,
+            "learned_label": None,
+            "gms_prob": None,
+            "episode_success": None,
+        }
+
+        if not self.enable_learned_stack_v3:
+            info["reason"] = "learned_stack_v3_not_enabled"
+            return selection_entry, info
+
+        if not self.deploy_learned_stack_v3:
+            info["reason"] = "deploy_not_requested"
+            return selection_entry, info
+
+        prev = self.latest_learned_stack_v3
+        if not isinstance(prev, dict):
+            info["reason"] = "no_previous_learned_result"
+            return selection_entry, info
+
+        if not bool(prev.get("ok", False)) or not bool(prev.get("deploy_candidate", False)):
+            info["reason"] = "previous_result_not_candidate"
+            return selection_entry, info
+
+        learned_label = _ls3_label(prev.get("gms_label", "unknown"))
+        gms_prob = _as_float(prev.get("gms_prob", 0.0), 0.0)
+        episode_success = _as_float(prev.get("episode_success", 0.0), 0.0)
+
+        info["learned_label"] = learned_label
+        info["gms_prob"] = gms_prob
+        info["episode_success"] = episode_success
+
+        if gms_prob < self.learned_stack_v3_min_gms_prob:
+            info["reason"] = "gms_prob_below_threshold"
+            return selection_entry, info
+
+        if episode_success < self.learned_stack_v3_min_episode_success:
+            info["reason"] = "episode_success_below_threshold"
+            return selection_entry, info
+
+        rule_label = _ls3_rule_label_from_selection_entry(selection_entry)
+        info["rule_label"] = rule_label
+
+        if not _ls3_is_same_or_more_conservative_for_terrain(
+            self.terrain,
+            rule_label,
+            learned_label,
+        ):
+            info["reason"] = "label_not_allowed_or_more_aggressive"
+            return selection_entry, info
+
+        semantic_style = LEARNED_STACK_V3_LABEL_TO_SEMANTIC_STYLE.get(learned_label)
+        if semantic_style is None:
+            info["reason"] = "no_semantic_mapping"
+            return selection_entry, info
+
+        semantic, style = semantic_style
+        out = dict(selection_entry)
+        out["semantic_mode"] = semantic
+        out["semantic"] = semantic
+        out["decision"] = semantic
+        out["suggested_style"] = style
+        out["learned_stack_v3_gms_override"] = {
+            "from_rule_label": rule_label,
+            "to_learned_label": learned_label,
+            "semantic_mode": semantic,
+            "suggested_style": style,
+        }
+
+        info["used"] = True
+        info["reason"] = "applied_gms_only_same_or_more_conservative"
+        info["semantic_mode"] = semantic
+        info["suggested_style"] = style
+        return out, info
+
+
     def _learned_stack_v3_objective_x(
         self,
         selection_entry: dict[str, Any],
@@ -743,7 +907,10 @@ class TracerFusionPolicyMpcRefNode(Node):
         out = {
             "ok": bool(resp.get("ok", False)),
             "deploy_candidate": deploy_candidate,
-            "deploy_active": bool(self.deploy_learned_stack_v3 and deploy_candidate),
+            "deploy_requested": bool(self.deploy_learned_stack_v3),
+            # This UDP response is query-time evidence only.
+            # Actual active use is reported separately in learned_stack_v3_override.
+            "deploy_active": False,
             "raw": resp,
             "payload_dims": {
                 "objective_x": len(payload["objective_x"]),
@@ -900,6 +1067,12 @@ class TracerFusionPolicyMpcRefNode(Node):
             gate["sigma_mean"] = 0.0
             gate["rho_norm"] = 0.0
 
+        selection_entry, learned_stack_v3_override = self._learned_stack_v3_apply_gms_only_override(
+            selection_entry=selection_entry,
+            gate=gate,
+        )
+        self.latest_learned_stack_v3_override = learned_stack_v3_override
+
         gms_in = input_from_policy_entry(
             selection_entry,
             ram_level=str(gate["ram_level"]),
@@ -992,6 +1165,7 @@ class TracerFusionPolicyMpcRefNode(Node):
                 "low_ref": _jsonable(low_ref),
                 "policy_input": _jsonable(policy_input),
                 "learned_stack_v3": _jsonable(learned_stack_v3),
+                "learned_stack_v3_override": _jsonable(self.latest_learned_stack_v3_override),
             }
             dbg_msg = String()
             dbg_msg.data = json.dumps(dbg)
