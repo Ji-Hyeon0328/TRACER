@@ -1008,6 +1008,7 @@ class TracerFusionPolicyMpcRefNode(Node):
             self.learned_stack_v3_sock.sendto(data, (self.learned_stack_v3_host, self.learned_stack_v3_port))
             resp_bytes, _ = self.learned_stack_v3_sock.recvfrom(65535)
             resp = json.loads(resp_bytes.decode("utf-8"))
+            objective = resp.get("objective") or {}
         except Exception as e:
             resp = {
                 "ok": False,
@@ -1037,6 +1038,7 @@ class TracerFusionPolicyMpcRefNode(Node):
             "deploy_active": False,
             "raw": resp,
             "payload_dims": {
+            "objective": _jsonable(objective),
                 "objective_x": len(payload["objective_x"]),
                 "ram_x": len(payload["ram_x"]),
                 "gms_x": len(payload["gms_x"]),
