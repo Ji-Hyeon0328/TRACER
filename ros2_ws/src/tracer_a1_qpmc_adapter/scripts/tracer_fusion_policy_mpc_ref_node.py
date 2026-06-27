@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 import os
+import socket
 import sys
 import time
 from pathlib import Path
@@ -88,6 +89,89 @@ def _jsonable(obj):
     return str(obj)
 
 
+LEARNED_STACK_V3_GMS_CODE = {
+    "fast": 0,
+    "cautious_probe": 1,
+    "high_clearance_slow_probe": 2,
+    "conservative": 3,
+    "disabled": 4,
+    "unknown": 5,
+}
+
+LEARNED_STACK_V3_LEVEL_CODE = {
+    "unknown": 0,
+    "stable": 1,
+    "caution": 2,
+    "unstable": 3,
+}
+
+LEARNED_STACK_V3_GATE_ACTION_CODE = {
+    "unknown": 0,
+    "keep": 1,
+    "would_cautious": 1,
+    "would_conservative_probe": 2,
+    "force_conservative_probe": 3,
+    "disable": 4,
+}
+
+
+def _ls3_label(x: Any) -> str:
+    s = str(x or "").strip()
+    aliases = {
+        "validated_locomotion": "fast",
+        "validated_fast": "fast",
+        "locomotion": "fast",
+        "high_clearance": "high_clearance_slow_probe",
+        "slow_probe": "high_clearance_slow_probe",
+        "cautious": "cautious_probe",
+    }
+    return aliases.get(s, s)
+
+
+def _ls3_code_norm(label: Any, table: dict, denom: float, default: str = "unknown") -> float:
+    key = _ls3_label(label) if table is LEARNED_STACK_V3_GMS_CODE else str(label or default).strip()
+    return float(table.get(key, table.get(default, 0))) / max(1.0, float(denom))
+
+
+def _ls3_terrain_onehot(terrain: str) -> list[float]:
+    t = str(terrain or "unknown")
+    return [
+        1.0 if t == "flat_normal" else 0.0,
+        1.0 if t == "rough_mid" else 0.0,
+        1.0 if t == "slope_5deg" else 0.0,
+    ]
+
+
+def _ls3_beta_from_policy_input(policy_input: Any, entry: dict[str, Any]) -> list[float]:
+    try:
+        beta = policy_input.beta
+        return [float(beta.motion), float(beta.stability), float(beta.energy)]
+    except Exception:
+        b = entry.get("beta", {})
+        return [
+            float(b.get("motion", 1.0 / 3.0)),
+            float(b.get("stability", 1.0 / 3.0)),
+            float(b.get("energy", 1.0 / 3.0)),
+        ]
+
+
+def _ls3_ram_sigma(policy_input: Any, gate: dict[str, Any]) -> float:
+    try:
+        return float(policy_input.ram.sigma)
+    except Exception:
+        return _as_float(gate.get("sigma_mean", 0.0), 0.0)
+
+
+def _ls3_ram_rho_norm(policy_input: Any, gate: dict[str, Any]) -> float:
+    try:
+        rho = policy_input.ram.rho
+        if rho:
+            return min(1.0, float(len(rho)) / 16.0)
+    except Exception:
+        pass
+    return _as_float(gate.get("rho_norm", 0.0), 0.0)
+
+
 class TracerFusionPolicyMpcRefNode(Node):
     def __init__(self):
         super().__init__("tracer_fusion_policy_mpc_ref_node")
@@ -123,6 +207,18 @@ class TracerFusionPolicyMpcRefNode(Node):
         self.declare_parameter("objective_selector_apply_beta", int(os.environ.get("TRACER_OBJECTIVE_SELECTOR_APPLY_BETA", "1")))
         self.declare_parameter("objective_selector_block_no_deploy", int(os.environ.get("TRACER_OBJECTIVE_SELECTOR_BLOCK_NO_DEPLOY", "1")))
         self.declare_parameter("objective_selector_verbose", int(os.environ.get("TRACER_OBJECTIVE_SELECTOR_VERBOSE", "0")))
+        # Learned high-level stack v3.
+        # Safe default: query disabled and never deploy.
+        # enable=1 only adds learned_stack_v3 to /tracer/highlevel_debug.
+        # deploy=1 is reserved for a later active override patch.
+        self.declare_parameter("enable_learned_stack_v3", int(os.environ.get("TRACER_ENABLE_LEARNED_STACK_V3", "0")))
+        self.declare_parameter("deploy_learned_stack_v3", int(os.environ.get("TRACER_DEPLOY_LEARNED_STACK_V3", "0")))
+        self.declare_parameter("learned_stack_v3_host", os.environ.get("TRACER_LEARNED_STACK_V3_HOST", "127.0.0.1"))
+        self.declare_parameter("learned_stack_v3_port", int(os.environ.get("TRACER_LEARNED_STACK_V3_PORT", "50430")))
+        self.declare_parameter("learned_stack_v3_timeout_sec", float(os.environ.get("TRACER_LEARNED_STACK_V3_TIMEOUT_SEC", "0.05")))
+        self.declare_parameter("learned_stack_v3_min_gms_prob", float(os.environ.get("TRACER_LEARNED_STACK_V3_MIN_GMS_PROB", "0.55")))
+        self.declare_parameter("learned_stack_v3_min_episode_success", float(os.environ.get("TRACER_LEARNED_STACK_V3_MIN_EPISODE_SUCCESS", "0.50")))
+
 
         # Optional terrain-aware command transition ramp.
         # Used for slippery active fallback experiments.
@@ -159,6 +255,21 @@ class TracerFusionPolicyMpcRefNode(Node):
         self.objective_selector_apply_beta = bool(int(self.get_parameter("objective_selector_apply_beta").value))
         self.objective_selector_block_no_deploy = bool(int(self.get_parameter("objective_selector_block_no_deploy").value))
         self.objective_selector_verbose = bool(int(self.get_parameter("objective_selector_verbose").value))
+        self.enable_learned_stack_v3 = bool(int(self.get_parameter("enable_learned_stack_v3").value))
+        self.deploy_learned_stack_v3 = bool(int(self.get_parameter("deploy_learned_stack_v3").value))
+        self.learned_stack_v3_host = str(self.get_parameter("learned_stack_v3_host").value)
+        self.learned_stack_v3_port = int(self.get_parameter("learned_stack_v3_port").value)
+        self.learned_stack_v3_timeout_sec = float(self.get_parameter("learned_stack_v3_timeout_sec").value)
+        self.learned_stack_v3_min_gms_prob = float(self.get_parameter("learned_stack_v3_min_gms_prob").value)
+        self.learned_stack_v3_min_episode_success = float(self.get_parameter("learned_stack_v3_min_episode_success").value)
+
+        self.learned_stack_v3_sock = None
+        self.learned_stack_v3_window: list[dict[str, float]] = []
+        self.latest_learned_stack_v3 = None
+        if self.enable_learned_stack_v3:
+            self.learned_stack_v3_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            self.learned_stack_v3_sock.settimeout(self.learned_stack_v3_timeout_sec)
+
 
         self.objective_selector = None
         if self.objective_selector_kind in {"runtime_baseline_json", "baseline_json"}:
@@ -252,6 +363,15 @@ class TracerFusionPolicyMpcRefNode(Node):
             f"apply_beta={int(self.objective_selector_apply_beta)} "
             f"block_no_deploy={int(self.objective_selector_block_no_deploy)} "
             f"verbose={int(self.objective_selector_verbose)}"
+        )
+
+        self.get_logger().info(
+            f"learned_stack_v3 enable={int(self.enable_learned_stack_v3)} "
+            f"deploy={int(self.deploy_learned_stack_v3)} "
+            f"udp={self.learned_stack_v3_host}:{self.learned_stack_v3_port} "
+            f"timeout={self.learned_stack_v3_timeout_sec:.3f}s "
+            f"min_gms_prob={self.learned_stack_v3_min_gms_prob:.2f} "
+            f"min_success={self.learned_stack_v3_min_episode_success:.2f}"
         )
 
         if self.ramp_body_height_enable:
@@ -396,6 +516,237 @@ class TracerFusionPolicyMpcRefNode(Node):
             "rho_norm": _as_float(self.latest_gate.get("rho_norm"), 0.0),
         }
 
+
+    def _learned_stack_v3_objective_x(
+        self,
+        selection_entry: dict[str, Any],
+        gate: dict[str, Any],
+        final_command: dict[str, float],
+        elapsed: float,
+    ) -> list[float]:
+        duration_norm = min(1.0, max(0.0, float(elapsed) / 30.0))
+        target_vx = max(1e-6, abs(float(self.command.get("vx", 0.28))))
+        vx_over_target = min(1.5, max(0.0, abs(float(final_command.get("vx", 0.0))) / target_vx))
+        body_height_delta = float(final_command.get("body_height", 0.295)) - 0.295
+        clearance_delta = float(final_command.get("swing_clearance", 0.030)) - 0.030
+
+        return _ls3_terrain_onehot(self.terrain) + [
+            duration_norm,
+            vx_over_target,
+            float(final_command.get("enable", 1.0)),
+            body_height_delta,
+            clearance_delta,
+            _ls3_code_norm(gate.get("ram_level", "unknown"), LEARNED_STACK_V3_LEVEL_CODE, 3.0),
+            _ls3_code_norm(gate.get("ram_gate_action", "unknown"), LEARNED_STACK_V3_GATE_ACTION_CODE, 4.0),
+            _as_float(gate.get("would_override", 0.0), 0.0),
+            _as_float(gate.get("fallen_prob", 0.0), 0.0),
+            _as_float(gate.get("recovery_prob", 0.0), 0.0),
+            1.0,
+            0.75,
+        ]
+
+    def _learned_stack_v3_gms_x(
+        self,
+        selection_entry: dict[str, Any],
+        gate: dict[str, Any],
+        gms_out: Any,
+        policy_input: Any,
+        final_command: dict[str, float],
+    ) -> list[float]:
+        beta = _ls3_beta_from_policy_input(policy_input, selection_entry)
+        return _ls3_terrain_onehot(self.terrain) + [
+            beta[0],
+            beta[1],
+            beta[2],
+            _ls3_code_norm(gate.get("ram_level", "unknown"), LEARNED_STACK_V3_LEVEL_CODE, 3.0),
+            _ls3_code_norm(gate.get("ram_gate_action", "unknown"), LEARNED_STACK_V3_GATE_ACTION_CODE, 4.0),
+            _as_float(gate.get("would_override", 0.0), 0.0),
+            _as_float(gate.get("control_risk", 0.0), 0.0),
+            _as_float(gate.get("future_risk", 0.0), 0.0),
+            _as_float(gate.get("fallen_prob", 0.0), 0.0),
+            _as_float(gate.get("recovery_prob", 0.0), 0.0),
+            _ls3_ram_sigma(policy_input, gate),
+            _ls3_ram_rho_norm(policy_input, gate),
+            _as_float(getattr(gms_out, "vx_scale", 1.0), 1.0),
+            _as_float(getattr(gms_out, "body_height_delta", 0.0), 0.0),
+            _as_float(getattr(gms_out, "clearance_delta", 0.0), 0.0),
+            float(final_command.get("vx", 0.0)),
+            float(final_command.get("body_height", 0.0)),
+            float(final_command.get("swing_clearance", 0.0)),
+            float(final_command.get("enable", 1.0)),
+        ]
+
+    def _learned_stack_v3_ram_step(
+        self,
+        selection_entry: dict[str, Any],
+        gate: dict[str, Any],
+        gms_out: Any,
+        policy_input: Any,
+        final_command: dict[str, float],
+    ) -> dict[str, float]:
+        beta = _ls3_beta_from_policy_input(policy_input, selection_entry)
+        rule_label = _ls3_label(getattr(gms_out, "mode", "unknown"))
+        proxy_intervention = max(
+            _as_float(gate.get("would_override", 0.0), 0.0),
+            _as_float(gate.get("control_risk", 0.0), 0.0),
+            _as_float(gate.get("fallen_prob", 0.0), 0.0),
+            _as_float(gate.get("recovery_prob", 0.0), 0.0),
+        )
+        return {
+            "final_vx": float(final_command.get("vx", 0.0)),
+            "final_yaw": float(final_command.get("yaw_rate", 0.0)),
+            "final_body_height": float(final_command.get("body_height", 0.0)),
+            "final_clearance": float(final_command.get("swing_clearance", 0.0)),
+            "final_enable": float(final_command.get("enable", 1.0)),
+            "rule_gms_code": _ls3_code_norm(rule_label, LEARNED_STACK_V3_GMS_CODE, 5.0),
+            "learned_gms_code": _ls3_code_norm(rule_label, LEARNED_STACK_V3_GMS_CODE, 5.0),
+            "learned_gms_prob": 1.0,
+            "gms_disagree": 0.0,
+            "learned_beta_motion": beta[0],
+            "learned_beta_stability": beta[1],
+            "learned_beta_energy": beta[2],
+            "learned_ram_intervention_score": proxy_intervention,
+            "learned_ram_future_override_mean": _as_float(gate.get("would_override", 0.0), 0.0),
+            "rule_ram_level_code": _ls3_code_norm(gate.get("ram_level", "unknown"), LEARNED_STACK_V3_LEVEL_CODE, 3.0),
+            "rule_gate_action_code": _ls3_code_norm(gate.get("ram_gate_action", "unknown"), LEARNED_STACK_V3_GATE_ACTION_CODE, 4.0),
+            "rule_control_risk": _as_float(gate.get("control_risk", 0.0), 0.0),
+            "rule_fallen_prob_weak": _as_float(gate.get("fallen_prob", 0.0), 0.0),
+            "rule_sigma_mean": _ls3_ram_sigma(policy_input, gate),
+        }
+
+    def _learned_stack_v3_flatten_ram_window(self) -> list[float]:
+        features = [
+            "final_vx",
+            "final_yaw",
+            "final_body_height",
+            "final_clearance",
+            "final_enable",
+            "rule_gms_code",
+            "learned_gms_code",
+            "learned_gms_prob",
+            "gms_disagree",
+            "learned_beta_motion",
+            "learned_beta_stability",
+            "learned_beta_energy",
+            "learned_ram_intervention_score",
+            "learned_ram_future_override_mean",
+            "rule_ram_level_code",
+            "rule_gate_action_code",
+            "rule_control_risk",
+            "rule_fallen_prob_weak",
+            "rule_sigma_mean",
+        ]
+        target_len = 30
+        if not self.learned_stack_v3_window:
+            dummy = {k: 0.0 for k in features}
+            use = [dummy] * target_len
+        elif len(self.learned_stack_v3_window) < target_len:
+            use = [self.learned_stack_v3_window[0]] * (target_len - len(self.learned_stack_v3_window)) + self.learned_stack_v3_window
+        else:
+            use = self.learned_stack_v3_window[-target_len:]
+
+        x: list[float] = []
+        for step in use:
+            x.extend([float(step.get(k, 0.0)) for k in features])
+        return x
+
+    def _query_learned_stack_v3(
+        self,
+        selection_entry: dict[str, Any],
+        gate: dict[str, Any],
+        gms_out: Any,
+        policy_input: Any,
+        final_command: dict[str, float],
+        elapsed: float,
+    ) -> dict[str, Any] | None:
+        if not self.enable_learned_stack_v3:
+            self.latest_learned_stack_v3 = None
+            return None
+
+        if self.learned_stack_v3_sock is None:
+            return {
+                "ok": False,
+                "error": "socket_not_initialized",
+                "deploy_candidate": False,
+                "deploy_active": False,
+            }
+
+        ram_step = self._learned_stack_v3_ram_step(
+            selection_entry=selection_entry,
+            gate=gate,
+            gms_out=gms_out,
+            policy_input=policy_input,
+            final_command=final_command,
+        )
+        self.learned_stack_v3_window.append(ram_step)
+        if len(self.learned_stack_v3_window) > 30:
+            self.learned_stack_v3_window = self.learned_stack_v3_window[-30:]
+
+        payload = {
+            "request_id": f"fusion_v3_{self.terrain}_{int(self.counter)}",
+            "terrain": self.terrain,
+            "objective_x": self._learned_stack_v3_objective_x(
+                selection_entry=selection_entry,
+                gate=gate,
+                final_command=final_command,
+                elapsed=elapsed,
+            ),
+            "ram_x": self._learned_stack_v3_flatten_ram_window(),
+            "gms_x": self._learned_stack_v3_gms_x(
+                selection_entry=selection_entry,
+                gate=gate,
+                gms_out=gms_out,
+                policy_input=policy_input,
+                final_command=final_command,
+            ),
+        }
+
+        try:
+            data = json.dumps(payload).encode("utf-8")
+            self.learned_stack_v3_sock.sendto(data, (self.learned_stack_v3_host, self.learned_stack_v3_port))
+            resp_bytes, _ = self.learned_stack_v3_sock.recvfrom(65535)
+            resp = json.loads(resp_bytes.decode("utf-8"))
+        except Exception as e:
+            resp = {
+                "ok": False,
+                "error": f"udp_query_failed: {e!r}",
+            }
+
+        gms = resp.get("gms") or {}
+        ram = resp.get("ram") or {}
+        gms_prob = _as_float(gms.get("prob", 0.0), 0.0)
+        episode_success = _as_float(ram.get("episode_success", 0.0), 0.0)
+
+        deploy_candidate = bool(
+            resp.get("ok", False)
+            and (resp.get("objective") or {}).get("ok", False)
+            and ram.get("ok", False)
+            and gms.get("ok", False)
+            and gms_prob >= self.learned_stack_v3_min_gms_prob
+            and episode_success >= self.learned_stack_v3_min_episode_success
+        )
+
+        out = {
+            "ok": bool(resp.get("ok", False)),
+            "deploy_candidate": deploy_candidate,
+            "deploy_active": bool(self.deploy_learned_stack_v3 and deploy_candidate),
+            "raw": resp,
+            "payload_dims": {
+                "objective_x": len(payload["objective_x"]),
+                "ram_x": len(payload["ram_x"]),
+                "gms_x": len(payload["gms_x"]),
+            },
+            "gms_label": gms.get("label", None),
+            "gms_prob": gms_prob,
+            "ram_intervention_score": ram.get("intervention_score", None),
+            "ram_future_override_mean": ram.get("future_override_mean", None),
+            "episode_success": episode_success,
+        }
+
+        self.latest_learned_stack_v3 = out
+        return out
+
+
     def _select_command(self, base_command: dict[str, float], now_wall: float):
         semantic_mode = str(self.entry.get("semantic_mode", self.entry.get("semantic", "unknown")))
         raw_vx = float(base_command.get("vx", 0.0))
@@ -415,10 +766,10 @@ class TracerFusionPolicyMpcRefNode(Node):
             or raw_vx < -1e-9
         )
         if primitive_bypass:
-            return base_command, None, None, None, None, None
+            return base_command, None, None, None, None, None, None
 
         if not self.enable_gms:
-            return base_command, None, None, None, None, None
+            return base_command, None, None, None, None, None, None
 
         gate = self._gate_context(now_wall)
         selection_entry = dict(self.entry)
@@ -521,7 +872,7 @@ class TracerFusionPolicyMpcRefNode(Node):
                 final_command["vx"] = 0.0
                 final_command["yaw_rate"] = 0.0
                 final_command["enable"] = 0.0
-                return final_command, None, None, None, None, None
+                return final_command, None, None, None, None, None, None
 
         if objective_hard_protect:
             # Keep the raw RAM values visible in RAM/gate logs, but do not feed
@@ -576,7 +927,16 @@ class TracerFusionPolicyMpcRefNode(Node):
             "swing_clearance": float(low_ref.swing_clearance),
             "enable": float(low_ref.enable),
         }
-        return final_command, gms_in, gms_out, meta, low_ref, policy_input
+        learned_stack_v3 = self._query_learned_stack_v3(
+            selection_entry=selection_entry,
+            gate=gate,
+            gms_out=gms_out,
+            policy_input=policy_input,
+            final_command=final_command,
+            elapsed=max(0.0, now_wall - self.t0),
+        )
+
+        return final_command, gms_in, gms_out, meta, low_ref, policy_input, learned_stack_v3
 
     def on_timer(self):
         now = time.time()
@@ -592,7 +952,7 @@ class TracerFusionPolicyMpcRefNode(Node):
             return
 
         base_command = self._ramped_base_command(elapsed)
-        final_command, gms_in, gms_out, meta, low_ref, policy_input = self._select_command(base_command, now)
+        final_command, gms_in, gms_out, meta, low_ref, policy_input, learned_stack_v3 = self._select_command(base_command, now)
 
         msg = Float64MultiArray()
         msg.data = [
@@ -617,6 +977,7 @@ class TracerFusionPolicyMpcRefNode(Node):
                 "meta": _jsonable(meta),
                 "low_ref": _jsonable(low_ref),
                 "policy_input": _jsonable(policy_input),
+                "learned_stack_v3": _jsonable(learned_stack_v3),
             }
             dbg_msg = String()
             dbg_msg.data = json.dumps(dbg)
