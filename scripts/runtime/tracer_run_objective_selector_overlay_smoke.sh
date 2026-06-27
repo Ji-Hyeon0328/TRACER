@@ -60,32 +60,37 @@ beta_path = Path("/tmp/tracer_objective_selector_smoke_objective_weights.yaml")
 def parse_data(path: Path) -> list[float]:
     vals = []
     in_data = False
-    number_re = re.compile(
-        r"^\\s*-\\s*("
-        r"[-+]?(?:\\d+(?:\\.\\d*)?|\\.\\d+)(?:[eE][-+]?\\d+)?"
-        r")\\s*$"
-    )
 
     for line in path.read_text().splitlines():
         stripped = line.strip()
-
-        # ros2 topic echo appends YAML document separators like "---".
-        # Do not parse them as numeric list entries.
-        if stripped == "---":
-            if vals:
-                break
-            continue
 
         if stripped == "data:":
             in_data = True
             continue
 
-        if in_data:
-            m = number_re.match(line)
-            if m:
-                vals.append(float(m.group(1)))
-            elif vals:
+        if not in_data:
+            continue
+
+        # ros2 topic echo appends YAML separators like "---".
+        if stripped == "---":
+            if vals:
                 break
+            continue
+
+        # Parse YAML list entries like "- 0.28".
+        if stripped.startswith("- "):
+            token = stripped[2:].strip()
+            try:
+                vals.append(float(token))
+            except ValueError:
+                # Ignore non-numeric YAML/list artifacts.
+                if vals:
+                    break
+            continue
+
+        # Stop once the data block ended after collecting values.
+        if vals:
+            break
 
     return vals
 
