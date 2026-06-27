@@ -57,7 +57,9 @@ def eval_model(model, x, y, binary_idx, regression_idx):
         metrics["binary_acc_per_label"] = acc.detach().cpu().tolist()
 
     if regression_idx:
-        pred_r = logits[:, regression_idx]
+        # Regression heads are trained through sigmoid because labels are in [0, 1].
+        # Report MAE in the same bounded probability space, not raw logit space.
+        pred_r = torch.sigmoid(logits[:, regression_idx])
         target_r = y[:, regression_idx]
         mae = torch.abs(pred_r - target_r).mean(dim=0)
         metrics["reg_mae_mean"] = float(mae.mean().item())
