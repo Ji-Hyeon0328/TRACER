@@ -104,12 +104,37 @@ def build_step_features(
 
     # These are shadow-mode proxy features. Once we subscribe to explicit RAM/GMS
     # debug topics, replace these proxies with true runtime gate values.
-    gate_control_risk = 1.0 if gate["gate_level_code"] >= 2.0 else 0.0
-    gate_future_risk = gate_control_risk
-    gate_fallen_prob = 1.0 if gate["gate_level_code"] >= 2.0 else 0.0
+    #
+    # Important:
+    # The GMS classifier was trained from rollout CSV features where raw RAM risk
+    # can be high even before the gate action switches to conservative.
+    # Therefore, for slope high-clearance probe we keep gate_level/action low
+    # but allow raw risk proxies to be high. This separates:
+    #   - high_clearance_slow_probe: high raw risk, low gate action
+    #   - conservative:             high raw risk, high gate action
+    is_conservative_gate = gate["gate_level_code"] >= 2.0
+    is_slope_probe = terrain == "slope_5deg" and rule_label == "high_clearance_slow_probe"
+
+    if is_conservative_gate:
+        gate_control_risk = 0.80
+        gate_future_risk = 1.00
+        gate_fallen_prob = 1.00
+        gate_sigma_mean = 0.52
+        gate_rho_norm = 5.0
+    elif is_slope_probe:
+        gate_control_risk = 0.80
+        gate_future_risk = 1.00
+        gate_fallen_prob = 1.00
+        gate_sigma_mean = 0.52
+        gate_rho_norm = 5.0
+    else:
+        gate_control_risk = 0.0
+        gate_future_risk = 0.0
+        gate_fallen_prob = 0.0
+        gate_sigma_mean = 0.1
+        gate_rho_norm = 0.0
+
     gate_recovery_prob = 0.0
-    gate_sigma_mean = 0.5 if terrain != "flat_normal" else 0.1
-    gate_rho_norm = 5.0 if terrain != "flat_normal" else 0.0
 
     vx_scale = vx / 0.28 if 0.28 > 1e-6 else 1.0
     h_delta = h - 0.295
