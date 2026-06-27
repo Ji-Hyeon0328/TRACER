@@ -141,7 +141,8 @@ def main():
         "out": str(out),
         "used_files": used_files,
         "n_samples": n,
-        "input_dim": 3 + 3 + 13 + 4,
+        # build_x(): terrain one-hot 3 + beta 3 + gate features 12 + mpc features 4
+        "input_dim": 22,
         "label_names": GMS_LABELS,
         "by_label": by_label,
         "by_terrain": by_terrain,
