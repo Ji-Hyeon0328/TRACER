@@ -1542,6 +1542,10 @@ class TracerFusionPolicyMpcRefNode(Node):
             "no_valid_high_level_velocity_primitive",
             "avoid_required",
             "no_deployable_high_level_fallback",
+            # Do not let active candidate v0 override already-declared recovery/stop branches.
+            # V0 is only a conservative override plumbing test inside deployable locomotion branches.
+            "recovery_needed",
+            "safe_stop",
         )
         for term in protected_terms:
             if term in joined:
