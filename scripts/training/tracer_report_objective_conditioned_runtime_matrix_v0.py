@@ -36,11 +36,11 @@ EXPECTED = {
 
 
 def infer_objective(policy_id: str) -> str:
-    if "motion_objective" in policy_id:
+    if "motion_objective" in policy_id or "_motion_" in policy_id:
         return "motion_objective"
-    if "stability_objective" in policy_id:
+    if "stability_objective" in policy_id or "_stability_" in policy_id:
         return "stability_objective"
-    if "deploy_objective" in policy_id:
+    if "deploy_objective" in policy_id or "_deploy_" in policy_id:
         return "deploy_objective"
     return "unknown"
 
@@ -105,6 +105,19 @@ def main():
         exp = EXPECTED.get((terrain, objective), {})
         expected_style = exp.get("expected_style", "unknown")
         expected_vx = float(exp.get("expected_vx", -999.0))
+        expected_note = "direct_objective_routing"
+
+        # In safe mode, rough_mid deploy has intentionally low confidence.
+        # The selector chooses high_clearance, but the confidence gate blocks the override,
+        # so the baseline cautious style is the expected safe behavior.
+        if (
+            terrain == "rough_mid"
+            and objective == "deploy_objective"
+            and conf_mode == "safe_min_conf_0p05"
+        ):
+            expected_style = "cautious"
+            expected_vx = 0.055
+            expected_note = "confidence_gate_blocks_low_confidence_override"
 
         routing_ok = (
             expected_style != "unknown"
@@ -120,6 +133,7 @@ def main():
                 "policy_id": policy_id,
                 "observed_style": observed_style,
                 "expected_style": expected_style,
+                "expected_note": expected_note,
                 "routing_ok": int(routing_ok),
                 "mpc_vx_mean": vx,
                 "expected_vx": expected_vx,
@@ -146,6 +160,7 @@ def main():
         "observed_style",
         "expected_style",
         "routing_ok",
+        "expected_note",
         "mpc_vx_mean",
         "expected_vx",
         "mpc_body_height_mean",
