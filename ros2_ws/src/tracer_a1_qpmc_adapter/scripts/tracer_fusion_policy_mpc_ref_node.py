@@ -128,6 +128,53 @@ def _ls3_label(x: Any) -> str:
     return aliases.get(s, s)
 
 
+def _forced_style_to_semantic_style(style):
+    """Map a compact sweep style name to policy semantic/style fields."""
+    s = str(style or "").strip()
+    if not s:
+        return None
+
+    aliases = {
+        "fast": ("validated_locomotion", "fast"),
+        "validated": ("validated_locomotion", "fast"),
+        "validated_locomotion": ("validated_locomotion", "fast"),
+
+        "cautious": ("cautious_probe", "cautious"),
+        "cautious_probe": ("cautious_probe", "cautious"),
+
+        "high_clearance": ("high_clearance_slow_probe", "high_clearance"),
+        "high_clearance_slow_probe": ("high_clearance_slow_probe", "high_clearance"),
+        "slow_probe": ("high_clearance_slow_probe", "high_clearance"),
+
+        "conservative": ("conservative_probe", "conservative"),
+        "conservative_probe": ("conservative_probe", "conservative"),
+
+        "safe_stop": ("recovery_needed", "safe_stop"),
+        "active_hold": ("active_hold", "active_hold"),
+    }
+    return aliases.get(s)
+
+
+def _apply_forced_style_to_entry(entry, forced_style):
+    mapped = _forced_style_to_semantic_style(forced_style)
+    if mapped is None:
+        return entry
+
+    semantic, style = mapped
+    out = dict(entry)
+    out["manual_override_style"] = forced_style
+    out["semantic_mode"] = semantic
+    out["suggested_style"] = style
+
+    if style == "safe_stop":
+        out["fused_mode"] = "recovery_needed"
+    else:
+        out["fused_mode"] = "locomotion"
+
+    out["override_reason"] = "TRACER_FORCE_STYLE=" + str(forced_style)
+    return out
+
+
 def _ls3_code_norm(label: Any, table: dict, denom: float, default: str = "unknown") -> float:
     key = _ls3_label(label) if table is LEARNED_STACK_V3_GMS_CODE else str(label or default).strip()
     return float(table.get(key, table.get(default, 0))) / max(1.0, float(denom))
@@ -534,6 +581,28 @@ class TracerFusionPolicyMpcRefNode(Node):
             )
 
         self.entry = terrains[self.terrain]
+        self.force_style = str(os.environ.get("TRACER_FORCE_STYLE", "")).strip()
+        if self.force_style:
+            forced_entry = _apply_forced_style_to_entry(self.entry, self.force_style)
+            if forced_entry is self.entry:
+                self.get_logger().warn(
+                    "unknown TRACER_FORCE_STYLE=%r; keeping policy entry style=%s"
+                    % (
+                        self.force_style,
+                        self.entry.get("suggested_style", self.entry.get("style", "unknown")),
+                    )
+                )
+            else:
+                old_style = self.entry.get("suggested_style", self.entry.get("style", "unknown"))
+                self.entry = forced_entry
+                self.get_logger().warn(
+                    "TRACER_FORCE_STYLE applied: %s -> %s semantic=%s"
+                    % (
+                        old_style,
+                        self.entry.get("suggested_style"),
+                        self.entry.get("semantic_mode"),
+                    )
+                )
         self.command = self.entry["command"]
         self.counter = 0.0
         self.t0 = time.time()
