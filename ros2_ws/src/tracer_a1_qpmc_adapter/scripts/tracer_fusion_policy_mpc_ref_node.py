@@ -465,6 +465,33 @@ class TracerFusionPolicyMpcRefNode(Node):
             "active_rows": 0,
             "reason": "not_updated",
         }
+
+        # Active RAM recovery candidate v0.
+        # Default is fully disabled. ENABLE=1 computes an active decision.
+        # APPLY=1 is required to modify the published MPC reference.
+        # FORCE=1 is only for plumbing smoke tests on safe terrains.
+        self.ram_recovery_active_enable = bool(int(os.environ.get("TRACER_RAM_RECOVERY_ACTIVE_ENABLE", "0")))
+        self.ram_recovery_active_apply = bool(int(os.environ.get("TRACER_RAM_RECOVERY_ACTIVE_APPLY", "0")))
+        self.ram_recovery_active_force = bool(int(os.environ.get("TRACER_RAM_RECOVERY_ACTIVE_FORCE", "0")))
+        self.ram_recovery_active_vx = float(os.environ.get("TRACER_RAM_RECOVERY_ACTIVE_VX", "0.0"))
+        self.ram_recovery_active_yaw_rate = float(os.environ.get("TRACER_RAM_RECOVERY_ACTIVE_YAW_RATE", "0.0"))
+        self.ram_recovery_active_body_height = float(os.environ.get("TRACER_RAM_RECOVERY_ACTIVE_BODY_HEIGHT", "0.345"))
+        self.ram_recovery_active_clearance = float(os.environ.get("TRACER_RAM_RECOVERY_ACTIVE_CLEARANCE", "0.090"))
+        self.ram_recovery_active_trigger_count = 0
+        self.ram_recovery_active_rows = 0
+        self.ram_recovery_active_last_active = False
+        self.latest_ram_recovery_active = {
+            "enabled": self.ram_recovery_active_enable,
+            "apply": self.ram_recovery_active_apply,
+            "force": self.ram_recovery_active_force,
+            "active": False,
+            "applied": False,
+            "trigger_count": 0,
+            "active_rows": 0,
+            "protected": False,
+            "reason": "not_updated",
+            "selected_recovery_command": None,
+        }
         self.deploy_learned_stack_v3_beta_blend = bool(int(os.environ.get("TRACER_DEPLOY_LEARNED_STACK_V3_BETA_BLEND", "0")))
         self.learned_stack_v3_beta_blend_alpha = float(os.environ.get("TRACER_LEARNED_STACK_V3_BETA_BLEND_ALPHA", "0.10"))
         if self.enable_learned_stack_v3:
@@ -1480,6 +1507,132 @@ class TracerFusionPolicyMpcRefNode(Node):
         }
         return self.latest_ram_recovery_shadow
 
+    def _ram_recovery_active_protect_reason(self, gms_in: Any, gms_out: Any) -> str | None:
+        """Return a reason string when active recovery v0 should not override.
+
+        V0 active recovery is only a conservative command plumbing test.
+        It must not be applied to branches already marked as no-valid/avoid-required,
+        because zero-vx hold was previously observed to fail there.
+        """
+        tokens: list[str] = []
+        for key in ("semantic_mode", "fused_mode", "suggested_style", "runtime_fallback"):
+            try:
+                tokens.append(str(self.entry.get(key, "")))
+            except Exception:
+                pass
+
+        for obj in (gms_in, gms_out, self.latest_learned_stack_v3_override, self.latest_learned_stack_v3):
+            if obj is None:
+                continue
+            if isinstance(obj, dict):
+                for key in ("mode", "reason", "semantic_mode", "fused_mode", "suggested_style", "ram_gate_action"):
+                    if key in obj:
+                        tokens.append(str(obj.get(key, "")))
+            else:
+                for key in ("mode", "reason", "semantic_mode", "fused_mode", "suggested_style", "ram_gate_action"):
+                    if hasattr(obj, key):
+                        try:
+                            tokens.append(str(getattr(obj, key)))
+                        except Exception:
+                            pass
+
+        joined = " ".join(tokens)
+        protected_terms = (
+            "no_valid_forward_recovery_needed",
+            "no_valid_high_level_velocity_primitive",
+            "avoid_required",
+            "no_deployable_high_level_fallback",
+        )
+        for term in protected_terms:
+            if term in joined:
+                return f"protected_semantic:{term}"
+        return None
+
+    def _update_ram_recovery_active(
+        self,
+        shadow: dict[str, Any],
+        final_command: dict[str, float],
+        gms_in: Any,
+        gms_out: Any,
+    ) -> tuple[dict[str, float], dict[str, Any]]:
+        """Compute active recovery candidate v0 and optionally override command.
+
+        This is not a recovery primitive. It is a guarded active-gate plumbing test.
+        """
+        enabled = bool(self.ram_recovery_active_enable)
+        apply = bool(self.ram_recovery_active_apply)
+        force = bool(self.ram_recovery_active_force)
+
+        base = dict(final_command)
+        selected = dict(final_command)
+
+        shadow_would_recover = bool(shadow.get("would_recover", False))
+        score = _as_float(shadow.get("score", 0.0), 0.0)
+        threshold = _as_float(shadow.get("threshold", self.ram_recovery_shadow_threshold), self.ram_recovery_shadow_threshold)
+        consecutive = int(shadow.get("consecutive", self.ram_recovery_shadow_consecutive))
+        streak = int(shadow.get("streak", 0))
+
+        protect_reason = self._ram_recovery_active_protect_reason(gms_in, gms_out)
+        protected = protect_reason is not None
+
+        if not enabled:
+            active = False
+            reason = "disabled"
+        elif protected:
+            active = False
+            reason = protect_reason
+        elif force:
+            active = True
+            reason = "force_active"
+        elif shadow_would_recover:
+            active = True
+            reason = "shadow_would_recover"
+        else:
+            active = False
+            reason = "no_trigger"
+
+        if active:
+            selected["vx"] = float(self.ram_recovery_active_vx)
+            selected["yaw_rate"] = float(self.ram_recovery_active_yaw_rate)
+            selected["body_height"] = max(
+                float(base.get("body_height", 0.0)),
+                float(self.ram_recovery_active_body_height),
+            )
+            selected["swing_clearance"] = max(
+                float(base.get("swing_clearance", 0.0)),
+                float(self.ram_recovery_active_clearance),
+            )
+            selected["enable"] = 1.0
+
+            self.ram_recovery_active_rows += 1
+            if not self.ram_recovery_active_last_active:
+                self.ram_recovery_active_trigger_count += 1
+            self.ram_recovery_active_last_active = True
+        else:
+            self.ram_recovery_active_last_active = False
+
+        applied = bool(active and apply)
+        out_command = selected if applied else base
+
+        self.latest_ram_recovery_active = {
+            "enabled": enabled,
+            "apply": apply,
+            "force": force,
+            "active": bool(active),
+            "applied": bool(applied),
+            "score": float(score),
+            "threshold": float(threshold),
+            "consecutive": int(consecutive),
+            "streak": int(streak),
+            "shadow_would_recover": bool(shadow_would_recover),
+            "trigger_count": int(self.ram_recovery_active_trigger_count),
+            "active_rows": int(self.ram_recovery_active_rows),
+            "protected": bool(protected),
+            "reason": str(reason),
+            "selected_recovery_command": _jsonable(selected) if active else None,
+        }
+        return out_command, self.latest_ram_recovery_active
+
     def on_timer(self):
         now = time.time()
         elapsed = now - self.t0
@@ -1496,9 +1649,17 @@ class TracerFusionPolicyMpcRefNode(Node):
         base_command = self._ramped_base_command(elapsed)
         final_command, gms_in, gms_out, meta, low_ref, policy_input, learned_stack_v3 = self._select_command(base_command, now)
 
-        # Shadow-only recovery gate. It observes the latest RAM gate context but
-        # never modifies final_command or the published MPC reference.
+        # Shadow-only recovery gate. It observes the latest RAM gate context.
         ram_recovery_shadow = self._update_ram_recovery_shadow(self._gate_context(now))
+
+        # Active recovery candidate v0. By default this only computes debug.
+        # It modifies final_command only when TRACER_RAM_RECOVERY_ACTIVE_APPLY=1.
+        final_command, ram_recovery_active = self._update_ram_recovery_active(
+            ram_recovery_shadow,
+            final_command,
+            gms_in,
+            gms_out,
+        )
 
         msg = Float64MultiArray()
         msg.data = [
@@ -1528,6 +1689,7 @@ class TracerFusionPolicyMpcRefNode(Node):
                 "learned_stack_v3_beta_shadow": _jsonable(self.latest_learned_stack_v3_beta_shadow),
                 "learned_stack_v3_beta_blend": _jsonable(self.latest_learned_stack_v3_beta_blend),
                 "ram_recovery_shadow": _jsonable(ram_recovery_shadow),
+                "ram_recovery_active": _jsonable(ram_recovery_active),
             }
             dbg_msg = String()
             dbg_msg.data = json.dumps(dbg)
@@ -1580,6 +1742,8 @@ class TracerFusionPolicyMpcRefNode(Node):
                     f"final_h={final_command['body_height']:.3f} "
                     f"final_clr={final_command['swing_clearance']:.3f} "
                     f"enable={final_command['enable']:.1f} "
+                    f"active_rec={int(self.latest_ram_recovery_active.get('active', False))} "
+                    f"active_applied={int(self.latest_ram_recovery_active.get('applied', False))} "
                     f"theta_period={meta.gait_period if meta else -1.0:.3f} "
                     f"theta_duty={meta.duty_factor if meta else -1.0:.3f} "
                     f"theta_imp={meta.impedance_scale if meta else -1.0:.3f} "

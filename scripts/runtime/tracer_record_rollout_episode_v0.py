@@ -269,6 +269,17 @@ class RolloutEpisodeRecorder(Node):
             "shadow_recovery_active_rows": shadow_active_rows,
             "shadow_recovery_reason": shadow_reason,
 
+            "active_recovery_enabled": 1.0 if bool(((self.latest_debug or {}).get("ram_recovery_active") or {}).get("enabled", False)) else 0.0,
+            "active_recovery_apply": 1.0 if bool(((self.latest_debug or {}).get("ram_recovery_active") or {}).get("apply", False)) else 0.0,
+            "active_recovery_force": 1.0 if bool(((self.latest_debug or {}).get("ram_recovery_active") or {}).get("force", False)) else 0.0,
+            "active_recovery_active": 1.0 if bool(((self.latest_debug or {}).get("ram_recovery_active") or {}).get("active", False)) else 0.0,
+            "active_recovery_applied": 1.0 if bool(((self.latest_debug or {}).get("ram_recovery_active") or {}).get("applied", False)) else 0.0,
+            "active_recovery_score": f(((self.latest_debug or {}).get("ram_recovery_active") or {}).get("score", 0.0)),
+            "active_recovery_trigger_count": f(((self.latest_debug or {}).get("ram_recovery_active") or {}).get("trigger_count", 0.0)),
+            "active_recovery_active_rows": f(((self.latest_debug or {}).get("ram_recovery_active") or {}).get("active_rows", 0.0)),
+            "active_recovery_protected": 1.0 if bool(((self.latest_debug or {}).get("ram_recovery_active") or {}).get("protected", False)) else 0.0,
+            "active_recovery_reason": str(((self.latest_debug or {}).get("ram_recovery_active") or {}).get("reason", "")),
+
             "age_mpc": self.age("mpc", now),
             "age_beta": self.age("beta", now),
             "age_ram": self.age("ram", now),
@@ -320,6 +331,14 @@ class RolloutEpisodeRecorder(Node):
         shadow_would_recover = col("shadow_recovery_would_recover")
         shadow_trigger_count = col("shadow_recovery_trigger_count")
         shadow_active_rows = col("shadow_recovery_active_rows")
+        active_enabled = col("active_recovery_enabled")
+        active_apply = col("active_recovery_apply")
+        active_active = col("active_recovery_active")
+        active_applied = col("active_recovery_applied")
+        active_score = col("active_recovery_score")
+        active_trigger_count = col("active_recovery_trigger_count")
+        active_active_rows = col("active_recovery_active_rows")
+        active_protected = col("active_recovery_protected")
         age_debug = col("age_debug")
 
         xs = col("odom_x")
@@ -366,6 +385,17 @@ class RolloutEpisodeRecorder(Node):
             "shadow_recovery_would_recover_mean": mean(shadow_would_recover),
             "shadow_recovery_trigger_count_max": max(shadow_trigger_count) if shadow_trigger_count else 0.0,
             "shadow_recovery_active_rows_max": max(shadow_active_rows) if shadow_active_rows else 0.0,
+
+            "active_recovery_enabled_mean": mean(active_enabled),
+            "active_recovery_apply_mean": mean(active_apply),
+            "active_recovery_active_mean": mean(active_active),
+            "active_recovery_applied_mean": mean(active_applied),
+            "active_recovery_score_mean": mean(active_score),
+            "active_recovery_score_p90": pct(active_score, 0.90),
+            "active_recovery_trigger_count_max": max(active_trigger_count) if active_trigger_count else 0.0,
+            "active_recovery_active_rows_max": max(active_active_rows) if active_active_rows else 0.0,
+            "active_recovery_protected_mean": mean(active_protected),
+
             "age_debug_mean": mean(age_debug),
             "age_debug_p90": pct(age_debug, 0.90),
             "debug_fresh_rate_0p5s": rate_below(age_debug, 0.5),
