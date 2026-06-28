@@ -379,12 +379,21 @@ class RolloutEpisodeRecorder(Node):
             sum(1.0 for v in age_debug if math.isfinite(v) and v <= 1.0) / max(1, len(age_debug))
         )
         state_present = mean(proprio_abs) > 1.0e-4
-        commanded_forward = abs(mean(vx)) > 0.05
-        moved_enough = (distance_xy > 0.03) if commanded_forward else True
+
+        # Motion gate:
+        # Compare observed displacement against a small fraction of the commanded
+        # travel distance. This prevents very slow commands such as vx=0.045 from
+        # being marked as successful after only a few centimeters of drift.
+        vx_mean = mean(vx)
+        enable_mean = mean(enable)
+        expected_distance = abs(vx_mean) * self.duration_sec * enable_mean
+        commanded_forward = abs(vx_mean) > 0.01 and enable_mean > 0.8
+        min_distance = max(0.03, 0.20 * expected_distance)
+        moved_enough = (distance_xy >= min_distance) if commanded_forward else True
 
         success_proxy = (
-            mean(enable) > 0.8
-            and mean(vx) > 0.005
+            enable_mean > 0.8
+            and vx_mean > 0.005
             and pct(fallen, 0.90) < 0.50
             and debug_fresh_rate_1p0 >= 0.90
             and state_present
