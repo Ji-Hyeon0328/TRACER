@@ -395,6 +395,94 @@ def _ls3_ram_rho_norm(policy_input: Any, gate: dict[str, Any]) -> float:
     return _as_float(gate.get("rho_norm", 0.0), 0.0)
 
 
+
+def _objective_conditioned_force_style_from_env(terrain_key: str, entry: dict, logger=None) -> str:
+    """Return a style selected by objective-conditioned selector, or empty string.
+
+    This intentionally plugs into the already-working TRACER_FORCE_STYLE path.
+    It is controlled by env vars and does not depend on ROS parameter plumbing.
+
+    Env:
+      TRACER_OBJECTIVE_CONDITIONED_SELECTOR_ENABLE=1
+      TRACER_OBJECTIVE_CONDITIONED_SELECTOR_APPLY=1
+      TRACER_OBJECTIVE_CONDITIONED_SELECTOR_MIN_CONFIDENCE=0.05
+      TRACER_OBJECTIVE_CONDITIONED_SELECTOR_MODEL=configs/highlevel_policy/tracer_objective_conditioned_selector_v0.json
+
+    Optional smoke/debug override:
+      TRACER_OBJECTIVE_CONDITIONED_SELECTOR_OBJECTIVE=deploy_objective
+      choices: motion_objective, stability_objective, deploy_objective
+    """
+    try:
+        enable = bool(int(os.environ.get("TRACER_OBJECTIVE_CONDITIONED_SELECTOR_ENABLE", "0")))
+        apply = bool(int(os.environ.get("TRACER_OBJECTIVE_CONDITIONED_SELECTOR_APPLY", "0")))
+        min_conf = float(os.environ.get("TRACER_OBJECTIVE_CONDITIONED_SELECTOR_MIN_CONFIDENCE", "0.05"))
+        model = os.environ.get(
+            "TRACER_OBJECTIVE_CONDITIONED_SELECTOR_MODEL",
+            "configs/highlevel_policy/tracer_objective_conditioned_selector_v0.json",
+        )
+        objective_override = os.environ.get("TRACER_OBJECTIVE_CONDITIONED_SELECTOR_OBJECTIVE", "").strip()
+
+        if not enable:
+            return ""
+
+        from tracer_core.highlevel.objective_conditioned_selector import ObjectiveConditionedStyleSelector
+
+        model_path = Path(model)
+        if not model_path.is_absolute():
+            model_path = Path.cwd() / model_path
+
+        selector = ObjectiveConditionedStyleSelector(model_path)
+
+        beta = entry.get("beta", None)
+        if objective_override:
+            prof = selector.objective_profiles.get(objective_override)
+            if prof is not None:
+                beta = prof
+
+        sel = selector.select(
+            terrain_key,
+            beta,
+            min_confidence=min_conf,
+        )
+
+        msg = (
+            "objective_conditioned_selector enable=%d apply=%d terrain=%s "
+            "objective=%s selected=%s semantic=%s conf=%.3f active=%d override=%s"
+            % (
+                int(enable),
+                int(apply),
+                terrain_key,
+                sel.get("objective_name", "unknown"),
+                sel.get("selected_style", "unknown"),
+                sel.get("semantic_mode", "unknown"),
+                float(sel.get("vote_confidence", 0.0)),
+                int(bool(sel.get("active", False))),
+                objective_override or "<none>",
+            )
+        )
+
+        if logger is not None:
+            logger.info(msg)
+        else:
+            print(msg)
+
+        if not apply:
+            return ""
+
+        if not bool(sel.get("active", False)):
+            return ""
+
+        return str(sel.get("selected_style", "")).strip()
+
+    except Exception as exc:
+        if logger is not None:
+            logger.error(f"objective_conditioned_selector failed: {exc}")
+        else:
+            print(f"objective_conditioned_selector failed: {exc}")
+        return ""
+
+
+
 class TracerFusionPolicyMpcRefNode(Node):
     def __init__(self):
         super().__init__("tracer_fusion_policy_mpc_ref_node")
@@ -582,6 +670,8 @@ class TracerFusionPolicyMpcRefNode(Node):
 
         self.entry = terrains[self.terrain]
         self.force_style = str(os.environ.get("TRACER_FORCE_STYLE", "")).strip()
+        if not self.force_style:
+            self.force_style = _objective_conditioned_force_style_from_env(self.terrain, self.entry, self.get_logger())
         if self.force_style:
             forced_entry = _apply_forced_style_to_entry(self.entry, self.force_style)
             if forced_entry is self.entry:
