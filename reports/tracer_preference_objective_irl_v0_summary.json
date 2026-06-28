@@ -1,0 +1,188 @@
+{
+  "n_pairs": 21,
+  "n_features": 61,
+  "train_acc": 1.0,
+  "artifact_json": "artifacts/tracer_preference_objective_irl_v0/model.json",
+  "report_csv": "reports/tracer_preference_objective_irl_v0_train_report.csv",
+  "top_positive_features": [
+    {
+      "feature": "style=fast:beta_motion",
+      "weight": 0.2031135120429923,
+      "abs_weight": 0.2031135120429923
+    },
+    {
+      "feature": "beta_motion:motion_score_proxy",
+      "weight": 0.16661508466559458,
+      "abs_weight": 0.16661508466559458
+    },
+    {
+      "feature": "beta_motion:distance_mean",
+      "weight": 0.14420184428654348,
+      "abs_weight": 0.14420184428654348
+    },
+    {
+      "feature": "beta_stability:fresh1_min",
+      "weight": 0.13439039583055967,
+      "abs_weight": 0.13439039583055967
+    },
+    {
+      "feature": "style=cautious:beta_stability",
+      "weight": 0.08540702942867195,
+      "abs_weight": 0.08540702942867195
+    },
+    {
+      "feature": "beta_stability:deploy_mean",
+      "weight": 0.08460263045831563,
+      "abs_weight": 0.08460263045831563
+    },
+    {
+      "feature": "beta_stability:deploy_score_proxy",
+      "weight": 0.083481139965304,
+      "abs_weight": 0.083481139965304
+    },
+    {
+      "feature": "beta_stability:progress_mean",
+      "weight": 0.07132154637449542,
+      "abs_weight": 0.07132154637449542
+    },
+    {
+      "feature": "beta_energy:deploy_score_proxy",
+      "weight": 0.06400413517668838,
+      "abs_weight": 0.06400413517668838
+    },
+    {
+      "feature": "deploy_mean",
+      "weight": 0.0596102677813751,
+      "abs_weight": 0.0596102677813751
+    },
+    {
+      "feature": "deploy_score_proxy",
+      "weight": 0.059236359558409245,
+      "abs_weight": 0.059236359558409245
+    },
+    {
+      "feature": "progress_mean",
+      "weight": 0.057321617824690474,
+      "abs_weight": 0.057321617824690474
+    },
+    {
+      "feature": "beta_energy:fresh1_min",
+      "weight": 0.05543755379007925,
+      "abs_weight": 0.05543755379007925
+    },
+    {
+      "feature": "beta_energy:progress_mean",
+      "weight": 0.054025408622439236,
+      "abs_weight": 0.054025408622439236
+    },
+    {
+      "feature": "beta_energy:deploy_mean",
+      "weight": 0.04771699006339288,
+      "abs_weight": 0.04771699006339288
+    }
+  ],
+  "top_negative_features": [
+    {
+      "feature": "beta_motion:energy_score_proxy",
+      "weight": -0.2467903741700976,
+      "abs_weight": 0.2467903741700976
+    },
+    {
+      "feature": "style=high_clearance:beta_motion",
+      "weight": -0.14497111468699278,
+      "abs_weight": 0.14497111468699278
+    },
+    {
+      "feature": "energy_score_proxy",
+      "weight": -0.13051117879870436,
+      "abs_weight": 0.13051117879870436
+    },
+    {
+      "feature": "style=fast:beta_stability",
+      "weight": -0.11773138872106971,
+      "abs_weight": 0.11773138872106971
+    },
+    {
+      "feature": "beta_energy:energy_score_proxy",
+      "weight": -0.11559280393791964,
+      "abs_weight": 0.11559280393791964
+    },
+    {
+      "feature": "beta_stability:distance_mean",
+      "weight": -0.07656058403832568,
+      "abs_weight": 0.07656058403832568
+    },
+    {
+      "feature": "style=high_clearance:beta_energy",
+      "weight": -0.07204198410565193,
+      "abs_weight": 0.07204198410565193
+    },
+    {
+      "feature": "style=cautious:beta_motion",
+      "weight": -0.06408077354653577,
+      "abs_weight": 0.06408077354653577
+    },
+    {
+      "feature": "beta_stability:motion_score_proxy",
+      "weight": -0.0608793839673339,
+      "abs_weight": 0.0608793839673339
+    },
+    {
+      "feature": "style=high_clearance",
+      "weight": -0.0531183397508701,
+      "abs_weight": 0.0531183397508701
+    },
+    {
+      "feature": "beta_motion:fresh1_min",
+      "weight": -0.028268624811652356,
+      "abs_weight": 0.028268624811652356
+    },
+    {
+      "feature": "beta_energy:fallen_p90_max",
+      "weight": -0.013730161849753095,
+      "abs_weight": 0.013730161849753095
+    },
+    {
+      "feature": "objective=deploy_objective",
+      "weight": -0.008535148988863166,
+      "abs_weight": 0.008535148988863166
+    },
+    {
+      "feature": "objective=motion_objective",
+      "weight": -0.007665366247438966,
+      "abs_weight": 0.007665366247438966
+    },
+    {
+      "feature": "beta_motion:success_rate",
+      "weight": -0.006481434408461018,
+      "abs_weight": 0.006481434408461018
+    }
+  ],
+  "history_tail": [
+    {
+      "epoch": 2000,
+      "loss": 0.010717428372684334,
+      "acc": 1.0
+    },
+    {
+      "epoch": 2250,
+      "loss": 0.009506328290146925,
+      "acc": 1.0
+    },
+    {
+      "epoch": 2500,
+      "loss": 0.008542485890646465,
+      "acc": 1.0
+    },
+    {
+      "epoch": 2750,
+      "loss": 0.007757421833738751,
+      "acc": 1.0
+    },
+    {
+      "epoch": 2999,
+      "loss": 0.007108126047797898,
+      "acc": 1.0
+    }
+  ]
+}
