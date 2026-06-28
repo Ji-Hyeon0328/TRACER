@@ -37,8 +37,14 @@ def sanitize_proprio_vector(values):
         xs = xs + [0.0] * (45 - len(xs))
     xs = xs[:45]
 
-    # Sanitize base/IMU block. Timestamp/world pose artifacts show up here.
-    for i in range(0, 13):
+    # Preserve stamp_wall at index 0.
+    # RAM V0 was trained with this timestamp-like feature present.
+    # TODO(RAM V1): remove wall_time from both dataset builder and online schema.
+    if abs(xs[0]) > 1.0e12 or xs[0] < 0.0:
+        xs[0] = 0.0
+
+    # Sanitize base/IMU block, excluding stamp_wall.
+    for i in range(1, 13):
         if abs(xs[i]) > 100.0:
             xs[i] = 0.0
         else:

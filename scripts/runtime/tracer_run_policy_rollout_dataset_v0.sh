@@ -17,6 +17,21 @@ set -u
 
 mkdir -p "$OUT_DIR/episodes" "$OUT_DIR/summaries"
 
+gazebo_physics() {
+  local action="$1"
+  local service="/gazebo/${action}_physics"
+
+  docker exec a1_unitree_gazebo_docker bash -lc "
+    source /opt/ros/melodic/setup.bash
+    source /root/unitree_ws/devel/setup.bash
+    timeout 5 rosservice call ${service} '{}' >/tmp/tracer_${action}_physics.log 2>&1
+  " || {
+    echo "[TRACER][WARN] failed to ${action} Gazebo physics via ${service}"
+    docker exec a1_unitree_gazebo_docker bash -lc "cat /tmp/tracer_${action}_physics.log 2>/dev/null || true" || true
+  }
+}
+
+
 echo "[TRACER] rollout dataset runner"
 echo "[TRACER] out_dir:   $OUT_DIR"
 echo "[TRACER] terrains:  $TERRAINS"
@@ -57,8 +72,13 @@ for repeat in $(seq 1 "$REPEATS"); do
     TRACER_GMS_GATE_FRESHNESS_SEC="${TRACER_GMS_GATE_FRESHNESS_SEC:-2.0}" \
     scripts/runtime/tracer_start_fusion_policy_overlay_from_qwerty.sh "$terrain" "$DURATION"
 
+    echo "[TRACER] unpause Gazebo physics for rollout"
+    gazebo_physics unpause
+    sleep 0.5
+
     REC_TIMEOUT_SEC="$(/usr/bin/python3 -c "d=float('$DURATION'); print(max(10.0, d + 8.0))")"
 
+    set +e
     TRACER_TERRAIN="$terrain" \
     TRACER_POLICY_ID="$POLICY_ID" \
     TRACER_EPISODE_ID="$ep_id" \
@@ -67,6 +87,16 @@ for repeat in $(seq 1 "$REPEATS"); do
     TRACER_ROLLOUT_OUT_DIR="$OUT_DIR" \
     timeout --kill-after=2s "${REC_TIMEOUT_SEC}s" \
     /usr/bin/python3 scripts/runtime/tracer_record_rollout_episode_v0.py
+    rec_status=$?
+    set -e
+
+    echo "[TRACER] pause Gazebo physics after rollout"
+    gazebo_physics pause
+
+    if [ "$rec_status" -ne 0 ]; then
+      echo "[TRACER][ERROR] rollout recorder failed with status=$rec_status"
+      exit "$rec_status"
+    fi
 
     echo "[TRACER] episode summary:"
     cat "$OUT_DIR/summaries/${ep_id}.json" || true

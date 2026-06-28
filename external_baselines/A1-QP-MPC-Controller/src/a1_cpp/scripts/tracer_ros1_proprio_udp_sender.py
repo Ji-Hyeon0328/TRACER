@@ -161,25 +161,40 @@ class TracerRos1ProprioUdpSender(object):
         vx = vy = vz = 0.0
         wx = wy = wz = 0.0
 
-        if odom is not None:
-            p = odom.pose.pose.position
-            q = odom.pose.pose.orientation
-            v = odom.twist.twist.linear
-            w = odom.twist.twist.angular
+        if odom is None:
+            return None
 
-            base_x = float(p.x)
-            base_y = float(p.y)
-            base_z = float(p.z)
+        p = odom.pose.pose.position
+        q = odom.pose.pose.orientation
+        v = odom.twist.twist.linear
+        w = odom.twist.twist.angular
 
-            roll, pitch, yaw = quat_to_rpy(q)
+        base_x = float(p.x)
+        base_y = float(p.y)
+        base_z = float(p.z)
 
-            vx = float(v.x)
-            vy = float(v.y)
-            vz = float(v.z)
+        roll, pitch, yaw = quat_to_rpy(q)
 
-            wx = float(w.x)
-            wy = float(w.y)
-            wz = float(w.z)
+        vx = float(v.x)
+        vy = float(v.y)
+        vz = float(v.z)
+
+        wx = float(w.x)
+        wy = float(w.y)
+        wz = float(w.z)
+
+        # Reject clearly corrupted odometry before publishing downstream.
+        # This prevents invalid /torso_odom explosions from poisoning RAM/state logs.
+        if (
+            abs(base_x) > 1000.0 or
+            abs(base_y) > 1000.0 or
+            base_z < -1.0 or
+            base_z > 3.0 or
+            abs(vx) > 20.0 or
+            abs(vy) > 20.0 or
+            abs(vz) > 20.0
+        ):
+            return None
 
         # Prefer IMU angular velocity when available
         if imu is not None:

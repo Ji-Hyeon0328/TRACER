@@ -138,7 +138,11 @@ class RolloutEpisodeRecorder(Node):
         proprio_abs_mean = 0.0
         proprio_abs_max = 0.0
         if proprio:
-            vals = [abs(f(v)) for v in proprio]
+            # Exclude stamp_wall at index 0.  The live proprio layout is:
+            # [stamp_wall, base_xyz(3), rpy(3), lin_vel(3), ang_vel(3), joints...]
+            # Including stamp_wall makes proprio_abs_mean ~ O(1e7) and unusable
+            # as a state-validity proxy.
+            vals = [abs(f(v)) for v in proprio[1:]]
             proprio_abs_mean = mean(vals)
             proprio_abs_max = max(vals) if vals else 0.0
 
@@ -252,6 +256,9 @@ class RolloutEpisodeRecorder(Node):
             "proprio_dim": len(proprio or []),
             "proprio_abs_mean": proprio_abs_mean,
             "proprio_abs_max": proprio_abs_max,
+            "proprio_base_x": f(proprio[1]) if proprio and len(proprio) > 1 else 0.0,
+            "proprio_base_y": f(proprio[2]) if proprio and len(proprio) > 2 else 0.0,
+            "proprio_base_z": f(proprio[3]) if proprio and len(proprio) > 3 else 0.0,
 
             "odom_dim": len(odom or []),
             "odom_x": odom_x,
@@ -349,12 +356,39 @@ class RolloutEpisodeRecorder(Node):
             dy = ys[-1] - ys[0]
             distance_xy = math.sqrt(dx * dx + dy * dy)
 
+        # qwerty-only rollouts may not start the odom overlay. In that case,
+        # use base xy from /tracer/proprio_vector as a fallback distance proxy.
+        if distance_xy <= 1.0e-6:
+            pxs = col("proprio_base_x")
+            pys = col("proprio_base_y")
+            if len(pxs) >= 2 and all(math.isfinite(v) for v in [pxs[0], pys[0], pxs[-1], pys[-1]]):
+                pdx = pxs[-1] - pxs[0]
+                pdy = pys[-1] - pys[0]
+                distance_xy = math.sqrt(pdx * pdx + pdy * pdy)
+
         # V0 outcome proxy. This is not a true success label yet.
         # True success/fall should later use Gazebo model state / base height / contact.
+        #
+        # Important guard:
+        # - Do not mark an episode as successful if the robot did not move while
+        #   a forward command was enabled.
+        # - Do not mark success when debug/proprio stream is stale.
+        # - Do not use pct(fallen)<1.05; fallen is a probability, so that condition
+        #   was effectively always true.
+        debug_fresh_rate_1p0 = (
+            sum(1.0 for v in age_debug if math.isfinite(v) and v <= 1.0) / max(1, len(age_debug))
+        )
+        state_present = mean(proprio_abs) > 1.0e-4
+        commanded_forward = abs(mean(vx)) > 0.05
+        moved_enough = (distance_xy > 0.03) if commanded_forward else True
+
         success_proxy = (
             mean(enable) > 0.8
             and mean(vx) > 0.005
-            and pct(fallen, 0.90) < 1.05
+            and pct(fallen, 0.90) < 0.50
+            and debug_fresh_rate_1p0 >= 0.90
+            and state_present
+            and moved_enough
         )
 
         return {

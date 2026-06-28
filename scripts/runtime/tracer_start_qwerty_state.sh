@@ -47,7 +47,7 @@ sudo docker exec -d a1_cpp_ctrl_docker bash -lc '
 source /opt/ros/melodic/setup.bash
 source /root/unitree_ws/devel/setup.bash
 source /root/A1_ctrl_ws/devel/setup.bash
-rosrun a1_cpp tracer_ros1_proprio_udp_sender.py > /tmp/tracer_ros1_proprio_udp_sender.log 2>&1
+rosrun a1_cpp tracer_ros1_proprio_udp_sender.py _odom_topic:=/body_pose_ground_truth > /tmp/tracer_ros1_proprio_udp_sender.log 2>&1
 '
 
 sudo docker exec -d a1_cpp_ctrl_docker bash -lc '
