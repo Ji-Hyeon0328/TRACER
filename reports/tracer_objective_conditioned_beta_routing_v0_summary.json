@@ -1,0 +1,53 @@
+{
+  "n": 3,
+  "objective_override": "none",
+  "observed_runtime_objective": "deploy_objective",
+  "note": "Runtime logs showed override=<none> and objective=deploy_objective. This indicates the current beta profile routes to the deploy objective profile.",
+  "rows": [
+    {
+      "terrain": "flat_normal",
+      "policy_id": "objective_conditioned_beta_routing_v0_flat_normal_world_stairs_single",
+      "inferred_objective": "deploy_objective",
+      "observed_style": "cautious",
+      "mpc_vx_mean": 0.05500000000000005,
+      "mpc_body_height_mean": 0.3141234279563649,
+      "mpc_clearance_mean": 0.06689889669418338,
+      "success_proxy": true,
+      "distance_xy_proxy": 0.35936344797361985,
+      "fresh1": 0.95,
+      "fallen_p90": 1.547532747281366e-06,
+      "note": "selector applied cautious for deploy objective",
+      "summary_json": "data/rollout_dataset_v0/summaries/flat_normal_objective_conditioned_beta_routing_v0_flat_normal_world_stairs_single_r1_20260628_093501.json"
+    },
+    {
+      "terrain": "rough_mid",
+      "policy_id": "objective_conditioned_beta_routing_v0_rough_mid_world_tracer_rough_mid",
+      "inferred_objective": "deploy_objective",
+      "observed_style": "cautious",
+      "mpc_vx_mean": 0.05500000000000005,
+      "mpc_body_height_mean": 0.3141988849407062,
+      "mpc_clearance_mean": 0.06711690208315849,
+      "success_proxy": true,
+      "distance_xy_proxy": 0.1373364464974058,
+      "fresh1": 0.95,
+      "fallen_p90": 7.060924644974875e-07,
+      "note": "selector selected high_clearance but confidence gate kept cautious",
+      "summary_json": "data/rollout_dataset_v0/summaries/rough_mid_objective_conditioned_beta_routing_v0_rough_mid_world_tracer_rough_mid_r1_20260628_093601.json"
+    },
+    {
+      "terrain": "slope_5deg",
+      "policy_id": "objective_conditioned_beta_routing_v0_slope_5deg_world_tracer_slope_5deg",
+      "inferred_objective": "deploy_objective",
+      "observed_style": "high_clearance",
+      "mpc_vx_mean": 0.044999999999999964,
+      "mpc_body_height_mean": 0.3340610506758095,
+      "mpc_clearance_mean": 0.08642881120741365,
+      "success_proxy": false,
+      "distance_xy_proxy": 0.08923619023347819,
+      "fresh1": 0.95,
+      "fallen_p90": 1.916919472932932e-06,
+      "note": "selector applied or preserved high_clearance for deploy objective",
+      "summary_json": "data/rollout_dataset_v0/summaries/slope_5deg_objective_conditioned_beta_routing_v0_slope_5deg_world_tracer_slope_5deg_r1_20260628_093701.json"
+    }
+  ]
+}
