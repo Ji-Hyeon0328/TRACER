@@ -1,0 +1,10 @@
+terrain,objective_name,selected_style,semantic_mode,suggested_style,vote_confidence,reason,vote_scores_json
+flat_normal,motion_objective,fast,validated_locomotion,fast,1.6613581688340435,pairwise_vote,"{""cautious"": -0.25868554670009847, ""fast"": 1.4026726221339452, ""high_clearance"": -1.1439870754338468}"
+flat_normal,stability_objective,fast,validated_locomotion,fast,0.2821717171565462,pairwise_vote,"{""cautious"": 0.07086514727191849, ""fast"": 0.3530368644284647, ""high_clearance"": -0.42390201170038316}"
+flat_normal,deploy_objective,cautious,cautious_probe,cautious,0.20968828416485283,pairwise_vote,"{""cautious"": 0.4171270143844086, ""fast"": 0.20743873021955575, ""high_clearance"": -0.6245657446039643}"
+rough_mid,motion_objective,fast,validated_locomotion,fast,1.7483559164819185,pairwise_vote,"{""cautious"": -0.5788328338584079, ""fast"": 1.1695230826235106, ""high_clearance"": -0.5906902487651027}"
+rough_mid,stability_objective,cautious,cautious_probe,cautious,0.0,fallback_no_pair_evidence,"{""cautious"": 0.0}"
+rough_mid,deploy_objective,high_clearance,high_clearance_slow_probe,high_clearance,0.004482701926338973,pairwise_vote,"{""fast"": -0.0022413509631694865, ""high_clearance"": 0.0022413509631694865}"
+slope_5deg,motion_objective,fast,validated_locomotion,fast,1.5038068508829607,pairwise_vote,"{""cautious"": -1.0309421027628698, ""fast"": 1.2673744768229152, ""high_clearance"": -0.23643237406004552}"
+slope_5deg,stability_objective,high_clearance,high_clearance_slow_probe,high_clearance,0.44605622895911745,pairwise_vote,"{""cautious"": -0.832597449780133, ""fast"": 0.19327061041050772, ""high_clearance"": 0.6393268393696252}"
+slope_5deg,deploy_objective,high_clearance,high_clearance_slow_probe,high_clearance,0.39383364383364916,pairwise_vote,"{""cautious"": -0.6991423303475743, ""fast"": 0.15265434325696256, ""high_clearance"": 0.5464879870906117}"

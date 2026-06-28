@@ -1,0 +1,393 @@
+{
+  "default_style_by_terrain": {
+    "flat_normal": "fast",
+    "rough_mid": "cautious",
+    "slope_5deg": "high_clearance"
+  },
+  "objective_profiles": {
+    "deploy_objective": {
+      "energy": 0.1,
+      "motion": 0.34,
+      "stability": 0.56
+    },
+    "motion_objective": {
+      "energy": 0.1,
+      "motion": 0.7,
+      "stability": 0.2
+    },
+    "stability_objective": {
+      "energy": 0.1,
+      "motion": 0.15,
+      "stability": 0.75
+    }
+  },
+  "selection_method": {
+    "objective_profile_assignment": "nearest_beta_profile_l2",
+    "runtime_note": "Given terrain_key and beta, normalize beta, choose nearest objective profile, then return the selected semantic/style rule for that terrain/objective.",
+    "style_selection": "pairwise_vote_per_terrain_objective"
+  },
+  "source_pairs_csv": "data/preference_datasets/tracer_objective_conditioned_style_pairs_3x3_v0.csv",
+  "style_to_semantic": {
+    "cautious": {
+      "fused_mode": "locomotion",
+      "semantic_mode": "cautious_probe",
+      "suggested_style": "cautious"
+    },
+    "conservative": {
+      "fused_mode": "locomotion",
+      "semantic_mode": "cautious_locomotion",
+      "suggested_style": "cautious"
+    },
+    "fast": {
+      "fused_mode": "locomotion",
+      "semantic_mode": "validated_locomotion",
+      "suggested_style": "fast"
+    },
+    "high_clearance": {
+      "fused_mode": "locomotion",
+      "semantic_mode": "high_clearance_slow_probe",
+      "suggested_style": "high_clearance"
+    }
+  },
+  "terrain_objective_rules": {
+    "flat_normal": {
+      "deploy_objective": {
+        "beta_profile": {
+          "energy": 0.1,
+          "motion": 0.34,
+          "stability": 0.56
+        },
+        "evidence": [
+          {
+            "label_confidence": 0.3956964161358536,
+            "loser_style": "fast",
+            "margin": 0.11705321154988779,
+            "weight": 0.046317536307482504,
+            "winner_style": "cautious"
+          },
+          {
+            "label_confidence": 1.0,
+            "loser_style": "high_clearance",
+            "margin": 0.37080947807692605,
+            "weight": 0.37080947807692605,
+            "winner_style": "cautious"
+          },
+          {
+            "label_confidence": 1.0,
+            "loser_style": "high_clearance",
+            "margin": 0.25375626652703825,
+            "weight": 0.25375626652703825,
+            "winner_style": "fast"
+          }
+        ],
+        "fused_mode": "locomotion",
+        "objective_name": "deploy_objective",
+        "reason": "pairwise_vote",
+        "selected_style": "cautious",
+        "semantic_mode": "cautious_probe",
+        "suggested_style": "cautious",
+        "vote_confidence": 0.20968828416485283,
+        "vote_scores": {
+          "cautious": 0.4171270143844086,
+          "fast": 0.20743873021955575,
+          "high_clearance": -0.6245657446039643
+        }
+      },
+      "motion_objective": {
+        "beta_profile": {
+          "energy": 0.1,
+          "motion": 0.7,
+          "stability": 0.2
+        },
+        "evidence": [
+          {
+            "label_confidence": 1.0,
+            "loser_style": "cautious",
+            "margin": 0.5537860562780146,
+            "weight": 0.5537860562780146,
+            "winner_style": "fast"
+          },
+          {
+            "label_confidence": 1.0,
+            "loser_style": "high_clearance",
+            "margin": 0.2951005095779161,
+            "weight": 0.2951005095779161,
+            "winner_style": "cautious"
+          },
+          {
+            "label_confidence": 1.0,
+            "loser_style": "high_clearance",
+            "margin": 0.8488865658559306,
+            "weight": 0.8488865658559306,
+            "winner_style": "fast"
+          }
+        ],
+        "fused_mode": "locomotion",
+        "objective_name": "motion_objective",
+        "reason": "pairwise_vote",
+        "selected_style": "fast",
+        "semantic_mode": "validated_locomotion",
+        "suggested_style": "fast",
+        "vote_confidence": 1.6613581688340435,
+        "vote_scores": {
+          "cautious": -0.25868554670009847,
+          "fast": 1.4026726221339452,
+          "high_clearance": -1.1439870754338468
+        }
+      },
+      "stability_objective": {
+        "beta_profile": {
+          "energy": 0.1,
+          "motion": 0.15,
+          "stability": 0.75
+        },
+        "evidence": [
+          {
+            "label_confidence": 0.41919014991865244,
+            "loser_style": "cautious",
+            "margin": 0.12222183298210354,
+            "weight": 0.05123418849110048,
+            "winner_style": "fast"
+          },
+          {
+            "label_confidence": 0.6799129225239121,
+            "loser_style": "high_clearance",
+            "margin": 0.17958084295526067,
+            "weight": 0.12209933576301897,
+            "winner_style": "cautious"
+          },
+          {
+            "label_confidence": 1.0,
+            "loser_style": "high_clearance",
+            "margin": 0.3018026759373642,
+            "weight": 0.3018026759373642,
+            "winner_style": "fast"
+          }
+        ],
+        "fused_mode": "locomotion",
+        "objective_name": "stability_objective",
+        "reason": "pairwise_vote",
+        "selected_style": "fast",
+        "semantic_mode": "validated_locomotion",
+        "suggested_style": "fast",
+        "vote_confidence": 0.2821717171565462,
+        "vote_scores": {
+          "cautious": 0.07086514727191849,
+          "fast": 0.3530368644284647,
+          "high_clearance": -0.42390201170038316
+        }
+      }
+    },
+    "rough_mid": {
+      "deploy_objective": {
+        "beta_profile": {
+          "energy": 0.1,
+          "motion": 0.34,
+          "stability": 0.56
+        },
+        "evidence": [
+          {
+            "label_confidence": 0.053624254138391614,
+            "loser_style": "fast",
+            "margin": 0.041797335910446154,
+            "weight": 0.0022413509631694865,
+            "winner_style": "high_clearance"
+          }
+        ],
+        "fused_mode": "locomotion",
+        "objective_name": "deploy_objective",
+        "reason": "pairwise_vote",
+        "selected_style": "high_clearance",
+        "semantic_mode": "high_clearance_slow_probe",
+        "suggested_style": "high_clearance",
+        "vote_confidence": 0.004482701926338973,
+        "vote_scores": {
+          "fast": -0.0022413509631694865,
+          "high_clearance": 0.0022413509631694865
+        }
+      },
+      "motion_objective": {
+        "beta_profile": {
+          "energy": 0.1,
+          "motion": 0.7,
+          "stability": 0.2
+        },
+        "evidence": [
+          {
+            "label_confidence": 1.0,
+            "loser_style": "cautious",
+            "margin": 0.5788328338584079,
+            "weight": 0.5788328338584079,
+            "winner_style": "fast"
+          },
+          {
+            "label_confidence": 1.0,
+            "loser_style": "high_clearance",
+            "margin": 0.5906902487651027,
+            "weight": 0.5906902487651027,
+            "winner_style": "fast"
+          }
+        ],
+        "fused_mode": "locomotion",
+        "objective_name": "motion_objective",
+        "reason": "pairwise_vote",
+        "selected_style": "fast",
+        "semantic_mode": "validated_locomotion",
+        "suggested_style": "fast",
+        "vote_confidence": 1.7483559164819185,
+        "vote_scores": {
+          "cautious": -0.5788328338584079,
+          "fast": 1.1695230826235106,
+          "high_clearance": -0.5906902487651027
+        }
+      },
+      "stability_objective": {
+        "beta_profile": {
+          "energy": 0.1,
+          "motion": 0.15,
+          "stability": 0.75
+        },
+        "evidence": [],
+        "fused_mode": "locomotion",
+        "objective_name": "stability_objective",
+        "reason": "fallback_no_pair_evidence",
+        "selected_style": "cautious",
+        "semantic_mode": "cautious_probe",
+        "suggested_style": "cautious",
+        "vote_confidence": 0.0,
+        "vote_scores": {
+          "cautious": 0.0
+        }
+      }
+    },
+    "slope_5deg": {
+      "deploy_objective": {
+        "beta_profile": {
+          "energy": 0.1,
+          "motion": 0.34,
+          "stability": 0.56
+        },
+        "evidence": [
+          {
+            "label_confidence": 1.0,
+            "loser_style": "cautious",
+            "margin": 0.2635974646371665,
+            "weight": 0.2635974646371665,
+            "winner_style": "fast"
+          },
+          {
+            "label_confidence": 1.0,
+            "loser_style": "cautious",
+            "margin": 0.4355448657104078,
+            "weight": 0.4355448657104078,
+            "winner_style": "high_clearance"
+          },
+          {
+            "label_confidence": 0.6452154594238241,
+            "loser_style": "fast",
+            "margin": 0.1719474010732413,
+            "weight": 0.11094312138020393,
+            "winner_style": "high_clearance"
+          }
+        ],
+        "fused_mode": "locomotion",
+        "objective_name": "deploy_objective",
+        "reason": "pairwise_vote",
+        "selected_style": "high_clearance",
+        "semantic_mode": "high_clearance_slow_probe",
+        "suggested_style": "high_clearance",
+        "vote_confidence": 0.39383364383364916,
+        "vote_scores": {
+          "cautious": -0.6991423303475743,
+          "fast": 0.15265434325696256,
+          "high_clearance": 0.5464879870906117
+        }
+      },
+      "motion_objective": {
+        "beta_profile": {
+          "energy": 0.1,
+          "motion": 0.7,
+          "stability": 0.2
+        },
+        "evidence": [
+          {
+            "label_confidence": 1.0,
+            "loser_style": "cautious",
+            "margin": 0.766105526528595,
+            "weight": 0.766105526528595,
+            "winner_style": "fast"
+          },
+          {
+            "label_confidence": 1.0,
+            "loser_style": "cautious",
+            "margin": 0.26483657623427476,
+            "weight": 0.26483657623427476,
+            "winner_style": "high_clearance"
+          },
+          {
+            "label_confidence": 1.0,
+            "loser_style": "high_clearance",
+            "margin": 0.5012689502943203,
+            "weight": 0.5012689502943203,
+            "winner_style": "fast"
+          }
+        ],
+        "fused_mode": "locomotion",
+        "objective_name": "motion_objective",
+        "reason": "pairwise_vote",
+        "selected_style": "fast",
+        "semantic_mode": "validated_locomotion",
+        "suggested_style": "fast",
+        "vote_confidence": 1.5038068508829607,
+        "vote_scores": {
+          "cautious": -1.0309421027628698,
+          "fast": 1.2673744768229152,
+          "high_clearance": -0.23643237406004552
+        }
+      },
+      "stability_objective": {
+        "beta_profile": {
+          "energy": 0.1,
+          "motion": 0.15,
+          "stability": 0.75
+        },
+        "evidence": [
+          {
+            "label_confidence": 1.0,
+            "loser_style": "cautious",
+            "margin": 0.32375297287616,
+            "weight": 0.32375297287616,
+            "winner_style": "fast"
+          },
+          {
+            "label_confidence": 1.0,
+            "loser_style": "cautious",
+            "margin": 0.5088444769039729,
+            "weight": 0.5088444769039729,
+            "winner_style": "high_clearance"
+          },
+          {
+            "label_confidence": 0.7049613819446042,
+            "loser_style": "fast",
+            "margin": 0.18509150402781294,
+            "weight": 0.13048236246565229,
+            "winner_style": "high_clearance"
+          }
+        ],
+        "fused_mode": "locomotion",
+        "objective_name": "stability_objective",
+        "reason": "pairwise_vote",
+        "selected_style": "high_clearance",
+        "semantic_mode": "high_clearance_slow_probe",
+        "suggested_style": "high_clearance",
+        "vote_confidence": 0.44605622895911745,
+        "vote_scores": {
+          "cautious": -0.832597449780133,
+          "fast": 0.19327061041050772,
+          "high_clearance": 0.6393268393696252
+        }
+      }
+    }
+  },
+  "version": "tracer_objective_conditioned_selector_v0"
+}
