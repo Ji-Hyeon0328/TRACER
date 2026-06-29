@@ -375,6 +375,7 @@ class RolloutEpisodeRecorder(Node):
         gate_action = col("gate_action_code")
         override = col("gate_would_override")
         proprio_abs = col("proprio_abs_mean")
+        proprio_base_z = col("proprio_base_z")
 
         shadow_enabled = col("shadow_recovery_enabled")
         shadow_score = col("shadow_recovery_score")
@@ -445,6 +446,15 @@ class RolloutEpisodeRecorder(Node):
         )
         state_present = mean(proprio_abs) > 1.0e-4
 
+        base_z_p10 = pct(proprio_base_z, 0.10)
+        base_z_p50 = pct(proprio_base_z, 0.50)
+        base_z_min = min(proprio_base_z) if proprio_base_z else 0.0
+        base_height_stable = (
+            state_present
+            and base_z_p10 >= 0.18
+            and base_z_p50 >= 0.22
+        )
+
         # Motion gate:
         # Compare observed displacement against a small fraction of the commanded
         # travel distance. This prevents very slow commands such as vx=0.045 from
@@ -462,6 +472,7 @@ class RolloutEpisodeRecorder(Node):
             and pct(fallen, 0.90) < 0.50
             and debug_fresh_rate_1p0 >= 0.90
             and state_present
+            and base_height_stable
             and moved_enough
         )
 
@@ -529,6 +540,17 @@ class RolloutEpisodeRecorder(Node):
 
             "proprio_abs_mean": mean(proprio_abs),
             "proprio_abs_p90": pct(proprio_abs, 0.90),
+            "proprio_base_z_mean": mean(proprio_base_z),
+            "proprio_base_z_min": base_z_min,
+            "proprio_base_z_p10": base_z_p10,
+            "proprio_base_z_p50": base_z_p50,
+            "proprio_base_height_stable": bool(base_height_stable),
+            "proprio_base_z_below_0p18_frac": (
+                sum(1.0 for v in proprio_base_z if v < 0.18) / max(1, len(proprio_base_z))
+            ),
+            "proprio_base_z_below_0p22_frac": (
+                sum(1.0 for v in proprio_base_z if v < 0.22) / max(1, len(proprio_base_z))
+            ),
 
             "distance_xy_proxy": distance_xy,
             "success_proxy": bool(success_proxy),
