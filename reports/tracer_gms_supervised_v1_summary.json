@@ -1,0 +1,8 @@
+{
+  "targets_csv": "data/gms/tracer_gms_v1_risk_aware_targets.csv",
+  "artifact_json": "artifacts/tracer_gms_supervised_v1/model.json",
+  "report_csv": "reports/tracer_gms_supervised_v1_train_report.csv",
+  "rows": 45,
+  "features": 19,
+  "train_acc": 1.0
+}

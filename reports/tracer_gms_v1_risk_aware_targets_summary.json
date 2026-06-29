@@ -1,0 +1,28 @@
+{
+  "input": "reports/tracer_ram_gms_data_v2_core_hard_gms_style_targets.csv",
+  "rows": 45,
+  "terrains": [
+    "flat_normal",
+    "rough_mid",
+    "slippery_downslope_5deg_forward",
+    "slope_5deg",
+    "sponge_firm_downslope_5deg_forward"
+  ],
+  "missions": [
+    "motion",
+    "deploy",
+    "stability"
+  ],
+  "risk_levels": [
+    "low",
+    "mid",
+    "high"
+  ],
+  "styles": [
+    "cautious",
+    "fast",
+    "high_clearance"
+  ],
+  "output_csv": "data/gms/tracer_gms_v1_risk_aware_targets.csv",
+  "output_jsonl": "data/gms/tracer_gms_v1_risk_aware_targets.jsonl"
+}
