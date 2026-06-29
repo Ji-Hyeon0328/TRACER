@@ -396,6 +396,70 @@ def _ls3_ram_rho_norm(policy_input: Any, gate: dict[str, Any]) -> float:
 
 
 
+
+def _objective_selector_v1_shadow_from_env(terrain_key, mission_mode, ram_risk=0.0, recovery_needed=0.0, logger=None):
+    """Run ObjectiveSelectorV1 in shadow mode.
+
+    This does not modify the deployed command. It only logs the selected beta/style
+    so we can compare the learned selector against the existing policy path.
+    """
+    import os
+
+    enable = str(os.environ.get("TRACER_OBJECTIVE_SELECTOR_V1_SHADOW_ENABLE", "0")).strip().lower()
+    if enable not in {"1", "true", "yes", "on"}:
+        return None
+
+    model_path = os.environ.get(
+        "TRACER_OBJECTIVE_SELECTOR_V1_MODEL",
+        "configs/learned_models/tracer_preference_objective_irl_v1_model.json",
+    )
+    aggregate_csv = os.environ.get(
+        "TRACER_OBJECTIVE_SELECTOR_V1_AGGREGATE_CSV",
+        "reports/tracer_objective_selector_data_v1_core3_hard3_aggregate_by_style_clean.csv",
+    )
+
+    try:
+        from tracer_core.highlevel.objective_selector_v1 import ObjectiveSelectorV1
+
+        selector = ObjectiveSelectorV1(
+            model_path=model_path,
+            aggregate_csv=aggregate_csv,
+        )
+        out = selector.select(
+            terrain=str(terrain_key),
+            mission_mode=str(mission_mode or "deploy"),
+            ram_risk=float(ram_risk or 0.0),
+            recovery_needed=float(recovery_needed or 0.0),
+        )
+
+        msg = (
+            "objective_selector_v1_shadow "
+            f"terrain={out.terrain} mission={out.mission_mode} "
+            f"beta={out.selected_beta_name} "
+            f"beta_motion={out.beta_motion:.3f} "
+            f"beta_stability={out.beta_stability:.3f} "
+            f"beta_energy={out.beta_energy:.3f} "
+            f"style={out.predicted_style} "
+            f"score={out.score:.3f} "
+            f"confidence={out.confidence:.3f} "
+            f"reason={out.reason}"
+        )
+        if logger is not None:
+            logger.info(msg)
+        else:
+            print("[TRACER]", msg)
+
+        return out
+    except Exception as exc:
+        msg = f"objective_selector_v1_shadow_failed terrain={terrain_key} error={exc}"
+        if logger is not None:
+            logger.warn(msg)
+        else:
+            print("[TRACER]", msg)
+        return None
+
+
+
 def _objective_conditioned_force_style_from_env(terrain_key: str, entry: dict, logger=None) -> str:
     """Return a style selected by objective-conditioned selector, or empty string.
 
@@ -701,8 +765,10 @@ class TracerFusionPolicyMpcRefNode(Node):
             _objective_selector_v1_shadow_from_env(
                 self.terrain,
                 str(os.environ.get("TRACER_OBJECTIVE_SELECTOR_V1_MISSION", "deploy")),
-                ram_risk=0.0,
-                recovery_needed=0.0,
+                ram_risk=float(self.entry.get("fused_risk", 0.0)),
+                recovery_needed=1.0
+                if str(self.entry.get("fused_mode", "")).lower() in {"recovery_needed", "safe_stop"}
+                else 0.0,
                 logger=self.get_logger(),
             )
         except Exception as exc:
