@@ -166,7 +166,10 @@ class TracerRAMScalarV3ShadowNode(Node):
             odom_x=_as_float(odom[0], 0.0) if len(odom) > 0 else 0.0,
             odom_y=_as_float(odom[1], 0.0) if len(odom) > 1 else 0.0,
             odom_z=_as_float(odom[2], 0.0) if len(odom) > 2 else 0.0,
-            odom_vx=_as_float(odom[3], 0.0) if len(odom) > 3 else 0.0,
+            # The scalar RAM v3 training dataset had non-finite odom_vx values
+            # that were sanitized during training. Keep odom_vx disabled in this
+            # shadow node until the recorder/dataset stores reliable velocity.
+            odom_vx=0.0,
 
             age_mpc=self._age(self.latest_mpc_wall),
             age_beta=self._age(self.latest_beta_wall),
