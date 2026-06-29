@@ -1,0 +1,36 @@
+version: gms_table_modes_terrain_probe_v1
+description: >
+  Probe terrain-conditioned GMS reference suitability using flat-derived candidates.
+  IMPORTANT: terrain labels here are metadata only. Launch the matching Gazebo world before running.
+
+terrains:
+  - slope5_forward
+
+presets:
+  - name: gms_fast_vx012_h032_c006
+    vx: 0.12
+    yaw_rate: 0.0
+    body_height: 0.32
+    swing_clearance: 0.06
+    enable: 1.0
+
+  - name: gms_balanced_vx010_h034_c006
+    vx: 0.10
+    yaw_rate: 0.0
+    body_height: 0.34
+    swing_clearance: 0.06
+    enable: 1.0
+
+  - name: gms_acceptable_vx010_h032_c006
+    vx: 0.10
+    yaw_rate: 0.0
+    body_height: 0.32
+    swing_clearance: 0.06
+    enable: 1.0
+
+  - name: gms_diagnostic_vx009_h032_c005
+    vx: 0.09
+    yaw_rate: 0.0
+    body_height: 0.32
+    swing_clearance: 0.05
+    enable: 1.0

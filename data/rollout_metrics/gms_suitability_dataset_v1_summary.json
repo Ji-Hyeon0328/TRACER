@@ -1,17 +1,17 @@
 {
-  "n_rows": 41,
-  "n_valid": 40,
+  "n_rows": 49,
+  "n_valid": 48,
   "n_invalid": 1,
   "labels": {
     "negative_lateral_drift": 4,
-    "negative_low_height": 3,
+    "negative_low_height": 4,
     "acceptable_slow_flat": 7,
-    "preferred_balanced_flat": 16,
+    "preferred_balanced_flat": 18,
     "invalid_data": 1,
     "variable_or_unknown": 3,
-    "preferred_fast_flat": 4,
-    "negative_unstable_attitude": 1,
-    "variable_forward_with_lateral_drift": 2
+    "preferred_fast_flat": 7,
+    "negative_unstable_attitude": 2,
+    "variable_forward_with_lateral_drift": 3
   },
   "best_by_cost": [
     {
