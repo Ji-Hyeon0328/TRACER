@@ -67,9 +67,11 @@ class RAMScalarV3UDPServer:
                 self.buffer.append(r)
             window = list(self.buffer)
         elif "window" in msg:
-            window = msg["window"]
+            # Numeric [T,D] payload.
+            window = np.asarray(msg["window"], dtype=np.float32)
         elif "features" in msg:
-            window = msg["features"]
+            # Numeric [T,D] payload. This path is used by the smoke checker.
+            window = np.asarray(msg["features"], dtype=np.float32)
         else:
             return {
                 "ok": False,
