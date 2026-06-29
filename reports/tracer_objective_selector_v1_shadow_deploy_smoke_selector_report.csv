@@ -1,0 +1,9 @@
+terrain,mission,selected_beta,beta_motion,beta_stability,beta_energy,predicted_style,score,confidence,reason
+flat_normal,deploy,deploy,0.34,0.56,0.1,fast,8.906,0.852,"mission=deploy, ram_risk=0.001, recovery_needed=0.000, mission_deploy_select_deploy_beta, risk_low_allow_all_styles, style_candidate_count=3"
+flat_normal,deploy,deploy,0.34,0.56,0.1,fast,8.906,0.852,"mission=deploy, ram_risk=0.001, recovery_needed=0.000, mission_deploy_select_deploy_beta, risk_low_allow_all_styles, style_candidate_count=3"
+flat_normal,deploy,deploy,0.34,0.56,0.1,fast,8.906,0.852,"mission=deploy, ram_risk=0.001, recovery_needed=0.000, mission_deploy_select_deploy_beta, risk_low_allow_all_styles, style_candidate_count=3"
+slippery_downslope_5deg_forward,deploy,safe,0.08,0.82,0.1,high_clearance,9.939,0.751,"mission=deploy, ram_risk=0.951, recovery_needed=0.000, risk_high_select_safe_beta, risk_high_block_fast_style, style_candidate_count=2"
+slippery_downslope_5deg_forward,deploy,safe,0.08,0.82,0.1,high_clearance,9.939,0.751,"mission=deploy, ram_risk=0.951, recovery_needed=0.000, risk_high_select_safe_beta, risk_high_block_fast_style, style_candidate_count=2"
+sponge_firm_downslope_5deg_forward,deploy,deploy,0.34,0.56,0.1,fast,8.632,0.684,"mission=deploy, ram_risk=0.171, recovery_needed=0.000, mission_deploy_select_deploy_beta, risk_low_allow_all_styles, style_candidate_count=3"
+sponge_firm_downslope_5deg_forward,deploy,deploy,0.34,0.56,0.1,fast,8.632,0.684,"mission=deploy, ram_risk=0.171, recovery_needed=0.000, mission_deploy_select_deploy_beta, risk_low_allow_all_styles, style_candidate_count=3"
+sponge_firm_downslope_5deg_forward,deploy,deploy,0.34,0.56,0.1,fast,8.632,0.684,"mission=deploy, ram_risk=0.171, recovery_needed=0.000, mission_deploy_select_deploy_beta, risk_low_allow_all_styles, style_candidate_count=3"

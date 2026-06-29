@@ -1,0 +1,110 @@
+[
+  {
+    "terrain": "flat_normal",
+    "forced_style": "fast",
+    "policy_id": "objective_selector_v1_shadow_deploy_smoke_flat_normal_fast_world_stairs_single",
+    "success_proxy": false,
+    "mpc_vx_mean": 0.2799999999999999,
+    "distance_xy_proxy": 1.1863371459487144,
+    "ram_run_fallen_p90": 9.226049542121473e-07,
+    "ram_recovery_needed_mean": 9.290919189095034e-15,
+    "debug_fresh_rate_1p0s": 0.875,
+    "summary_json": "/home/shoko/Tracer/TRACER/data/rollout_dataset_v0/summaries/flat_normal_objective_selector_v1_shadow_deploy_smoke_flat_normal_fast_world_stairs_single_r1_20260628_211806.json"
+  },
+  {
+    "terrain": "flat_normal",
+    "forced_style": "cautious",
+    "policy_id": "objective_selector_v1_shadow_deploy_smoke_flat_normal_cautious_world_stairs_single",
+    "success_proxy": false,
+    "mpc_vx_mean": 0.05499999999999999,
+    "distance_xy_proxy": 0.406376567381782,
+    "ram_run_fallen_p90": 1.920245722430991e-06,
+    "ram_recovery_needed_mean": 1.0791800743346763e-12,
+    "debug_fresh_rate_1p0s": 0.875,
+    "summary_json": "/home/shoko/Tracer/TRACER/data/rollout_dataset_v0/summaries/flat_normal_objective_selector_v1_shadow_deploy_smoke_flat_normal_cautious_world_stairs_single_r1_20260628_211902.json"
+  },
+  {
+    "terrain": "flat_normal",
+    "forced_style": "high_clearance",
+    "policy_id": "objective_selector_v1_shadow_deploy_smoke_flat_normal_high_clearance_world_stairs_single",
+    "success_proxy": true,
+    "mpc_vx_mean": 0.04499999999999998,
+    "distance_xy_proxy": 0.3240210981374252,
+    "ram_run_fallen_p90": 2.3161760509538e-06,
+    "ram_recovery_needed_mean": 1.9738870890339558e-15,
+    "debug_fresh_rate_1p0s": 0.925,
+    "summary_json": "/home/shoko/Tracer/TRACER/data/rollout_dataset_v0/summaries/flat_normal_objective_selector_v1_shadow_deploy_smoke_flat_normal_high_clearance_world_stairs_single_r1_20260628_211958.json"
+  },
+  {
+    "terrain": "slippery_downslope_5deg_forward",
+    "forced_style": "fast",
+    "policy_id": "objective_selector_v1_shadow_deploy_smoke_slippery_downslope_5deg_forward_fast_world_tracer_downslope_5deg",
+    "success_proxy": true,
+    "mpc_vx_mean": 0.2799999999999999,
+    "distance_xy_proxy": 0.4893208401762055,
+    "ram_run_fallen_p90": 1.397306391481834e-06,
+    "ram_recovery_needed_mean": 5.330167595623519e-14,
+    "debug_fresh_rate_1p0s": 0.925,
+    "summary_json": "/home/shoko/Tracer/TRACER/data/rollout_dataset_v0/summaries/slippery_downslope_5deg_forward_objective_selector_v1_shadow_deploy_smoke_slippery_downslope_5deg_forward_fast_world_tracer_downslope_5deg_r1_20260628_212054.json"
+  },
+  {
+    "terrain": "slippery_downslope_5deg_forward",
+    "forced_style": "cautious",
+    "policy_id": "objective_selector_v1_shadow_deploy_smoke_slippery_downslope_5deg_forward_cautious_world_tracer_downslope_5deg",
+    "success_proxy": false,
+    "mpc_vx_mean": 0.05499999999999999,
+    "distance_xy_proxy": 0.05162905018141782,
+    "ram_run_fallen_p90": 1.3757255601376528e-07,
+    "ram_recovery_needed_mean": 3.0931093169074625e-15,
+    "debug_fresh_rate_1p0s": 1.0,
+    "summary_json": "/home/shoko/Tracer/TRACER/data/rollout_dataset_v0/summaries/slippery_downslope_5deg_forward_objective_selector_v1_shadow_deploy_smoke_slippery_downslope_5deg_forward_cautious_world_tracer_downslope_5deg_r1_20260628_212150.json"
+  },
+  {
+    "terrain": "slippery_downslope_5deg_forward",
+    "forced_style": "high_clearance",
+    "policy_id": "objective_selector_v1_shadow_deploy_smoke_slippery_downslope_5deg_forward_high_clearance_world_tracer_downslope_5deg",
+    "success_proxy": true,
+    "mpc_vx_mean": 0.04499999999999998,
+    "distance_xy_proxy": 0.08893017310258894,
+    "ram_run_fallen_p90": 9.899558790493757e-07,
+    "ram_recovery_needed_mean": 1.6296734645869575e-14,
+    "debug_fresh_rate_1p0s": 0.975,
+    "summary_json": "/home/shoko/Tracer/TRACER/data/rollout_dataset_v0/summaries/slippery_downslope_5deg_forward_objective_selector_v1_shadow_deploy_smoke_slippery_downslope_5deg_forward_high_clearance_world_tracer_downslope_5deg_r1_20260628_212246.json"
+  },
+  {
+    "terrain": "sponge_firm_downslope_5deg_forward",
+    "forced_style": "fast",
+    "policy_id": "objective_selector_v1_shadow_deploy_smoke_sponge_firm_downslope_5deg_forward_fast_world_tracer_sponge_firm_downslope_5deg",
+    "success_proxy": true,
+    "mpc_vx_mean": 0.2799999999999999,
+    "distance_xy_proxy": 0.9351215326773507,
+    "ram_run_fallen_p90": 0.000211918682907708,
+    "ram_recovery_needed_mean": 3.791683312878187e-12,
+    "debug_fresh_rate_1p0s": 0.925,
+    "summary_json": "/home/shoko/Tracer/TRACER/data/rollout_dataset_v0/summaries/sponge_firm_downslope_5deg_forward_objective_selector_v1_shadow_deploy_smoke_sponge_firm_downslope_5deg_forward_fast_world_tracer_sponge_firm_downslope_5deg_r1_20260628_212342.json"
+  },
+  {
+    "terrain": "sponge_firm_downslope_5deg_forward",
+    "forced_style": "cautious",
+    "policy_id": "objective_selector_v1_shadow_deploy_smoke_sponge_firm_downslope_5deg_forward_cautious_world_tracer_sponge_firm_downslope_5deg",
+    "success_proxy": true,
+    "mpc_vx_mean": 0.05499999999999999,
+    "distance_xy_proxy": 0.9758820392764999,
+    "ram_run_fallen_p90": 2.5484807792963693e-06,
+    "ram_recovery_needed_mean": 5.188160699360169e-12,
+    "debug_fresh_rate_1p0s": 0.95,
+    "summary_json": "/home/shoko/Tracer/TRACER/data/rollout_dataset_v0/summaries/sponge_firm_downslope_5deg_forward_objective_selector_v1_shadow_deploy_smoke_sponge_firm_downslope_5deg_forward_cautious_world_tracer_sponge_firm_downslope_5deg_r1_20260628_212439.json"
+  },
+  {
+    "terrain": "sponge_firm_downslope_5deg_forward",
+    "forced_style": "high_clearance",
+    "policy_id": "objective_selector_v1_shadow_deploy_smoke_sponge_firm_downslope_5deg_forward_high_clearance_world_tracer_sponge_firm_downslope_5deg",
+    "success_proxy": true,
+    "mpc_vx_mean": 0.04499999999999998,
+    "distance_xy_proxy": 0.4862117368526386,
+    "ram_run_fallen_p90": 0.011456262320280075,
+    "ram_recovery_needed_mean": 2.5001077878405052e-14,
+    "debug_fresh_rate_1p0s": 0.925,
+    "summary_json": "/home/shoko/Tracer/TRACER/data/rollout_dataset_v0/summaries/sponge_firm_downslope_5deg_forward_objective_selector_v1_shadow_deploy_smoke_sponge_firm_downslope_5deg_forward_high_clearance_world_tracer_sponge_firm_downslope_5deg_r1_20260628_212535.json"
+  }
+]
