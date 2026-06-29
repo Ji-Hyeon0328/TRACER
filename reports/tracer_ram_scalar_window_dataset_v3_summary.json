@@ -1,0 +1,58 @@
+{
+  "valid_rows_csv": "reports/tracer_ram_gms_data_v2_core_hard_valid_rows.csv",
+  "out_npz": "data/training/tracer_ram_scalar_window_dataset_v3.npz",
+  "window": 30,
+  "stride": 3,
+  "future": 10,
+  "sample_hz": 5.0,
+  "n_episodes": 42,
+  "n_windows": 420,
+  "window_shape": [
+    420,
+    30,
+    22
+  ],
+  "label_shape": [
+    420,
+    5
+  ],
+  "feature_names": [
+    "mpc_vx",
+    "mpc_yaw",
+    "mpc_body_height",
+    "mpc_clearance",
+    "mpc_enable",
+    "beta_motion",
+    "beta_stability",
+    "beta_energy",
+    "proprio_abs_mean",
+    "proprio_abs_max",
+    "proprio_base_x",
+    "proprio_base_y",
+    "proprio_base_z",
+    "odom_x",
+    "odom_y",
+    "odom_z",
+    "odom_vx",
+    "age_mpc",
+    "age_beta",
+    "age_proprio",
+    "age_odom",
+    "age_debug"
+  ],
+  "label_names": [
+    "future_fallen_height",
+    "future_low_height",
+    "future_low_progress",
+    "future_bad_locomotion",
+    "future_good_locomotion"
+  ],
+  "label_means": {
+    "future_fallen_height": 0.04285714402794838,
+    "future_low_height": 0.10238095372915268,
+    "future_low_progress": 0.33571428060531616,
+    "future_bad_locomotion": 0.526190459728241,
+    "future_good_locomotion": 0.47380951046943665
+  },
+  "skipped": []
+}
