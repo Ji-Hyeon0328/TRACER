@@ -694,6 +694,19 @@ class TracerFusionPolicyMpcRefNode(Node):
                     )
                 )
         self.command = self.entry["command"]
+
+        # Objective Selector v1 shadow path.
+        # This does not modify the command yet; it only logs β/style predictions.
+        try:
+            _objective_selector_v1_shadow_from_env(
+                self.terrain,
+                str(os.environ.get("TRACER_OBJECTIVE_SELECTOR_V1_MISSION", "deploy")),
+                ram_risk=0.0,
+                recovery_needed=0.0,
+                logger=self.get_logger(),
+            )
+        except Exception as exc:
+            self.get_logger().warn(f"objective_selector_v1_shadow_call_failed: {exc}")
         self.counter = 0.0
         self.t0 = time.time()
         self.last_print = 0.0
