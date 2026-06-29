@@ -391,10 +391,20 @@ class RolloutEpisodeRecorder(Node):
         active_protected = col("active_recovery_protected")
         age_debug = col("age_debug")
 
+        # A scalar RAM v3 row is useful only if both the RAM output and its
+        # upstream inputs are fresh. Otherwise the shadow node may be evaluating
+        # a default/stale row, which should not count as a valid calibration
+        # sample.
         ram_scalar_v3_fresh_rows = [
             r for r in rows
             if f(r.get("ram_scalar_v3_ok", 0.0)) > 0.5
             and f(r.get("age_ram_scalar_v3", 9999.0)) <= 1.0
+            and f(r.get("age_mpc", 9999.0)) <= 1.0
+            and f(r.get("age_beta", 9999.0)) <= 1.0
+            and f(r.get("age_proprio", 9999.0)) <= 1.0
+            and f(r.get("age_odom", 9999.0)) <= 1.0
+            and f(r.get("mpc_enable", 0.0)) > 0.5
+            and f(r.get("proprio_dim", 0.0)) > 0.0
         ]
 
         def col_from(rs: list[dict[str, Any]], k: str) -> list[float]:
