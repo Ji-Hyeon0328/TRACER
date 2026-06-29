@@ -84,6 +84,7 @@ class RAMScalarV3ShadowCsvLogger(Node):
         self.writer = csv.DictWriter(self.fp, fieldnames=self.fields)
         self.writer.writeheader()
         self.count = 0
+        self.stop_requested = False
 
         self.create_subscription(String, self.topic, self.on_msg, 50)
 
@@ -116,9 +117,9 @@ class RAMScalarV3ShadowCsvLogger(Node):
         if self.max_rows > 0 and self.count >= self.max_rows:
             self.fp.flush()
             self.get_logger().info(
-                f"max_rows reached: {self.count}; shutting down RAM scalar v3 shadow CSV logger"
+                f"max_rows reached: {self.count}; stopping RAM scalar v3 shadow CSV logger"
             )
-            rclpy.shutdown()
+            self.stop_requested = True
 
     def destroy_node(self):
         try:
@@ -133,10 +134,14 @@ def main():
     rclpy.init()
     node = RAMScalarV3ShadowCsvLogger()
     try:
-        rclpy.spin(node)
+        while rclpy.ok() and not node.stop_requested:
+            rclpy.spin_once(node, timeout_sec=0.1)
+    except KeyboardInterrupt:
+        pass
     finally:
         node.destroy_node()
-        rclpy.shutdown()
+        if rclpy.ok():
+            rclpy.shutdown()
 
 
 if __name__ == "__main__":
