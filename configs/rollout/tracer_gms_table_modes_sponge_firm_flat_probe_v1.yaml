@@ -1,0 +1,36 @@
+version: gms_table_modes_sponge_firm_flat_probe_v1
+description: >
+  Probe sponge_firm_flat GMS reference suitability using flat/slope-derived candidates.
+  IMPORTANT: terrain labels here are metadata only. Launch tracer_sponge_firm_flat Gazebo world before running.
+
+terrains:
+  - sponge_firm_flat
+
+presets:
+  - name: gms_fast_vx012_h032_c006
+    vx: 0.12
+    yaw_rate: 0.0
+    body_height: 0.32
+    swing_clearance: 0.06
+    enable: 1.0
+
+  - name: gms_balanced_vx010_h034_c006
+    vx: 0.10
+    yaw_rate: 0.0
+    body_height: 0.34
+    swing_clearance: 0.06
+    enable: 1.0
+
+  - name: gms_acceptable_vx010_h032_c006
+    vx: 0.10
+    yaw_rate: 0.0
+    body_height: 0.32
+    swing_clearance: 0.06
+    enable: 1.0
+
+  - name: gms_diagnostic_vx009_h032_c005
+    vx: 0.09
+    yaw_rate: 0.0
+    body_height: 0.32
+    swing_clearance: 0.05
+    enable: 1.0

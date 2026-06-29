@@ -1,0 +1,43 @@
+version: gms_table_modes_sponge_cautious_probe_v1
+description: >
+  Sponge-specific cautious reference probe.
+  Goal: test whether slower speed / higher body target / higher clearance can recover usable walking.
+
+terrains:
+  - sponge_firm_flat
+
+presets:
+  - name: sponge_cautious_vx003_h034_c008
+    vx: 0.03
+    yaw_rate: 0.0
+    body_height: 0.34
+    swing_clearance: 0.08
+    enable: 1.0
+
+  - name: sponge_cautious_vx005_h034_c008
+    vx: 0.05
+    yaw_rate: 0.0
+    body_height: 0.34
+    swing_clearance: 0.08
+    enable: 1.0
+
+  - name: sponge_cautious_vx006_h034_c010
+    vx: 0.06
+    yaw_rate: 0.0
+    body_height: 0.34
+    swing_clearance: 0.10
+    enable: 1.0
+
+  - name: sponge_cautious_vx008_h034_c010
+    vx: 0.08
+    yaw_rate: 0.0
+    body_height: 0.34
+    swing_clearance: 0.10
+    enable: 1.0
+
+  - name: sponge_probe_vx005_h036_c010
+    vx: 0.05
+    yaw_rate: 0.0
+    body_height: 0.36
+    swing_clearance: 0.10
+    enable: 1.0

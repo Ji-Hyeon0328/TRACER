@@ -1,0 +1,43 @@
+version: gms_table_modes_sponge_refine_v1
+description: >
+  Refine sponge_firm_flat candidates around the least-bad cautious reference.
+  Current best bad candidate was vx=0.08, h=0.34, clearance=0.10.
+
+terrains:
+  - sponge_firm_flat
+
+presets:
+  - name: sponge_refine_vx007_h034_c010
+    vx: 0.07
+    yaw_rate: 0.0
+    body_height: 0.34
+    swing_clearance: 0.10
+    enable: 1.0
+
+  - name: sponge_refine_vx008_h034_c010
+    vx: 0.08
+    yaw_rate: 0.0
+    body_height: 0.34
+    swing_clearance: 0.10
+    enable: 1.0
+
+  - name: sponge_refine_vx009_h034_c010
+    vx: 0.09
+    yaw_rate: 0.0
+    body_height: 0.34
+    swing_clearance: 0.10
+    enable: 1.0
+
+  - name: sponge_refine_vx008_h032_c010
+    vx: 0.08
+    yaw_rate: 0.0
+    body_height: 0.32
+    swing_clearance: 0.10
+    enable: 1.0
+
+  - name: sponge_refine_vx008_h034_c012
+    vx: 0.08
+    yaw_rate: 0.0
+    body_height: 0.34
+    swing_clearance: 0.12
+    enable: 1.0

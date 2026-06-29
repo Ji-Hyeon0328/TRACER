@@ -84,6 +84,34 @@ def main() -> int:
     # Fast mode has a special fallback:
     # if no preferred_fast exists in preferred bucket, search acceptable candidates
     # and choose the highest-vx acceptable reference with reasonable cost.
+    # If no preferred/acceptable candidate exists, fail closed.
+    # This means the current normal-walk reference family is rejected for this terrain.
+    if not items:
+        safe_ref = [
+            float(args.counter),
+            0.0,
+            float(args.yaw_rate),
+            0.32,
+            0.0,
+            0.0,
+        ]
+        out = {
+            "terrain": args.terrain,
+            "mode": args.mode,
+            "bucket": args.bucket,
+            "status": "no_safe_normal_walk",
+            "selected": None,
+            "mpc_reference": safe_ref,
+            "layout": ["counter", "vx", "yaw_rate", "body_height", "swing_clearance", "enable"],
+            "recommended_action": "reject_normal_walk",
+            "note": "No preferred/acceptable reference exists for this terrain. Do not select avoid candidates for normal walking.",
+        }
+        if args.json:
+            print(json.dumps(out, indent=2))
+        else:
+            print(safe_ref)
+        return
+
     if args.mode == "fast":
         preferred_fast = [x for x in items if x.get("group_label") == "preferred_fast"]
         if not preferred_fast:
