@@ -1,0 +1,26 @@
+{
+  "valid_rows_csv": "reports/tracer_ram_gms_data_v2_core_hard_valid_rows.csv",
+  "out_npz": "data/training/tracer_ram_window_dataset_v2.npz",
+  "window": 30,
+  "stride": 5,
+  "future": 10,
+  "n_episodes": 42,
+  "n_windows": 294,
+  "window_shape": [
+    294,
+    30,
+    57
+  ],
+  "label_shape": [
+    294,
+    5
+  ],
+  "label_means": {
+    "future_fallen": 0.07604606449604034,
+    "future_recovery_needed": 3.482082400196873e-09,
+    "future_invalid_runtime": 0.0,
+    "future_bad_locomotion": 0.261904776096344,
+    "future_good_locomotion": 0.738095223903656
+  },
+  "skipped": []
+}
