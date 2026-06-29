@@ -1,0 +1,140 @@
+{
+  "version": "gms_reference_table_grouped_v1",
+  "source": "data/rollout_metrics/gms_suitability_dataset_v1.csv",
+  "terrains": {
+    "flat_normal": {
+      "preferred": [
+        {
+          "vx": 0.1,
+          "body_height": 0.3399999999999999,
+          "clearance": 0.06,
+          "group_label": "preferred_balanced",
+          "n": 4,
+          "valid_rate": 1.0,
+          "bad_rate": 0.0,
+          "mean_cost": -0.14479904946709124,
+          "std_cost": 0.06704706994018052,
+          "mean_dx": 0.114561895155843,
+          "std_dx": 0.027364701787943698,
+          "mean_z_p10": 0.33402410763465645,
+          "mean_abs_dy_per_dx": 0.18399005795861792,
+          "mean_roll_abs_max": 0.016401897118536,
+          "mean_pitch_abs_max": 0.03521374050651445,
+          "mean_abs_yaw_delta": 0.008626605508773824
+        }
+      ],
+      "acceptable": [
+        {
+          "vx": 0.12,
+          "body_height": 0.32,
+          "clearance": 0.06,
+          "group_label": "acceptable",
+          "n": 4,
+          "valid_rate": 1.0,
+          "bad_rate": 0.0,
+          "mean_cost": -0.10918058266516044,
+          "std_cost": 0.11290941441914606,
+          "mean_dx": 0.11097658610239623,
+          "std_dx": 0.03810304219085596,
+          "mean_z_p10": 0.31912640895422095,
+          "mean_abs_dy_per_dx": 0.1325215592640074,
+          "mean_roll_abs_max": 0.01838896843207185,
+          "mean_pitch_abs_max": 0.05050019721681037,
+          "mean_abs_yaw_delta": 0.011798551332885852
+        },
+        {
+          "vx": 0.1,
+          "body_height": 0.32,
+          "clearance": 0.06,
+          "group_label": "acceptable",
+          "n": 6,
+          "valid_rate": 1.0,
+          "bad_rate": 0.16666666666666666,
+          "mean_cost": 0.19800842513807262,
+          "std_cost": 0.8293786188352926,
+          "mean_dx": 0.11384364325779163,
+          "std_dx": 0.023622486029355936,
+          "mean_z_p10": 0.3407946608689821,
+          "mean_abs_dy_per_dx": 0.13132558291464588,
+          "mean_roll_abs_max": 0.015421074328558349,
+          "mean_pitch_abs_max": 0.04066178707563981,
+          "mean_abs_yaw_delta": 0.010297607767531716
+        },
+        {
+          "vx": 0.0899999999999999,
+          "body_height": 0.32,
+          "clearance": 0.05,
+          "group_label": "acceptable",
+          "n": 4,
+          "valid_rate": 1.0,
+          "bad_rate": 0.25,
+          "mean_cost": 0.38885713617437495,
+          "std_cost": 0.9835961642570565,
+          "mean_dx": 0.10266514505615727,
+          "std_dx": 0.004398712700695473,
+          "mean_z_p10": 0.3408766257399971,
+          "mean_abs_dy_per_dx": 0.20070995495533994,
+          "mean_roll_abs_max": 0.01964432607934345,
+          "mean_pitch_abs_max": 0.04066351311928147,
+          "mean_abs_yaw_delta": 0.004657084360940275
+        }
+      ],
+      "avoid": [
+        {
+          "vx": 0.1,
+          "body_height": 0.32,
+          "clearance": 0.04,
+          "group_label": "avoid_variable_or_bad",
+          "n": 2,
+          "valid_rate": 1.0,
+          "bad_rate": 0.5,
+          "mean_cost": 2.4564397542690717,
+          "std_cost": 3.7499100933554965,
+          "mean_dx": 0.07112580184797145,
+          "std_dx": 0.08286048960967923,
+          "mean_z_p10": 0.3504287092456868,
+          "mean_abs_dy_per_dx": 1.5755626585832527,
+          "mean_roll_abs_max": 0.01857714445921855,
+          "mean_pitch_abs_max": 0.043712577144848996,
+          "mean_abs_yaw_delta": 0.0065709694486419
+        },
+        {
+          "vx": 0.08,
+          "body_height": 0.32,
+          "clearance": 0.04,
+          "group_label": "avoid_variable_or_bad",
+          "n": 4,
+          "valid_rate": 1.0,
+          "bad_rate": 0.5,
+          "mean_cost": 3.730428695789853,
+          "std_cost": 4.3819173992622,
+          "mean_dx": 0.051698424510952974,
+          "std_dx": 0.034986588877861005,
+          "mean_z_p10": 0.31063972287762887,
+          "mean_abs_dy_per_dx": 2.611516834596218,
+          "mean_roll_abs_max": 0.05200674443386402,
+          "mean_pitch_abs_max": 0.1399631293743395,
+          "mean_abs_yaw_delta": 0.05733841762431725
+        },
+        {
+          "vx": 0.06,
+          "body_height": 0.32,
+          "clearance": 0.06,
+          "group_label": "avoid_variable_or_bad",
+          "n": 2,
+          "valid_rate": 1.0,
+          "bad_rate": 0.5,
+          "mean_cost": 4.51635658753396,
+          "std_cost": 6.54719388401192,
+          "mean_dx": 0.04364519392807155,
+          "std_dx": 0.06211307571983503,
+          "mean_z_p10": 0.30785155182850693,
+          "mean_abs_dy_per_dx": 14.95466822081252,
+          "mean_roll_abs_max": 0.0172210055014724,
+          "mean_pitch_abs_max": 0.0482645371611921,
+          "mean_abs_yaw_delta": 0.00677332674513365
+        }
+      ]
+    }
+  }
+}

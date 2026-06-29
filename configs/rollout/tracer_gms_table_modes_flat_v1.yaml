@@ -1,0 +1,36 @@
+version: gms_table_modes_flat_v1
+description: >
+  Validate references selected from grouped GMS runtime table.
+  Layout: [counter, vx, yaw_rate, body_height, swing_clearance, enable]
+
+terrains:
+  - flat_normal
+
+presets:
+  - name: gms_fast_flat_v1
+    vx: 0.12
+    yaw_rate: 0.0
+    body_height: 0.32
+    swing_clearance: 0.06
+    enable: 1.0
+
+  - name: gms_balanced_flat_v1
+    vx: 0.09
+    yaw_rate: 0.0
+    body_height: 0.32
+    swing_clearance: 0.05
+    enable: 1.0
+
+  - name: gms_conservative_flat_v1
+    vx: 0.10
+    yaw_rate: 0.0
+    body_height: 0.34
+    swing_clearance: 0.06
+    enable: 1.0
+
+  - name: gms_acceptable_flat_v1
+    vx: 0.10
+    yaw_rate: 0.0
+    body_height: 0.32
+    swing_clearance: 0.06
+    enable: 1.0

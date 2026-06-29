@@ -295,6 +295,9 @@ class RolloutEpisodeRecorder(Node):
             "proprio_base_x": f(proprio[1]) if proprio and len(proprio) > 1 else 0.0,
             "proprio_base_y": f(proprio[2]) if proprio and len(proprio) > 2 else 0.0,
             "proprio_base_z": f(proprio[3]) if proprio and len(proprio) > 3 else 0.0,
+            "proprio_roll": f(proprio[4]) if proprio and len(proprio) > 4 else 0.0,
+            "proprio_pitch": f(proprio[5]) if proprio and len(proprio) > 5 else 0.0,
+            "proprio_yaw": f(proprio[6]) if proprio and len(proprio) > 6 else 0.0,
 
             "odom_dim": len(odom or []),
             "odom_x": odom_x,
@@ -376,6 +379,12 @@ class RolloutEpisodeRecorder(Node):
         override = col("gate_would_override")
         proprio_abs = col("proprio_abs_mean")
         proprio_base_z = col("proprio_base_z")
+        proprio_roll = col("proprio_roll")
+        proprio_pitch = col("proprio_pitch")
+        proprio_yaw = col("proprio_yaw")
+        age_mpc = col("age_mpc")
+        age_proprio = col("age_proprio")
+        age_odom = col("age_odom")
 
         shadow_enabled = col("shadow_recovery_enabled")
         shadow_score = col("shadow_recovery_score")
@@ -449,6 +458,14 @@ class RolloutEpisodeRecorder(Node):
         base_z_p10 = pct(proprio_base_z, 0.10)
         base_z_p50 = pct(proprio_base_z, 0.50)
         base_z_min = min(proprio_base_z) if proprio_base_z else 0.0
+
+        roll_abs = [abs(v) for v in proprio_roll]
+        pitch_abs = [abs(v) for v in proprio_pitch]
+        yaw_delta = (proprio_yaw[-1] - proprio_yaw[0]) if len(proprio_yaw) >= 2 else 0.0
+
+        age_mpc_p90 = pct(age_mpc, 0.90)
+        age_proprio_p90 = pct(age_proprio, 0.90)
+        age_odom_p90 = pct(age_odom, 0.90)
         base_height_stable = (
             state_present
             and base_z_p10 >= 0.18
@@ -544,6 +561,22 @@ class RolloutEpisodeRecorder(Node):
             "proprio_base_z_min": base_z_min,
             "proprio_base_z_p10": base_z_p10,
             "proprio_base_z_p50": base_z_p50,
+            "proprio_roll_abs_mean": mean(roll_abs),
+            "proprio_roll_abs_max": max(roll_abs) if roll_abs else 0.0,
+            "proprio_pitch_abs_mean": mean(pitch_abs),
+            "proprio_pitch_abs_max": max(pitch_abs) if pitch_abs else 0.0,
+            "proprio_yaw_delta": yaw_delta,
+            "age_mpc_p90": age_mpc_p90,
+            "age_proprio_p90": age_proprio_p90,
+            "age_odom_p90": age_odom_p90,
+            "valid_data": bool(
+                mean(vx) > 0.001
+                and mean(enable) > 0.5
+                and mean(proprio_base_z) > 0.1
+                and age_mpc_p90 < 1.0
+                and age_proprio_p90 < 1.0
+                and age_odom_p90 < 1.0
+            ),
             "proprio_base_height_stable": bool(base_height_stable),
             "proprio_base_z_below_0p18_frac": (
                 sum(1.0 for v in proprio_base_z if v < 0.18) / max(1, len(proprio_base_z))
