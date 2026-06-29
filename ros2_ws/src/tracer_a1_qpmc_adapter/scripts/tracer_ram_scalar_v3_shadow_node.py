@@ -179,8 +179,52 @@ class TracerRAMScalarV3ShadowNode(Node):
         )
         return row
 
+    def _input_fresh(self, max_age_sec: float = 1.0) -> tuple[bool, list[str]]:
+        missing_or_stale: list[str] = []
+        checks = [
+            ("mpc", self.latest_mpc_wall),
+            ("beta", self.latest_beta_wall),
+            ("proprio", self.latest_proprio_wall),
+            ("odom", self.latest_odom_wall),
+        ]
+        for name, stamp in checks:
+            age = self._age(stamp)
+            if age > max_age_sec:
+                missing_or_stale.append(name)
+        return (len(missing_or_stale) == 0), missing_or_stale
+
     def on_timer(self):
         row = self._build_row()
+        input_fresh, missing_or_stale = self._input_fresh(max_age_sec=1.0)
+
+        if not input_fresh:
+            payload = {
+                "stamp_wall": time.time(),
+                "ok": False,
+                "risk": 1.0,
+                "bad_prob": 1.0,
+                "good_prob": 0.0,
+                "probabilities": {
+                    "future_fallen_height": 1.0,
+                    "future_low_height": 1.0,
+                    "future_low_progress": 1.0,
+                    "future_bad_locomotion": 1.0,
+                    "future_good_locomotion": 0.0,
+                },
+                "row": row,
+                "age_sec": 0.0,
+                "error": "stale_or_missing_inputs:" + ",".join(missing_or_stale),
+            }
+
+            s = String()
+            s.data = json.dumps(payload)
+            self.shadow_pub.publish(s)
+
+            arr = Float64MultiArray()
+            arr.data = [1.0, 1.0, 0.0, 0.0]
+            self.risk_pub.publish(arr)
+            return
+
         out = self.bridge.query_row(row)
 
         payload = {
