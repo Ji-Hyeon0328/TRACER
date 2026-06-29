@@ -67,8 +67,10 @@ class RAMScalarV3ShadowCsvLogger(Node):
         self.declare_parameter("topic", os.environ.get("TRACER_RAM_SCALAR_V3_SHADOW_TOPIC", "/tracer/ram_scalar_v3_shadow"))
         self.declare_parameter("out_dir", os.environ.get("TRACER_RAM_SCALAR_V3_SHADOW_LOG_DIR", str(default_dir)))
         self.declare_parameter("run_name", os.environ.get("TRACER_RAM_SCALAR_V3_SHADOW_RUN_NAME", ""))
+        self.declare_parameter("max_rows", int(os.environ.get("TRACER_RAM_SCALAR_V3_SHADOW_MAX_ROWS", "0")))
 
         self.topic = str(self.get_parameter("topic").value)
+        self.max_rows = int(self.get_parameter("max_rows").value)
         out_dir = Path(str(self.get_parameter("out_dir").value))
         out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -86,7 +88,8 @@ class RAMScalarV3ShadowCsvLogger(Node):
         self.create_subscription(String, self.topic, self.on_msg, 50)
 
         self.get_logger().info(
-            f"RAM scalar v3 shadow CSV logger started topic={self.topic} out={self.out_path}"
+            f"RAM scalar v3 shadow CSV logger started topic={self.topic} out={self.out_path} "
+            f"max_rows={self.max_rows}"
         )
 
     def on_msg(self, msg: String):
@@ -109,6 +112,13 @@ class RAMScalarV3ShadowCsvLogger(Node):
         if self.count % 100 == 0:
             self.fp.flush()
             self.get_logger().info(f"logged {self.count} RAM scalar v3 shadow rows to {self.out_path}")
+
+        if self.max_rows > 0 and self.count >= self.max_rows:
+            self.fp.flush()
+            self.get_logger().info(
+                f"max_rows reached: {self.count}; shutting down RAM scalar v3 shadow CSV logger"
+            )
+            rclpy.shutdown()
 
     def destroy_node(self):
         try:
