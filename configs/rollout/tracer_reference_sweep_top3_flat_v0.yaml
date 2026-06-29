@@ -1,0 +1,29 @@
+version: reference_sweep_top3_flat_v0
+description: >
+  Top-3 flat references from the first smoke sweep.
+  Layout: [counter, vx, yaw_rate, body_height, swing_clearance, enable]
+
+terrains:
+  - flat_normal
+
+presets:
+  - name: flat_probe_vx010_h032_c006
+    vx: 0.10
+    yaw_rate: 0.0
+    body_height: 0.32
+    swing_clearance: 0.06
+    enable: 1.0
+
+  - name: flat_probe_vx008_h032_c004
+    vx: 0.08
+    yaw_rate: 0.0
+    body_height: 0.32
+    swing_clearance: 0.04
+    enable: 1.0
+
+  - name: flat_probe_vx006_h032_c006
+    vx: 0.06
+    yaw_rate: 0.0
+    body_height: 0.32
+    swing_clearance: 0.06
+    enable: 1.0
