@@ -1,0 +1,6 @@
+terrain,gms_deploy_style,gms_motion_style,gms_stability_style,deploy_score,motion_progress_norm,stability_score,notes
+flat_normal,fast,fast,fast,0.9949703714600764,1.0,0.987425928650191,generated_from_valid_v2_rows
+rough_mid,fast,fast,fast,0.9283330137163861,1.0,0.9874992009576318,generated_from_valid_v2_rows
+slippery_downslope_5deg_forward,fast,fast,cautious,0.9933332235335259,1.0,0.987499763409255,generated_from_valid_v2_rows
+slope_5deg,fast,fast,fast,0.9291664885803508,1.0,0.9895828881175437,generated_from_valid_v2_rows
+sponge_firm_downslope_5deg_forward,cautious,fast,cautious,0.9075458597294438,1.0,0.9830481268193882,generated_from_valid_v2_rows

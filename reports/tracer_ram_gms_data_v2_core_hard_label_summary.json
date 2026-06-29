@@ -1,0 +1,14 @@
+{
+  "campaign": "tracer_ram_gms_data_v2_core_hard",
+  "raw_rows": 54,
+  "valid_rows": 42,
+  "invalid_rows": 12,
+  "aggregate_rows": 15,
+  "gms_target_rows": 5,
+  "outputs": {
+    "valid_csv": "reports/tracer_ram_gms_data_v2_core_hard_valid_rows.csv",
+    "valid_json": "reports/tracer_ram_gms_data_v2_core_hard_valid_rows.json",
+    "aggregate_csv": "reports/tracer_ram_gms_data_v2_core_hard_aggregate_by_style.csv",
+    "gms_csv": "reports/tracer_ram_gms_data_v2_core_hard_gms_style_targets.csv"
+  }
+}
