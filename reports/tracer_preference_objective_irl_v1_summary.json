@@ -1,0 +1,188 @@
+{
+  "n_pairs": 41,
+  "n_features": 61,
+  "train_acc": 1.0,
+  "artifact_json": "artifacts/tracer_preference_objective_irl_v1/model.json",
+  "report_csv": "reports/tracer_preference_objective_irl_v1_train_report.csv",
+  "top_positive_features": [
+    {
+      "feature": "style=fast:beta_motion",
+      "weight": 0.34568586876978463,
+      "abs_weight": 0.34568586876978463
+    },
+    {
+      "feature": "beta_stability:energy_score_proxy",
+      "weight": 0.2271143443381516,
+      "abs_weight": 0.2271143443381516
+    },
+    {
+      "feature": "beta_motion:motion_score_proxy",
+      "weight": 0.1319718366299928,
+      "abs_weight": 0.1319718366299928
+    },
+    {
+      "feature": "beta_motion:distance_mean",
+      "weight": 0.1046799477825798,
+      "abs_weight": 0.1046799477825798
+    },
+    {
+      "feature": "beta_stability:deploy_mean",
+      "weight": 0.09875845955307512,
+      "abs_weight": 0.09875845955307512
+    },
+    {
+      "feature": "beta_stability:deploy_score_proxy",
+      "weight": 0.0976369690600638,
+      "abs_weight": 0.0976369690600638
+    },
+    {
+      "feature": "beta_stability:stability_score_proxy",
+      "weight": 0.09285124884030346,
+      "abs_weight": 0.09285124884030346
+    },
+    {
+      "feature": "beta_motion:progress_mean",
+      "weight": 0.09165821829579096,
+      "abs_weight": 0.09165821829579096
+    },
+    {
+      "feature": "style=fast:beta_energy",
+      "weight": 0.08028216068794732,
+      "abs_weight": 0.08028216068794732
+    },
+    {
+      "feature": "style=fast",
+      "weight": 0.07519347558591417,
+      "abs_weight": 0.07519347558591417
+    },
+    {
+      "feature": "style=cautious:beta_stability",
+      "weight": 0.07339389505143581,
+      "abs_weight": 0.07339389505143581
+    },
+    {
+      "feature": "beta_energy:deploy_score_proxy",
+      "weight": 0.0660915384323496,
+      "abs_weight": 0.0660915384323496
+    },
+    {
+      "feature": "beta_stability:fresh1_min",
+      "weight": 0.061820000918903203,
+      "abs_weight": 0.061820000918903203
+    },
+    {
+      "feature": "deploy_mean",
+      "weight": 0.06169767103703785,
+      "abs_weight": 0.06169767103703785
+    },
+    {
+      "feature": "deploy_score_proxy",
+      "weight": 0.0613237628140721,
+      "abs_weight": 0.0613237628140721
+    }
+  ],
+  "top_negative_features": [
+    {
+      "feature": "beta_motion:energy_score_proxy",
+      "weight": -0.3616465187417489,
+      "abs_weight": 0.3616465187417489
+    },
+    {
+      "feature": "style=cautious:beta_motion",
+      "weight": -0.23789014888268564,
+      "abs_weight": 0.23789014888268564
+    },
+    {
+      "feature": "style=fast:beta_stability",
+      "weight": -0.16581131759709838,
+      "abs_weight": 0.16581131759709838
+    },
+    {
+      "feature": "beta_motion:success_rate",
+      "weight": -0.11196051784551035,
+      "abs_weight": 0.11196051784551035
+    },
+    {
+      "feature": "style=cautious:beta_energy",
+      "weight": -0.08230911916457755,
+      "abs_weight": 0.08230911916457755
+    },
+    {
+      "feature": "style=high_clearance:beta_motion",
+      "weight": -0.08052626403273494,
+      "abs_weight": 0.08052626403273494
+    },
+    {
+      "feature": "style=cautious",
+      "weight": -0.07415430479172906,
+      "abs_weight": 0.07415430479172906
+    },
+    {
+      "feature": "beta_stability:progress_mean",
+      "weight": -0.07301112395552324,
+      "abs_weight": 0.07301112395552324
+    },
+    {
+      "feature": "energy_score_proxy",
+      "weight": -0.060790387698219324,
+      "abs_weight": 0.060790387698219324
+    },
+    {
+      "feature": "beta_energy:fallen_p90_max",
+      "weight": -0.06027599311950118,
+      "abs_weight": 0.06027599311950118
+    },
+    {
+      "feature": "beta_stability:fallen_p90_max",
+      "weight": -0.058196165906315246,
+      "abs_weight": 0.058196165906315246
+    },
+    {
+      "feature": "beta_energy:success_rate",
+      "weight": -0.056834421052466194,
+      "abs_weight": 0.056834421052466194
+    },
+    {
+      "feature": "success_rate",
+      "weight": -0.0518961610525845,
+      "abs_weight": 0.0518961610525845
+    },
+    {
+      "feature": "fallen_p90_max",
+      "weight": -0.048568568923237715,
+      "abs_weight": 0.048568568923237715
+    },
+    {
+      "feature": "beta_energy:energy_score_proxy",
+      "weight": -0.045872012837436395,
+      "abs_weight": 0.045872012837436395
+    }
+  ],
+  "history_tail": [
+    {
+      "epoch": 2000,
+      "loss": 0.010780353539677054,
+      "acc": 1.0
+    },
+    {
+      "epoch": 2250,
+      "loss": 0.009581205023642762,
+      "acc": 1.0
+    },
+    {
+      "epoch": 2500,
+      "loss": 0.008626436298095784,
+      "acc": 1.0
+    },
+    {
+      "epoch": 2750,
+      "loss": 0.007848423660339164,
+      "acc": 1.0
+    },
+    {
+      "epoch": 2999,
+      "loss": 0.007204676001332131,
+      "acc": 1.0
+    }
+  ]
+}
