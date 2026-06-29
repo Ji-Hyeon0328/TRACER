@@ -83,14 +83,18 @@ class RolloutEpisodeRecorder(Node):
         self.latest: dict[str, tuple[float, list[float]]] = {}
         self.latest_debug: dict[str, Any] = {}
         self.latest_debug_wall_time = 0.0
+        self.latest_ram_scalar_v3_shadow: dict[str, Any] = {}
+        self.latest_ram_scalar_v3_shadow_wall_time = 0.0
 
         self.create_subscription(Float64MultiArray, "/tracer/mpc_reference", self.cb("mpc"), 10)
         self.create_subscription(Float64MultiArray, "/tracer/objective_weights", self.cb("beta"), 10)
         self.create_subscription(Float64MultiArray, "/tracer/ram_risk", self.cb("ram"), 10)
+        self.create_subscription(Float64MultiArray, "/tracer/ram_scalar_v3_risk", self.cb("ram_scalar_v3"), 10)
         self.create_subscription(Float64MultiArray, "/tracer/ram_gate_advice", self.cb("gate"), 10)
         self.create_subscription(Float64MultiArray, "/tracer/proprio_vector", self.cb("proprio"), 10)
         self.create_subscription(Float64MultiArray, "/tracer/robot_odom_flat", self.cb("odom"), 10)
         self.create_subscription(String, "/tracer/highlevel_debug", self.cb_debug, 10)
+        self.create_subscription(String, "/tracer/ram_scalar_v3_shadow", self.cb_ram_scalar_v3_shadow, 10)
 
         period = 1.0 / max(0.5, self.sample_hz)
         self.timer = self.create_timer(period, self.on_timer)
@@ -115,6 +119,15 @@ class RolloutEpisodeRecorder(Node):
         except Exception:
             return
 
+    def cb_ram_scalar_v3_shadow(self, msg: String):
+        try:
+            data = json.loads(msg.data)
+            if isinstance(data, dict):
+                self.latest_ram_scalar_v3_shadow = data
+                self.latest_ram_scalar_v3_shadow_wall_time = time.time()
+        except Exception:
+            return
+
     def arr(self, name: str) -> list[float] | None:
         return self.latest.get(name, (0.0, None))[1]
 
@@ -131,6 +144,7 @@ class RolloutEpisodeRecorder(Node):
         mpc = self.arr("mpc")
         beta = self.arr("beta")
         ram = self.arr("ram")
+        ram_scalar_v3 = self.arr("ram_scalar_v3")
         gate = self.arr("gate")
         proprio = self.arr("proprio")
         odom = self.arr("odom")
@@ -173,6 +187,22 @@ class RolloutEpisodeRecorder(Node):
         ram_sigma_mean = get(ram, 6)
         ram_rho_norm = get(ram, 7)
         ram_ctrl_ema = get(ram, 9)
+
+        # /tracer/ram_scalar_v3_risk:
+        # [risk, bad_prob, good_prob, ok]
+        ram_scalar_v3_risk = get(ram_scalar_v3, 0)
+        ram_scalar_v3_bad_prob = get(ram_scalar_v3, 1)
+        ram_scalar_v3_good_prob = get(ram_scalar_v3, 2)
+        ram_scalar_v3_ok = get(ram_scalar_v3, 3)
+        ram_scalar_v3_shadow_age = (
+            9999.0
+            if self.latest_ram_scalar_v3_shadow_wall_time <= 0.0
+            else now - self.latest_ram_scalar_v3_shadow_wall_time
+        )
+        ram_scalar_v3_shadow_payload = self.latest_ram_scalar_v3_shadow
+        if not isinstance(ram_scalar_v3_shadow_payload, dict):
+            ram_scalar_v3_shadow_payload = {}
+        ram_scalar_v3_error = str(ram_scalar_v3_shadow_payload.get("error", ""))
 
         # /tracer/ram_gate_advice:
         # [mode_code, semantic_code, gate_level_code, action_code, would_override,
@@ -239,6 +269,12 @@ class RolloutEpisodeRecorder(Node):
             "ram_rho_norm": ram_rho_norm,
             "ram_ctrl_ema": ram_ctrl_ema,
 
+            "ram_scalar_v3_ok": ram_scalar_v3_ok,
+            "ram_scalar_v3_risk": ram_scalar_v3_risk,
+            "ram_scalar_v3_bad_prob": ram_scalar_v3_bad_prob,
+            "ram_scalar_v3_good_prob": ram_scalar_v3_good_prob,
+            "ram_scalar_v3_error": ram_scalar_v3_error,
+
             "gate_level_code": gate_level_code,
             "gate_action_code": gate_action_code,
             "gate_would_override": gate_would_override,
@@ -290,6 +326,8 @@ class RolloutEpisodeRecorder(Node):
             "age_mpc": self.age("mpc", now),
             "age_beta": self.age("beta", now),
             "age_ram": self.age("ram", now),
+            "age_ram_scalar_v3": self.age("ram_scalar_v3", now),
+            "age_ram_scalar_v3_shadow": ram_scalar_v3_shadow_age,
             "age_gate": self.age("gate", now),
             "age_proprio": self.age("proprio", now),
             "age_odom": self.age("odom", now),
@@ -328,6 +366,11 @@ class RolloutEpisodeRecorder(Node):
         clr = col("mpc_clearance")
         fallen = col("ram_run_fallen")
         recovery = col("ram_recovery_needed")
+        ram_scalar_v3_ok = col("ram_scalar_v3_ok")
+        ram_scalar_v3_risk = col("ram_scalar_v3_risk")
+        ram_scalar_v3_bad_prob = col("ram_scalar_v3_bad_prob")
+        ram_scalar_v3_good_prob = col("ram_scalar_v3_good_prob")
+        age_ram_scalar_v3 = col("age_ram_scalar_v3")
         gate_level = col("gate_level_code")
         gate_action = col("gate_action_code")
         override = col("gate_would_override")
@@ -347,6 +390,18 @@ class RolloutEpisodeRecorder(Node):
         active_active_rows = col("active_recovery_active_rows")
         active_protected = col("active_recovery_protected")
         age_debug = col("age_debug")
+
+        ram_scalar_v3_fresh_rows = [
+            r for r in rows
+            if f(r.get("ram_scalar_v3_ok", 0.0)) > 0.5
+            and f(r.get("age_ram_scalar_v3", 9999.0)) <= 1.0
+        ]
+
+        def col_from(rs: list[dict[str, Any]], k: str) -> list[float]:
+            return [f(r.get(k, 0.0)) for r in rs]
+
+        ram_scalar_v3_fresh_risk = col_from(ram_scalar_v3_fresh_rows, "ram_scalar_v3_risk")
+        ram_scalar_v3_fresh_good = col_from(ram_scalar_v3_fresh_rows, "ram_scalar_v3_good_prob")
 
         xs = col("odom_x")
         ys = col("odom_y")
@@ -417,6 +472,24 @@ class RolloutEpisodeRecorder(Node):
             "ram_run_fallen_mean": mean(fallen),
             "ram_run_fallen_p90": pct(fallen, 0.90),
             "ram_recovery_needed_mean": mean(recovery),
+
+            "ram_scalar_v3_ok_mean": mean(ram_scalar_v3_ok),
+            "ram_scalar_v3_age_mean": mean(age_ram_scalar_v3),
+            "ram_scalar_v3_fresh_count": len(ram_scalar_v3_fresh_rows),
+            "ram_scalar_v3_fresh_frac": len(ram_scalar_v3_fresh_rows) / max(1, len(rows)),
+            "ram_scalar_v3_risk_mean": mean(ram_scalar_v3_risk),
+            "ram_scalar_v3_risk_p50": pct(ram_scalar_v3_risk, 0.50),
+            "ram_scalar_v3_risk_p90": pct(ram_scalar_v3_risk, 0.90),
+            "ram_scalar_v3_risk_p95": pct(ram_scalar_v3_risk, 0.95),
+            "ram_scalar_v3_risk_max": max(ram_scalar_v3_risk) if ram_scalar_v3_risk else 0.0,
+            "ram_scalar_v3_bad_prob_mean": mean(ram_scalar_v3_bad_prob),
+            "ram_scalar_v3_good_prob_mean": mean(ram_scalar_v3_good_prob),
+            "ram_scalar_v3_fresh_risk_mean": mean(ram_scalar_v3_fresh_risk),
+            "ram_scalar_v3_fresh_risk_p50": pct(ram_scalar_v3_fresh_risk, 0.50),
+            "ram_scalar_v3_fresh_risk_p90": pct(ram_scalar_v3_fresh_risk, 0.90),
+            "ram_scalar_v3_fresh_risk_p95": pct(ram_scalar_v3_fresh_risk, 0.95),
+            "ram_scalar_v3_fresh_risk_max": max(ram_scalar_v3_fresh_risk) if ram_scalar_v3_fresh_risk else 0.0,
+            "ram_scalar_v3_fresh_good_prob_mean": mean(ram_scalar_v3_fresh_good),
 
             "gate_level_mean": mean(gate_level),
             "gate_action_mean": mean(gate_action),
