@@ -24,7 +24,7 @@
       "distance_mean": 0.0538
     },
     {
-      "name": "hold_to_policy_ramp_0p75sec",
+      "name": "single_ramp_0p75sec",
       "run_dir": "data/rollouts/safe_bank_runtime_v0/safe_bank_runtime_v0_20260630_051212",
       "episodes": 10,
       "feasible": 6,
@@ -33,7 +33,7 @@
       "distance_mean": 0.0491
     },
     {
-      "name": "hold_to_policy_ramp_1sec",
+      "name": "single_ramp_1p0sec",
       "run_dir": "data/rollouts/safe_bank_runtime_v0/safe_bank_runtime_v0_20260630_050428",
       "episodes": 10,
       "feasible": 7,
@@ -42,21 +42,32 @@
       "distance_mean": 0.0407
     },
     {
-      "name": "hold_to_policy_ramp_2sec",
+      "name": "single_ramp_2p0sec",
       "run_dir": "data/rollouts/safe_bank_runtime_v0/safe_bank_runtime_v0_20260630_050755",
       "episodes": 10,
       "feasible": 5,
       "feasible_frac": 0.5,
       "zmin_mean": 0.2200,
       "distance_mean": 0.0277
+    },
+    {
+      "name": "two_stage_ramp_0p4_posture_0p8_velocity",
+      "run_dir": "data/rollouts/safe_bank_runtime_v0/safe_bank_runtime_v0_20260630_051632",
+      "episodes": 10,
+      "feasible": 4,
+      "feasible_frac": 0.4,
+      "zmin_mean": 0.2047,
+      "distance_mean": 0.0501
     }
   ],
   "decision": {
-    "keep_policy_ramp": true,
+    "keep_ramp_support": true,
+    "recommended_runtime_mode": "single",
     "recommended_single_ramp_sec": 1.0,
-    "do_not_use_ramp_sec_0p75": true,
-    "do_not_use_ramp_sec_2p0": true,
-    "reason": "1.0 second ramp improved feasible fraction and z-min margin. 0.75 sec was too abrupt, while 2.0 sec likely kept the robot in low intermediate posture too long."
+    "do_not_use_single_0p75": true,
+    "do_not_use_single_2p0": true,
+    "do_not_use_two_stage_0p4_0p8": true,
+    "reason": "Single 1.0 sec ramp gave the best feasible fraction and z-min margin. Two-stage posture-first ramp degraded robustness, likely because the low-level controller does not like a vx=0 posture/clearance transition phase."
   },
-  "next": "Implement two-stage ramp: first raise body height and clearance with vx=0, then ramp vx after posture has reached the policy reference."
+  "next": "Keep single 1.0 sec ramp and tune the balanced fallback theta slightly, especially body_height_delta, to raise z-min margin."
 }
