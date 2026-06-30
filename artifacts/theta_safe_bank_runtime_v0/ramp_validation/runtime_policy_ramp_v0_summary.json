@@ -24,6 +24,15 @@
       "distance_mean": 0.0538
     },
     {
+      "name": "hold_to_policy_ramp_0p75sec",
+      "run_dir": "data/rollouts/safe_bank_runtime_v0/safe_bank_runtime_v0_20260630_051212",
+      "episodes": 10,
+      "feasible": 6,
+      "feasible_frac": 0.6,
+      "zmin_mean": 0.2283,
+      "distance_mean": 0.0491
+    },
+    {
       "name": "hold_to_policy_ramp_1sec",
       "run_dir": "data/rollouts/safe_bank_runtime_v0/safe_bank_runtime_v0_20260630_050428",
       "episodes": 10,
@@ -44,9 +53,10 @@
   ],
   "decision": {
     "keep_policy_ramp": true,
-    "recommended_ramp_sec": 1.0,
+    "recommended_single_ramp_sec": 1.0,
+    "do_not_use_ramp_sec_0p75": true,
     "do_not_use_ramp_sec_2p0": true,
-    "reason": "1.0 second ramp improved feasible fraction and z-min margin, while 2.0 second ramp likely kept the robot in low intermediate posture too long and degraded safety."
+    "reason": "1.0 second ramp improved feasible fraction and z-min margin. 0.75 sec was too abrupt, while 2.0 sec likely kept the robot in low intermediate posture too long."
   },
-  "next": "Try shorter ramp values around 0.75 and 1.25 seconds, or implement posture-first two-stage ramp if 8/10 is not reached."
+  "next": "Implement two-stage ramp: first raise body height and clearance with vx=0, then ramp vx after posture has reached the policy reference."
 }
