@@ -1,0 +1,18 @@
+{
+  "name": "energy_extreme_to_balanced_fallback_v0",
+  "run_dir": "data/rollouts/safe_bank_runtime_v0/safe_bank_runtime_v0_20260630_042359",
+  "requested_profile": "energy_extreme",
+  "selected_profile": "balanced",
+  "selection_reason": "runtime_blocked_energy_extreme_to_global_default_balanced",
+  "theta_norm": [0.39914, 0.48059, -0.49646, 0.53806, 0.62689, 0.60572, 0.6286, 0.46199],
+  "mpc_reference_nominal": [0.0, 0.04063806, 0.0, 0.3376134, 0.0895148, 1.0],
+  "episodes": 10,
+  "feasible": 8,
+  "feasible_frac": 0.8,
+  "zmin_mean": 0.2383,
+  "distance_mean": 0.0313,
+  "R_motion": 0.3912,
+  "R_stability": 0.6936,
+  "R_energy": 0.9081,
+  "note": "Runtime-validated selector correctly blocked energy_extreme and fell back to balanced theta. Fallback was feasible in 8/10 episodes under stand-reset + prestand protocol."
+}
