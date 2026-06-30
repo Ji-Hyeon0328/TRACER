@@ -1,0 +1,15 @@
+presets:
+  - name: runtime_fallback_low_slow_v0
+    terrain: flat_normal
+    profile: runtime_fallback
+    theta_norm: [0.20, 0.45, -0.75, 0.50, 0.20, 0.30, 0.55, 0.35]
+
+  - name: runtime_fallback_mid_slow_v0
+    terrain: flat_normal
+    profile: runtime_fallback
+    theta_norm: [0.25, 0.48, -0.65, 0.52, 0.35, 0.38, 0.60, 0.40]
+
+  - name: runtime_fallback_balanced_low_clear_v0
+    terrain: flat_normal
+    profile: runtime_fallback
+    theta_norm: [0.39914, 0.48059, -0.49646, 0.53806, 0.30, 0.35, 0.6286, 0.46199]

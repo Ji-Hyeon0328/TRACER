@@ -1,0 +1,200 @@
+{
+  "name": "tracer_manual_runtime_fallback_selector_v0",
+  "source": "manual_runtime_fallback_candidate",
+  "selection_rule": {
+    "global_default": "manual fallback theta",
+    "profile_candidate": "all requested objective profiles are blocked and fall back to the manual runtime_fallback theta"
+  },
+  "thresholds": {
+    "min_default_feasible_frac": 0.0,
+    "min_profile_feasible_frac": 1.0
+  },
+  "global_default": {
+    "profile": "runtime_fallback",
+    "preset": "runtime_fallback_low_slow_v0",
+    "theta_norm": [
+      0.2,
+      0.45,
+      -0.75,
+      0.5,
+      0.2,
+      0.3,
+      0.55,
+      0.35
+    ],
+    "feasible_frac": 1.0,
+    "runtime_score": 1.0,
+    "zmin_mean": 0.0,
+    "distance_mean": 0.0
+  },
+  "profiles": {
+    "balanced": {
+      "profile": "balanced",
+      "preset": "blocked_balanced",
+      "theta_norm": [
+        0.2,
+        0.45,
+        -0.75,
+        0.5,
+        0.2,
+        0.3,
+        0.55,
+        0.35
+      ],
+      "feasible_frac": 0.0,
+      "runtime_score": 0.0,
+      "zmin_mean": 0.0,
+      "distance_mean": 0.0,
+      "runtime_allowed": false,
+      "fallback_profile": "runtime_fallback",
+      "fallback_preset": "runtime_fallback_low_slow_v0"
+    },
+    "motion": {
+      "profile": "motion",
+      "preset": "blocked_motion",
+      "theta_norm": [
+        0.2,
+        0.45,
+        -0.75,
+        0.5,
+        0.2,
+        0.3,
+        0.55,
+        0.35
+      ],
+      "feasible_frac": 0.0,
+      "runtime_score": 0.0,
+      "zmin_mean": 0.0,
+      "distance_mean": 0.0,
+      "runtime_allowed": false,
+      "fallback_profile": "runtime_fallback",
+      "fallback_preset": "runtime_fallback_low_slow_v0"
+    },
+    "stability": {
+      "profile": "stability",
+      "preset": "blocked_stability",
+      "theta_norm": [
+        0.2,
+        0.45,
+        -0.75,
+        0.5,
+        0.2,
+        0.3,
+        0.55,
+        0.35
+      ],
+      "feasible_frac": 0.0,
+      "runtime_score": 0.0,
+      "zmin_mean": 0.0,
+      "distance_mean": 0.0,
+      "runtime_allowed": false,
+      "fallback_profile": "runtime_fallback",
+      "fallback_preset": "runtime_fallback_low_slow_v0"
+    },
+    "energy": {
+      "profile": "energy",
+      "preset": "blocked_energy",
+      "theta_norm": [
+        0.2,
+        0.45,
+        -0.75,
+        0.5,
+        0.2,
+        0.3,
+        0.55,
+        0.35
+      ],
+      "feasible_frac": 0.0,
+      "runtime_score": 0.0,
+      "zmin_mean": 0.0,
+      "distance_mean": 0.0,
+      "runtime_allowed": false,
+      "fallback_profile": "runtime_fallback",
+      "fallback_preset": "runtime_fallback_low_slow_v0"
+    },
+    "motion_extreme": {
+      "profile": "motion_extreme",
+      "preset": "blocked_motion_extreme",
+      "theta_norm": [
+        0.2,
+        0.45,
+        -0.75,
+        0.5,
+        0.2,
+        0.3,
+        0.55,
+        0.35
+      ],
+      "feasible_frac": 0.0,
+      "runtime_score": 0.0,
+      "zmin_mean": 0.0,
+      "distance_mean": 0.0,
+      "runtime_allowed": false,
+      "fallback_profile": "runtime_fallback",
+      "fallback_preset": "runtime_fallback_low_slow_v0"
+    },
+    "stability_extreme": {
+      "profile": "stability_extreme",
+      "preset": "blocked_stability_extreme",
+      "theta_norm": [
+        0.2,
+        0.45,
+        -0.75,
+        0.5,
+        0.2,
+        0.3,
+        0.55,
+        0.35
+      ],
+      "feasible_frac": 0.0,
+      "runtime_score": 0.0,
+      "zmin_mean": 0.0,
+      "distance_mean": 0.0,
+      "runtime_allowed": false,
+      "fallback_profile": "runtime_fallback",
+      "fallback_preset": "runtime_fallback_low_slow_v0"
+    },
+    "energy_extreme": {
+      "profile": "energy_extreme",
+      "preset": "blocked_energy_extreme",
+      "theta_norm": [
+        0.2,
+        0.45,
+        -0.75,
+        0.5,
+        0.2,
+        0.3,
+        0.55,
+        0.35
+      ],
+      "feasible_frac": 0.0,
+      "runtime_score": 0.0,
+      "zmin_mean": 0.0,
+      "distance_mean": 0.0,
+      "runtime_allowed": false,
+      "fallback_profile": "runtime_fallback",
+      "fallback_preset": "runtime_fallback_low_slow_v0"
+    },
+    "runtime_fallback": {
+      "profile": "runtime_fallback",
+      "preset": "runtime_fallback_low_slow_v0",
+      "theta_norm": [
+        0.2,
+        0.45,
+        -0.75,
+        0.5,
+        0.2,
+        0.3,
+        0.55,
+        0.35
+      ],
+      "feasible_frac": 1.0,
+      "runtime_score": 1.0,
+      "zmin_mean": 0.0,
+      "distance_mean": 0.0,
+      "runtime_allowed": true,
+      "fallback_profile": null,
+      "fallback_preset": null
+    }
+  }
+}
