@@ -5,6 +5,9 @@ PROFILE="${TRACER_RUNTIME_SELECTOR_PROFILE:-balanced}"
 SELECTOR="${TRACER_RUNTIME_SELECTOR_PATH:-configs/runtime/tracer_runtime_validated_theta_selector_v0.json}"
 HZ="${TRACER_RUNTIME_SELECTOR_HZ:-20.0}"
 RAMP="${TRACER_RUNTIME_SELECTOR_RAMP_SEC:-1.0}"
+RAMP_MODE="${TRACER_RUNTIME_SELECTOR_RAMP_MODE:-single}"
+POSTURE_RAMP="${TRACER_RUNTIME_SELECTOR_POSTURE_RAMP_SEC:-0.4}"
+VELOCITY_RAMP="${TRACER_RUNTIME_SELECTOR_VELOCITY_RAMP_SEC:-0.8}"
 LOG="${TRACER_RUNTIME_SELECTOR_LOG:-/tmp/tracer_runtime_validated_policy_node_v0.log}"
 RESET_DAEMON="${TRACER_RESET_ROS2_DAEMON:-0}"
 
@@ -13,6 +16,9 @@ echo "[TRACER] profile=${PROFILE}"
 echo "[TRACER] selector=${SELECTOR}"
 echo "[TRACER] hz=${HZ}"
 echo "[TRACER] ramp_sec=${RAMP}"
+echo "[TRACER] ramp_mode=${RAMP_MODE}"
+echo "[TRACER] posture_ramp_sec=${POSTURE_RAMP}"
+echo "[TRACER] velocity_ramp_sec=${VELOCITY_RAMP}"
 echo "[TRACER] log=${LOG}"
 echo "[TRACER] reset_ros2_daemon=${RESET_DAEMON}"
 
@@ -51,6 +57,9 @@ nohup /usr/bin/python3 ros2_ws/src/tracer_a1_qpmc_adapter/scripts/tracer_runtime
   -p profile:="${PROFILE}" \
   -p publish_hz:="${HZ}" \
   -p policy_ramp_sec:="${RAMP}" \
+  -p ramp_mode:="${RAMP_MODE}" \
+  -p posture_ramp_sec:="${POSTURE_RAMP}" \
+  -p velocity_ramp_sec:="${VELOCITY_RAMP}" \
   > "${LOG}" 2>&1 &
 
 sleep 1.0

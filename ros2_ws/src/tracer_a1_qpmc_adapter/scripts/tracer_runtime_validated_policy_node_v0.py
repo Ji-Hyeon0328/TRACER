@@ -94,6 +94,9 @@ class RuntimeValidatedPolicyNode(Node):
         self.declare_parameter("hold_clearance", 0.035)
         self.declare_parameter("hold_enable", 1.0)
         self.declare_parameter("policy_ramp_sec", 1.0)
+        self.declare_parameter("ramp_mode", "single")
+        self.declare_parameter("posture_ramp_sec", 0.4)
+        self.declare_parameter("velocity_ramp_sec", 0.8)
 
         self.selector_path = Path(str(self.get_parameter("selector_path").value))
         self.selector = json.loads(self.selector_path.read_text())
@@ -232,21 +235,55 @@ class RuntimeValidatedPolicyNode(Node):
         if self.runtime_phase == "hold":
             ref = hold_ref
         else:
-            ramp_sec = max(0.0, float(self.get_parameter("policy_ramp_sec").value))
             elapsed = (self.get_clock().now() - self.phase_switch_time).nanoseconds * 1.0e-9
+            ramp_mode = str(self.get_parameter("ramp_mode").value)
 
-            if self.prev_runtime_phase == "hold" and ramp_sec > 1.0e-6 and elapsed < ramp_sec:
-                alpha = max(0.0, min(1.0, elapsed / ramp_sec))
-                ref = [
-                    float(self.counter),
-                    hold_ref[1] + alpha * (policy_ref[1] - hold_ref[1]),
-                    hold_ref[2] + alpha * (policy_ref[2] - hold_ref[2]),
-                    hold_ref[3] + alpha * (policy_ref[3] - hold_ref[3]),
-                    hold_ref[4] + alpha * (policy_ref[4] - hold_ref[4]),
-                    hold_ref[5] + alpha * (policy_ref[5] - hold_ref[5]),
-                ]
+            if self.prev_runtime_phase == "hold" and ramp_mode == "two_stage":
+                posture_sec = max(0.0, float(self.get_parameter("posture_ramp_sec").value))
+                velocity_sec = max(0.0, float(self.get_parameter("velocity_ramp_sec").value))
+                total_sec = posture_sec + velocity_sec
+
+                if total_sec > 1.0e-6 and elapsed < total_sec:
+                    if posture_sec > 1.0e-6 and elapsed < posture_sec:
+                        # Stage 1: raise body posture first while keeping vx at hold value.
+                        alpha = max(0.0, min(1.0, elapsed / posture_sec))
+                        ref = [
+                            float(self.counter),
+                            hold_ref[1],
+                            hold_ref[2] + alpha * (policy_ref[2] - hold_ref[2]),
+                            hold_ref[3] + alpha * (policy_ref[3] - hold_ref[3]),
+                            hold_ref[4] + alpha * (policy_ref[4] - hold_ref[4]),
+                            hold_ref[5] + alpha * (policy_ref[5] - hold_ref[5]),
+                        ]
+                    else:
+                        # Stage 2: posture is ready; ramp forward velocity.
+                        v_elapsed = elapsed - posture_sec
+                        alpha = 1.0 if velocity_sec <= 1.0e-6 else max(0.0, min(1.0, v_elapsed / velocity_sec))
+                        ref = [
+                            float(self.counter),
+                            hold_ref[1] + alpha * (policy_ref[1] - hold_ref[1]),
+                            policy_ref[2],
+                            policy_ref[3],
+                            policy_ref[4],
+                            policy_ref[5],
+                        ]
+                else:
+                    ref = policy_ref
+
             else:
-                ref = policy_ref
+                ramp_sec = max(0.0, float(self.get_parameter("policy_ramp_sec").value))
+                if self.prev_runtime_phase == "hold" and ramp_sec > 1.0e-6 and elapsed < ramp_sec:
+                    alpha = max(0.0, min(1.0, elapsed / ramp_sec))
+                    ref = [
+                        float(self.counter),
+                        hold_ref[1] + alpha * (policy_ref[1] - hold_ref[1]),
+                        hold_ref[2] + alpha * (policy_ref[2] - hold_ref[2]),
+                        hold_ref[3] + alpha * (policy_ref[3] - hold_ref[3]),
+                        hold_ref[4] + alpha * (policy_ref[4] - hold_ref[4]),
+                        hold_ref[5] + alpha * (policy_ref[5] - hold_ref[5]),
+                    ]
+                else:
+                    ref = policy_ref
 
         theta_msg = Float64MultiArray()
         theta_msg.data = theta
