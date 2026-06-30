@@ -431,6 +431,7 @@ def main() -> int:
     ap.add_argument("--prestand-sec", type=float, default=1.5)
     ap.add_argument("--reset-settle-sec", type=float, default=0.5)
     ap.add_argument("--metric-warmup-sec", type=float, default=0.8)
+    ap.add_argument("--disable-beta-pub", action="store_true")
     args = ap.parse_args()
 
     out_dir = Path(args.out_root) / f"safe_bank_runtime_v0_{now_tag()}"
@@ -448,7 +449,8 @@ def main() -> int:
 
             node.samples = []
             node.t0 = time.time()
-            node.publish_beta(n=5)
+            if not args.disable_beta_pub:
+                node.publish_beta(n=5)
 
             if args.control_gazebo and (args.reset_gazebo or args.hard_reset_gazebo or args.stand_reset_gazebo):
                 print("[TRACER] pause gazebo before reset")
@@ -493,7 +495,8 @@ def main() -> int:
                 # Hold/stand phase before policy rollout.
                 print("[TRACER] runtime phase: hold")
                 node.publish_phase("hold", n=5)
-                node.publish_beta(n=5)
+                if not args.disable_beta_pub:
+                    node.publish_beta(n=5)
 
                 if args.control_gazebo:
                     print("[TRACER] unpause gazebo for pre-stand")
