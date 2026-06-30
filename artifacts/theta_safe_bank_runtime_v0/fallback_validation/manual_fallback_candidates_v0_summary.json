@@ -1,0 +1,48 @@
+{
+  "name": "manual_fallback_candidates_v0_summary",
+  "objective_request": "energy_extreme",
+  "runtime_gate_behavior": "all manual selectors block energy_extreme and fall back to runtime_fallback candidate",
+  "candidates": [
+    {
+      "name": "runtime_fallback_low_slow_v0",
+      "theta_norm": [0.20, 0.45, -0.75, 0.50, 0.20, 0.30, 0.55, 0.35],
+      "mpc_reference_nominal": [0.0, 0.03075, 0.0, 0.312, 0.062, 1.0],
+      "run_dir": "data/rollouts/safe_bank_runtime_v0/safe_bank_runtime_v0_20260630_043729",
+      "episodes": 5,
+      "feasible": 2,
+      "feasible_frac": 0.4,
+      "zmin_mean": 0.2244,
+      "distance_mean": 0.0623
+    },
+    {
+      "name": "runtime_fallback_mid_slow_v0",
+      "theta_norm": [0.25, 0.48, -0.65, 0.52, 0.35, 0.38, 0.60, 0.40],
+      "mpc_reference_nominal": [0.0, 0.03465, 0.0, 0.321, 0.0692, 1.0],
+      "run_dir": "data/rollouts/safe_bank_runtime_v0/safe_bank_runtime_v0_20260630_043902",
+      "episodes": 5,
+      "feasible": 3,
+      "feasible_frac": 0.6,
+      "zmin_mean": 0.2306,
+      "distance_mean": 0.0689
+    },
+    {
+      "name": "runtime_fallback_balanced_low_clear_v0",
+      "theta_norm": [0.39914, 0.48059, -0.49646, 0.53806, 0.30, 0.35, 0.6286, 0.46199],
+      "mpc_reference_nominal": [0.0, 0.04063806, 0.0, 0.318, 0.0665, 1.0],
+      "run_dir_5_repeat": "data/rollouts/safe_bank_runtime_v0/safe_bank_runtime_v0_20260630_044046",
+      "run_dir_10_repeat": "data/rollouts/safe_bank_runtime_v0/safe_bank_runtime_v0_20260630_044411",
+      "episodes_5_repeat": 5,
+      "feasible_5_repeat": 4,
+      "episodes_10_repeat": 10,
+      "feasible_10_repeat": 4,
+      "feasible_frac_10_repeat": 0.4,
+      "zmin_mean_10_repeat": 0.2072,
+      "distance_mean_10_repeat": 0.0510
+    }
+  ],
+  "current_decision": {
+    "do_not_promote_manual_fallback_candidates": true,
+    "keep_current_global_default": "balanced theta from runtime_validated_theta_selector_v0",
+    "reason": "Original balanced fallback previously achieved 8/10 feasible, while manual low/slow candidates did not improve robustness. Failures appear tied to reset/controller-state sensitivity rather than theta alone."
+  }
+}
