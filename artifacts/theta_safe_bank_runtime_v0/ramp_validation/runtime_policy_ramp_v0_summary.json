@@ -1,0 +1,52 @@
+{
+  "name": "runtime_policy_ramp_v0_summary",
+  "objective_request": "energy_extreme",
+  "runtime_gate_behavior": "energy_extreme blocked and mapped to balanced global fallback",
+  "theta_norm": [0.39914, 0.48059, -0.49646, 0.53806, 0.62689, 0.60572, 0.6286, 0.46199],
+  "mpc_reference_nominal": [0.0, 0.04063806, 0.0, 0.3376134, 0.0895148, 1.0],
+  "experiments": [
+    {
+      "name": "default_or_short_prestand_no_explicit_ramp",
+      "run_dir": "data/rollouts/safe_bank_runtime_v0/safe_bank_runtime_v0_20260630_045456",
+      "episodes": 10,
+      "feasible": 6,
+      "feasible_frac": 0.6,
+      "zmin_mean": 0.2198,
+      "distance_mean": 0.0587
+    },
+    {
+      "name": "long_prestand_4sec",
+      "run_dir": "data/rollouts/safe_bank_runtime_v0/safe_bank_runtime_v0_20260630_050005",
+      "episodes": 10,
+      "feasible": 6,
+      "feasible_frac": 0.6,
+      "zmin_mean": 0.2220,
+      "distance_mean": 0.0538
+    },
+    {
+      "name": "hold_to_policy_ramp_1sec",
+      "run_dir": "data/rollouts/safe_bank_runtime_v0/safe_bank_runtime_v0_20260630_050428",
+      "episodes": 10,
+      "feasible": 7,
+      "feasible_frac": 0.7,
+      "zmin_mean": 0.2357,
+      "distance_mean": 0.0407
+    },
+    {
+      "name": "hold_to_policy_ramp_2sec",
+      "run_dir": "data/rollouts/safe_bank_runtime_v0/safe_bank_runtime_v0_20260630_050755",
+      "episodes": 10,
+      "feasible": 5,
+      "feasible_frac": 0.5,
+      "zmin_mean": 0.2200,
+      "distance_mean": 0.0277
+    }
+  ],
+  "decision": {
+    "keep_policy_ramp": true,
+    "recommended_ramp_sec": 1.0,
+    "do_not_use_ramp_sec_2p0": true,
+    "reason": "1.0 second ramp improved feasible fraction and z-min margin, while 2.0 second ramp likely kept the robot in low intermediate posture too long and degraded safety."
+  },
+  "next": "Try shorter ramp values around 0.75 and 1.25 seconds, or implement posture-first two-stage ramp if 8/10 is not reached."
+}
