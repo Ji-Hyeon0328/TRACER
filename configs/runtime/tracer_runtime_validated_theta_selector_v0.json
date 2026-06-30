@@ -1,0 +1,95 @@
+{
+  "name": "tracer_runtime_validated_theta_selector_v0",
+  "source_summary": "artifacts/theta_safe_bank_runtime_v0/runtime_profile_summary.csv",
+  "selection_rule": {
+    "global_default": "highest feasible_frac, then runtime_score, zmin_mean, distance_mean",
+    "profile_candidate": "use requested profile only if feasible_frac >= min_profile_feasible_frac; otherwise fallback to global_default"
+  },
+  "thresholds": {
+    "min_default_feasible_frac": 0.95,
+    "min_profile_feasible_frac": 0.8
+  },
+  "global_default": {
+    "profile": "balanced",
+    "preset": "safe_bank_runtime_balanced",
+    "theta_norm": [
+      0.39914,
+      0.48059,
+      -0.49646,
+      0.53806,
+      0.62689,
+      0.60572,
+      0.6286,
+      0.46199
+    ],
+    "feasible_frac": 1.0,
+    "runtime_score": 0.8452294286558936,
+    "zmin_mean": 0.2395577475123714,
+    "distance_mean": 0.043164151643280364
+  },
+  "profiles": {
+    "balanced": {
+      "profile": "balanced",
+      "preset": "safe_bank_runtime_balanced",
+      "theta_norm": [
+        0.39914,
+        0.48059,
+        -0.49646,
+        0.53806,
+        0.62689,
+        0.60572,
+        0.6286,
+        0.46199
+      ],
+      "feasible_frac": 1.0,
+      "runtime_score": 0.8452294286558936,
+      "zmin_mean": 0.2395577475123714,
+      "distance_mean": 0.043164151643280364,
+      "runtime_allowed": true,
+      "fallback_profile": null,
+      "fallback_preset": null
+    },
+    "energy_extreme": {
+      "profile": "energy_extreme",
+      "preset": "safe_bank_runtime_energy_extreme",
+      "theta_norm": [
+        0.3656,
+        0.44675,
+        -0.52874,
+        0.50618,
+        0.55488,
+        0.56034,
+        0.58224,
+        0.42688
+      ],
+      "feasible_frac": 0.6666666666666666,
+      "runtime_score": 0.5818427787997211,
+      "zmin_mean": 0.2099630731373636,
+      "distance_mean": 0.03190594568444116,
+      "runtime_allowed": false,
+      "fallback_profile": "balanced",
+      "fallback_preset": "safe_bank_runtime_balanced"
+    },
+    "stability_extreme": {
+      "profile": "stability_extreme",
+      "preset": "safe_bank_runtime_stability_extreme",
+      "theta_norm": [
+        0.39914,
+        0.48059,
+        -0.49646,
+        0.53806,
+        0.62689,
+        0.60572,
+        0.6286,
+        0.46199
+      ],
+      "feasible_frac": 0.3333333333333333,
+      "runtime_score": 0.34214790350077023,
+      "zmin_mean": 0.1831010320686595,
+      "distance_mean": 0.03063005692272955,
+      "runtime_allowed": false,
+      "fallback_profile": "balanced",
+      "fallback_preset": "safe_bank_runtime_balanced"
+    }
+  }
+}
