@@ -93,11 +93,14 @@ class RuntimeValidatedPolicyNode(Node):
         self.declare_parameter("hold_body_height", 0.300)
         self.declare_parameter("hold_clearance", 0.035)
         self.declare_parameter("hold_enable", 1.0)
+        self.declare_parameter("policy_ramp_sec", 1.0)
 
         self.selector_path = Path(str(self.get_parameter("selector_path").value))
         self.selector = json.loads(self.selector_path.read_text())
 
         self.runtime_phase = "policy"
+        self.prev_runtime_phase = "policy"
+        self.phase_switch_time = self.get_clock().now()
         self.requested_profile = str(self.get_parameter("profile").value)
         self.counter = 0.0
 
@@ -206,23 +209,44 @@ class RuntimeValidatedPolicyNode(Node):
             phase = "hold"
 
         if phase != self.runtime_phase:
+            self.prev_runtime_phase = self.runtime_phase
             self.runtime_phase = phase
-            self.get_logger().info(f"[TRACER] runtime_phase -> {self.runtime_phase}")
+            self.phase_switch_time = self.get_clock().now()
+            self.get_logger().info(
+                f"[TRACER] runtime_phase {self.prev_runtime_phase} -> {self.runtime_phase}"
+            )
 
     def _on_timer(self):
         theta = [float(x) for x in self.selected["theta_norm"]]
 
+        hold_ref = [
+            float(self.counter),
+            float(self.get_parameter("hold_vx").value),
+            float(self.get_parameter("hold_yaw_rate").value),
+            float(self.get_parameter("hold_body_height").value),
+            float(self.get_parameter("hold_clearance").value),
+            float(self.get_parameter("hold_enable").value),
+        ]
+        policy_ref = theta_to_mpc_ref(theta, counter=self.counter)
+
         if self.runtime_phase == "hold":
-            ref = [
-                float(self.counter),
-                float(self.get_parameter("hold_vx").value),
-                float(self.get_parameter("hold_yaw_rate").value),
-                float(self.get_parameter("hold_body_height").value),
-                float(self.get_parameter("hold_clearance").value),
-                float(self.get_parameter("hold_enable").value),
-            ]
+            ref = hold_ref
         else:
-            ref = theta_to_mpc_ref(theta, counter=self.counter)
+            ramp_sec = max(0.0, float(self.get_parameter("policy_ramp_sec").value))
+            elapsed = (self.get_clock().now() - self.phase_switch_time).nanoseconds * 1.0e-9
+
+            if self.prev_runtime_phase == "hold" and ramp_sec > 1.0e-6 and elapsed < ramp_sec:
+                alpha = max(0.0, min(1.0, elapsed / ramp_sec))
+                ref = [
+                    float(self.counter),
+                    hold_ref[1] + alpha * (policy_ref[1] - hold_ref[1]),
+                    hold_ref[2] + alpha * (policy_ref[2] - hold_ref[2]),
+                    hold_ref[3] + alpha * (policy_ref[3] - hold_ref[3]),
+                    hold_ref[4] + alpha * (policy_ref[4] - hold_ref[4]),
+                    hold_ref[5] + alpha * (policy_ref[5] - hold_ref[5]),
+                ]
+            else:
+                ref = policy_ref
 
         theta_msg = Float64MultiArray()
         theta_msg.data = theta

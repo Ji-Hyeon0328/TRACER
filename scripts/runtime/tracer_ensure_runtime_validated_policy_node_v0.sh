@@ -4,6 +4,7 @@ set -euo pipefail
 PROFILE="${TRACER_RUNTIME_SELECTOR_PROFILE:-balanced}"
 SELECTOR="${TRACER_RUNTIME_SELECTOR_PATH:-configs/runtime/tracer_runtime_validated_theta_selector_v0.json}"
 HZ="${TRACER_RUNTIME_SELECTOR_HZ:-20.0}"
+RAMP="${TRACER_RUNTIME_SELECTOR_RAMP_SEC:-1.0}"
 LOG="${TRACER_RUNTIME_SELECTOR_LOG:-/tmp/tracer_runtime_validated_policy_node_v0.log}"
 RESET_DAEMON="${TRACER_RESET_ROS2_DAEMON:-0}"
 
@@ -11,6 +12,7 @@ echo "[TRACER] ensure runtime-validated policy node v0"
 echo "[TRACER] profile=${PROFILE}"
 echo "[TRACER] selector=${SELECTOR}"
 echo "[TRACER] hz=${HZ}"
+echo "[TRACER] ramp_sec=${RAMP}"
 echo "[TRACER] log=${LOG}"
 echo "[TRACER] reset_ros2_daemon=${RESET_DAEMON}"
 
@@ -48,6 +50,7 @@ nohup /usr/bin/python3 ros2_ws/src/tracer_a1_qpmc_adapter/scripts/tracer_runtime
   -p selector_path:="${SELECTOR}" \
   -p profile:="${PROFILE}" \
   -p publish_hz:="${HZ}" \
+  -p policy_ramp_sec:="${RAMP}" \
   > "${LOG}" 2>&1 &
 
 sleep 1.0
