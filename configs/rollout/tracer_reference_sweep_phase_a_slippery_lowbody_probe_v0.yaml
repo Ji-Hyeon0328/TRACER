@@ -1,0 +1,52 @@
+version: phase_a_slippery_lowbody_probe_v0
+description: >
+  Low-body Phase-A reference candidates for slippery terrain.
+  Hypothesis: slippery/icy terrain benefits from a lower CoM, cautious speed,
+  and modest clearance, unlike sponge-like terrain which benefits from tall
+  body height and high clearance.
+
+terrains:
+  - slippery_mild_flat
+
+presets:
+  - name: slippery_low_vx002_h026_c003
+    vx: 0.02
+    yaw_rate: 0.0
+    body_height: 0.26
+    swing_clearance: 0.03
+    enable: 1.0
+
+  - name: slippery_low_vx002_h028_c003
+    vx: 0.02
+    yaw_rate: 0.0
+    body_height: 0.28
+    swing_clearance: 0.03
+    enable: 1.0
+
+  - name: slippery_low_vx004_h028_c004
+    vx: 0.04
+    yaw_rate: 0.0
+    body_height: 0.28
+    swing_clearance: 0.04
+    enable: 1.0
+
+  - name: slippery_low_vx004_h030_c004
+    vx: 0.04
+    yaw_rate: 0.0
+    body_height: 0.30
+    swing_clearance: 0.04
+    enable: 1.0
+
+  - name: slippery_low_vx006_h030_c005
+    vx: 0.06
+    yaw_rate: 0.0
+    body_height: 0.30
+    swing_clearance: 0.05
+    enable: 1.0
+
+  - name: slippery_mid_vx004_h032_c006
+    vx: 0.04
+    yaw_rate: 0.0
+    body_height: 0.32
+    swing_clearance: 0.06
+    enable: 1.0
