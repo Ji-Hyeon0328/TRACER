@@ -177,6 +177,13 @@ def main() -> int:
     ap.add_argument("--max-below22-risk", type=float, default=0.45)
     ap.add_argument("--min-teacher-weight", type=float, default=0.10)
 
+    # Offline export evidence guard. These fields come from the aggregate candidate CSV.
+    # Runtime RAM prediction is still used for scoring, but low-evidence candidates should
+    # not be exported as validated configs.
+    ap.add_argument("--min-aggregate-episodes", type=int, default=0)
+    ap.add_argument("--min-aggregate-lcb95", type=float, default=0.0)
+    ap.add_argument("--max-aggregate-uncertainty", type=float, default=1.0)
+
     ap.add_argument("--preset-name", default="")
     ap.add_argument("--top-k", type=int, default=20)
     ap.add_argument("--out-json", required=True)
@@ -242,6 +249,18 @@ def main() -> int:
             min_teacher_weight=args.min_teacher_weight,
         )
 
+        aggregate_n_episodes = int(to_float(r.get("n_episodes", r.get("empirical_n_episodes", 0))))
+        aggregate_lcb95 = to_float(r.get("stable_prob_lcb95", r.get("empirical_stable_prob_lcb95", "")))
+        aggregate_uncertainty = to_float(r.get("outcome_uncertainty", r.get("empirical_uncertainty", "")))
+
+        aggregate_guard_pass = (
+            aggregate_n_episodes >= args.min_aggregate_episodes
+            and aggregate_lcb95 >= args.min_aggregate_lcb95
+            and aggregate_uncertainty <= args.max_aggregate_uncertainty
+        )
+
+        final_guard_pass = guard_pass and aggregate_guard_pass
+
         ranked.append({
             "vx": float(r["_vx"]),
             "yaw_rate": float(r["_yaw_rate"]),
@@ -250,20 +269,22 @@ def main() -> int:
             "ram_prediction": pred,
             "ram_safe_score": score,
             "ram_guard_pass": guard_pass,
+            "aggregate_guard_pass": aggregate_guard_pass,
+            "final_guard_pass": final_guard_pass,
             "aggregate_outcome_label": r.get("outcome_label", r.get("empirical_outcome_label", "")),
             "aggregate_stable_prob": to_float(r.get("stable_prob", r.get("empirical_stable_prob", ""))),
-            "aggregate_lcb95": to_float(r.get("stable_prob_lcb95", r.get("empirical_stable_prob_lcb95", ""))),
-            "aggregate_uncertainty": to_float(r.get("outcome_uncertainty", r.get("empirical_uncertainty", ""))),
-            "aggregate_n_episodes": int(to_float(r.get("n_episodes", r.get("empirical_n_episodes", 0)))),
+            "aggregate_lcb95": aggregate_lcb95,
+            "aggregate_uncertainty": aggregate_uncertainty,
+            "aggregate_n_episodes": aggregate_n_episodes,
             "source_presets_json": r.get("source_presets_json", "[]"),
         })
 
     ranked.sort(key=lambda r: float(r["ram_safe_score"]), reverse=True)
 
-    safe_ranked = [r for r in ranked if r["ram_guard_pass"]]
+    safe_ranked = [r for r in ranked if r["final_guard_pass"]]
     if safe_ranked:
         selected = safe_ranked[0]
-        selection_status = "ram_guard_pass"
+        selection_status = "ram_and_aggregate_guard_pass"
     else:
         selected = ranked[0]
         selection_status = "fallback_no_ram_safe_candidate"
@@ -290,6 +311,9 @@ def main() -> int:
             "max_zmin_risk": args.max_zmin_risk,
             "max_below22_risk": args.max_below22_risk,
             "min_teacher_weight": args.min_teacher_weight,
+            "min_aggregate_episodes": args.min_aggregate_episodes,
+            "min_aggregate_lcb95": args.min_aggregate_lcb95,
+            "max_aggregate_uncertainty": args.max_aggregate_uncertainty,
         },
         "selected_action": {
             "preset": preset_name,
@@ -300,6 +324,8 @@ def main() -> int:
             "enable": 1.0,
             "ram_safe_score": selected["ram_safe_score"],
             "ram_guard_pass": selected["ram_guard_pass"],
+            "aggregate_guard_pass": selected["aggregate_guard_pass"],
+            "final_guard_pass": selected["final_guard_pass"],
             "ram_prediction": selected["ram_prediction"],
             "aggregate_outcome_label": selected["aggregate_outcome_label"],
             "aggregate_stable_prob": selected["aggregate_stable_prob"],
@@ -348,7 +374,7 @@ presets:
         f"[TRACER] selected: {preset_name} "
         f"a=[{selected['vx']:.3f},{selected['yaw_rate']:.3f},{selected['body_height']:.3f},{selected['swing_clearance']:.3f}] "
         f"score={selected['ram_safe_score']:.4f} "
-        f"guard={selected['ram_guard_pass']} "
+        f"ram_guard={selected['ram_guard_pass']} agg_guard={selected['aggregate_guard_pass']} final_guard={selected['final_guard_pass']} "
         f"rec={p['empirical_recovery_prob']:.3f} "
         f"unc={p['empirical_uncertainty']:.3f} "
         f"lcb={p['empirical_stable_prob_lcb95']:.3f} "
@@ -363,7 +389,7 @@ presets:
         p = r["ram_prediction"]
         print(
             f"{i:02d}. score={r['ram_safe_score']:.4f} "
-            f"guard={str(r['ram_guard_pass']):5s} "
+            f"ram={str(r['ram_guard_pass']):5s} agg={str(r['aggregate_guard_pass']):5s} final={str(r['final_guard_pass']):5s} "
             f"a=[{r['vx']:.3f},{r['yaw_rate']:.3f},{r['body_height']:.3f},{r['swing_clearance']:.3f}] "
             f"rec={p['empirical_recovery_prob']:.3f} "
             f"unc={p['empirical_uncertainty']:.3f} "
