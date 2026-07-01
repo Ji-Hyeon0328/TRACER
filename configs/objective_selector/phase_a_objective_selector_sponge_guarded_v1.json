@@ -1,0 +1,125 @@
+{
+  "terrain": "sponge_firm_flat",
+  "context_mode": "best",
+  "preset_filter": "",
+  "label_filter": "positive_teacher,borderline_teacher",
+  "mission_profile": "stability",
+  "recovery_gate": false,
+  "guard_reason": {
+    "recovery_needed": 0.0,
+    "low_height_risk": 0.0,
+    "vertical_sink": 0.0,
+    "uncertainty_proxy": 0.0,
+    "recovery_threshold": 0.5,
+    "low_height_risk_threshold": 0.55,
+    "vertical_sink_threshold": 0.5
+  },
+  "context": {
+    "preset": "sponge_refine_vx002_h038_c012",
+    "manifest_label": "positive_teacher",
+    "a_hl_vx": 0.02,
+    "a_hl_yaw_rate": 0.0,
+    "a_hl_body_height": 0.38,
+    "a_hl_swing_clearance": 0.12,
+    "stable_frac": 1.0,
+    "zmin_mean": 0.24888860102342553,
+    "below22_mean": 0.0,
+    "ram_vertical_sink_target": 0.0,
+    "ram_progress_mismatch_target": 0.0,
+    "ram_orientation_risk_target": 0.12611394120642516,
+    "ram_low_height_risk_target": 0.0,
+    "ram_recovery_needed_target": 0.0,
+    "ram_uncertainty_proxy_target": 0.0
+  },
+  "selected": {
+    "profile": "stability_extreme",
+    "beta_motion": 0.05,
+    "beta_stability": 0.9,
+    "beta_energy": 0.05,
+    "learned_utility_raw": 17.957229614257812,
+    "learned_utility_norm": 1.0,
+    "mission_score": 0.75,
+    "safety_score": 0.9,
+    "adjusted_score": 1.735
+  },
+  "ranked_profiles": [
+    {
+      "profile": "stability_extreme",
+      "beta_motion": 0.05,
+      "beta_stability": 0.9,
+      "beta_energy": 0.05,
+      "learned_utility_raw": 17.957229614257812,
+      "learned_utility_norm": 1.0,
+      "mission_score": 0.75,
+      "safety_score": 0.9,
+      "adjusted_score": 1.735
+    },
+    {
+      "profile": "stability",
+      "beta_motion": 0.2,
+      "beta_stability": 0.65,
+      "beta_energy": 0.15,
+      "learned_utility_raw": 7.673160552978516,
+      "learned_utility_norm": 0.7287488359995714,
+      "mission_score": 1.0,
+      "safety_score": 0.65,
+      "adjusted_score": 1.6262488359995715
+    },
+    {
+      "profile": "balanced",
+      "beta_motion": 0.34,
+      "beta_stability": 0.33,
+      "beta_energy": 0.33,
+      "learned_utility_raw": -4.040828704833984,
+      "learned_utility_norm": 0.4197822973331247,
+      "mission_score": 0.6799999999999999,
+      "safety_score": 0.33,
+      "adjusted_score": 1.0132822973331248
+    },
+    {
+      "profile": "motion",
+      "beta_motion": 0.65,
+      "beta_stability": 0.2,
+      "beta_energy": 0.15,
+      "learned_utility_raw": -10.412588119506836,
+      "learned_utility_norm": 0.2517216641671995,
+      "mission_score": 0.55,
+      "safety_score": 0.2,
+      "adjusted_score": 0.7217216641671995
+    },
+    {
+      "profile": "energy",
+      "beta_motion": 0.2,
+      "beta_stability": 0.2,
+      "beta_energy": 0.6,
+      "learned_utility_raw": -10.419527053833008,
+      "learned_utility_norm": 0.2515386438080711,
+      "mission_score": 0.55,
+      "safety_score": 0.2,
+      "adjusted_score": 0.7215386438080712
+    },
+    {
+      "profile": "motion_extreme",
+      "beta_motion": 0.85,
+      "beta_stability": 0.1,
+      "beta_energy": 0.05,
+      "learned_utility_raw": -16.889780044555664,
+      "learned_utility_norm": 0.08088015788650223,
+      "mission_score": 0.35,
+      "safety_score": 0.1,
+      "adjusted_score": 0.3758801578865022
+    },
+    {
+      "profile": "energy_extreme",
+      "beta_motion": 0.05,
+      "beta_stability": 0.1,
+      "beta_energy": 0.85,
+      "learned_utility_raw": -19.956226348876953,
+      "learned_utility_norm": 0.0,
+      "mission_score": 0.30000000000000004,
+      "safety_score": 0.1,
+      "adjusted_score": 0.25500000000000006
+    }
+  ],
+  "note": "Guarded Phase-A Objective Selector query. Uses learned utility plus mission prior and recovery/safety guard. This is closer to TRACER runtime logic than raw preference utility."
+}

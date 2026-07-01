@@ -1,0 +1,125 @@
+{
+  "terrain": "slippery_mild_flat",
+  "context_mode": "average",
+  "preset_filter": "",
+  "label_filter": "borderline_teacher,risk_recovery",
+  "mission_profile": "stability",
+  "recovery_gate": true,
+  "guard_reason": {
+    "recovery_needed": 0.8571428571428571,
+    "low_height_risk": 0.6649208476190477,
+    "vertical_sink": 0.5465040005952381,
+    "uncertainty_proxy": 0.3650000000000003,
+    "recovery_threshold": 0.5,
+    "low_height_risk_threshold": 0.55,
+    "vertical_sink_threshold": 0.5
+  },
+  "context": {
+    "preset": "AVERAGED_CONTEXT",
+    "manifest_label": "averaged_context",
+    "a_hl_vx": 0.026428571428571423,
+    "a_hl_yaw_rate": 0.0,
+    "a_hl_body_height": 0.27071428571428596,
+    "a_hl_swing_clearance": 0.03428571428571424,
+    "stable_frac": 0.13809523809523805,
+    "zmin_mean": 0.11441951978210499,
+    "below22_mean": 0.6371428571428572,
+    "ram_vertical_sink_target": 0.5465040005952381,
+    "ram_progress_mismatch_target": 0.19769128177355025,
+    "ram_orientation_risk_target": 0.26555163372803187,
+    "ram_low_height_risk_target": 0.6649208476190477,
+    "ram_recovery_needed_target": 0.8571428571428571,
+    "ram_uncertainty_proxy_target": 0.3650000000000003
+  },
+  "selected": {
+    "profile": "stability_extreme",
+    "beta_motion": 0.05,
+    "beta_stability": 0.9,
+    "beta_energy": 0.05,
+    "learned_utility_raw": -26.307247161865234,
+    "learned_utility_norm": 0.016334815798763218,
+    "mission_score": 0.75,
+    "safety_score": 0.9,
+    "adjusted_score": 1.5813348157987632
+  },
+  "ranked_profiles": [
+    {
+      "profile": "stability_extreme",
+      "beta_motion": 0.05,
+      "beta_stability": 0.9,
+      "beta_energy": 0.05,
+      "learned_utility_raw": -26.307247161865234,
+      "learned_utility_norm": 0.016334815798763218,
+      "mission_score": 0.75,
+      "safety_score": 0.9,
+      "adjusted_score": 1.5813348157987632
+    },
+    {
+      "profile": "stability",
+      "beta_motion": 0.2,
+      "beta_stability": 0.65,
+      "beta_energy": 0.15,
+      "learned_utility_raw": -26.696332931518555,
+      "learned_utility_norm": 0.0,
+      "mission_score": 1.0,
+      "safety_score": 0.65,
+      "adjusted_score": 1.3075
+    },
+    {
+      "profile": "energy",
+      "beta_motion": 0.2,
+      "beta_stability": 0.2,
+      "beta_energy": 0.6,
+      "learned_utility_raw": -4.146247386932373,
+      "learned_utility_norm": 0.9467102689090213,
+      "mission_score": 0.55,
+      "safety_score": 0.2,
+      "adjusted_score": -8.983289731090979
+    },
+    {
+      "profile": "balanced",
+      "beta_motion": 0.34,
+      "beta_stability": 0.33,
+      "beta_energy": 0.33,
+      "learned_utility_raw": -15.91779613494873,
+      "learned_utility_norm": 0.45251054364963195,
+      "mission_score": 0.6799999999999999,
+      "safety_score": 0.33,
+      "adjusted_score": -9.091989456350369
+    },
+    {
+      "profile": "energy_extreme",
+      "beta_motion": 0.05,
+      "beta_stability": 0.1,
+      "beta_energy": 0.85,
+      "learned_utility_raw": -2.8769171237945557,
+      "learned_utility_norm": 1.0,
+      "mission_score": 0.30000000000000004,
+      "safety_score": 0.1,
+      "adjusted_score": -9.355
+    },
+    {
+      "profile": "motion",
+      "beta_motion": 0.65,
+      "beta_stability": 0.2,
+      "beta_energy": 0.15,
+      "learned_utility_raw": -18.38581085205078,
+      "learned_utility_norm": 0.34889697323193347,
+      "mission_score": 0.55,
+      "safety_score": 0.2,
+      "adjusted_score": -9.491103026768066
+    },
+    {
+      "profile": "motion_extreme",
+      "beta_motion": 0.85,
+      "beta_stability": 0.1,
+      "beta_energy": 0.05,
+      "learned_utility_raw": -18.205989837646484,
+      "learned_utility_norm": 0.35644631935594656,
+      "mission_score": 0.35,
+      "safety_score": 0.1,
+      "adjusted_score": -9.798553680644053
+    }
+  ],
+  "note": "Guarded Phase-A Objective Selector query. Uses learned utility plus mission prior and recovery/safety guard. This is closer to TRACER runtime logic than raw preference utility."
+}
