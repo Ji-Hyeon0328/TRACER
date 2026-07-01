@@ -79,6 +79,8 @@ def select_rows(
     terrain: str,
     min_stable_prob: float,
     max_uncertainty: float,
+    min_episodes: int,
+    min_stable_lcb95: float,
     allow_labels: set[str],
 ) -> tuple[list[dict[str, Any]], str]:
     terrain_rows = [r for r in rows if str(r.get("terrain", "")) == terrain]
@@ -90,12 +92,18 @@ def select_rows(
         label = str(r.get("outcome_label", ""))
         stable_p = to_float(r.get("stable_prob"))
         unc = to_float(r.get("outcome_uncertainty"))
+        n_episodes = int(to_float(r.get("n_episodes")))
+        stable_lcb95 = to_float(r.get("stable_prob_lcb95"))
 
         if label not in allow_labels:
             continue
         if stable_p < min_stable_prob:
             continue
         if unc > max_uncertainty:
+            continue
+        if n_episodes < min_episodes:
+            continue
+        if stable_lcb95 < min_stable_lcb95:
             continue
         safe.append(r)
 
@@ -117,6 +125,8 @@ def main() -> int:
     )
     ap.add_argument("--min-stable-prob", type=float, default=0.80)
     ap.add_argument("--max-uncertainty", type=float, default=0.40)
+    ap.add_argument("--min-episodes", type=int, default=1)
+    ap.add_argument("--min-stable-lcb95", type=float, default=0.0)
     ap.add_argument(
         "--allow-labels",
         default="robust_positive,probabilistic_positive",
@@ -143,6 +153,8 @@ def main() -> int:
         terrain=args.terrain,
         min_stable_prob=args.min_stable_prob,
         max_uncertainty=args.max_uncertainty,
+        min_episodes=args.min_episodes,
+        min_stable_lcb95=args.min_stable_lcb95,
         allow_labels=allow_labels,
     )
 
@@ -180,6 +192,8 @@ def main() -> int:
         "safe_filter": {
             "min_stable_prob": args.min_stable_prob,
             "max_uncertainty": args.max_uncertainty,
+            "min_episodes": args.min_episodes,
+            "min_stable_lcb95": args.min_stable_lcb95,
             "allow_labels": sorted(allow_labels),
         },
         "selected_action": {

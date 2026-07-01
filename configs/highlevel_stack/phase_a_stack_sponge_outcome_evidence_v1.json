@@ -18,6 +18,8 @@
   "safe_filter": {
     "min_stable_prob": 0.6,
     "max_uncertainty": 0.6,
+    "min_episodes": 5,
+    "min_stable_lcb95": 0.5,
     "allow_labels": [
       "probabilistic_positive",
       "robust_positive"
@@ -25,36 +27,22 @@
   },
   "selected_action": {
     "preset": "phase_a_stack_sponge_outcome_evidence_v1",
-    "vx": 0.06,
+    "vx": 0.04,
     "yaw_rate": 0.0,
     "body_height": 0.38,
-    "swing_clearance": 0.12,
+    "swing_clearance": 0.1,
     "enable": 1.0,
-    "adjusted_score": 0.5247871831646458,
+    "adjusted_score": 0.5091570282638401,
     "outcome_label": "probabilistic_positive",
-    "stable_prob": 1.0,
-    "outcome_uncertainty": 0.3914072502522151,
-    "zmin_mean": 0.2238537689475919,
-    "below22_mean": 0.14666666666666667,
-    "n_episodes": 3,
-    "source_presets_json": "[\"sponge_refine_vx006_h038_c012\"]",
-    "source_runs_json": "[\"data/rollouts/reference_sweep_v0/ref_sweep_v0_20260701_164638\"]"
+    "stable_prob": 0.875,
+    "outcome_uncertainty": 0.4598002871006434,
+    "zmin_mean": 0.21671924580586294,
+    "below22_mean": 0.10250000000000001,
+    "n_episodes": 8,
+    "source_presets_json": "[\"phase_a_stack_sponge_outcome_evidence_v1\", \"sponge_refine_vx004_h038_c010\"]",
+    "source_runs_json": "[\"data/rollouts/reference_sweep_v0/ref_sweep_v0_20260701_164638\", \"data/rollouts/reference_sweep_v0/ref_sweep_v0_20260701_190336\"]"
   },
   "ranked_candidates": [
-    {
-      "adjusted_score": 0.5247871831646458,
-      "outcome_label": "probabilistic_positive",
-      "stable_prob": 1.0,
-      "outcome_uncertainty": 0.3914072502522151,
-      "zmin_mean": 0.2238537689475919,
-      "below22_mean": 0.14666666666666667,
-      "n_episodes": 3,
-      "vx": 0.06,
-      "yaw_rate": 0.0,
-      "body_height": 0.38,
-      "swing_clearance": 0.12,
-      "source_presets_json": "[\"sponge_refine_vx006_h038_c012\"]"
-    },
     {
       "adjusted_score": 0.5091570282638401,
       "outcome_label": "probabilistic_positive",

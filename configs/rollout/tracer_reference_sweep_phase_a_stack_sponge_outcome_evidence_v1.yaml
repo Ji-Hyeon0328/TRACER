@@ -8,8 +8,8 @@ terrains:
 
 presets:
   - name: phase_a_stack_sponge_outcome_evidence_v1
-    vx: 0.060000
+    vx: 0.040000
     yaw_rate: 0.000000
     body_height: 0.380000
-    swing_clearance: 0.120000
+    swing_clearance: 0.100000
     enable: 1.0
