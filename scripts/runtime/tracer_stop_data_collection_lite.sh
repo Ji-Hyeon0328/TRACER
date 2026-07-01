@@ -12,6 +12,9 @@ pkill -9 -f tracer_udp_odom_to_ros2_node.py 2>/dev/null || true
 pkill -9 -f tracer_ros2_mpc_ref_udp_sender.py 2>/dev/null || true
 pkill -9 -f tracer_record_rollout_episode_v0.py 2>/dev/null || true
 pkill -9 -f tracer_run_reference_sweep_rollouts_v0.py 2>/dev/null || true
+pkill -9 -f tracer_runtime_validated_policy_node_v0.py 2>/dev/null || true
+pkill -9 -f tracer_safe_bank_policy_node_v0.py 2>/dev/null || true
+pkill -9 -f tracer_objective_selector_beta_node_v0.py 2>/dev/null || true
 
 pkill -9 -f tracer_fusion_policy_mpc_ref_node.py 2>/dev/null || true
 pkill -9 -f tracer_objective_selector_stub_node.py 2>/dev/null || true

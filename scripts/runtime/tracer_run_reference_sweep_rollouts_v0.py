@@ -130,6 +130,9 @@ def kill_conflicting_publishers() -> None:
         "tracer_learned_high_level_policy_udp_client_v1_node.py",
         "tracer_learned_high_level_policy_udp_client_node.py",
         "tracer_high_level_controller_stub_node.py",
+        "tracer_runtime_validated_policy_node_v0.py",
+        "tracer_safe_bank_policy_node_v0.py",
+        "tracer_objective_selector_beta_node_v0.py",
         "ros2 topic pub.*/tracer/mpc_reference",
     ]
     for pat in patterns:
