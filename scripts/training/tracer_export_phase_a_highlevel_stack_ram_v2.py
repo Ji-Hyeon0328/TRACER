@@ -281,13 +281,22 @@ def main() -> int:
 
     ranked.sort(key=lambda r: float(r["ram_safe_score"]), reverse=True)
 
-    safe_ranked = [r for r in ranked if r["final_guard_pass"]]
-    if safe_ranked:
-        selected = safe_ranked[0]
+    final_safe_ranked = [r for r in ranked if r["final_guard_pass"]]
+    aggregate_safe_ranked = [r for r in ranked if r["aggregate_guard_pass"]]
+    ram_safe_ranked = [r for r in ranked if r["ram_guard_pass"]]
+
+    if final_safe_ranked:
+        selected = final_safe_ranked[0]
         selection_status = "ram_and_aggregate_guard_pass"
+    elif aggregate_safe_ranked:
+        selected = aggregate_safe_ranked[0]
+        selection_status = "fallback_aggregate_guard_only"
+    elif ram_safe_ranked:
+        selected = ram_safe_ranked[0]
+        selection_status = "fallback_ram_guard_only"
     else:
         selected = ranked[0]
-        selection_status = "fallback_no_ram_safe_candidate"
+        selection_status = "fallback_no_safe_candidate"
 
     preset_name = args.preset_name or f"phase_a_stack_ram_{args.terrain}_{objective_profile}_v2"
 

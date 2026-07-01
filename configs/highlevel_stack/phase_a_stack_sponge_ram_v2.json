@@ -20,7 +20,7 @@
   },
   "ram_model": "artifacts/phase_a_ram_empirical_v1/phase_a_ram_empirical_v1.pt",
   "candidate_csv": "data/phase_a_action_outcome_aggregates_v1_evidence/phase_a_action_outcome_aggregates_v1_evidence.csv",
-  "selection_status": "fallback_no_ram_safe_candidate",
+  "selection_status": "ram_and_aggregate_guard_pass",
   "ram_guard": {
     "max_recovery": 0.35,
     "max_uncertainty": 0.65,
@@ -29,33 +29,33 @@
     "max_below22_risk": 0.45,
     "min_teacher_weight": 0.1,
     "min_aggregate_episodes": 5,
-    "min_aggregate_lcb95": 0.5,
-    "max_aggregate_uncertainty": 0.65
+    "min_aggregate_lcb95": 0.49,
+    "max_aggregate_uncertainty": 0.66
   },
   "selected_action": {
     "preset": "phase_a_stack_sponge_ram_v2",
-    "vx": 0.06,
+    "vx": 0.04,
     "yaw_rate": 0.0,
     "body_height": 0.38,
-    "swing_clearance": 0.12,
+    "swing_clearance": 0.1,
     "enable": 1.0,
-    "ram_safe_score": 0.4014326259493828,
+    "ram_safe_score": 0.12749873250722887,
     "ram_guard_pass": true,
-    "aggregate_guard_pass": false,
-    "final_guard_pass": false,
+    "aggregate_guard_pass": true,
+    "final_guard_pass": true,
     "ram_prediction": {
-      "empirical_recovery_prob": 0.04607674479484558,
-      "empirical_uncertainty": 0.3842994272708893,
-      "empirical_stable_prob_lcb95": 0.4556390941143036,
-      "empirical_zmin_risk": 0.10102537274360657,
-      "empirical_below22_risk": 0.1299745738506317,
-      "empirical_teacher_weight": 0.4258154630661011
+      "empirical_recovery_prob": 0.22665086388587952,
+      "empirical_uncertainty": 0.6066455841064453,
+      "empirical_stable_prob_lcb95": 0.4778958857059479,
+      "empirical_zmin_risk": 0.20586301386356354,
+      "empirical_below22_risk": 0.18236945569515228,
+      "empirical_teacher_weight": 0.44861164689064026
     },
     "aggregate_outcome_label": "probabilistic_positive",
-    "aggregate_stable_prob": 1.0,
-    "aggregate_lcb95": 0.4384939195509822,
-    "aggregate_uncertainty": 0.3914072502522151,
-    "aggregate_n_episodes": 3
+    "aggregate_stable_prob": 0.7692307692307693,
+    "aggregate_lcb95": 0.49743126004873084,
+    "aggregate_uncertainty": 0.6018608464547779,
+    "aggregate_n_episodes": 13
   },
   "ranked_candidates": [
     {
@@ -97,8 +97,8 @@
       },
       "ram_safe_score": 0.12749873250722887,
       "ram_guard_pass": true,
-      "aggregate_guard_pass": false,
-      "final_guard_pass": false,
+      "aggregate_guard_pass": true,
+      "final_guard_pass": true,
       "aggregate_outcome_label": "probabilistic_positive",
       "aggregate_stable_prob": 0.7692307692307693,
       "aggregate_lcb95": 0.49743126004873084,
