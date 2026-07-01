@@ -95,6 +95,40 @@ def unique_candidates(rows: list[dict[str, Any]], terrain: str) -> list[dict[str
     return out
 
 
+
+def get_train_score(row: dict[str, Any]) -> float:
+    if "R_train_score" in row:
+        return to_float(row.get("R_train_score"))
+    if "R_profile_v2_gated_mean" in row:
+        return to_float(row.get("R_profile_v2_gated_mean"))
+    return to_float(row.get("R_gated_mean"))
+
+
+def label_bonus(label: str) -> float:
+    if label == "positive_teacher":
+        return 0.04
+    if label == "borderline":
+        return 0.02
+    if label == "risk_negative":
+        return -0.08
+    return 0.0
+
+
+def selection_score(model_score: float, row: dict[str, Any], mode: str) -> float:
+    bank_score = get_train_score(row)
+    if mode == "model":
+        return float(model_score)
+    if mode == "bank":
+        return bank_score + label_bonus(str(row.get("bank_label", "")))
+
+    return (
+        0.55 * float(model_score)
+        + 0.45 * bank_score
+        + label_bonus(str(row.get("bank_label", "")))
+    )
+
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", default="artifacts/phase_a_terrain_aware_ranker_v0/phase_a_terrain_aware_ranker_v0.pt")
@@ -104,6 +138,17 @@ def main() -> int:
     ap.add_argument("--top-k", type=int, default=10)
     ap.add_argument("--out-config", default="")
     ap.add_argument("--preset-name", default="")
+    ap.add_argument(
+        "--selection-mode",
+        default="hybrid",
+        choices=["model", "bank", "hybrid"],
+        help="How to select final candidate from ranked bank candidates.",
+    )
+    ap.add_argument(
+        "--allow-risk",
+        action="store_true",
+        help="Allow risk_negative candidates to be selected even when non-risk candidates exist.",
+    )
     args = ap.parse_args()
 
     ckpt = torch.load(args.model, map_location="cpu")
@@ -125,27 +170,42 @@ def main() -> int:
     with torch.no_grad():
         scores = model(xs).detach().tolist()
 
-    ranked = sorted(zip(candidates, scores), key=lambda x: x[1], reverse=True)
+    raw_ranked = []
+    for r, pred_score in zip(candidates, scores):
+        sel_score = selection_score(float(pred_score), r, args.selection_mode)
+        raw_ranked.append((r, float(pred_score), sel_score))
+
+    # By default, do not let risk_negative win if positive/borderline candidates exist.
+    selectable = raw_ranked
+    if not args.allow_risk:
+        non_risk = [x for x in raw_ranked if str(x[0].get("bank_label", "")) != "risk_negative"]
+        if non_risk:
+            selectable = non_risk
+
+    ranked = sorted(selectable, key=lambda x: x[2], reverse=True)
+    display_ranked = sorted(raw_ranked, key=lambda x: x[2], reverse=True)
 
     print(f"[TRACER] terrain={args.terrain}")
     print(f"[TRACER] profile={args.profile} beta={beta}")
     print(f"[TRACER] candidates={len(candidates)}")
+    print(f"[TRACER] selection_mode={args.selection_mode} allow_risk={args.allow_risk}")
     print()
 
     print("===== ranked candidates =====")
-    for i, (r, s) in enumerate(ranked[: args.top_k], start=1):
+    for i, (r, pred_s, sel_s) in enumerate(display_ranked[: args.top_k], start=1):
         print(
-            f"{i:02d}. score={s:.4f} "
+            f"{i:02d}. select={sel_s:.4f} pred={pred_s:.4f} "
             f"label={str(r.get('bank_label','')):16s} "
             f"preset={str(r.get('preset','')):36s} "
             f"vx={to_float(r.get('ref_vx')):.3f} "
             f"yaw={to_float(r.get('ref_yaw_rate')):.3f} "
             f"h={to_float(r.get('ref_body_height')):.3f} "
             f"c={to_float(r.get('ref_swing_clearance')):.3f} "
-            f"train_score={to_float(r.get('R_train_score')):.4f}"
+            f"train_score={get_train_score(r):.4f}"
         )
 
-    best, best_score = ranked[0]
+    best, best_pred_score, best_select_score = ranked[0]
+    best_score = best_select_score
     vx = to_float(best.get("ref_vx"))
     yaw = to_float(best.get("ref_yaw_rate"))
     h = to_float(best.get("ref_body_height"))
@@ -158,7 +218,9 @@ def main() -> int:
         "selected": {
             "preset": best.get("preset", ""),
             "bank_label": best.get("bank_label", ""),
-            "score": best_score,
+            "selection_score": best_score,
+            "model_score": best_pred_score,
+            "bank_train_score": get_train_score(best),
             "vx": vx,
             "yaw_rate": yaw,
             "body_height": h,
