@@ -1,0 +1,102 @@
+{
+  "terrain": "flat_normal",
+  "objective_json": "configs/objective_selector/phase_a_objective_selector_flat_guarded_v1.json",
+  "objective_selected": {
+    "profile": "balanced",
+    "beta_motion": 0.34,
+    "beta_stability": 0.33,
+    "beta_energy": 0.33,
+    "learned_utility_raw": 4.524547100067139,
+    "learned_utility_norm": 0.5879531554323599,
+    "mission_score": 1.0,
+    "safety_score": 0.33,
+    "adjusted_score": 1.8374531554323599
+  },
+  "objective_profile": "balanced",
+  "aggregate_csv": "data/phase_a_action_outcome_aggregates_all_v0/phase_a_action_outcome_aggregates_v0.csv",
+  "selection_status": "safe_filter_pass",
+  "safe_filter": {
+    "min_stable_prob": 0.8,
+    "max_uncertainty": 0.4,
+    "allow_labels": [
+      "probabilistic_positive",
+      "robust_positive"
+    ]
+  },
+  "selected_action": {
+    "preset": "phase_a_stack_flat_outcome_v1",
+    "vx": 0.06,
+    "yaw_rate": 0.0,
+    "body_height": 0.3,
+    "swing_clearance": 0.04,
+    "enable": 1.0,
+    "adjusted_score": 0.8311790543234112,
+    "outcome_label": "robust_positive",
+    "stable_prob": 1.0,
+    "outcome_uncertainty": 0.06786233474956574,
+    "zmin_mean": 0.33658546326474137,
+    "below22_mean": 0.0,
+    "n_episodes": 2,
+    "source_presets_json": "[\"flat_probe_vx006_h030_c004\"]",
+    "source_runs_json": "[\"data/rollouts/reference_sweep_v0/ref_sweep_v0_20260701_162141\"]"
+  },
+  "ranked_candidates": [
+    {
+      "adjusted_score": 0.8311790543234112,
+      "outcome_label": "robust_positive",
+      "stable_prob": 1.0,
+      "outcome_uncertainty": 0.06786233474956574,
+      "zmin_mean": 0.33658546326474137,
+      "below22_mean": 0.0,
+      "n_episodes": 2,
+      "vx": 0.06,
+      "yaw_rate": 0.0,
+      "body_height": 0.3,
+      "swing_clearance": 0.04,
+      "source_presets_json": "[\"flat_probe_vx006_h030_c004\"]"
+    },
+    {
+      "adjusted_score": 0.8235475804474097,
+      "outcome_label": "robust_positive",
+      "stable_prob": 1.0,
+      "outcome_uncertainty": 0.12656646674263786,
+      "zmin_mean": 0.2836458108852731,
+      "below22_mean": 0.0,
+      "n_episodes": 2,
+      "vx": 0.04,
+      "yaw_rate": 0.0,
+      "body_height": 0.3,
+      "swing_clearance": 0.03,
+      "source_presets_json": "[\"flat_probe_vx004_h030_c003\"]"
+    },
+    {
+      "adjusted_score": 0.7952881167354231,
+      "outcome_label": "robust_positive",
+      "stable_prob": 1.0,
+      "outcome_uncertainty": 0.06296422559075361,
+      "zmin_mean": 0.3519407281647057,
+      "below22_mean": 0.0,
+      "n_episodes": 2,
+      "vx": 0.08,
+      "yaw_rate": 0.0,
+      "body_height": 0.32,
+      "swing_clearance": 0.04,
+      "source_presets_json": "[\"flat_probe_vx008_h032_c004\"]"
+    },
+    {
+      "adjusted_score": 0.7208323452086973,
+      "outcome_label": "robust_positive",
+      "stable_prob": 1.0,
+      "outcome_uncertainty": 0.07494870914893073,
+      "zmin_mean": 0.32100921898205603,
+      "below22_mean": 0.0,
+      "n_episodes": 2,
+      "vx": 0.1,
+      "yaw_rate": 0.0,
+      "body_height": 0.32,
+      "swing_clearance": 0.06,
+      "source_presets_json": "[\"flat_probe_vx010_h032_c006\"]"
+    }
+  ],
+  "note": "Outcome-aware Phase-A high-level stack export. Uses aggregate stable probability and outcome uncertainty to avoid single-run high-variance teachers."
+}

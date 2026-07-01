@@ -1,0 +1,15 @@
+version: phase_a_highlevel_stack_outcome_v1
+description: >
+  Exported by guarded Objective Selector + aggregate outcome-aware action selection.
+  This avoids high-variance single-run teacher actions.
+
+terrains:
+  - flat_normal
+
+presets:
+  - name: phase_a_stack_flat_outcome_v1
+    vx: 0.060000
+    yaw_rate: 0.000000
+    body_height: 0.300000
+    swing_clearance: 0.040000
+    enable: 1.0

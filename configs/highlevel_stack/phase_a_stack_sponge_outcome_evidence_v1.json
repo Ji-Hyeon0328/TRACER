@@ -1,0 +1,74 @@
+{
+  "terrain": "sponge_firm_flat",
+  "objective_json": "configs/objective_selector/phase_a_objective_selector_sponge_guarded_v1.json",
+  "objective_selected": {
+    "profile": "stability_extreme",
+    "beta_motion": 0.05,
+    "beta_stability": 0.9,
+    "beta_energy": 0.05,
+    "learned_utility_raw": 17.957229614257812,
+    "learned_utility_norm": 1.0,
+    "mission_score": 0.75,
+    "safety_score": 0.9,
+    "adjusted_score": 1.735
+  },
+  "objective_profile": "stability_extreme",
+  "aggregate_csv": "data/phase_a_action_outcome_aggregates_v1_evidence/phase_a_action_outcome_aggregates_v1_evidence.csv",
+  "selection_status": "safe_filter_pass",
+  "safe_filter": {
+    "min_stable_prob": 0.6,
+    "max_uncertainty": 0.6,
+    "allow_labels": [
+      "probabilistic_positive",
+      "robust_positive"
+    ]
+  },
+  "selected_action": {
+    "preset": "phase_a_stack_sponge_outcome_evidence_v1",
+    "vx": 0.06,
+    "yaw_rate": 0.0,
+    "body_height": 0.38,
+    "swing_clearance": 0.12,
+    "enable": 1.0,
+    "adjusted_score": 0.5247871831646458,
+    "outcome_label": "probabilistic_positive",
+    "stable_prob": 1.0,
+    "outcome_uncertainty": 0.3914072502522151,
+    "zmin_mean": 0.2238537689475919,
+    "below22_mean": 0.14666666666666667,
+    "n_episodes": 3,
+    "source_presets_json": "[\"sponge_refine_vx006_h038_c012\"]",
+    "source_runs_json": "[\"data/rollouts/reference_sweep_v0/ref_sweep_v0_20260701_164638\"]"
+  },
+  "ranked_candidates": [
+    {
+      "adjusted_score": 0.5247871831646458,
+      "outcome_label": "probabilistic_positive",
+      "stable_prob": 1.0,
+      "outcome_uncertainty": 0.3914072502522151,
+      "zmin_mean": 0.2238537689475919,
+      "below22_mean": 0.14666666666666667,
+      "n_episodes": 3,
+      "vx": 0.06,
+      "yaw_rate": 0.0,
+      "body_height": 0.38,
+      "swing_clearance": 0.12,
+      "source_presets_json": "[\"sponge_refine_vx006_h038_c012\"]"
+    },
+    {
+      "adjusted_score": 0.5091570282638401,
+      "outcome_label": "probabilistic_positive",
+      "stable_prob": 0.875,
+      "outcome_uncertainty": 0.4598002871006434,
+      "zmin_mean": 0.21671924580586294,
+      "below22_mean": 0.10250000000000001,
+      "n_episodes": 8,
+      "vx": 0.04,
+      "yaw_rate": 0.0,
+      "body_height": 0.38,
+      "swing_clearance": 0.1,
+      "source_presets_json": "[\"phase_a_stack_sponge_outcome_evidence_v1\", \"sponge_refine_vx004_h038_c010\"]"
+    }
+  ],
+  "note": "Outcome-aware Phase-A high-level stack export. Uses aggregate stable probability and outcome uncertainty to avoid single-run high-variance teachers."
+}
