@@ -1,0 +1,37 @@
+version: phase_a_mini_terrain_v0
+description: >
+  Phase-A reference sweep candidate set for mini terrain sweep.
+  The actual Gazebo world is controlled by the wrapper and verified by
+  tracer_run_reference_sweep_rollouts_v0.py via terrain_set_v0.yaml.
+
+terrains:
+  - flat_normal
+
+presets:
+  - name: flat_probe_vx004_h030_c003
+    vx: 0.04
+    yaw_rate: 0.0
+    body_height: 0.30
+    swing_clearance: 0.03
+    enable: 1.0
+
+  - name: flat_probe_vx006_h030_c004
+    vx: 0.06
+    yaw_rate: 0.0
+    body_height: 0.30
+    swing_clearance: 0.04
+    enable: 1.0
+
+  - name: flat_probe_vx008_h032_c004
+    vx: 0.08
+    yaw_rate: 0.0
+    body_height: 0.32
+    swing_clearance: 0.04
+    enable: 1.0
+
+  - name: flat_probe_vx010_h032_c006
+    vx: 0.10
+    yaw_rate: 0.0
+    body_height: 0.32
+    swing_clearance: 0.06
+    enable: 1.0
