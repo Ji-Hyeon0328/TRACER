@@ -62,17 +62,28 @@ def aggregate_key(row: dict[str, Any]) -> tuple:
     )
 
 
-def empirical_teacher_weight(label: str, stable_prob: float, lcb: float, unc: float) -> float:
+def empirical_teacher_weight(
+    label: str,
+    stable_prob: float,
+    lcb: float,
+    unc: float,
+    n_episodes: int,
+) -> float:
+    # Evidence-aware teacher weight.
+    # Low-n apparent successes should not dominate better-supported candidates.
+    evidence_factor = 0.55 + 0.45 * min(1.0, max(0.0, n_episodes / 8.0))
+    lcb_factor = 0.50 + 0.50 * min(1.0, max(0.0, lcb / 0.55))
+
     if label == "robust_positive":
-        return 1.0
+        base = 1.0
+    elif label == "probabilistic_positive":
+        base = max(0.25, min(0.85, 0.55 * stable_prob + 0.45 * lcb - 0.25 * unc))
+    elif label == "borderline_high_variance":
+        base = max(0.10, min(0.45, 0.35 * stable_prob + 0.20 * lcb - 0.30 * unc))
+    else:
+        base = max(0.05, min(0.20, 0.25 * stable_prob - 0.25 * unc))
 
-    if label == "probabilistic_positive":
-        return max(0.25, min(0.85, 0.55 * stable_prob + 0.45 * lcb - 0.25 * unc))
-
-    if label == "borderline_high_variance":
-        return max(0.10, min(0.45, 0.35 * stable_prob + 0.20 * lcb - 0.30 * unc))
-
-    return max(0.05, min(0.20, 0.25 * stable_prob - 0.25 * unc))
+    return max(0.03, min(1.0, base * evidence_factor * lcb_factor))
 
 
 def main() -> int:
@@ -120,10 +131,12 @@ def main() -> int:
             unc = to_float(agg.get("outcome_uncertainty"))
             label = str(agg.get("outcome_label", ""))
 
+            n_episodes = int(to_float(agg.get("n_episodes")))
+
             out.update({
                 "empirical_available": 1,
                 "empirical_outcome_label": label,
-                "empirical_n_episodes": int(to_float(agg.get("n_episodes"))),
+                "empirical_n_episodes": n_episodes,
                 "empirical_stable_successes": int(to_float(agg.get("stable_successes"))),
                 "empirical_stable_prob": stable_prob,
                 "empirical_stable_prob_lcb95": lcb,
@@ -135,7 +148,7 @@ def main() -> int:
                 "empirical_below22_std": to_float(agg.get("below22_std")),
                 "empirical_rollmax_mean": to_float(agg.get("rollmax_mean")),
                 "empirical_pitchmax_mean": to_float(agg.get("pitchmax_mean")),
-                "empirical_teacher_weight": empirical_teacher_weight(label, stable_prob, lcb, unc),
+                "empirical_teacher_weight": empirical_teacher_weight(label, stable_prob, lcb, unc, n_episodes),
             })
 
             # RAM v1 targets should prefer empirical distributional targets.
