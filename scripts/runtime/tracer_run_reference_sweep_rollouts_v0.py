@@ -123,6 +123,138 @@ timeout 5 rosservice call {service} "{{}}" >/tmp/tracer_{action}_physics.log 2>&
     )
 
 
+
+def run_capture(cmd: list[str], *, timeout: float = 5.0) -> str:
+    try:
+        cp = subprocess.run(
+            cmd,
+            cwd=str(ROOT),
+            text=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            timeout=timeout,
+            check=False,
+        )
+        return cp.stdout or ""
+    except Exception as e:
+        return f"[capture_error] {type(e).__name__}: {e}"
+
+
+def load_terrain_world_map(path: Path) -> dict[str, str]:
+    """
+    Tiny parser for configs/terrain_dataset/terrain_set_v0.yaml.
+    Only extracts:
+      - name: <terrain>
+        world_name: <world>
+    so we do not depend on PyYAML in /usr/bin/python3.
+    """
+    if not path.exists():
+        return {}
+
+    mapping: dict[str, str] = {}
+    cur_name: str | None = None
+
+    for raw in path.read_text(encoding="utf-8").splitlines():
+        s = raw.strip()
+        m_name = re.match(r"^-\s+name:\s*(.+)$", s)
+        if m_name:
+            cur_name = m_name.group(1).strip().strip('"').strip("'")
+            continue
+
+        m_world = re.match(r"^world_name:\s*(.+)$", s)
+        if m_world and cur_name:
+            mapping[cur_name] = m_world.group(1).strip().strip('"').strip("'")
+
+    return mapping
+
+
+def probe_gazebo_world(gazebo_container: str) -> dict[str, Any]:
+    """
+    Probe the currently running Gazebo world from the container.
+    This is intentionally best-effort and never raises, because rollout should
+    still produce diagnostic rows even when Gazebo is unhealthy.
+    """
+    proc_out = run_capture(
+        [
+            "docker",
+            "exec",
+            gazebo_container,
+            "bash",
+            "--noprofile",
+            "--norc",
+            "-lc",
+            "pgrep -af 'gzserver|roslaunch unitree_gazebo normal.launch' || true",
+        ],
+        timeout=5.0,
+    )
+
+    world_file = ""
+    world_name = ""
+
+    m_world = re.search(r"(\S+\.world)", proc_out)
+    if m_world:
+        world_file = m_world.group(1)
+        world_name = Path(world_file).stem
+    else:
+        m_wname = re.search(r"wname:=([A-Za-z0-9_]+)", proc_out)
+        if m_wname:
+            world_name = m_wname.group(1)
+
+    world_props = run_capture(
+        [
+            "docker",
+            "exec",
+            gazebo_container,
+            "bash",
+            "--noprofile",
+            "--norc",
+            "-lc",
+            """set +u
+source /opt/ros/melodic/setup.bash
+source /root/unitree_ws/devel/setup.bash 2>/dev/null || true
+timeout 5 rosservice call /gazebo/get_world_properties "{}" || true
+""",
+        ],
+        timeout=8.0,
+    )
+
+    model_names: list[str] = []
+    m_models = re.search(r"model_names:\s*\[([^\]]*)\]", world_props)
+    if m_models:
+        model_names = [
+            x.strip().strip("'").strip('"')
+            for x in m_models.group(1).split(",")
+            if x.strip()
+        ]
+
+    return {
+        "actual_world_process": proc_out.strip(),
+        "actual_world_file": world_file,
+        "actual_world_name": world_name,
+        "actual_gazebo_model_names": model_names,
+        "actual_world_probe_raw": world_props.strip(),
+    }
+
+
+def check_world_match(
+    terrain: str,
+    expected_world: str,
+    probe: dict[str, Any],
+) -> tuple[bool, str]:
+    actual_world = str(probe.get("actual_world_name", "") or "")
+
+    if not expected_world:
+        return True, f"no expected_world mapping for terrain={terrain}"
+
+    if not actual_world:
+        return False, f"expected_world={expected_world}, but actual_world could not be detected"
+
+    if actual_world == expected_world:
+        return True, f"expected_world={expected_world} matches actual_world={actual_world}"
+
+    return False, f"expected_world={expected_world}, actual_world={actual_world}"
+
+
 def kill_conflicting_publishers() -> None:
     patterns = [
         "tracer_fusion_policy_mpc_ref_node.py",
@@ -245,6 +377,8 @@ def main() -> int:
     ap.add_argument("--skip-lite-start", action="store_true")
     ap.add_argument("--skip-reset", action="store_true")
     ap.add_argument("--gazebo-container", default=os.environ.get("TRACER_GAZEBO_CONTAINER", "a1_unitree_gazebo_docker"))
+    ap.add_argument("--terrain-set", default=os.environ.get("TRACER_TERRAIN_SET", "configs/terrain_dataset/terrain_set_v0.yaml"))
+    ap.add_argument("--strict-world-check", action="store_true")
     args = ap.parse_args()
 
     cfg_path = ROOT / args.config
@@ -262,6 +396,7 @@ def main() -> int:
     if args.terrains.strip():
         terrains = [x for x in re.split(r"[,\s]+", args.terrains.strip()) if x]
     presets = cfg["presets"]
+    terrain_world_map = load_terrain_world_map(ROOT / args.terrain_set)
 
     shutil.copy2(cfg_path, out_dir / "reference_sweep_config.yaml")
 
@@ -273,6 +408,8 @@ def main() -> int:
     print(f"[TRACER] duration_sec: {args.duration_sec}")
     print(f"[TRACER] sample_hz:    {args.sample_hz}")
     print(f"[TRACER] publish_hz:   {args.publish_hz}")
+    print(f"[TRACER] terrain_set:  {args.terrain_set}")
+    print(f"[TRACER] strict_world_check: {args.strict_world_check}")
 
     if not args.skip_lite_start:
         sh("scripts/runtime/tracer_start_data_collection_lite.sh", check=True)
@@ -299,6 +436,26 @@ def main() -> int:
                 print("\n" + "=" * 80)
                 print(f"[TRACER] episode={episode_id}")
                 print(f"[TRACER] terrain={terrain} preset={preset_name} ref={ref}")
+
+                expected_world = terrain_world_map.get(terrain, "")
+                world_probe = probe_gazebo_world(args.gazebo_container)
+                world_check_ok, world_check_note = check_world_match(
+                    terrain=terrain,
+                    expected_world=expected_world,
+                    probe=world_probe,
+                )
+
+                print(
+                    f"[TRACER] world_check ok={world_check_ok} "
+                    f"terrain={terrain} expected={expected_world or '<unknown>'} "
+                    f"actual={world_probe.get('actual_world_name', '') or '<unknown>'}"
+                )
+                print(f"[TRACER] world_check note: {world_check_note}")
+
+                if args.strict_world_check and not world_check_ok:
+                    raise RuntimeError(
+                        f"World check failed for terrain={terrain}: {world_check_note}"
+                    )
 
                 kill_conflicting_publishers()
 
@@ -356,6 +513,14 @@ ros2 topic info -v /tracer/mpc_reference || true
                     "run_id": run_id,
                     "episode_id": episode_id,
                     "terrain": terrain,
+                    "declared_terrain": terrain,
+                    "expected_world_name": expected_world,
+                    "actual_world_name": world_probe.get("actual_world_name", ""),
+                    "actual_world_file": world_probe.get("actual_world_file", ""),
+                    "actual_world_process": world_probe.get("actual_world_process", ""),
+                    "actual_gazebo_model_names": world_probe.get("actual_gazebo_model_names", []),
+                    "world_check_ok": world_check_ok,
+                    "world_check_note": world_check_note,
                     "preset": preset_name,
                     "repeat": rep,
                     "ref_counter": ref[0],
