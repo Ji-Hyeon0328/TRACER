@@ -1,0 +1,190 @@
+{
+  "terrain": "sponge_firm_flat",
+  "objective_json": "configs/objective_selector/phase_a_objective_selector_sponge_guarded_v1.json",
+  "objective_selected": {
+    "profile": "stability_extreme",
+    "beta_motion": 0.05,
+    "beta_stability": 0.9,
+    "beta_energy": 0.05,
+    "learned_utility_raw": 17.957229614257812,
+    "learned_utility_norm": 1.0,
+    "mission_score": 0.75,
+    "safety_score": 0.9,
+    "adjusted_score": 1.735
+  },
+  "objective_profile": "stability_extreme",
+  "beta": {
+    "motion": 0.05,
+    "stability": 0.9,
+    "energy": 0.05
+  },
+  "ram_model": "artifacts/phase_a_ram_empirical_v1/phase_a_ram_empirical_v1.pt",
+  "candidate_csv": "data/phase_a_action_outcome_aggregates_v1_evidence/phase_a_action_outcome_aggregates_v1_evidence.csv",
+  "selection_status": "ram_guard_pass",
+  "ram_guard": {
+    "max_recovery": 0.35,
+    "max_uncertainty": 0.65,
+    "min_lcb95": 0.3,
+    "max_zmin_risk": 0.55,
+    "max_below22_risk": 0.45,
+    "min_teacher_weight": 0.1
+  },
+  "selected_action": {
+    "preset": "phase_a_stack_sponge_ram_v2",
+    "vx": 0.06,
+    "yaw_rate": 0.0,
+    "body_height": 0.38,
+    "swing_clearance": 0.12,
+    "enable": 1.0,
+    "ram_safe_score": 0.4014326259493828,
+    "ram_guard_pass": true,
+    "ram_prediction": {
+      "empirical_recovery_prob": 0.04607674479484558,
+      "empirical_uncertainty": 0.3842994272708893,
+      "empirical_stable_prob_lcb95": 0.4556390941143036,
+      "empirical_zmin_risk": 0.10102537274360657,
+      "empirical_below22_risk": 0.1299745738506317,
+      "empirical_teacher_weight": 0.4258154630661011
+    },
+    "aggregate_outcome_label": "probabilistic_positive",
+    "aggregate_stable_prob": 1.0,
+    "aggregate_lcb95": 0.4384939195509822,
+    "aggregate_uncertainty": 0.3914072502522151,
+    "aggregate_n_episodes": 3
+  },
+  "ranked_candidates": [
+    {
+      "vx": 0.06,
+      "yaw_rate": 0.0,
+      "body_height": 0.38,
+      "swing_clearance": 0.12,
+      "ram_prediction": {
+        "empirical_recovery_prob": 0.04607674479484558,
+        "empirical_uncertainty": 0.3842994272708893,
+        "empirical_stable_prob_lcb95": 0.4556390941143036,
+        "empirical_zmin_risk": 0.10102537274360657,
+        "empirical_below22_risk": 0.1299745738506317,
+        "empirical_teacher_weight": 0.4258154630661011
+      },
+      "ram_safe_score": 0.4014326259493828,
+      "ram_guard_pass": true,
+      "aggregate_outcome_label": "probabilistic_positive",
+      "aggregate_stable_prob": 1.0,
+      "aggregate_lcb95": 0.4384939195509822,
+      "aggregate_uncertainty": 0.3914072502522151,
+      "aggregate_n_episodes": 3,
+      "source_presets_json": "[\"sponge_refine_vx006_h038_c012\"]"
+    },
+    {
+      "vx": 0.04,
+      "yaw_rate": 0.0,
+      "body_height": 0.38,
+      "swing_clearance": 0.1,
+      "ram_prediction": {
+        "empirical_recovery_prob": 0.22665086388587952,
+        "empirical_uncertainty": 0.6066455841064453,
+        "empirical_stable_prob_lcb95": 0.4778958857059479,
+        "empirical_zmin_risk": 0.20586301386356354,
+        "empirical_below22_risk": 0.18236945569515228,
+        "empirical_teacher_weight": 0.44861164689064026
+      },
+      "ram_safe_score": 0.12749873250722887,
+      "ram_guard_pass": true,
+      "aggregate_outcome_label": "probabilistic_positive",
+      "aggregate_stable_prob": 0.7692307692307693,
+      "aggregate_lcb95": 0.49743126004873084,
+      "aggregate_uncertainty": 0.6018608464547779,
+      "aggregate_n_episodes": 13,
+      "source_presets_json": "[\"phase_a_stack_sponge_outcome_evidence_v1\", \"phase_a_stack_sponge_ram_v2\", \"sponge_refine_vx004_h038_c010\"]"
+    },
+    {
+      "vx": 0.04,
+      "yaw_rate": 0.0,
+      "body_height": 0.38,
+      "swing_clearance": 0.14,
+      "ram_prediction": {
+        "empirical_recovery_prob": 0.2455974817276001,
+        "empirical_uncertainty": 0.6436113715171814,
+        "empirical_stable_prob_lcb95": 0.39027974009513855,
+        "empirical_zmin_risk": 0.17276251316070557,
+        "empirical_below22_risk": 0.20240111649036407,
+        "empirical_teacher_weight": 0.36188456416130066
+      },
+      "ram_safe_score": -0.0357946984469891,
+      "ram_guard_pass": true,
+      "aggregate_outcome_label": "probabilistic_positive",
+      "aggregate_stable_prob": 0.75,
+      "aggregate_lcb95": 0.40926987910258916,
+      "aggregate_uncertainty": 0.6461220086823241,
+      "aggregate_n_episodes": 8,
+      "source_presets_json": "[\"phase_a_stack_sponge_outcome_v1\", \"sponge_refine_vx004_h038_c014\"]"
+    },
+    {
+      "vx": 0.02,
+      "yaw_rate": 0.0,
+      "body_height": 0.38,
+      "swing_clearance": 0.12,
+      "ram_prediction": {
+        "empirical_recovery_prob": 0.4036259353160858,
+        "empirical_uncertainty": 0.7348708510398865,
+        "empirical_stable_prob_lcb95": 0.40564948320388794,
+        "empirical_zmin_risk": 0.3593043088912964,
+        "empirical_below22_risk": 0.30190762877464294,
+        "empirical_teacher_weight": 0.29148370027542114
+      },
+      "ram_safe_score": -0.3746572718024254,
+      "ram_guard_pass": false,
+      "aggregate_outcome_label": "probabilistic_positive",
+      "aggregate_stable_prob": 0.6086956521739131,
+      "aggregate_lcb95": 0.40785179603745997,
+      "aggregate_uncertainty": 0.7333547360401841,
+      "aggregate_n_episodes": 23,
+      "source_presets_json": "[\"phase_a_stack_sponge_v0\", \"phase_a_terrain_ranker_sponge_stability_v0\", \"sponge_refine_vx002_h038_c012\"]"
+    },
+    {
+      "vx": 0.04,
+      "yaw_rate": 0.0,
+      "body_height": 0.38,
+      "swing_clearance": 0.12,
+      "ram_prediction": {
+        "empirical_recovery_prob": 0.3452445864677429,
+        "empirical_uncertainty": 0.847037672996521,
+        "empirical_stable_prob_lcb95": 0.21146835386753082,
+        "empirical_zmin_risk": 0.5147111415863037,
+        "empirical_below22_risk": 0.48645415902137756,
+        "empirical_teacher_weight": 0.09788721054792404
+      },
+      "ram_safe_score": -0.8231152541935444,
+      "ram_guard_pass": false,
+      "aggregate_outcome_label": "borderline_high_variance",
+      "aggregate_stable_prob": 0.6666666666666666,
+      "aggregate_lcb95": 0.20765495512648788,
+      "aggregate_uncertainty": 0.8471833331372702,
+      "aggregate_n_episodes": 3,
+      "source_presets_json": "[\"sponge_refine_vx004_h038_c012\"]"
+    },
+    {
+      "vx": 0.04,
+      "yaw_rate": 0.0,
+      "body_height": 0.4,
+      "swing_clearance": 0.12,
+      "ram_prediction": {
+        "empirical_recovery_prob": 0.9872129559516907,
+        "empirical_uncertainty": 0.4018718898296356,
+        "empirical_stable_prob_lcb95": 0.013781656511127949,
+        "empirical_zmin_risk": 0.8030546307563782,
+        "empirical_below22_risk": 0.6282844543457031,
+        "empirical_teacher_weight": 0.014111397787928581
+      },
+      "ram_safe_score": -1.5295394404791296,
+      "ram_guard_pass": false,
+      "aggregate_outcome_label": "risk_negative",
+      "aggregate_stable_prob": 0.0,
+      "aggregate_lcb95": 0.0,
+      "aggregate_uncertainty": 0.4132334468874945,
+      "aggregate_n_episodes": 3,
+      "source_presets_json": "[\"sponge_refine_vx004_h040_c012\"]"
+    }
+  ],
+  "note": "RAM-aware Phase-A high-level stack export. Selects high-level action using guarded objective beta and empirical RAM predictions. This is closer to runtime TRACER logic than aggregate-ground-truth selection."
+}
