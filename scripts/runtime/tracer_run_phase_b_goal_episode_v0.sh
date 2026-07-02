@@ -11,6 +11,11 @@ DURATION="${TRACER_PHASE_B_RECORD_DURATION:-10.0}"
 SAMPLE_HZ="${TRACER_PHASE_B_SAMPLE_HZ:-20.0}"
 STOP_DISTANCE="${TRACER_PHASE_B_GOAL_STOP_DISTANCE:-0.15}"
 GOAL_DISTANCE="${TRACER_PHASE_B_GOAL_DISTANCE_AHEAD:-0.5}"
+VX_FAR="${TRACER_PHASE_B_VX_FAR:-0.09}"
+VX_NEAR="${TRACER_PHASE_B_VX_NEAR:-0.04}"
+SLOW_DISTANCE="${TRACER_PHASE_B_GOAL_SLOW_DISTANCE:-0.25}"
+BODY_HEIGHT="${TRACER_PHASE_B_BODY_HEIGHT:-0.32}"
+SWING_CLEARANCE="${TRACER_PHASE_B_SWING_CLEARANCE:-0.04}"
 
 STAMP="$(date +%Y%m%d_%H%M%S)"
 RUN_DIR="${TRACER_PHASE_B_RUN_DIR:-$ROOT/artifacts/phase_b_goal_episode_${STAMP}}"
@@ -26,6 +31,10 @@ echo "[TRACER] model:     $MODEL_NAME"
 echo "[TRACER] run_dir:   $RUN_DIR"
 echo "[TRACER] duration:  $DURATION"
 echo "[TRACER] goal_dist: $GOAL_DISTANCE"
+echo "[TRACER] vx_far:    $VX_FAR"
+echo "[TRACER] vx_near:   $VX_NEAR"
+echo "[TRACER] slow_dist: $SLOW_DISTANCE"
+echo "[TRACER] stop_dist: $STOP_DISTANCE"
 
 cd "$ROOT"
 
@@ -59,7 +68,7 @@ function ensure_mpc_ref_bridge() {
   echo "========== ensure ROS2<->ROS1 mpc_reference bridge =========="
   set +u
   source /opt/ros/humble/setup.bash
-  set -u
+  set -u 2>/dev/null || true
 
   pkill -f "tracer_ros2_mpc_ref_udp_sender.py" 2>/dev/null || true
 
@@ -92,7 +101,6 @@ function print_bridge_status() {
   echo "========== bridge status =========="
   set +u
   source /opt/ros/humble/setup.bash
-  set -u
 
   echo "[ROS2 /tracer/mpc_reference]"
   ros2 topic info -v /tracer/mpc_reference || true
@@ -133,17 +141,16 @@ echo
 echo "========== wait/check odom =========="
 set +u
 source /opt/ros/humble/setup.bash
-set -u
 timeout 3s ros2 topic echo --once /tracer/robot_odom_flat || true
 
 echo
 echo "========== start Phase-B policy =========="
-TRACER_PHASE_B_VX_FAR="${TRACER_PHASE_B_VX_FAR:-0.09}" \
-TRACER_PHASE_B_VX_NEAR="${TRACER_PHASE_B_VX_NEAR:-0.04}" \
-TRACER_PHASE_B_BODY_HEIGHT="${TRACER_PHASE_B_BODY_HEIGHT:-0.32}" \
-TRACER_PHASE_B_SWING_CLEARANCE="${TRACER_PHASE_B_SWING_CLEARANCE:-0.04}" \
-TRACER_PHASE_B_GOAL_STOP_DISTANCE="${TRACER_PHASE_B_GOAL_STOP_DISTANCE:-0.15}" \
-TRACER_PHASE_B_GOAL_SLOW_DISTANCE="${TRACER_PHASE_B_GOAL_SLOW_DISTANCE:-0.25}" \
+TRACER_PHASE_B_VX_FAR="$VX_FAR" \
+TRACER_PHASE_B_VX_NEAR="$VX_NEAR" \
+TRACER_PHASE_B_BODY_HEIGHT="$BODY_HEIGHT" \
+TRACER_PHASE_B_SWING_CLEARANCE="$SWING_CLEARANCE" \
+TRACER_PHASE_B_GOAL_STOP_DISTANCE="$STOP_DISTANCE" \
+TRACER_PHASE_B_GOAL_SLOW_DISTANCE="$SLOW_DISTANCE" \
 TRACER_PHASE_B_RELATIVE_STOP_RADIUS="${TRACER_PHASE_B_RELATIVE_STOP_RADIUS:-0.0}" \
 TRACER_PHASE_B_GOAL_TIMEOUT_SEC="${TRACER_PHASE_B_GOAL_TIMEOUT_SEC:-60.0}" \
 "$ROOT/scripts/runtime/tracer_ensure_goal_meta_policy_node_v0.sh"
@@ -188,6 +195,31 @@ if [[ ! -s "$SUMMARY_PATH" ]]; then
   sed -n '1,200p' "$RUN_DIR/recorder_stdout.log" || true
   exit 1
 fi
+
+python3 - "$SUMMARY_PATH" <<META_PY
+import json
+import sys
+
+p = sys.argv[1]
+with open(p, "r") as f:
+    summary = json.load(f)
+
+summary.update({
+    "world_name": "$WORLD_NAME",
+    "model_name": "$MODEL_NAME",
+    "run_dir": "$RUN_DIR",
+    "goal_distance_ahead": float("$GOAL_DISTANCE"),
+    "vx_far": float("$VX_FAR"),
+    "vx_near": float("$VX_NEAR"),
+    "goal_slow_distance": float("$SLOW_DISTANCE"),
+    "goal_stop_distance": float("$STOP_DISTANCE"),
+    "body_height": float("$BODY_HEIGHT"),
+    "swing_clearance": float("$SWING_CLEARANCE"),
+})
+
+with open(p, "w") as f:
+    json.dump(summary, f, indent=2, sort_keys=True)
+META_PY
 
 echo
 echo "========== episode summary =========="
