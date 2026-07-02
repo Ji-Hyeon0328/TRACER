@@ -5,21 +5,33 @@ ROOT="${TRACER_ROOT:-$HOME/Tracer/TRACER}"
 cd "$ROOT"
 
 THETA_MODEL="${TRACER_PHASE_B_THETA_MODEL:-}"
-if [[ -z "$THETA_MODEL" && -s "artifacts/phase_b_theta_model_registry_v0/best_theta_model.json" ]]; then
-  THETA_MODEL="$(python3 - <<'PY2'
+MODEL_REGISTRY_CONFIG="configs/phase_b_theta_model_registry_v0/best_theta_model.json"
+MODEL_REGISTRY_ARTIFACT="artifacts/phase_b_theta_model_registry_v0/best_theta_model.json"
+
+if [[ -z "$THETA_MODEL" ]]; then
+  for REGISTRY_JSON in "$MODEL_REGISTRY_CONFIG" "$MODEL_REGISTRY_ARTIFACT"; do
+    if [[ -s "$REGISTRY_JSON" ]]; then
+      THETA_MODEL="$(python3 - "$REGISTRY_JSON" <<'PY2'
 import json
-with open("artifacts/phase_b_theta_model_registry_v0/best_theta_model.json", "r") as f:
+import sys
+
+with open(sys.argv[1], "r") as f:
     print(json.load(f).get("best_theta_model", ""))
 PY2
 )"
+      if [[ -n "$THETA_MODEL" ]]; then
+        break
+      fi
+    fi
+  done
 fi
 
 if [[ -z "$THETA_MODEL" ]]; then
-  THETA_MODEL="$(ls -td artifacts/phase_b_theta_regressor_v2_* 2>/dev/null | head -1)/phase_b_theta_regressor_v2.json"
+  THETA_MODEL="$(ls -td artifacts/phase_b_theta_regressor_v1_* 2>/dev/null | head -1)/phase_b_theta_regressor_v1.json"
 fi
 
 if [[ ! -s "$THETA_MODEL" ]]; then
-  THETA_MODEL="$(ls -td artifacts/phase_b_theta_regressor_v1_* 2>/dev/null | head -1)/phase_b_theta_regressor_v1.json"
+  THETA_MODEL="$(ls -td artifacts/phase_b_theta_regressor_v2_* 2>/dev/null | head -1)/phase_b_theta_regressor_v2.json"
 fi
 
 if [[ ! -s "$THETA_MODEL" ]]; then

@@ -1,0 +1,10 @@
+{
+  "avg_max_yaw": 0.2584265752153994,
+  "avg_vx_far": 0.14401479049131066,
+  "best_run": "artifacts/phase_b_adaptive_theta_episodes_20260702_190419",
+  "best_theta_model": "artifacts/phase_b_theta_regressor_v1_20260702_185438/phase_b_theta_regressor_v1.json",
+  "eval_json": "artifacts/phase_b_theta_model_eval_v0_20260702_192140/theta_model_eval_v0.json",
+  "reached_rate": 1.0,
+  "score": 93.13175994024697,
+  "selection_rule": "phase_b_theta_model_eval_v0 highest score"
+}
