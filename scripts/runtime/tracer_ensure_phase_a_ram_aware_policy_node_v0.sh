@@ -34,6 +34,7 @@ for i in $(seq 1 5); do
   fi
   echo "[TRACER] killing old pids: $OLD_PIDS"
   pkill -9 -f 'tracer_phase_a_ram_aware_policy_node_v0.py' 2>/dev/null || true
+pkill -9 -f tracer_phase_a_override_policy_node_v0.py 2>/dev/null || true
   sleep 1
 done
 
