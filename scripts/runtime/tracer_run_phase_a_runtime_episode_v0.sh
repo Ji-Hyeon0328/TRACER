@@ -54,6 +54,33 @@ if [ -n "${TRACER_PHASE_A_EXPECT_MODE:-}" ]; then
     --timeout-sec "${TRACER_PHASE_A_EXPECT_TIMEOUT_SEC:-8.0}"
 fi
 
+if [ -n "${TRACER_PHASE_A_EXPECT_VX:-}" ] || \
+   [ -n "${TRACER_PHASE_A_EXPECT_BODY_HEIGHT:-}" ] || \
+   [ -n "${TRACER_PHASE_A_EXPECT_SWING_CLEARANCE:-}" ]; then
+  MPC_WAIT_ARGS=()
+
+  if [ -n "${TRACER_PHASE_A_EXPECT_VX:-}" ]; then
+    MPC_WAIT_ARGS+=(--expect-vx "$TRACER_PHASE_A_EXPECT_VX")
+  fi
+  if [ -n "${TRACER_PHASE_A_EXPECT_YAW_RATE:-}" ]; then
+    MPC_WAIT_ARGS+=(--expect-yaw-rate "$TRACER_PHASE_A_EXPECT_YAW_RATE")
+  fi
+  if [ -n "${TRACER_PHASE_A_EXPECT_BODY_HEIGHT:-}" ]; then
+    MPC_WAIT_ARGS+=(--expect-body-height "$TRACER_PHASE_A_EXPECT_BODY_HEIGHT")
+  fi
+  if [ -n "${TRACER_PHASE_A_EXPECT_SWING_CLEARANCE:-}" ]; then
+    MPC_WAIT_ARGS+=(--expect-clearance "$TRACER_PHASE_A_EXPECT_SWING_CLEARANCE")
+  fi
+  if [ -n "${TRACER_PHASE_A_EXPECT_ENABLE:-}" ]; then
+    MPC_WAIT_ARGS+=(--expect-enable "$TRACER_PHASE_A_EXPECT_ENABLE")
+  fi
+
+  /usr/bin/python3 scripts/runtime/tracer_wait_phase_a_mpc_reference_v0.py \
+    "${MPC_WAIT_ARGS[@]}" \
+    --min-matches "${TRACER_PHASE_A_EXPECT_MPC_MIN_MATCHES:-8}" \
+    --timeout-sec "${TRACER_PHASE_A_EXPECT_TIMEOUT_SEC:-8.0}"
+fi
+
 ros2 topic info -v /tracer/mpc_reference || true
 timeout 3 ros2 topic echo --once /tracer/mpc_reference || true
 timeout 3 ros2 topic echo --once /tracer/highlevel_debug || true
