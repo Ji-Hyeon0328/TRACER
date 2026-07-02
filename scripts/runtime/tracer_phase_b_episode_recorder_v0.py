@@ -201,11 +201,21 @@ def main():
 
     dt = 1.0 / max(args.sample_hz, 1e-6)
     end_t = time.monotonic() + args.duration
+    next_sample_t = time.monotonic()
 
     try:
         while rclpy.ok() and time.monotonic() < end_t:
-            rclpy.spin_once(node, timeout_sec=dt)
-            node.sample_once()
+            # Keep callbacks responsive, but sample at the requested fixed rate.
+            rclpy.spin_once(node, timeout_sec=min(0.01, dt))
+
+            now = time.monotonic()
+            if now >= next_sample_t:
+                node.sample_once()
+                next_sample_t += dt
+
+                # If callbacks delayed us, avoid a burst of catch-up samples.
+                if next_sample_t < now - dt:
+                    next_sample_t = now + dt
     finally:
         node.write_outputs()
         node.destroy_node()
