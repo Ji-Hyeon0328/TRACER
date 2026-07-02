@@ -20,7 +20,7 @@ if [ ! -d "$WS" ]; then
 fi
 
 echo
-echo "========== kill conflicting high-level publishers =========="
+echo "========== kill conflicting high-level publishers =========="\npkill -9 -f tracer_phase_a_ram_aware_policy_node_v0.py 2>/dev/null || true
 pkill -9 -f tracer_fusion_policy_mpc_ref_node.py 2>/dev/null || true
 pkill -9 -f tracer_objective_selector_stub_node.py 2>/dev/null || true
 pkill -9 -f tracer_learned_high_level_policy_udp_client_v1_node.py 2>/dev/null || true

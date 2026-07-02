@@ -38,8 +38,15 @@ for i in $(seq 1 5); do
 done
 
 echo
+echo "========== refresh ROS2 daemon after kill =========="
+ros2 daemon stop >/dev/null 2>&1 || true
+sleep 1
+ros2 daemon start >/dev/null 2>&1 || true
+sleep 1
+
+echo
 echo "========== wait for ROS2 publisher graph to clear =========="
-for i in $(seq 1 10); do
+for i in $(seq 1 5); do
   PUB_COUNT="$(ros2 topic info /tracer/mpc_reference 2>/dev/null | awk '/Publisher count:/ {print $3}' || true)"
   PUB_COUNT="${PUB_COUNT:-0}"
 
@@ -51,6 +58,15 @@ for i in $(seq 1 10); do
 
   sleep 1
 done
+
+OLD_PIDS_AFTER_WAIT="$(pgrep -f 'tracer_phase_a_ram_aware_policy_node_v0.py' || true)"
+PUB_COUNT_AFTER_WAIT="$(ros2 topic info /tracer/mpc_reference 2>/dev/null | awk '/Publisher count:/ {print $3}' || true)"
+PUB_COUNT_AFTER_WAIT="${PUB_COUNT_AFTER_WAIT:-0}"
+
+if [ -z "$OLD_PIDS_AFTER_WAIT" ] && [ "$PUB_COUNT_AFTER_WAIT" != "0" ]; then
+  echo "[TRACER][WARN] No old Phase-A process remains, but ROS2 graph still reports publisher_count=$PUB_COUNT_AFTER_WAIT."
+  echo "[TRACER][WARN] Treating this as stale DDS/ros2cli graph and continuing."
+fi
 
 echo
 echo "========== process check before start =========="
