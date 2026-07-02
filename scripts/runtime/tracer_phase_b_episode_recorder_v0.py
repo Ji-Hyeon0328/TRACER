@@ -62,9 +62,7 @@ class PhaseBEpisodeRecorder(Node):
         )
 
         self.get_logger().info(
-            "recording Phase-B episode for %.2fs -> %s",
-            args.duration,
-            args.csv_path,
+            f"recording Phase-B episode for {args.duration:.2f}s -> {args.csv_path}"
         )
 
     def on_relative_goal(self, msg: Float64MultiArray):

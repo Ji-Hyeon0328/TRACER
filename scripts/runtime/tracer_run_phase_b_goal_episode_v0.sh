@@ -176,11 +176,22 @@ timeout 4s /usr/bin/python3 \
   > "$RUN_DIR/goal_ahead.log" 2>&1 || true
 
 echo "[TRACER] waiting recorder pid=$REC_PID"
-wait "$REC_PID" || true
+if ! wait "$REC_PID"; then
+  echo "[TRACER][ERROR] recorder failed. recorder_stdout.log:"
+  sed -n '1,200p' "$RUN_DIR/recorder_stdout.log" || true
+  exit 1
+fi
+
+if [[ ! -s "$SUMMARY_PATH" ]]; then
+  echo "[TRACER][ERROR] summary file missing: $SUMMARY_PATH"
+  echo "[TRACER][ERROR] recorder_stdout.log:"
+  sed -n '1,200p' "$RUN_DIR/recorder_stdout.log" || true
+  exit 1
+fi
 
 echo
 echo "========== episode summary =========="
-cat "$SUMMARY_PATH" || true
+cat "$SUMMARY_PATH"
 
 echo
 echo "========== quick final topic samples =========="
