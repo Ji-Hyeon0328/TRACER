@@ -3,6 +3,7 @@
 import argparse
 import csv
 import json
+import math
 from pathlib import Path
 
 
@@ -11,7 +12,10 @@ def fget(d, k, default=0.0):
         v = d.get(k, default)
         if v is None or v == "":
             return default
-        return float(v)
+        x = float(v)
+        if not math.isfinite(x):
+            return default
+        return x
     except Exception:
         return default
 
