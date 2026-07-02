@@ -78,6 +78,7 @@ class PhaseARamAwarePolicyNodeV0(Node):
 
         self.declare_parameter("mpc_topic", "/tracer/mpc_reference")
         self.declare_parameter("status_topic", "/tracer/phase_a_policy_status")
+        self.declare_parameter("debug_topic", "/tracer/highlevel_debug")
         self.declare_parameter("publish_hz", 20.0)
 
         self.declare_parameter("require_final_guard", True)
@@ -97,6 +98,7 @@ class PhaseARamAwarePolicyNodeV0(Node):
 
         self.mpc_topic = str(self.get_parameter("mpc_topic").value)
         self.status_topic = str(self.get_parameter("status_topic").value)
+        self.debug_topic = str(self.get_parameter("debug_topic").value)
         self.publish_hz = float(self.get_parameter("publish_hz").value)
 
         self.require_final_guard = bool(self.get_parameter("require_final_guard").value)
@@ -104,6 +106,7 @@ class PhaseARamAwarePolicyNodeV0(Node):
 
         self.pub = self.create_publisher(Float64MultiArray, self.mpc_topic, 10)
         self.status_pub = self.create_publisher(String, self.status_topic, 10)
+        self.debug_pub = self.create_publisher(String, self.debug_topic, 10)
 
         self.counter = 0.0
         self.last_load_error = ""
@@ -116,7 +119,8 @@ class PhaseARamAwarePolicyNodeV0(Node):
 
         self.get_logger().info(
             f"Phase-A RAM-aware policy node started. root={self.root} "
-            f"mpc_topic={self.mpc_topic} status_topic={self.status_topic} hz={self.publish_hz}"
+            f"mpc_topic={self.mpc_topic} status_topic={self.status_topic} "
+            f"debug_topic={self.debug_topic} hz={self.publish_hz}"
         )
 
     def selected_stack_path(self) -> Path:
@@ -261,6 +265,7 @@ class PhaseARamAwarePolicyNodeV0(Node):
             sort_keys=True,
         )
         self.status_pub.publish(msg)
+        self.debug_pub.publish(msg)
 
     def on_timer(self) -> None:
         self.counter += 1.0
