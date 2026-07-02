@@ -34,14 +34,25 @@ else
 fi
 
 echo
-echo "========== 5. verify command/debug before unpause =========="
-set +u
-source /opt/ros/humble/setup.bash
-if [ -f "$ROOT/ros2_ws/install/setup.bash" ]; then
-  export COLCON_TRACE="${COLCON_TRACE:-}"
-  source "$ROOT/ros2_ws/install/setup.bash"
+echo "========== 5. wait/verify command/debug before unpause =========="
+
+if [ -n "${TRACER_PHASE_A_EXPECT_MODE:-}" ]; then
+  WAIT_ARGS=(--expect-mode "$TRACER_PHASE_A_EXPECT_MODE")
+
+  if [ -n "${TRACER_PHASE_A_EXPECT_VX:-}" ]; then
+    WAIT_ARGS+=(--expect-vx "$TRACER_PHASE_A_EXPECT_VX")
+  fi
+  if [ -n "${TRACER_PHASE_A_EXPECT_BODY_HEIGHT:-}" ]; then
+    WAIT_ARGS+=(--expect-body-height "$TRACER_PHASE_A_EXPECT_BODY_HEIGHT")
+  fi
+  if [ -n "${TRACER_PHASE_A_EXPECT_SWING_CLEARANCE:-}" ]; then
+    WAIT_ARGS+=(--expect-clearance "$TRACER_PHASE_A_EXPECT_SWING_CLEARANCE")
+  fi
+
+  /usr/bin/python3 scripts/runtime/tracer_wait_phase_a_policy_status_v0.py \
+    "${WAIT_ARGS[@]}" \
+    --timeout-sec "${TRACER_PHASE_A_EXPECT_TIMEOUT_SEC:-8.0}"
 fi
-set -u
 
 ros2 topic info -v /tracer/mpc_reference || true
 timeout 3 ros2 topic echo --once /tracer/mpc_reference || true
