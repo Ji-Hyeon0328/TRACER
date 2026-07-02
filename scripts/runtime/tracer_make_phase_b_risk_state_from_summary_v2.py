@@ -3,6 +3,7 @@
 import argparse
 import csv
 import json
+import math
 from pathlib import Path
 
 
@@ -23,7 +24,10 @@ def fget(d, k, default=0.0):
         v = d.get(k, default)
         if v is None or v == "":
             return default
-        return float(v)
+        x = float(v)
+        if not math.isfinite(x):
+            return default
+        return x
     except Exception:
         return default
 
@@ -38,6 +42,7 @@ def bget(d, k, default=False):
 
 
 def percentile(vals, q):
+    vals = [v for v in vals if math.isfinite(v)]
     vals = sorted(vals)
     if not vals:
         return 0.0
@@ -115,7 +120,9 @@ def load_yaw_stats_from_csv(summary):
         vals = []
         for r in rows:
             try:
-                vals.append(abs(float(r.get(c, 0.0))))
+                v = abs(float(r.get(c, 0.0)))
+                if math.isfinite(v):
+                    vals.append(v)
             except Exception:
                 pass
 
