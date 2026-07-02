@@ -7,6 +7,12 @@ HZ="${TRACER_PHASE_A_HZ:-20.0}"
 REQUIRE_FINAL_GUARD="${TRACER_REQUIRE_FINAL_GUARD:-true}"
 LOG="/tmp/tracer_phase_a_ram_aware_policy_node_v0_${TERRAIN}.log"
 
+HOLD_VX="${TRACER_PHASE_A_HOLD_VX:-0.0}"
+HOLD_YAW_RATE="${TRACER_PHASE_A_HOLD_YAW_RATE:-0.0}"
+HOLD_BODY_HEIGHT="${TRACER_PHASE_A_HOLD_BODY_HEIGHT:-0.30}"
+HOLD_SWING_CLEARANCE="${TRACER_PHASE_A_HOLD_SWING_CLEARANCE:-0.03}"
+HOLD_ENABLE="${TRACER_PHASE_A_HOLD_ENABLE:-1.0}"
+
 cd "$ROOT"
 
 echo "[TRACER] ensure Phase-A RAM-aware policy node v0"
@@ -14,6 +20,11 @@ echo "[TRACER] root:    $ROOT"
 echo "[TRACER] terrain: $TERRAIN"
 echo "[TRACER] hz:      $HZ"
 echo "[TRACER] log:     $LOG"
+echo "[TRACER] hold_vx:     $HOLD_VX"
+echo "[TRACER] hold_yaw:    $HOLD_YAW_RATE"
+echo "[TRACER] hold_body_h: $HOLD_BODY_HEIGHT"
+echo "[TRACER] hold_clr:    $HOLD_SWING_CLEARANCE"
+echo "[TRACER] hold_enable: $HOLD_ENABLE"
 
 echo
 echo "========== source ROS2 =========="
@@ -82,6 +93,11 @@ nohup /usr/bin/python3 \
   -p terrain:="$TERRAIN" \
   -p publish_hz:="$HZ" \
   -p require_final_guard:="$REQUIRE_FINAL_GUARD" \
+  -p hold_vx:="$HOLD_VX" \
+  -p hold_yaw_rate:="$HOLD_YAW_RATE" \
+  -p hold_body_height:="$HOLD_BODY_HEIGHT" \
+  -p hold_swing_clearance:="$HOLD_SWING_CLEARANCE" \
+  -p hold_enable:="$HOLD_ENABLE" \
   > "$LOG" 2>&1 &
 
 sleep 1
