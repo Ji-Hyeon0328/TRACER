@@ -8,7 +8,7 @@ terrains:
 
 presets:
   - name: phase_a_stack_flat_ram_v2
-    vx: 0.080000
+    vx: 0.090000
     yaw_rate: 0.000000
     body_height: 0.320000
     swing_clearance: 0.040000
