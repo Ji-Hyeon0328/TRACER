@@ -6,6 +6,10 @@ cd "$ROOT"
 
 THETA_MODEL="${TRACER_PHASE_B_THETA_MODEL:-}"
 if [[ -z "$THETA_MODEL" ]]; then
+  THETA_MODEL="$(ls -td artifacts/phase_b_theta_regressor_v2_* 2>/dev/null | head -1)/phase_b_theta_regressor_v2.json"
+fi
+
+if [[ ! -s "$THETA_MODEL" ]]; then
   THETA_MODEL="$(ls -td artifacts/phase_b_theta_regressor_v1_* 2>/dev/null | head -1)/phase_b_theta_regressor_v1.json"
 fi
 

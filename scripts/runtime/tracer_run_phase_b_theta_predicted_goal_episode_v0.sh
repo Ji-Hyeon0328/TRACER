@@ -11,6 +11,10 @@ GOAL_DISTANCE="${TRACER_PHASE_B_GOAL_DISTANCE_AHEAD:-0.5}"
 STOP_DISTANCE="${TRACER_PHASE_B_GOAL_STOP_DISTANCE:-0.15}"
 
 if [[ -z "$THETA_MODEL" ]]; then
+  THETA_MODEL="$(ls -td artifacts/phase_b_theta_regressor_v2_* 2>/dev/null | head -1)/phase_b_theta_regressor_v2.json"
+fi
+
+if [[ ! -s "$THETA_MODEL" ]]; then
   THETA_MODEL="$(ls -td artifacts/phase_b_theta_regressor_v1_* 2>/dev/null | head -1)/phase_b_theta_regressor_v1.json"
 fi
 
