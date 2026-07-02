@@ -22,7 +22,7 @@ class TracerGlobalGoalToRelativeGoalV1(Node):
 
     Inputs:
       /tracer/robot_odom_flat:
-        [stamp, x_world, y_world, yaw_world, vx_world, vy_world]
+        [x_rel, y_rel, z_rel, yaw_rel, vx_world, vy_world]
 
       /tracer/global_goal:
         accepted layouts:
@@ -83,8 +83,9 @@ class TracerGlobalGoalToRelativeGoalV1(Node):
             self.get_logger().warn(f"odom expects >=4 values, got {len(d)}")
             return
 
-        # /tracer/robot_odom_flat = [stamp, x, y, yaw, vx, vy]
-        self.odom = (float(d[1]), float(d[2]), float(d[3]))
+        # /tracer/robot_odom_flat canonical layout:
+        #   [x_rel, y_rel, z_rel, yaw_rel, vx_world, vy_world]
+        self.odom = (float(d[0]), float(d[1]), float(d[3]))
         self.last_odom_time = self.now_sec()
 
     def goal_cb(self, msg):

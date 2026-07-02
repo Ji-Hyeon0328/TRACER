@@ -14,7 +14,7 @@ class TracerGoalAheadPublisherNode(Node):
 
     Input:
       /tracer/robot_odom_flat:
-        [stamp, x, y, yaw, vx, vy]
+        [x_rel, y_rel, z_rel, yaw_rel, vx, vy]
 
     Output:
       /tracer/global_goal:
@@ -73,7 +73,9 @@ class TracerGoalAheadPublisherNode(Node):
             self.get_logger().info("waiting for robot_odom_flat...", throttle_duration_sec=1.0)
             return
 
-        _, x, y, yaw, vx, vy = self.last_odom
+        # /tracer/robot_odom_flat canonical layout:
+        #   [x_rel, y_rel, z_rel, yaw_rel, vx, vy]
+        x, y, _z, yaw, vx, vy = self.last_odom
 
         x_goal = x + self.distance_ahead * math.cos(yaw)
         y_goal = y + self.distance_ahead * math.sin(yaw)
