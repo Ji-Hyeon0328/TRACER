@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT="${TRACER_ROOT:-$HOME/Tracer/TRACER}"
+TERRAIN="${1:-sponge_firm_flat}"
+HZ="${TRACER_PHASE_A_HZ:-20.0}"
+REQUIRE_FINAL_GUARD="${TRACER_REQUIRE_FINAL_GUARD:-true}"
+LOG="/tmp/tracer_phase_a_ram_aware_policy_node_v0_${TERRAIN}.log"
+
+cd "$ROOT"
+
+echo "[TRACER] ensure Phase-A RAM-aware policy node v0"
+echo "[TRACER] root:    $ROOT"
+echo "[TRACER] terrain: $TERRAIN"
+echo "[TRACER] hz:      $HZ"
+echo "[TRACER] log:     $LOG"
+
+echo
+echo "========== stop old Phase-A RAM-aware policy nodes =========="
+pkill -9 -f 'tracer_phase_a_ram_aware_policy_node_v0.py' 2>/dev/null || true
+sleep 1
+pgrep -af 'tracer_phase_a_ram_aware_policy_node_v0.py' || true
+
+echo
+echo "========== start new Phase-A RAM-aware policy node =========="
+set +u
+source /opt/ros/humble/setup.bash
+if [ -f "$ROOT/ros2_ws/install/setup.bash" ]; then
+  source "$ROOT/ros2_ws/install/setup.bash"
+fi
+set -u
+
+nohup /usr/bin/python3 \
+  "$ROOT/ros2_ws/src/tracer_a1_qpmc_adapter/scripts/tracer_phase_a_ram_aware_policy_node_v0.py" \
+  --ros-args \
+  -p tracer_root:="$ROOT" \
+  -p terrain:="$TERRAIN" \
+  -p publish_hz:="$HZ" \
+  -p require_final_guard:="$REQUIRE_FINAL_GUARD" \
+  > "$LOG" 2>&1 &
+
+sleep 1
+
+echo
+echo "========== process check =========="
+pgrep -af 'tracer_phase_a_ram_aware_policy_node_v0.py' || true
+
+echo
+echo "========== log tail =========="
+tail -n 30 "$LOG" || true
+
+echo
+echo "========== ROS2 /tracer/mpc_reference topic info =========="
+ros2 topic info -v /tracer/mpc_reference || true
+
+echo
+echo "========== one-shot status =========="
+timeout 3 ros2 topic echo --once /tracer/mpc_reference || true
+timeout 3 ros2 topic echo --once /tracer/phase_a_policy_status || true
