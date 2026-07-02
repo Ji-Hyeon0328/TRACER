@@ -10,6 +10,15 @@ WORLD="${TRACER_PHASE_B_WORLD:-earth}"
 GOAL_DISTANCE="${TRACER_PHASE_B_GOAL_DISTANCE_AHEAD:-0.5}"
 STOP_DISTANCE="${TRACER_PHASE_B_GOAL_STOP_DISTANCE:-0.15}"
 
+if [[ -z "$THETA_MODEL" && -s "artifacts/phase_b_theta_model_registry_v0/best_theta_model.json" ]]; then
+  THETA_MODEL="$(python3 - <<'PY2'
+import json
+with open("artifacts/phase_b_theta_model_registry_v0/best_theta_model.json", "r") as f:
+    print(json.load(f).get("best_theta_model", ""))
+PY2
+)"
+fi
+
 if [[ -z "$THETA_MODEL" ]]; then
   THETA_MODEL="$(ls -td artifacts/phase_b_theta_regressor_v2_* 2>/dev/null | head -1)/phase_b_theta_regressor_v2.json"
 fi
