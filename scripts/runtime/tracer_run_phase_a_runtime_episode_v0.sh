@@ -27,7 +27,11 @@ scripts/runtime/tracer_start_data_collection_lite.sh
 
 echo
 echo "========== 4. start Phase-A runtime policy =========="
-scripts/runtime/tracer_ensure_phase_a_ram_aware_policy_node_v0.sh "$TERRAIN"
+if [ "${TRACER_PHASE_A_USE_OVERRIDE:-0}" = "1" ]; then
+  scripts/runtime/tracer_ensure_phase_a_override_policy_node_v0.sh "$TERRAIN"
+else
+  scripts/runtime/tracer_ensure_phase_a_ram_aware_policy_node_v0.sh "$TERRAIN"
+fi
 
 echo
 echo "========== 5. verify command/debug before unpause =========="
