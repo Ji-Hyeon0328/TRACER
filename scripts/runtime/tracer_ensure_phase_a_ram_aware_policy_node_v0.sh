@@ -16,20 +16,48 @@ echo "[TRACER] hz:      $HZ"
 echo "[TRACER] log:     $LOG"
 
 echo
-echo "========== stop old Phase-A RAM-aware policy nodes =========="
-pkill -9 -f 'tracer_phase_a_ram_aware_policy_node_v0.py' 2>/dev/null || true
-sleep 1
-pgrep -af 'tracer_phase_a_ram_aware_policy_node_v0.py' || true
-
-echo
-echo "========== start new Phase-A RAM-aware policy node =========="
+echo "========== source ROS2 =========="
 set +u
+export COLCON_TRACE="${COLCON_TRACE:-}"
 source /opt/ros/humble/setup.bash
 if [ -f "$ROOT/ros2_ws/install/setup.bash" ]; then
   source "$ROOT/ros2_ws/install/setup.bash"
 fi
 set -u
 
+echo
+echo "========== stop old Phase-A RAM-aware policy nodes =========="
+for i in $(seq 1 5); do
+  OLD_PIDS="$(pgrep -f 'tracer_phase_a_ram_aware_policy_node_v0.py' || true)"
+  if [ -z "$OLD_PIDS" ]; then
+    break
+  fi
+  echo "[TRACER] killing old pids: $OLD_PIDS"
+  pkill -9 -f 'tracer_phase_a_ram_aware_policy_node_v0.py' 2>/dev/null || true
+  sleep 1
+done
+
+echo
+echo "========== wait for ROS2 publisher graph to clear =========="
+for i in $(seq 1 10); do
+  PUB_COUNT="$(ros2 topic info /tracer/mpc_reference 2>/dev/null | awk '/Publisher count:/ {print $3}' || true)"
+  PUB_COUNT="${PUB_COUNT:-0}"
+
+  echo "[TRACER] wait graph clear attempt=$i publisher_count=$PUB_COUNT"
+
+  if [ "$PUB_COUNT" = "0" ]; then
+    break
+  fi
+
+  sleep 1
+done
+
+echo
+echo "========== process check before start =========="
+pgrep -af 'tracer_phase_a_ram_aware_policy_node_v0.py' || true
+
+echo
+echo "========== start new Phase-A RAM-aware policy node =========="
 nohup /usr/bin/python3 \
   "$ROOT/ros2_ws/src/tracer_a1_qpmc_adapter/scripts/tracer_phase_a_ram_aware_policy_node_v0.py" \
   --ros-args \
