@@ -6,7 +6,7 @@ cd "$ROOT"
 
 GAZEBO_DOCKER="${TRACER_GAZEBO_DOCKER:-a1_unitree_gazebo_docker}"
 
-TERRAINS="${TRACER_PHASE_B_HC_TERRAINS:-earth sponge_firm_slope_5deg sponge_firm_downslope_5deg}"
+TERRAINS="${TRACER_PHASE_B_HC_TERRAINS:-earth tracer_sponge_firm_flat tracer_sponge_firm_slope_5deg tracer_sponge_firm_downslope_5deg}"
 DURATION="${TRACER_PHASE_B_RECORD_DURATION:-30.0}"
 SAMPLE_HZ="${TRACER_PHASE_B_SAMPLE_HZ:-20.0}"
 

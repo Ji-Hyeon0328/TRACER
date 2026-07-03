@@ -8,7 +8,7 @@ from collections import defaultdict
 from pathlib import Path
 
 
-def f(x, default=0.0):
+def ff(x, default=0.0):
     try:
         v = float(x)
         if not math.isfinite(v):
@@ -26,11 +26,11 @@ def b(x):
 
 def score_row(r):
     reached = b(r.get("reached"))
-    progress = f(r.get("progress"))
-    odom = f(r.get("odom_x_delta"))
-    min_dist = f(r.get("min_rel_dist"), 999.0)
-    yaw = f(r.get("max_yaw"), 999.0)
-    vx = f(r.get("vx_far"))
+    progress = ff(r.get("progress"))
+    odom = ff(r.get("odom_x_delta"))
+    min_dist = ff(r.get("min_rel_dist"), 999.0)
+    yaw = ff(r.get("max_yaw"), 999.0)
+    vx = ff(r.get("vx_far"))
 
     score = 0.0
     score += 100.0 if reached else 0.0
@@ -102,8 +102,8 @@ def main():
             world = infer_world(csv_path, r)
             case = r.get("case_name", "")
             risk = r.get("risk_name", "")
-            h = f(r.get("body_height"))
-            c = f(r.get("swing_clearance"))
+            h = ff(r.get("body_height"))
+            c = ff(r.get("swing_clearance"))
 
             key = (world, risk, case, h, c)
             item = dict(r)
@@ -115,11 +115,11 @@ def main():
     results = []
 
     for (world, risk, case, h, c), rows in grouped.items():
-        scores = [f(r["_score"]) for r in rows]
-        yaws = [f(r.get("max_yaw")) for r in rows]
-        vxs = [f(r.get("vx_far")) for r in rows]
-        progresses = [f(r.get("progress")) for r in rows]
-        min_dists = [f(r.get("min_rel_dist")) for r in rows]
+        scores = [ff(r["_score"]) for r in rows]
+        yaws = [ff(r.get("max_yaw")) for r in rows]
+        vxs = [ff(r.get("vx_far")) for r in rows]
+        progresses = [ff(r.get("progress")) for r in rows]
+        min_dists = [ff(r.get("min_rel_dist")) for r in rows]
         reached = [b(r.get("reached")) for r in rows]
 
         results.append({
@@ -163,10 +163,10 @@ def main():
 
     Path(args.out_json).parent.mkdir(parents=True, exist_ok=True)
 
-    with open(args.out_json, "w") as f:
-        json.dump(out, f, indent=2, sort_keys=True)
+    with open(args.out_json, "w") as fp:
+        json.dump(out, fp, indent=2, sort_keys=True)
 
-    with open(args.out_csv, "w", newline="") as f:
+    with open(args.out_csv, "w", newline="") as fp:
         fieldnames = [
             "world",
             "risk_name",
@@ -183,7 +183,7 @@ def main():
             "avg_progress",
             "avg_min_rel_dist",
         ]
-        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        writer = csv.DictWriter(fp, fieldnames=fieldnames)
         writer.writeheader()
         for r in results:
             writer.writerow({k: r[k] for k in fieldnames})
