@@ -130,6 +130,29 @@ def main():
 
     subprocess.check_call(["bash", str(runner)], env=env)
 
+    # Normalize the summary location. Some Phase-B runners write directly to
+    # run_dir/phase_b_summary.json, while blocked guarded episodes use
+    # run_dir/episode/phase_b_summary.json. Keep a canonical episode path for
+    # downstream dataset/scorer tools.
+    episode_dir = out_root / "episode"
+    episode_dir.mkdir(parents=True, exist_ok=True)
+
+    summary_candidates = [
+        out_root / "episode" / "phase_b_summary.json",
+        out_root / "phase_b_summary.json",
+    ]
+    summary_candidates.extend(sorted(out_root.glob("**/phase_b_summary.json")))
+
+    summary_src = None
+    for c in summary_candidates:
+        if c.is_file():
+            summary_src = c
+            break
+
+    canonical_summary = episode_dir / "phase_b_summary.json"
+    if summary_src is not None and summary_src.resolve() != canonical_summary.resolve():
+        canonical_summary.write_text(summary_src.read_text())
+
     result = {
         "schema": "phase_b_theta_lite_guarded_run_result_v0",
         "world_name": args.world_name,
@@ -140,6 +163,8 @@ def main():
         "normal_walk_blocked": False,
         "selected_profile_name": gate.get("selected_profile_name"),
         "theta_action": theta,
+        "summary_json": str(canonical_summary) if canonical_summary.is_file() else None,
+        "summary_source_json": str(summary_src) if summary_src is not None else None,
     }
     (out_root / "guarded_run_result_v0.json").write_text(
         json.dumps(result, indent=2, sort_keys=True) + "\n"
