@@ -1,0 +1,23 @@
+{
+  "executable_by_current_a1_qpmc_counts": {
+    "False": 3,
+    "True": 1
+  },
+  "missing_target_families": [],
+  "num_examples": 4,
+  "num_theta_extended_available": 4,
+  "out_jsonl": "artifacts/phase_b_primitive_route_theta_extended_v0_20260703_023620/phase_b_primitive_route_theta_extended_v0.jsonl",
+  "route_counts": {
+    "alternative_primitive_required": 3,
+    "theta_lite_diagonal_normal_walk": 1
+  },
+  "schema": "phase_b_primitive_route_with_theta_extended_summary_v0",
+  "seed_json": "configs/phase_b_primitive_theta_extended_v0/primitive_theta_extended_seed_v0.json",
+  "source_route_jsonl": "configs/phase_b_primitive_route_dataset_v0/current_dataset.jsonl",
+  "target_primitive_counts": {
+    "normal_diagonal_locomotion": 1,
+    "soft_contact_crawl_or_quasi_static": 1,
+    "soft_contact_downslope_controlled_descent": 1,
+    "soft_contact_upslope_crawl": 1
+  }
+}

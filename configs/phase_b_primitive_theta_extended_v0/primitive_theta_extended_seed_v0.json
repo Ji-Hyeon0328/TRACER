@@ -1,0 +1,145 @@
+{
+  "schema": "phase_b_primitive_theta_extended_seed_v0",
+  "description": "Seed targets for future unified GMS/RL meta-gait planner. Current A1-QP-MPC diagonal controller cannot execute full phase/gait-family commands yet; these are learning targets and low-level interface requirements.",
+  "theta_extended_fields": [
+    "gait_family",
+    "gait_logits",
+    "period",
+    "duty_factor",
+    "phase_offsets",
+    "swing_clearance",
+    "body_height",
+    "stance_width",
+    "vx_scale",
+    "yaw_rate_limit",
+    "footstep_length_scale",
+    "impedance_scale",
+    "recovery_or_hold_flag"
+  ],
+  "primitive_families": {
+    "normal_diagonal_locomotion": {
+      "description": "Current executable A1-QP-MPC diagonal/trot-like theta-lite normal walk.",
+      "executable_by_current_a1_qpmc": true,
+      "requires_lowlevel_phase_interface": false,
+      "theta_extended": {
+        "gait_family": "diagonal_trot",
+        "gait_logits": {
+          "diagonal_trot": 1.0,
+          "crawl": 0.0,
+          "quasi_static": 0.0,
+          "controlled_descent": 0.0,
+          "hold_or_recovery": 0.0
+        },
+        "period": 0.30,
+        "duty_factor": 0.55,
+        "phase_offsets": {
+          "FL": 0.0,
+          "RR": 0.0,
+          "FR": 0.5,
+          "RL": 0.5
+        },
+        "swing_clearance": 0.04,
+        "body_height": 0.32,
+        "stance_width": 0.23,
+        "vx_scale": 1.0,
+        "yaw_rate_limit": 0.30,
+        "footstep_length_scale": 1.0,
+        "impedance_scale": 1.0,
+        "recovery_or_hold_flag": 0.0
+      }
+    },
+    "soft_contact_crawl_or_quasi_static": {
+      "description": "Soft flat terrain candidate: high support ratio, slow crawl/quasi-static gait, bounded drift and post-reach hold.",
+      "executable_by_current_a1_qpmc": false,
+      "requires_lowlevel_phase_interface": true,
+      "theta_extended": {
+        "gait_family": "crawl",
+        "gait_logits": {
+          "diagonal_trot": 0.0,
+          "crawl": 0.75,
+          "quasi_static": 0.25,
+          "controlled_descent": 0.0,
+          "hold_or_recovery": 0.0
+        },
+        "period": 0.80,
+        "duty_factor": 0.78,
+        "phase_offsets": {
+          "FL": 0.0,
+          "RR": 0.25,
+          "FR": 0.50,
+          "RL": 0.75
+        },
+        "swing_clearance": 0.08,
+        "body_height": 0.34,
+        "stance_width": 0.28,
+        "vx_scale": 0.25,
+        "yaw_rate_limit": 0.12,
+        "footstep_length_scale": 0.45,
+        "impedance_scale": 1.25,
+        "recovery_or_hold_flag": 0.25
+      }
+    },
+    "soft_contact_upslope_crawl": {
+      "description": "Soft upslope candidate: crawl/high-support gait with modest body height and high clearance to avoid foot drag/sink.",
+      "executable_by_current_a1_qpmc": false,
+      "requires_lowlevel_phase_interface": true,
+      "theta_extended": {
+        "gait_family": "crawl",
+        "gait_logits": {
+          "diagonal_trot": 0.0,
+          "crawl": 0.85,
+          "quasi_static": 0.15,
+          "controlled_descent": 0.0,
+          "hold_or_recovery": 0.0
+        },
+        "period": 0.90,
+        "duty_factor": 0.82,
+        "phase_offsets": {
+          "FL": 0.0,
+          "RR": 0.25,
+          "FR": 0.50,
+          "RL": 0.75
+        },
+        "swing_clearance": 0.10,
+        "body_height": 0.34,
+        "stance_width": 0.29,
+        "vx_scale": 0.20,
+        "yaw_rate_limit": 0.10,
+        "footstep_length_scale": 0.38,
+        "impedance_scale": 1.35,
+        "recovery_or_hold_flag": 0.35
+      }
+    },
+    "soft_contact_downslope_controlled_descent": {
+      "description": "Soft downslope candidate: controlled descent/backstep-compatible primitive target with high support and strong post-reach braking requirement.",
+      "executable_by_current_a1_qpmc": false,
+      "requires_lowlevel_phase_interface": true,
+      "theta_extended": {
+        "gait_family": "controlled_descent",
+        "gait_logits": {
+          "diagonal_trot": 0.0,
+          "crawl": 0.30,
+          "quasi_static": 0.25,
+          "controlled_descent": 0.45,
+          "hold_or_recovery": 0.0
+        },
+        "period": 1.00,
+        "duty_factor": 0.85,
+        "phase_offsets": {
+          "FL": 0.0,
+          "RR": 0.25,
+          "FR": 0.50,
+          "RL": 0.75
+        },
+        "swing_clearance": 0.09,
+        "body_height": 0.33,
+        "stance_width": 0.30,
+        "vx_scale": 0.12,
+        "yaw_rate_limit": 0.08,
+        "footstep_length_scale": 0.28,
+        "impedance_scale": 1.45,
+        "recovery_or_hold_flag": 0.60
+      }
+    }
+  }
+}
