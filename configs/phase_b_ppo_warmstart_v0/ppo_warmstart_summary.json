@@ -1,0 +1,81 @@
+{
+  "num_result_json_files_scanned": 534,
+  "num_rows": 496,
+  "rows_by_action": {
+    "trot_brake_near_goal": 22,
+    "trot_cautious": 52,
+    "trot_fast_low_clear": 14,
+    "trot_high_body_soft": 66,
+    "trot_low_body_probe": 29,
+    "trot_mid": 106,
+    "trot_soft_high_clear": 15,
+    "trot_soft_mid_clear": 63,
+    "trot_soft_ultraslow": 36,
+    "trot_solid_fast": 93
+  },
+  "rows_by_world": {
+    "earth": 88,
+    "stairs_single": 142,
+    "tracer_sponge_firm_flat": 266
+  },
+  "schema": "phase_b_ppo_warmstart_summary_v0",
+  "selected_worlds": [
+    "earth",
+    "stairs_single",
+    "tracer_sponge_firm_flat"
+  ],
+  "skipped": {
+    "not_ok": 5,
+    "world_not_selected": 33
+  },
+  "top_action_by_world": {
+    "earth": {
+      "action_name": "trot_mid",
+      "mean_hold_reward": 2.1098213118503946,
+      "mean_reach_reward": 6.113288927292736,
+      "prob": 0.8242486607911225,
+      "reach_success_rate": 0.9473684210526315,
+      "theta_action": {
+        "body_height": 0.33,
+        "goal_slow_distance": 0.25,
+        "goal_stop_distance": 0.15,
+        "name": "trot_mid",
+        "swing_clearance": 0.05,
+        "vx_far": 0.12,
+        "vx_near": 0.06
+      }
+    },
+    "stairs_single": {
+      "action_name": "trot_mid",
+      "mean_hold_reward": 0.825478048038398,
+      "mean_reach_reward": 6.534008739694727,
+      "prob": 0.3658067026600801,
+      "reach_success_rate": 0.9354838709677419,
+      "theta_action": {
+        "body_height": 0.33,
+        "goal_slow_distance": 0.25,
+        "goal_stop_distance": 0.15,
+        "name": "trot_mid",
+        "swing_clearance": 0.05,
+        "vx_far": 0.12,
+        "vx_near": 0.06
+      }
+    },
+    "tracer_sponge_firm_flat": {
+      "action_name": "trot_solid_fast",
+      "mean_hold_reward": -6.533678171186237,
+      "mean_reach_reward": 4.6169370359454724,
+      "prob": 0.3200334351160031,
+      "reach_success_rate": 0.6206896551724138,
+      "theta_action": {
+        "body_height": 0.32,
+        "goal_slow_distance": 0.2,
+        "goal_stop_distance": 0.15,
+        "name": "trot_solid_fast",
+        "swing_clearance": 0.04,
+        "vx_far": 0.16,
+        "vx_near": 0.08
+      }
+    }
+  }
+}
