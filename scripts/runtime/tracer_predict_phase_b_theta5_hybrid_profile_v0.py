@@ -118,6 +118,19 @@ def main():
         out["risk_name"] = risk_name
         out["guard_reasons"] = [fallback_reason] + out.get("guard_reasons", [])
 
+        # Sponge terrain fallback should not use aggressive linear vx.
+        # Until a replay-trusted sponge teacher exists, use the safest conservative probe.
+        if "sponge" in str(args.world_name):
+            p = out["profile"]
+            p["vx_far"] = min(float(p.get("vx_far", 0.04)), 0.04)
+            p["vx_near"] = min(float(p.get("vx_near", 0.025)), 0.025)
+            p["goal_slow_distance"] = max(float(p.get("goal_slow_distance", 0.30)), 0.30)
+            p["body_height"] = 0.34
+            p["swing_clearance"] = 0.08
+            p["name"] = "theta5_sponge_conservative_fallback_v0"
+            out["source"] = "sponge_conservative_fallback"
+            out["guard_reasons"].append("sponge conservative fallback: vx<=0.04, near<=0.025, h=0.34, clr=0.08")
+
     text = json.dumps(out, indent=2, sort_keys=True)
 
     if args.out_json:
