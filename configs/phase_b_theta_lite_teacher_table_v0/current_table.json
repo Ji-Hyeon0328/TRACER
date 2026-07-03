@@ -14,6 +14,7 @@
       },
       "normal_walk_blocked": false,
       "num_candidates": 6,
+      "probe_candidate": false,
       "ranked_profiles": [
         {
           "metrics": {
@@ -143,9 +144,11 @@
         }
       ],
       "requires_alternative_primitive": false,
+      "requires_more_theta_search": false,
       "reward": 4.886213081466391,
       "selected_profile_family": "solid",
       "selected_profile_name": "solid_fast_h032_c004",
+      "selection_status": "trusted_normal_walk",
       "semantic": "stable_goal_reach_flat_locomotion",
       "theta_action": {
         "body_height": 0.32,
@@ -155,6 +158,7 @@
         "vx_far": 0.16,
         "vx_near": 0.08
       },
+      "trusted_normal_walk": true,
       "world_name": "earth"
     },
     "tracer_sponge_firm_downslope_5deg": {
@@ -168,6 +172,7 @@
       },
       "normal_walk_blocked": true,
       "num_candidates": 6,
+      "probe_candidate": false,
       "ranked_profiles": [
         {
           "metrics": {
@@ -297,9 +302,11 @@
         }
       ],
       "requires_alternative_primitive": true,
+      "requires_more_theta_search": false,
       "reward": -9.725729034933286,
       "selected_profile_family": "sponge",
       "selected_profile_name": "sponge_slow_h034_c008",
+      "selection_status": "blocked_requires_alternative_primitive",
       "semantic": "forward_walk_unreliable_on_soft_terrain",
       "theta_action": {
         "body_height": 0.34,
@@ -309,6 +316,7 @@
         "vx_far": 0.04,
         "vx_near": 0.025
       },
+      "trusted_normal_walk": false,
       "world_name": "tracer_sponge_firm_downslope_5deg"
     },
     "tracer_sponge_firm_flat": {
@@ -320,8 +328,9 @@
         "progress_initial_minus_min": 0.1780775304285831,
         "reached_stop_distance": false
       },
-      "normal_walk_blocked": false,
+      "normal_walk_blocked": true,
       "num_candidates": 6,
+      "probe_candidate": true,
       "ranked_profiles": [
         {
           "metrics": {
@@ -451,9 +460,11 @@
         }
       ],
       "requires_alternative_primitive": false,
+      "requires_more_theta_search": true,
       "reward": -0.5734635987991112,
       "selected_profile_family": "solid",
       "selected_profile_name": "solid_fast_h032_c004",
+      "selection_status": "probe_candidate_requires_local_search",
       "semantic": "cautious_probe_required",
       "theta_action": {
         "body_height": 0.32,
@@ -463,6 +474,7 @@
         "vx_far": 0.16,
         "vx_near": 0.08
       },
+      "trusted_normal_walk": false,
       "world_name": "tracer_sponge_firm_flat"
     },
     "tracer_sponge_firm_slope_5deg": {
@@ -476,6 +488,7 @@
       },
       "normal_walk_blocked": true,
       "num_candidates": 6,
+      "probe_candidate": false,
       "ranked_profiles": [
         {
           "metrics": {
@@ -605,9 +618,11 @@
         }
       ],
       "requires_alternative_primitive": true,
+      "requires_more_theta_search": false,
       "reward": -6.444369328237214,
       "selected_profile_family": "sponge",
       "selected_profile_name": "sponge_slow_h034_c008",
+      "selection_status": "blocked_requires_alternative_primitive",
       "semantic": "forward_walk_unreliable_on_soft_terrain",
       "theta_action": {
         "body_height": 0.34,
@@ -617,6 +632,7 @@
         "vx_far": 0.04,
         "vx_near": 0.025
       },
+      "trusted_normal_walk": false,
       "world_name": "tracer_sponge_firm_slope_5deg"
     }
   }

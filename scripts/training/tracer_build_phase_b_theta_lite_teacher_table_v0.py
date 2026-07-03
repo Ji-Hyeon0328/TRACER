@@ -28,18 +28,54 @@ def main():
         ranked = sorted(rs, key=lambda r: r["label"]["reward"], reverse=True)
         best = ranked[0]
         sem = best["label"]["semantic"]
-        blocked = sem in BAD_SEMANTICS
+        reward = float(best["label"]["reward"])
+        metrics = best["metrics"]
+
+        stable = sem == "stable_goal_reach_flat_locomotion"
+        bad = sem in BAD_SEMANTICS
+
+        # A probe candidate is not trusted enough for deployment as normal walking,
+        # but it is good enough to motivate a local theta search.
+        probe_candidate = (
+            sem in {
+                "cautious_probe_required",
+                "approach_possible_but_post_reach_hold_needed",
+            }
+            and reward > -1.5
+            and float(metrics.get("final_rel_dist", 999.0)) <= 0.60
+            and abs(float(metrics.get("odom_x_delta", 999.0))) <= 1.00
+        )
+
+        if stable:
+            selection_status = "trusted_normal_walk"
+        elif probe_candidate:
+            selection_status = "probe_candidate_requires_local_search"
+        elif bad:
+            selection_status = "blocked_requires_alternative_primitive"
+        else:
+            selection_status = "untrusted_requires_more_search"
+
+        # For runtime deployment, only stable teacher entries should allow normal walk.
+        # Probe candidates are useful for data collection/local search, not direct deployment.
+        blocked = selection_status != "trusted_normal_walk"
 
         table[world] = {
             "world_name": world,
             "selected_profile_name": best["profile_name"],
             "selected_profile_family": best.get("profile_family"),
             "theta_action": best["theta_action"],
-            "reward": best["label"]["reward"],
+            "reward": reward,
             "semantic": sem,
+            "selection_status": selection_status,
+            "trusted_normal_walk": stable,
+            "probe_candidate": probe_candidate,
             "normal_walk_blocked": blocked,
-            "requires_alternative_primitive": blocked,
-            "metrics": best["metrics"],
+            "requires_alternative_primitive": selection_status == "blocked_requires_alternative_primitive",
+            "requires_more_theta_search": selection_status in {
+                "probe_candidate_requires_local_search",
+                "untrusted_requires_more_search",
+            },
+            "metrics": metrics,
             "num_candidates": len(rs),
             "ranked_profiles": [
                 {

@@ -1,0 +1,93 @@
+{
+  "schema": "phase_b_theta_lite_sweep_v1_sponge_flat_local_search",
+  "description": "Local theta-lite search around sponge-flat probe candidate and conservative sponge candidates. Diagonal gait fixed.",
+  "worlds": [
+    {
+      "name": "tracer_sponge_firm_flat",
+      "label": "sponge_even",
+      "duration": 45.0
+    }
+  ],
+  "profiles": [
+    {
+      "name": "sponge_flat_fast_h032_c004_s020",
+      "family": "sponge_flat_local",
+      "vx_far": 0.16,
+      "vx_near": 0.08,
+      "goal_slow_distance": 0.20,
+      "goal_stop_distance": 0.15,
+      "body_height": 0.32,
+      "swing_clearance": 0.04
+    },
+    {
+      "name": "sponge_flat_midfast_h032_c004_s025",
+      "family": "sponge_flat_local",
+      "vx_far": 0.12,
+      "vx_near": 0.06,
+      "goal_slow_distance": 0.25,
+      "goal_stop_distance": 0.15,
+      "body_height": 0.32,
+      "swing_clearance": 0.04
+    },
+    {
+      "name": "sponge_flat_mid_h032_c005_s030",
+      "family": "sponge_flat_local",
+      "vx_far": 0.09,
+      "vx_near": 0.04,
+      "goal_slow_distance": 0.30,
+      "goal_stop_distance": 0.15,
+      "body_height": 0.32,
+      "swing_clearance": 0.05
+    },
+    {
+      "name": "sponge_flat_mid_h033_c006_s035",
+      "family": "sponge_flat_local",
+      "vx_far": 0.08,
+      "vx_near": 0.035,
+      "goal_slow_distance": 0.35,
+      "goal_stop_distance": 0.16,
+      "body_height": 0.33,
+      "swing_clearance": 0.06
+    },
+    {
+      "name": "sponge_flat_slow_h033_c006_s040",
+      "family": "sponge_flat_local",
+      "vx_far": 0.06,
+      "vx_near": 0.025,
+      "goal_slow_distance": 0.40,
+      "goal_stop_distance": 0.18,
+      "body_height": 0.33,
+      "swing_clearance": 0.06
+    },
+    {
+      "name": "sponge_flat_slow_h034_c008_s040",
+      "family": "sponge_flat_local",
+      "vx_far": 0.05,
+      "vx_near": 0.020,
+      "goal_slow_distance": 0.40,
+      "goal_stop_distance": 0.18,
+      "body_height": 0.34,
+      "swing_clearance": 0.08
+    },
+    {
+      "name": "sponge_flat_ultraslow_h034_c008_s045",
+      "family": "sponge_flat_local",
+      "vx_far": 0.035,
+      "vx_near": 0.015,
+      "goal_slow_distance": 0.45,
+      "goal_stop_distance": 0.20,
+      "body_height": 0.34,
+      "swing_clearance": 0.08
+    },
+    {
+      "name": "sponge_flat_ultraslow_h035_c010_s045",
+      "family": "sponge_flat_local",
+      "vx_far": 0.030,
+      "vx_near": 0.012,
+      "goal_slow_distance": 0.45,
+      "goal_stop_distance": 0.20,
+      "body_height": 0.35,
+      "swing_clearance": 0.10
+    }
+  ]
+}
