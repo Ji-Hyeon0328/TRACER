@@ -1,0 +1,175 @@
+{
+  "best_table": {
+    "earth::high": {
+      "action": {
+        "body_height": 0.3,
+        "goal_slow_distance": 0.20000000000000004,
+        "swing_clearance": 0.08,
+        "vx_far": 0.08,
+        "vx_near": 0.03671433438213518
+      },
+      "case_name": "high_low_body_high_clearance",
+      "n": 3,
+      "reached_rate": 0.6666666666666666,
+      "score_mean": 80.53422388372026,
+      "score_std": 58.70942444599131
+    },
+    "earth::low": {
+      "action": {
+        "body_height": 0.32,
+        "goal_slow_distance": 0.20000000000000004,
+        "swing_clearance": 0.04,
+        "vx_far": 0.15816317484675904,
+        "vx_near": 0.07908158742337952
+      },
+      "case_name": "low_base",
+      "n": 3,
+      "reached_rate": 1.0,
+      "score_mean": 114.22822201118119,
+      "score_std": 1.197351726510057
+    },
+    "earth::moderate": {
+      "action": {
+        "body_height": 0.32,
+        "goal_slow_distance": 0.20000000000000004,
+        "swing_clearance": 0.04,
+        "vx_far": 0.12330683250818399,
+        "vx_near": 0.06165341625409199
+      },
+      "case_name": "moderate_base",
+      "n": 3,
+      "reached_rate": 1.0,
+      "score_mean": 113.56603112699237,
+      "score_std": 1.1718366491050665
+    },
+    "tracer_sponge_firm_downslope_5deg::high": {
+      "action": {
+        "body_height": 0.3,
+        "goal_slow_distance": 0.2,
+        "swing_clearance": 0.08,
+        "vx_far": 0.08,
+        "vx_near": 0.03671433438213518
+      },
+      "case_name": "high_low_body_high_clearance",
+      "n": 1,
+      "reached_rate": 1.0,
+      "score_mean": 177.45052762641467,
+      "score_std": 0.0
+    },
+    "tracer_sponge_firm_downslope_5deg::low": {
+      "action": {
+        "body_height": 0.35,
+        "goal_slow_distance": 0.2,
+        "swing_clearance": 0.04,
+        "vx_far": 0.15816317484675904,
+        "vx_near": 0.07908158742337952
+      },
+      "case_name": "low_high_body",
+      "n": 1,
+      "reached_rate": 1.0,
+      "score_mean": 181.54502202540266,
+      "score_std": 0.0
+    },
+    "tracer_sponge_firm_downslope_5deg::moderate": {
+      "action": {
+        "body_height": 0.32,
+        "goal_slow_distance": 0.2,
+        "swing_clearance": 0.04,
+        "vx_far": 0.12330683250818399,
+        "vx_near": 0.06165341625409199
+      },
+      "case_name": "moderate_base",
+      "n": 1,
+      "reached_rate": 1.0,
+      "score_mean": 172.4098630051318,
+      "score_std": 0.0
+    },
+    "tracer_sponge_firm_flat::high": {
+      "action": {
+        "body_height": 0.32,
+        "goal_slow_distance": 0.2,
+        "swing_clearance": 0.04,
+        "vx_far": 0.08,
+        "vx_near": 0.03671433438213518
+      },
+      "case_name": "high_base",
+      "n": 1,
+      "reached_rate": 1.0,
+      "score_mean": 146.1267879259147,
+      "score_std": 0.0
+    },
+    "tracer_sponge_firm_flat::low": {
+      "action": {
+        "body_height": 0.32,
+        "goal_slow_distance": 0.2,
+        "swing_clearance": 0.07,
+        "vx_far": 0.15816317484675904,
+        "vx_near": 0.07908158742337952
+      },
+      "case_name": "low_high_clearance",
+      "n": 1,
+      "reached_rate": 1.0,
+      "score_mean": 150.44995899010547,
+      "score_std": 0.0
+    },
+    "tracer_sponge_firm_flat::moderate": {
+      "action": {
+        "body_height": 0.32,
+        "goal_slow_distance": 0.2,
+        "swing_clearance": 0.04,
+        "vx_far": 0.12330683250818399,
+        "vx_near": 0.06165341625409199
+      },
+      "case_name": "moderate_base",
+      "n": 1,
+      "reached_rate": 0.0,
+      "score_mean": 35.287327642909105,
+      "score_std": 0.0
+    },
+    "tracer_sponge_firm_slope_5deg::high": {
+      "action": {
+        "body_height": 0.3,
+        "goal_slow_distance": 0.2,
+        "swing_clearance": 0.08,
+        "vx_far": 0.08,
+        "vx_near": 0.03671433438213518
+      },
+      "case_name": "high_low_body_high_clearance",
+      "n": 1,
+      "reached_rate": 0.0,
+      "score_mean": -10.790723905180782,
+      "score_std": 0.0
+    },
+    "tracer_sponge_firm_slope_5deg::low": {
+      "action": {
+        "body_height": 0.32,
+        "goal_slow_distance": 0.2,
+        "swing_clearance": 0.03,
+        "vx_far": 0.15816317484675904,
+        "vx_near": 0.07908158742337952
+      },
+      "case_name": "low_low_clearance",
+      "n": 1,
+      "reached_rate": 1.0,
+      "score_mean": 126.32362175532656,
+      "score_std": 0.0
+    },
+    "tracer_sponge_firm_slope_5deg::moderate": {
+      "action": {
+        "body_height": 0.32,
+        "goal_slow_distance": 0.2,
+        "swing_clearance": 0.07,
+        "vx_far": 0.12330683250818399,
+        "vx_near": 0.06165341625409199
+      },
+      "case_name": "moderate_high_clearance",
+      "n": 1,
+      "reached_rate": 0.0,
+      "score_mean": -4.272578204386515,
+      "score_std": 0.0
+    }
+  },
+  "selection_rule": "best_table from phase_b_theta5_teacher_dataset_v0",
+  "source_summary_json": "artifacts/phase_b_theta5_teacher_dataset_v0_20260702_205516/phase_b_theta5_teacher_dataset_summary_v0.json",
+  "table_type": "phase_b_theta5_teacher_table_v0"
+}

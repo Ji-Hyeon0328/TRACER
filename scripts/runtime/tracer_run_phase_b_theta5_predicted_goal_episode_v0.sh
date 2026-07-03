@@ -41,15 +41,15 @@ fi
 
 PRED_JSON="$RUN_DIR/theta5_prediction.json"
 
-echo "[TRACER] theta5-predicted Phase-B goal episode"
+echo "[TRACER] theta5 hybrid-predicted Phase-B goal episode"
 echo "[TRACER] root:       $ROOT"
 echo "[TRACER] model:      $THETA5_MODEL"
 echo "[TRACER] risk_json:  $RISK_STATE_JSON"
 echo "[TRACER] world:      $WORLD"
 echo "[TRACER] run_dir:    $RUN_DIR"
 
-python3 "$ROOT/scripts/runtime/tracer_predict_phase_b_theta5_profile_v0.py" \
-  --model "$THETA5_MODEL" \
+python3 "$ROOT/scripts/runtime/tracer_predict_phase_b_theta5_hybrid_profile_v0.py" \
+  --linear-model "$THETA5_MODEL" \
   --risk-state-json "$RISK_STATE_JSON" \
   --world-name "$WORLD" \
   --goal-distance-ahead "$GOAL_DISTANCE" \
