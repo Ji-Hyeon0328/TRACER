@@ -27,10 +27,10 @@
       "std_like_odom_x_delta": 0.01923625947065427
     },
     "tracer_sponge_firm_flat::theta5_sponge_conservative_fallback_v0::vx=0.0400::near=0.0250::slow=0.3000::h=0.3400::clr=0.0800": {
-      "avg_final_rel_dist": 2.241377103142303,
-      "avg_future_risk": 0.7906998217735739,
-      "avg_odom_x_delta": 1.6713078097219423,
-      "future_uncertainty": 0.7209300178226425,
+      "avg_final_rel_dist": 3.06152403138096,
+      "avg_future_risk": 0.8703499108867869,
+      "avg_odom_x_delta": 2.952528688042861,
+      "future_uncertainty": 0.5921748126623115,
       "high_variability": true,
       "key": {
         "body_height": 0.34,
@@ -43,18 +43,18 @@
       },
       "key_string": "tracer_sponge_firm_flat::theta5_sponge_conservative_fallback_v0::vx=0.0400::near=0.0250::slow=0.3000::h=0.3400::clr=0.0800",
       "majority_semantic": "forward_walk_unreliable_on_soft_terrain",
-      "n": 2,
+      "n": 4,
       "semantic_counts": {
         "cautious_probe_required": 1,
-        "forward_walk_unreliable_on_soft_terrain": 1
+        "forward_walk_unreliable_on_soft_terrain": 3
       },
-      "semantic_uncertainty": 0.5,
-      "std_like_final_rel_dist": 1.7843788854065639,
-      "std_like_future_risk": 0.20930017822642605,
-      "std_like_odom_x_delta": 1.6222896208605813
+      "semantic_uncertainty": 0.25,
+      "std_like_final_rel_dist": 1.5591701303808625,
+      "std_like_future_risk": 0.17174812662311525,
+      "std_like_odom_x_delta": 1.7733240610292114
     }
   },
   "num_groups": 2,
   "registry_type": "phase_b_objective_ram_uncertainty_registry_v0",
-  "source_score_csv": "artifacts/phase_b_objective_ram_runtime_score_v0_20260702_230500/objective_ram_runtime_score_v0.csv"
+  "source_score_csv": "artifacts/phase_b_objective_ram_runtime_score_v0_20260702_231534/objective_ram_runtime_score_v0.csv"
 }

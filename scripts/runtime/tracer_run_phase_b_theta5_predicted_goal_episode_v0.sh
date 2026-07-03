@@ -168,6 +168,12 @@ summary["predicted_semantic_uncertainty"] = pred.get("runtime_decision", {}).get
 summary["predicted_high_variability"] = pred.get("runtime_decision", {}).get("high_variability")
 summary["predicted_uncertainty_n"] = pred.get("runtime_decision", {}).get("uncertainty_n")
 summary["predicted_uncertainty_majority_semantic"] = pred.get("runtime_decision", {}).get("uncertainty_majority_semantic")
+summary["calibrated_semantic"] = pred.get("runtime_decision", {}).get("calibrated_semantic")
+summary["calibrated_future_risk"] = pred.get("runtime_decision", {}).get("calibrated_future_risk")
+summary["calibrated_future_invalid"] = pred.get("runtime_decision", {}).get("calibrated_future_invalid")
+summary["calibrated_recovery_needed"] = pred.get("runtime_decision", {}).get("calibrated_recovery_needed")
+summary["normal_walk_blocked"] = pred.get("runtime_decision", {}).get("normal_walk_blocked")
+summary["uncertainty_avg_future_risk"] = pred.get("runtime_decision", {}).get("uncertainty_avg_future_risk")
 summary["uncertainty_prediction"] = pred.get("uncertainty_prediction", {})
 
 summary["theta_model"] = model_path

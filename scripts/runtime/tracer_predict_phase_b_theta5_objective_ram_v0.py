@@ -176,6 +176,35 @@ def main():
     semantic_uncertainty = float(uncertainty.get("semantic_uncertainty", 0.0) or 0.0)
     high_variability = bool(uncertainty.get("high_variability", False))
 
+    uncertainty_avg_risk = float(uncertainty.get("avg_future_risk", 0.0) or 0.0)
+    uncertainty_majority_semantic = uncertainty.get("majority_semantic")
+
+    calibrated_future_risk = max(float(ram.get("future_risk", 0.0) or 0.0), uncertainty_avg_risk)
+
+    calibrated_semantic = objective.get("semantic")
+    if high_variability and uncertainty_majority_semantic:
+        # Use the observed majority outcome as the effective semantic when
+        # repeated rollouts show high variability. This is especially important
+        # for soft terrain where the same theta can occasionally reach but then
+        # escape severely.
+        calibrated_semantic = uncertainty_majority_semantic
+
+    calibrated_future_invalid = bool(ram.get("future_invalid", False))
+    if calibrated_semantic == "forward_walk_unreliable_on_soft_terrain":
+        calibrated_future_invalid = True
+
+    calibrated_recovery_needed = bool(ram.get("recovery_needed", False))
+    if calibrated_future_risk >= 0.60 or future_uncertainty >= 0.50 or high_variability:
+        calibrated_recovery_needed = True
+
+    normal_walk_blocked = (
+        calibrated_future_invalid
+        or calibrated_recovery_needed
+        or calibrated_future_risk >= 0.60
+        or future_uncertainty >= 0.50
+        or high_variability
+    )
+
     out = {
         # Keep top-level compatibility with theta5 runner.
         "model": theta5_model,
@@ -210,6 +239,13 @@ def main():
             "high_variability": high_variability,
             "uncertainty_n": uncertainty.get("n"),
             "uncertainty_majority_semantic": uncertainty.get("majority_semantic"),
+
+            "calibrated_semantic": calibrated_semantic,
+            "calibrated_future_risk": calibrated_future_risk,
+            "calibrated_future_invalid": calibrated_future_invalid,
+            "calibrated_recovery_needed": calibrated_recovery_needed,
+            "normal_walk_blocked": normal_walk_blocked,
+            "uncertainty_avg_future_risk": uncertainty_avg_risk,
         },
         "uncertainty_registry": uncertainty_registry,
         "uncertainty_prediction": uncertainty,
