@@ -19,6 +19,15 @@ if [[ ! -s "$THETA5_MODEL" ]]; then
   exit 1
 fi
 
+OBJ_RAM_MODEL="${TRACER_PHASE_B_OBJECTIVE_RAM_MODEL:-}"
+if [[ -z "$OBJ_RAM_MODEL" ]]; then
+  OBJ_RAM_MODEL="$(ls -td artifacts/phase_b_objective_ram_bootstrap_v0_* 2>/dev/null | head -1)/phase_b_objective_ram_bootstrap_v0.json"
+fi
+
+if [[ ! -s "$OBJ_RAM_MODEL" ]]; then
+  echo "[TRACER][WARN] objective/RAM model not found: $OBJ_RAM_MODEL"
+fi
+
 STAMP="$(date +%Y%m%d_%H%M%S)"
 RUN_DIR="${TRACER_PHASE_B_RUN_DIR:-$ROOT/artifacts/phase_b_theta5_predicted_goal_episode_${STAMP}}"
 mkdir -p "$RUN_DIR"
@@ -48,8 +57,9 @@ echo "[TRACER] risk_json:  $RISK_STATE_JSON"
 echo "[TRACER] world:      $WORLD"
 echo "[TRACER] run_dir:    $RUN_DIR"
 
-python3 "$ROOT/scripts/runtime/tracer_predict_phase_b_theta5_hybrid_profile_v0.py" \
-  --linear-model "$THETA5_MODEL" \
+python3 "$ROOT/scripts/runtime/tracer_predict_phase_b_theta5_objective_ram_v0.py" \
+  --theta5-model "$THETA5_MODEL" \
+  --objective-ram-model "$OBJ_RAM_MODEL" \
   --risk-state-json "$RISK_STATE_JSON" \
   --world-name "$WORLD" \
   --goal-distance-ahead "$GOAL_DISTANCE" \
@@ -144,6 +154,15 @@ summary["theta5_profile_name"] = p.get("name")
 summary["theta5_guard_reasons"] = pred.get("guard_reasons", [])
 summary["theta5_raw_prediction"] = pred.get("raw_prediction", {})
 summary["theta5_risk_state"] = pred.get("risk_state", {})
+
+summary["objective_ram_model"] = pred.get("objective_ram_prediction", {}).get("model")
+summary["objective_prediction"] = pred.get("objective_ram_prediction", {}).get("objective_prediction", {})
+summary["ram_prediction"] = pred.get("objective_ram_prediction", {}).get("ram_prediction", {})
+summary["runtime_decision"] = pred.get("runtime_decision", {})
+summary["objective_semantic"] = pred.get("runtime_decision", {}).get("semantic")
+summary["predicted_future_risk"] = pred.get("runtime_decision", {}).get("future_risk")
+summary["predicted_recovery_needed"] = pred.get("runtime_decision", {}).get("recovery_needed")
+summary["predicted_future_invalid"] = pred.get("runtime_decision", {}).get("future_invalid")
 
 summary["theta_model"] = model_path
 summary["theta_profile_name"] = p.get("name")
