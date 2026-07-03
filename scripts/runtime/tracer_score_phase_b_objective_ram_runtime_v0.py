@@ -69,11 +69,13 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--run-glob", default="artifacts/phase_b_theta5_predicted_goal_episode_*")
     ap.add_argument("--out-dir", required=True)
+    ap.add_argument("--include-missing-predictions", action="store_true")
     args = ap.parse_args()
 
     run_dirs = sorted(glob.glob(args.run_glob), key=lambda p: Path(p).stat().st_mtime, reverse=True)
 
     rows = []
+    skipped_missing_predictions = 0
 
     for d in run_dirs:
         summary_path = Path(d) / "episode" / "phase_b_summary.json"
@@ -94,6 +96,17 @@ def main():
         pred_invalid = s.get("predicted_future_invalid")
 
         runtime_decision = s.get("runtime_decision", {}) or {}
+
+        has_prediction = (
+            pred_sem is not None
+            and str(pred_sem) not in ("", "None", "null")
+            and isinstance(runtime_decision, dict)
+            and len(runtime_decision) > 0
+        )
+
+        if (not args.include_missing_predictions) and (not has_prediction):
+            skipped_missing_predictions += 1
+            continue
 
         pred_stable = runtime_decision.get("stable_reached_pred")
         pred_approach = runtime_decision.get("approach_success_pred")
@@ -118,6 +131,7 @@ def main():
             "selected_profile_name": s.get("selected_profile_name"),
             "vx_far": s.get("vx_far"),
             "vx_near": s.get("vx_near"),
+            "goal_slow_distance": s.get("goal_slow_distance"),
             "body_height": s.get("body_height"),
             "swing_clearance": s.get("swing_clearance"),
 
@@ -184,6 +198,7 @@ def main():
 
     summary = {
         "num_runs": len(rows),
+        "num_skipped_missing_predictions": skipped_missing_predictions,
         "out_csv": str(out_csv),
         "semantic_match_rate": rate("semantic_match"),
         "recovery_match_rate": rate("recovery_match"),
