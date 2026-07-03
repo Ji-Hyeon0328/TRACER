@@ -1,0 +1,64 @@
+{
+  "schema": "phase_b_ppo_theta_lite_discrete_config_v0",
+  "description": "Phase-B PPO starts from a discrete theta-lite action bank using the reach-bandit warm-start dataset. This is not raw joint-action PPO.",
+  "warmstart": {
+    "dataset_jsonl": "configs/phase_b_ppo_warmstart_v0/ppo_warmstart_dataset.jsonl",
+    "teacher_table_json": "configs/phase_b_ppo_warmstart_v0/ppo_warmstart_teacher_table.json",
+    "bc_weight_field": "bc_weight",
+    "teacher_objective": "reach_reward"
+  },
+  "observation": {
+    "stage0": [
+      "world_one_hot",
+      "terrain_family_one_hot"
+    ],
+    "stage1_later": [
+      "world_one_hot",
+      "terrain_family_one_hot",
+      "ram_rho",
+      "ram_sigma",
+      "objective_beta",
+      "recent_progress",
+      "recent_slip_or_drift"
+    ]
+  },
+  "action_space": {
+    "type": "discrete_theta_lite_action_bank",
+    "source": "configs/phase_b_ppo_warmstart_v0/ppo_warmstart_teacher_table.json",
+    "per_world_top_k": 5
+  },
+  "reward": {
+    "primary": "reach_reward",
+    "logged_auxiliary": [
+      "hold_reward",
+      "scalar_reward",
+      "reach_success",
+      "hold_success"
+    ],
+    "note": "Hold is intentionally logged separately because sponge-like terrain shows reach success but passive hold failure."
+  },
+  "ppo": {
+    "gamma": 0.97,
+    "gae_lambda": 0.95,
+    "clip_ratio": 0.2,
+    "entropy_coef": 0.02,
+    "value_coef": 0.5,
+    "learning_rate": 0.0003,
+    "epochs_per_update": 4,
+    "minibatch_size": 64
+  },
+  "training_stages": [
+    {
+      "name": "bc_warm_start",
+      "objective": "supervised action imitation from teacher table / weighted dataset"
+    },
+    {
+      "name": "discrete_ppo",
+      "objective": "learn world-conditioned theta-lite action selection"
+    },
+    {
+      "name": "hybrid_or_continuous_theta_later",
+      "objective": "expand from action index to continuous theta-lite residual around top-k actions"
+    }
+  ]
+}
