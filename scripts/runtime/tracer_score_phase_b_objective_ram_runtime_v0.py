@@ -58,10 +58,15 @@ def actual_labels(summary):
 def actual_semantic(labels):
     if labels["actual_stable_reached"]:
         return "stable_goal_reach_flat_locomotion"
-    if labels["actual_approach_success"] and labels["actual_drift_after_approach"]:
-        return "approach_possible_but_post_reach_hold_needed"
+
+    # Severe post-reach escape / large drift should dominate over simple
+    # "approach possible" because it indicates the primitive is unreliable.
     if labels["actual_final_rel_dist"] > 0.75 or labels["actual_abs_odom_x_delta"] > 1.0:
         return "forward_walk_unreliable_on_soft_terrain"
+
+    if labels["actual_approach_success"] and labels["actual_drift_after_approach"]:
+        return "approach_possible_but_post_reach_hold_needed"
+
     return "cautious_probe_required"
 
 
