@@ -18,13 +18,14 @@
         },
         "trot_cautious": {
           "best_reward": 5.341495082892519,
-          "last_reward": 5.341495082892519,
-          "mean_reward": 5.341495082892519,
-          "n": 1,
+          "last_reward": 1.9568562837568257,
+          "mean_reward": 3.649175683324672,
+          "n": 2,
           "semantic_counts": {
+            "cautious_probe_required": 1,
             "stable_goal_reach_flat_locomotion": 1
           },
-          "total_reward": 5.341495082892519
+          "total_reward": 7.298351366649344
         },
         "trot_fast_low_clear": {
           "best_reward": 5.394978507275405,
@@ -38,14 +39,14 @@
           "total_reward": 4.436688303830355
         },
         "trot_high_body_soft": {
-          "best_reward": -0.15231367962514697,
-          "last_reward": -0.15231367962514697,
-          "mean_reward": -0.15231367962514697,
-          "n": 1,
+          "best_reward": 0.31456726072380903,
+          "last_reward": 0.2412431189970723,
+          "mean_reward": 0.1534766300158702,
+          "n": 4,
           "semantic_counts": {
-            "cautious_probe_required": 1
+            "cautious_probe_required": 4
           },
-          "total_reward": -0.15231367962514697
+          "total_reward": 0.6139065200634808
         },
         "trot_low_body_probe": {
           "best_reward": 5.352159519568095,
@@ -59,14 +60,16 @@
           "total_reward": 4.682453346685676
         },
         "trot_mid": {
-          "best_reward": 4.859903522473214,
-          "last_reward": 4.859903522473214,
-          "mean_reward": 4.859903522473214,
-          "n": 1,
+          "best_reward": 6.636671534689168,
+          "last_reward": 6.584790003081389,
+          "mean_reward": 5.952399095719467,
+          "n": 21,
           "semantic_counts": {
-            "stable_goal_reach_flat_locomotion": 1
+            "cautious_probe_required": 1,
+            "no_meaningful_progress": 1,
+            "stable_goal_reach_flat_locomotion": 19
           },
-          "total_reward": 4.859903522473214
+          "total_reward": 125.00038101010881
         },
         "trot_soft_high_clear": {
           "best_reward": -0.07241732721684585,
@@ -89,14 +92,15 @@
           "total_reward": -6.207628660411551
         },
         "trot_soft_ultraslow": {
-          "best_reward": -5.976635816680712,
-          "last_reward": -5.976635816680712,
-          "mean_reward": -5.976635816680712,
-          "n": 1,
+          "best_reward": -0.08111436873503086,
+          "last_reward": -0.0827733515265997,
+          "mean_reward": -2.046841178980781,
+          "n": 3,
           "semantic_counts": {
-            "forward_walk_unreliable_on_soft_terrain": 1
+            "forward_walk_unreliable_on_soft_terrain": 1,
+            "no_meaningful_progress": 2
           },
-          "total_reward": -5.976635816680712
+          "total_reward": -6.140523536942343
         },
         "trot_solid_fast": {
           "best_reward": -2.0133074354268574,
@@ -109,7 +113,118 @@
           "total_reward": -2.0133074354268574
         }
       },
-      "n_total": 12
+      "n_total": 38
+    },
+    "stairs_single": {
+      "actions": {
+        "trot_brake_near_goal": {
+          "best_reward": -0.0767128826592337,
+          "last_reward": -0.5012629540793163,
+          "mean_reward": -0.288987918369275,
+          "n": 2,
+          "semantic_counts": {
+            "no_meaningful_progress": 2
+          },
+          "total_reward": -0.57797583673855
+        },
+        "trot_cautious": {
+          "best_reward": 1.7737781455231896,
+          "last_reward": 1.7737781455231896,
+          "mean_reward": 1.7737781455231896,
+          "n": 1,
+          "semantic_counts": {
+            "cautious_probe_required": 1
+          },
+          "total_reward": 1.7737781455231896
+        },
+        "trot_fast_low_clear": {
+          "best_reward": 6.7210748084516005,
+          "last_reward": 6.7210748084516005,
+          "mean_reward": 4.507500821934407,
+          "n": 2,
+          "semantic_counts": {
+            "forward_walk_unreliable_on_soft_terrain": 1,
+            "reached_but_failed_to_hold": 1
+          },
+          "total_reward": 9.015001643868814
+        },
+        "trot_high_body_soft": {
+          "best_reward": 0.27681911911892243,
+          "last_reward": 0.27681911911892243,
+          "mean_reward": 0.27681911911892243,
+          "n": 1,
+          "semantic_counts": {
+            "cautious_probe_required": 1
+          },
+          "total_reward": 0.27681911911892243
+        },
+        "trot_low_body_probe": {
+          "best_reward": 5.913444222513162,
+          "last_reward": 5.913444222513162,
+          "mean_reward": 2.6141476272638564,
+          "n": 2,
+          "semantic_counts": {
+            "approach_possible_but_post_reach_hold_needed": 1,
+            "forward_walk_unreliable_on_soft_terrain": 1
+          },
+          "total_reward": 5.228295254527713
+        },
+        "trot_mid": {
+          "best_reward": 7.764840184617642,
+          "last_reward": 2.0339702971417064,
+          "mean_reward": 5.62158449372575,
+          "n": 5,
+          "semantic_counts": {
+            "approach_possible_but_post_reach_hold_needed": 2,
+            "cautious_probe_required": 1,
+            "stable_goal_reach_flat_locomotion": 2
+          },
+          "total_reward": 28.107922468628754
+        },
+        "trot_soft_high_clear": {
+          "best_reward": 0.598866750116495,
+          "last_reward": 0.598866750116495,
+          "mean_reward": 0.598866750116495,
+          "n": 1,
+          "semantic_counts": {
+            "cautious_probe_required": 1
+          },
+          "total_reward": 0.598866750116495
+        },
+        "trot_soft_mid_clear": {
+          "best_reward": 5.354144894494597,
+          "last_reward": 5.354144894494597,
+          "mean_reward": 5.354144894494597,
+          "n": 1,
+          "semantic_counts": {
+            "approach_possible_but_post_reach_hold_needed": 1
+          },
+          "total_reward": 5.354144894494597
+        },
+        "trot_soft_ultraslow": {
+          "best_reward": -0.2506342416240408,
+          "last_reward": -0.2506342416240408,
+          "mean_reward": -0.2506342416240408,
+          "n": 1,
+          "semantic_counts": {
+            "no_meaningful_progress": 1
+          },
+          "total_reward": -0.2506342416240408
+        },
+        "trot_solid_fast": {
+          "best_reward": 7.9513899097185945,
+          "last_reward": 7.621058024998652,
+          "mean_reward": 6.774683916556488,
+          "n": 6,
+          "semantic_counts": {
+            "approach_possible_but_post_reach_hold_needed": 2,
+            "reached_but_failed_to_hold": 2,
+            "stable_goal_reach_flat_locomotion": 2
+          },
+          "total_reward": 40.64810349933893
+        }
+      },
+      "n_total": 22
     },
     "tracer_sponge_firm_downslope_5deg": {
       "actions": {
@@ -219,69 +334,74 @@
     "tracer_sponge_firm_flat": {
       "actions": {
         "trot_brake_near_goal": {
-          "best_reward": -0.8555994542264298,
-          "last_reward": -4.150443855277621,
-          "mean_reward": -2.5030216547520254,
-          "n": 2,
+          "best_reward": 2.0022892639820453,
+          "last_reward": 2.0022892639820453,
+          "mean_reward": -1.001251348507335,
+          "n": 3,
           "semantic_counts": {
             "cautious_probe_required": 1,
-            "reached_but_failed_to_hold": 1
-          },
-          "total_reward": -5.006043309504051
-        },
-        "trot_cautious": {
-          "best_reward": 7.684239089952579,
-          "last_reward": 6.7362709972697825,
-          "mean_reward": 3.3456461070345034,
-          "n": 10,
-          "semantic_counts": {
-            "cautious_probe_required": 1,
-            "forward_walk_unreliable_on_soft_terrain": 4,
-            "no_meaningful_progress": 1,
-            "reached_but_failed_to_hold": 4
-          },
-          "total_reward": 33.456461070345036
-        },
-        "trot_fast_low_clear": {
-          "best_reward": -8.574341116960642,
-          "last_reward": -8.574341116960642,
-          "mean_reward": -8.574341116960642,
-          "n": 1,
-          "semantic_counts": {
-            "forward_walk_unreliable_on_soft_terrain": 1
-          },
-          "total_reward": -8.574341116960642
-        },
-        "trot_high_body_soft": {
-          "best_reward": -2.1220450573812166,
-          "last_reward": -2.1220450573812166,
-          "mean_reward": -2.1220450573812166,
-          "n": 1,
-          "semantic_counts": {
-            "no_meaningful_progress": 1
-          },
-          "total_reward": -2.1220450573812166
-        },
-        "trot_low_body_probe": {
-          "best_reward": 7.5238046236303555,
-          "last_reward": 7.5238046236303555,
-          "mean_reward": 1.025089877484041,
-          "n": 2,
-          "semantic_counts": {
             "forward_walk_unreliable_on_soft_terrain": 1,
             "reached_but_failed_to_hold": 1
           },
-          "total_reward": 2.050179754968082
+          "total_reward": -3.0037540455220055
         },
-        "trot_mid": {
-          "best_reward": 1.4208226731887033,
-          "last_reward": 1.4208226731887033,
-          "mean_reward": -2.0675594373638337,
+        "trot_cautious": {
+          "best_reward": 7.9125431165564315,
+          "last_reward": 6.642563819511467,
+          "mean_reward": 4.546972021642285,
+          "n": 22,
+          "semantic_counts": {
+            "cautious_probe_required": 2,
+            "forward_walk_unreliable_on_soft_terrain": 6,
+            "no_meaningful_progress": 1,
+            "reached_but_failed_to_hold": 13
+          },
+          "total_reward": 100.03338447613027
+        },
+        "trot_fast_low_clear": {
+          "best_reward": 2.3722502765471907,
+          "last_reward": 2.3722502765471907,
+          "mean_reward": -3.101045420206726,
           "n": 2,
           "semantic_counts": {
             "forward_walk_unreliable_on_soft_terrain": 2
           },
-          "total_reward": -4.1351188747276675
+          "total_reward": -6.202090840413452
+        },
+        "trot_high_body_soft": {
+          "best_reward": 7.956387418671126,
+          "last_reward": 1.1068627026359474,
+          "mean_reward": 5.1606042971922355,
+          "n": 22,
+          "semantic_counts": {
+            "forward_walk_unreliable_on_soft_terrain": 3,
+            "no_meaningful_progress": 3,
+            "reached_but_failed_to_hold": 16
+          },
+          "total_reward": 113.53329453822919
+        },
+        "trot_low_body_probe": {
+          "best_reward": 7.7133317026242505,
+          "last_reward": 7.7133317026242505,
+          "mean_reward": 3.2545038191974442,
+          "n": 3,
+          "semantic_counts": {
+            "forward_walk_unreliable_on_soft_terrain": 1,
+            "reached_but_failed_to_hold": 2
+          },
+          "total_reward": 9.763511457592333
+        },
+        "trot_mid": {
+          "best_reward": 7.733309757324447,
+          "last_reward": 1.7865232689100727,
+          "mean_reward": 1.0474853388608294,
+          "n": 5,
+          "semantic_counts": {
+            "forward_walk_unreliable_on_soft_terrain": 3,
+            "no_meaningful_progress": 1,
+            "reached_but_failed_to_hold": 1
+          },
+          "total_reward": 5.237426694304147
         },
         "trot_soft_high_clear": {
           "best_reward": -2.0929358928625517,
@@ -294,38 +414,39 @@
           "total_reward": -2.0929358928625517
         },
         "trot_soft_mid_clear": {
-          "best_reward": -8.892570304912692,
-          "last_reward": -8.892570304912692,
-          "mean_reward": -8.892570304912692,
-          "n": 1,
+          "best_reward": 7.661902271716341,
+          "last_reward": 7.661902271716341,
+          "mean_reward": 2.8216011428217866,
+          "n": 5,
           "semantic_counts": {
-            "forward_walk_unreliable_on_soft_terrain": 1
+            "forward_walk_unreliable_on_soft_terrain": 2,
+            "reached_but_failed_to_hold": 3
           },
-          "total_reward": -8.892570304912692
+          "total_reward": 14.108005714108934
         },
         "trot_soft_ultraslow": {
-          "best_reward": -0.7611267799813392,
-          "last_reward": -4.631275137383229,
-          "mean_reward": -2.077127521811868,
-          "n": 3,
+          "best_reward": 7.5245201528293215,
+          "last_reward": 7.5245201528293215,
+          "mean_reward": 1.5620093116620377,
+          "n": 5,
           "semantic_counts": {
             "cautious_probe_required": 2,
-            "reached_but_failed_to_hold": 1
+            "reached_but_failed_to_hold": 3
           },
-          "total_reward": -6.231382565435604
+          "total_reward": 7.810046558310189
         },
         "trot_solid_fast": {
-          "best_reward": -8.867064098343754,
-          "last_reward": -8.867064098343754,
-          "mean_reward": -8.867064098343754,
-          "n": 1,
+          "best_reward": 2.535051366706299,
+          "last_reward": 2.535051366706299,
+          "mean_reward": -0.7562162225544861,
+          "n": 4,
           "semantic_counts": {
-            "forward_walk_unreliable_on_soft_terrain": 1
+            "forward_walk_unreliable_on_soft_terrain": 4
           },
-          "total_reward": -8.867064098343754
+          "total_reward": -3.0248648902179442
         }
       },
-      "n_total": 24
+      "n_total": 72
     },
     "tracer_sponge_firm_slope_5deg": {
       "actions": {
