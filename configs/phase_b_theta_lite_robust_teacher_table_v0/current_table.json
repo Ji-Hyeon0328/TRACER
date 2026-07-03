@@ -1,0 +1,1863 @@
+{
+  "num_rows": 40,
+  "num_worlds": 4,
+  "schema": "phase_b_theta_lite_robust_teacher_table_v0",
+  "source_dataset_jsonl": [
+    "artifacts/phase_b_theta_lite_dataset_v0_20260703_012232/phase_b_theta_lite_dataset_v0.jsonl",
+    "artifacts/phase_b_theta_lite_dataset_v1_sponge_flat_20260703_015101/phase_b_theta_lite_dataset_v1_sponge_flat.jsonl"
+  ],
+  "table": {
+    "earth": {
+      "normal_walk_blocked": false,
+      "probe_candidate": false,
+      "ranked_profiles": [
+        {
+          "avg_abs_odom_x_delta": 0.37587871796456773,
+          "avg_abs_yaw_rate": 0.3,
+          "avg_final_rel_dist": 0.14631481839984095,
+          "avg_min_rel_dist": 0.13974829162158808,
+          "avg_reward": 4.886213081466391,
+          "n": 1,
+          "normal_walk_blocked": false,
+          "probe_candidate": false,
+          "probe_rate": 0.0,
+          "profile_family": "solid",
+          "profile_name": "solid_fast_h032_c004",
+          "requires_alternative_primitive": false,
+          "requires_more_theta_search": false,
+          "selection_status": "trusted_normal_walk",
+          "semantic_counts": {
+            "stable_goal_reach_flat_locomotion": 1
+          },
+          "severe_rate": 0.0,
+          "source_runs": [
+            {
+              "metrics": {
+                "final_rel_dist": 0.14631481839984095,
+                "max_abs_mpc_yaw_rate": 0.3,
+                "min_rel_dist": 0.13974829162158808,
+                "odom_x_delta": 0.37587871796456773,
+                "progress_initial_minus_min": 0.36023362942425796,
+                "reached_stop_distance": true
+              },
+              "reward": 4.886213081466391,
+              "semantic": "stable_goal_reach_flat_locomotion",
+              "source_dataset": "artifacts/phase_b_theta_lite_dataset_v0_20260703_012232/phase_b_theta_lite_dataset_v0.jsonl",
+              "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_005552/solid_even__solid_fast_h032_c004__rep00"
+            }
+          ],
+          "stable_rate": 1.0,
+          "theta_action": {
+            "body_height": 0.32,
+            "goal_slow_distance": 0.2,
+            "goal_stop_distance": 0.15,
+            "swing_clearance": 0.04,
+            "vx_far": 0.16,
+            "vx_near": 0.08
+          },
+          "trusted_normal_walk": true
+        },
+        {
+          "avg_abs_odom_x_delta": 0.33327674010750397,
+          "avg_abs_yaw_rate": 0.16898938982601064,
+          "avg_final_rel_dist": 0.20004364050996512,
+          "avg_min_rel_dist": 0.20004364050996512,
+          "avg_reward": 0.23362818803648283,
+          "n": 1,
+          "normal_walk_blocked": true,
+          "probe_candidate": true,
+          "probe_rate": 1.0,
+          "profile_family": "solid",
+          "profile_name": "solid_cautious_h033_c005",
+          "requires_alternative_primitive": false,
+          "requires_more_theta_search": true,
+          "selection_status": "probe_candidate_requires_local_search",
+          "semantic_counts": {
+            "cautious_probe_required": 1
+          },
+          "severe_rate": 0.0,
+          "source_runs": [
+            {
+              "metrics": {
+                "final_rel_dist": 0.20004364050996512,
+                "max_abs_mpc_yaw_rate": 0.16898938982601064,
+                "min_rel_dist": 0.20004364050996512,
+                "odom_x_delta": 0.33327674010750397,
+                "progress_initial_minus_min": 0.3001550993001,
+                "reached_stop_distance": false
+              },
+              "reward": 0.23362818803648283,
+              "semantic": "cautious_probe_required",
+              "source_dataset": "artifacts/phase_b_theta_lite_dataset_v0_20260703_012232/phase_b_theta_lite_dataset_v0.jsonl",
+              "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_005552/solid_even__solid_cautious_h033_c005__rep00"
+            }
+          ],
+          "stable_rate": 0.0,
+          "theta_action": {
+            "body_height": 0.33,
+            "goal_slow_distance": 0.28,
+            "goal_stop_distance": 0.15,
+            "swing_clearance": 0.05,
+            "vx_far": 0.08,
+            "vx_near": 0.04
+          },
+          "trusted_normal_walk": false
+        },
+        {
+          "avg_abs_odom_x_delta": 0.18899797464983303,
+          "avg_abs_yaw_rate": 0.09302997504755003,
+          "avg_final_rel_dist": 0.34047751377449964,
+          "avg_min_rel_dist": 0.34009380366128583,
+          "avg_reward": -0.11511114740652822,
+          "n": 1,
+          "normal_walk_blocked": true,
+          "probe_candidate": true,
+          "probe_rate": 1.0,
+          "profile_family": "sponge",
+          "profile_name": "sponge_slow_h034_c008",
+          "requires_alternative_primitive": false,
+          "requires_more_theta_search": true,
+          "selection_status": "probe_candidate_requires_local_search",
+          "semantic_counts": {
+            "cautious_probe_required": 1
+          },
+          "severe_rate": 0.0,
+          "source_runs": [
+            {
+              "metrics": {
+                "final_rel_dist": 0.34047751377449964,
+                "max_abs_mpc_yaw_rate": 0.09302997504755003,
+                "min_rel_dist": 0.34009380366128583,
+                "odom_x_delta": 0.18899797464983303,
+                "progress_initial_minus_min": 0.15993267684644397,
+                "reached_stop_distance": false
+              },
+              "reward": -0.11511114740652822,
+              "semantic": "cautious_probe_required",
+              "source_dataset": "artifacts/phase_b_theta_lite_dataset_v0_20260703_012232/phase_b_theta_lite_dataset_v0.jsonl",
+              "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_005552/solid_even__sponge_slow_h034_c008__rep00"
+            }
+          ],
+          "stable_rate": 0.0,
+          "theta_action": {
+            "body_height": 0.34,
+            "goal_slow_distance": 0.3,
+            "goal_stop_distance": 0.15,
+            "swing_clearance": 0.08,
+            "vx_far": 0.04,
+            "vx_near": 0.025
+          },
+          "trusted_normal_walk": false
+        },
+        {
+          "avg_abs_odom_x_delta": 0.14979726983854874,
+          "avg_abs_yaw_rate": 0.1008767493486624,
+          "avg_final_rel_dist": 0.3794453203445667,
+          "avg_min_rel_dist": 0.375895667783123,
+          "avg_reward": -0.20607779387233746,
+          "n": 1,
+          "normal_walk_blocked": true,
+          "probe_candidate": true,
+          "probe_rate": 1.0,
+          "profile_family": "sponge",
+          "profile_name": "sponge_midclear_h035_c006",
+          "requires_alternative_primitive": false,
+          "requires_more_theta_search": true,
+          "selection_status": "probe_candidate_requires_local_search",
+          "semantic_counts": {
+            "cautious_probe_required": 1
+          },
+          "severe_rate": 0.0,
+          "source_runs": [
+            {
+              "metrics": {
+                "final_rel_dist": 0.3794453203445667,
+                "max_abs_mpc_yaw_rate": 0.1008767493486624,
+                "min_rel_dist": 0.375895667783123,
+                "odom_x_delta": 0.14979726983854874,
+                "progress_initial_minus_min": 0.1241330806957518,
+                "reached_stop_distance": false
+              },
+              "reward": -0.20607779387233746,
+              "semantic": "cautious_probe_required",
+              "source_dataset": "artifacts/phase_b_theta_lite_dataset_v0_20260703_012232/phase_b_theta_lite_dataset_v0.jsonl",
+              "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_005552/solid_even__sponge_midclear_h035_c006__rep00"
+            }
+          ],
+          "stable_rate": 0.0,
+          "theta_action": {
+            "body_height": 0.35,
+            "goal_slow_distance": 0.38,
+            "goal_stop_distance": 0.18,
+            "swing_clearance": 0.06,
+            "vx_far": 0.035,
+            "vx_near": 0.015
+          },
+          "trusted_normal_walk": false
+        },
+        {
+          "avg_abs_odom_x_delta": 0.11559560058061577,
+          "avg_abs_yaw_rate": 0.06475915860476024,
+          "avg_final_rel_dist": 0.38858387925902427,
+          "avg_min_rel_dist": 0.38858387925902427,
+          "avg_reward": -0.22364206118877905,
+          "n": 1,
+          "normal_walk_blocked": true,
+          "probe_candidate": true,
+          "probe_rate": 1.0,
+          "profile_family": "sponge",
+          "profile_name": "sponge_highbody_h036_c008",
+          "requires_alternative_primitive": false,
+          "requires_more_theta_search": true,
+          "selection_status": "probe_candidate_requires_local_search",
+          "semantic_counts": {
+            "cautious_probe_required": 1
+          },
+          "severe_rate": 0.0,
+          "source_runs": [
+            {
+              "metrics": {
+                "final_rel_dist": 0.38858387925902427,
+                "max_abs_mpc_yaw_rate": 0.06475915860476024,
+                "min_rel_dist": 0.38858387925902427,
+                "odom_x_delta": 0.11559560058061577,
+                "progress_initial_minus_min": 0.11136980918027656,
+                "reached_stop_distance": false
+              },
+              "reward": -0.22364206118877905,
+              "semantic": "cautious_probe_required",
+              "source_dataset": "artifacts/phase_b_theta_lite_dataset_v0_20260703_012232/phase_b_theta_lite_dataset_v0.jsonl",
+              "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_005552/solid_even__sponge_highbody_h036_c008__rep00"
+            }
+          ],
+          "stable_rate": 0.0,
+          "theta_action": {
+            "body_height": 0.36,
+            "goal_slow_distance": 0.38,
+            "goal_stop_distance": 0.18,
+            "swing_clearance": 0.08,
+            "vx_far": 0.035,
+            "vx_near": 0.015
+          },
+          "trusted_normal_walk": false
+        },
+        {
+          "avg_abs_odom_x_delta": 0.053320966417913174,
+          "avg_abs_yaw_rate": 0.08712619231593312,
+          "avg_final_rel_dist": 0.4717829756744838,
+          "avg_min_rel_dist": 0.4713859432187108,
+          "avg_reward": -1.4407512948384258,
+          "n": 1,
+          "normal_walk_blocked": true,
+          "probe_candidate": false,
+          "probe_rate": 0.0,
+          "profile_family": "sponge",
+          "profile_name": "sponge_ultraslow_h034_c010",
+          "requires_alternative_primitive": true,
+          "requires_more_theta_search": false,
+          "selection_status": "blocked_requires_alternative_primitive",
+          "semantic_counts": {
+            "no_meaningful_progress": 1
+          },
+          "severe_rate": 1.0,
+          "source_runs": [
+            {
+              "metrics": {
+                "final_rel_dist": 0.4717829756744838,
+                "max_abs_mpc_yaw_rate": 0.08712619231593312,
+                "min_rel_dist": 0.4713859432187108,
+                "odom_x_delta": 0.053320966417913174,
+                "progress_initial_minus_min": 0.028846082022507324,
+                "reached_stop_distance": false
+              },
+              "reward": -1.4407512948384258,
+              "semantic": "no_meaningful_progress",
+              "source_dataset": "artifacts/phase_b_theta_lite_dataset_v0_20260703_012232/phase_b_theta_lite_dataset_v0.jsonl",
+              "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_005552/solid_even__sponge_ultraslow_h034_c010__rep00"
+            }
+          ],
+          "stable_rate": 0.0,
+          "theta_action": {
+            "body_height": 0.34,
+            "goal_slow_distance": 0.4,
+            "goal_stop_distance": 0.18,
+            "swing_clearance": 0.1,
+            "vx_far": 0.025,
+            "vx_near": 0.012
+          },
+          "trusted_normal_walk": false
+        }
+      ],
+      "requires_alternative_primitive": false,
+      "requires_more_theta_search": false,
+      "selected_profile_family": "solid",
+      "selected_profile_name": "solid_fast_h032_c004",
+      "selected_profile_summary": {
+        "avg_abs_odom_x_delta": 0.37587871796456773,
+        "avg_abs_yaw_rate": 0.3,
+        "avg_final_rel_dist": 0.14631481839984095,
+        "avg_min_rel_dist": 0.13974829162158808,
+        "avg_reward": 4.886213081466391,
+        "n": 1,
+        "normal_walk_blocked": false,
+        "probe_candidate": false,
+        "probe_rate": 0.0,
+        "profile_family": "solid",
+        "profile_name": "solid_fast_h032_c004",
+        "requires_alternative_primitive": false,
+        "requires_more_theta_search": false,
+        "selection_status": "trusted_normal_walk",
+        "semantic_counts": {
+          "stable_goal_reach_flat_locomotion": 1
+        },
+        "severe_rate": 0.0,
+        "source_runs": [
+          {
+            "metrics": {
+              "final_rel_dist": 0.14631481839984095,
+              "max_abs_mpc_yaw_rate": 0.3,
+              "min_rel_dist": 0.13974829162158808,
+              "odom_x_delta": 0.37587871796456773,
+              "progress_initial_minus_min": 0.36023362942425796,
+              "reached_stop_distance": true
+            },
+            "reward": 4.886213081466391,
+            "semantic": "stable_goal_reach_flat_locomotion",
+            "source_dataset": "artifacts/phase_b_theta_lite_dataset_v0_20260703_012232/phase_b_theta_lite_dataset_v0.jsonl",
+            "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_005552/solid_even__solid_fast_h032_c004__rep00"
+          }
+        ],
+        "stable_rate": 1.0,
+        "theta_action": {
+          "body_height": 0.32,
+          "goal_slow_distance": 0.2,
+          "goal_stop_distance": 0.15,
+          "swing_clearance": 0.04,
+          "vx_far": 0.16,
+          "vx_near": 0.08
+        },
+        "trusted_normal_walk": true
+      },
+      "selection_status": "trusted_normal_walk",
+      "theta_action": {
+        "body_height": 0.32,
+        "goal_slow_distance": 0.2,
+        "goal_stop_distance": 0.15,
+        "swing_clearance": 0.04,
+        "vx_far": 0.16,
+        "vx_near": 0.08
+      },
+      "trusted_normal_walk": true,
+      "world_name": "earth"
+    },
+    "tracer_sponge_firm_downslope_5deg": {
+      "normal_walk_blocked": true,
+      "probe_candidate": false,
+      "ranked_profiles": [
+        {
+          "avg_abs_odom_x_delta": 5.04450474631882,
+          "avg_abs_yaw_rate": 0.3,
+          "avg_final_rel_dist": 4.558026108030484,
+          "avg_min_rel_dist": 0.07802424991880713,
+          "avg_reward": -9.725729034933286,
+          "n": 1,
+          "normal_walk_blocked": true,
+          "probe_candidate": false,
+          "probe_rate": 0.0,
+          "profile_family": "sponge",
+          "profile_name": "sponge_slow_h034_c008",
+          "requires_alternative_primitive": true,
+          "requires_more_theta_search": false,
+          "selection_status": "blocked_requires_alternative_primitive",
+          "semantic_counts": {
+            "forward_walk_unreliable_on_soft_terrain": 1
+          },
+          "severe_rate": 1.0,
+          "source_runs": [
+            {
+              "metrics": {
+                "final_rel_dist": 4.558026108030484,
+                "max_abs_mpc_yaw_rate": 0.3,
+                "min_rel_dist": 0.07802424991880713,
+                "odom_x_delta": 5.04450474631882,
+                "progress_initial_minus_min": 0.4161485365485992,
+                "reached_stop_distance": true
+              },
+              "reward": -9.725729034933286,
+              "semantic": "forward_walk_unreliable_on_soft_terrain",
+              "source_dataset": "artifacts/phase_b_theta_lite_dataset_v0_20260703_012232/phase_b_theta_lite_dataset_v0.jsonl",
+              "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_005552/sponge_downslope_5deg__sponge_slow_h034_c008__rep00"
+            }
+          ],
+          "stable_rate": 0.0,
+          "theta_action": {
+            "body_height": 0.34,
+            "goal_slow_distance": 0.3,
+            "goal_stop_distance": 0.15,
+            "swing_clearance": 0.08,
+            "vx_far": 0.04,
+            "vx_near": 0.025
+          },
+          "trusted_normal_walk": false
+        },
+        {
+          "avg_abs_odom_x_delta": 6.859118024388675,
+          "avg_abs_yaw_rate": 0.3,
+          "avg_final_rel_dist": 6.372815861036783,
+          "avg_min_rel_dist": 0.012807607730483152,
+          "avg_reward": -10.029396882402125,
+          "n": 1,
+          "normal_walk_blocked": true,
+          "probe_candidate": false,
+          "probe_rate": 0.0,
+          "profile_family": "solid",
+          "profile_name": "solid_fast_h032_c004",
+          "requires_alternative_primitive": true,
+          "requires_more_theta_search": false,
+          "selection_status": "blocked_requires_alternative_primitive",
+          "semantic_counts": {
+            "forward_walk_unreliable_on_soft_terrain": 1
+          },
+          "severe_rate": 1.0,
+          "source_runs": [
+            {
+              "metrics": {
+                "final_rel_dist": 6.372815861036783,
+                "max_abs_mpc_yaw_rate": 0.3,
+                "min_rel_dist": 0.012807607730483152,
+                "odom_x_delta": 6.859118024388675,
+                "progress_initial_minus_min": 0.4853015587989375,
+                "reached_stop_distance": true
+              },
+              "reward": -10.029396882402125,
+              "semantic": "forward_walk_unreliable_on_soft_terrain",
+              "source_dataset": "artifacts/phase_b_theta_lite_dataset_v0_20260703_012232/phase_b_theta_lite_dataset_v0.jsonl",
+              "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_005552/sponge_downslope_5deg__solid_fast_h032_c004__rep00"
+            }
+          ],
+          "stable_rate": 0.0,
+          "theta_action": {
+            "body_height": 0.32,
+            "goal_slow_distance": 0.2,
+            "goal_stop_distance": 0.15,
+            "swing_clearance": 0.04,
+            "vx_far": 0.16,
+            "vx_near": 0.08
+          },
+          "trusted_normal_walk": false
+        },
+        {
+          "avg_abs_odom_x_delta": 8.476561431485607,
+          "avg_abs_yaw_rate": 0.3,
+          "avg_final_rel_dist": 8.127166451142367,
+          "avg_min_rel_dist": 0.07981661327730938,
+          "avg_reward": -10.169866817113626,
+          "n": 1,
+          "normal_walk_blocked": true,
+          "probe_candidate": false,
+          "probe_rate": 0.0,
+          "profile_family": "sponge",
+          "profile_name": "sponge_highbody_h036_c008",
+          "requires_alternative_primitive": true,
+          "requires_more_theta_search": false,
+          "selection_status": "blocked_requires_alternative_primitive",
+          "semantic_counts": {
+            "forward_walk_unreliable_on_soft_terrain": 1
+          },
+          "severe_rate": 1.0,
+          "source_runs": [
+            {
+              "metrics": {
+                "final_rel_dist": 8.127166451142367,
+                "max_abs_mpc_yaw_rate": 0.3,
+                "min_rel_dist": 0.07981661327730938,
+                "odom_x_delta": 8.476561431485607,
+                "progress_initial_minus_min": 0.41506659144318775,
+                "reached_stop_distance": true
+              },
+              "reward": -10.169866817113626,
+              "semantic": "forward_walk_unreliable_on_soft_terrain",
+              "source_dataset": "artifacts/phase_b_theta_lite_dataset_v0_20260703_012232/phase_b_theta_lite_dataset_v0.jsonl",
+              "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_005552/sponge_downslope_5deg__sponge_highbody_h036_c008__rep00"
+            }
+          ],
+          "stable_rate": 0.0,
+          "theta_action": {
+            "body_height": 0.36,
+            "goal_slow_distance": 0.38,
+            "goal_stop_distance": 0.18,
+            "swing_clearance": 0.08,
+            "vx_far": 0.035,
+            "vx_near": 0.015
+          },
+          "trusted_normal_walk": false
+        },
+        {
+          "avg_abs_odom_x_delta": 9.329225974888754,
+          "avg_abs_yaw_rate": 0.3,
+          "avg_final_rel_dist": 8.844432202487152,
+          "avg_min_rel_dist": 0.12596697863599574,
+          "avg_reward": -10.264364323933393,
+          "n": 1,
+          "normal_walk_blocked": true,
+          "probe_candidate": false,
+          "probe_rate": 0.0,
+          "profile_family": "sponge",
+          "profile_name": "sponge_ultraslow_h034_c010",
+          "requires_alternative_primitive": true,
+          "requires_more_theta_search": false,
+          "selection_status": "blocked_requires_alternative_primitive",
+          "semantic_counts": {
+            "forward_walk_unreliable_on_soft_terrain": 1
+          },
+          "severe_rate": 1.0,
+          "source_runs": [
+            {
+              "metrics": {
+                "final_rel_dist": 8.844432202487152,
+                "max_abs_mpc_yaw_rate": 0.3,
+                "min_rel_dist": 0.12596697863599574,
+                "odom_x_delta": 9.329225974888754,
+                "progress_initial_minus_min": 0.3678178380333039,
+                "reached_stop_distance": true
+              },
+              "reward": -10.264364323933393,
+              "semantic": "forward_walk_unreliable_on_soft_terrain",
+              "source_dataset": "artifacts/phase_b_theta_lite_dataset_v0_20260703_012232/phase_b_theta_lite_dataset_v0.jsonl",
+              "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_005552/sponge_downslope_5deg__sponge_ultraslow_h034_c010__rep00"
+            }
+          ],
+          "stable_rate": 0.0,
+          "theta_action": {
+            "body_height": 0.34,
+            "goal_slow_distance": 0.4,
+            "goal_stop_distance": 0.18,
+            "swing_clearance": 0.1,
+            "vx_far": 0.025,
+            "vx_near": 0.012
+          },
+          "trusted_normal_walk": false
+        },
+        {
+          "avg_abs_odom_x_delta": 6.702819715743804,
+          "avg_abs_yaw_rate": 0.3,
+          "avg_final_rel_dist": 6.2468431094952095,
+          "avg_min_rel_dist": 0.23555485626998987,
+          "avg_reward": -11.474250682186193,
+          "n": 1,
+          "normal_walk_blocked": true,
+          "probe_candidate": false,
+          "probe_rate": 0.0,
+          "profile_family": "sponge",
+          "profile_name": "sponge_midclear_h035_c006",
+          "requires_alternative_primitive": true,
+          "requires_more_theta_search": false,
+          "selection_status": "blocked_requires_alternative_primitive",
+          "semantic_counts": {
+            "forward_walk_unreliable_on_soft_terrain": 1
+          },
+          "severe_rate": 1.0,
+          "source_runs": [
+            {
+              "metrics": {
+                "final_rel_dist": 6.2468431094952095,
+                "max_abs_mpc_yaw_rate": 0.3,
+                "min_rel_dist": 0.23555485626998987,
+                "odom_x_delta": 6.702819715743804,
+                "progress_initial_minus_min": 0.2628746589069032,
+                "reached_stop_distance": false
+              },
+              "reward": -11.474250682186193,
+              "semantic": "forward_walk_unreliable_on_soft_terrain",
+              "source_dataset": "artifacts/phase_b_theta_lite_dataset_v0_20260703_012232/phase_b_theta_lite_dataset_v0.jsonl",
+              "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_005552/sponge_downslope_5deg__sponge_midclear_h035_c006__rep00"
+            }
+          ],
+          "stable_rate": 0.0,
+          "theta_action": {
+            "body_height": 0.35,
+            "goal_slow_distance": 0.38,
+            "goal_stop_distance": 0.18,
+            "swing_clearance": 0.06,
+            "vx_far": 0.035,
+            "vx_near": 0.015
+          },
+          "trusted_normal_walk": false
+        },
+        {
+          "avg_abs_odom_x_delta": 6.711947890604757,
+          "avg_abs_yaw_rate": 0.3,
+          "avg_final_rel_dist": 6.333548257610201,
+          "avg_min_rel_dist": 0.3021724172599274,
+          "avg_reward": -11.609643049024065,
+          "n": 1,
+          "normal_walk_blocked": true,
+          "probe_candidate": false,
+          "probe_rate": 0.0,
+          "profile_family": "solid",
+          "profile_name": "solid_cautious_h033_c005",
+          "requires_alternative_primitive": true,
+          "requires_more_theta_search": false,
+          "selection_status": "blocked_requires_alternative_primitive",
+          "semantic_counts": {
+            "forward_walk_unreliable_on_soft_terrain": 1
+          },
+          "severe_rate": 1.0,
+          "source_runs": [
+            {
+              "metrics": {
+                "final_rel_dist": 6.333548257610201,
+                "max_abs_mpc_yaw_rate": 0.3,
+                "min_rel_dist": 0.3021724172599274,
+                "odom_x_delta": 6.711947890604757,
+                "progress_initial_minus_min": 0.19517847548796707,
+                "reached_stop_distance": false
+              },
+              "reward": -11.609643049024065,
+              "semantic": "forward_walk_unreliable_on_soft_terrain",
+              "source_dataset": "artifacts/phase_b_theta_lite_dataset_v0_20260703_012232/phase_b_theta_lite_dataset_v0.jsonl",
+              "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_005552/sponge_downslope_5deg__solid_cautious_h033_c005__rep00"
+            }
+          ],
+          "stable_rate": 0.0,
+          "theta_action": {
+            "body_height": 0.33,
+            "goal_slow_distance": 0.28,
+            "goal_stop_distance": 0.15,
+            "swing_clearance": 0.05,
+            "vx_far": 0.08,
+            "vx_near": 0.04
+          },
+          "trusted_normal_walk": false
+        }
+      ],
+      "requires_alternative_primitive": true,
+      "requires_more_theta_search": false,
+      "selected_profile_family": "sponge",
+      "selected_profile_name": "sponge_slow_h034_c008",
+      "selected_profile_summary": {
+        "avg_abs_odom_x_delta": 5.04450474631882,
+        "avg_abs_yaw_rate": 0.3,
+        "avg_final_rel_dist": 4.558026108030484,
+        "avg_min_rel_dist": 0.07802424991880713,
+        "avg_reward": -9.725729034933286,
+        "n": 1,
+        "normal_walk_blocked": true,
+        "probe_candidate": false,
+        "probe_rate": 0.0,
+        "profile_family": "sponge",
+        "profile_name": "sponge_slow_h034_c008",
+        "requires_alternative_primitive": true,
+        "requires_more_theta_search": false,
+        "selection_status": "blocked_requires_alternative_primitive",
+        "semantic_counts": {
+          "forward_walk_unreliable_on_soft_terrain": 1
+        },
+        "severe_rate": 1.0,
+        "source_runs": [
+          {
+            "metrics": {
+              "final_rel_dist": 4.558026108030484,
+              "max_abs_mpc_yaw_rate": 0.3,
+              "min_rel_dist": 0.07802424991880713,
+              "odom_x_delta": 5.04450474631882,
+              "progress_initial_minus_min": 0.4161485365485992,
+              "reached_stop_distance": true
+            },
+            "reward": -9.725729034933286,
+            "semantic": "forward_walk_unreliable_on_soft_terrain",
+            "source_dataset": "artifacts/phase_b_theta_lite_dataset_v0_20260703_012232/phase_b_theta_lite_dataset_v0.jsonl",
+            "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_005552/sponge_downslope_5deg__sponge_slow_h034_c008__rep00"
+          }
+        ],
+        "stable_rate": 0.0,
+        "theta_action": {
+          "body_height": 0.34,
+          "goal_slow_distance": 0.3,
+          "goal_stop_distance": 0.15,
+          "swing_clearance": 0.08,
+          "vx_far": 0.04,
+          "vx_near": 0.025
+        },
+        "trusted_normal_walk": false
+      },
+      "selection_status": "blocked_requires_alternative_primitive",
+      "theta_action": {
+        "body_height": 0.34,
+        "goal_slow_distance": 0.3,
+        "goal_stop_distance": 0.15,
+        "swing_clearance": 0.08,
+        "vx_far": 0.04,
+        "vx_near": 0.025
+      },
+      "trusted_normal_walk": false,
+      "world_name": "tracer_sponge_firm_downslope_5deg"
+    },
+    "tracer_sponge_firm_flat": {
+      "normal_walk_blocked": true,
+      "probe_candidate": true,
+      "ranked_profiles": [
+        {
+          "avg_abs_odom_x_delta": 0.16909532695215457,
+          "avg_abs_yaw_rate": 0.3,
+          "avg_final_rel_dist": 0.3450709961802001,
+          "avg_min_rel_dist": 0.321648293148965,
+          "avg_reward": -0.5734635987991112,
+          "n": 1,
+          "normal_walk_blocked": true,
+          "probe_candidate": true,
+          "probe_rate": 1.0,
+          "profile_family": "solid",
+          "profile_name": "solid_fast_h032_c004",
+          "requires_alternative_primitive": false,
+          "requires_more_theta_search": true,
+          "selection_status": "probe_candidate_requires_local_search",
+          "semantic_counts": {
+            "cautious_probe_required": 1
+          },
+          "severe_rate": 0.0,
+          "source_runs": [
+            {
+              "metrics": {
+                "final_rel_dist": 0.3450709961802001,
+                "max_abs_mpc_yaw_rate": 0.3,
+                "min_rel_dist": 0.321648293148965,
+                "odom_x_delta": 0.16909532695215457,
+                "progress_initial_minus_min": 0.1780775304285831,
+                "reached_stop_distance": false
+              },
+              "reward": -0.5734635987991112,
+              "semantic": "cautious_probe_required",
+              "source_dataset": "artifacts/phase_b_theta_lite_dataset_v0_20260703_012232/phase_b_theta_lite_dataset_v0.jsonl",
+              "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_005552/sponge_even__solid_fast_h032_c004__rep00"
+            }
+          ],
+          "stable_rate": 0.0,
+          "theta_action": {
+            "body_height": 0.32,
+            "goal_slow_distance": 0.2,
+            "goal_stop_distance": 0.15,
+            "swing_clearance": 0.04,
+            "vx_far": 0.16,
+            "vx_near": 0.08
+          },
+          "trusted_normal_walk": false
+        },
+        {
+          "avg_abs_odom_x_delta": 1.4326615595918177,
+          "avg_abs_yaw_rate": 0.3,
+          "avg_final_rel_dist": 2.5671082041741884,
+          "avg_min_rel_dist": 0.04331525179450384,
+          "avg_reward": -5.8750524554009385,
+          "n": 1,
+          "normal_walk_blocked": true,
+          "probe_candidate": false,
+          "probe_rate": 0.0,
+          "profile_family": "sponge",
+          "profile_name": "sponge_slow_h034_c008",
+          "requires_alternative_primitive": true,
+          "requires_more_theta_search": false,
+          "selection_status": "blocked_requires_alternative_primitive",
+          "semantic_counts": {
+            "forward_walk_unreliable_on_soft_terrain": 1
+          },
+          "severe_rate": 1.0,
+          "source_runs": [
+            {
+              "metrics": {
+                "final_rel_dist": 2.5671082041741884,
+                "max_abs_mpc_yaw_rate": 0.3,
+                "min_rel_dist": 0.04331525179450384,
+                "odom_x_delta": 1.4326615595918177,
+                "progress_initial_minus_min": 0.4541932642845793,
+                "reached_stop_distance": true
+              },
+              "reward": -5.8750524554009385,
+              "semantic": "forward_walk_unreliable_on_soft_terrain",
+              "source_dataset": "artifacts/phase_b_theta_lite_dataset_v0_20260703_012232/phase_b_theta_lite_dataset_v0.jsonl",
+              "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_005552/sponge_even__sponge_slow_h034_c008__rep00"
+            }
+          ],
+          "stable_rate": 0.0,
+          "theta_action": {
+            "body_height": 0.34,
+            "goal_slow_distance": 0.3,
+            "goal_stop_distance": 0.15,
+            "swing_clearance": 0.08,
+            "vx_far": 0.04,
+            "vx_near": 0.025
+          },
+          "trusted_normal_walk": false
+        },
+        {
+          "avg_abs_odom_x_delta": 1.9431111580736944,
+          "avg_abs_yaw_rate": 0.3,
+          "avg_final_rel_dist": 2.0308216325882937,
+          "avg_min_rel_dist": 0.4835486871494796,
+          "avg_reward": -7.469455415349177,
+          "n": 1,
+          "normal_walk_blocked": true,
+          "probe_candidate": false,
+          "probe_rate": 0.0,
+          "profile_family": "solid",
+          "profile_name": "solid_cautious_h033_c005",
+          "requires_alternative_primitive": true,
+          "requires_more_theta_search": false,
+          "selection_status": "blocked_requires_alternative_primitive",
+          "semantic_counts": {
+            "forward_walk_unreliable_on_soft_terrain": 1
+          },
+          "severe_rate": 1.0,
+          "source_runs": [
+            {
+              "metrics": {
+                "final_rel_dist": 2.0308216325882937,
+                "max_abs_mpc_yaw_rate": 0.3,
+                "min_rel_dist": 0.4835486871494796,
+                "odom_x_delta": 1.9431111580736944,
+                "progress_initial_minus_min": 0.01646089813798196,
+                "reached_stop_distance": false
+              },
+              "reward": -7.469455415349177,
+              "semantic": "forward_walk_unreliable_on_soft_terrain",
+              "source_dataset": "artifacts/phase_b_theta_lite_dataset_v0_20260703_012232/phase_b_theta_lite_dataset_v0.jsonl",
+              "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_005552/sponge_even__solid_cautious_h033_c005__rep00"
+            }
+          ],
+          "stable_rate": 0.0,
+          "theta_action": {
+            "body_height": 0.33,
+            "goal_slow_distance": 0.28,
+            "goal_stop_distance": 0.15,
+            "swing_clearance": 0.05,
+            "vx_far": 0.08,
+            "vx_near": 0.04
+          },
+          "trusted_normal_walk": false
+        },
+        {
+          "avg_abs_odom_x_delta": 2.5533941142244108,
+          "avg_abs_yaw_rate": 0.3,
+          "avg_final_rel_dist": 2.151785232946792,
+          "avg_min_rel_dist": 0.3449674536440641,
+          "avg_reward": -7.623286962762674,
+          "n": 2,
+          "normal_walk_blocked": true,
+          "probe_candidate": false,
+          "probe_rate": 0.0,
+          "profile_family": "sponge_flat_local",
+          "profile_name": "sponge_flat_mid_h032_c005_s030",
+          "requires_alternative_primitive": true,
+          "requires_more_theta_search": false,
+          "selection_status": "blocked_requires_alternative_primitive",
+          "semantic_counts": {
+            "forward_walk_unreliable_on_soft_terrain": 2
+          },
+          "severe_rate": 1.0,
+          "source_runs": [
+            {
+              "metrics": {
+                "final_rel_dist": 0.6850475101642476,
+                "max_abs_mpc_yaw_rate": 0.3,
+                "min_rel_dist": 0.4017010117243486,
+                "odom_x_delta": 1.1619443527429079,
+                "progress_initial_minus_min": 0.09832761617727437,
+                "reached_stop_distance": false
+              },
+              "reward": -5.569364454181153,
+              "semantic": "forward_walk_unreliable_on_soft_terrain",
+              "source_dataset": "artifacts/phase_b_theta_lite_dataset_v1_sponge_flat_20260703_015101/phase_b_theta_lite_dataset_v1_sponge_flat.jsonl",
+              "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_012556/sponge_even__sponge_flat_mid_h032_c005_s030__rep00"
+            },
+            {
+              "metrics": {
+                "final_rel_dist": 3.618522955729336,
+                "max_abs_mpc_yaw_rate": 0.3,
+                "min_rel_dist": 0.2882338955637796,
+                "odom_x_delta": 3.9448438757059137,
+                "progress_initial_minus_min": 0.20686771111904845,
+                "reached_stop_distance": false
+              },
+              "reward": -9.677209471344195,
+              "semantic": "forward_walk_unreliable_on_soft_terrain",
+              "source_dataset": "artifacts/phase_b_theta_lite_dataset_v1_sponge_flat_20260703_015101/phase_b_theta_lite_dataset_v1_sponge_flat.jsonl",
+              "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_012556/sponge_even__sponge_flat_mid_h032_c005_s030__rep01"
+            }
+          ],
+          "stable_rate": 0.0,
+          "theta_action": {
+            "body_height": 0.32,
+            "goal_slow_distance": 0.3,
+            "goal_stop_distance": 0.15,
+            "swing_clearance": 0.05,
+            "vx_far": 0.09,
+            "vx_near": 0.04
+          },
+          "trusted_normal_walk": false
+        },
+        {
+          "avg_abs_odom_x_delta": 2.6537300315151153,
+          "avg_abs_yaw_rate": 0.3,
+          "avg_final_rel_dist": 3.0206764378082696,
+          "avg_min_rel_dist": 0.14587361985222963,
+          "avg_reward": -7.64137276379046,
+          "n": 2,
+          "normal_walk_blocked": true,
+          "probe_candidate": false,
+          "probe_rate": 0.0,
+          "profile_family": "sponge_flat_local",
+          "profile_name": "sponge_flat_slow_h034_c008_s040",
+          "requires_alternative_primitive": true,
+          "requires_more_theta_search": false,
+          "selection_status": "blocked_requires_alternative_primitive",
+          "semantic_counts": {
+            "forward_walk_unreliable_on_soft_terrain": 2
+          },
+          "severe_rate": 1.0,
+          "source_runs": [
+            {
+              "metrics": {
+                "final_rel_dist": 2.245350390403698,
+                "max_abs_mpc_yaw_rate": 0.3,
+                "min_rel_dist": 0.2795520355188325,
+                "odom_x_delta": 2.31991681593604,
+                "progress_initial_minus_min": 0.21971795233006597,
+                "reached_stop_distance": false
+              },
+              "reward": -7.465872893711586,
+              "semantic": "forward_walk_unreliable_on_soft_terrain",
+              "source_dataset": "artifacts/phase_b_theta_lite_dataset_v1_sponge_flat_20260703_015101/phase_b_theta_lite_dataset_v1_sponge_flat.jsonl",
+              "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_012556/sponge_even__sponge_flat_slow_h034_c008_s040__rep00"
+            },
+            {
+              "metrics": {
+                "final_rel_dist": 3.796002485212841,
+                "max_abs_mpc_yaw_rate": 0.3,
+                "min_rel_dist": 0.012195204185626772,
+                "odom_x_delta": 2.987543247094191,
+                "progress_initial_minus_min": 0.4864507374453011,
+                "reached_stop_distance": true
+              },
+              "reward": -7.816872633869334,
+              "semantic": "forward_walk_unreliable_on_soft_terrain",
+              "source_dataset": "artifacts/phase_b_theta_lite_dataset_v1_sponge_flat_20260703_015101/phase_b_theta_lite_dataset_v1_sponge_flat.jsonl",
+              "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_012556/sponge_even__sponge_flat_slow_h034_c008_s040__rep01"
+            }
+          ],
+          "stable_rate": 0.0,
+          "theta_action": {
+            "body_height": 0.34,
+            "goal_slow_distance": 0.4,
+            "goal_stop_distance": 0.18,
+            "swing_clearance": 0.08,
+            "vx_far": 0.05,
+            "vx_near": 0.02
+          },
+          "trusted_normal_walk": false
+        },
+        {
+          "avg_abs_odom_x_delta": 3.0020847443588603,
+          "avg_abs_yaw_rate": 0.3,
+          "avg_final_rel_dist": 2.7554536304992805,
+          "avg_min_rel_dist": 0.3155859130902068,
+          "avg_reward": -8.396053404435605,
+          "n": 1,
+          "normal_walk_blocked": true,
+          "probe_candidate": false,
+          "probe_rate": 0.0,
+          "profile_family": "sponge",
+          "profile_name": "sponge_midclear_h035_c006",
+          "requires_alternative_primitive": true,
+          "requires_more_theta_search": false,
+          "selection_status": "blocked_requires_alternative_primitive",
+          "semantic_counts": {
+            "forward_walk_unreliable_on_soft_terrain": 1
+          },
+          "severe_rate": 1.0,
+          "source_runs": [
+            {
+              "metrics": {
+                "final_rel_dist": 2.7554536304992805,
+                "max_abs_mpc_yaw_rate": 0.3,
+                "min_rel_dist": 0.3155859130902068,
+                "odom_x_delta": 3.0020847443588603,
+                "progress_initial_minus_min": 0.18022129912155266,
+                "reached_stop_distance": false
+              },
+              "reward": -8.396053404435605,
+              "semantic": "forward_walk_unreliable_on_soft_terrain",
+              "source_dataset": "artifacts/phase_b_theta_lite_dataset_v0_20260703_012232/phase_b_theta_lite_dataset_v0.jsonl",
+              "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_005552/sponge_even__sponge_midclear_h035_c006__rep00"
+            }
+          ],
+          "stable_rate": 0.0,
+          "theta_action": {
+            "body_height": 0.35,
+            "goal_slow_distance": 0.38,
+            "goal_stop_distance": 0.18,
+            "swing_clearance": 0.06,
+            "vx_far": 0.035,
+            "vx_near": 0.015
+          },
+          "trusted_normal_walk": false
+        },
+        {
+          "avg_abs_odom_x_delta": 1.9188119937750814,
+          "avg_abs_yaw_rate": 0.3,
+          "avg_final_rel_dist": 3.2479176732211013,
+          "avg_min_rel_dist": 0.37924963198113093,
+          "avg_reward": -8.465641446076301,
+          "n": 2,
+          "normal_walk_blocked": true,
+          "probe_candidate": false,
+          "probe_rate": 0.0,
+          "profile_family": "sponge_flat_local",
+          "profile_name": "sponge_flat_fast_h032_c004_s020",
+          "requires_alternative_primitive": true,
+          "requires_more_theta_search": false,
+          "selection_status": "blocked_requires_alternative_primitive",
+          "semantic_counts": {
+            "forward_walk_unreliable_on_soft_terrain": 2
+          },
+          "severe_rate": 1.0,
+          "source_runs": [
+            {
+              "metrics": {
+                "final_rel_dist": 4.297406120903732,
+                "max_abs_mpc_yaw_rate": 0.3,
+                "min_rel_dist": 0.453931610687899,
+                "odom_x_delta": 1.948719004564763,
+                "progress_initial_minus_min": 0.046068389312100944,
+                "reached_stop_distance": false
+              },
+              "reward": -9.679628844561911,
+              "semantic": "forward_walk_unreliable_on_soft_terrain",
+              "source_dataset": "artifacts/phase_b_theta_lite_dataset_v1_sponge_flat_20260703_015101/phase_b_theta_lite_dataset_v1_sponge_flat.jsonl",
+              "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_012556/sponge_even__sponge_flat_fast_h032_c004_s020__rep00"
+            },
+            {
+              "metrics": {
+                "final_rel_dist": 2.19842922553847,
+                "max_abs_mpc_yaw_rate": 0.3,
+                "min_rel_dist": 0.30456765327436286,
+                "odom_x_delta": 1.8889049829853997,
+                "progress_initial_minus_min": 0.19561383472024063,
+                "reached_stop_distance": false
+              },
+              "reward": -7.251654047590689,
+              "semantic": "forward_walk_unreliable_on_soft_terrain",
+              "source_dataset": "artifacts/phase_b_theta_lite_dataset_v1_sponge_flat_20260703_015101/phase_b_theta_lite_dataset_v1_sponge_flat.jsonl",
+              "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_012556/sponge_even__sponge_flat_fast_h032_c004_s020__rep01"
+            }
+          ],
+          "stable_rate": 0.0,
+          "theta_action": {
+            "body_height": 0.32,
+            "goal_slow_distance": 0.2,
+            "goal_stop_distance": 0.15,
+            "swing_clearance": 0.04,
+            "vx_far": 0.16,
+            "vx_near": 0.08
+          },
+          "trusted_normal_walk": false
+        },
+        {
+          "avg_abs_odom_x_delta": 4.447832953921187,
+          "avg_abs_yaw_rate": 0.3,
+          "avg_final_rel_dist": 4.229394975517594,
+          "avg_min_rel_dist": 0.01245549879941032,
+          "avg_reward": -8.980638517834699,
+          "n": 1,
+          "normal_walk_blocked": true,
+          "probe_candidate": false,
+          "probe_rate": 0.0,
+          "profile_family": "sponge",
+          "profile_name": "sponge_highbody_h036_c008",
+          "requires_alternative_primitive": true,
+          "requires_more_theta_search": false,
+          "selection_status": "blocked_requires_alternative_primitive",
+          "semantic_counts": {
+            "forward_walk_unreliable_on_soft_terrain": 1
+          },
+          "severe_rate": 1.0,
+          "source_runs": [
+            {
+              "metrics": {
+                "final_rel_dist": 4.229394975517594,
+                "max_abs_mpc_yaw_rate": 0.3,
+                "min_rel_dist": 0.01245549879941032,
+                "odom_x_delta": 4.447832953921187,
+                "progress_initial_minus_min": 0.4863364673217448,
+                "reached_stop_distance": true
+              },
+              "reward": -8.980638517834699,
+              "semantic": "forward_walk_unreliable_on_soft_terrain",
+              "source_dataset": "artifacts/phase_b_theta_lite_dataset_v0_20260703_012232/phase_b_theta_lite_dataset_v0.jsonl",
+              "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_005552/sponge_even__sponge_highbody_h036_c008__rep00"
+            }
+          ],
+          "stable_rate": 0.0,
+          "theta_action": {
+            "body_height": 0.36,
+            "goal_slow_distance": 0.38,
+            "goal_stop_distance": 0.18,
+            "swing_clearance": 0.08,
+            "vx_far": 0.035,
+            "vx_near": 0.015
+          },
+          "trusted_normal_walk": false
+        },
+        {
+          "avg_abs_odom_x_delta": 3.5948902076059803,
+          "avg_abs_yaw_rate": 0.3,
+          "avg_final_rel_dist": 3.8127880915827945,
+          "avg_min_rel_dist": 0.2776605415039817,
+          "avg_reward": -9.06488368816929,
+          "n": 2,
+          "normal_walk_blocked": true,
+          "probe_candidate": false,
+          "probe_rate": 0.0,
+          "profile_family": "sponge_flat_local",
+          "profile_name": "sponge_flat_ultraslow_h035_c010_s045",
+          "requires_alternative_primitive": true,
+          "requires_more_theta_search": false,
+          "selection_status": "blocked_requires_alternative_primitive",
+          "semantic_counts": {
+            "forward_walk_unreliable_on_soft_terrain": 2
+          },
+          "severe_rate": 1.0,
+          "source_runs": [
+            {
+              "metrics": {
+                "final_rel_dist": 5.205675738178341,
+                "max_abs_mpc_yaw_rate": 0.3,
+                "min_rel_dist": 0.07175125067182575,
+                "odom_x_delta": 4.387922036152733,
+                "progress_initial_minus_min": 0.42605211853852837,
+                "reached_stop_distance": true
+              },
+              "reward": -9.84185678099931,
+              "semantic": "forward_walk_unreliable_on_soft_terrain",
+              "source_dataset": "artifacts/phase_b_theta_lite_dataset_v1_sponge_flat_20260703_015101/phase_b_theta_lite_dataset_v1_sponge_flat.jsonl",
+              "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_012556/sponge_even__sponge_flat_ultraslow_h035_c010_s045__rep00"
+            },
+            {
+              "metrics": {
+                "final_rel_dist": 2.419900444987248,
+                "max_abs_mpc_yaw_rate": 0.3,
+                "min_rel_dist": 0.48356983233613765,
+                "odom_x_delta": 2.8018583790592277,
+                "progress_initial_minus_min": 0.01645951958879549,
+                "reached_stop_distance": false
+              },
+              "reward": -8.287910595339271,
+              "semantic": "forward_walk_unreliable_on_soft_terrain",
+              "source_dataset": "artifacts/phase_b_theta_lite_dataset_v1_sponge_flat_20260703_015101/phase_b_theta_lite_dataset_v1_sponge_flat.jsonl",
+              "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_012556/sponge_even__sponge_flat_ultraslow_h035_c010_s045__rep01"
+            }
+          ],
+          "stable_rate": 0.0,
+          "theta_action": {
+            "body_height": 0.35,
+            "goal_slow_distance": 0.45,
+            "goal_stop_distance": 0.2,
+            "swing_clearance": 0.1,
+            "vx_far": 0.03,
+            "vx_near": 0.012
+          },
+          "trusted_normal_walk": false
+        },
+        {
+          "avg_abs_odom_x_delta": 3.3369250831357324,
+          "avg_abs_yaw_rate": 0.3,
+          "avg_final_rel_dist": 3.551530205027393,
+          "avg_min_rel_dist": 0.2566219458629112,
+          "avg_reward": -9.235119194611201,
+          "n": 2,
+          "normal_walk_blocked": true,
+          "probe_candidate": false,
+          "probe_rate": 0.0,
+          "profile_family": "sponge_flat_local",
+          "profile_name": "sponge_flat_slow_h033_c006_s040",
+          "requires_alternative_primitive": true,
+          "requires_more_theta_search": false,
+          "selection_status": "blocked_requires_alternative_primitive",
+          "semantic_counts": {
+            "forward_walk_unreliable_on_soft_terrain": 2
+          },
+          "severe_rate": 1.0,
+          "source_runs": [
+            {
+              "metrics": {
+                "final_rel_dist": 4.226592953178883,
+                "max_abs_mpc_yaw_rate": 0.3,
+                "min_rel_dist": 0.19520593395643368,
+                "odom_x_delta": 3.3613426964766693,
+                "progress_initial_minus_min": 0.3037287321075979,
+                "reached_stop_distance": false
+              },
+              "reward": -9.799806837202022,
+              "semantic": "forward_walk_unreliable_on_soft_terrain",
+              "source_dataset": "artifacts/phase_b_theta_lite_dataset_v1_sponge_flat_20260703_015101/phase_b_theta_lite_dataset_v1_sponge_flat.jsonl",
+              "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_012556/sponge_even__sponge_flat_slow_h033_c006_s040__rep00"
+            },
+            {
+              "metrics": {
+                "final_rel_dist": 2.876467456875903,
+                "max_abs_mpc_yaw_rate": 0.3,
+                "min_rel_dist": 0.3180379577693887,
+                "odom_x_delta": 3.3125074697947956,
+                "progress_initial_minus_min": 0.18114481987645914,
+                "reached_stop_distance": false
+              },
+              "reward": -8.670431552020382,
+              "semantic": "forward_walk_unreliable_on_soft_terrain",
+              "source_dataset": "artifacts/phase_b_theta_lite_dataset_v1_sponge_flat_20260703_015101/phase_b_theta_lite_dataset_v1_sponge_flat.jsonl",
+              "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_012556/sponge_even__sponge_flat_slow_h033_c006_s040__rep01"
+            }
+          ],
+          "stable_rate": 0.0,
+          "theta_action": {
+            "body_height": 0.33,
+            "goal_slow_distance": 0.4,
+            "goal_stop_distance": 0.18,
+            "swing_clearance": 0.06,
+            "vx_far": 0.06,
+            "vx_near": 0.025
+          },
+          "trusted_normal_walk": false
+        },
+        {
+          "avg_abs_odom_x_delta": 4.250085058978489,
+          "avg_abs_yaw_rate": 0.3,
+          "avg_final_rel_dist": 4.433240937311886,
+          "avg_min_rel_dist": 0.13718581645735828,
+          "avg_reward": -9.633946124414543,
+          "n": 2,
+          "normal_walk_blocked": true,
+          "probe_candidate": false,
+          "probe_rate": 0.0,
+          "profile_family": "sponge_flat_local",
+          "profile_name": "sponge_flat_midfast_h032_c004_s025",
+          "requires_alternative_primitive": true,
+          "requires_more_theta_search": false,
+          "selection_status": "blocked_requires_alternative_primitive",
+          "semantic_counts": {
+            "forward_walk_unreliable_on_soft_terrain": 2
+          },
+          "severe_rate": 1.0,
+          "source_runs": [
+            {
+              "metrics": {
+                "final_rel_dist": 5.384087654055083,
+                "max_abs_mpc_yaw_rate": 0.3,
+                "min_rel_dist": 0.05632969310645131,
+                "odom_x_delta": 5.03384784397856,
+                "progress_initial_minus_min": 0.4425080993003683,
+                "reached_stop_distance": true
+              },
+              "reward": -10.114983801399264,
+              "semantic": "forward_walk_unreliable_on_soft_terrain",
+              "source_dataset": "artifacts/phase_b_theta_lite_dataset_v1_sponge_flat_20260703_015101/phase_b_theta_lite_dataset_v1_sponge_flat.jsonl",
+              "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_012556/sponge_even__sponge_flat_midfast_h032_c004_s025__rep00"
+            },
+            {
+              "metrics": {
+                "final_rel_dist": 3.48239422056869,
+                "max_abs_mpc_yaw_rate": 0.3,
+                "min_rel_dist": 0.21804193980826522,
+                "odom_x_delta": 3.4663222739784185,
+                "progress_initial_minus_min": 0.281323455064039,
+                "reached_stop_distance": false
+              },
+              "reward": -9.152908447429821,
+              "semantic": "forward_walk_unreliable_on_soft_terrain",
+              "source_dataset": "artifacts/phase_b_theta_lite_dataset_v1_sponge_flat_20260703_015101/phase_b_theta_lite_dataset_v1_sponge_flat.jsonl",
+              "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_012556/sponge_even__sponge_flat_midfast_h032_c004_s025__rep01"
+            }
+          ],
+          "stable_rate": 0.0,
+          "theta_action": {
+            "body_height": 0.32,
+            "goal_slow_distance": 0.25,
+            "goal_stop_distance": 0.15,
+            "swing_clearance": 0.04,
+            "vx_far": 0.12,
+            "vx_near": 0.06
+          },
+          "trusted_normal_walk": false
+        },
+        {
+          "avg_abs_odom_x_delta": 3.7516956136771773,
+          "avg_abs_yaw_rate": 0.3,
+          "avg_final_rel_dist": 3.6928701187591964,
+          "avg_min_rel_dist": 0.30697942138569784,
+          "avg_reward": -9.68544684846207,
+          "n": 2,
+          "normal_walk_blocked": true,
+          "probe_candidate": false,
+          "probe_rate": 0.0,
+          "profile_family": "sponge_flat_local",
+          "profile_name": "sponge_flat_ultraslow_h034_c008_s045",
+          "requires_alternative_primitive": true,
+          "requires_more_theta_search": false,
+          "selection_status": "blocked_requires_alternative_primitive",
+          "semantic_counts": {
+            "forward_walk_unreliable_on_soft_terrain": 2
+          },
+          "severe_rate": 1.0,
+          "source_runs": [
+            {
+              "metrics": {
+                "final_rel_dist": 3.283141019956848,
+                "max_abs_mpc_yaw_rate": 0.3,
+                "min_rel_dist": 0.36401274063665334,
+                "odom_x_delta": 3.439109241602833,
+                "progress_initial_minus_min": 0.1354645974243901,
+                "reached_stop_distance": false
+              },
+              "reward": -9.231766445909484,
+              "semantic": "forward_walk_unreliable_on_soft_terrain",
+              "source_dataset": "artifacts/phase_b_theta_lite_dataset_v1_sponge_flat_20260703_015101/phase_b_theta_lite_dataset_v1_sponge_flat.jsonl",
+              "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_012556/sponge_even__sponge_flat_ultraslow_h034_c008_s045__rep00"
+            },
+            {
+              "metrics": {
+                "final_rel_dist": 4.102599217561545,
+                "max_abs_mpc_yaw_rate": 0.3,
+                "min_rel_dist": 0.24994610213474233,
+                "odom_x_delta": 4.0642819857515216,
+                "progress_initial_minus_min": 0.24780647971132586,
+                "reached_stop_distance": false
+              },
+              "reward": -10.139127251014655,
+              "semantic": "forward_walk_unreliable_on_soft_terrain",
+              "source_dataset": "artifacts/phase_b_theta_lite_dataset_v1_sponge_flat_20260703_015101/phase_b_theta_lite_dataset_v1_sponge_flat.jsonl",
+              "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_012556/sponge_even__sponge_flat_ultraslow_h034_c008_s045__rep01"
+            }
+          ],
+          "stable_rate": 0.0,
+          "theta_action": {
+            "body_height": 0.34,
+            "goal_slow_distance": 0.45,
+            "goal_stop_distance": 0.2,
+            "swing_clearance": 0.08,
+            "vx_far": 0.035,
+            "vx_near": 0.015
+          },
+          "trusted_normal_walk": false
+        },
+        {
+          "avg_abs_odom_x_delta": 3.916759762370494,
+          "avg_abs_yaw_rate": 0.3,
+          "avg_final_rel_dist": 3.905566415457029,
+          "avg_min_rel_dist": 0.28576524139215814,
+          "avg_reward": -9.936857867906543,
+          "n": 2,
+          "normal_walk_blocked": true,
+          "probe_candidate": false,
+          "probe_rate": 0.0,
+          "profile_family": "sponge_flat_local",
+          "profile_name": "sponge_flat_mid_h033_c006_s035",
+          "requires_alternative_primitive": true,
+          "requires_more_theta_search": false,
+          "selection_status": "blocked_requires_alternative_primitive",
+          "semantic_counts": {
+            "forward_walk_unreliable_on_soft_terrain": 2
+          },
+          "severe_rate": 1.0,
+          "source_runs": [
+            {
+              "metrics": {
+                "final_rel_dist": 3.4051919790771437,
+                "max_abs_mpc_yaw_rate": 0.3,
+                "min_rel_dist": 0.2623146161155338,
+                "odom_x_delta": 3.2527935578664646,
+                "progress_initial_minus_min": 0.2370042451010732,
+                "reached_stop_distance": false
+              },
+              "reward": -9.05758026780823,
+              "semantic": "forward_walk_unreliable_on_soft_terrain",
+              "source_dataset": "artifacts/phase_b_theta_lite_dataset_v1_sponge_flat_20260703_015101/phase_b_theta_lite_dataset_v1_sponge_flat.jsonl",
+              "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_012556/sponge_even__sponge_flat_mid_h033_c006_s035__rep00"
+            },
+            {
+              "metrics": {
+                "final_rel_dist": 4.405940851836915,
+                "max_abs_mpc_yaw_rate": 0.3,
+                "min_rel_dist": 0.3092158666687825,
+                "odom_x_delta": 4.580725966874524,
+                "progress_initial_minus_min": 0.19008418363466056,
+                "reached_stop_distance": false
+              },
+              "reward": -10.816135468004855,
+              "semantic": "forward_walk_unreliable_on_soft_terrain",
+              "source_dataset": "artifacts/phase_b_theta_lite_dataset_v1_sponge_flat_20260703_015101/phase_b_theta_lite_dataset_v1_sponge_flat.jsonl",
+              "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_012556/sponge_even__sponge_flat_mid_h033_c006_s035__rep01"
+            }
+          ],
+          "stable_rate": 0.0,
+          "theta_action": {
+            "body_height": 0.33,
+            "goal_slow_distance": 0.35,
+            "goal_stop_distance": 0.16,
+            "swing_clearance": 0.06,
+            "vx_far": 0.08,
+            "vx_near": 0.035
+          },
+          "trusted_normal_walk": false
+        },
+        {
+          "avg_abs_odom_x_delta": 5.625609024094353,
+          "avg_abs_yaw_rate": 0.3,
+          "avg_final_rel_dist": 5.210669671947173,
+          "avg_min_rel_dist": 0.08293183209478729,
+          "avg_reward": -10.168679684353826,
+          "n": 1,
+          "normal_walk_blocked": true,
+          "probe_candidate": false,
+          "probe_rate": 0.0,
+          "profile_family": "sponge",
+          "profile_name": "sponge_ultraslow_h034_c010",
+          "requires_alternative_primitive": true,
+          "requires_more_theta_search": false,
+          "selection_status": "blocked_requires_alternative_primitive",
+          "semantic_counts": {
+            "forward_walk_unreliable_on_soft_terrain": 1
+          },
+          "severe_rate": 1.0,
+          "source_runs": [
+            {
+              "metrics": {
+                "final_rel_dist": 5.210669671947173,
+                "max_abs_mpc_yaw_rate": 0.3,
+                "min_rel_dist": 0.08293183209478729,
+                "odom_x_delta": 5.625609024094353,
+                "progress_initial_minus_min": 0.41566015782308746,
+                "reached_stop_distance": true
+              },
+              "reward": -10.168679684353826,
+              "semantic": "forward_walk_unreliable_on_soft_terrain",
+              "source_dataset": "artifacts/phase_b_theta_lite_dataset_v0_20260703_012232/phase_b_theta_lite_dataset_v0.jsonl",
+              "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_005552/sponge_even__sponge_ultraslow_h034_c010__rep00"
+            }
+          ],
+          "stable_rate": 0.0,
+          "theta_action": {
+            "body_height": 0.34,
+            "goal_slow_distance": 0.4,
+            "goal_stop_distance": 0.18,
+            "swing_clearance": 0.1,
+            "vx_far": 0.025,
+            "vx_near": 0.012
+          },
+          "trusted_normal_walk": false
+        }
+      ],
+      "requires_alternative_primitive": false,
+      "requires_more_theta_search": true,
+      "selected_profile_family": "solid",
+      "selected_profile_name": "solid_fast_h032_c004",
+      "selected_profile_summary": {
+        "avg_abs_odom_x_delta": 0.16909532695215457,
+        "avg_abs_yaw_rate": 0.3,
+        "avg_final_rel_dist": 0.3450709961802001,
+        "avg_min_rel_dist": 0.321648293148965,
+        "avg_reward": -0.5734635987991112,
+        "n": 1,
+        "normal_walk_blocked": true,
+        "probe_candidate": true,
+        "probe_rate": 1.0,
+        "profile_family": "solid",
+        "profile_name": "solid_fast_h032_c004",
+        "requires_alternative_primitive": false,
+        "requires_more_theta_search": true,
+        "selection_status": "probe_candidate_requires_local_search",
+        "semantic_counts": {
+          "cautious_probe_required": 1
+        },
+        "severe_rate": 0.0,
+        "source_runs": [
+          {
+            "metrics": {
+              "final_rel_dist": 0.3450709961802001,
+              "max_abs_mpc_yaw_rate": 0.3,
+              "min_rel_dist": 0.321648293148965,
+              "odom_x_delta": 0.16909532695215457,
+              "progress_initial_minus_min": 0.1780775304285831,
+              "reached_stop_distance": false
+            },
+            "reward": -0.5734635987991112,
+            "semantic": "cautious_probe_required",
+            "source_dataset": "artifacts/phase_b_theta_lite_dataset_v0_20260703_012232/phase_b_theta_lite_dataset_v0.jsonl",
+            "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_005552/sponge_even__solid_fast_h032_c004__rep00"
+          }
+        ],
+        "stable_rate": 0.0,
+        "theta_action": {
+          "body_height": 0.32,
+          "goal_slow_distance": 0.2,
+          "goal_stop_distance": 0.15,
+          "swing_clearance": 0.04,
+          "vx_far": 0.16,
+          "vx_near": 0.08
+        },
+        "trusted_normal_walk": false
+      },
+      "selection_status": "probe_candidate_requires_local_search",
+      "theta_action": {
+        "body_height": 0.32,
+        "goal_slow_distance": 0.2,
+        "goal_stop_distance": 0.15,
+        "swing_clearance": 0.04,
+        "vx_far": 0.16,
+        "vx_near": 0.08
+      },
+      "trusted_normal_walk": false,
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    "tracer_sponge_firm_slope_5deg": {
+      "normal_walk_blocked": true,
+      "probe_candidate": false,
+      "ranked_profiles": [
+        {
+          "avg_abs_odom_x_delta": 0.502506751913423,
+          "avg_abs_yaw_rate": 0.3,
+          "avg_final_rel_dist": 2.0844383258510804,
+          "avg_min_rel_dist": 0.3039841588678309,
+          "avg_reward": -6.444369328237214,
+          "n": 1,
+          "normal_walk_blocked": true,
+          "probe_candidate": false,
+          "probe_rate": 0.0,
+          "profile_family": "sponge",
+          "profile_name": "sponge_slow_h034_c008",
+          "requires_alternative_primitive": true,
+          "requires_more_theta_search": false,
+          "selection_status": "blocked_requires_alternative_primitive",
+          "semantic_counts": {
+            "forward_walk_unreliable_on_soft_terrain": 1
+          },
+          "severe_rate": 1.0,
+          "source_runs": [
+            {
+              "metrics": {
+                "final_rel_dist": 2.0844383258510804,
+                "max_abs_mpc_yaw_rate": 0.3,
+                "min_rel_dist": 0.3039841588678309,
+                "odom_x_delta": -0.502506751913423,
+                "progress_initial_minus_min": 0.19566118678528893,
+                "reached_stop_distance": false
+              },
+              "reward": -6.444369328237214,
+              "semantic": "forward_walk_unreliable_on_soft_terrain",
+              "source_dataset": "artifacts/phase_b_theta_lite_dataset_v0_20260703_012232/phase_b_theta_lite_dataset_v0.jsonl",
+              "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_005552/sponge_upslope_5deg__sponge_slow_h034_c008__rep00"
+            }
+          ],
+          "stable_rate": 0.0,
+          "theta_action": {
+            "body_height": 0.34,
+            "goal_slow_distance": 0.3,
+            "goal_stop_distance": 0.15,
+            "swing_clearance": 0.08,
+            "vx_far": 0.04,
+            "vx_near": 0.025
+          },
+          "trusted_normal_walk": false
+        },
+        {
+          "avg_abs_odom_x_delta": 1.1440023215515684,
+          "avg_abs_yaw_rate": 0.3,
+          "avg_final_rel_dist": 1.6131615039195446,
+          "avg_min_rel_dist": 0.5003234956048633,
+          "avg_reward": -6.685162664695329,
+          "n": 1,
+          "normal_walk_blocked": true,
+          "probe_candidate": false,
+          "probe_rate": 0.0,
+          "profile_family": "solid",
+          "profile_name": "solid_fast_h032_c004",
+          "requires_alternative_primitive": true,
+          "requires_more_theta_search": false,
+          "selection_status": "blocked_requires_alternative_primitive",
+          "semantic_counts": {
+            "forward_walk_unreliable_on_soft_terrain": 1
+          },
+          "severe_rate": 1.0,
+          "source_runs": [
+            {
+              "metrics": {
+                "final_rel_dist": 1.6131615039195446,
+                "max_abs_mpc_yaw_rate": 0.3,
+                "min_rel_dist": 0.5003234956048633,
+                "odom_x_delta": -1.1440023215515684,
+                "progress_initial_minus_min": 0.0,
+                "reached_stop_distance": false
+              },
+              "reward": -6.685162664695329,
+              "semantic": "forward_walk_unreliable_on_soft_terrain",
+              "source_dataset": "artifacts/phase_b_theta_lite_dataset_v0_20260703_012232/phase_b_theta_lite_dataset_v0.jsonl",
+              "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_005552/sponge_upslope_5deg__solid_fast_h032_c004__rep00"
+            }
+          ],
+          "stable_rate": 0.0,
+          "theta_action": {
+            "body_height": 0.32,
+            "goal_slow_distance": 0.2,
+            "goal_stop_distance": 0.15,
+            "swing_clearance": 0.04,
+            "vx_far": 0.16,
+            "vx_near": 0.08
+          },
+          "trusted_normal_walk": false
+        },
+        {
+          "avg_abs_odom_x_delta": 1.2365562087278414,
+          "avg_abs_yaw_rate": 0.3,
+          "avg_final_rel_dist": 1.7504163548657061,
+          "avg_min_rel_dist": 0.44305885955004,
+          "avg_reward": -6.754366545068575,
+          "n": 1,
+          "normal_walk_blocked": true,
+          "probe_candidate": false,
+          "probe_rate": 0.0,
+          "profile_family": "sponge",
+          "profile_name": "sponge_ultraslow_h034_c010",
+          "requires_alternative_primitive": true,
+          "requires_more_theta_search": false,
+          "selection_status": "blocked_requires_alternative_primitive",
+          "semantic_counts": {
+            "forward_walk_unreliable_on_soft_terrain": 1
+          },
+          "severe_rate": 1.0,
+          "source_runs": [
+            {
+              "metrics": {
+                "final_rel_dist": 1.7504163548657061,
+                "max_abs_mpc_yaw_rate": 0.3,
+                "min_rel_dist": 0.44305885955004,
+                "odom_x_delta": -1.2365562087278414,
+                "progress_initial_minus_min": 0.057163957080525685,
+                "reached_stop_distance": false
+              },
+              "reward": -6.754366545068575,
+              "semantic": "forward_walk_unreliable_on_soft_terrain",
+              "source_dataset": "artifacts/phase_b_theta_lite_dataset_v0_20260703_012232/phase_b_theta_lite_dataset_v0.jsonl",
+              "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_005552/sponge_upslope_5deg__sponge_ultraslow_h034_c010__rep00"
+            }
+          ],
+          "stable_rate": 0.0,
+          "theta_action": {
+            "body_height": 0.34,
+            "goal_slow_distance": 0.4,
+            "goal_stop_distance": 0.18,
+            "swing_clearance": 0.1,
+            "vx_far": 0.025,
+            "vx_near": 0.012
+          },
+          "trusted_normal_walk": false
+        },
+        {
+          "avg_abs_odom_x_delta": 3.1128049285194797,
+          "avg_abs_yaw_rate": 0.2904344300340799,
+          "avg_final_rel_dist": 3.667555698624393,
+          "avg_min_rel_dist": 0.5011814875028322,
+          "avg_reward": -9.223958162884133,
+          "n": 1,
+          "normal_walk_blocked": true,
+          "probe_candidate": false,
+          "probe_rate": 0.0,
+          "profile_family": "sponge",
+          "profile_name": "sponge_midclear_h035_c006",
+          "requires_alternative_primitive": true,
+          "requires_more_theta_search": false,
+          "selection_status": "blocked_requires_alternative_primitive",
+          "semantic_counts": {
+            "forward_walk_unreliable_on_soft_terrain": 1
+          },
+          "severe_rate": 1.0,
+          "source_runs": [
+            {
+              "metrics": {
+                "final_rel_dist": 3.667555698624393,
+                "max_abs_mpc_yaw_rate": 0.2904344300340799,
+                "min_rel_dist": 0.5011814875028322,
+                "odom_x_delta": -3.1128049285194797,
+                "progress_initial_minus_min": 0.0,
+                "reached_stop_distance": false
+              },
+              "reward": -9.223958162884133,
+              "semantic": "forward_walk_unreliable_on_soft_terrain",
+              "source_dataset": "artifacts/phase_b_theta_lite_dataset_v0_20260703_012232/phase_b_theta_lite_dataset_v0.jsonl",
+              "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_005552/sponge_upslope_5deg__sponge_midclear_h035_c006__rep00"
+            }
+          ],
+          "stable_rate": 0.0,
+          "theta_action": {
+            "body_height": 0.35,
+            "goal_slow_distance": 0.38,
+            "goal_stop_distance": 0.18,
+            "swing_clearance": 0.06,
+            "vx_far": 0.035,
+            "vx_near": 0.015
+          },
+          "trusted_normal_walk": false
+        },
+        {
+          "avg_abs_odom_x_delta": 3.2512745173899265,
+          "avg_abs_yaw_rate": 0.3,
+          "avg_final_rel_dist": 3.9641553661732174,
+          "avg_min_rel_dist": 0.5003111978257183,
+          "avg_reward": -10.089792624868181,
+          "n": 1,
+          "normal_walk_blocked": true,
+          "probe_candidate": false,
+          "probe_rate": 0.0,
+          "profile_family": "solid",
+          "profile_name": "solid_cautious_h033_c005",
+          "requires_alternative_primitive": true,
+          "requires_more_theta_search": false,
+          "selection_status": "blocked_requires_alternative_primitive",
+          "semantic_counts": {
+            "forward_walk_unreliable_on_soft_terrain": 1
+          },
+          "severe_rate": 1.0,
+          "source_runs": [
+            {
+              "metrics": {
+                "final_rel_dist": 3.9641553661732174,
+                "max_abs_mpc_yaw_rate": 0.3,
+                "min_rel_dist": 0.5003111978257183,
+                "odom_x_delta": -3.2512745173899265,
+                "progress_initial_minus_min": 0.0,
+                "reached_stop_distance": false
+              },
+              "reward": -10.089792624868181,
+              "semantic": "forward_walk_unreliable_on_soft_terrain",
+              "source_dataset": "artifacts/phase_b_theta_lite_dataset_v0_20260703_012232/phase_b_theta_lite_dataset_v0.jsonl",
+              "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_005552/sponge_upslope_5deg__solid_cautious_h033_c005__rep00"
+            }
+          ],
+          "stable_rate": 0.0,
+          "theta_action": {
+            "body_height": 0.33,
+            "goal_slow_distance": 0.28,
+            "goal_stop_distance": 0.15,
+            "swing_clearance": 0.05,
+            "vx_far": 0.08,
+            "vx_near": 0.04
+          },
+          "trusted_normal_walk": false
+        },
+        {
+          "avg_abs_odom_x_delta": 4.721534421156297,
+          "avg_abs_yaw_rate": 0.27611641569733736,
+          "avg_final_rel_dist": 5.225076328430387,
+          "avg_min_rel_dist": 0.5003857584213183,
+          "avg_reward": -11.360767210578148,
+          "n": 1,
+          "normal_walk_blocked": true,
+          "probe_candidate": false,
+          "probe_rate": 0.0,
+          "profile_family": "sponge",
+          "profile_name": "sponge_highbody_h036_c008",
+          "requires_alternative_primitive": true,
+          "requires_more_theta_search": false,
+          "selection_status": "blocked_requires_alternative_primitive",
+          "semantic_counts": {
+            "forward_walk_unreliable_on_soft_terrain": 1
+          },
+          "severe_rate": 1.0,
+          "source_runs": [
+            {
+              "metrics": {
+                "final_rel_dist": 5.225076328430387,
+                "max_abs_mpc_yaw_rate": 0.27611641569733736,
+                "min_rel_dist": 0.5003857584213183,
+                "odom_x_delta": -4.721534421156297,
+                "progress_initial_minus_min": 0.0,
+                "reached_stop_distance": false
+              },
+              "reward": -11.360767210578148,
+              "semantic": "forward_walk_unreliable_on_soft_terrain",
+              "source_dataset": "artifacts/phase_b_theta_lite_dataset_v0_20260703_012232/phase_b_theta_lite_dataset_v0.jsonl",
+              "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_005552/sponge_upslope_5deg__sponge_highbody_h036_c008__rep00"
+            }
+          ],
+          "stable_rate": 0.0,
+          "theta_action": {
+            "body_height": 0.36,
+            "goal_slow_distance": 0.38,
+            "goal_stop_distance": 0.18,
+            "swing_clearance": 0.08,
+            "vx_far": 0.035,
+            "vx_near": 0.015
+          },
+          "trusted_normal_walk": false
+        }
+      ],
+      "requires_alternative_primitive": true,
+      "requires_more_theta_search": false,
+      "selected_profile_family": "sponge",
+      "selected_profile_name": "sponge_slow_h034_c008",
+      "selected_profile_summary": {
+        "avg_abs_odom_x_delta": 0.502506751913423,
+        "avg_abs_yaw_rate": 0.3,
+        "avg_final_rel_dist": 2.0844383258510804,
+        "avg_min_rel_dist": 0.3039841588678309,
+        "avg_reward": -6.444369328237214,
+        "n": 1,
+        "normal_walk_blocked": true,
+        "probe_candidate": false,
+        "probe_rate": 0.0,
+        "profile_family": "sponge",
+        "profile_name": "sponge_slow_h034_c008",
+        "requires_alternative_primitive": true,
+        "requires_more_theta_search": false,
+        "selection_status": "blocked_requires_alternative_primitive",
+        "semantic_counts": {
+          "forward_walk_unreliable_on_soft_terrain": 1
+        },
+        "severe_rate": 1.0,
+        "source_runs": [
+          {
+            "metrics": {
+              "final_rel_dist": 2.0844383258510804,
+              "max_abs_mpc_yaw_rate": 0.3,
+              "min_rel_dist": 0.3039841588678309,
+              "odom_x_delta": -0.502506751913423,
+              "progress_initial_minus_min": 0.19566118678528893,
+              "reached_stop_distance": false
+            },
+            "reward": -6.444369328237214,
+            "semantic": "forward_walk_unreliable_on_soft_terrain",
+            "source_dataset": "artifacts/phase_b_theta_lite_dataset_v0_20260703_012232/phase_b_theta_lite_dataset_v0.jsonl",
+            "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_005552/sponge_upslope_5deg__sponge_slow_h034_c008__rep00"
+          }
+        ],
+        "stable_rate": 0.0,
+        "theta_action": {
+          "body_height": 0.34,
+          "goal_slow_distance": 0.3,
+          "goal_stop_distance": 0.15,
+          "swing_clearance": 0.08,
+          "vx_far": 0.04,
+          "vx_near": 0.025
+        },
+        "trusted_normal_walk": false
+      },
+      "selection_status": "blocked_requires_alternative_primitive",
+      "theta_action": {
+        "body_height": 0.34,
+        "goal_slow_distance": 0.3,
+        "goal_stop_distance": 0.15,
+        "swing_clearance": 0.08,
+        "vx_far": 0.04,
+        "vx_near": 0.025
+      },
+      "trusted_normal_walk": false,
+      "world_name": "tracer_sponge_firm_slope_5deg"
+    }
+  }
+}
