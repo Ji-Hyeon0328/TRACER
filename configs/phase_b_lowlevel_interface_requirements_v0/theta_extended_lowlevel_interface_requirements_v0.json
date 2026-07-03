@@ -1,0 +1,87 @@
+{
+  "schema": "phase_b_theta_extended_lowlevel_interface_requirements_v0",
+  "description": "Low-level interface requirements for executing theta-extended primitives beyond the current A1-QP-MPC theta-lite bridge.",
+  "current_executable_interface": {
+    "controller": "external_a1_qpmpc_diagonal_gait",
+    "supported_fields": [
+      "vx_far",
+      "vx_near",
+      "goal_slow_distance",
+      "goal_stop_distance",
+      "body_height",
+      "swing_clearance"
+    ],
+    "implicit_gait_family": "diagonal_trot",
+    "can_set_gait_family": false,
+    "can_set_period": false,
+    "can_set_duty_factor": false,
+    "can_set_phase_offsets": false,
+    "can_set_stance_width": false,
+    "can_set_impedance_scale": false,
+    "can_set_recovery_or_hold_flag": false
+  },
+  "required_for_theta_extended": {
+    "must_support_fields": [
+      "gait_family",
+      "period",
+      "duty_factor",
+      "phase_offsets",
+      "swing_clearance",
+      "body_height",
+      "stance_width",
+      "vx_scale",
+      "yaw_rate_limit",
+      "footstep_length_scale",
+      "impedance_scale",
+      "recovery_or_hold_flag"
+    ],
+    "minimum_new_capabilities": [
+      "select gait family or primitive family",
+      "set gait period",
+      "set duty factor / support ratio",
+      "set leg phase offsets",
+      "set yaw rate limit",
+      "set stance width or support polygon widening",
+      "set impedance or compliance scale",
+      "request post-reach hold / recovery behavior"
+    ]
+  },
+  "primitive_requirements": {
+    "normal_diagonal_locomotion": {
+      "executable_now": true,
+      "required_new_lowlevel_features": []
+    },
+    "soft_contact_crawl_or_quasi_static": {
+      "executable_now": false,
+      "required_new_lowlevel_features": [
+        "crawl gait family",
+        "high duty factor",
+        "four-phase leg offsets",
+        "post-reach hold/brake",
+        "wider stance",
+        "compliance/impedance scaling"
+      ]
+    },
+    "soft_contact_upslope_crawl": {
+      "executable_now": false,
+      "required_new_lowlevel_features": [
+        "crawl gait family",
+        "high duty factor",
+        "high clearance",
+        "short footstep length",
+        "terrain compliance adaptation"
+      ]
+    },
+    "soft_contact_downslope_controlled_descent": {
+      "executable_now": false,
+      "required_new_lowlevel_features": [
+        "controlled descent primitive",
+        "optional backstep-compatible gait",
+        "very high duty factor",
+        "short step length",
+        "strong post-reach hold/brake",
+        "yaw-rate limiting"
+      ]
+    }
+  }
+}
