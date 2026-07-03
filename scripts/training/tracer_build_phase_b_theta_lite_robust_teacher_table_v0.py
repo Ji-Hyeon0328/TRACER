@@ -32,6 +32,25 @@ def load_rows(paths):
     return rows
 
 
+def theta_key(theta):
+    """Group profiles by actual theta action, not by profile name."""
+    keys = [
+        "vx_far",
+        "vx_near",
+        "goal_slow_distance",
+        "goal_stop_distance",
+        "body_height",
+        "swing_clearance",
+    ]
+    return tuple(round(float(theta.get(k, 0.0)), 4) for k in keys)
+
+
+def theta_key_string(theta):
+    k = theta_key(theta)
+    names = ["vx", "near", "slow", "stop", "h", "clr"]
+    return "::".join(f"{n}={v:.4f}" for n, v in zip(names, k))
+
+
 def summarize_profile(rows):
     sems = [r["label"]["semantic"] for r in rows]
     rewards = [float(r["label"]["reward"]) for r in rows]
@@ -90,9 +109,17 @@ def summarize_profile(rows):
         status = "untrusted_requires_more_search"
 
     row0 = rows[0]
+    profile_counts = Counter(r.get("profile_name") for r in rows)
+    family_counts = Counter(r.get("profile_family") for r in rows)
+    primary_profile = profile_counts.most_common(1)[0][0]
+    primary_family = family_counts.most_common(1)[0][0]
+
     return {
-        "profile_name": row0["profile_name"],
-        "profile_family": row0.get("profile_family"),
+        "profile_name": primary_profile,
+        "profile_names": dict(profile_counts),
+        "profile_family": primary_family,
+        "profile_families": dict(family_counts),
+        "theta_key": theta_key_string(row0["theta_action"]),
         "theta_action": row0["theta_action"],
         "n": n,
         "semantic_counts": dict(sem_counts),
@@ -136,11 +163,11 @@ def main():
 
     grouped = defaultdict(list)
     for r in rows:
-        key = (r["world_name"], r["profile_name"])
+        key = (r["world_name"], theta_key(r["theta_action"]))
         grouped[key].append(r)
 
     by_world = defaultdict(list)
-    for (world, _profile), rs in grouped.items():
+    for (world, _theta_key), rs in grouped.items():
         by_world[world].append(summarize_profile(rs))
 
     table = {}
@@ -152,11 +179,23 @@ def main():
             selected = sorted(trusted, key=lambda p: p["avg_reward"], reverse=True)[0]
             world_status = "trusted_normal_walk"
         elif probes:
-            selected = sorted(probes, key=lambda p: p["avg_reward"], reverse=True)[0]
-            world_status = "probe_candidate_requires_local_search"
+            # A probe should only survive robust selection if it has repeated
+            # non-severe evidence. A single lucky/probe run should not override
+            # repeated severe local-search failures.
+            robust_probes = [p for p in probes if p["n"] >= 2 and p["severe_rate"] <= 0.33]
+            if robust_probes:
+                selected = sorted(robust_probes, key=lambda p: p["avg_reward"], reverse=True)[0]
+                world_status = "probe_candidate_requires_local_search"
+            else:
+                selected = sorted(profiles, key=lambda p: p["avg_reward"], reverse=True)[0]
+                world_status = (
+                    "blocked_requires_alternative_primitive"
+                    if selected["severe_rate"] >= 0.50
+                    else "untrusted_requires_more_search"
+                )
         else:
             selected = sorted(profiles, key=lambda p: p["avg_reward"], reverse=True)[0]
-            if selected["selection_status"] == "blocked_requires_alternative_primitive":
+            if selected["selection_status"] == "blocked_requires_alternative_primitive" or selected["severe_rate"] >= 0.50:
                 world_status = "blocked_requires_alternative_primitive"
             else:
                 world_status = "untrusted_requires_more_search"

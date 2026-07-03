@@ -21,8 +21,14 @@
           "normal_walk_blocked": false,
           "probe_candidate": false,
           "probe_rate": 0.0,
+          "profile_families": {
+            "solid": 1
+          },
           "profile_family": "solid",
           "profile_name": "solid_fast_h032_c004",
+          "profile_names": {
+            "solid_fast_h032_c004": 1
+          },
           "requires_alternative_primitive": false,
           "requires_more_theta_search": false,
           "selection_status": "trusted_normal_walk",
@@ -55,6 +61,7 @@
             "vx_far": 0.16,
             "vx_near": 0.08
           },
+          "theta_key": "vx=0.1600::near=0.0800::slow=0.2000::stop=0.1500::h=0.3200::clr=0.0400",
           "trusted_normal_walk": true
         },
         {
@@ -67,8 +74,14 @@
           "normal_walk_blocked": true,
           "probe_candidate": true,
           "probe_rate": 1.0,
+          "profile_families": {
+            "solid": 1
+          },
           "profile_family": "solid",
           "profile_name": "solid_cautious_h033_c005",
+          "profile_names": {
+            "solid_cautious_h033_c005": 1
+          },
           "requires_alternative_primitive": false,
           "requires_more_theta_search": true,
           "selection_status": "probe_candidate_requires_local_search",
@@ -101,6 +114,7 @@
             "vx_far": 0.08,
             "vx_near": 0.04
           },
+          "theta_key": "vx=0.0800::near=0.0400::slow=0.2800::stop=0.1500::h=0.3300::clr=0.0500",
           "trusted_normal_walk": false
         },
         {
@@ -113,8 +127,14 @@
           "normal_walk_blocked": true,
           "probe_candidate": true,
           "probe_rate": 1.0,
+          "profile_families": {
+            "sponge": 1
+          },
           "profile_family": "sponge",
           "profile_name": "sponge_slow_h034_c008",
+          "profile_names": {
+            "sponge_slow_h034_c008": 1
+          },
           "requires_alternative_primitive": false,
           "requires_more_theta_search": true,
           "selection_status": "probe_candidate_requires_local_search",
@@ -147,6 +167,7 @@
             "vx_far": 0.04,
             "vx_near": 0.025
           },
+          "theta_key": "vx=0.0400::near=0.0250::slow=0.3000::stop=0.1500::h=0.3400::clr=0.0800",
           "trusted_normal_walk": false
         },
         {
@@ -159,8 +180,14 @@
           "normal_walk_blocked": true,
           "probe_candidate": true,
           "probe_rate": 1.0,
+          "profile_families": {
+            "sponge": 1
+          },
           "profile_family": "sponge",
           "profile_name": "sponge_midclear_h035_c006",
+          "profile_names": {
+            "sponge_midclear_h035_c006": 1
+          },
           "requires_alternative_primitive": false,
           "requires_more_theta_search": true,
           "selection_status": "probe_candidate_requires_local_search",
@@ -193,6 +220,7 @@
             "vx_far": 0.035,
             "vx_near": 0.015
           },
+          "theta_key": "vx=0.0350::near=0.0150::slow=0.3800::stop=0.1800::h=0.3500::clr=0.0600",
           "trusted_normal_walk": false
         },
         {
@@ -205,8 +233,14 @@
           "normal_walk_blocked": true,
           "probe_candidate": true,
           "probe_rate": 1.0,
+          "profile_families": {
+            "sponge": 1
+          },
           "profile_family": "sponge",
           "profile_name": "sponge_highbody_h036_c008",
+          "profile_names": {
+            "sponge_highbody_h036_c008": 1
+          },
           "requires_alternative_primitive": false,
           "requires_more_theta_search": true,
           "selection_status": "probe_candidate_requires_local_search",
@@ -239,6 +273,7 @@
             "vx_far": 0.035,
             "vx_near": 0.015
           },
+          "theta_key": "vx=0.0350::near=0.0150::slow=0.3800::stop=0.1800::h=0.3600::clr=0.0800",
           "trusted_normal_walk": false
         },
         {
@@ -251,8 +286,14 @@
           "normal_walk_blocked": true,
           "probe_candidate": false,
           "probe_rate": 0.0,
+          "profile_families": {
+            "sponge": 1
+          },
           "profile_family": "sponge",
           "profile_name": "sponge_ultraslow_h034_c010",
+          "profile_names": {
+            "sponge_ultraslow_h034_c010": 1
+          },
           "requires_alternative_primitive": true,
           "requires_more_theta_search": false,
           "selection_status": "blocked_requires_alternative_primitive",
@@ -285,6 +326,7 @@
             "vx_far": 0.025,
             "vx_near": 0.012
           },
+          "theta_key": "vx=0.0250::near=0.0120::slow=0.4000::stop=0.1800::h=0.3400::clr=0.1000",
           "trusted_normal_walk": false
         }
       ],
@@ -302,8 +344,14 @@
         "normal_walk_blocked": false,
         "probe_candidate": false,
         "probe_rate": 0.0,
+        "profile_families": {
+          "solid": 1
+        },
         "profile_family": "solid",
         "profile_name": "solid_fast_h032_c004",
+        "profile_names": {
+          "solid_fast_h032_c004": 1
+        },
         "requires_alternative_primitive": false,
         "requires_more_theta_search": false,
         "selection_status": "trusted_normal_walk",
@@ -336,6 +384,7 @@
           "vx_far": 0.16,
           "vx_near": 0.08
         },
+        "theta_key": "vx=0.1600::near=0.0800::slow=0.2000::stop=0.1500::h=0.3200::clr=0.0400",
         "trusted_normal_walk": true
       },
       "selection_status": "trusted_normal_walk",
@@ -364,8 +413,14 @@
           "normal_walk_blocked": true,
           "probe_candidate": false,
           "probe_rate": 0.0,
+          "profile_families": {
+            "sponge": 1
+          },
           "profile_family": "sponge",
           "profile_name": "sponge_slow_h034_c008",
+          "profile_names": {
+            "sponge_slow_h034_c008": 1
+          },
           "requires_alternative_primitive": true,
           "requires_more_theta_search": false,
           "selection_status": "blocked_requires_alternative_primitive",
@@ -398,6 +453,7 @@
             "vx_far": 0.04,
             "vx_near": 0.025
           },
+          "theta_key": "vx=0.0400::near=0.0250::slow=0.3000::stop=0.1500::h=0.3400::clr=0.0800",
           "trusted_normal_walk": false
         },
         {
@@ -410,8 +466,14 @@
           "normal_walk_blocked": true,
           "probe_candidate": false,
           "probe_rate": 0.0,
+          "profile_families": {
+            "solid": 1
+          },
           "profile_family": "solid",
           "profile_name": "solid_fast_h032_c004",
+          "profile_names": {
+            "solid_fast_h032_c004": 1
+          },
           "requires_alternative_primitive": true,
           "requires_more_theta_search": false,
           "selection_status": "blocked_requires_alternative_primitive",
@@ -444,6 +506,7 @@
             "vx_far": 0.16,
             "vx_near": 0.08
           },
+          "theta_key": "vx=0.1600::near=0.0800::slow=0.2000::stop=0.1500::h=0.3200::clr=0.0400",
           "trusted_normal_walk": false
         },
         {
@@ -456,8 +519,14 @@
           "normal_walk_blocked": true,
           "probe_candidate": false,
           "probe_rate": 0.0,
+          "profile_families": {
+            "sponge": 1
+          },
           "profile_family": "sponge",
           "profile_name": "sponge_highbody_h036_c008",
+          "profile_names": {
+            "sponge_highbody_h036_c008": 1
+          },
           "requires_alternative_primitive": true,
           "requires_more_theta_search": false,
           "selection_status": "blocked_requires_alternative_primitive",
@@ -490,6 +559,7 @@
             "vx_far": 0.035,
             "vx_near": 0.015
           },
+          "theta_key": "vx=0.0350::near=0.0150::slow=0.3800::stop=0.1800::h=0.3600::clr=0.0800",
           "trusted_normal_walk": false
         },
         {
@@ -502,8 +572,14 @@
           "normal_walk_blocked": true,
           "probe_candidate": false,
           "probe_rate": 0.0,
+          "profile_families": {
+            "sponge": 1
+          },
           "profile_family": "sponge",
           "profile_name": "sponge_ultraslow_h034_c010",
+          "profile_names": {
+            "sponge_ultraslow_h034_c010": 1
+          },
           "requires_alternative_primitive": true,
           "requires_more_theta_search": false,
           "selection_status": "blocked_requires_alternative_primitive",
@@ -536,6 +612,7 @@
             "vx_far": 0.025,
             "vx_near": 0.012
           },
+          "theta_key": "vx=0.0250::near=0.0120::slow=0.4000::stop=0.1800::h=0.3400::clr=0.1000",
           "trusted_normal_walk": false
         },
         {
@@ -548,8 +625,14 @@
           "normal_walk_blocked": true,
           "probe_candidate": false,
           "probe_rate": 0.0,
+          "profile_families": {
+            "sponge": 1
+          },
           "profile_family": "sponge",
           "profile_name": "sponge_midclear_h035_c006",
+          "profile_names": {
+            "sponge_midclear_h035_c006": 1
+          },
           "requires_alternative_primitive": true,
           "requires_more_theta_search": false,
           "selection_status": "blocked_requires_alternative_primitive",
@@ -582,6 +665,7 @@
             "vx_far": 0.035,
             "vx_near": 0.015
           },
+          "theta_key": "vx=0.0350::near=0.0150::slow=0.3800::stop=0.1800::h=0.3500::clr=0.0600",
           "trusted_normal_walk": false
         },
         {
@@ -594,8 +678,14 @@
           "normal_walk_blocked": true,
           "probe_candidate": false,
           "probe_rate": 0.0,
+          "profile_families": {
+            "solid": 1
+          },
           "profile_family": "solid",
           "profile_name": "solid_cautious_h033_c005",
+          "profile_names": {
+            "solid_cautious_h033_c005": 1
+          },
           "requires_alternative_primitive": true,
           "requires_more_theta_search": false,
           "selection_status": "blocked_requires_alternative_primitive",
@@ -628,6 +718,7 @@
             "vx_far": 0.08,
             "vx_near": 0.04
           },
+          "theta_key": "vx=0.0800::near=0.0400::slow=0.2800::stop=0.1500::h=0.3300::clr=0.0500",
           "trusted_normal_walk": false
         }
       ],
@@ -645,8 +736,14 @@
         "normal_walk_blocked": true,
         "probe_candidate": false,
         "probe_rate": 0.0,
+        "profile_families": {
+          "sponge": 1
+        },
         "profile_family": "sponge",
         "profile_name": "sponge_slow_h034_c008",
+        "profile_names": {
+          "sponge_slow_h034_c008": 1
+        },
         "requires_alternative_primitive": true,
         "requires_more_theta_search": false,
         "selection_status": "blocked_requires_alternative_primitive",
@@ -679,6 +776,7 @@
           "vx_far": 0.04,
           "vx_near": 0.025
         },
+        "theta_key": "vx=0.0400::near=0.0250::slow=0.3000::stop=0.1500::h=0.3400::clr=0.0800",
         "trusted_normal_walk": false
       },
       "selection_status": "blocked_requires_alternative_primitive",
@@ -695,27 +793,36 @@
     },
     "tracer_sponge_firm_flat": {
       "normal_walk_blocked": true,
-      "probe_candidate": true,
+      "probe_candidate": false,
       "ranked_profiles": [
         {
-          "avg_abs_odom_x_delta": 0.16909532695215457,
+          "avg_abs_odom_x_delta": 1.3355731048341057,
           "avg_abs_yaw_rate": 0.3,
-          "avg_final_rel_dist": 0.3450709961802001,
-          "avg_min_rel_dist": 0.321648293148965,
-          "avg_reward": -0.5734635987991112,
-          "n": 1,
+          "avg_final_rel_dist": 2.2803021142074673,
+          "avg_min_rel_dist": 0.3600491857037423,
+          "avg_reward": -5.834915496983903,
+          "n": 3,
           "normal_walk_blocked": true,
-          "probe_candidate": true,
-          "probe_rate": 1.0,
-          "profile_family": "solid",
-          "profile_name": "solid_fast_h032_c004",
-          "requires_alternative_primitive": false,
-          "requires_more_theta_search": true,
-          "selection_status": "probe_candidate_requires_local_search",
-          "semantic_counts": {
-            "cautious_probe_required": 1
+          "probe_candidate": false,
+          "probe_rate": 0.3333333333333333,
+          "profile_families": {
+            "solid": 1,
+            "sponge_flat_local": 2
           },
-          "severe_rate": 0.0,
+          "profile_family": "sponge_flat_local",
+          "profile_name": "sponge_flat_fast_h032_c004_s020",
+          "profile_names": {
+            "solid_fast_h032_c004": 1,
+            "sponge_flat_fast_h032_c004_s020": 2
+          },
+          "requires_alternative_primitive": true,
+          "requires_more_theta_search": false,
+          "selection_status": "blocked_requires_alternative_primitive",
+          "semantic_counts": {
+            "cautious_probe_required": 1,
+            "forward_walk_unreliable_on_soft_terrain": 2
+          },
+          "severe_rate": 0.6666666666666666,
           "source_runs": [
             {
               "metrics": {
@@ -730,6 +837,34 @@
               "semantic": "cautious_probe_required",
               "source_dataset": "artifacts/phase_b_theta_lite_dataset_v0_20260703_012232/phase_b_theta_lite_dataset_v0.jsonl",
               "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_005552/sponge_even__solid_fast_h032_c004__rep00"
+            },
+            {
+              "metrics": {
+                "final_rel_dist": 4.297406120903732,
+                "max_abs_mpc_yaw_rate": 0.3,
+                "min_rel_dist": 0.453931610687899,
+                "odom_x_delta": 1.948719004564763,
+                "progress_initial_minus_min": 0.046068389312100944,
+                "reached_stop_distance": false
+              },
+              "reward": -9.679628844561911,
+              "semantic": "forward_walk_unreliable_on_soft_terrain",
+              "source_dataset": "artifacts/phase_b_theta_lite_dataset_v1_sponge_flat_20260703_015101/phase_b_theta_lite_dataset_v1_sponge_flat.jsonl",
+              "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_012556/sponge_even__sponge_flat_fast_h032_c004_s020__rep00"
+            },
+            {
+              "metrics": {
+                "final_rel_dist": 2.19842922553847,
+                "max_abs_mpc_yaw_rate": 0.3,
+                "min_rel_dist": 0.30456765327436286,
+                "odom_x_delta": 1.8889049829853997,
+                "progress_initial_minus_min": 0.19561383472024063,
+                "reached_stop_distance": false
+              },
+              "reward": -7.251654047590689,
+              "semantic": "forward_walk_unreliable_on_soft_terrain",
+              "source_dataset": "artifacts/phase_b_theta_lite_dataset_v1_sponge_flat_20260703_015101/phase_b_theta_lite_dataset_v1_sponge_flat.jsonl",
+              "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_012556/sponge_even__sponge_flat_fast_h032_c004_s020__rep01"
             }
           ],
           "stable_rate": 0.0,
@@ -741,6 +876,7 @@
             "vx_far": 0.16,
             "vx_near": 0.08
           },
+          "theta_key": "vx=0.1600::near=0.0800::slow=0.2000::stop=0.1500::h=0.3200::clr=0.0400",
           "trusted_normal_walk": false
         },
         {
@@ -753,8 +889,14 @@
           "normal_walk_blocked": true,
           "probe_candidate": false,
           "probe_rate": 0.0,
+          "profile_families": {
+            "sponge": 1
+          },
           "profile_family": "sponge",
           "profile_name": "sponge_slow_h034_c008",
+          "profile_names": {
+            "sponge_slow_h034_c008": 1
+          },
           "requires_alternative_primitive": true,
           "requires_more_theta_search": false,
           "selection_status": "blocked_requires_alternative_primitive",
@@ -787,6 +929,7 @@
             "vx_far": 0.04,
             "vx_near": 0.025
           },
+          "theta_key": "vx=0.0400::near=0.0250::slow=0.3000::stop=0.1500::h=0.3400::clr=0.0800",
           "trusted_normal_walk": false
         },
         {
@@ -799,8 +942,14 @@
           "normal_walk_blocked": true,
           "probe_candidate": false,
           "probe_rate": 0.0,
+          "profile_families": {
+            "solid": 1
+          },
           "profile_family": "solid",
           "profile_name": "solid_cautious_h033_c005",
+          "profile_names": {
+            "solid_cautious_h033_c005": 1
+          },
           "requires_alternative_primitive": true,
           "requires_more_theta_search": false,
           "selection_status": "blocked_requires_alternative_primitive",
@@ -833,6 +982,7 @@
             "vx_far": 0.08,
             "vx_near": 0.04
           },
+          "theta_key": "vx=0.0800::near=0.0400::slow=0.2800::stop=0.1500::h=0.3300::clr=0.0500",
           "trusted_normal_walk": false
         },
         {
@@ -845,8 +995,14 @@
           "normal_walk_blocked": true,
           "probe_candidate": false,
           "probe_rate": 0.0,
+          "profile_families": {
+            "sponge_flat_local": 2
+          },
           "profile_family": "sponge_flat_local",
           "profile_name": "sponge_flat_mid_h032_c005_s030",
+          "profile_names": {
+            "sponge_flat_mid_h032_c005_s030": 2
+          },
           "requires_alternative_primitive": true,
           "requires_more_theta_search": false,
           "selection_status": "blocked_requires_alternative_primitive",
@@ -893,6 +1049,7 @@
             "vx_far": 0.09,
             "vx_near": 0.04
           },
+          "theta_key": "vx=0.0900::near=0.0400::slow=0.3000::stop=0.1500::h=0.3200::clr=0.0500",
           "trusted_normal_walk": false
         },
         {
@@ -905,8 +1062,14 @@
           "normal_walk_blocked": true,
           "probe_candidate": false,
           "probe_rate": 0.0,
+          "profile_families": {
+            "sponge_flat_local": 2
+          },
           "profile_family": "sponge_flat_local",
           "profile_name": "sponge_flat_slow_h034_c008_s040",
+          "profile_names": {
+            "sponge_flat_slow_h034_c008_s040": 2
+          },
           "requires_alternative_primitive": true,
           "requires_more_theta_search": false,
           "selection_status": "blocked_requires_alternative_primitive",
@@ -953,6 +1116,7 @@
             "vx_far": 0.05,
             "vx_near": 0.02
           },
+          "theta_key": "vx=0.0500::near=0.0200::slow=0.4000::stop=0.1800::h=0.3400::clr=0.0800",
           "trusted_normal_walk": false
         },
         {
@@ -965,8 +1129,14 @@
           "normal_walk_blocked": true,
           "probe_candidate": false,
           "probe_rate": 0.0,
+          "profile_families": {
+            "sponge": 1
+          },
           "profile_family": "sponge",
           "profile_name": "sponge_midclear_h035_c006",
+          "profile_names": {
+            "sponge_midclear_h035_c006": 1
+          },
           "requires_alternative_primitive": true,
           "requires_more_theta_search": false,
           "selection_status": "blocked_requires_alternative_primitive",
@@ -999,66 +1169,7 @@
             "vx_far": 0.035,
             "vx_near": 0.015
           },
-          "trusted_normal_walk": false
-        },
-        {
-          "avg_abs_odom_x_delta": 1.9188119937750814,
-          "avg_abs_yaw_rate": 0.3,
-          "avg_final_rel_dist": 3.2479176732211013,
-          "avg_min_rel_dist": 0.37924963198113093,
-          "avg_reward": -8.465641446076301,
-          "n": 2,
-          "normal_walk_blocked": true,
-          "probe_candidate": false,
-          "probe_rate": 0.0,
-          "profile_family": "sponge_flat_local",
-          "profile_name": "sponge_flat_fast_h032_c004_s020",
-          "requires_alternative_primitive": true,
-          "requires_more_theta_search": false,
-          "selection_status": "blocked_requires_alternative_primitive",
-          "semantic_counts": {
-            "forward_walk_unreliable_on_soft_terrain": 2
-          },
-          "severe_rate": 1.0,
-          "source_runs": [
-            {
-              "metrics": {
-                "final_rel_dist": 4.297406120903732,
-                "max_abs_mpc_yaw_rate": 0.3,
-                "min_rel_dist": 0.453931610687899,
-                "odom_x_delta": 1.948719004564763,
-                "progress_initial_minus_min": 0.046068389312100944,
-                "reached_stop_distance": false
-              },
-              "reward": -9.679628844561911,
-              "semantic": "forward_walk_unreliable_on_soft_terrain",
-              "source_dataset": "artifacts/phase_b_theta_lite_dataset_v1_sponge_flat_20260703_015101/phase_b_theta_lite_dataset_v1_sponge_flat.jsonl",
-              "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_012556/sponge_even__sponge_flat_fast_h032_c004_s020__rep00"
-            },
-            {
-              "metrics": {
-                "final_rel_dist": 2.19842922553847,
-                "max_abs_mpc_yaw_rate": 0.3,
-                "min_rel_dist": 0.30456765327436286,
-                "odom_x_delta": 1.8889049829853997,
-                "progress_initial_minus_min": 0.19561383472024063,
-                "reached_stop_distance": false
-              },
-              "reward": -7.251654047590689,
-              "semantic": "forward_walk_unreliable_on_soft_terrain",
-              "source_dataset": "artifacts/phase_b_theta_lite_dataset_v1_sponge_flat_20260703_015101/phase_b_theta_lite_dataset_v1_sponge_flat.jsonl",
-              "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_012556/sponge_even__sponge_flat_fast_h032_c004_s020__rep01"
-            }
-          ],
-          "stable_rate": 0.0,
-          "theta_action": {
-            "body_height": 0.32,
-            "goal_slow_distance": 0.2,
-            "goal_stop_distance": 0.15,
-            "swing_clearance": 0.04,
-            "vx_far": 0.16,
-            "vx_near": 0.08
-          },
+          "theta_key": "vx=0.0350::near=0.0150::slow=0.3800::stop=0.1800::h=0.3500::clr=0.0600",
           "trusted_normal_walk": false
         },
         {
@@ -1071,8 +1182,14 @@
           "normal_walk_blocked": true,
           "probe_candidate": false,
           "probe_rate": 0.0,
+          "profile_families": {
+            "sponge": 1
+          },
           "profile_family": "sponge",
           "profile_name": "sponge_highbody_h036_c008",
+          "profile_names": {
+            "sponge_highbody_h036_c008": 1
+          },
           "requires_alternative_primitive": true,
           "requires_more_theta_search": false,
           "selection_status": "blocked_requires_alternative_primitive",
@@ -1105,6 +1222,7 @@
             "vx_far": 0.035,
             "vx_near": 0.015
           },
+          "theta_key": "vx=0.0350::near=0.0150::slow=0.3800::stop=0.1800::h=0.3600::clr=0.0800",
           "trusted_normal_walk": false
         },
         {
@@ -1117,8 +1235,14 @@
           "normal_walk_blocked": true,
           "probe_candidate": false,
           "probe_rate": 0.0,
+          "profile_families": {
+            "sponge_flat_local": 2
+          },
           "profile_family": "sponge_flat_local",
           "profile_name": "sponge_flat_ultraslow_h035_c010_s045",
+          "profile_names": {
+            "sponge_flat_ultraslow_h035_c010_s045": 2
+          },
           "requires_alternative_primitive": true,
           "requires_more_theta_search": false,
           "selection_status": "blocked_requires_alternative_primitive",
@@ -1165,6 +1289,7 @@
             "vx_far": 0.03,
             "vx_near": 0.012
           },
+          "theta_key": "vx=0.0300::near=0.0120::slow=0.4500::stop=0.2000::h=0.3500::clr=0.1000",
           "trusted_normal_walk": false
         },
         {
@@ -1177,8 +1302,14 @@
           "normal_walk_blocked": true,
           "probe_candidate": false,
           "probe_rate": 0.0,
+          "profile_families": {
+            "sponge_flat_local": 2
+          },
           "profile_family": "sponge_flat_local",
           "profile_name": "sponge_flat_slow_h033_c006_s040",
+          "profile_names": {
+            "sponge_flat_slow_h033_c006_s040": 2
+          },
           "requires_alternative_primitive": true,
           "requires_more_theta_search": false,
           "selection_status": "blocked_requires_alternative_primitive",
@@ -1225,6 +1356,7 @@
             "vx_far": 0.06,
             "vx_near": 0.025
           },
+          "theta_key": "vx=0.0600::near=0.0250::slow=0.4000::stop=0.1800::h=0.3300::clr=0.0600",
           "trusted_normal_walk": false
         },
         {
@@ -1237,8 +1369,14 @@
           "normal_walk_blocked": true,
           "probe_candidate": false,
           "probe_rate": 0.0,
+          "profile_families": {
+            "sponge_flat_local": 2
+          },
           "profile_family": "sponge_flat_local",
           "profile_name": "sponge_flat_midfast_h032_c004_s025",
+          "profile_names": {
+            "sponge_flat_midfast_h032_c004_s025": 2
+          },
           "requires_alternative_primitive": true,
           "requires_more_theta_search": false,
           "selection_status": "blocked_requires_alternative_primitive",
@@ -1285,6 +1423,7 @@
             "vx_far": 0.12,
             "vx_near": 0.06
           },
+          "theta_key": "vx=0.1200::near=0.0600::slow=0.2500::stop=0.1500::h=0.3200::clr=0.0400",
           "trusted_normal_walk": false
         },
         {
@@ -1297,8 +1436,14 @@
           "normal_walk_blocked": true,
           "probe_candidate": false,
           "probe_rate": 0.0,
+          "profile_families": {
+            "sponge_flat_local": 2
+          },
           "profile_family": "sponge_flat_local",
           "profile_name": "sponge_flat_ultraslow_h034_c008_s045",
+          "profile_names": {
+            "sponge_flat_ultraslow_h034_c008_s045": 2
+          },
           "requires_alternative_primitive": true,
           "requires_more_theta_search": false,
           "selection_status": "blocked_requires_alternative_primitive",
@@ -1345,6 +1490,7 @@
             "vx_far": 0.035,
             "vx_near": 0.015
           },
+          "theta_key": "vx=0.0350::near=0.0150::slow=0.4500::stop=0.2000::h=0.3400::clr=0.0800",
           "trusted_normal_walk": false
         },
         {
@@ -1357,8 +1503,14 @@
           "normal_walk_blocked": true,
           "probe_candidate": false,
           "probe_rate": 0.0,
+          "profile_families": {
+            "sponge_flat_local": 2
+          },
           "profile_family": "sponge_flat_local",
           "profile_name": "sponge_flat_mid_h033_c006_s035",
+          "profile_names": {
+            "sponge_flat_mid_h033_c006_s035": 2
+          },
           "requires_alternative_primitive": true,
           "requires_more_theta_search": false,
           "selection_status": "blocked_requires_alternative_primitive",
@@ -1405,6 +1557,7 @@
             "vx_far": 0.08,
             "vx_near": 0.035
           },
+          "theta_key": "vx=0.0800::near=0.0350::slow=0.3500::stop=0.1600::h=0.3300::clr=0.0600",
           "trusted_normal_walk": false
         },
         {
@@ -1417,8 +1570,14 @@
           "normal_walk_blocked": true,
           "probe_candidate": false,
           "probe_rate": 0.0,
+          "profile_families": {
+            "sponge": 1
+          },
           "profile_family": "sponge",
           "profile_name": "sponge_ultraslow_h034_c010",
+          "profile_names": {
+            "sponge_ultraslow_h034_c010": 1
+          },
           "requires_alternative_primitive": true,
           "requires_more_theta_search": false,
           "selection_status": "blocked_requires_alternative_primitive",
@@ -1451,32 +1610,42 @@
             "vx_far": 0.025,
             "vx_near": 0.012
           },
+          "theta_key": "vx=0.0250::near=0.0120::slow=0.4000::stop=0.1800::h=0.3400::clr=0.1000",
           "trusted_normal_walk": false
         }
       ],
-      "requires_alternative_primitive": false,
-      "requires_more_theta_search": true,
-      "selected_profile_family": "solid",
-      "selected_profile_name": "solid_fast_h032_c004",
+      "requires_alternative_primitive": true,
+      "requires_more_theta_search": false,
+      "selected_profile_family": "sponge_flat_local",
+      "selected_profile_name": "sponge_flat_fast_h032_c004_s020",
       "selected_profile_summary": {
-        "avg_abs_odom_x_delta": 0.16909532695215457,
+        "avg_abs_odom_x_delta": 1.3355731048341057,
         "avg_abs_yaw_rate": 0.3,
-        "avg_final_rel_dist": 0.3450709961802001,
-        "avg_min_rel_dist": 0.321648293148965,
-        "avg_reward": -0.5734635987991112,
-        "n": 1,
+        "avg_final_rel_dist": 2.2803021142074673,
+        "avg_min_rel_dist": 0.3600491857037423,
+        "avg_reward": -5.834915496983903,
+        "n": 3,
         "normal_walk_blocked": true,
-        "probe_candidate": true,
-        "probe_rate": 1.0,
-        "profile_family": "solid",
-        "profile_name": "solid_fast_h032_c004",
-        "requires_alternative_primitive": false,
-        "requires_more_theta_search": true,
-        "selection_status": "probe_candidate_requires_local_search",
-        "semantic_counts": {
-          "cautious_probe_required": 1
+        "probe_candidate": false,
+        "probe_rate": 0.3333333333333333,
+        "profile_families": {
+          "solid": 1,
+          "sponge_flat_local": 2
         },
-        "severe_rate": 0.0,
+        "profile_family": "sponge_flat_local",
+        "profile_name": "sponge_flat_fast_h032_c004_s020",
+        "profile_names": {
+          "solid_fast_h032_c004": 1,
+          "sponge_flat_fast_h032_c004_s020": 2
+        },
+        "requires_alternative_primitive": true,
+        "requires_more_theta_search": false,
+        "selection_status": "blocked_requires_alternative_primitive",
+        "semantic_counts": {
+          "cautious_probe_required": 1,
+          "forward_walk_unreliable_on_soft_terrain": 2
+        },
+        "severe_rate": 0.6666666666666666,
         "source_runs": [
           {
             "metrics": {
@@ -1491,6 +1660,34 @@
             "semantic": "cautious_probe_required",
             "source_dataset": "artifacts/phase_b_theta_lite_dataset_v0_20260703_012232/phase_b_theta_lite_dataset_v0.jsonl",
             "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_005552/sponge_even__solid_fast_h032_c004__rep00"
+          },
+          {
+            "metrics": {
+              "final_rel_dist": 4.297406120903732,
+              "max_abs_mpc_yaw_rate": 0.3,
+              "min_rel_dist": 0.453931610687899,
+              "odom_x_delta": 1.948719004564763,
+              "progress_initial_minus_min": 0.046068389312100944,
+              "reached_stop_distance": false
+            },
+            "reward": -9.679628844561911,
+            "semantic": "forward_walk_unreliable_on_soft_terrain",
+            "source_dataset": "artifacts/phase_b_theta_lite_dataset_v1_sponge_flat_20260703_015101/phase_b_theta_lite_dataset_v1_sponge_flat.jsonl",
+            "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_012556/sponge_even__sponge_flat_fast_h032_c004_s020__rep00"
+          },
+          {
+            "metrics": {
+              "final_rel_dist": 2.19842922553847,
+              "max_abs_mpc_yaw_rate": 0.3,
+              "min_rel_dist": 0.30456765327436286,
+              "odom_x_delta": 1.8889049829853997,
+              "progress_initial_minus_min": 0.19561383472024063,
+              "reached_stop_distance": false
+            },
+            "reward": -7.251654047590689,
+            "semantic": "forward_walk_unreliable_on_soft_terrain",
+            "source_dataset": "artifacts/phase_b_theta_lite_dataset_v1_sponge_flat_20260703_015101/phase_b_theta_lite_dataset_v1_sponge_flat.jsonl",
+            "source_run_dir": "artifacts/phase_b_theta_lite_sweep_v0_20260703_012556/sponge_even__sponge_flat_fast_h032_c004_s020__rep01"
           }
         ],
         "stable_rate": 0.0,
@@ -1502,9 +1699,10 @@
           "vx_far": 0.16,
           "vx_near": 0.08
         },
+        "theta_key": "vx=0.1600::near=0.0800::slow=0.2000::stop=0.1500::h=0.3200::clr=0.0400",
         "trusted_normal_walk": false
       },
-      "selection_status": "probe_candidate_requires_local_search",
+      "selection_status": "blocked_requires_alternative_primitive",
       "theta_action": {
         "body_height": 0.32,
         "goal_slow_distance": 0.2,
@@ -1530,8 +1728,14 @@
           "normal_walk_blocked": true,
           "probe_candidate": false,
           "probe_rate": 0.0,
+          "profile_families": {
+            "sponge": 1
+          },
           "profile_family": "sponge",
           "profile_name": "sponge_slow_h034_c008",
+          "profile_names": {
+            "sponge_slow_h034_c008": 1
+          },
           "requires_alternative_primitive": true,
           "requires_more_theta_search": false,
           "selection_status": "blocked_requires_alternative_primitive",
@@ -1564,6 +1768,7 @@
             "vx_far": 0.04,
             "vx_near": 0.025
           },
+          "theta_key": "vx=0.0400::near=0.0250::slow=0.3000::stop=0.1500::h=0.3400::clr=0.0800",
           "trusted_normal_walk": false
         },
         {
@@ -1576,8 +1781,14 @@
           "normal_walk_blocked": true,
           "probe_candidate": false,
           "probe_rate": 0.0,
+          "profile_families": {
+            "solid": 1
+          },
           "profile_family": "solid",
           "profile_name": "solid_fast_h032_c004",
+          "profile_names": {
+            "solid_fast_h032_c004": 1
+          },
           "requires_alternative_primitive": true,
           "requires_more_theta_search": false,
           "selection_status": "blocked_requires_alternative_primitive",
@@ -1610,6 +1821,7 @@
             "vx_far": 0.16,
             "vx_near": 0.08
           },
+          "theta_key": "vx=0.1600::near=0.0800::slow=0.2000::stop=0.1500::h=0.3200::clr=0.0400",
           "trusted_normal_walk": false
         },
         {
@@ -1622,8 +1834,14 @@
           "normal_walk_blocked": true,
           "probe_candidate": false,
           "probe_rate": 0.0,
+          "profile_families": {
+            "sponge": 1
+          },
           "profile_family": "sponge",
           "profile_name": "sponge_ultraslow_h034_c010",
+          "profile_names": {
+            "sponge_ultraslow_h034_c010": 1
+          },
           "requires_alternative_primitive": true,
           "requires_more_theta_search": false,
           "selection_status": "blocked_requires_alternative_primitive",
@@ -1656,6 +1874,7 @@
             "vx_far": 0.025,
             "vx_near": 0.012
           },
+          "theta_key": "vx=0.0250::near=0.0120::slow=0.4000::stop=0.1800::h=0.3400::clr=0.1000",
           "trusted_normal_walk": false
         },
         {
@@ -1668,8 +1887,14 @@
           "normal_walk_blocked": true,
           "probe_candidate": false,
           "probe_rate": 0.0,
+          "profile_families": {
+            "sponge": 1
+          },
           "profile_family": "sponge",
           "profile_name": "sponge_midclear_h035_c006",
+          "profile_names": {
+            "sponge_midclear_h035_c006": 1
+          },
           "requires_alternative_primitive": true,
           "requires_more_theta_search": false,
           "selection_status": "blocked_requires_alternative_primitive",
@@ -1702,6 +1927,7 @@
             "vx_far": 0.035,
             "vx_near": 0.015
           },
+          "theta_key": "vx=0.0350::near=0.0150::slow=0.3800::stop=0.1800::h=0.3500::clr=0.0600",
           "trusted_normal_walk": false
         },
         {
@@ -1714,8 +1940,14 @@
           "normal_walk_blocked": true,
           "probe_candidate": false,
           "probe_rate": 0.0,
+          "profile_families": {
+            "solid": 1
+          },
           "profile_family": "solid",
           "profile_name": "solid_cautious_h033_c005",
+          "profile_names": {
+            "solid_cautious_h033_c005": 1
+          },
           "requires_alternative_primitive": true,
           "requires_more_theta_search": false,
           "selection_status": "blocked_requires_alternative_primitive",
@@ -1748,6 +1980,7 @@
             "vx_far": 0.08,
             "vx_near": 0.04
           },
+          "theta_key": "vx=0.0800::near=0.0400::slow=0.2800::stop=0.1500::h=0.3300::clr=0.0500",
           "trusted_normal_walk": false
         },
         {
@@ -1760,8 +1993,14 @@
           "normal_walk_blocked": true,
           "probe_candidate": false,
           "probe_rate": 0.0,
+          "profile_families": {
+            "sponge": 1
+          },
           "profile_family": "sponge",
           "profile_name": "sponge_highbody_h036_c008",
+          "profile_names": {
+            "sponge_highbody_h036_c008": 1
+          },
           "requires_alternative_primitive": true,
           "requires_more_theta_search": false,
           "selection_status": "blocked_requires_alternative_primitive",
@@ -1794,6 +2033,7 @@
             "vx_far": 0.035,
             "vx_near": 0.015
           },
+          "theta_key": "vx=0.0350::near=0.0150::slow=0.3800::stop=0.1800::h=0.3600::clr=0.0800",
           "trusted_normal_walk": false
         }
       ],
@@ -1811,8 +2051,14 @@
         "normal_walk_blocked": true,
         "probe_candidate": false,
         "probe_rate": 0.0,
+        "profile_families": {
+          "sponge": 1
+        },
         "profile_family": "sponge",
         "profile_name": "sponge_slow_h034_c008",
+        "profile_names": {
+          "sponge_slow_h034_c008": 1
+        },
         "requires_alternative_primitive": true,
         "requires_more_theta_search": false,
         "selection_status": "blocked_requires_alternative_primitive",
@@ -1845,6 +2091,7 @@
           "vx_far": 0.04,
           "vx_near": 0.025
         },
+        "theta_key": "vx=0.0400::near=0.0250::slow=0.3000::stop=0.1500::h=0.3400::clr=0.0800",
         "trusted_normal_walk": false
       },
       "selection_status": "blocked_requires_alternative_primitive",
