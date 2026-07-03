@@ -190,6 +190,7 @@ def main():
     ap.add_argument("--sample-hz", type=float, default=20.0)
     ap.add_argument("--epsilon", type=float, default=0.15)
     ap.add_argument("--ucb-c", type=float, default=1.0)
+    ap.add_argument("--runner-timeout", type=float, default=140.0)
     ap.add_argument("--seed", type=int, default=0)
     args = ap.parse_args()
 
@@ -262,23 +263,32 @@ def main():
     status = "ok"
     error = ""
     try:
-        subprocess.check_call(["bash", args.runner], env=env)
+        subprocess.check_call(["bash", args.runner], env=env, timeout=args.runner_timeout)
+    except subprocess.TimeoutExpired as e:
+        status = "timeout"
+        error = f"runner timeout after {args.runner_timeout}s: {e}"
     except subprocess.CalledProcessError as e:
         status = "failed"
         error = str(e)
 
     summary_path = find_summary(out_root)
+    policy_updated = False
+
     if summary_path is None:
         sem = "runner_failed_no_summary"
         rew = -10.0
         summary = {}
+        # Runtime failures should be recorded but should not poison the learned
+        # gait/action policy. They are simulator/bridge failures, not terrain
+        # locomotion outcomes.
+        policy_updated = False
     else:
         summary = json.load(open(summary_path))
         sem = classify(summary)
         rew = reward(summary, sem)
-
-    update_policy(policy, args.world_name, action["name"], rew, sem)
-    save_json(args.policy_json, policy)
+        update_policy(policy, args.world_name, action["name"], rew, sem)
+        save_json(args.policy_json, policy)
+        policy_updated = True
 
     result = {
         "schema": "phase_b_theta_lite_bandit_episode_result_v0",
@@ -301,6 +311,7 @@ def main():
             "max_abs_mpc_yaw_rate": summary.get("max_abs_mpc_yaw_rate"),
         },
         "policy_json": args.policy_json,
+        "policy_updated": policy_updated,
     }
 
     save_json(out_root / "bandit_episode_result_v0.json", result)

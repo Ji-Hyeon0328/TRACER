@@ -24,7 +24,7 @@ pkill -9 -f "ros2 topic pub.*/tracer/mpc_reference" 2>/dev/null || true
 
 echo
 echo "========== stop ROS1 lite bridge processes =========="
-sudo docker exec "$CTRL_CONTAINER" bash --noprofile --norc -lc '
+docker exec "$CTRL_CONTAINER" bash --noprofile --norc -lc '
 pkill -9 -f tracer_ros1_proprio_udp_sender.py || true
 pkill -9 -f tracer_ros1_odom_udp_sender.py || true
 pkill -9 -f tracer_udp_to_ros1_mpc_ref.py || true
@@ -34,7 +34,7 @@ echo
 echo "========== remaining process check =========="
 pgrep -af "tracer_udp_proprio_to_ros2_node.py|tracer_udp_odom_to_ros2_node.py|tracer_ros2_mpc_ref_udp_sender.py|tracer_fusion_policy_mpc_ref_node.py|tracer_objective_selector_stub_node.py|tracer_learned_high_level_policy_udp_client|ros2 topic pub.*/tracer/mpc_reference" || true
 
-sudo docker exec "$CTRL_CONTAINER" bash --noprofile --norc -lc '
+docker exec "$CTRL_CONTAINER" bash --noprofile --norc -lc '
 pgrep -af "tracer_ros1_proprio_udp_sender.py|tracer_ros1_odom_udp_sender.py|tracer_udp_to_ros1_mpc_ref.py" || true
 ' || true
 
