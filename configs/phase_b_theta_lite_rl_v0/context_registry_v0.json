@@ -1,0 +1,32 @@
+{
+  "schema": "phase_b_theta_lite_rl_context_registry_v0",
+  "description": "Given context vectors for early theta-lite RL without learned encoder c_t.",
+  "context_fields": [
+    "is_solid",
+    "is_soft_contact",
+    "slope_deg",
+    "is_downslope",
+    "roughness_proxy",
+    "friction_proxy",
+    "compliance_proxy",
+    "risk_prior"
+  ],
+  "worlds": {
+    "earth": {
+      "terrain_label": "solid_even",
+      "context": [1.0, 0.0, 0.0, 0.0, 0.0, 0.8, 0.0, 0.05]
+    },
+    "tracer_sponge_firm_flat": {
+      "terrain_label": "soft_contact_even",
+      "context": [0.0, 1.0, 0.0, 0.0, 0.1, 0.55, 0.8, 0.75]
+    },
+    "tracer_sponge_firm_slope_5deg": {
+      "terrain_label": "soft_contact_upslope_5deg",
+      "context": [0.0, 1.0, 5.0, 0.0, 0.15, 0.55, 0.85, 0.85]
+    },
+    "tracer_sponge_firm_downslope_5deg": {
+      "terrain_label": "soft_contact_downslope_5deg",
+      "context": [0.0, 1.0, -5.0, 1.0, 0.15, 0.55, 0.85, 0.90]
+    }
+  }
+}

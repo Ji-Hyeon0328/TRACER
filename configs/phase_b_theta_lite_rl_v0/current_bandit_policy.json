@@ -1,0 +1,392 @@
+{
+  "action_bank_schema": "phase_b_theta_lite_rl_action_bank_v0",
+  "context_registry_schema": "phase_b_theta_lite_rl_context_registry_v0",
+  "created_at": "20260703_025727",
+  "schema": "phase_b_theta_lite_bandit_policy_v0",
+  "worlds": {
+    "earth": {
+      "actions": {
+        "trot_brake_near_goal": {
+          "best_reward": null,
+          "last_reward": null,
+          "mean_reward": 0.0,
+          "n": 0,
+          "semantic_counts": {},
+          "total_reward": 0.0
+        },
+        "trot_cautious": {
+          "best_reward": 5.341495082892519,
+          "last_reward": 5.341495082892519,
+          "mean_reward": 5.341495082892519,
+          "n": 1,
+          "semantic_counts": {
+            "stable_goal_reach_flat_locomotion": 1
+          },
+          "total_reward": 5.341495082892519
+        },
+        "trot_fast_low_clear": {
+          "best_reward": 5.394978507275405,
+          "last_reward": 5.394978507275405,
+          "mean_reward": 5.394978507275405,
+          "n": 1,
+          "semantic_counts": {
+            "stable_goal_reach_flat_locomotion": 1
+          },
+          "total_reward": 5.394978507275405
+        },
+        "trot_high_body_soft": {
+          "best_reward": null,
+          "last_reward": null,
+          "mean_reward": 0.0,
+          "n": 0,
+          "semantic_counts": {},
+          "total_reward": 0.0
+        },
+        "trot_low_body_probe": {
+          "best_reward": null,
+          "last_reward": null,
+          "mean_reward": 0.0,
+          "n": 0,
+          "semantic_counts": {},
+          "total_reward": 0.0
+        },
+        "trot_mid": {
+          "best_reward": 4.859903522473214,
+          "last_reward": 4.859903522473214,
+          "mean_reward": 4.859903522473214,
+          "n": 1,
+          "semantic_counts": {
+            "stable_goal_reach_flat_locomotion": 1
+          },
+          "total_reward": 4.859903522473214
+        },
+        "trot_soft_high_clear": {
+          "best_reward": -0.07241732721684585,
+          "last_reward": -0.07241732721684585,
+          "mean_reward": -0.07241732721684585,
+          "n": 1,
+          "semantic_counts": {
+            "cautious_probe_required": 1
+          },
+          "total_reward": -0.07241732721684585
+        },
+        "trot_soft_mid_clear": {
+          "best_reward": -6.207628660411551,
+          "last_reward": -6.207628660411551,
+          "mean_reward": -6.207628660411551,
+          "n": 1,
+          "semantic_counts": {
+            "forward_walk_unreliable_on_soft_terrain": 1
+          },
+          "total_reward": -6.207628660411551
+        },
+        "trot_soft_ultraslow": {
+          "best_reward": null,
+          "last_reward": null,
+          "mean_reward": 0.0,
+          "n": 0,
+          "semantic_counts": {},
+          "total_reward": 0.0
+        },
+        "trot_solid_fast": {
+          "best_reward": -2.0133074354268574,
+          "last_reward": -2.0133074354268574,
+          "mean_reward": -2.0133074354268574,
+          "n": 1,
+          "semantic_counts": {
+            "no_meaningful_progress": 1
+          },
+          "total_reward": -2.0133074354268574
+        }
+      },
+      "n_total": 6
+    },
+    "tracer_sponge_firm_downslope_5deg": {
+      "actions": {
+        "trot_brake_near_goal": {
+          "best_reward": null,
+          "last_reward": null,
+          "mean_reward": 0.0,
+          "n": 0,
+          "semantic_counts": {},
+          "total_reward": 0.0
+        },
+        "trot_cautious": {
+          "best_reward": -4.856311911770124,
+          "last_reward": -4.856311911770124,
+          "mean_reward": -4.856311911770124,
+          "n": 1,
+          "semantic_counts": {
+            "forward_walk_unreliable_on_soft_terrain": 1
+          },
+          "total_reward": -4.856311911770124
+        },
+        "trot_fast_low_clear": {
+          "best_reward": -7.13488547119135,
+          "last_reward": -7.13488547119135,
+          "mean_reward": -7.13488547119135,
+          "n": 1,
+          "semantic_counts": {
+            "forward_walk_unreliable_on_soft_terrain": 1
+          },
+          "total_reward": -7.13488547119135
+        },
+        "trot_high_body_soft": {
+          "best_reward": null,
+          "last_reward": null,
+          "mean_reward": 0.0,
+          "n": 0,
+          "semantic_counts": {},
+          "total_reward": 0.0
+        },
+        "trot_low_body_probe": {
+          "best_reward": null,
+          "last_reward": null,
+          "mean_reward": 0.0,
+          "n": 0,
+          "semantic_counts": {},
+          "total_reward": 0.0
+        },
+        "trot_mid": {
+          "best_reward": -7.525098834607015,
+          "last_reward": -7.525098834607015,
+          "mean_reward": -7.525098834607015,
+          "n": 1,
+          "semantic_counts": {
+            "forward_walk_unreliable_on_soft_terrain": 1
+          },
+          "total_reward": -7.525098834607015
+        },
+        "trot_soft_high_clear": {
+          "best_reward": null,
+          "last_reward": null,
+          "mean_reward": 0.0,
+          "n": 0,
+          "semantic_counts": {},
+          "total_reward": 0.0
+        },
+        "trot_soft_mid_clear": {
+          "best_reward": -4.874655143758836,
+          "last_reward": -4.874655143758836,
+          "mean_reward": -4.874655143758836,
+          "n": 1,
+          "semantic_counts": {
+            "forward_walk_unreliable_on_soft_terrain": 1
+          },
+          "total_reward": -4.874655143758836
+        },
+        "trot_soft_ultraslow": {
+          "best_reward": null,
+          "last_reward": null,
+          "mean_reward": 0.0,
+          "n": 0,
+          "semantic_counts": {},
+          "total_reward": 0.0
+        },
+        "trot_solid_fast": {
+          "best_reward": -5.681456714970734,
+          "last_reward": -5.681456714970734,
+          "mean_reward": -5.681456714970734,
+          "n": 1,
+          "semantic_counts": {
+            "forward_walk_unreliable_on_soft_terrain": 1
+          },
+          "total_reward": -5.681456714970734
+        }
+      },
+      "n_total": 5
+    },
+    "tracer_sponge_firm_flat": {
+      "actions": {
+        "trot_brake_near_goal": {
+          "best_reward": null,
+          "last_reward": null,
+          "mean_reward": 0.0,
+          "n": 0,
+          "semantic_counts": {},
+          "total_reward": 0.0
+        },
+        "trot_cautious": {
+          "best_reward": -0.7571287516915644,
+          "last_reward": -0.7571287516915644,
+          "mean_reward": -0.7571287516915644,
+          "n": 1,
+          "semantic_counts": {
+            "cautious_probe_required": 1
+          },
+          "total_reward": -0.7571287516915644
+        },
+        "trot_fast_low_clear": {
+          "best_reward": -8.574341116960642,
+          "last_reward": -8.574341116960642,
+          "mean_reward": -8.574341116960642,
+          "n": 1,
+          "semantic_counts": {
+            "forward_walk_unreliable_on_soft_terrain": 1
+          },
+          "total_reward": -8.574341116960642
+        },
+        "trot_high_body_soft": {
+          "best_reward": null,
+          "last_reward": null,
+          "mean_reward": 0.0,
+          "n": 0,
+          "semantic_counts": {},
+          "total_reward": 0.0
+        },
+        "trot_low_body_probe": {
+          "best_reward": null,
+          "last_reward": null,
+          "mean_reward": 0.0,
+          "n": 0,
+          "semantic_counts": {},
+          "total_reward": 0.0
+        },
+        "trot_mid": {
+          "best_reward": -5.555941547916371,
+          "last_reward": -5.555941547916371,
+          "mean_reward": -5.555941547916371,
+          "n": 1,
+          "semantic_counts": {
+            "forward_walk_unreliable_on_soft_terrain": 1
+          },
+          "total_reward": -5.555941547916371
+        },
+        "trot_soft_high_clear": {
+          "best_reward": -2.0929358928625517,
+          "last_reward": -2.0929358928625517,
+          "mean_reward": -2.0929358928625517,
+          "n": 1,
+          "semantic_counts": {
+            "no_meaningful_progress": 1
+          },
+          "total_reward": -2.0929358928625517
+        },
+        "trot_soft_mid_clear": {
+          "best_reward": -8.892570304912692,
+          "last_reward": -8.892570304912692,
+          "mean_reward": -8.892570304912692,
+          "n": 1,
+          "semantic_counts": {
+            "forward_walk_unreliable_on_soft_terrain": 1
+          },
+          "total_reward": -8.892570304912692
+        },
+        "trot_soft_ultraslow": {
+          "best_reward": null,
+          "last_reward": null,
+          "mean_reward": 0.0,
+          "n": 0,
+          "semantic_counts": {},
+          "total_reward": 0.0
+        },
+        "trot_solid_fast": {
+          "best_reward": -8.867064098343754,
+          "last_reward": -8.867064098343754,
+          "mean_reward": -8.867064098343754,
+          "n": 1,
+          "semantic_counts": {
+            "forward_walk_unreliable_on_soft_terrain": 1
+          },
+          "total_reward": -8.867064098343754
+        }
+      },
+      "n_total": 6
+    },
+    "tracer_sponge_firm_slope_5deg": {
+      "actions": {
+        "trot_brake_near_goal": {
+          "best_reward": null,
+          "last_reward": null,
+          "mean_reward": 0.0,
+          "n": 0,
+          "semantic_counts": {},
+          "total_reward": 0.0
+        },
+        "trot_cautious": {
+          "best_reward": -8.594698040395171,
+          "last_reward": -8.594698040395171,
+          "mean_reward": -8.594698040395171,
+          "n": 1,
+          "semantic_counts": {
+            "forward_walk_unreliable_on_soft_terrain": 1
+          },
+          "total_reward": -8.594698040395171
+        },
+        "trot_fast_low_clear": {
+          "best_reward": -2.211941914666186,
+          "last_reward": -2.211941914666186,
+          "mean_reward": -2.211941914666186,
+          "n": 1,
+          "semantic_counts": {
+            "no_meaningful_progress": 1
+          },
+          "total_reward": -2.211941914666186
+        },
+        "trot_high_body_soft": {
+          "best_reward": null,
+          "last_reward": null,
+          "mean_reward": 0.0,
+          "n": 0,
+          "semantic_counts": {},
+          "total_reward": 0.0
+        },
+        "trot_low_body_probe": {
+          "best_reward": null,
+          "last_reward": null,
+          "mean_reward": 0.0,
+          "n": 0,
+          "semantic_counts": {},
+          "total_reward": 0.0
+        },
+        "trot_mid": {
+          "best_reward": -7.933814513487527,
+          "last_reward": -7.933814513487527,
+          "mean_reward": -7.933814513487527,
+          "n": 1,
+          "semantic_counts": {
+            "forward_walk_unreliable_on_soft_terrain": 1
+          },
+          "total_reward": -7.933814513487527
+        },
+        "trot_soft_high_clear": {
+          "best_reward": null,
+          "last_reward": null,
+          "mean_reward": 0.0,
+          "n": 0,
+          "semantic_counts": {},
+          "total_reward": 0.0
+        },
+        "trot_soft_mid_clear": {
+          "best_reward": -9.730105227645936,
+          "last_reward": -9.730105227645936,
+          "mean_reward": -9.730105227645936,
+          "n": 1,
+          "semantic_counts": {
+            "forward_walk_unreliable_on_soft_terrain": 1
+          },
+          "total_reward": -9.730105227645936
+        },
+        "trot_soft_ultraslow": {
+          "best_reward": null,
+          "last_reward": null,
+          "mean_reward": 0.0,
+          "n": 0,
+          "semantic_counts": {},
+          "total_reward": 0.0
+        },
+        "trot_solid_fast": {
+          "best_reward": -6.199976050479181,
+          "last_reward": -6.199976050479181,
+          "mean_reward": -6.199976050479181,
+          "n": 1,
+          "semantic_counts": {
+            "forward_walk_unreliable_on_soft_terrain": 1
+          },
+          "total_reward": -6.199976050479181
+        }
+      },
+      "n_total": 5
+    }
+  }
+}

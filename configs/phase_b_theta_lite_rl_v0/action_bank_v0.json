@@ -1,0 +1,104 @@
+{
+  "schema": "phase_b_theta_lite_rl_action_bank_v0",
+  "description": "Discrete theta-lite action bank for RL/contextual-bandit training using current executable A1-QP-MPC diagonal trot.",
+  "action_fields": [
+    "vx_far",
+    "vx_near",
+    "goal_slow_distance",
+    "goal_stop_distance",
+    "body_height",
+    "swing_clearance"
+  ],
+  "actions": [
+    {
+      "name": "trot_fast_low_clear",
+      "vx_far": 0.18,
+      "vx_near": 0.09,
+      "goal_slow_distance": 0.20,
+      "goal_stop_distance": 0.15,
+      "body_height": 0.32,
+      "swing_clearance": 0.04
+    },
+    {
+      "name": "trot_solid_fast",
+      "vx_far": 0.16,
+      "vx_near": 0.08,
+      "goal_slow_distance": 0.20,
+      "goal_stop_distance": 0.15,
+      "body_height": 0.32,
+      "swing_clearance": 0.04
+    },
+    {
+      "name": "trot_mid",
+      "vx_far": 0.12,
+      "vx_near": 0.06,
+      "goal_slow_distance": 0.25,
+      "goal_stop_distance": 0.15,
+      "body_height": 0.33,
+      "swing_clearance": 0.05
+    },
+    {
+      "name": "trot_cautious",
+      "vx_far": 0.08,
+      "vx_near": 0.04,
+      "goal_slow_distance": 0.30,
+      "goal_stop_distance": 0.16,
+      "body_height": 0.33,
+      "swing_clearance": 0.06
+    },
+    {
+      "name": "trot_soft_mid_clear",
+      "vx_far": 0.07,
+      "vx_near": 0.035,
+      "goal_slow_distance": 0.35,
+      "goal_stop_distance": 0.18,
+      "body_height": 0.34,
+      "swing_clearance": 0.07
+    },
+    {
+      "name": "trot_soft_high_clear",
+      "vx_far": 0.06,
+      "vx_near": 0.025,
+      "goal_slow_distance": 0.40,
+      "goal_stop_distance": 0.18,
+      "body_height": 0.34,
+      "swing_clearance": 0.09
+    },
+    {
+      "name": "trot_soft_ultraslow",
+      "vx_far": 0.035,
+      "vx_near": 0.015,
+      "goal_slow_distance": 0.45,
+      "goal_stop_distance": 0.20,
+      "body_height": 0.34,
+      "swing_clearance": 0.09
+    },
+    {
+      "name": "trot_high_body_soft",
+      "vx_far": 0.05,
+      "vx_near": 0.020,
+      "goal_slow_distance": 0.42,
+      "goal_stop_distance": 0.20,
+      "body_height": 0.36,
+      "swing_clearance": 0.08
+    },
+    {
+      "name": "trot_low_body_probe",
+      "vx_far": 0.10,
+      "vx_near": 0.050,
+      "goal_slow_distance": 0.28,
+      "goal_stop_distance": 0.16,
+      "body_height": 0.31,
+      "swing_clearance": 0.05
+    },
+    {
+      "name": "trot_brake_near_goal",
+      "vx_far": 0.10,
+      "vx_near": 0.015,
+      "goal_slow_distance": 0.50,
+      "goal_stop_distance": 0.20,
+      "body_height": 0.33,
+      "swing_clearance": 0.06
+    }
+  ]
+}
