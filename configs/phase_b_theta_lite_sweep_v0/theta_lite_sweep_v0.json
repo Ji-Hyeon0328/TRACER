@@ -1,0 +1,108 @@
+{
+  "schema": "phase_b_theta_lite_sweep_v0",
+  "description": "Stage-1 theta-lite sweep over diagonal A1-QP-MPC gait. Gait family/phase scheduler is fixed; sweep only high-level reference parameters supported by current low-level bridge.",
+  "worlds": [
+    {
+      "name": "earth",
+      "label": "solid_even",
+      "duration": 30.0
+    },
+    {
+      "name": "tracer_sponge_firm_flat",
+      "label": "sponge_even",
+      "duration": 45.0
+    },
+    {
+      "name": "tracer_sponge_firm_slope_5deg",
+      "label": "sponge_upslope_5deg",
+      "duration": 45.0
+    },
+    {
+      "name": "tracer_sponge_firm_downslope_5deg",
+      "label": "sponge_downslope_5deg",
+      "duration": 45.0
+    }
+  ],
+  "profiles": [
+    {
+      "name": "solid_fast_h032_c004",
+      "family": "solid",
+      "vx_far": 0.16,
+      "vx_near": 0.08,
+      "goal_slow_distance": 0.20,
+      "goal_stop_distance": 0.15,
+      "body_height": 0.32,
+      "swing_clearance": 0.04
+    },
+    {
+      "name": "solid_mid_h032_c004",
+      "family": "solid",
+      "vx_far": 0.12,
+      "vx_near": 0.06,
+      "goal_slow_distance": 0.22,
+      "goal_stop_distance": 0.15,
+      "body_height": 0.32,
+      "swing_clearance": 0.04
+    },
+    {
+      "name": "solid_cautious_h033_c005",
+      "family": "solid",
+      "vx_far": 0.08,
+      "vx_near": 0.04,
+      "goal_slow_distance": 0.28,
+      "goal_stop_distance": 0.15,
+      "body_height": 0.33,
+      "swing_clearance": 0.05
+    },
+    {
+      "name": "sponge_slow_h034_c008",
+      "family": "sponge",
+      "vx_far": 0.04,
+      "vx_near": 0.025,
+      "goal_slow_distance": 0.30,
+      "goal_stop_distance": 0.15,
+      "body_height": 0.34,
+      "swing_clearance": 0.08
+    },
+    {
+      "name": "sponge_ultraslow_h034_c010",
+      "family": "sponge",
+      "vx_far": 0.025,
+      "vx_near": 0.012,
+      "goal_slow_distance": 0.40,
+      "goal_stop_distance": 0.18,
+      "body_height": 0.34,
+      "swing_clearance": 0.10
+    },
+    {
+      "name": "sponge_midclear_h035_c006",
+      "family": "sponge",
+      "vx_far": 0.035,
+      "vx_near": 0.015,
+      "goal_slow_distance": 0.38,
+      "goal_stop_distance": 0.18,
+      "body_height": 0.35,
+      "swing_clearance": 0.06
+    },
+    {
+      "name": "sponge_highbody_h036_c008",
+      "family": "sponge",
+      "vx_far": 0.035,
+      "vx_near": 0.015,
+      "goal_slow_distance": 0.38,
+      "goal_stop_distance": 0.18,
+      "body_height": 0.36,
+      "swing_clearance": 0.08
+    },
+    {
+      "name": "sponge_lowbody_h032_c008",
+      "family": "sponge_ablation",
+      "vx_far": 0.035,
+      "vx_near": 0.015,
+      "goal_slow_distance": 0.38,
+      "goal_stop_distance": 0.18,
+      "body_height": 0.32,
+      "swing_clearance": 0.08
+    }
+  ]
+}
