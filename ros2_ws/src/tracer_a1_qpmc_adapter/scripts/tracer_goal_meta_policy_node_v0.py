@@ -36,6 +36,8 @@ class TracerGoalMetaPolicyNodeV0(Node):
 
     def __init__(self):
         super().__init__("tracer_goal_meta_policy_node_v0")
+        self.reached_latch = False
+        self.reached_latch_count = 0
 
         self.declare_parameter("relative_goal_topic", "/tracer/relative_goal")
         self.declare_parameter("odom_topic", "/tracer/robot_odom_flat")

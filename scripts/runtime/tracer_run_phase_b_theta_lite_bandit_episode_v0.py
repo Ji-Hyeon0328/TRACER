@@ -27,6 +27,8 @@ def classify(summary):
 
     if reached and final_dist <= 0.30 and dx <= 0.80:
         return "stable_goal_reach_flat_locomotion"
+    if reached and (final_dist > 0.75 or dx > 1.0):
+        return "reached_but_failed_to_hold"
     if final_dist > 0.75 or dx > 1.0:
         return "forward_walk_unreliable_on_soft_terrain"
     if reached or min_dist <= 0.18:
@@ -55,6 +57,11 @@ def reward(summary, semantic):
         r += 4.0
     elif semantic == "approach_possible_but_post_reach_hold_needed":
         r += 0.5
+    elif semantic == "reached_but_failed_to_hold":
+        # Reaching the goal is useful information, but large post-reach drift is
+        # unsafe and should be penalized. This separates gait progress from
+        # missing post-reach hold/latch behavior.
+        r -= 2.0
     elif semantic == "forward_walk_unreliable_on_soft_terrain":
         r -= 4.0
     elif semantic == "no_meaningful_progress":
