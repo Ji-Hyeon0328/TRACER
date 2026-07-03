@@ -113,6 +113,26 @@ def main():
             skipped_missing_predictions += 1
             continue
 
+        pred_future_uncertainty = s.get("predicted_future_uncertainty")
+        if pred_future_uncertainty is None:
+            pred_future_uncertainty = runtime_decision.get("future_uncertainty")
+
+        pred_semantic_uncertainty = s.get("predicted_semantic_uncertainty")
+        if pred_semantic_uncertainty is None:
+            pred_semantic_uncertainty = runtime_decision.get("semantic_uncertainty")
+
+        pred_high_variability = s.get("predicted_high_variability")
+        if pred_high_variability is None:
+            pred_high_variability = runtime_decision.get("high_variability")
+
+        pred_uncertainty_n = s.get("predicted_uncertainty_n")
+        if pred_uncertainty_n is None:
+            pred_uncertainty_n = runtime_decision.get("uncertainty_n")
+
+        pred_uncertainty_majority_semantic = s.get("predicted_uncertainty_majority_semantic")
+        if pred_uncertainty_majority_semantic is None:
+            pred_uncertainty_majority_semantic = runtime_decision.get("uncertainty_majority_semantic")
+
         pred_stable = runtime_decision.get("stable_reached_pred")
         pred_approach = runtime_decision.get("approach_success_pred")
         pred_drift = runtime_decision.get("drift_after_approach_pred")
@@ -147,6 +167,12 @@ def main():
             "pred_future_risk": pred_risk,
             "actual_future_risk": actual_risk,
             "risk_error": pred_risk - actual_risk,
+
+            "pred_future_uncertainty": ff(pred_future_uncertainty),
+            "pred_semantic_uncertainty": ff(pred_semantic_uncertainty),
+            "pred_high_variability": pred_high_variability,
+            "pred_uncertainty_n": pred_uncertainty_n,
+            "pred_uncertainty_majority_semantic": pred_uncertainty_majority_semantic,
 
             "pred_recovery_needed": pred_recovery,
             "actual_recovery_needed": labels["actual_recovery_needed"],
