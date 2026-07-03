@@ -100,6 +100,13 @@ def main():
         pred_recovery = s.get("predicted_recovery_needed")
         pred_invalid = s.get("predicted_future_invalid")
 
+        calibrated_sem = s.get("calibrated_semantic")
+        calibrated_risk = s.get("calibrated_future_risk")
+        calibrated_invalid = s.get("calibrated_future_invalid")
+        calibrated_recovery = s.get("calibrated_recovery_needed")
+        normal_walk_blocked = s.get("normal_walk_blocked")
+        uncertainty_avg_risk = s.get("uncertainty_avg_future_risk")
+
         runtime_decision = s.get("runtime_decision", {}) or {}
 
         has_prediction = (
@@ -147,6 +154,18 @@ def main():
         actual_risk += min(0.15, max(labels["actual_abs_odom_x_delta"] - 0.75, 0.0) * 0.10)
         actual_risk = max(0.0, min(1.0, actual_risk))
 
+        has_calibrated_prediction = (
+            calibrated_sem is not None
+            and str(calibrated_sem) not in ("", "None", "null")
+        )
+
+        calibrated_risk_f = ff(calibrated_risk, pred_risk)
+        actual_normal_walk_blocked = (
+            labels["actual_recovery_needed"]
+            or labels["actual_future_invalid"]
+            or actual_risk >= 0.60
+        )
+
         row = {
             "run_dir": d,
             "summary_json": str(summary_path),
@@ -167,6 +186,20 @@ def main():
             "pred_future_risk": pred_risk,
             "actual_future_risk": actual_risk,
             "risk_error": pred_risk - actual_risk,
+
+            "has_calibrated_prediction": has_calibrated_prediction,
+            "calibrated_semantic": calibrated_sem,
+            "calibrated_semantic_match": (calibrated_sem == actual_sem) if has_calibrated_prediction else None,
+            "calibrated_future_risk": calibrated_risk_f,
+            "calibrated_risk_error": calibrated_risk_f - actual_risk if has_calibrated_prediction else None,
+            "calibrated_future_invalid": calibrated_invalid,
+            "calibrated_future_invalid_match": (calibrated_invalid == labels["actual_future_invalid"]) if has_calibrated_prediction else None,
+            "calibrated_recovery_needed": calibrated_recovery,
+            "calibrated_recovery_match": (calibrated_recovery == labels["actual_recovery_needed"]) if has_calibrated_prediction else None,
+            "normal_walk_blocked": normal_walk_blocked,
+            "actual_normal_walk_blocked": actual_normal_walk_blocked,
+            "normal_walk_blocked_match": (normal_walk_blocked == actual_normal_walk_blocked) if has_calibrated_prediction else None,
+            "uncertainty_avg_future_risk": ff(uncertainty_avg_risk),
 
             "pred_future_uncertainty": ff(pred_future_uncertainty),
             "pred_semantic_uncertainty": ff(pred_semantic_uncertainty),
@@ -227,18 +260,35 @@ def main():
     if rows:
         risk_mae = sum(abs(ff(r["risk_error"])) for r in rows) / len(rows)
 
+    calibrated_rows = [r for r in rows if r.get("has_calibrated_prediction")]
+    calibrated_risk_mae = None
+    if calibrated_rows:
+        calibrated_risk_mae = sum(abs(ff(r["calibrated_risk_error"])) for r in calibrated_rows) / len(calibrated_rows)
+
+    def calibrated_rate(key):
+        vals = [r[key] for r in calibrated_rows if r.get(key) is not None]
+        if not vals:
+            return None
+        return sum(1 for v in vals if v) / len(vals)
+
     summary = {
         "num_runs": len(rows),
+        "num_calibrated_runs": len(calibrated_rows),
         "num_skipped_missing_predictions": skipped_missing_predictions,
         "out_csv": str(out_csv),
         "semantic_match_rate": rate("semantic_match"),
+        "calibrated_semantic_match_rate": calibrated_rate("calibrated_semantic_match"),
         "recovery_match_rate": rate("recovery_match"),
+        "calibrated_recovery_match_rate": calibrated_rate("calibrated_recovery_match"),
         "future_invalid_match_rate": rate("future_invalid_match"),
+        "calibrated_future_invalid_match_rate": calibrated_rate("calibrated_future_invalid_match"),
+        "normal_walk_blocked_match_rate": calibrated_rate("normal_walk_blocked_match"),
         "stable_match_rate": rate("stable_match"),
         "approach_match_rate": rate("approach_match"),
         "drift_match_rate": rate("drift_match"),
         "yaw_sat_match_rate": rate("yaw_sat_match"),
         "future_risk_mae": risk_mae,
+        "calibrated_future_risk_mae": calibrated_risk_mae,
         "runs": rows,
     }
 
