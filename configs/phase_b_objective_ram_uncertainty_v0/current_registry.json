@@ -1,10 +1,10 @@
 {
   "groups": {
     "earth::theta5_teacher_table_v0::vx=0.1582::near=0.0791::slow=0.2000::h=0.3200::clr=0.0400": {
-      "avg_final_rel_dist": 0.1442176910891524,
+      "avg_final_rel_dist": 0.14486480061626564,
       "avg_future_risk": 0.0,
-      "avg_odom_x_delta": 0.3223750132174959,
-      "future_uncertainty": 0.005087922398430195,
+      "avg_odom_x_delta": 0.30975812745977277,
+      "future_uncertainty": 0.005792719096302607,
       "high_variability": false,
       "key": {
         "body_height": 0.32,
@@ -17,20 +17,20 @@
       },
       "key_string": "earth::theta5_teacher_table_v0::vx=0.1582::near=0.0791::slow=0.2000::h=0.3200::clr=0.0400",
       "majority_semantic": "stable_goal_reach_flat_locomotion",
-      "n": 2,
+      "n": 3,
       "semantic_counts": {
-        "stable_goal_reach_flat_locomotion": 2
+        "stable_goal_reach_flat_locomotion": 3
       },
       "semantic_uncertainty": 0.0,
-      "std_like_final_rel_dist": 0.004962682017197365,
+      "std_like_final_rel_dist": 0.004154071498667007,
       "std_like_future_risk": 0.0,
-      "std_like_odom_x_delta": 0.01923625947065427
+      "std_like_odom_x_delta": 0.02377100610817928
     },
     "tracer_sponge_firm_flat::theta5_sponge_conservative_fallback_v0::vx=0.0400::near=0.0250::slow=0.3000::h=0.3400::clr=0.0800": {
-      "avg_final_rel_dist": 3.06152403138096,
-      "avg_future_risk": 0.8703499108867869,
-      "avg_odom_x_delta": 2.952528688042861,
-      "future_uncertainty": 0.5921748126623115,
+      "avg_final_rel_dist": 3.5517360970884857,
+      "avg_future_risk": 0.8783703880459851,
+      "avg_odom_x_delta": 3.3988303811849496,
+      "future_uncertainty": 0.5344838167243399,
       "high_variability": true,
       "key": {
         "body_height": 0.34,
@@ -43,18 +43,18 @@
       },
       "key_string": "tracer_sponge_firm_flat::theta5_sponge_conservative_fallback_v0::vx=0.0400::near=0.0250::slow=0.3000::h=0.3400::clr=0.0800",
       "majority_semantic": "forward_walk_unreliable_on_soft_terrain",
-      "n": 4,
+      "n": 7,
       "semantic_counts": {
         "cautious_probe_required": 1,
-        "forward_walk_unreliable_on_soft_terrain": 3
+        "forward_walk_unreliable_on_soft_terrain": 6
       },
-      "semantic_uncertainty": 0.25,
-      "std_like_final_rel_dist": 1.5591701303808625,
-      "std_like_future_risk": 0.17174812662311525,
-      "std_like_odom_x_delta": 1.7733240610292114
+      "semantic_uncertainty": 0.1428571428571429,
+      "std_like_final_rel_dist": 1.4426229423665016,
+      "std_like_future_risk": 0.13055245295768428,
+      "std_like_odom_x_delta": 1.771716462268329
     }
   },
   "num_groups": 2,
   "registry_type": "phase_b_objective_ram_uncertainty_registry_v0",
-  "source_score_csv": "artifacts/phase_b_objective_ram_runtime_score_v0_20260702_231534/objective_ram_runtime_score_v0.csv"
+  "source_score_csv": "artifacts/phase_b_objective_ram_runtime_score_v0_20260702_235100/objective_ram_runtime_score_v0.csv"
 }
