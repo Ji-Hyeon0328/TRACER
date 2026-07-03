@@ -38,6 +38,45 @@ def classify(summary):
     return "no_meaningful_progress"
 
 
+def reward_components(summary, semantic):
+    reached = bool(summary.get("reached_stop_distance", False))
+    min_dist = ff(summary.get("min_rel_dist"), 999.0)
+    final_dist = ff(summary.get("final_rel_dist"), 999.0)
+    dx = abs(ff(summary.get("odom_x_delta"), 0.0))
+    progress = ff(summary.get("progress_initial_minus_min"), 0.0)
+    yaw = abs(ff(summary.get("max_abs_mpc_yaw_rate"), 0.0))
+
+    # Traversal/reach score: did this theta-lite action get close to the target?
+    reach_reward = 0.0
+    reach_reward += 8.0 * progress
+    reach_reward -= 1.5 * min_dist
+    if reached:
+        reach_reward += 3.0
+    if semantic in ("stable_goal_reach_flat_locomotion", "reached_but_failed_to_hold"):
+        reach_reward += 1.0
+
+    # Hold/stability score: after reaching, did it stay near the target?
+    hold_reward = 0.0
+    hold_reward -= 1.0 * final_dist
+    hold_reward -= 0.5 * dx
+    hold_reward -= 0.5 * yaw
+    if reached and final_dist <= 0.30 and dx <= 0.80:
+        hold_reward += 3.0
+    elif semantic == "reached_but_failed_to_hold":
+        hold_reward -= 2.0
+
+    return {
+        "reach_reward": reach_reward,
+        "hold_reward": hold_reward,
+        "progress_initial_minus_min": progress,
+        "min_rel_dist": min_dist,
+        "final_rel_dist": final_dist,
+        "odom_x_delta_abs": dx,
+        "max_abs_mpc_yaw_rate": yaw,
+        "reached_stop_distance": reached,
+    }
+
+
 def reward(summary, semantic):
     final_dist = ff(summary.get("final_rel_dist"), 999.0)
     dx = abs(ff(summary.get("odom_x_delta"), 0.0))
@@ -281,6 +320,7 @@ def main():
         error = str(e)
 
     summary_path = find_summary(out_root)
+    components = {}
     policy_updated = False
 
     if summary_path is None:
@@ -295,6 +335,7 @@ def main():
         summary = json.load(open(summary_path))
         sem = classify(summary)
         rew = reward(summary, sem)
+        components = reward_components(summary, sem)
         update_policy(policy, args.world_name, action["name"], rew, sem)
         save_json(args.policy_json, policy)
         policy_updated = True
@@ -311,6 +352,7 @@ def main():
         "summary_json": str(summary_path) if summary_path else None,
         "semantic": sem,
         "reward": rew,
+        "reward_components": components,
         "metrics": {
             "reached_stop_distance": summary.get("reached_stop_distance"),
             "min_rel_dist": summary.get("min_rel_dist"),
