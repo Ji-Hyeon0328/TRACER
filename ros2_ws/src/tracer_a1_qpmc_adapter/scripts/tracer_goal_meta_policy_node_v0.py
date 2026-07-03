@@ -61,6 +61,11 @@ class TracerGoalMetaPolicyNodeV0(Node):
         self.declare_parameter("goal_stop_distance", 0.15)
         self.declare_parameter("goal_slow_distance", 0.25)
 
+        # Once the goal is reached, keep publishing a zero-vx/yaw hold command
+        # for the rest of the episode. This prevents post-reach chasing and
+        # large drift after briefly entering the stop radius.
+        self.declare_parameter("reached_latch_enabled", True)
+
         # If relative_goal enable becomes 0 near the stop radius, keep holding.
         self.declare_parameter("hold_enable_when_goal_disabled", True)
         self.declare_parameter("stop_enable_on_timeout", False)
@@ -193,6 +198,26 @@ class TracerGoalMetaPolicyNodeV0(Node):
         hold_enable_when_goal_disabled = bool(
             self.get_parameter("hold_enable_when_goal_disabled").value
         )
+        reached_latch_enabled = bool(
+            self.get_parameter("reached_latch_enabled").value
+        )
+
+        if reached_latch_enabled and self.reached_latch:
+            return {
+                "mode": "reached_latch_hold",
+                "x_rel": x_rel,
+                "y_rel": y_rel,
+                "yaw_rel": yaw_rel,
+                "dist": dist,
+                "heading_error": heading_error,
+                "vx": 0.0,
+                "yaw_rate": 0.0,
+                "body_height": body_h,
+                "swing_clearance": clearance,
+                "enable": 1.0,
+                "reached_latch": True,
+                "reached_latch_count": self.reached_latch_count,
+            }
 
         if goal_enable <= 0.5:
             # In Phase-B, relative_goal_v1 may set enable=0 inside stop_radius.
@@ -214,6 +239,10 @@ class TracerGoalMetaPolicyNodeV0(Node):
 
         if dist <= stop_d:
             mode = "goal_reached_hold"
+            if reached_latch_enabled:
+                self.reached_latch = True
+                self.reached_latch_count += 1
+                mode = "goal_reached_latch_hold"
             vx = vx_stop
             yaw_rate = 0.0
             enable = 1.0
@@ -240,6 +269,8 @@ class TracerGoalMetaPolicyNodeV0(Node):
             "body_height": body_h,
             "swing_clearance": clearance,
             "enable": enable,
+            "reached_latch": self.reached_latch,
+            "reached_latch_count": self.reached_latch_count,
         }
 
     def timer_cb(self):
