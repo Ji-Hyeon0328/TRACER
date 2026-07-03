@@ -144,6 +144,13 @@ def main():
     ap.add_argument("--clip-ratio", type=float, default=0.2)
     ap.add_argument("--entropy-coef", type=float, default=0.02)
     ap.add_argument("--value-coef", type=float, default=0.5)
+    ap.add_argument(
+        "--reward-mode",
+        choices=["reach", "reach_hold"],
+        default="reach",
+        help="reach: use reach_reward only. reach_hold: use reach_reward + hold_coef * hold_reward.",
+    )
+    ap.add_argument("--hold-coef", type=float, default=0.20)
     args = ap.parse_args()
 
     model, worlds, actions, world_to_i, action_to_i, ckpt = load_model(args.base_checkpoint)
@@ -156,7 +163,17 @@ def main():
     act = torch.tensor([r["action_index"] for r in rows], dtype=torch.long)
     old_logp = torch.tensor([r["old_logp"] for r in rows], dtype=torch.float32)
 
-    raw_rewards = torch.tensor([r["reach_reward"] for r in rows], dtype=torch.float32)
+    if args.reward_mode == "reach":
+        raw_reward_values = [r["reach_reward"] for r in rows]
+    elif args.reward_mode == "reach_hold":
+        raw_reward_values = [
+            r["reach_reward"] + args.hold_coef * r["hold_reward"]
+            for r in rows
+        ]
+    else:
+        raise ValueError(args.reward_mode)
+
+    raw_rewards = torch.tensor(raw_reward_values, dtype=torch.float32)
     rew_mean = raw_rewards.mean()
     rew_std = raw_rewards.std(unbiased=False).clamp_min(1e-6)
     rewards = (raw_rewards - rew_mean) / rew_std
@@ -211,6 +228,8 @@ def main():
         "rollout_root": args.rollout_root,
         "num_rows": len(rows),
         "skipped": skipped,
+        "reward_mode": args.reward_mode,
+        "hold_coef": args.hold_coef,
         "reward_mean": float(rew_mean),
         "reward_std": float(rew_std),
         "rows_by_world": {},
