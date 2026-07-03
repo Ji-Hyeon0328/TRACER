@@ -1,0 +1,22 @@
+{
+  "num_examples": 4,
+  "out_jsonl": "artifacts/phase_b_primitive_route_dataset_v0_20260703_023430/phase_b_primitive_route_dataset_v0.jsonl",
+  "route_counts": {
+    "alternative_primitive_required": 3,
+    "theta_lite_diagonal_normal_walk": 1
+  },
+  "schema": "phase_b_primitive_route_dataset_summary_v0",
+  "source_guarded_outcome_jsonl": "artifacts/phase_b_guarded_outcome_dataset_v0_20260703_023226/phase_b_guarded_outcome_dataset_v0.jsonl",
+  "target_primitive_counts": {
+    "normal_diagonal_locomotion": 1,
+    "soft_contact_crawl_or_quasi_static": 1,
+    "soft_contact_downslope_controlled_descent": 1,
+    "soft_contact_upslope_crawl": 1
+  },
+  "world_counts": {
+    "earth": 1,
+    "tracer_sponge_firm_downslope_5deg": 1,
+    "tracer_sponge_firm_flat": 1,
+    "tracer_sponge_firm_slope_5deg": 1
+  }
+}
