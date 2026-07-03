@@ -321,6 +321,7 @@ def main():
 
     summary_path = find_summary(out_root)
     components = {}
+    bandit_update_reward = None
     policy_updated = False
 
     if summary_path is None:
@@ -336,7 +337,13 @@ def main():
         sem = classify(summary)
         rew = reward(summary, sem)
         components = reward_components(summary, sem)
-        update_policy(policy, args.world_name, action["name"], rew, sem)
+
+        # Phase-B theta-lite bandit is currently learning terrain traversal /
+        # goal-reaching ability. Post-reach holding is logged separately as
+        # hold_reward and will be handled by the stability/objective layer.
+        bandit_update_reward = float(components.get("reach_reward", rew))
+
+        update_policy(policy, args.world_name, action["name"], bandit_update_reward, sem)
         save_json(args.policy_json, policy)
         policy_updated = True
 
@@ -352,6 +359,8 @@ def main():
         "summary_json": str(summary_path) if summary_path else None,
         "semantic": sem,
         "reward": rew,
+        "bandit_update_reward": bandit_update_reward,
+        "bandit_update_objective": "reach_reward",
         "reward_components": components,
         "metrics": {
             "reached_stop_distance": summary.get("reached_stop_distance"),
