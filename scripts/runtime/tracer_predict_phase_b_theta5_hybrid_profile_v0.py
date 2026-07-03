@@ -26,7 +26,7 @@ def risk_name_from_state(risk):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--table-json", default="configs/phase_b_theta5_teacher_table_v0/best_table.json")
+    ap.add_argument("--table-json", default="configs/phase_b_theta5_teacher_table_v0/trusted_table.json")
     ap.add_argument("--linear-model", required=True)
     ap.add_argument("--risk-state-json", required=True)
     ap.add_argument("--world-name", default="earth")

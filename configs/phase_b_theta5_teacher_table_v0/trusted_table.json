@@ -1,0 +1,164 @@
+{
+  "best_table": {
+    "earth::low": {
+      "action": {
+        "body_height": 0.32,
+        "goal_slow_distance": 0.20000000000000004,
+        "swing_clearance": 0.04,
+        "vx_far": 0.15816317484675904,
+        "vx_near": 0.07908158742337952
+      },
+      "case_name": "low_base",
+      "n": 3,
+      "reached_rate": 1.0,
+      "replay_stats": {
+        "replay_avg_final_rel_dist": 0.15156079904729983,
+        "replay_avg_max_yaw": 0.2767368591358029,
+        "replay_avg_min_rel_dist": 0.14306377789064562,
+        "replay_avg_odom_x_delta": 0.42357202685869877,
+        "replay_avg_progress": 0.35691507488280017,
+        "replay_n": 2,
+        "replay_reached_rate": 1.0,
+        "replay_summary_csv": "artifacts/phase_b_theta5_teacher_replay_eval_20260702_212442/replay_eval_summary.csv"
+      },
+      "score_mean": 114.22822201118119,
+      "score_std": 1.197351726510057,
+      "trust_rule": {
+        "max_abs_avg_odom_dx": 1.0,
+        "max_avg_final_dist": 0.3,
+        "min_reached_rate": 0.8,
+        "min_repeats": 2
+      }
+    }
+  },
+  "rejected": {
+    "tracer_sponge_firm_downslope_5deg::low": {
+      "entry": {
+        "action": {
+          "body_height": 0.35,
+          "goal_slow_distance": 0.2,
+          "swing_clearance": 0.04,
+          "vx_far": 0.15816317484675904,
+          "vx_near": 0.07908158742337952
+        },
+        "case_name": "low_high_body",
+        "n": 1,
+        "reached_rate": 1.0,
+        "replay_stats": {
+          "replay_avg_final_rel_dist": 3.241019470186207,
+          "replay_avg_max_yaw": 0.3,
+          "replay_avg_min_rel_dist": 0.1833445072186081,
+          "replay_avg_odom_x_delta": 3.6722716521029444,
+          "replay_avg_progress": 0.31434354220860794,
+          "replay_n": 2,
+          "replay_reached_rate": 0.5,
+          "replay_summary_csv": "artifacts/phase_b_theta5_teacher_replay_eval_20260702_212442/replay_eval_summary.csv"
+        },
+        "score_mean": 181.54502202540266,
+        "score_std": 0.0,
+        "trust_rule": {
+          "max_abs_avg_odom_dx": 1.0,
+          "max_avg_final_dist": 0.3,
+          "min_reached_rate": 0.8,
+          "min_repeats": 2
+        }
+      },
+      "reason": [
+        "reached_rate<0.8",
+        "avg_final>0.3",
+        "abs(avg_odom_dx)>1.0"
+      ]
+    },
+    "tracer_sponge_firm_flat::low": {
+      "entry": {
+        "action": {
+          "body_height": 0.32,
+          "goal_slow_distance": 0.2,
+          "swing_clearance": 0.07,
+          "vx_far": 0.15816317484675904,
+          "vx_near": 0.07908158742337952
+        },
+        "case_name": "low_high_clearance",
+        "n": 1,
+        "reached_rate": 1.0,
+        "replay_stats": {
+          "replay_avg_final_rel_dist": 1.8833688324454556,
+          "replay_avg_max_yaw": 0.3,
+          "replay_avg_min_rel_dist": 0.36639875140656564,
+          "replay_avg_odom_x_delta": 1.7909116862950811,
+          "replay_avg_progress": 0.1323643117080734,
+          "replay_n": 2,
+          "replay_reached_rate": 0.0,
+          "replay_summary_csv": "artifacts/phase_b_theta5_teacher_replay_eval_20260702_212442/replay_eval_summary.csv"
+        },
+        "score_mean": 150.44995899010547,
+        "score_std": 0.0,
+        "trust_rule": {
+          "max_abs_avg_odom_dx": 1.0,
+          "max_avg_final_dist": 0.3,
+          "min_reached_rate": 0.8,
+          "min_repeats": 2
+        }
+      },
+      "reason": [
+        "reached_rate<0.8",
+        "avg_final>0.3",
+        "abs(avg_odom_dx)>1.0"
+      ]
+    },
+    "tracer_sponge_firm_slope_5deg::low": {
+      "entry": {
+        "action": {
+          "body_height": 0.32,
+          "goal_slow_distance": 0.2,
+          "swing_clearance": 0.03,
+          "vx_far": 0.15816317484675904,
+          "vx_near": 0.07908158742337952
+        },
+        "case_name": "low_low_clearance",
+        "n": 1,
+        "reached_rate": 1.0,
+        "replay_stats": {
+          "replay_avg_final_rel_dist": 2.2401681180971393,
+          "replay_avg_max_yaw": 0.3,
+          "replay_avg_min_rel_dist": 0.500929229680238,
+          "replay_avg_odom_x_delta": -1.6200063437378267,
+          "replay_avg_progress": 0.0,
+          "replay_n": 2,
+          "replay_reached_rate": 0.0,
+          "replay_summary_csv": "artifacts/phase_b_theta5_teacher_replay_eval_20260702_212442/replay_eval_summary.csv"
+        },
+        "score_mean": 126.32362175532656,
+        "score_std": 0.0,
+        "trust_rule": {
+          "max_abs_avg_odom_dx": 1.0,
+          "max_avg_final_dist": 0.3,
+          "min_reached_rate": 0.8,
+          "min_repeats": 2
+        }
+      },
+      "reason": [
+        "reached_rate<0.8",
+        "avg_final>0.3",
+        "abs(avg_odom_dx)>1.0"
+      ]
+    }
+  },
+  "rejected_keys": [
+    "tracer_sponge_firm_downslope_5deg::low",
+    "tracer_sponge_firm_flat::low",
+    "tracer_sponge_firm_slope_5deg::low"
+  ],
+  "source_replay_summary_csv": "artifacts/phase_b_theta5_teacher_replay_eval_20260702_212442/replay_eval_summary.csv",
+  "source_teacher_table_json": "configs/phase_b_theta5_teacher_table_v0/best_table.json",
+  "table_type": "phase_b_theta5_trusted_teacher_table_v0",
+  "trust_rule": {
+    "max_abs_avg_odom_dx": 1.0,
+    "max_avg_final_dist": 0.3,
+    "min_reached_rate": 0.8,
+    "min_repeats": 2
+  },
+  "trusted_keys": [
+    "earth::low"
+  ]
+}
