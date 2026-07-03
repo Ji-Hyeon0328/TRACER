@@ -51,41 +51,56 @@ def main():
         table_hit = table_entry is not None
 
     if table_hit:
-        action = dict(table_entry["action"])
+        reached_rate = float(table_entry.get("reached_rate", 0.0))
+        n_teacher = int(table_entry.get("n", 0))
 
-        profile = {
-            "name": "theta5_teacher_table_v0",
-            "vx_far": action["vx_far"],
-            "vx_near": action["vx_near"],
-            "goal_slow_distance": action["goal_slow_distance"],
-            "goal_stop_distance": args.goal_stop_distance,
-            "goal_distance_ahead": args.goal_distance_ahead,
-            "body_height": action["body_height"],
-            "swing_clearance": action["swing_clearance"],
-            "world_name": args.world_name,
-        }
+        if reached_rate < 0.80:
+            table_hit = False
+        else:
+            action = dict(table_entry["action"])
 
-        out = {
-            "model": args.linear_model,
-            "table_json": args.table_json,
-            "source": "teacher_table",
-            "table_key": key,
-            "risk_name": risk_name,
-            "risk_state_json": args.risk_state_json,
-            "risk_state": risk,
-            "world_name": args.world_name,
-            "raw_prediction": action,
-            "profile": profile,
-            "guard_reasons": [
+            profile = {
+                "name": "theta5_teacher_table_v0",
+                "vx_far": action["vx_far"],
+                "vx_near": action["vx_near"],
+                "goal_slow_distance": action["goal_slow_distance"],
+                "goal_stop_distance": args.goal_stop_distance,
+                "goal_distance_ahead": args.goal_distance_ahead,
+                "body_height": action["body_height"],
+                "swing_clearance": action["swing_clearance"],
+                "world_name": args.world_name,
+            }
+
+            guard_reasons = [
                 f"teacher-table hit: {key}",
                 f"teacher_case={table_entry.get('case_name')}",
                 f"teacher_reached_rate={table_entry.get('reached_rate')}",
                 f"teacher_n={table_entry.get('n')}",
-            ],
-            "teacher_entry": table_entry,
-        }
+            ]
 
-    else:
+            if n_teacher < 3:
+                guard_reasons.append("low teacher evidence: n<3")
+
+            out = {
+                "model": args.linear_model,
+                "table_json": args.table_json,
+                "source": "teacher_table",
+                "table_key": key,
+                "risk_name": risk_name,
+                "risk_state_json": args.risk_state_json,
+                "risk_state": risk,
+                "world_name": args.world_name,
+                "raw_prediction": action,
+                "profile": profile,
+                "guard_reasons": guard_reasons,
+                "teacher_entry": table_entry,
+            }
+
+    if not table_hit:
+        fallback_reason = f"table miss: {key}"
+        if table_entry is not None:
+            fallback_reason = f"untrusted teacher table entry: {key}, reached_rate={table_entry.get('reached_rate')}"
+
         cmd = [
             sys.executable,
             "scripts/runtime/tracer_predict_phase_b_theta5_profile_v0.py",
@@ -101,7 +116,7 @@ def main():
         out["table_json"] = args.table_json
         out["table_key"] = key
         out["risk_name"] = risk_name
-        out["guard_reasons"] = [f"table miss: {key}"] + out.get("guard_reasons", [])
+        out["guard_reasons"] = [fallback_reason] + out.get("guard_reasons", [])
 
     text = json.dumps(out, indent=2, sort_keys=True)
 
