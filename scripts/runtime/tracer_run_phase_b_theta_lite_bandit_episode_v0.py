@@ -58,10 +58,12 @@ def reward(summary, semantic):
     elif semantic == "approach_possible_but_post_reach_hold_needed":
         r += 0.5
     elif semantic == "reached_but_failed_to_hold":
-        # Reaching the goal is useful information, but large post-reach drift is
-        # unsafe and should be penalized. This separates gait progress from
-        # missing post-reach hold/latch behavior.
-        r -= 2.0
+        # For theta-lite terrain locomotion training, reaching the target is
+        # positive evidence that the action can traverse the terrain. The later
+        # drift is a separate low-level/passive-hold issue, so penalize it only
+        # mildly instead of treating it as pure locomotion failure.
+        r += 1.0
+        r -= 0.5
     elif semantic == "forward_walk_unreliable_on_soft_terrain":
         r -= 4.0
     elif semantic == "no_meaningful_progress":
