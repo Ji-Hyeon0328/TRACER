@@ -36,10 +36,16 @@ def main():
         "phase_b_theta5_regressor_v0_*",
         "phase_b_theta5_regressor_v0.json",
     )
-    obj_ram_model = args.objective_ram_model or latest_model(
-        "phase_b_objective_ram_bootstrap_v0_*",
-        "phase_b_objective_ram_bootstrap_v0.json",
-    )
+    obj_ram_model = args.objective_ram_model
+    if not obj_ram_model:
+        cfg_model = Path("configs/phase_b_objective_ram_bootstrap_v0/current_model.json")
+        if cfg_model.is_file():
+            obj_ram_model = str(cfg_model)
+        else:
+            obj_ram_model = latest_model(
+                "phase_b_objective_ram_bootstrap_v0_*",
+                "phase_b_objective_ram_bootstrap_v0.json",
+            )
 
     if not theta5_model:
         raise RuntimeError("theta5 model not found")

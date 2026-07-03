@@ -1,0 +1,1505 @@
+{
+  "dataset_jsonl": "artifacts/phase_b_mixed_objective_ram_dataset_v1_20260702_224418/phase_b_mixed_objective_ram_dataset_v1.jsonl",
+  "exemplars": [
+    {
+      "action": {
+        "body_height": 0.34,
+        "goal_slow_distance": 0.3,
+        "swing_clearance": 0.08,
+        "vx_far": 0.04,
+        "vx_near": 0.025
+      },
+      "case_name": "sponge_slow_h034_c008",
+      "feature_norm": [
+        -0.5345224838248487,
+        0.5345224838248487,
+        0.0,
+        0.0,
+        -0.5703575406021959,
+        -0.41460209674556514,
+        -0.16064386578049947,
+        -0.08233869695926134,
+        0.05451392668007089
+      ],
+      "feature_raw": [
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.04,
+        0.025,
+        0.3,
+        0.34,
+        0.08
+      ],
+      "objective_target": {
+        "beta_energy": 0.09803921568627451,
+        "beta_stability": 0.8529411764705882,
+        "beta_velocity": 0.049019607843137254,
+        "recovery_needed": true,
+        "semantic": "approach_possible_but_post_reach_hold_needed"
+      },
+      "ram_target": {
+        "abs_odom_x_delta": 0.7455983308898606,
+        "approach_success": true,
+        "drift_after_approach": true,
+        "final_rel_dist": 0.44609700710639766,
+        "future_invalid": false,
+        "future_risk": 0.7792194014212795,
+        "max_abs_yaw_rate": 0.3,
+        "min_rel_dist": 0.0654459797743154,
+        "recovery_needed": true,
+        "stable_reached": false,
+        "yaw_saturated": true
+      },
+      "source_type": "sponge_objective_ram_targets",
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "action": {
+        "body_height": 0.34,
+        "goal_slow_distance": 0.45,
+        "swing_clearance": 0.06,
+        "vx_far": 0.03,
+        "vx_near": 0.01
+      },
+      "case_name": "micro_v030_n010_s045_h034_c006",
+      "feature_norm": [
+        -0.5345224838248487,
+        0.5345224838248487,
+        0.0,
+        0.0,
+        -0.770618570010893,
+        -1.015389727187706,
+        1.646599624250123,
+        -0.08233869695926134,
+        -0.6814240835008977
+      ],
+      "feature_raw": [
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.03,
+        0.01,
+        0.45,
+        0.34,
+        0.06
+      ],
+      "objective_target": {
+        "beta_energy": 0.09803921568627451,
+        "beta_stability": 0.8529411764705882,
+        "beta_velocity": 0.049019607843137254,
+        "recovery_needed": true,
+        "semantic": "approach_possible_but_post_reach_hold_needed"
+      },
+      "ram_target": {
+        "abs_odom_x_delta": 1.228080445228464,
+        "approach_success": true,
+        "drift_after_approach": true,
+        "final_rel_dist": 1.119564538314731,
+        "future_invalid": true,
+        "future_risk": 0.9617209521857926,
+        "max_abs_yaw_rate": 0.3,
+        "min_rel_dist": 0.04670744162031445,
+        "recovery_needed": true,
+        "stable_reached": false,
+        "yaw_saturated": true
+      },
+      "source_type": "sponge_objective_ram_targets",
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "action": {
+        "body_height": 0.34,
+        "goal_slow_distance": 0.4,
+        "swing_clearance": 0.08,
+        "vx_far": 0.025,
+        "vx_near": 0.01
+      },
+      "case_name": "micro_v025_n010_s040_h034_c008",
+      "feature_norm": [
+        -0.5345224838248487,
+        0.5345224838248487,
+        0.0,
+        0.0,
+        -0.8707490847152414,
+        -1.015389727187706,
+        1.0441851275732492,
+        -0.08233869695926134,
+        0.05451392668007089
+      ],
+      "feature_raw": [
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.025,
+        0.01,
+        0.4,
+        0.34,
+        0.08
+      ],
+      "objective_target": {
+        "beta_energy": 0.11764705882352941,
+        "beta_stability": 0.7941176470588236,
+        "beta_velocity": 0.08823529411764705,
+        "recovery_needed": true,
+        "semantic": "cautious_probe_required"
+      },
+      "ram_target": {
+        "abs_odom_x_delta": 0.9120899801001057,
+        "approach_success": false,
+        "drift_after_approach": false,
+        "final_rel_dist": 0.6202180917312826,
+        "future_invalid": true,
+        "future_risk": 0.6302526163562671,
+        "max_abs_yaw_rate": 0.3,
+        "min_rel_dist": 0.23643829098849775,
+        "recovery_needed": true,
+        "stable_reached": false,
+        "yaw_saturated": true
+      },
+      "source_type": "sponge_objective_ram_targets",
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "action": {
+        "body_height": 0.34,
+        "goal_slow_distance": 0.45,
+        "swing_clearance": 0.1,
+        "vx_far": 0.03,
+        "vx_near": 0.01
+      },
+      "case_name": "micro_v030_n010_s045_h034_c010",
+      "feature_norm": [
+        -0.5345224838248487,
+        0.5345224838248487,
+        0.0,
+        0.0,
+        -0.770618570010893,
+        -1.015389727187706,
+        1.646599624250123,
+        -0.08233869695926134,
+        0.7904519368610394
+      ],
+      "feature_raw": [
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.03,
+        0.01,
+        0.45,
+        0.34,
+        0.1
+      ],
+      "objective_target": {
+        "beta_energy": 0.11764705882352941,
+        "beta_stability": 0.7941176470588236,
+        "beta_velocity": 0.08823529411764705,
+        "recovery_needed": true,
+        "semantic": "cautious_probe_required"
+      },
+      "ram_target": {
+        "abs_odom_x_delta": 0.4872510077598209,
+        "approach_success": false,
+        "drift_after_approach": false,
+        "final_rel_dist": 0.6665151036977335,
+        "future_invalid": true,
+        "future_risk": 0.6233030207395467,
+        "max_abs_yaw_rate": 0.3,
+        "min_rel_dist": 0.36871993559599786,
+        "recovery_needed": true,
+        "stable_reached": false,
+        "yaw_saturated": true
+      },
+      "source_type": "sponge_objective_ram_targets",
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "action": {
+        "body_height": 0.38,
+        "goal_slow_distance": 0.3,
+        "swing_clearance": 0.12,
+        "vx_far": 0.06,
+        "vx_near": 0.035
+      },
+      "case_name": "sponge_mid_h038_c012",
+      "feature_norm": [
+        -0.5345224838248487,
+        0.5345224838248487,
+        0.0,
+        0.0,
+        -0.16983548178480193,
+        -0.01407700978413785,
+        -0.16064386578049947,
+        2.140806120940807,
+        1.5263899470420075
+      ],
+      "feature_raw": [
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.06,
+        0.035,
+        0.3,
+        0.38,
+        0.12
+      ],
+      "objective_target": {
+        "beta_energy": 0.0970873786407767,
+        "beta_stability": 0.8737864077669902,
+        "beta_velocity": 0.029126213592233007,
+        "recovery_needed": true,
+        "semantic": "forward_walk_unreliable_on_soft_terrain"
+      },
+      "ram_target": {
+        "abs_odom_x_delta": 0.4191246550849663,
+        "approach_success": false,
+        "drift_after_approach": false,
+        "final_rel_dist": 1.124098079621154,
+        "future_invalid": true,
+        "future_risk": 0.7148196159242308,
+        "max_abs_yaw_rate": 0.3,
+        "min_rel_dist": 0.27548012602977445,
+        "recovery_needed": true,
+        "stable_reached": false,
+        "yaw_saturated": true
+      },
+      "source_type": "sponge_objective_ram_targets",
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "action": {
+        "body_height": 0.36,
+        "goal_slow_distance": 0.28,
+        "swing_clearance": 0.12,
+        "vx_far": 0.08,
+        "vx_near": 0.04
+      },
+      "case_name": "sponge_probe_h036_c012",
+      "feature_norm": [
+        -0.5345224838248487,
+        0.5345224838248487,
+        0.0,
+        0.0,
+        0.23068657703259215,
+        0.18618553369657567,
+        -0.4016096644512486,
+        1.0292337119907715,
+        1.5263899470420075
+      ],
+      "feature_raw": [
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.08,
+        0.04,
+        0.28,
+        0.36,
+        0.12
+      ],
+      "objective_target": {
+        "beta_energy": 0.11764705882352941,
+        "beta_stability": 0.7941176470588236,
+        "beta_velocity": 0.08823529411764705,
+        "recovery_needed": true,
+        "semantic": "cautious_probe_required"
+      },
+      "ram_target": {
+        "abs_odom_x_delta": 0.14476494506206666,
+        "approach_success": false,
+        "drift_after_approach": false,
+        "final_rel_dist": 0.6599417645026425,
+        "future_invalid": true,
+        "future_risk": 0.6219883529005286,
+        "max_abs_yaw_rate": 0.3,
+        "min_rel_dist": 0.49253220415592636,
+        "recovery_needed": true,
+        "stable_reached": false,
+        "yaw_saturated": true
+      },
+      "source_type": "sponge_objective_ram_targets",
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "action": {
+        "body_height": 0.34,
+        "goal_slow_distance": 0.4,
+        "swing_clearance": 0.08,
+        "vx_far": 0.035,
+        "vx_near": 0.015
+      },
+      "case_name": "micro_v035_n015_s040_h034_c008",
+      "feature_norm": [
+        -0.5345224838248487,
+        0.5345224838248487,
+        0.0,
+        0.0,
+        -0.6704880553065443,
+        -0.8151271837069924,
+        1.0441851275732492,
+        -0.08233869695926134,
+        0.05451392668007089
+      ],
+      "feature_raw": [
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.035,
+        0.015,
+        0.4,
+        0.34,
+        0.08
+      ],
+      "objective_target": {
+        "beta_energy": 0.11764705882352941,
+        "beta_stability": 0.7941176470588236,
+        "beta_velocity": 0.08823529411764705,
+        "recovery_needed": true,
+        "semantic": "cautious_probe_required"
+      },
+      "ram_target": {
+        "abs_odom_x_delta": 0.18305153098640312,
+        "approach_success": false,
+        "drift_after_approach": false,
+        "final_rel_dist": 0.6491137233079592,
+        "future_invalid": true,
+        "future_risk": 0.6198227446615919,
+        "max_abs_yaw_rate": 0.3,
+        "min_rel_dist": 0.499713260564862,
+        "recovery_needed": true,
+        "stable_reached": false,
+        "yaw_saturated": true
+      },
+      "source_type": "sponge_objective_ram_targets",
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "action": {
+        "body_height": 0.32,
+        "goal_slow_distance": 0.45,
+        "swing_clearance": 0.06,
+        "vx_far": 0.03,
+        "vx_near": 0.01
+      },
+      "case_name": "micro_v030_n010_s045_h032_c006",
+      "feature_norm": [
+        -0.5345224838248487,
+        0.5345224838248487,
+        0.0,
+        0.0,
+        -0.770618570010893,
+        -1.015389727187706,
+        1.646599624250123,
+        -1.1939111059092973,
+        -0.6814240835008977
+      ],
+      "feature_raw": [
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.03,
+        0.01,
+        0.45,
+        0.32,
+        0.06
+      ],
+      "objective_target": {
+        "beta_energy": 0.0970873786407767,
+        "beta_stability": 0.8737864077669902,
+        "beta_velocity": 0.029126213592233007,
+        "recovery_needed": true,
+        "semantic": "forward_walk_unreliable_on_soft_terrain"
+      },
+      "ram_target": {
+        "abs_odom_x_delta": 0.5170499923820342,
+        "approach_success": false,
+        "drift_after_approach": false,
+        "final_rel_dist": 0.8450608543707119,
+        "future_invalid": true,
+        "future_risk": 0.6590121708741424,
+        "max_abs_yaw_rate": 0.3,
+        "min_rel_dist": 0.4758559352868797,
+        "recovery_needed": true,
+        "stable_reached": false,
+        "yaw_saturated": true
+      },
+      "source_type": "sponge_objective_ram_targets",
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "action": {
+        "body_height": 0.36,
+        "goal_slow_distance": 0.3,
+        "swing_clearance": 0.1,
+        "vx_far": 0.04,
+        "vx_near": 0.025
+      },
+      "case_name": "sponge_slow_h036_c010",
+      "feature_norm": [
+        -0.5345224838248487,
+        0.5345224838248487,
+        0.0,
+        0.0,
+        -0.5703575406021959,
+        -0.41460209674556514,
+        -0.16064386578049947,
+        1.0292337119907715,
+        0.7904519368610394
+      ],
+      "feature_raw": [
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.04,
+        0.025,
+        0.3,
+        0.36,
+        0.1
+      ],
+      "objective_target": {
+        "beta_energy": 0.0970873786407767,
+        "beta_stability": 0.8737864077669902,
+        "beta_velocity": 0.029126213592233007,
+        "recovery_needed": true,
+        "semantic": "forward_walk_unreliable_on_soft_terrain"
+      },
+      "ram_target": {
+        "abs_odom_x_delta": 1.3788346874661224,
+        "approach_success": false,
+        "drift_after_approach": false,
+        "final_rel_dist": 1.1980286335919026,
+        "future_invalid": true,
+        "future_risk": 0.7924891954649927,
+        "max_abs_yaw_rate": 0.3,
+        "min_rel_dist": 0.22662953779449374,
+        "recovery_needed": true,
+        "stable_reached": false,
+        "yaw_saturated": true
+      },
+      "source_type": "sponge_objective_ram_targets",
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "action": {
+        "body_height": 0.34,
+        "goal_slow_distance": 0.4,
+        "swing_clearance": 0.08,
+        "vx_far": 0.03,
+        "vx_near": 0.015
+      },
+      "case_name": "micro_v030_n015_s040_h034_c008",
+      "feature_norm": [
+        -0.5345224838248487,
+        0.5345224838248487,
+        0.0,
+        0.0,
+        -0.770618570010893,
+        -0.8151271837069924,
+        1.0441851275732492,
+        -0.08233869695926134,
+        0.05451392668007089
+      ],
+      "feature_raw": [
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.03,
+        0.015,
+        0.4,
+        0.34,
+        0.08
+      ],
+      "objective_target": {
+        "beta_energy": 0.0970873786407767,
+        "beta_stability": 0.8737864077669902,
+        "beta_velocity": 0.029126213592233007,
+        "recovery_needed": true,
+        "semantic": "forward_walk_unreliable_on_soft_terrain"
+      },
+      "ram_target": {
+        "abs_odom_x_delta": 0.5152968709560621,
+        "approach_success": false,
+        "drift_after_approach": false,
+        "final_rel_dist": 1.0691595191313115,
+        "future_invalid": true,
+        "future_risk": 0.7038319038262624,
+        "max_abs_yaw_rate": 0.3,
+        "min_rel_dist": 0.4315213394283075,
+        "recovery_needed": true,
+        "stable_reached": false,
+        "yaw_saturated": true
+      },
+      "source_type": "sponge_objective_ram_targets",
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "action": {
+        "body_height": 0.34,
+        "goal_slow_distance": 0.3,
+        "swing_clearance": 0.08,
+        "vx_far": 0.06,
+        "vx_near": 0.035
+      },
+      "case_name": "sponge_mid_h034_c008",
+      "feature_norm": [
+        -0.5345224838248487,
+        0.5345224838248487,
+        0.0,
+        0.0,
+        -0.16983548178480193,
+        -0.01407700978413785,
+        -0.16064386578049947,
+        -0.08233869695926134,
+        0.05451392668007089
+      ],
+      "feature_raw": [
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.06,
+        0.035,
+        0.3,
+        0.34,
+        0.08
+      ],
+      "objective_target": {
+        "beta_energy": 0.0970873786407767,
+        "beta_stability": 0.8737864077669902,
+        "beta_velocity": 0.029126213592233007,
+        "recovery_needed": true,
+        "semantic": "forward_walk_unreliable_on_soft_terrain"
+      },
+      "ram_target": {
+        "abs_odom_x_delta": 0.229318258712975,
+        "approach_success": false,
+        "drift_after_approach": false,
+        "final_rel_dist": 0.9904716629134941,
+        "future_invalid": true,
+        "future_risk": 0.6880943325826989,
+        "max_abs_yaw_rate": 0.3,
+        "min_rel_dist": 0.47063693812341867,
+        "recovery_needed": true,
+        "stable_reached": false,
+        "yaw_saturated": true
+      },
+      "source_type": "sponge_objective_ram_targets",
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "action": {
+        "body_height": 0.34,
+        "goal_slow_distance": 0.4,
+        "swing_clearance": 0.08,
+        "vx_far": 0.02,
+        "vx_near": 0.01
+      },
+      "case_name": "micro_v020_n010_s040_h034_c008",
+      "feature_norm": [
+        -0.5345224838248487,
+        0.5345224838248487,
+        0.0,
+        0.0,
+        -0.9708795994195899,
+        -1.015389727187706,
+        1.0441851275732492,
+        -0.08233869695926134,
+        0.05451392668007089
+      ],
+      "feature_raw": [
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.02,
+        0.01,
+        0.4,
+        0.34,
+        0.08
+      ],
+      "objective_target": {
+        "beta_energy": 0.0970873786407767,
+        "beta_stability": 0.8737864077669902,
+        "beta_velocity": 0.029126213592233007,
+        "recovery_needed": true,
+        "semantic": "forward_walk_unreliable_on_soft_terrain"
+      },
+      "ram_target": {
+        "abs_odom_x_delta": 1.0735633504188813,
+        "approach_success": false,
+        "drift_after_approach": false,
+        "final_rel_dist": 1.080029305953018,
+        "future_invalid": true,
+        "future_risk": 0.7383621962324918,
+        "max_abs_yaw_rate": 0.3,
+        "min_rel_dist": 0.4993363120511357,
+        "recovery_needed": true,
+        "stable_reached": false,
+        "yaw_saturated": true
+      },
+      "source_type": "sponge_objective_ram_targets",
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "action": {
+        "body_height": 0.36,
+        "goal_slow_distance": 0.3,
+        "swing_clearance": 0.1,
+        "vx_far": 0.06,
+        "vx_near": 0.035
+      },
+      "case_name": "sponge_mid_h036_c010",
+      "feature_norm": [
+        -0.5345224838248487,
+        0.5345224838248487,
+        0.0,
+        0.0,
+        -0.16983548178480193,
+        -0.01407700978413785,
+        -0.16064386578049947,
+        1.0292337119907715,
+        0.7904519368610394
+      ],
+      "feature_raw": [
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.06,
+        0.035,
+        0.3,
+        0.36,
+        0.1
+      ],
+      "objective_target": {
+        "beta_energy": 0.0970873786407767,
+        "beta_stability": 0.8737864077669902,
+        "beta_velocity": 0.029126213592233007,
+        "recovery_needed": true,
+        "semantic": "forward_walk_unreliable_on_soft_terrain"
+      },
+      "ram_target": {
+        "abs_odom_x_delta": 0.4255462814443768,
+        "approach_success": false,
+        "drift_after_approach": false,
+        "final_rel_dist": 1.3222855226513965,
+        "future_invalid": true,
+        "future_risk": 0.75,
+        "max_abs_yaw_rate": 0.3,
+        "min_rel_dist": 0.4820654337810403,
+        "recovery_needed": true,
+        "stable_reached": false,
+        "yaw_saturated": true
+      },
+      "source_type": "sponge_objective_ram_targets",
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "action": {
+        "body_height": 0.38,
+        "goal_slow_distance": 0.28,
+        "swing_clearance": 0.14,
+        "vx_far": 0.08,
+        "vx_near": 0.04
+      },
+      "case_name": "sponge_probe_h038_c014",
+      "feature_norm": [
+        -0.5345224838248487,
+        0.5345224838248487,
+        0.0,
+        0.0,
+        0.23068657703259215,
+        0.18618553369657567,
+        -0.4016096644512486,
+        2.140806120940807,
+        2.2623279572229764
+      ],
+      "feature_raw": [
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.08,
+        0.04,
+        0.28,
+        0.38,
+        0.14
+      ],
+      "objective_target": {
+        "beta_energy": 0.0970873786407767,
+        "beta_stability": 0.8737864077669902,
+        "beta_velocity": 0.029126213592233007,
+        "recovery_needed": true,
+        "semantic": "forward_walk_unreliable_on_soft_terrain"
+      },
+      "ram_target": {
+        "abs_odom_x_delta": 1.6242570509118717,
+        "approach_success": false,
+        "drift_after_approach": false,
+        "final_rel_dist": 1.2307160080964945,
+        "future_invalid": true,
+        "future_risk": 0.8235689067104861,
+        "max_abs_yaw_rate": 0.3,
+        "min_rel_dist": 0.24099972583352347,
+        "recovery_needed": true,
+        "stable_reached": false,
+        "yaw_saturated": true
+      },
+      "source_type": "sponge_objective_ram_targets",
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "action": {
+        "body_height": 0.38,
+        "goal_slow_distance": 0.3,
+        "swing_clearance": 0.12,
+        "vx_far": 0.04,
+        "vx_near": 0.025
+      },
+      "case_name": "sponge_slow_h038_c012",
+      "feature_norm": [
+        -0.5345224838248487,
+        0.5345224838248487,
+        0.0,
+        0.0,
+        -0.5703575406021959,
+        -0.41460209674556514,
+        -0.16064386578049947,
+        2.140806120940807,
+        1.5263899470420075
+      ],
+      "feature_raw": [
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.04,
+        0.025,
+        0.3,
+        0.38,
+        0.12
+      ],
+      "objective_target": {
+        "beta_energy": 0.0970873786407767,
+        "beta_stability": 0.8737864077669902,
+        "beta_velocity": 0.029126213592233007,
+        "recovery_needed": true,
+        "semantic": "forward_walk_unreliable_on_soft_terrain"
+      },
+      "ram_target": {
+        "abs_odom_x_delta": 1.78711833082446,
+        "approach_success": false,
+        "drift_after_approach": false,
+        "final_rel_dist": 1.5707437099459325,
+        "future_invalid": true,
+        "future_risk": 0.853711833082446,
+        "max_abs_yaw_rate": 0.3,
+        "min_rel_dist": 0.20281844655849884,
+        "recovery_needed": true,
+        "stable_reached": false,
+        "yaw_saturated": true
+      },
+      "source_type": "sponge_objective_ram_targets",
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "action": {
+        "body_height": 0.34,
+        "goal_slow_distance": 0.45,
+        "swing_clearance": 0.08,
+        "vx_far": 0.04,
+        "vx_near": 0.015
+      },
+      "case_name": "micro_v040_n015_s045_h034_c008",
+      "feature_norm": [
+        -0.5345224838248487,
+        0.5345224838248487,
+        0.0,
+        0.0,
+        -0.5703575406021959,
+        -0.8151271837069924,
+        1.646599624250123,
+        -0.08233869695926134,
+        0.05451392668007089
+      ],
+      "feature_raw": [
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.04,
+        0.015,
+        0.45,
+        0.34,
+        0.08
+      ],
+      "objective_target": {
+        "beta_energy": 0.0970873786407767,
+        "beta_stability": 0.8737864077669902,
+        "beta_velocity": 0.029126213592233007,
+        "recovery_needed": true,
+        "semantic": "forward_walk_unreliable_on_soft_terrain"
+      },
+      "ram_target": {
+        "abs_odom_x_delta": 1.4319032049154166,
+        "approach_success": false,
+        "drift_after_approach": false,
+        "final_rel_dist": 1.5874890349002506,
+        "future_invalid": true,
+        "future_risk": 0.8181903204915416,
+        "max_abs_yaw_rate": 0.3,
+        "min_rel_dist": 0.3501545865236354,
+        "recovery_needed": true,
+        "stable_reached": false,
+        "yaw_saturated": true
+      },
+      "source_type": "sponge_objective_ram_targets",
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "action": {
+        "body_height": 0.32,
+        "goal_slow_distance": 0.20000000000000004,
+        "swing_clearance": 0.04,
+        "vx_far": 0.15816317484675904,
+        "vx_near": 0.07908158742337952
+      },
+      "case_name": "low_base",
+      "feature_norm": [
+        1.8708286933869704,
+        -1.8708286933869704,
+        0.0,
+        0.0,
+        1.795990362698986,
+        1.751501153830546,
+        -1.365472859134247,
+        -1.1939111059092973,
+        -1.417362093681866
+      ],
+      "feature_raw": [
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.15816317484675904,
+        0.07908158742337952,
+        0.20000000000000004,
+        0.32,
+        0.04
+      ],
+      "objective_target": {
+        "beta_energy": 0.15,
+        "beta_stability": 0.4,
+        "beta_velocity": 0.45,
+        "recovery_needed": false,
+        "semantic": "stable_goal_reach_flat_locomotion"
+      },
+      "ram_target": {
+        "abs_odom_x_delta": 0.42357202685869877,
+        "approach_success": true,
+        "drift_after_approach": false,
+        "final_rel_dist": 0.15156079904729983,
+        "future_invalid": false,
+        "future_risk": 0.1386664351004017,
+        "max_abs_yaw_rate": 0.2767368591358029,
+        "min_rel_dist": 0.14306377789064562,
+        "recovery_needed": false,
+        "stable_reached": true,
+        "yaw_saturated": false
+      },
+      "source_type": "trusted_theta5_table",
+      "world_name": "earth"
+    },
+    {
+      "action": {
+        "body_height": 0.34,
+        "goal_slow_distance": 0.3,
+        "swing_clearance": 0.08,
+        "vx_far": 0.04,
+        "vx_near": 0.025
+      },
+      "case_name": "theta5_sponge_conservative_fallback_v0",
+      "feature_norm": [
+        -0.5345224838248487,
+        0.5345224838248487,
+        0.0,
+        0.0,
+        -0.5703575406021959,
+        -0.41460209674556514,
+        -0.16064386578049947,
+        -0.08233869695926134,
+        0.05451392668007089
+      ],
+      "feature_raw": [
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.04,
+        0.025,
+        0.3,
+        0.34,
+        0.08
+      ],
+      "objective_target": {
+        "beta_energy": 0.11764705882352941,
+        "beta_stability": 0.7941176470588236,
+        "beta_velocity": 0.08823529411764705,
+        "recovery_needed": true,
+        "semantic": "cautious_probe_required"
+      },
+      "ram_target": {
+        "abs_odom_x_delta": 0.04901818886136109,
+        "approach_success": false,
+        "drift_after_approach": false,
+        "final_rel_dist": 0.45699821773573923,
+        "future_invalid": false,
+        "future_risk": 0.5813996435471479,
+        "max_abs_yaw_rate": 0.3,
+        "min_rel_dist": 0.4073912946920967,
+        "recovery_needed": true,
+        "stable_reached": false,
+        "yaw_saturated": true
+      },
+      "source_type": null,
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "action": {
+        "body_height": 0.32,
+        "goal_slow_distance": 0.20000000000000004,
+        "swing_clearance": 0.04,
+        "vx_far": 0.15816317484675904,
+        "vx_near": 0.07908158742337952
+      },
+      "case_name": "theta5_teacher_table_v0",
+      "feature_norm": [
+        1.8708286933869704,
+        -1.8708286933869704,
+        0.0,
+        0.0,
+        1.795990362698986,
+        1.751501153830546,
+        -1.365472859134247,
+        -1.1939111059092973,
+        -1.417362093681866
+      ],
+      "feature_raw": [
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.15816317484675904,
+        0.07908158742337952,
+        0.20000000000000004,
+        0.32,
+        0.04
+      ],
+      "objective_target": {
+        "beta_energy": 0.15,
+        "beta_stability": 0.4,
+        "beta_velocity": 0.45,
+        "recovery_needed": false,
+        "semantic": "stable_goal_reach_flat_locomotion"
+      },
+      "ram_target": {
+        "abs_odom_x_delta": 0.34161127268815017,
+        "approach_success": true,
+        "drift_after_approach": false,
+        "final_rel_dist": 0.14918037310634974,
+        "future_invalid": false,
+        "future_risk": 0.0,
+        "max_abs_yaw_rate": 0.2650782290068971,
+        "min_rel_dist": 0.14209354133179827,
+        "recovery_needed": false,
+        "stable_reached": true,
+        "yaw_saturated": false
+      },
+      "source_type": null,
+      "world_name": "earth"
+    },
+    {
+      "action": {
+        "body_height": 0.34,
+        "goal_slow_distance": 0.3,
+        "swing_clearance": 0.08,
+        "vx_far": 0.04,
+        "vx_near": 0.025
+      },
+      "case_name": "theta5_sponge_conservative_fallback_v0",
+      "feature_norm": [
+        -0.5345224838248487,
+        0.5345224838248487,
+        0.0,
+        0.0,
+        -0.5703575406021959,
+        -0.41460209674556514,
+        -0.16064386578049947,
+        -0.08233869695926134,
+        0.05451392668007089
+      ],
+      "feature_raw": [
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.04,
+        0.025,
+        0.3,
+        0.34,
+        0.08
+      ],
+      "objective_target": {
+        "beta_energy": 0.11764705882352941,
+        "beta_stability": 0.7941176470588236,
+        "beta_velocity": 0.08823529411764705,
+        "recovery_needed": true,
+        "semantic": "cautious_probe_required"
+      },
+      "ram_target": {
+        "abs_odom_x_delta": 0.04901818886136109,
+        "approach_success": false,
+        "drift_after_approach": false,
+        "final_rel_dist": 0.45699821773573923,
+        "future_invalid": false,
+        "future_risk": 0.5813996435471479,
+        "max_abs_yaw_rate": 0.3,
+        "min_rel_dist": 0.4073912946920967,
+        "recovery_needed": true,
+        "stable_reached": false,
+        "yaw_saturated": true
+      },
+      "source_type": null,
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "action": {
+        "body_height": 0.32,
+        "goal_slow_distance": 0.20000000000000004,
+        "swing_clearance": 0.04,
+        "vx_far": 0.15816317484675904,
+        "vx_near": 0.07908158742337952
+      },
+      "case_name": "theta5_teacher_table_v0",
+      "feature_norm": [
+        1.8708286933869704,
+        -1.8708286933869704,
+        0.0,
+        0.0,
+        1.795990362698986,
+        1.751501153830546,
+        -1.365472859134247,
+        -1.1939111059092973,
+        -1.417362093681866
+      ],
+      "feature_raw": [
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.15816317484675904,
+        0.07908158742337952,
+        0.20000000000000004,
+        0.32,
+        0.04
+      ],
+      "objective_target": {
+        "beta_energy": 0.15,
+        "beta_stability": 0.4,
+        "beta_velocity": 0.45,
+        "recovery_needed": false,
+        "semantic": "stable_goal_reach_flat_locomotion"
+      },
+      "ram_target": {
+        "abs_odom_x_delta": 0.34161127268815017,
+        "approach_success": true,
+        "drift_after_approach": false,
+        "final_rel_dist": 0.14918037310634974,
+        "future_invalid": false,
+        "future_risk": 0.0,
+        "max_abs_yaw_rate": 0.2650782290068971,
+        "min_rel_dist": 0.14209354133179827,
+        "recovery_needed": false,
+        "stable_reached": true,
+        "yaw_saturated": false
+      },
+      "source_type": null,
+      "world_name": "earth"
+    },
+    {
+      "action": {
+        "body_height": 0.34,
+        "goal_slow_distance": 0.3,
+        "swing_clearance": 0.08,
+        "vx_far": 0.04,
+        "vx_near": 0.025
+      },
+      "case_name": "theta5_sponge_conservative_fallback_v0",
+      "feature_norm": [
+        -0.5345224838248487,
+        0.5345224838248487,
+        0.0,
+        0.0,
+        -0.5703575406021959,
+        -0.41460209674556514,
+        -0.16064386578049947,
+        -0.08233869695926134,
+        0.05451392668007089
+      ],
+      "feature_raw": [
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.04,
+        0.025,
+        0.3,
+        0.34,
+        0.08
+      ],
+      "objective_target": {
+        "beta_energy": 0.11764705882352941,
+        "beta_stability": 0.7941176470588236,
+        "beta_velocity": 0.08823529411764705,
+        "recovery_needed": true,
+        "semantic": "cautious_probe_required"
+      },
+      "ram_target": {
+        "abs_odom_x_delta": 0.04901818886136109,
+        "approach_success": false,
+        "drift_after_approach": false,
+        "final_rel_dist": 0.45699821773573923,
+        "future_invalid": false,
+        "future_risk": 0.5813996435471479,
+        "max_abs_yaw_rate": 0.3,
+        "min_rel_dist": 0.4073912946920967,
+        "recovery_needed": true,
+        "stable_reached": false,
+        "yaw_saturated": true
+      },
+      "source_type": null,
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "action": {
+        "body_height": 0.32,
+        "goal_slow_distance": 0.20000000000000004,
+        "swing_clearance": 0.04,
+        "vx_far": 0.15816317484675904,
+        "vx_near": 0.07908158742337952
+      },
+      "case_name": "theta5_teacher_table_v0",
+      "feature_norm": [
+        1.8708286933869704,
+        -1.8708286933869704,
+        0.0,
+        0.0,
+        1.795990362698986,
+        1.751501153830546,
+        -1.365472859134247,
+        -1.1939111059092973,
+        -1.417362093681866
+      ],
+      "feature_raw": [
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.15816317484675904,
+        0.07908158742337952,
+        0.20000000000000004,
+        0.32,
+        0.04
+      ],
+      "objective_target": {
+        "beta_energy": 0.15,
+        "beta_stability": 0.4,
+        "beta_velocity": 0.45,
+        "recovery_needed": false,
+        "semantic": "stable_goal_reach_flat_locomotion"
+      },
+      "ram_target": {
+        "abs_odom_x_delta": 0.34161127268815017,
+        "approach_success": true,
+        "drift_after_approach": false,
+        "final_rel_dist": 0.14918037310634974,
+        "future_invalid": false,
+        "future_risk": 0.0,
+        "max_abs_yaw_rate": 0.2650782290068971,
+        "min_rel_dist": 0.14209354133179827,
+        "recovery_needed": false,
+        "stable_reached": true,
+        "yaw_saturated": false
+      },
+      "source_type": null,
+      "world_name": "earth"
+    },
+    {
+      "action": {
+        "body_height": 0.34,
+        "goal_slow_distance": 0.3,
+        "swing_clearance": 0.08,
+        "vx_far": 0.04,
+        "vx_near": 0.025
+      },
+      "case_name": "theta5_sponge_conservative_fallback_v0",
+      "feature_norm": [
+        -0.5345224838248487,
+        0.5345224838248487,
+        0.0,
+        0.0,
+        -0.5703575406021959,
+        -0.41460209674556514,
+        -0.16064386578049947,
+        -0.08233869695926134,
+        0.05451392668007089
+      ],
+      "feature_raw": [
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.04,
+        0.025,
+        0.3,
+        0.34,
+        0.08
+      ],
+      "objective_target": {
+        "beta_energy": 0.11764705882352941,
+        "beta_stability": 0.7941176470588236,
+        "beta_velocity": 0.08823529411764705,
+        "recovery_needed": true,
+        "semantic": "cautious_probe_required"
+      },
+      "ram_target": {
+        "abs_odom_x_delta": 0.04901818886136109,
+        "approach_success": false,
+        "drift_after_approach": false,
+        "final_rel_dist": 0.45699821773573923,
+        "future_invalid": false,
+        "future_risk": 0.5813996435471479,
+        "max_abs_yaw_rate": 0.3,
+        "min_rel_dist": 0.4073912946920967,
+        "recovery_needed": true,
+        "stable_reached": false,
+        "yaw_saturated": true
+      },
+      "source_type": null,
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "action": {
+        "body_height": 0.32,
+        "goal_slow_distance": 0.20000000000000004,
+        "swing_clearance": 0.04,
+        "vx_far": 0.15816317484675904,
+        "vx_near": 0.07908158742337952
+      },
+      "case_name": "theta5_teacher_table_v0",
+      "feature_norm": [
+        1.8708286933869704,
+        -1.8708286933869704,
+        0.0,
+        0.0,
+        1.795990362698986,
+        1.751501153830546,
+        -1.365472859134247,
+        -1.1939111059092973,
+        -1.417362093681866
+      ],
+      "feature_raw": [
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.15816317484675904,
+        0.07908158742337952,
+        0.20000000000000004,
+        0.32,
+        0.04
+      ],
+      "objective_target": {
+        "beta_energy": 0.15,
+        "beta_stability": 0.4,
+        "beta_velocity": 0.45,
+        "recovery_needed": false,
+        "semantic": "stable_goal_reach_flat_locomotion"
+      },
+      "ram_target": {
+        "abs_odom_x_delta": 0.34161127268815017,
+        "approach_success": true,
+        "drift_after_approach": false,
+        "final_rel_dist": 0.14918037310634974,
+        "future_invalid": false,
+        "future_risk": 0.0,
+        "max_abs_yaw_rate": 0.2650782290068971,
+        "min_rel_dist": 0.14209354133179827,
+        "recovery_needed": false,
+        "stable_reached": true,
+        "yaw_saturated": false
+      },
+      "source_type": null,
+      "world_name": "earth"
+    },
+    {
+      "action": {
+        "body_height": 0.34,
+        "goal_slow_distance": 0.3,
+        "swing_clearance": 0.08,
+        "vx_far": 0.04,
+        "vx_near": 0.025
+      },
+      "case_name": "theta5_sponge_conservative_fallback_v0",
+      "feature_norm": [
+        -0.5345224838248487,
+        0.5345224838248487,
+        0.0,
+        0.0,
+        -0.5703575406021959,
+        -0.41460209674556514,
+        -0.16064386578049947,
+        -0.08233869695926134,
+        0.05451392668007089
+      ],
+      "feature_raw": [
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.04,
+        0.025,
+        0.3,
+        0.34,
+        0.08
+      ],
+      "objective_target": {
+        "beta_energy": 0.11764705882352941,
+        "beta_stability": 0.7941176470588236,
+        "beta_velocity": 0.08823529411764705,
+        "recovery_needed": true,
+        "semantic": "cautious_probe_required"
+      },
+      "ram_target": {
+        "abs_odom_x_delta": 0.04901818886136109,
+        "approach_success": false,
+        "drift_after_approach": false,
+        "final_rel_dist": 0.45699821773573923,
+        "future_invalid": false,
+        "future_risk": 0.5813996435471479,
+        "max_abs_yaw_rate": 0.3,
+        "min_rel_dist": 0.4073912946920967,
+        "recovery_needed": true,
+        "stable_reached": false,
+        "yaw_saturated": true
+      },
+      "source_type": null,
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "action": {
+        "body_height": 0.32,
+        "goal_slow_distance": 0.20000000000000004,
+        "swing_clearance": 0.04,
+        "vx_far": 0.15816317484675904,
+        "vx_near": 0.07908158742337952
+      },
+      "case_name": "theta5_teacher_table_v0",
+      "feature_norm": [
+        1.8708286933869704,
+        -1.8708286933869704,
+        0.0,
+        0.0,
+        1.795990362698986,
+        1.751501153830546,
+        -1.365472859134247,
+        -1.1939111059092973,
+        -1.417362093681866
+      ],
+      "feature_raw": [
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.15816317484675904,
+        0.07908158742337952,
+        0.20000000000000004,
+        0.32,
+        0.04
+      ],
+      "objective_target": {
+        "beta_energy": 0.15,
+        "beta_stability": 0.4,
+        "beta_velocity": 0.45,
+        "recovery_needed": false,
+        "semantic": "stable_goal_reach_flat_locomotion"
+      },
+      "ram_target": {
+        "abs_odom_x_delta": 0.34161127268815017,
+        "approach_success": true,
+        "drift_after_approach": false,
+        "final_rel_dist": 0.14918037310634974,
+        "future_invalid": false,
+        "future_risk": 0.0,
+        "max_abs_yaw_rate": 0.2650782290068971,
+        "min_rel_dist": 0.14209354133179827,
+        "recovery_needed": false,
+        "stable_reached": true,
+        "yaw_saturated": false
+      },
+      "source_type": null,
+      "world_name": "earth"
+    }
+  ],
+  "feature_names": [
+    "world_is_earth",
+    "world_is_sponge",
+    "world_is_flat",
+    "world_is_slope",
+    "vx_far",
+    "vx_near",
+    "goal_slow_distance",
+    "body_height",
+    "swing_clearance"
+  ],
+  "model_type": "phase_b_objective_ram_bootstrap_knn_v0",
+  "note": "Small bootstrap KNN/exemplar predictor for Objective Selector and RAM targets. Intended as a runtime scaffold before larger preference/RAM training.",
+  "num_examples": 27,
+  "semantic_counts": {
+    "approach_possible_but_post_reach_hold_needed": 2,
+    "cautious_probe_required": 9,
+    "forward_walk_unreliable_on_soft_terrain": 10,
+    "stable_goal_reach_flat_locomotion": 6
+  },
+  "x_mean": [
+    0.2222222222222222,
+    0.7777777777777778,
+    1.0,
+    0.0,
+    0.06848070552150204,
+    0.03535146387186213,
+    0.3133333333333333,
+    0.3414814814814815,
+    0.07851851851851854
+  ],
+  "x_std": [
+    0.4157397096415491,
+    0.4157397096415491,
+    1e-06,
+    1e-06,
+    0.049934827707250946,
+    0.024967225089106728,
+    0.08299933065325822,
+    0.017992530076283136,
+    0.02717620196717651
+  ]
+}
