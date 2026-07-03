@@ -230,17 +230,17 @@
           "total_reward": -5.006043309504051
         },
         "trot_cautious": {
-          "best_reward": 6.855873257590073,
-          "last_reward": 2.1251956022674907,
-          "mean_reward": 1.5814276061195613,
-          "n": 6,
+          "best_reward": 7.684239089952579,
+          "last_reward": 6.7362709972697825,
+          "mean_reward": 3.3456461070345034,
+          "n": 10,
           "semantic_counts": {
             "cautious_probe_required": 1,
-            "forward_walk_unreliable_on_soft_terrain": 3,
+            "forward_walk_unreliable_on_soft_terrain": 4,
             "no_meaningful_progress": 1,
-            "reached_but_failed_to_hold": 1
+            "reached_but_failed_to_hold": 4
           },
-          "total_reward": 9.488565636717368
+          "total_reward": 33.456461070345036
         },
         "trot_fast_low_clear": {
           "best_reward": -8.574341116960642,
@@ -263,24 +263,25 @@
           "total_reward": -2.1220450573812166
         },
         "trot_low_body_probe": {
-          "best_reward": -5.473624868662274,
-          "last_reward": -5.473624868662274,
-          "mean_reward": -5.473624868662274,
-          "n": 1,
+          "best_reward": 7.5238046236303555,
+          "last_reward": 7.5238046236303555,
+          "mean_reward": 1.025089877484041,
+          "n": 2,
           "semantic_counts": {
-            "forward_walk_unreliable_on_soft_terrain": 1
+            "forward_walk_unreliable_on_soft_terrain": 1,
+            "reached_but_failed_to_hold": 1
           },
-          "total_reward": -5.473624868662274
+          "total_reward": 2.050179754968082
         },
         "trot_mid": {
-          "best_reward": -5.555941547916371,
-          "last_reward": -5.555941547916371,
-          "mean_reward": -5.555941547916371,
-          "n": 1,
+          "best_reward": 1.4208226731887033,
+          "last_reward": 1.4208226731887033,
+          "mean_reward": -2.0675594373638337,
+          "n": 2,
           "semantic_counts": {
-            "forward_walk_unreliable_on_soft_terrain": 1
+            "forward_walk_unreliable_on_soft_terrain": 2
           },
-          "total_reward": -5.555941547916371
+          "total_reward": -4.1351188747276675
         },
         "trot_soft_high_clear": {
           "best_reward": -2.0929358928625517,
@@ -324,7 +325,7 @@
           "total_reward": -8.867064098343754
         }
       },
-      "n_total": 18
+      "n_total": 24
     },
     "tracer_sponge_firm_slope_5deg": {
       "actions": {
