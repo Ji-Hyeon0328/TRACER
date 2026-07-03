@@ -1,0 +1,60 @@
+{
+  "groups": {
+    "earth::theta5_teacher_table_v0::vx=0.1582::near=0.0791::slow=0.2000::h=0.3200::clr=0.0400": {
+      "avg_final_rel_dist": 0.1442176910891524,
+      "avg_future_risk": 0.0,
+      "avg_odom_x_delta": 0.3223750132174959,
+      "future_uncertainty": 0.005087922398430195,
+      "high_variability": false,
+      "key": {
+        "body_height": 0.32,
+        "goal_slow_distance": 0.2,
+        "swing_clearance": 0.04,
+        "theta5_profile_name": "theta5_teacher_table_v0",
+        "vx_far": 0.1582,
+        "vx_near": 0.0791,
+        "world_name": "earth"
+      },
+      "key_string": "earth::theta5_teacher_table_v0::vx=0.1582::near=0.0791::slow=0.2000::h=0.3200::clr=0.0400",
+      "majority_semantic": "stable_goal_reach_flat_locomotion",
+      "n": 2,
+      "semantic_counts": {
+        "stable_goal_reach_flat_locomotion": 2
+      },
+      "semantic_uncertainty": 0.0,
+      "std_like_final_rel_dist": 0.004962682017197365,
+      "std_like_future_risk": 0.0,
+      "std_like_odom_x_delta": 0.01923625947065427
+    },
+    "tracer_sponge_firm_flat::theta5_sponge_conservative_fallback_v0::vx=0.0400::near=0.0250::slow=0.3000::h=0.3400::clr=0.0800": {
+      "avg_final_rel_dist": 2.241377103142303,
+      "avg_future_risk": 0.7906998217735739,
+      "avg_odom_x_delta": 1.6713078097219423,
+      "future_uncertainty": 0.7209300178226425,
+      "high_variability": true,
+      "key": {
+        "body_height": 0.34,
+        "goal_slow_distance": 0.3,
+        "swing_clearance": 0.08,
+        "theta5_profile_name": "theta5_sponge_conservative_fallback_v0",
+        "vx_far": 0.04,
+        "vx_near": 0.025,
+        "world_name": "tracer_sponge_firm_flat"
+      },
+      "key_string": "tracer_sponge_firm_flat::theta5_sponge_conservative_fallback_v0::vx=0.0400::near=0.0250::slow=0.3000::h=0.3400::clr=0.0800",
+      "majority_semantic": "forward_walk_unreliable_on_soft_terrain",
+      "n": 2,
+      "semantic_counts": {
+        "cautious_probe_required": 1,
+        "forward_walk_unreliable_on_soft_terrain": 1
+      },
+      "semantic_uncertainty": 0.5,
+      "std_like_final_rel_dist": 1.7843788854065639,
+      "std_like_future_risk": 0.20930017822642605,
+      "std_like_odom_x_delta": 1.6222896208605813
+    }
+  },
+  "num_groups": 2,
+  "registry_type": "phase_b_objective_ram_uncertainty_registry_v0",
+  "source_score_csv": "artifacts/phase_b_objective_ram_runtime_score_v0_20260702_230500/objective_ram_runtime_score_v0.csv"
+}

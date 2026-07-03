@@ -163,6 +163,12 @@ summary["objective_semantic"] = pred.get("runtime_decision", {}).get("semantic")
 summary["predicted_future_risk"] = pred.get("runtime_decision", {}).get("future_risk")
 summary["predicted_recovery_needed"] = pred.get("runtime_decision", {}).get("recovery_needed")
 summary["predicted_future_invalid"] = pred.get("runtime_decision", {}).get("future_invalid")
+summary["predicted_future_uncertainty"] = pred.get("runtime_decision", {}).get("future_uncertainty")
+summary["predicted_semantic_uncertainty"] = pred.get("runtime_decision", {}).get("semantic_uncertainty")
+summary["predicted_high_variability"] = pred.get("runtime_decision", {}).get("high_variability")
+summary["predicted_uncertainty_n"] = pred.get("runtime_decision", {}).get("uncertainty_n")
+summary["predicted_uncertainty_majority_semantic"] = pred.get("runtime_decision", {}).get("uncertainty_majority_semantic")
+summary["uncertainty_prediction"] = pred.get("uncertainty_prediction", {})
 
 summary["theta_model"] = model_path
 summary["theta_profile_name"] = p.get("name")

@@ -21,6 +21,88 @@ def run_json(cmd):
     return json.loads(raw)
 
 
+def ff(x, default=0.0):
+    try:
+        v = float(x)
+        return v
+    except Exception:
+        return default
+
+
+def key_string(world, profile, vx, near, slow, h, clr):
+    return (
+        f"{world}::{profile}"
+        f"::vx={round(ff(vx), 4):.4f}"
+        f"::near={round(ff(near), 4):.4f}"
+        f"::slow={round(ff(slow), 4):.4f}"
+        f"::h={round(ff(h), 4):.4f}"
+        f"::clr={round(ff(clr), 4):.4f}"
+    )
+
+
+def load_uncertainty(registry_path, world, profile):
+    if not registry_path or not Path(registry_path).is_file():
+        return {}
+
+    with open(registry_path, "r") as f:
+        return json.load(f)
+
+
+def lookup_uncertainty(registry, world, profile, p):
+    if not registry:
+        return {}
+
+    k = key_string(
+        world,
+        profile,
+        p.get("vx_far"),
+        p.get("vx_near"),
+        p.get("goal_slow_distance"),
+        p.get("body_height"),
+        p.get("swing_clearance"),
+    )
+
+    groups = registry.get("groups", {})
+    if k in groups:
+        g = dict(groups[k])
+        g["matched_key"] = k
+        g["match_type"] = "exact"
+        return g
+
+    # Fallback: nearest same world/profile action.
+    best = None
+    best_d2 = None
+    for _, g in groups.items():
+        kk = g.get("key", {})
+        if kk.get("world_name") != world:
+            continue
+        if kk.get("theta5_profile_name") != profile:
+            continue
+
+        d2 = 0.0
+        for name, pred_name in [
+            ("vx_far", "vx_far"),
+            ("vx_near", "vx_near"),
+            ("goal_slow_distance", "goal_slow_distance"),
+            ("body_height", "body_height"),
+            ("swing_clearance", "swing_clearance"),
+        ]:
+            d = ff(kk.get(name)) - ff(p.get(pred_name))
+            d2 += d * d
+
+        if best_d2 is None or d2 < best_d2:
+            best_d2 = d2
+            best = dict(g)
+
+    if best is not None:
+        best["matched_key"] = best.get("key_string")
+        best["match_type"] = "nearest_same_world_profile"
+        best["action_distance2"] = best_d2
+        return best
+
+    return {}
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--theta5-model", default="")
@@ -30,6 +112,7 @@ def main():
     ap.add_argument("--goal-distance-ahead", type=float, default=0.5)
     ap.add_argument("--goal-stop-distance", type=float, default=0.15)
     ap.add_argument("--out-json", default="")
+    ap.add_argument("--uncertainty-registry", default="")
     args = ap.parse_args()
 
     theta5_model = args.theta5_model or latest_model(
@@ -46,6 +129,12 @@ def main():
                 "phase_b_objective_ram_bootstrap_v0_*",
                 "phase_b_objective_ram_bootstrap_v0.json",
             )
+
+    uncertainty_registry = args.uncertainty_registry
+    if not uncertainty_registry:
+        cfg_unc = Path("configs/phase_b_objective_ram_uncertainty_v0/current_registry.json")
+        if cfg_unc.is_file():
+            uncertainty_registry = str(cfg_unc)
 
     if not theta5_model:
         raise RuntimeError("theta5 model not found")
@@ -79,6 +168,14 @@ def main():
     objective = obj_ram["objective_prediction"]
     ram = obj_ram["ram_prediction"]
 
+    profile_name = p.get("name") or theta5.get("profile", {}).get("name")
+    unc_registry = load_uncertainty(uncertainty_registry, args.world_name, profile_name)
+    uncertainty = lookup_uncertainty(unc_registry, args.world_name, profile_name, p)
+
+    future_uncertainty = float(uncertainty.get("future_uncertainty", 0.0) or 0.0)
+    semantic_uncertainty = float(uncertainty.get("semantic_uncertainty", 0.0) or 0.0)
+    high_variability = bool(uncertainty.get("high_variability", False))
+
     out = {
         # Keep top-level compatibility with theta5 runner.
         "model": theta5_model,
@@ -108,7 +205,14 @@ def main():
             "approach_success_pred": ram.get("approach_success"),
             "drift_after_approach_pred": ram.get("drift_after_approach"),
             "yaw_saturated_pred": ram.get("yaw_saturated"),
+            "future_uncertainty": future_uncertainty,
+            "semantic_uncertainty": semantic_uncertainty,
+            "high_variability": high_variability,
+            "uncertainty_n": uncertainty.get("n"),
+            "uncertainty_majority_semantic": uncertainty.get("majority_semantic"),
         },
+        "uncertainty_registry": uncertainty_registry,
+        "uncertainty_prediction": uncertainty,
     }
 
     text = json.dumps(out, indent=2, sort_keys=True)
