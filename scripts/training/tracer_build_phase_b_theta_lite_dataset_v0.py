@@ -34,7 +34,10 @@ def classify(summary):
     approach = reached or min_dist <= 0.18
     yaw_sat = yaw >= 0.299
 
-    if stable or (reached and final_dist <= 0.30 and dx <= 0.80 and not yaw_sat):
+    # In Phase-B, yaw_rate may hit the command clamp during normal goal
+    # steering. Treat yaw saturation as a penalty/risk feature, but do not
+    # by itself prevent stable success if final distance and bounded drift are good.
+    if stable or (reached and final_dist <= 0.30 and dx <= 0.80):
         return "stable_goal_reach_flat_locomotion"
     if severe:
         return "forward_walk_unreliable_on_soft_terrain"

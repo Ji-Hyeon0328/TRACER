@@ -1,0 +1,623 @@
+{
+  "num_worlds": 4,
+  "schema": "phase_b_theta_lite_teacher_table_v0",
+  "source_dataset_jsonl": "artifacts/phase_b_theta_lite_dataset_v0_20260703_012232/phase_b_theta_lite_dataset_v0.jsonl",
+  "table": {
+    "earth": {
+      "metrics": {
+        "final_rel_dist": 0.14631481839984095,
+        "max_abs_mpc_yaw_rate": 0.3,
+        "min_rel_dist": 0.13974829162158808,
+        "odom_x_delta": 0.37587871796456773,
+        "progress_initial_minus_min": 0.36023362942425796,
+        "reached_stop_distance": true
+      },
+      "normal_walk_blocked": false,
+      "num_candidates": 6,
+      "ranked_profiles": [
+        {
+          "metrics": {
+            "final_rel_dist": 0.14631481839984095,
+            "max_abs_mpc_yaw_rate": 0.3,
+            "min_rel_dist": 0.13974829162158808,
+            "odom_x_delta": 0.37587871796456773,
+            "progress_initial_minus_min": 0.36023362942425796,
+            "reached_stop_distance": true
+          },
+          "profile_name": "solid_fast_h032_c004",
+          "reward": 4.886213081466391,
+          "semantic": "stable_goal_reach_flat_locomotion",
+          "theta_action": {
+            "body_height": 0.32,
+            "goal_slow_distance": 0.2,
+            "goal_stop_distance": 0.15,
+            "swing_clearance": 0.04,
+            "vx_far": 0.16,
+            "vx_near": 0.08
+          }
+        },
+        {
+          "metrics": {
+            "final_rel_dist": 0.20004364050996512,
+            "max_abs_mpc_yaw_rate": 0.16898938982601064,
+            "min_rel_dist": 0.20004364050996512,
+            "odom_x_delta": 0.33327674010750397,
+            "progress_initial_minus_min": 0.3001550993001,
+            "reached_stop_distance": false
+          },
+          "profile_name": "solid_cautious_h033_c005",
+          "reward": 0.23362818803648283,
+          "semantic": "cautious_probe_required",
+          "theta_action": {
+            "body_height": 0.33,
+            "goal_slow_distance": 0.28,
+            "goal_stop_distance": 0.15,
+            "swing_clearance": 0.05,
+            "vx_far": 0.08,
+            "vx_near": 0.04
+          }
+        },
+        {
+          "metrics": {
+            "final_rel_dist": 0.34047751377449964,
+            "max_abs_mpc_yaw_rate": 0.09302997504755003,
+            "min_rel_dist": 0.34009380366128583,
+            "odom_x_delta": 0.18899797464983303,
+            "progress_initial_minus_min": 0.15993267684644397,
+            "reached_stop_distance": false
+          },
+          "profile_name": "sponge_slow_h034_c008",
+          "reward": -0.11511114740652822,
+          "semantic": "cautious_probe_required",
+          "theta_action": {
+            "body_height": 0.34,
+            "goal_slow_distance": 0.3,
+            "goal_stop_distance": 0.15,
+            "swing_clearance": 0.08,
+            "vx_far": 0.04,
+            "vx_near": 0.025
+          }
+        },
+        {
+          "metrics": {
+            "final_rel_dist": 0.3794453203445667,
+            "max_abs_mpc_yaw_rate": 0.1008767493486624,
+            "min_rel_dist": 0.375895667783123,
+            "odom_x_delta": 0.14979726983854874,
+            "progress_initial_minus_min": 0.1241330806957518,
+            "reached_stop_distance": false
+          },
+          "profile_name": "sponge_midclear_h035_c006",
+          "reward": -0.20607779387233746,
+          "semantic": "cautious_probe_required",
+          "theta_action": {
+            "body_height": 0.35,
+            "goal_slow_distance": 0.38,
+            "goal_stop_distance": 0.18,
+            "swing_clearance": 0.06,
+            "vx_far": 0.035,
+            "vx_near": 0.015
+          }
+        },
+        {
+          "metrics": {
+            "final_rel_dist": 0.38858387925902427,
+            "max_abs_mpc_yaw_rate": 0.06475915860476024,
+            "min_rel_dist": 0.38858387925902427,
+            "odom_x_delta": 0.11559560058061577,
+            "progress_initial_minus_min": 0.11136980918027656,
+            "reached_stop_distance": false
+          },
+          "profile_name": "sponge_highbody_h036_c008",
+          "reward": -0.22364206118877905,
+          "semantic": "cautious_probe_required",
+          "theta_action": {
+            "body_height": 0.36,
+            "goal_slow_distance": 0.38,
+            "goal_stop_distance": 0.18,
+            "swing_clearance": 0.08,
+            "vx_far": 0.035,
+            "vx_near": 0.015
+          }
+        },
+        {
+          "metrics": {
+            "final_rel_dist": 0.4717829756744838,
+            "max_abs_mpc_yaw_rate": 0.08712619231593312,
+            "min_rel_dist": 0.4713859432187108,
+            "odom_x_delta": 0.053320966417913174,
+            "progress_initial_minus_min": 0.028846082022507324,
+            "reached_stop_distance": false
+          },
+          "profile_name": "sponge_ultraslow_h034_c010",
+          "reward": -1.4407512948384258,
+          "semantic": "no_meaningful_progress",
+          "theta_action": {
+            "body_height": 0.34,
+            "goal_slow_distance": 0.4,
+            "goal_stop_distance": 0.18,
+            "swing_clearance": 0.1,
+            "vx_far": 0.025,
+            "vx_near": 0.012
+          }
+        }
+      ],
+      "requires_alternative_primitive": false,
+      "reward": 4.886213081466391,
+      "selected_profile_family": "solid",
+      "selected_profile_name": "solid_fast_h032_c004",
+      "semantic": "stable_goal_reach_flat_locomotion",
+      "theta_action": {
+        "body_height": 0.32,
+        "goal_slow_distance": 0.2,
+        "goal_stop_distance": 0.15,
+        "swing_clearance": 0.04,
+        "vx_far": 0.16,
+        "vx_near": 0.08
+      },
+      "world_name": "earth"
+    },
+    "tracer_sponge_firm_downslope_5deg": {
+      "metrics": {
+        "final_rel_dist": 4.558026108030484,
+        "max_abs_mpc_yaw_rate": 0.3,
+        "min_rel_dist": 0.07802424991880713,
+        "odom_x_delta": 5.04450474631882,
+        "progress_initial_minus_min": 0.4161485365485992,
+        "reached_stop_distance": true
+      },
+      "normal_walk_blocked": true,
+      "num_candidates": 6,
+      "ranked_profiles": [
+        {
+          "metrics": {
+            "final_rel_dist": 4.558026108030484,
+            "max_abs_mpc_yaw_rate": 0.3,
+            "min_rel_dist": 0.07802424991880713,
+            "odom_x_delta": 5.04450474631882,
+            "progress_initial_minus_min": 0.4161485365485992,
+            "reached_stop_distance": true
+          },
+          "profile_name": "sponge_slow_h034_c008",
+          "reward": -9.725729034933286,
+          "semantic": "forward_walk_unreliable_on_soft_terrain",
+          "theta_action": {
+            "body_height": 0.34,
+            "goal_slow_distance": 0.3,
+            "goal_stop_distance": 0.15,
+            "swing_clearance": 0.08,
+            "vx_far": 0.04,
+            "vx_near": 0.025
+          }
+        },
+        {
+          "metrics": {
+            "final_rel_dist": 6.372815861036783,
+            "max_abs_mpc_yaw_rate": 0.3,
+            "min_rel_dist": 0.012807607730483152,
+            "odom_x_delta": 6.859118024388675,
+            "progress_initial_minus_min": 0.4853015587989375,
+            "reached_stop_distance": true
+          },
+          "profile_name": "solid_fast_h032_c004",
+          "reward": -10.029396882402125,
+          "semantic": "forward_walk_unreliable_on_soft_terrain",
+          "theta_action": {
+            "body_height": 0.32,
+            "goal_slow_distance": 0.2,
+            "goal_stop_distance": 0.15,
+            "swing_clearance": 0.04,
+            "vx_far": 0.16,
+            "vx_near": 0.08
+          }
+        },
+        {
+          "metrics": {
+            "final_rel_dist": 8.127166451142367,
+            "max_abs_mpc_yaw_rate": 0.3,
+            "min_rel_dist": 0.07981661327730938,
+            "odom_x_delta": 8.476561431485607,
+            "progress_initial_minus_min": 0.41506659144318775,
+            "reached_stop_distance": true
+          },
+          "profile_name": "sponge_highbody_h036_c008",
+          "reward": -10.169866817113626,
+          "semantic": "forward_walk_unreliable_on_soft_terrain",
+          "theta_action": {
+            "body_height": 0.36,
+            "goal_slow_distance": 0.38,
+            "goal_stop_distance": 0.18,
+            "swing_clearance": 0.08,
+            "vx_far": 0.035,
+            "vx_near": 0.015
+          }
+        },
+        {
+          "metrics": {
+            "final_rel_dist": 8.844432202487152,
+            "max_abs_mpc_yaw_rate": 0.3,
+            "min_rel_dist": 0.12596697863599574,
+            "odom_x_delta": 9.329225974888754,
+            "progress_initial_minus_min": 0.3678178380333039,
+            "reached_stop_distance": true
+          },
+          "profile_name": "sponge_ultraslow_h034_c010",
+          "reward": -10.264364323933393,
+          "semantic": "forward_walk_unreliable_on_soft_terrain",
+          "theta_action": {
+            "body_height": 0.34,
+            "goal_slow_distance": 0.4,
+            "goal_stop_distance": 0.18,
+            "swing_clearance": 0.1,
+            "vx_far": 0.025,
+            "vx_near": 0.012
+          }
+        },
+        {
+          "metrics": {
+            "final_rel_dist": 6.2468431094952095,
+            "max_abs_mpc_yaw_rate": 0.3,
+            "min_rel_dist": 0.23555485626998987,
+            "odom_x_delta": 6.702819715743804,
+            "progress_initial_minus_min": 0.2628746589069032,
+            "reached_stop_distance": false
+          },
+          "profile_name": "sponge_midclear_h035_c006",
+          "reward": -11.474250682186193,
+          "semantic": "forward_walk_unreliable_on_soft_terrain",
+          "theta_action": {
+            "body_height": 0.35,
+            "goal_slow_distance": 0.38,
+            "goal_stop_distance": 0.18,
+            "swing_clearance": 0.06,
+            "vx_far": 0.035,
+            "vx_near": 0.015
+          }
+        },
+        {
+          "metrics": {
+            "final_rel_dist": 6.333548257610201,
+            "max_abs_mpc_yaw_rate": 0.3,
+            "min_rel_dist": 0.3021724172599274,
+            "odom_x_delta": 6.711947890604757,
+            "progress_initial_minus_min": 0.19517847548796707,
+            "reached_stop_distance": false
+          },
+          "profile_name": "solid_cautious_h033_c005",
+          "reward": -11.609643049024065,
+          "semantic": "forward_walk_unreliable_on_soft_terrain",
+          "theta_action": {
+            "body_height": 0.33,
+            "goal_slow_distance": 0.28,
+            "goal_stop_distance": 0.15,
+            "swing_clearance": 0.05,
+            "vx_far": 0.08,
+            "vx_near": 0.04
+          }
+        }
+      ],
+      "requires_alternative_primitive": true,
+      "reward": -9.725729034933286,
+      "selected_profile_family": "sponge",
+      "selected_profile_name": "sponge_slow_h034_c008",
+      "semantic": "forward_walk_unreliable_on_soft_terrain",
+      "theta_action": {
+        "body_height": 0.34,
+        "goal_slow_distance": 0.3,
+        "goal_stop_distance": 0.15,
+        "swing_clearance": 0.08,
+        "vx_far": 0.04,
+        "vx_near": 0.025
+      },
+      "world_name": "tracer_sponge_firm_downslope_5deg"
+    },
+    "tracer_sponge_firm_flat": {
+      "metrics": {
+        "final_rel_dist": 0.3450709961802001,
+        "max_abs_mpc_yaw_rate": 0.3,
+        "min_rel_dist": 0.321648293148965,
+        "odom_x_delta": 0.16909532695215457,
+        "progress_initial_minus_min": 0.1780775304285831,
+        "reached_stop_distance": false
+      },
+      "normal_walk_blocked": false,
+      "num_candidates": 6,
+      "ranked_profiles": [
+        {
+          "metrics": {
+            "final_rel_dist": 0.3450709961802001,
+            "max_abs_mpc_yaw_rate": 0.3,
+            "min_rel_dist": 0.321648293148965,
+            "odom_x_delta": 0.16909532695215457,
+            "progress_initial_minus_min": 0.1780775304285831,
+            "reached_stop_distance": false
+          },
+          "profile_name": "solid_fast_h032_c004",
+          "reward": -0.5734635987991112,
+          "semantic": "cautious_probe_required",
+          "theta_action": {
+            "body_height": 0.32,
+            "goal_slow_distance": 0.2,
+            "goal_stop_distance": 0.15,
+            "swing_clearance": 0.04,
+            "vx_far": 0.16,
+            "vx_near": 0.08
+          }
+        },
+        {
+          "metrics": {
+            "final_rel_dist": 2.5671082041741884,
+            "max_abs_mpc_yaw_rate": 0.3,
+            "min_rel_dist": 0.04331525179450384,
+            "odom_x_delta": 1.4326615595918177,
+            "progress_initial_minus_min": 0.4541932642845793,
+            "reached_stop_distance": true
+          },
+          "profile_name": "sponge_slow_h034_c008",
+          "reward": -5.8750524554009385,
+          "semantic": "forward_walk_unreliable_on_soft_terrain",
+          "theta_action": {
+            "body_height": 0.34,
+            "goal_slow_distance": 0.3,
+            "goal_stop_distance": 0.15,
+            "swing_clearance": 0.08,
+            "vx_far": 0.04,
+            "vx_near": 0.025
+          }
+        },
+        {
+          "metrics": {
+            "final_rel_dist": 2.0308216325882937,
+            "max_abs_mpc_yaw_rate": 0.3,
+            "min_rel_dist": 0.4835486871494796,
+            "odom_x_delta": 1.9431111580736944,
+            "progress_initial_minus_min": 0.01646089813798196,
+            "reached_stop_distance": false
+          },
+          "profile_name": "solid_cautious_h033_c005",
+          "reward": -7.469455415349177,
+          "semantic": "forward_walk_unreliable_on_soft_terrain",
+          "theta_action": {
+            "body_height": 0.33,
+            "goal_slow_distance": 0.28,
+            "goal_stop_distance": 0.15,
+            "swing_clearance": 0.05,
+            "vx_far": 0.08,
+            "vx_near": 0.04
+          }
+        },
+        {
+          "metrics": {
+            "final_rel_dist": 2.7554536304992805,
+            "max_abs_mpc_yaw_rate": 0.3,
+            "min_rel_dist": 0.3155859130902068,
+            "odom_x_delta": 3.0020847443588603,
+            "progress_initial_minus_min": 0.18022129912155266,
+            "reached_stop_distance": false
+          },
+          "profile_name": "sponge_midclear_h035_c006",
+          "reward": -8.396053404435605,
+          "semantic": "forward_walk_unreliable_on_soft_terrain",
+          "theta_action": {
+            "body_height": 0.35,
+            "goal_slow_distance": 0.38,
+            "goal_stop_distance": 0.18,
+            "swing_clearance": 0.06,
+            "vx_far": 0.035,
+            "vx_near": 0.015
+          }
+        },
+        {
+          "metrics": {
+            "final_rel_dist": 4.229394975517594,
+            "max_abs_mpc_yaw_rate": 0.3,
+            "min_rel_dist": 0.01245549879941032,
+            "odom_x_delta": 4.447832953921187,
+            "progress_initial_minus_min": 0.4863364673217448,
+            "reached_stop_distance": true
+          },
+          "profile_name": "sponge_highbody_h036_c008",
+          "reward": -8.980638517834699,
+          "semantic": "forward_walk_unreliable_on_soft_terrain",
+          "theta_action": {
+            "body_height": 0.36,
+            "goal_slow_distance": 0.38,
+            "goal_stop_distance": 0.18,
+            "swing_clearance": 0.08,
+            "vx_far": 0.035,
+            "vx_near": 0.015
+          }
+        },
+        {
+          "metrics": {
+            "final_rel_dist": 5.210669671947173,
+            "max_abs_mpc_yaw_rate": 0.3,
+            "min_rel_dist": 0.08293183209478729,
+            "odom_x_delta": 5.625609024094353,
+            "progress_initial_minus_min": 0.41566015782308746,
+            "reached_stop_distance": true
+          },
+          "profile_name": "sponge_ultraslow_h034_c010",
+          "reward": -10.168679684353826,
+          "semantic": "forward_walk_unreliable_on_soft_terrain",
+          "theta_action": {
+            "body_height": 0.34,
+            "goal_slow_distance": 0.4,
+            "goal_stop_distance": 0.18,
+            "swing_clearance": 0.1,
+            "vx_far": 0.025,
+            "vx_near": 0.012
+          }
+        }
+      ],
+      "requires_alternative_primitive": false,
+      "reward": -0.5734635987991112,
+      "selected_profile_family": "solid",
+      "selected_profile_name": "solid_fast_h032_c004",
+      "semantic": "cautious_probe_required",
+      "theta_action": {
+        "body_height": 0.32,
+        "goal_slow_distance": 0.2,
+        "goal_stop_distance": 0.15,
+        "swing_clearance": 0.04,
+        "vx_far": 0.16,
+        "vx_near": 0.08
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    "tracer_sponge_firm_slope_5deg": {
+      "metrics": {
+        "final_rel_dist": 2.0844383258510804,
+        "max_abs_mpc_yaw_rate": 0.3,
+        "min_rel_dist": 0.3039841588678309,
+        "odom_x_delta": -0.502506751913423,
+        "progress_initial_minus_min": 0.19566118678528893,
+        "reached_stop_distance": false
+      },
+      "normal_walk_blocked": true,
+      "num_candidates": 6,
+      "ranked_profiles": [
+        {
+          "metrics": {
+            "final_rel_dist": 2.0844383258510804,
+            "max_abs_mpc_yaw_rate": 0.3,
+            "min_rel_dist": 0.3039841588678309,
+            "odom_x_delta": -0.502506751913423,
+            "progress_initial_minus_min": 0.19566118678528893,
+            "reached_stop_distance": false
+          },
+          "profile_name": "sponge_slow_h034_c008",
+          "reward": -6.444369328237214,
+          "semantic": "forward_walk_unreliable_on_soft_terrain",
+          "theta_action": {
+            "body_height": 0.34,
+            "goal_slow_distance": 0.3,
+            "goal_stop_distance": 0.15,
+            "swing_clearance": 0.08,
+            "vx_far": 0.04,
+            "vx_near": 0.025
+          }
+        },
+        {
+          "metrics": {
+            "final_rel_dist": 1.6131615039195446,
+            "max_abs_mpc_yaw_rate": 0.3,
+            "min_rel_dist": 0.5003234956048633,
+            "odom_x_delta": -1.1440023215515684,
+            "progress_initial_minus_min": 0.0,
+            "reached_stop_distance": false
+          },
+          "profile_name": "solid_fast_h032_c004",
+          "reward": -6.685162664695329,
+          "semantic": "forward_walk_unreliable_on_soft_terrain",
+          "theta_action": {
+            "body_height": 0.32,
+            "goal_slow_distance": 0.2,
+            "goal_stop_distance": 0.15,
+            "swing_clearance": 0.04,
+            "vx_far": 0.16,
+            "vx_near": 0.08
+          }
+        },
+        {
+          "metrics": {
+            "final_rel_dist": 1.7504163548657061,
+            "max_abs_mpc_yaw_rate": 0.3,
+            "min_rel_dist": 0.44305885955004,
+            "odom_x_delta": -1.2365562087278414,
+            "progress_initial_minus_min": 0.057163957080525685,
+            "reached_stop_distance": false
+          },
+          "profile_name": "sponge_ultraslow_h034_c010",
+          "reward": -6.754366545068575,
+          "semantic": "forward_walk_unreliable_on_soft_terrain",
+          "theta_action": {
+            "body_height": 0.34,
+            "goal_slow_distance": 0.4,
+            "goal_stop_distance": 0.18,
+            "swing_clearance": 0.1,
+            "vx_far": 0.025,
+            "vx_near": 0.012
+          }
+        },
+        {
+          "metrics": {
+            "final_rel_dist": 3.667555698624393,
+            "max_abs_mpc_yaw_rate": 0.2904344300340799,
+            "min_rel_dist": 0.5011814875028322,
+            "odom_x_delta": -3.1128049285194797,
+            "progress_initial_minus_min": 0.0,
+            "reached_stop_distance": false
+          },
+          "profile_name": "sponge_midclear_h035_c006",
+          "reward": -9.223958162884133,
+          "semantic": "forward_walk_unreliable_on_soft_terrain",
+          "theta_action": {
+            "body_height": 0.35,
+            "goal_slow_distance": 0.38,
+            "goal_stop_distance": 0.18,
+            "swing_clearance": 0.06,
+            "vx_far": 0.035,
+            "vx_near": 0.015
+          }
+        },
+        {
+          "metrics": {
+            "final_rel_dist": 3.9641553661732174,
+            "max_abs_mpc_yaw_rate": 0.3,
+            "min_rel_dist": 0.5003111978257183,
+            "odom_x_delta": -3.2512745173899265,
+            "progress_initial_minus_min": 0.0,
+            "reached_stop_distance": false
+          },
+          "profile_name": "solid_cautious_h033_c005",
+          "reward": -10.089792624868181,
+          "semantic": "forward_walk_unreliable_on_soft_terrain",
+          "theta_action": {
+            "body_height": 0.33,
+            "goal_slow_distance": 0.28,
+            "goal_stop_distance": 0.15,
+            "swing_clearance": 0.05,
+            "vx_far": 0.08,
+            "vx_near": 0.04
+          }
+        },
+        {
+          "metrics": {
+            "final_rel_dist": 5.225076328430387,
+            "max_abs_mpc_yaw_rate": 0.27611641569733736,
+            "min_rel_dist": 0.5003857584213183,
+            "odom_x_delta": -4.721534421156297,
+            "progress_initial_minus_min": 0.0,
+            "reached_stop_distance": false
+          },
+          "profile_name": "sponge_highbody_h036_c008",
+          "reward": -11.360767210578148,
+          "semantic": "forward_walk_unreliable_on_soft_terrain",
+          "theta_action": {
+            "body_height": 0.36,
+            "goal_slow_distance": 0.38,
+            "goal_stop_distance": 0.18,
+            "swing_clearance": 0.08,
+            "vx_far": 0.035,
+            "vx_near": 0.015
+          }
+        }
+      ],
+      "requires_alternative_primitive": true,
+      "reward": -6.444369328237214,
+      "selected_profile_family": "sponge",
+      "selected_profile_name": "sponge_slow_h034_c008",
+      "semantic": "forward_walk_unreliable_on_soft_terrain",
+      "theta_action": {
+        "body_height": 0.34,
+        "goal_slow_distance": 0.3,
+        "goal_stop_distance": 0.15,
+        "swing_clearance": 0.08,
+        "vx_far": 0.04,
+        "vx_near": 0.025
+      },
+      "world_name": "tracer_sponge_firm_slope_5deg"
+    }
+  }
+}
