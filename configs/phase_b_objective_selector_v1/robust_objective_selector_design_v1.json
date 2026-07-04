@@ -1,0 +1,71 @@
+{
+  "schema": "phase_b_robust_objective_selector_design_v1",
+  "description": "Design for the next Objective Selector/RAM proxy. This replaces naive logit bias with robust empirical action scoring.",
+  "motivation": {
+    "v0_result": "Objective Selector/RAM proxy v0 degraded performance relative to raw PPO.",
+    "diagnosis": [
+      "Hand-coded logit bias can override useful PPO preferences.",
+      "Small-n oracle gap estimates are unreliable.",
+      "The selector did not explicitly optimize reach speed, stability, and energy proxy as separate metrics.",
+      "RAM uncertainty was recorded but not used as a robust penalty."
+    ]
+  },
+  "selector_score": {
+    "form": "Score(a, terrain) = beta_v * S_reach_speed + beta_s * S_stability + beta_e * S_energy - lambda_u * U_ram - lambda_var * Var_empirical",
+    "terms": {
+      "S_reach_speed": [
+        "reach_rate",
+        "mean_R_v",
+        "time_to_reach",
+        "mean_min_rel_dist"
+      ],
+      "S_stability": [
+        "mean_R_s",
+        "mean_final_rel_dist",
+        "post_reach_drift",
+        "hold_reward"
+      ],
+      "S_energy": [
+        "mean_R_e",
+        "max_mpc_vx",
+        "max_abs_yaw_rate"
+      ],
+      "U_ram": [
+        "terrain/action uncertainty",
+        "hold risk",
+        "reach risk"
+      ],
+      "Var_empirical": [
+        "episode-to-episode outcome variance",
+        "small sample penalty"
+      ]
+    }
+  },
+  "comparison_targets": {
+    "controller_only": [
+      "fixed_trot_mid",
+      "fixed_trot_solid_fast",
+      "fixed_trot_cautious",
+      "fixed_trot_soft_mid_clear"
+    ],
+    "high_level_without_selector": [
+      "tracer_proxy_ppo_argmax_v1"
+    ],
+    "high_level_with_selector": [
+      "future_tracer_ppo_with_robust_objective_selector_v1"
+    ]
+  },
+  "success_criteria": {
+    "earth": "Match best fixed baseline and raw PPO while preserving low drift.",
+    "stairs_single": "Recover or exceed fixed_trot_mid performance without low-level modification.",
+    "tracer_sponge_firm_flat": "Preserve raw PPO reach success while explicitly reporting high hold risk."
+  },
+  "implementation_plan": [
+    "Build per-world per-action empirical metric table from repeated rollouts.",
+    "Estimate mean and variance for reach/stability/energy/speed terms.",
+    "Apply uncertainty-aware robust score instead of hard-coded logit bias.",
+    "Use Objective Selector beta to change the score weights, not to directly force actions.",
+    "Use RAM proxy uncertainty as a penalty or top-k gating signal.",
+    "Evaluate against controller-only and raw high-level PPO baselines."
+  ]
+}

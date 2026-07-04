@@ -1,0 +1,133 @@
+{
+  "comparison_json": "reports/phase_b_reach_terminated_policy_comparison_objective_selector_v0.json",
+  "interpretation": {
+    "likely_causes": [
+      "naive hand-coded logit bias",
+      "insufficient use of empirical robustness/uncertainty",
+      "small-n episode variance",
+      "no explicit speed/stability/energy trade-off score in action selection"
+    ],
+    "meaning": "This should be treated as a negative ablation, not as evidence that Objective Selector improves performance.",
+    "next_step": "Replace naive logit-bias selector with a robust empirical selector that scores actions using reach, stability, speed, energy proxy, and uncertainty.",
+    "summary": "Objective Selector/RAM proxy v0 degraded performance relative to the raw high-level PPO policy."
+  },
+  "raw_policy": "tracer_proxy_ppo_argmax_v1",
+  "schema": "phase_b_objective_selector_ablation_report_v0",
+  "selector_policy": "tracer_ppo_with_objective_selector_ram_proxy_v0",
+  "worlds": {
+    "earth": {
+      "degraded": true,
+      "delta_selector_minus_raw": {
+        "delta_R_e": 0.0,
+        "delta_R_s": -0.6364343338993488,
+        "delta_R_v": -2.4455991745233305,
+        "delta_mean_final_dist": 0.11658345629154315,
+        "delta_mean_min_dist": 0.09548344694654948,
+        "delta_post_reach_drift": 0.021100009344993696,
+        "delta_reach_rate": -0.33333333333333337,
+        "delta_reward": -2.0622076808512766
+      },
+      "raw": {
+        "mean_R_s": 2.513839261319303,
+        "mean_R_v": 9.10970467305851,
+        "mean_final_rel_dist": 0.187419282103648,
+        "mean_min_rel_dist": 0.14822382433151834,
+        "mean_post_reach_drift": 0.039195457772129634,
+        "mean_reward": 7.6433725071392615,
+        "n": 3,
+        "policy": "tracer_proxy_ppo_argmax_v1",
+        "reach_rate": 1.0,
+        "world": "earth"
+      },
+      "recommendation": "do_not_use_proxy_v0_as_improvement",
+      "selector": {
+        "mean_R_s": 1.8774049274199542,
+        "mean_R_v": 6.664105498535179,
+        "mean_final_rel_dist": 0.30400273839519115,
+        "mean_min_rel_dist": 0.24370727127806782,
+        "mean_post_reach_drift": 0.06029546711712333,
+        "mean_reward": 5.581164826287985,
+        "n": 3,
+        "policy": "tracer_ppo_with_objective_selector_ram_proxy_v0",
+        "reach_rate": 0.6666666666666666,
+        "world": "earth"
+      }
+    },
+    "stairs_single": {
+      "degraded": true,
+      "delta_selector_minus_raw": {
+        "delta_R_e": 0.0,
+        "delta_R_s": 0.07341543319719812,
+        "delta_R_v": -4.643681550972458,
+        "delta_mean_final_dist": -0.023777072042713066,
+        "delta_mean_min_dist": 0.18306752361518455,
+        "delta_post_reach_drift": -0.20684459565789748,
+        "delta_reach_rate": -0.6666666666666666,
+        "delta_reward": -3.311252667064814
+      },
+      "raw": {
+        "mean_R_s": 0.7555369974642753,
+        "mean_R_v": 7.605162597086919,
+        "mean_final_rel_dist": 1.008238677932792,
+        "mean_min_rel_dist": 0.14978285206199696,
+        "mean_post_reach_drift": 0.858455825870795,
+        "mean_reward": 5.599490579319365,
+        "n": 3,
+        "policy": "tracer_proxy_ppo_argmax_v1",
+        "reach_rate": 0.6666666666666666,
+        "world": "stairs_single"
+      },
+      "recommendation": "do_not_use_proxy_v0_as_improvement",
+      "selector": {
+        "mean_R_s": 0.8289524306614734,
+        "mean_R_v": 2.961481046114462,
+        "mean_final_rel_dist": 0.984461605890079,
+        "mean_min_rel_dist": 0.3328503756771815,
+        "mean_post_reach_drift": 0.6516112302128976,
+        "mean_reward": 2.288237912254551,
+        "n": 3,
+        "policy": "tracer_ppo_with_objective_selector_ram_proxy_v0",
+        "reach_rate": 0.0,
+        "world": "stairs_single"
+      }
+    },
+    "tracer_sponge_firm_flat": {
+      "degraded": true,
+      "delta_selector_minus_raw": {
+        "delta_R_e": 0.0,
+        "delta_R_s": 1.5203320896408203,
+        "delta_R_v": -6.7138970560506355,
+        "delta_mean_final_dist": -1.5202402708085874,
+        "delta_mean_min_dist": 0.2717472386979473,
+        "delta_post_reach_drift": -1.7919875095065347,
+        "delta_reach_rate": -1.0,
+        "delta_reward": -3.506239622191293
+      },
+      "raw": {
+        "mean_R_s": -3.04276019688256,
+        "mean_R_v": 9.595823555458702,
+        "mean_final_rel_dist": 3.82192786691918,
+        "mean_min_rel_dist": 0.06712464551878794,
+        "mean_post_reach_drift": 3.754803221400392,
+        "mean_reward": 4.680846465551525,
+        "n": 3,
+        "policy": "tracer_proxy_ppo_argmax_v1",
+        "reach_rate": 1.0,
+        "world": "tracer_sponge_firm_flat"
+      },
+      "recommendation": "do_not_use_proxy_v0_as_improvement",
+      "selector": {
+        "mean_R_s": -1.5224281072417396,
+        "mean_R_v": 2.8819264994080673,
+        "mean_final_rel_dist": 2.3016875961105927,
+        "mean_min_rel_dist": 0.33887188421673525,
+        "mean_post_reach_drift": 1.9628157118938574,
+        "mean_reward": 1.174606843360232,
+        "n": 3,
+        "policy": "tracer_ppo_with_objective_selector_ram_proxy_v0",
+        "reach_rate": 0.0,
+        "world": "tracer_sponge_firm_flat"
+      }
+    }
+  }
+}
