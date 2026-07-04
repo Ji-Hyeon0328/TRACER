@@ -1,0 +1,160 @@
+{
+  "best_epoch": 11,
+  "best_val_acc": 0.7011494252873564,
+  "excluded_features": [
+    "metric:final_rel_dist",
+    "metric:max_abs_mpc_yaw_rate",
+    "metric:min_rel_dist",
+    "metric:odom_x_delta_abs",
+    "metric:reached",
+    "reward:hold_reward",
+    "reward:reach_reward"
+  ],
+  "feature_names": [
+    "terrain_is_flat",
+    "terrain_is_soft_contact",
+    "terrain_is_stairs",
+    "terrain_roughness_proxy",
+    "terrain_slip_proxy",
+    "terrain_stiffness_log_proxy",
+    "theta:body_height",
+    "theta:goal_slow_distance",
+    "theta:goal_stop_distance",
+    "theta:swing_clearance",
+    "theta:vx_far",
+    "theta:vx_near",
+    "world_onehot:earth",
+    "world_onehot:stairs_single",
+    "world_onehot:tracer_sponge_firm_flat"
+  ],
+  "final_train_acc": 0.6657142857142857,
+  "final_val_acc": 0.7011494252873564,
+  "history_tail": [
+    {
+      "epoch": 281,
+      "loss": 0.4170585824327358,
+      "train_acc": 0.7057142857142857,
+      "val_acc": 0.6896551724137931
+    },
+    {
+      "epoch": 282,
+      "loss": 0.4176362002038989,
+      "train_acc": 0.7057142857142857,
+      "val_acc": 0.6896551724137931
+    },
+    {
+      "epoch": 283,
+      "loss": 0.4167778717299912,
+      "train_acc": 0.7057142857142857,
+      "val_acc": 0.6896551724137931
+    },
+    {
+      "epoch": 284,
+      "loss": 0.418159285099551,
+      "train_acc": 0.7057142857142857,
+      "val_acc": 0.6896551724137931
+    },
+    {
+      "epoch": 285,
+      "loss": 0.4190200946539942,
+      "train_acc": 0.7057142857142857,
+      "val_acc": 0.6896551724137931
+    },
+    {
+      "epoch": 286,
+      "loss": 0.41822513527983396,
+      "train_acc": 0.7057142857142857,
+      "val_acc": 0.6896551724137931
+    },
+    {
+      "epoch": 287,
+      "loss": 0.4174796670348192,
+      "train_acc": 0.7057142857142857,
+      "val_acc": 0.6896551724137931
+    },
+    {
+      "epoch": 288,
+      "loss": 0.41776393924218763,
+      "train_acc": 0.7057142857142857,
+      "val_acc": 0.6896551724137931
+    },
+    {
+      "epoch": 289,
+      "loss": 0.41733839464359934,
+      "train_acc": 0.7057142857142857,
+      "val_acc": 0.6896551724137931
+    },
+    {
+      "epoch": 290,
+      "loss": 0.41603242147197406,
+      "train_acc": 0.7057142857142857,
+      "val_acc": 0.6896551724137931
+    },
+    {
+      "epoch": 291,
+      "loss": 0.4184487776138788,
+      "train_acc": 0.7057142857142857,
+      "val_acc": 0.6896551724137931
+    },
+    {
+      "epoch": 292,
+      "loss": 0.4164767955958351,
+      "train_acc": 0.7057142857142857,
+      "val_acc": 0.6896551724137931
+    },
+    {
+      "epoch": 293,
+      "loss": 0.41709667234189074,
+      "train_acc": 0.7057142857142857,
+      "val_acc": 0.6896551724137931
+    },
+    {
+      "epoch": 294,
+      "loss": 0.4157489900138167,
+      "train_acc": 0.7057142857142857,
+      "val_acc": 0.6896551724137931
+    },
+    {
+      "epoch": 295,
+      "loss": 0.4187406093751365,
+      "train_acc": 0.7057142857142857,
+      "val_acc": 0.6896551724137931
+    },
+    {
+      "epoch": 296,
+      "loss": 0.41728453219077777,
+      "train_acc": 0.7057142857142857,
+      "val_acc": 0.6896551724137931
+    },
+    {
+      "epoch": 297,
+      "loss": 0.41675375519507546,
+      "train_acc": 0.7057142857142857,
+      "val_acc": 0.6896551724137931
+    },
+    {
+      "epoch": 298,
+      "loss": 0.41737448263661503,
+      "train_acc": 0.7057142857142857,
+      "val_acc": 0.6896551724137931
+    },
+    {
+      "epoch": 299,
+      "loss": 0.4169694538840839,
+      "train_acc": 0.7057142857142857,
+      "val_acc": 0.6896551724137931
+    },
+    {
+      "epoch": 300,
+      "loss": 0.4341696884667759,
+      "train_acc": 0.6828571428571428,
+      "val_acc": 0.6666666666666666
+    }
+  ],
+  "input_dim": 15,
+  "num_pairs": 437,
+  "out_dir": "artifacts/phase_b_objective_selector_pref_v2_clean",
+  "pairs": "data/phase_b_training_pipeline_v1/phase_b_objective_preference_pairs_v1.jsonl",
+  "schema": "phase_b_objective_selector_pref_train_report_v2_clean",
+  "warning": "Validation is still not a deployment guarantee because pairs are derived from a small 60-rollout seed dataset. Use this as a seed model, not final evidence."
+}

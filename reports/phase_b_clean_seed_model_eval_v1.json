@@ -1,0 +1,127 @@
+{
+  "objective_model": "artifacts/phase_b_objective_selector_pref_v2_clean/model.pt",
+  "ram_model": "artifacts/phase_b_ram_episode_v2_clean/model.pt",
+  "rows": [
+    {
+      "action": "trot_solid_fast",
+      "n": 5,
+      "pred_risk": 0.0008799183997325599,
+      "pred_utility": 31.62958526611328,
+      "reach_rate": 1.0,
+      "seed_risk": 0.0,
+      "seed_score": 7.9100418923315186,
+      "world": "earth"
+    },
+    {
+      "action": "trot_mid",
+      "n": 5,
+      "pred_risk": 0.019998056814074516,
+      "pred_utility": 30.30453109741211,
+      "reach_rate": 1.0,
+      "seed_risk": 0.0,
+      "seed_score": 7.926351451085004,
+      "world": "earth"
+    },
+    {
+      "action": "trot_cautious",
+      "n": 5,
+      "pred_risk": 0.3388505280017853,
+      "pred_utility": 28.82472038269043,
+      "reach_rate": 0.2,
+      "seed_risk": 0.32,
+      "seed_score": 3.71081970009773,
+      "world": "earth"
+    },
+    {
+      "action": "trot_soft_mid_clear",
+      "n": 5,
+      "pred_risk": 0.5418965816497803,
+      "pred_utility": 27.343576431274414,
+      "reach_rate": 0.0,
+      "seed_risk": 0.55,
+      "seed_score": 1.8706516512955573,
+      "world": "earth"
+    },
+    {
+      "action": "trot_solid_fast",
+      "n": 5,
+      "pred_risk": 0.03747996687889099,
+      "pred_utility": 31.101747512817383,
+      "reach_rate": 1.0,
+      "seed_risk": 0.02,
+      "seed_score": 8.473802485107395,
+      "world": "stairs_single"
+    },
+    {
+      "action": "trot_mid",
+      "n": 5,
+      "pred_risk": 0.23691798746585846,
+      "pred_utility": 29.788976669311523,
+      "reach_rate": 0.6,
+      "seed_risk": 0.19,
+      "seed_score": 5.735850576269262,
+      "world": "stairs_single"
+    },
+    {
+      "action": "trot_cautious",
+      "n": 5,
+      "pred_risk": 0.3890327215194702,
+      "pred_utility": 28.317794799804688,
+      "reach_rate": 0.4,
+      "seed_risk": 0.33,
+      "seed_score": 4.1627108883562425,
+      "world": "stairs_single"
+    },
+    {
+      "action": "trot_soft_mid_clear",
+      "n": 5,
+      "pred_risk": 0.4182361662387848,
+      "pred_utility": 26.821332931518555,
+      "reach_rate": 0.2,
+      "seed_risk": 0.44000000000000006,
+      "seed_score": 2.5608335252575785,
+      "world": "stairs_single"
+    },
+    {
+      "action": "trot_cautious",
+      "n": 5,
+      "pred_risk": 0.7462441921234131,
+      "pred_utility": 16.179372787475586,
+      "reach_rate": 0.4,
+      "seed_risk": 0.78,
+      "seed_score": 1.5884460981333928,
+      "world": "tracer_sponge_firm_flat"
+    },
+    {
+      "action": "trot_soft_mid_clear",
+      "n": 5,
+      "pred_risk": 0.7219744324684143,
+      "pred_utility": 16.14009666442871,
+      "reach_rate": 0.6,
+      "seed_risk": 0.6699999999999999,
+      "seed_score": 2.2304872819430677,
+      "world": "tracer_sponge_firm_flat"
+    },
+    {
+      "action": "trot_mid",
+      "n": 5,
+      "pred_risk": 0.7829212546348572,
+      "pred_utility": 15.902247428894043,
+      "reach_rate": 0.6,
+      "seed_risk": 0.5800000000000001,
+      "seed_score": 3.34789304715122,
+      "world": "tracer_sponge_firm_flat"
+    },
+    {
+      "action": "trot_solid_fast",
+      "n": 5,
+      "pred_risk": 0.8142862915992737,
+      "pred_utility": 15.499615669250488,
+      "reach_rate": 0.2,
+      "seed_risk": 0.8300000000000001,
+      "seed_score": -0.4360821436072495,
+      "world": "tracer_sponge_firm_flat"
+    }
+  ],
+  "schema": "phase_b_clean_seed_model_eval_v1"
+}
