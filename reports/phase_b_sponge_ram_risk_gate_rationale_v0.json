@@ -1,0 +1,88 @@
+{
+  "interpretation": [
+    "Raw PPO has the best reach rate on sponge but large final distance and post-reach drift.",
+    "Fixed cautious has lower reach rate but much better final distance and stability proxy.",
+    "A whole-episode replacement sacrifices reach, so a post-reach switch is a better test.",
+    "RAM risk/uncertainty can be used as a gate after reaching the goal neighborhood."
+  ],
+  "learned_shadow": {
+    "beta_energy": 0.10361943393945694,
+    "beta_stability": 0.7537978291511536,
+    "beta_velocity": 0.1425827443599701,
+    "ram_risk": 0.8783703880459851,
+    "ram_uncertainty": 0.5344838167243399
+  },
+  "main_observation": {
+    "ram_flags_high_risk": true,
+    "raw_ppo_reaches_but_drifts": true,
+    "recommended_next": "post_reach_ram_risk_gate"
+  },
+  "policies": {
+    "alpha015_selector": {
+      "best_final_rel_dist": 0.6486561513399796,
+      "best_min_rel_dist": 0.021302311019204483,
+      "mean_R_e": -0.3035485670387877,
+      "mean_R_s": -1.5366171454250408,
+      "mean_R_v": 6.733135150039163,
+      "mean_final_rel_dist": 2.71250547870997,
+      "mean_hold_reward": -4.845874406748552,
+      "mean_min_rel_dist": 0.21108147169294267,
+      "mean_post_reach_drift": 2.501424007017027,
+      "mean_reach_reward": 3.9834385470494844,
+      "mean_time_to_reach": 0.025,
+      "mean_tracer_proxy_reward": 3.4868876607727937,
+      "n": 3,
+      "reach_rate": 0.6666666666666666
+    },
+    "fixed_trot_cautious": {
+      "best_final_rel_dist": 0.33529997398097733,
+      "best_min_rel_dist": 0.0742978190523998,
+      "mean_R_e": -0.4749999999999999,
+      "mean_R_s": 0.8768533513373562,
+      "mean_R_v": 4.610462387480047,
+      "mean_final_rel_dist": 0.850618775923364,
+      "mean_hold_reward": -0.3326013799625859,
+      "mean_min_rel_dist": 0.2932903565991485,
+      "mean_post_reach_drift": 0.5573284193242154,
+      "mean_reach_reward": 2.2152606346903267,
+      "mean_time_to_reach": 0.05,
+      "mean_tracer_proxy_reward": 3.049426105456103,
+      "n": 3,
+      "reach_rate": 0.3333333333333333
+    },
+    "fixed_trot_soft_mid_clear": {
+      "best_final_rel_dist": 0.49216893647591164,
+      "best_min_rel_dist": 0.41992191465346285,
+      "mean_R_e": -0.37731652995602244,
+      "mean_R_s": 1.4015468168950473,
+      "mean_R_v": 1.3255758244878633,
+      "mean_final_rel_dist": 0.7629068643317783,
+      "mean_hold_reward": 0.1526228807366047,
+      "mean_min_rel_dist": 0.47239967512670233,
+      "mean_post_reach_drift": 0.29050718920507607,
+      "mean_reach_reward": -0.48725497433781534,
+      "mean_time_to_reach": null,
+      "mean_tracer_proxy_reward": 1.2670210541081832,
+      "n": 3,
+      "reach_rate": 0.0
+    },
+    "raw_ppo": {
+      "best_final_rel_dist": 3.6240308644093946,
+      "best_min_rel_dist": 0.056125276186897825,
+      "mean_R_e": -0.23363197629598498,
+      "mean_R_s": -3.04276019688256,
+      "mean_R_v": 9.595823555458702,
+      "mean_final_rel_dist": 3.82192786691918,
+      "mean_hold_reward": -7.693374021297998,
+      "mean_min_rel_dist": 0.06712464551878794,
+      "mean_post_reach_drift": 3.754803221400392,
+      "mean_reach_reward": 8.103942919668798,
+      "mean_time_to_reach": 0.05000000000000001,
+      "mean_tracer_proxy_reward": 4.680846465551525,
+      "n": 3,
+      "reach_rate": 1.0
+    }
+  },
+  "schema": "phase_b_sponge_risk_gate_rationale_v0",
+  "world": "tracer_sponge_firm_flat"
+}
