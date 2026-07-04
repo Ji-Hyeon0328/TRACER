@@ -1,0 +1,160 @@
+{
+  "best_epoch": 294,
+  "best_val_acc": 0.636734693877551,
+  "excluded_features": [
+    "metric:final_rel_dist",
+    "metric:max_abs_mpc_yaw_rate",
+    "metric:min_rel_dist",
+    "metric:odom_x_delta_abs",
+    "metric:reached",
+    "reward:hold_reward",
+    "reward:reach_reward"
+  ],
+  "feature_names": [
+    "terrain_is_flat",
+    "terrain_is_soft_contact",
+    "terrain_is_stairs",
+    "terrain_roughness_proxy",
+    "terrain_slip_proxy",
+    "terrain_stiffness_log_proxy",
+    "theta:body_height",
+    "theta:goal_slow_distance",
+    "theta:goal_stop_distance",
+    "theta:swing_clearance",
+    "theta:vx_far",
+    "theta:vx_near",
+    "world_onehot:earth",
+    "world_onehot:stairs_single",
+    "world_onehot:tracer_sponge_firm_flat"
+  ],
+  "final_train_acc": 0.5849440488301119,
+  "final_val_acc": 0.636734693877551,
+  "history_tail": [
+    {
+      "epoch": 381,
+      "loss": 0.6551235194942352,
+      "train_acc": 0.5747711088504578,
+      "val_acc": 0.6
+    },
+    {
+      "epoch": 382,
+      "loss": 0.6454316079768135,
+      "train_acc": 0.5747711088504578,
+      "val_acc": 0.6
+    },
+    {
+      "epoch": 383,
+      "loss": 0.6297964541315426,
+      "train_acc": 0.5707019328585962,
+      "val_acc": 0.6081632653061224
+    },
+    {
+      "epoch": 384,
+      "loss": 0.6486820507404278,
+      "train_acc": 0.5747711088504578,
+      "val_acc": 0.6
+    },
+    {
+      "epoch": 385,
+      "loss": 0.6502614308410113,
+      "train_acc": 0.5747711088504578,
+      "val_acc": 0.6
+    },
+    {
+      "epoch": 386,
+      "loss": 0.6482136551203587,
+      "train_acc": 0.5737538148524923,
+      "val_acc": 0.6081632653061224
+    },
+    {
+      "epoch": 387,
+      "loss": 0.6507024536267423,
+      "train_acc": 0.5737538148524923,
+      "val_acc": 0.6081632653061224
+    },
+    {
+      "epoch": 388,
+      "loss": 0.6508584606441331,
+      "train_acc": 0.5737538148524923,
+      "val_acc": 0.6081632653061224
+    },
+    {
+      "epoch": 389,
+      "loss": 0.6494557742912432,
+      "train_acc": 0.5747711088504578,
+      "val_acc": 0.6
+    },
+    {
+      "epoch": 390,
+      "loss": 0.6497141970349959,
+      "train_acc": 0.5696846388606307,
+      "val_acc": 0.6
+    },
+    {
+      "epoch": 391,
+      "loss": 0.6481383783119378,
+      "train_acc": 0.5696846388606307,
+      "val_acc": 0.6
+    },
+    {
+      "epoch": 392,
+      "loss": 0.6493199382920959,
+      "train_acc": 0.5768056968463886,
+      "val_acc": 0.6122448979591837
+    },
+    {
+      "epoch": 393,
+      "loss": 0.6492911439279089,
+      "train_acc": 0.5747711088504578,
+      "val_acc": 0.6
+    },
+    {
+      "epoch": 394,
+      "loss": 0.6484051814278169,
+      "train_acc": 0.5768056968463886,
+      "val_acc": 0.6122448979591837
+    },
+    {
+      "epoch": 395,
+      "loss": 0.6497651065869345,
+      "train_acc": 0.5696846388606307,
+      "val_acc": 0.6
+    },
+    {
+      "epoch": 396,
+      "loss": 0.6491024168104025,
+      "train_acc": 0.5747711088504578,
+      "val_acc": 0.6122448979591837
+    },
+    {
+      "epoch": 397,
+      "loss": 0.6492808418289691,
+      "train_acc": 0.5747711088504578,
+      "val_acc": 0.6
+    },
+    {
+      "epoch": 398,
+      "loss": 0.6485583421036162,
+      "train_acc": 0.5747711088504578,
+      "val_acc": 0.6
+    },
+    {
+      "epoch": 399,
+      "loss": 0.6490833458252865,
+      "train_acc": 0.5788402848423194,
+      "val_acc": 0.6
+    },
+    {
+      "epoch": 400,
+      "loss": 0.6496792584051314,
+      "train_acc": 0.5696846388606307,
+      "val_acc": 0.6
+    }
+  ],
+  "input_dim": 15,
+  "num_pairs": 1228,
+  "out_dir": "artifacts/phase_b_objective_selector_pref_v3_merged_clean",
+  "pairs": "data/phase_b_training_pipeline_v3_merged/phase_b_objective_preference_pairs_v1.jsonl",
+  "schema": "phase_b_objective_selector_pref_train_report_v2_clean",
+  "warning": "Validation is still not a deployment guarantee because pairs are derived from a small 60-rollout seed dataset. Use this as a seed model, not final evidence."
+}
