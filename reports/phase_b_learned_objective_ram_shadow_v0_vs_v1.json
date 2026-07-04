@@ -1,0 +1,50 @@
+{
+  "interpretation": {
+    "control_effect": "none",
+    "purpose": "Compare learned Objective/RAM shadow outputs before and after context-column mapping fixes."
+  },
+  "rows": [
+    {
+      "v0_beta_e": 0.04803707078099251,
+      "v0_beta_s": 0.8644953966140747,
+      "v0_beta_v": 0.08746753633022308,
+      "v0_ram_risk": 0.0,
+      "v0_ram_uncertainty": 0.005792719096302607,
+      "v1_beta_e": 0.043154217302799225,
+      "v1_beta_s": 0.880907416343689,
+      "v1_beta_v": 0.07593841850757599,
+      "v1_ram_risk": 0.0,
+      "v1_ram_uncertainty": 0.005792719096302607,
+      "world": "earth"
+    },
+    {
+      "v0_beta_e": 0.050327494740486145,
+      "v0_beta_s": 0.8586733341217041,
+      "v0_beta_v": 0.09099911898374557,
+      "v0_ram_risk": null,
+      "v0_ram_uncertainty": null,
+      "v1_beta_e": 0.058164868503808975,
+      "v1_beta_s": 0.8373848795890808,
+      "v1_beta_v": 0.10445018857717514,
+      "v1_ram_risk": 0.3499999999999999,
+      "v1_ram_uncertainty": 0.3499999999999999,
+      "world": "stairs_single"
+    },
+    {
+      "v0_beta_e": 0.09905892610549927,
+      "v0_beta_s": 0.7573683857917786,
+      "v0_beta_v": 0.14357270300388336,
+      "v0_ram_risk": 0.8783703880459851,
+      "v0_ram_uncertainty": 0.5344838167243399,
+      "v1_beta_e": 0.10361943393945694,
+      "v1_beta_s": 0.7537978291511536,
+      "v1_beta_v": 0.1425827443599701,
+      "v1_ram_risk": 0.8783703880459851,
+      "v1_ram_uncertainty": 0.5344838167243399,
+      "world": "tracer_sponge_firm_flat"
+    }
+  ],
+  "schema": "phase_b_learned_shadow_version_comparison_v0",
+  "v0": "reports/phase_b_learned_objective_ram_shadow_report_v0.json",
+  "v1": "reports/phase_b_learned_objective_ram_shadow_report_v1.json"
+}

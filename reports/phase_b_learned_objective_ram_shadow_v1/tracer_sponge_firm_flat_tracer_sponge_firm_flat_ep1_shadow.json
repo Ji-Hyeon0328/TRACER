@@ -1,0 +1,75 @@
+{
+  "action_name": "trot_soft_mid_clear",
+  "interpretation": {
+    "control_effect": "none",
+    "mode": "shadow_only",
+    "note": "This adapter records learned Objective/RAM outputs without changing the selected action or low-level controller."
+  },
+  "objective_irl": {
+    "beta": {
+      "beta_energy": 0.10361943393945694,
+      "beta_stability": 0.7537978291511536,
+      "beta_velocity": 0.1425827443599701
+    },
+    "context_cols": [
+      "slope_deg",
+      "slope_abs",
+      "downhill",
+      "uphill",
+      "terrain_backstep_context",
+      "mu",
+      "slip",
+      "roughness",
+      "stiffness_log",
+      "damping_log",
+      "softness",
+      "terrain_slippery",
+      "terrain_sponge",
+      "terrain_rough",
+      "terrain_flat",
+      "named_downslope_world",
+      "negvx_on_slope_world",
+      "postfix_flag",
+      "candidate_repeat_flag"
+    ],
+    "missing_context_cols_defaulted_to_zero": [],
+    "model_path": "artifacts/tracer_objective_irl_v1/model.pt",
+    "recovery_score": 1.8135652979367478e-08
+  },
+  "observed_reward_components": {
+    "final_rel_dist": 3.9221961366338642,
+    "hold_reward": -7.861796448868931,
+    "max_abs_mpc_yaw_rate": 0.27313247538725705,
+    "min_rel_dist": 0.06854555443973888,
+    "odom_x_delta_abs": 4.034808351202405,
+    "reach_reward": 8.048800329243733,
+    "reached_stop_distance": true
+  },
+  "policy_result_json": "artifacts/phase_b_ppo_policy_smoke_online_v1_tracer_proxy/tracer_sponge_firm_flat_ep1/ppo_policy_episode_result_v0.json",
+  "ram_registry_match": {
+    "avg_final_rel_dist": 3.5517360970884857,
+    "avg_future_risk": 0.8783703880459851,
+    "avg_odom_x_delta": 3.3988303811849496,
+    "future_uncertainty": 0.5344838167243399,
+    "high_variability": true,
+    "key_string": "tracer_sponge_firm_flat::theta5_sponge_conservative_fallback_v0::vx=0.0400::near=0.0250::slow=0.3000::h=0.3400::clr=0.0800",
+    "majority_semantic": "forward_walk_unreliable_on_soft_terrain",
+    "match_distance": 0.09999999999999999,
+    "matched": true,
+    "n": 7,
+    "semantic_uncertainty": 0.1428571428571429,
+    "std_like_final_rel_dist": 1.4426229423665016,
+    "std_like_odom_x_delta": 1.771716462268329
+  },
+  "schema": "phase_b_learned_objective_ram_shadow_v0",
+  "theta_action": {
+    "body_height": 0.34,
+    "goal_slow_distance": 0.35,
+    "goal_stop_distance": 0.18,
+    "name": "trot_soft_mid_clear",
+    "swing_clearance": 0.07,
+    "vx_far": 0.07,
+    "vx_near": 0.035
+  },
+  "world_name": "tracer_sponge_firm_flat"
+}

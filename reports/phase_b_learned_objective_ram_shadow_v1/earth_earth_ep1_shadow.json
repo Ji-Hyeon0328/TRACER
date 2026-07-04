@@ -1,0 +1,75 @@
+{
+  "action_name": "trot_mid",
+  "interpretation": {
+    "control_effect": "none",
+    "mode": "shadow_only",
+    "note": "This adapter records learned Objective/RAM outputs without changing the selected action or low-level controller."
+  },
+  "objective_irl": {
+    "beta": {
+      "beta_energy": 0.043154217302799225,
+      "beta_stability": 0.880907416343689,
+      "beta_velocity": 0.07593841850757599
+    },
+    "context_cols": [
+      "slope_deg",
+      "slope_abs",
+      "downhill",
+      "uphill",
+      "terrain_backstep_context",
+      "mu",
+      "slip",
+      "roughness",
+      "stiffness_log",
+      "damping_log",
+      "softness",
+      "terrain_slippery",
+      "terrain_sponge",
+      "terrain_rough",
+      "terrain_flat",
+      "named_downslope_world",
+      "negvx_on_slope_world",
+      "postfix_flag",
+      "candidate_repeat_flag"
+    ],
+    "missing_context_cols_defaulted_to_zero": [],
+    "model_path": "artifacts/tracer_objective_irl_v1/model.pt",
+    "recovery_score": 3.493545296801015e-12
+  },
+  "observed_reward_components": {
+    "final_rel_dist": 0.1968636619764802,
+    "hold_reward": 1.4369485455288273,
+    "max_abs_mpc_yaw_rate": 0.132014556706041,
+    "min_rel_dist": 0.14888286865695904,
+    "odom_x_delta_abs": 0.3386482610364244,
+    "reach_reward": 6.760415341954978,
+    "reached_stop_distance": true
+  },
+  "policy_result_json": "artifacts/phase_b_ppo_policy_smoke_online_v1_tracer_proxy/earth_ep1/ppo_policy_episode_result_v0.json",
+  "ram_registry_match": {
+    "avg_final_rel_dist": 0.14486480061626564,
+    "avg_future_risk": 0.0,
+    "avg_odom_x_delta": 0.30975812745977277,
+    "future_uncertainty": 0.005792719096302607,
+    "high_variability": false,
+    "key_string": "earth::theta5_teacher_table_v0::vx=0.1582::near=0.0791::slow=0.2000::h=0.3200::clr=0.0400",
+    "majority_semantic": "stable_goal_reach_flat_locomotion",
+    "match_distance": 0.12730000000000002,
+    "matched": true,
+    "n": 3,
+    "semantic_uncertainty": 0.0,
+    "std_like_final_rel_dist": 0.004154071498667007,
+    "std_like_odom_x_delta": 0.02377100610817928
+  },
+  "schema": "phase_b_learned_objective_ram_shadow_v0",
+  "theta_action": {
+    "body_height": 0.33,
+    "goal_slow_distance": 0.25,
+    "goal_stop_distance": 0.15,
+    "name": "trot_mid",
+    "swing_clearance": 0.05,
+    "vx_far": 0.12,
+    "vx_near": 0.06
+  },
+  "world_name": "earth"
+}

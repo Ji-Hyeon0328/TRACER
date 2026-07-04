@@ -1,0 +1,73 @@
+{
+  "action_name": "trot_solid_fast",
+  "interpretation": {
+    "control_effect": "none",
+    "mode": "shadow_only",
+    "note": "This adapter records learned Objective/RAM outputs without changing the selected action or low-level controller."
+  },
+  "objective_irl": {
+    "beta": {
+      "beta_energy": 0.058164868503808975,
+      "beta_stability": 0.8373848795890808,
+      "beta_velocity": 0.10445018857717514
+    },
+    "context_cols": [
+      "slope_deg",
+      "slope_abs",
+      "downhill",
+      "uphill",
+      "terrain_backstep_context",
+      "mu",
+      "slip",
+      "roughness",
+      "stiffness_log",
+      "damping_log",
+      "softness",
+      "terrain_slippery",
+      "terrain_sponge",
+      "terrain_rough",
+      "terrain_flat",
+      "named_downslope_world",
+      "negvx_on_slope_world",
+      "postfix_flag",
+      "candidate_repeat_flag"
+    ],
+    "missing_context_cols_defaulted_to_zero": [],
+    "model_path": "artifacts/tracer_objective_irl_v1/model.pt",
+    "recovery_score": 3.187567224061105e-11
+  },
+  "observed_reward_components": {
+    "final_rel_dist": 1.218073439996047,
+    "hold_reward": -0.496526941289549,
+    "max_abs_mpc_yaw_rate": 0.3,
+    "min_rel_dist": 0.06719908187138307,
+    "odom_x_delta_abs": 0.12076012259491042,
+    "reach_reward": 8.066390664032234,
+    "reached_stop_distance": true
+  },
+  "policy_result_json": "artifacts/phase_b_ppo_policy_smoke_online_v1_tracer_proxy/stairs_single_ep2/ppo_policy_episode_result_v0.json",
+  "ram_registry_match": {
+    "avg_final_rel_dist": null,
+    "avg_future_risk": 0.35,
+    "avg_odom_x_delta": null,
+    "fallback": "world_prior",
+    "future_uncertainty": 0.35,
+    "high_variability": true,
+    "majority_semantic": "unknown_ram_registry_for_stairs_single",
+    "matched": false,
+    "reason": "no_world_match",
+    "std_like_final_rel_dist": null,
+    "std_like_odom_x_delta": null
+  },
+  "schema": "phase_b_learned_objective_ram_shadow_v0",
+  "theta_action": {
+    "body_height": 0.32,
+    "goal_slow_distance": 0.2,
+    "goal_stop_distance": 0.15,
+    "name": "trot_solid_fast",
+    "swing_clearance": 0.04,
+    "vx_far": 0.16,
+    "vx_near": 0.08
+  },
+  "world_name": "stairs_single"
+}

@@ -22,6 +22,15 @@ OBJECTIVE_CONTEXT_DEFAULTS = {
         "stiffness_log": 12.0,
         "damping_log": 2.0,
         "soft_contact": 0.0,
+        "softness": 0.0,
+        "terrain_slippery": 0.0,
+        "terrain_sponge": 0.0,
+        "terrain_rough": 0.0,
+        "terrain_flat": 1.0,
+        "named_downslope_world": 0.0,
+        "negvx_on_slope_world": 0.0,
+        "postfix_flag": 0.0,
+        "candidate_repeat_flag": 0.0,
         "stairs": 0.0,
         "sponge": 0.0,
         "flat": 1.0,
@@ -43,6 +52,15 @@ OBJECTIVE_CONTEXT_DEFAULTS = {
         "stiffness_log": 12.0,
         "damping_log": 2.0,
         "soft_contact": 0.0,
+        "softness": 0.0,
+        "terrain_slippery": 0.0,
+        "terrain_sponge": 0.0,
+        "terrain_rough": 1.0,
+        "terrain_flat": 0.0,
+        "named_downslope_world": 0.0,
+        "negvx_on_slope_world": 0.0,
+        "postfix_flag": 0.0,
+        "candidate_repeat_flag": 0.0,
         "stairs": 1.0,
         "sponge": 0.0,
         "flat": 0.0,
@@ -64,6 +82,15 @@ OBJECTIVE_CONTEXT_DEFAULTS = {
         "stiffness_log": 8.0,
         "damping_log": 2.5,
         "soft_contact": 1.0,
+        "softness": 1.0,
+        "terrain_slippery": 0.0,
+        "terrain_sponge": 1.0,
+        "terrain_rough": 0.0,
+        "terrain_flat": 1.0,
+        "named_downslope_world": 0.0,
+        "negvx_on_slope_world": 0.0,
+        "postfix_flag": 0.0,
+        "candidate_repeat_flag": 0.0,
         "stairs": 0.0,
         "sponge": 1.0,
         "flat": 1.0,
@@ -203,9 +230,19 @@ def match_registry_group(world_name, theta, registry):
             best = obj
 
     if best is None:
+        defaults = OBJECTIVE_CONTEXT_DEFAULTS.get(world_name, OBJECTIVE_CONTEXT_DEFAULTS["earth"])
         return {
             "matched": False,
-            "reason": "no_world_match"
+            "reason": "no_world_match",
+            "fallback": "world_prior",
+            "avg_future_risk": float(defaults.get("risk_prior", 0.5)),
+            "future_uncertainty": float(defaults.get("uncertainty_prior", 0.75)),
+            "high_variability": True,
+            "majority_semantic": f"unknown_ram_registry_for_{world_name}",
+            "avg_final_rel_dist": None,
+            "std_like_final_rel_dist": None,
+            "avg_odom_x_delta": None,
+            "std_like_odom_x_delta": None
         }
 
     return {
