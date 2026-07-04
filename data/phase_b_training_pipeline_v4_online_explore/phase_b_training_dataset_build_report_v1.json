@@ -1,0 +1,67 @@
+{
+  "by_world_action": {
+    "earth::trot_mid": {
+      "mean_risk": 0.0,
+      "mean_score": 7.918921805395717,
+      "n": 2,
+      "reach_count": 2,
+      "reach_rate": 1.0
+    },
+    "earth::trot_solid_fast": {
+      "mean_risk": 0.3875,
+      "mean_score": 4.061475096715291,
+      "n": 4,
+      "reach_count": 2,
+      "reach_rate": 0.5
+    },
+    "stairs_single::trot_solid_fast": {
+      "mean_risk": 0.016666666666666666,
+      "mean_score": 8.269456484305554,
+      "n": 6,
+      "reach_count": 6,
+      "reach_rate": 1.0
+    },
+    "tracer_sponge_firm_flat::sponge_probe_crawlish": {
+      "mean_risk": 0.6166666666666666,
+      "mean_score": 1.8783943762406665,
+      "n": 3,
+      "reach_count": 1,
+      "reach_rate": 0.3333333333333333
+    },
+    "tracer_sponge_firm_flat::sponge_reach_then_brake": {
+      "mean_risk": 0.44999999999999996,
+      "mean_score": 4.245904128553065,
+      "n": 1,
+      "reach_count": 1,
+      "reach_rate": 1.0
+    },
+    "tracer_sponge_firm_flat::trot_mid": {
+      "mean_risk": 0.44999999999999996,
+      "mean_score": 4.6286317251841265,
+      "n": 1,
+      "reach_count": 1,
+      "reach_rate": 1.0
+    },
+    "tracer_sponge_firm_flat::trot_soft_mid_clear": {
+      "mean_risk": 0.44999999999999996,
+      "mean_score": 8.31562915370609,
+      "n": 1,
+      "reach_count": 1,
+      "reach_rate": 1.0
+    }
+  },
+  "num_ppo_rows": 18,
+  "num_preference_pairs": 30,
+  "num_ram_rows": 18,
+  "num_rollouts": 18,
+  "out_dir": "data/phase_b_training_pipeline_v4_online_explore",
+  "outputs": {
+    "objective_preference_pairs_jsonl": "data/phase_b_training_pipeline_v4_online_explore/phase_b_objective_preference_pairs_v1.jsonl",
+    "ppo_rows_jsonl": "data/phase_b_training_pipeline_v4_online_explore/phase_b_discrete_theta_lite_ppo_rows_v1.jsonl",
+    "ram_labels_jsonl": "data/phase_b_training_pipeline_v4_online_explore/phase_b_ram_teacher_student_episode_labels_v1.jsonl",
+    "rollout_index_csv": "data/phase_b_training_pipeline_v4_online_explore/phase_b_rollout_index_v1.csv",
+    "rollout_index_jsonl": "data/phase_b_training_pipeline_v4_online_explore/phase_b_rollout_index_v1.jsonl"
+  },
+  "result_root": "artifacts/phase_b_beta_ram_candidate_policy_v3_online_explore_v1",
+  "schema": "phase_b_training_dataset_build_report_v1"
+}
