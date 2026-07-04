@@ -78,9 +78,9 @@ def main():
         )
 
     Path(args.out_md).parent.mkdir(parents=True, exist_ok=True)
-    Path(args.out_md).write_text("\\n".join(lines) + "\\n")
+    Path(args.out_md).write_text("\n".join(lines) + "\n")
 
-    print("\\n".join(lines))
+    print("\n".join(lines))
     print()
     print("[wrote]", args.out_json)
     print("[wrote]", args.out_md)
