@@ -1,0 +1,456 @@
+{
+  "result_root": "artifacts/phase_b_learned_score_selector_alpha015_eval_v0",
+  "rows": [
+    {
+      "alpha": 0.15,
+      "changed": false,
+      "final_rel_dist": 0.5293720660982832,
+      "hold_reward": 0.7196394015711444,
+      "min_rel_dist": 0.39621721341972854,
+      "path": "artifacts/phase_b_learned_score_selector_alpha015_eval_v0/earth_ep0/ppo_policy_episode_result_v0.json",
+      "raw_action": "trot_mid",
+      "reach_reward": 0.23459264279275682,
+      "reached": false,
+      "selected_action": "trot_mid",
+      "top5": [
+        {
+          "action": "trot_mid",
+          "final_score": -0.026651326463320996,
+          "has_learned_score": true,
+          "learned_z": 0.37300867917726466,
+          "prob": 0.9207169413566589
+        },
+        {
+          "action": "trot_low_body_probe",
+          "final_score": -3.4279284685824627,
+          "has_learned_score": false,
+          "learned_z": 0.0,
+          "prob": 0.03770628571510315
+        },
+        {
+          "action": "trot_cautious",
+          "final_score": -4.057801710042342,
+          "has_learned_score": true,
+          "learned_z": -0.7369380997087649,
+          "prob": 0.019307512789964676
+        },
+        {
+          "action": "trot_fast_low_clear",
+          "final_score": -5.027691429144977,
+          "has_learned_score": false,
+          "learned_z": 0.0,
+          "prob": 0.007614572532474995
+        },
+        {
+          "action": "trot_solid_fast",
+          "final_score": -5.213299909025772,
+          "has_learned_score": true,
+          "learned_z": 1.4570263658126237,
+          "prob": 0.004374977666884661
+        }
+      ],
+      "world_name": "earth"
+    },
+    {
+      "alpha": 0.15,
+      "changed": false,
+      "final_rel_dist": 0.18352662611520618,
+      "hold_reward": 1.4186743395691703,
+      "min_rel_dist": 0.14808822758510534,
+      "path": "artifacts/phase_b_learned_score_selector_alpha015_eval_v0/earth_ep1/ppo_policy_episode_result_v0.json",
+      "raw_action": "trot_mid",
+      "reach_reward": 5.5931618379415,
+      "reached": true,
+      "selected_action": "trot_mid",
+      "top5": [
+        {
+          "action": "trot_mid",
+          "final_score": -0.026651326463320996,
+          "has_learned_score": true,
+          "learned_z": 0.37300867917726466,
+          "prob": 0.9207169413566589
+        },
+        {
+          "action": "trot_low_body_probe",
+          "final_score": -3.4279284685824627,
+          "has_learned_score": false,
+          "learned_z": 0.0,
+          "prob": 0.03770628571510315
+        },
+        {
+          "action": "trot_cautious",
+          "final_score": -4.057801710042342,
+          "has_learned_score": true,
+          "learned_z": -0.7369380997087649,
+          "prob": 0.019307512789964676
+        },
+        {
+          "action": "trot_fast_low_clear",
+          "final_score": -5.027691429144977,
+          "has_learned_score": false,
+          "learned_z": 0.0,
+          "prob": 0.007614572532474995
+        },
+        {
+          "action": "trot_solid_fast",
+          "final_score": -5.213299909025772,
+          "has_learned_score": true,
+          "learned_z": 1.4570263658126237,
+          "prob": 0.004374977666884661
+        }
+      ],
+      "world_name": "earth"
+    },
+    {
+      "alpha": 0.15,
+      "changed": false,
+      "final_rel_dist": 0.16970338233993706,
+      "hold_reward": 1.404906311579315,
+      "min_rel_dist": 0.1488141810518537,
+      "path": "artifacts/phase_b_learned_score_selector_alpha015_eval_v0/earth_ep2/ppo_policy_episode_result_v0.json",
+      "raw_action": "trot_mid",
+      "reach_reward": 5.5849895246302,
+      "reached": true,
+      "selected_action": "trot_mid",
+      "top5": [
+        {
+          "action": "trot_mid",
+          "final_score": -0.026651326463320996,
+          "has_learned_score": true,
+          "learned_z": 0.37300867917726466,
+          "prob": 0.9207169413566589
+        },
+        {
+          "action": "trot_low_body_probe",
+          "final_score": -3.4279284685824627,
+          "has_learned_score": false,
+          "learned_z": 0.0,
+          "prob": 0.03770628571510315
+        },
+        {
+          "action": "trot_cautious",
+          "final_score": -4.057801710042342,
+          "has_learned_score": true,
+          "learned_z": -0.7369380997087649,
+          "prob": 0.019307512789964676
+        },
+        {
+          "action": "trot_fast_low_clear",
+          "final_score": -5.027691429144977,
+          "has_learned_score": false,
+          "learned_z": 0.0,
+          "prob": 0.007614572532474995
+        },
+        {
+          "action": "trot_solid_fast",
+          "final_score": -5.213299909025772,
+          "has_learned_score": true,
+          "learned_z": 1.4570263658126237,
+          "prob": 0.004374977666884661
+        }
+      ],
+      "world_name": "earth"
+    },
+    {
+      "alpha": 0.15,
+      "changed": false,
+      "final_rel_dist": 0.7315179692004211,
+      "hold_reward": 0.3130073233330961,
+      "min_rel_dist": 0.14453549296120383,
+      "path": "artifacts/phase_b_learned_score_selector_alpha015_eval_v0/stairs_single_ep0/ppo_policy_episode_result_v0.json",
+      "raw_action": "trot_solid_fast",
+      "reach_reward": 5.601452042041618,
+      "reached": true,
+      "selected_action": "trot_solid_fast",
+      "top5": [
+        {
+          "action": "trot_solid_fast",
+          "final_score": -0.5371242690991856,
+          "has_learned_score": true,
+          "learned_z": -0.5994313962497312,
+          "prob": 0.6394098997116089
+        },
+        {
+          "action": "trot_mid",
+          "final_score": -1.210504197387674,
+          "has_learned_score": true,
+          "learned_z": 1.4846644436219518,
+          "prob": 0.23854343593120575
+        },
+        {
+          "action": "trot_low_body_probe",
+          "final_score": -2.9352923228533156,
+          "has_learned_score": false,
+          "learned_z": 0.0,
+          "prob": 0.06171104684472084
+        },
+        {
+          "action": "trot_soft_mid_clear",
+          "final_score": -3.903552098263053,
+          "has_learned_score": true,
+          "learned_z": -1.1653317916010972,
+          "prob": 0.024022789672017097
+        },
+        {
+          "action": "trot_cautious",
+          "final_score": -4.300763149967535,
+          "has_learned_score": true,
+          "learned_z": 0.2800987442288787,
+          "prob": 0.013000363484025002
+        }
+      ],
+      "world_name": "stairs_single"
+    },
+    {
+      "alpha": 0.15,
+      "changed": false,
+      "final_rel_dist": 0.36093921754966724,
+      "hold_reward": 0.9491188464984045,
+      "min_rel_dist": 0.0022731924819380978,
+      "path": "artifacts/phase_b_learned_score_selector_alpha015_eval_v0/stairs_single_ep1/ppo_policy_episode_result_v0.json",
+      "raw_action": "trot_solid_fast",
+      "reach_reward": 6.9807070626618675,
+      "reached": true,
+      "selected_action": "trot_solid_fast",
+      "top5": [
+        {
+          "action": "trot_solid_fast",
+          "final_score": -0.5371242690991856,
+          "has_learned_score": true,
+          "learned_z": -0.5994313962497312,
+          "prob": 0.6394098997116089
+        },
+        {
+          "action": "trot_mid",
+          "final_score": -1.210504197387674,
+          "has_learned_score": true,
+          "learned_z": 1.4846644436219518,
+          "prob": 0.23854343593120575
+        },
+        {
+          "action": "trot_low_body_probe",
+          "final_score": -2.9352923228533156,
+          "has_learned_score": false,
+          "learned_z": 0.0,
+          "prob": 0.06171104684472084
+        },
+        {
+          "action": "trot_soft_mid_clear",
+          "final_score": -3.903552098263053,
+          "has_learned_score": true,
+          "learned_z": -1.1653317916010972,
+          "prob": 0.024022789672017097
+        },
+        {
+          "action": "trot_cautious",
+          "final_score": -4.300763149967535,
+          "has_learned_score": true,
+          "learned_z": 0.2800987442288787,
+          "prob": 0.013000363484025002
+        }
+      ],
+      "world_name": "stairs_single"
+    },
+    {
+      "alpha": 0.15,
+      "changed": false,
+      "final_rel_dist": 0.5236972698110579,
+      "hold_reward": 0.8552264730199668,
+      "min_rel_dist": 0.040188430845294255,
+      "path": "artifacts/phase_b_learned_score_selector_alpha015_eval_v0/stairs_single_ep2/ppo_policy_episode_result_v0.json",
+      "raw_action": "trot_solid_fast",
+      "reach_reward": 6.623788594102715,
+      "reached": true,
+      "selected_action": "trot_solid_fast",
+      "top5": [
+        {
+          "action": "trot_solid_fast",
+          "final_score": -0.5371242690991856,
+          "has_learned_score": true,
+          "learned_z": -0.5994313962497312,
+          "prob": 0.6394098997116089
+        },
+        {
+          "action": "trot_mid",
+          "final_score": -1.210504197387674,
+          "has_learned_score": true,
+          "learned_z": 1.4846644436219518,
+          "prob": 0.23854343593120575
+        },
+        {
+          "action": "trot_low_body_probe",
+          "final_score": -2.9352923228533156,
+          "has_learned_score": false,
+          "learned_z": 0.0,
+          "prob": 0.06171104684472084
+        },
+        {
+          "action": "trot_soft_mid_clear",
+          "final_score": -3.903552098263053,
+          "has_learned_score": true,
+          "learned_z": -1.1653317916010972,
+          "prob": 0.024022789672017097
+        },
+        {
+          "action": "trot_cautious",
+          "final_score": -4.300763149967535,
+          "has_learned_score": true,
+          "learned_z": 0.2800987442288787,
+          "prob": 0.013000363484025002
+        }
+      ],
+      "world_name": "stairs_single"
+    },
+    {
+      "alpha": 0.15,
+      "changed": false,
+      "final_rel_dist": 0.6486561513399796,
+      "hold_reward": 0.4995522154472105,
+      "min_rel_dist": 0.5000500853365044,
+      "path": "artifacts/phase_b_learned_score_selector_alpha015_eval_v0/tracer_sponge_firm_flat_ep0/ppo_policy_episode_result_v0.json",
+      "raw_action": "trot_soft_mid_clear",
+      "reach_reward": -0.7500751280047566,
+      "reached": false,
+      "selected_action": "trot_soft_mid_clear",
+      "top5": [
+        {
+          "action": "trot_soft_mid_clear",
+          "final_score": -1.1537051405046157,
+          "has_learned_score": true,
+          "learned_z": 0.8050074594464532,
+          "prob": 0.2795829474925995
+        },
+        {
+          "action": "trot_high_body_soft",
+          "final_score": -1.774175628156112,
+          "has_learned_score": false,
+          "learned_z": 0.0,
+          "prob": 0.1970740705728531
+        },
+        {
+          "action": "trot_cautious",
+          "final_score": -1.8637300823845617,
+          "has_learned_score": true,
+          "learned_z": 1.1227762262120113,
+          "prob": 0.13105390965938568
+        },
+        {
+          "action": "trot_solid_fast",
+          "final_score": -1.9708091433962471,
+          "has_learned_score": true,
+          "learned_z": -1.3053311249448196,
+          "prob": 0.16948184370994568
+        },
+        {
+          "action": "trot_soft_ultraslow",
+          "final_score": -2.7788355635936672,
+          "has_learned_score": false,
+          "learned_z": 0.0,
+          "prob": 0.0721624419093132
+        }
+      ],
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "alpha": 0.15,
+      "changed": false,
+      "final_rel_dist": 3.4218877619934176,
+      "hold_reward": -6.889562392272484,
+      "min_rel_dist": 0.11189201872311916,
+      "path": "artifacts/phase_b_learned_score_selector_alpha015_eval_v0/tracer_sponge_firm_flat_ep1/ppo_policy_episode_result_v0.json",
+      "raw_action": "trot_soft_mid_clear",
+      "reach_reward": 5.923582880253491,
+      "reached": true,
+      "selected_action": "trot_soft_mid_clear",
+      "top5": [
+        {
+          "action": "trot_soft_mid_clear",
+          "final_score": -1.1537051405046157,
+          "has_learned_score": true,
+          "learned_z": 0.8050074594464532,
+          "prob": 0.2795829474925995
+        },
+        {
+          "action": "trot_high_body_soft",
+          "final_score": -1.774175628156112,
+          "has_learned_score": false,
+          "learned_z": 0.0,
+          "prob": 0.1970740705728531
+        },
+        {
+          "action": "trot_cautious",
+          "final_score": -1.8637300823845617,
+          "has_learned_score": true,
+          "learned_z": 1.1227762262120113,
+          "prob": 0.13105390965938568
+        },
+        {
+          "action": "trot_solid_fast",
+          "final_score": -1.9708091433962471,
+          "has_learned_score": true,
+          "learned_z": -1.3053311249448196,
+          "prob": 0.16948184370994568
+        },
+        {
+          "action": "trot_soft_ultraslow",
+          "final_score": -2.7788355635936672,
+          "has_learned_score": false,
+          "learned_z": 0.0,
+          "prob": 0.0721624419093132
+        }
+      ],
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "alpha": 0.15,
+      "changed": false,
+      "final_rel_dist": 4.066972522796513,
+      "hold_reward": -8.147613043420384,
+      "min_rel_dist": 0.021302311019204483,
+      "path": "artifacts/phase_b_learned_score_selector_alpha015_eval_v0/tracer_sponge_firm_flat_ep2/ppo_policy_episode_result_v0.json",
+      "raw_action": "trot_soft_mid_clear",
+      "reach_reward": 6.77680788889972,
+      "reached": true,
+      "selected_action": "trot_soft_mid_clear",
+      "top5": [
+        {
+          "action": "trot_soft_mid_clear",
+          "final_score": -1.1537051405046157,
+          "has_learned_score": true,
+          "learned_z": 0.8050074594464532,
+          "prob": 0.2795829474925995
+        },
+        {
+          "action": "trot_high_body_soft",
+          "final_score": -1.774175628156112,
+          "has_learned_score": false,
+          "learned_z": 0.0,
+          "prob": 0.1970740705728531
+        },
+        {
+          "action": "trot_cautious",
+          "final_score": -1.8637300823845617,
+          "has_learned_score": true,
+          "learned_z": 1.1227762262120113,
+          "prob": 0.13105390965938568
+        },
+        {
+          "action": "trot_solid_fast",
+          "final_score": -1.9708091433962471,
+          "has_learned_score": true,
+          "learned_z": -1.3053311249448196,
+          "prob": 0.16948184370994568
+        },
+        {
+          "action": "trot_soft_ultraslow",
+          "final_score": -2.7788355635936672,
+          "has_learned_score": false,
+          "learned_z": 0.0,
+          "prob": 0.0721624419093132
+        }
+      ],
+      "world_name": "tracer_sponge_firm_flat"
+    }
+  ],
+  "schema": "phase_b_learned_score_selector_decision_report_v0"
+}
