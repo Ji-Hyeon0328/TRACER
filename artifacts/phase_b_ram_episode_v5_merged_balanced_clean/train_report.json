@@ -1,0 +1,236 @@
+{
+  "best_epoch": 295,
+  "best_score": 0.8473827344420202,
+  "bool_label_names": [
+    "approach_success",
+    "future_low_progress",
+    "future_high_drift",
+    "future_bad_locomotion",
+    "future_good_locomotion"
+  ],
+  "excluded_features": [
+    "metric:final_rel_dist",
+    "metric:max_abs_mpc_yaw_rate",
+    "metric:min_rel_dist",
+    "metric:odom_x_delta_abs",
+    "metric:reached",
+    "reward:hold_reward",
+    "reward:reach_reward"
+  ],
+  "feature_names": [
+    "terrain_is_flat",
+    "terrain_is_soft_contact",
+    "terrain_is_stairs",
+    "terrain_roughness_proxy",
+    "terrain_slip_proxy",
+    "terrain_stiffness_log_proxy",
+    "theta:body_height",
+    "theta:goal_slow_distance",
+    "theta:goal_stop_distance",
+    "theta:swing_clearance",
+    "theta:vx_far",
+    "theta:vx_near",
+    "world_onehot:earth",
+    "world_onehot:stairs_single",
+    "world_onehot:tracer_sponge_firm_flat"
+  ],
+  "final_train": {
+    "bool_acc": 0.7913669064748201,
+    "risk_mse": 0.06546268466082837
+  },
+  "final_val": {
+    "bool_acc": 0.888235294117647,
+    "risk_mse": 0.0408525596756269
+  },
+  "history_tail": [
+    {
+      "epoch": 581,
+      "loss": 0.36795999989811357,
+      "selection_score": 0.8280848251994671,
+      "train_bool_acc": 0.8431654676258993,
+      "train_risk_mse": 0.05272432926271937,
+      "val_bool_acc": 0.8764705882352941,
+      "val_risk_mse": 0.04838576303582693
+    },
+    {
+      "epoch": 582,
+      "loss": 0.36162810816543456,
+      "selection_score": 0.835561862342087,
+      "train_bool_acc": 0.841726618705036,
+      "train_risk_mse": 0.05286726325653199,
+      "val_bool_acc": 0.8823529411764706,
+      "val_risk_mse": 0.04679107883438358
+    },
+    {
+      "epoch": 583,
+      "loss": 0.36329836342751765,
+      "selection_score": 0.8302460883144864,
+      "train_bool_acc": 0.8431654676258993,
+      "train_risk_mse": 0.05266405546157487,
+      "val_bool_acc": 0.8764705882352941,
+      "val_risk_mse": 0.04622449992080767
+    },
+    {
+      "epoch": 584,
+      "loss": 0.3656540773725204,
+      "selection_score": 0.8371985276137232,
+      "train_bool_acc": 0.8402877697841726,
+      "train_risk_mse": 0.05332016642079789,
+      "val_bool_acc": 0.8823529411764706,
+      "val_risk_mse": 0.045154413562747374
+    },
+    {
+      "epoch": 585,
+      "loss": 0.3633638568785336,
+      "selection_score": 0.8293263505212962,
+      "train_bool_acc": 0.8431654676258993,
+      "train_risk_mse": 0.05248214847714205,
+      "val_bool_acc": 0.8764705882352941,
+      "val_risk_mse": 0.04714423771399785
+    },
+    {
+      "epoch": 586,
+      "loss": 0.36244118301090683,
+      "selection_score": 0.8355826258159461,
+      "train_bool_acc": 0.841726618705036,
+      "train_risk_mse": 0.052651494223224134,
+      "val_bool_acc": 0.8823529411764706,
+      "val_risk_mse": 0.046770315360524416
+    },
+    {
+      "epoch": 587,
+      "loss": 0.36307986881650933,
+      "selection_score": 0.8041020728312158,
+      "train_bool_acc": 0.837410071942446,
+      "train_risk_mse": 0.05314033536588343,
+      "val_bool_acc": 0.8529411764705882,
+      "val_risk_mse": 0.04883910363937235
+    },
+    {
+      "epoch": 588,
+      "loss": 0.36329017500828603,
+      "selection_score": 0.8178951267697437,
+      "train_bool_acc": 0.841726618705036,
+      "train_risk_mse": 0.05371693078396681,
+      "val_bool_acc": 0.8647058823529412,
+      "val_risk_mse": 0.04681075558319742
+    },
+    {
+      "epoch": 589,
+      "loss": 0.37149651253113536,
+      "selection_score": 0.8036809162329197,
+      "train_bool_acc": 0.837410071942446,
+      "train_risk_mse": 0.05292472933530439,
+      "val_bool_acc": 0.8529411764705882,
+      "val_risk_mse": 0.049260260237668475
+    },
+    {
+      "epoch": 590,
+      "loss": 0.3643458384296877,
+      "selection_score": 0.8291489684920046,
+      "train_bool_acc": 0.8431654676258993,
+      "train_risk_mse": 0.05251631880783737,
+      "val_bool_acc": 0.8764705882352941,
+      "val_risk_mse": 0.047321619743289536
+    },
+    {
+      "epoch": 591,
+      "loss": 0.36243144812718997,
+      "selection_score": 0.8149479297359529,
+      "train_bool_acc": 0.841726618705036,
+      "train_risk_mse": 0.052993297648656235,
+      "val_bool_acc": 0.8647058823529412,
+      "val_risk_mse": 0.049757952616988295
+    },
+    {
+      "epoch": 592,
+      "loss": 0.3613599389062846,
+      "selection_score": 0.8295834772275104,
+      "train_bool_acc": 0.8431654676258993,
+      "train_risk_mse": 0.052579972328510964,
+      "val_bool_acc": 0.8764705882352941,
+      "val_risk_mse": 0.04688711100778378
+    },
+    {
+      "epoch": 593,
+      "loss": 0.36347834050333755,
+      "selection_score": 0.8292426698217991,
+      "train_bool_acc": 0.8431654676258993,
+      "train_risk_mse": 0.052611506047031055,
+      "val_bool_acc": 0.8764705882352941,
+      "val_risk_mse": 0.0472279184134951
+    },
+    {
+      "epoch": 594,
+      "loss": 0.3713441186160747,
+      "selection_score": 0.8365429223083671,
+      "train_bool_acc": 0.8302158273381295,
+      "train_risk_mse": 0.054200385948442086,
+      "val_bool_acc": 0.8823529411764706,
+      "val_risk_mse": 0.0458100188681034
+    },
+    {
+      "epoch": 595,
+      "loss": 0.36236724935190606,
+      "selection_score": 0.8304434096605023,
+      "train_bool_acc": 0.8431654676258993,
+      "train_risk_mse": 0.052798979600770866,
+      "val_bool_acc": 0.8764705882352941,
+      "val_risk_mse": 0.04602717857479172
+    },
+    {
+      "epoch": 596,
+      "loss": 0.36673087052994224,
+      "selection_score": 0.8300399467684603,
+      "train_bool_acc": 0.8431654676258993,
+      "train_risk_mse": 0.05322380517004244,
+      "val_bool_acc": 0.8764705882352941,
+      "val_risk_mse": 0.04643064146683387
+    },
+    {
+      "epoch": 597,
+      "loss": 0.4198198797178736,
+      "selection_score": 0.8127859846688806,
+      "train_bool_acc": 0.8388489208633093,
+      "train_risk_mse": 0.05357216176720966,
+      "val_bool_acc": 0.8588235294117647,
+      "val_risk_mse": 0.046037544742884004
+    },
+    {
+      "epoch": 598,
+      "loss": 0.377605709037911,
+      "selection_score": 0.8220363628906746,
+      "train_bool_acc": 0.841726618705036,
+      "train_risk_mse": 0.05309632114475914,
+      "val_bool_acc": 0.8705882352941177,
+      "val_risk_mse": 0.04855187240344308
+    },
+    {
+      "epoch": 599,
+      "loss": 0.37438129229310285,
+      "selection_score": 0.8229582017082173,
+      "train_bool_acc": 0.841726618705036,
+      "train_risk_mse": 0.052981135965343366,
+      "val_bool_acc": 0.8705882352941177,
+      "val_risk_mse": 0.04763003358590033
+    },
+    {
+      "epoch": 600,
+      "loss": 0.38621207988626666,
+      "selection_score": 0.8366248054696959,
+      "train_bool_acc": 0.8402877697841726,
+      "train_risk_mse": 0.05348970200497952,
+      "val_bool_acc": 0.8823529411764706,
+      "val_risk_mse": 0.04572813570677467
+    }
+  ],
+  "input_dim": 15,
+  "labels": "data/phase_b_training_pipeline_v5_merged_balanced/phase_b_ram_teacher_student_episode_labels_v1.jsonl",
+  "num_rows": 173,
+  "out_dir": "artifacts/phase_b_ram_episode_v5_merged_balanced_clean",
+  "reg_label_names": [
+    "future_risk_proxy"
+  ],
+  "schema": "phase_b_ram_episode_train_report_v2_clean",
+  "warning": "Episode-level RAM is a seed model. Later upgrade to window-level proprioceptive teacher-student RAM."
+}

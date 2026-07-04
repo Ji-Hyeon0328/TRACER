@@ -1,0 +1,160 @@
+{
+  "best_epoch": 23,
+  "best_val_acc": 0.5512048192771084,
+  "excluded_features": [
+    "metric:final_rel_dist",
+    "metric:max_abs_mpc_yaw_rate",
+    "metric:min_rel_dist",
+    "metric:odom_x_delta_abs",
+    "metric:reached",
+    "reward:hold_reward",
+    "reward:reach_reward"
+  ],
+  "feature_names": [
+    "terrain_is_flat",
+    "terrain_is_soft_contact",
+    "terrain_is_stairs",
+    "terrain_roughness_proxy",
+    "terrain_slip_proxy",
+    "terrain_stiffness_log_proxy",
+    "theta:body_height",
+    "theta:goal_slow_distance",
+    "theta:goal_stop_distance",
+    "theta:swing_clearance",
+    "theta:vx_far",
+    "theta:vx_near",
+    "world_onehot:earth",
+    "world_onehot:stairs_single",
+    "world_onehot:tracer_sponge_firm_flat"
+  ],
+  "final_train_acc": 0.54627539503386,
+  "final_val_acc": 0.5512048192771084,
+  "history_tail": [
+    {
+      "epoch": 481,
+      "loss": 0.6649924026475623,
+      "train_acc": 0.5387509405568096,
+      "val_acc": 0.5120481927710844
+    },
+    {
+      "epoch": 482,
+      "loss": 0.6655149450869019,
+      "train_acc": 0.5387509405568096,
+      "val_acc": 0.5120481927710844
+    },
+    {
+      "epoch": 483,
+      "loss": 0.6656026177113894,
+      "train_acc": 0.5387509405568096,
+      "val_acc": 0.5120481927710844
+    },
+    {
+      "epoch": 484,
+      "loss": 0.6653898008969424,
+      "train_acc": 0.5387509405568096,
+      "val_acc": 0.5120481927710844
+    },
+    {
+      "epoch": 485,
+      "loss": 0.6649856382155437,
+      "train_acc": 0.5387509405568096,
+      "val_acc": 0.5120481927710844
+    },
+    {
+      "epoch": 486,
+      "loss": 0.6651331137521003,
+      "train_acc": 0.5387509405568096,
+      "val_acc": 0.5120481927710844
+    },
+    {
+      "epoch": 487,
+      "loss": 0.6646948618894237,
+      "train_acc": 0.5417607223476298,
+      "val_acc": 0.5180722891566265
+    },
+    {
+      "epoch": 488,
+      "loss": 0.6654023661413436,
+      "train_acc": 0.5417607223476298,
+      "val_acc": 0.5180722891566265
+    },
+    {
+      "epoch": 489,
+      "loss": 0.6652487563158535,
+      "train_acc": 0.5387509405568096,
+      "val_acc": 0.5120481927710844
+    },
+    {
+      "epoch": 490,
+      "loss": 0.6651127442571793,
+      "train_acc": 0.5387509405568096,
+      "val_acc": 0.5120481927710844
+    },
+    {
+      "epoch": 491,
+      "loss": 0.6652110002155677,
+      "train_acc": 0.5387509405568096,
+      "val_acc": 0.5120481927710844
+    },
+    {
+      "epoch": 492,
+      "loss": 0.6650440536601997,
+      "train_acc": 0.5387509405568096,
+      "val_acc": 0.5120481927710844
+    },
+    {
+      "epoch": 493,
+      "loss": 0.6649488203950714,
+      "train_acc": 0.5387509405568096,
+      "val_acc": 0.5120481927710844
+    },
+    {
+      "epoch": 494,
+      "loss": 0.6651694927002991,
+      "train_acc": 0.5387509405568096,
+      "val_acc": 0.5120481927710844
+    },
+    {
+      "epoch": 495,
+      "loss": 0.6650513452838649,
+      "train_acc": 0.5387509405568096,
+      "val_acc": 0.5120481927710844
+    },
+    {
+      "epoch": 496,
+      "loss": 0.6648825862135898,
+      "train_acc": 0.5387509405568096,
+      "val_acc": 0.5120481927710844
+    },
+    {
+      "epoch": 497,
+      "loss": 0.6647671484987568,
+      "train_acc": 0.5387509405568096,
+      "val_acc": 0.5120481927710844
+    },
+    {
+      "epoch": 498,
+      "loss": 0.6640746000568342,
+      "train_acc": 0.5387509405568096,
+      "val_acc": 0.5120481927710844
+    },
+    {
+      "epoch": 499,
+      "loss": 0.6651262158487325,
+      "train_acc": 0.5387509405568096,
+      "val_acc": 0.5
+    },
+    {
+      "epoch": 500,
+      "loss": 0.6634007509015752,
+      "train_acc": 0.5387509405568096,
+      "val_acc": 0.5120481927710844
+    }
+  ],
+  "input_dim": 15,
+  "num_pairs": 1661,
+  "out_dir": "artifacts/phase_b_objective_selector_pref_v5_merged_balanced_clean",
+  "pairs": "data/phase_b_training_pipeline_v5_merged_balanced/phase_b_objective_preference_pairs_v1.jsonl",
+  "schema": "phase_b_objective_selector_pref_train_report_v2_clean",
+  "warning": "Validation is still not a deployment guarantee because pairs are derived from a small 60-rollout seed dataset. Use this as a seed model, not final evidence."
+}
