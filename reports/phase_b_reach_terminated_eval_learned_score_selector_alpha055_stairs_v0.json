@@ -1,0 +1,171 @@
+{
+  "by_action": {
+    "trot_mid": {
+      "best_final_rel_dist": 0.21157235353996767,
+      "best_min_rel_dist": 0.03519286344231162,
+      "mean_R_e": -0.6144778877296577,
+      "mean_R_s": 1.8609959805804615,
+      "mean_R_v": 7.9989150148639085,
+      "mean_final_rel_dist": 0.2799421989640482,
+      "mean_hold_reward": 1.1022163509041283,
+      "mean_min_rel_dist": 0.11105384672903103,
+      "mean_post_reach_drift": 0.16888835223501716,
+      "mean_reach_reward": 4.944325947170739,
+      "mean_time_to_reach": 0.05,
+      "mean_tracer_proxy_reward": 6.1565239918490375,
+      "n": 3,
+      "reach_rate": 0.6666666666666666
+    }
+  },
+  "by_world": {
+    "stairs_single": {
+      "best_final_rel_dist": 0.21157235353996767,
+      "best_min_rel_dist": 0.03519286344231162,
+      "mean_R_e": -0.6144778877296577,
+      "mean_R_s": 1.8609959805804615,
+      "mean_R_v": 7.9989150148639085,
+      "mean_final_rel_dist": 0.2799421989640482,
+      "mean_hold_reward": 1.1022163509041283,
+      "mean_min_rel_dist": 0.11105384672903103,
+      "mean_post_reach_drift": 0.16888835223501716,
+      "mean_reach_reward": 4.944325947170739,
+      "mean_time_to_reach": 0.05,
+      "mean_tracer_proxy_reward": 6.1565239918490375,
+      "n": 3,
+      "reach_rate": 0.6666666666666666
+    }
+  },
+  "by_world_action": {
+    "stairs_single::trot_mid": {
+      "best_final_rel_dist": 0.21157235353996767,
+      "best_min_rel_dist": 0.03519286344231162,
+      "mean_R_e": -0.6144778877296577,
+      "mean_R_s": 1.8609959805804615,
+      "mean_R_v": 7.9989150148639085,
+      "mean_final_rel_dist": 0.2799421989640482,
+      "mean_hold_reward": 1.1022163509041283,
+      "mean_min_rel_dist": 0.11105384672903103,
+      "mean_post_reach_drift": 0.16888835223501716,
+      "mean_reach_reward": 4.944325947170739,
+      "mean_time_to_reach": 0.05,
+      "mean_tracer_proxy_reward": 6.1565239918490375,
+      "n": 3,
+      "reach_rate": 0.6666666666666666
+    }
+  },
+  "interpretation": {
+    "auxiliary_limitation_metrics": [
+      "final_rel_dist",
+      "post_reach_drift",
+      "hold_reward",
+      "R_s"
+    ],
+    "controller_scope": "Low-level controller is frozen. Post-reach hold failures are reported as limitations rather than high-level traversal failures.",
+    "main_claim": "Reach-terminated evaluation treats goal-neighborhood arrival as the high-level planner success condition.",
+    "main_metrics": [
+      "reached_stop_distance",
+      "min_rel_dist",
+      "time_to_reach",
+      "R_v"
+    ]
+  },
+  "num_rows": 3,
+  "overall": {
+    "best_final_rel_dist": 0.21157235353996767,
+    "best_min_rel_dist": 0.03519286344231162,
+    "mean_R_e": -0.6144778877296577,
+    "mean_R_s": 1.8609959805804615,
+    "mean_R_v": 7.9989150148639085,
+    "mean_final_rel_dist": 0.2799421989640482,
+    "mean_hold_reward": 1.1022163509041283,
+    "mean_min_rel_dist": 0.11105384672903103,
+    "mean_post_reach_drift": 0.16888835223501716,
+    "mean_reach_reward": 4.944325947170739,
+    "mean_time_to_reach": 0.05,
+    "mean_tracer_proxy_reward": 6.1565239918490375,
+    "n": 3,
+    "reach_rate": 0.6666666666666666
+  },
+  "policy_name": "tracer_ppo_learned_score_selector_alpha055_stairs_v0",
+  "result_root": "artifacts/phase_b_learned_score_selector_alpha055_stairs_eval_v0",
+  "reward_config": "configs/phase_b_reward_v0/tracer_slide_reward_proxy_v0.json",
+  "rows": [
+    {
+      "final_rel_dist": 0.21157235353996767,
+      "hold_reward": 1.3546715922363346,
+      "min_rel_dist": 0.1501000963830406,
+      "policy_name": "tracer_ppo_learned_score_selector_alpha055_stairs_v0",
+      "post_reach_drift": 0.061472257156927085,
+      "reach_reward": 2.5770990082983913,
+      "reached_stop_distance": false,
+      "selected_action_name": "trot_mid",
+      "source": "artifacts/phase_b_learned_score_selector_alpha055_stairs_eval_v0/stairs_single_ep0/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.23,
+        "beta_v": 0.72
+      },
+      "tracer_proxy_reward": 4.053984671889835,
+      "tracer_terms": {
+        "R_e": -0.69375,
+        "R_s": 1.8179702595354035,
+        "R_v": 5.097970850273184
+      },
+      "world_name": "stairs_single"
+    },
+    {
+      "final_rel_dist": 0.277177149087865,
+      "hold_reward": 0.9495376188759405,
+      "min_rel_dist": 0.14786858036174091,
+      "policy_name": "tracer_ppo_learned_score_selector_alpha055_stairs_v0",
+      "post_reach_drift": 0.1293085687261241,
+      "reach_reward": 5.5832521331818725,
+      "reached_stop_distance": true,
+      "selected_action_name": "trot_mid",
+      "source": "artifacts/phase_b_learned_score_selector_alpha055_stairs_eval_v0/stairs_single_ep1/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.23,
+        "beta_v": 0.72
+      },
+      "tracer_proxy_reward": 6.908427278625152,
+      "tracer_terms": {
+        "R_e": -0.69375,
+        "R_s": 1.6649374661584542,
+        "R_v": 9.111359946400983
+      },
+      "world_name": "stairs_single"
+    },
+    {
+      "final_rel_dist": 0.35107709426431194,
+      "hold_reward": 1.0024398416001101,
+      "min_rel_dist": 0.03519286344231162,
+      "policy_name": "tracer_ppo_learned_score_selector_alpha055_stairs_v0",
+      "post_reach_drift": 0.31588423082200034,
+      "reach_reward": 6.672626700031953,
+      "reached_stop_distance": true,
+      "selected_action_name": "trot_mid",
+      "source": "artifacts/phase_b_learned_score_selector_alpha055_stairs_eval_v0/stairs_single_ep2/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.23,
+        "beta_v": 0.72
+      },
+      "tracer_proxy_reward": 7.507160025032125,
+      "tracer_terms": {
+        "R_e": -0.45593366318897316,
+        "R_s": 2.100080216047527,
+        "R_v": 9.787414247917559
+      },
+      "world_name": "stairs_single"
+    }
+  ],
+  "schema": "phase_b_reach_terminated_eval_report_v0",
+  "skipped": {}
+}

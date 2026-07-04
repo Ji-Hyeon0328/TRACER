@@ -1,0 +1,156 @@
+{
+  "result_root": "artifacts/phase_b_learned_score_selector_alpha055_stairs_eval_v0",
+  "rows": [
+    {
+      "alpha": 0.55,
+      "changed": true,
+      "final_rel_dist": 0.21157235353996767,
+      "hold_reward": 1.3546715922363346,
+      "min_rel_dist": 0.1501000963830406,
+      "path": "artifacts/phase_b_learned_score_selector_alpha055_stairs_eval_v0/stairs_single_ep0/ppo_policy_episode_result_v0.json",
+      "raw_action": "trot_solid_fast",
+      "reach_reward": 2.5770990082983913,
+      "reached": false,
+      "selected_action": "trot_mid",
+      "top5": [
+        {
+          "action": "trot_mid",
+          "final_score": -0.6166384199388932,
+          "has_learned_score": true,
+          "learned_z": 1.4846644436219518,
+          "prob": 0.23854343593120575
+        },
+        {
+          "action": "trot_solid_fast",
+          "final_score": -0.7768968275990782,
+          "has_learned_score": true,
+          "learned_z": -0.5994313962497312,
+          "prob": 0.6394098997116089
+        },
+        {
+          "action": "trot_low_body_probe",
+          "final_score": -2.9352923228533156,
+          "has_learned_score": false,
+          "learned_z": 0.0,
+          "prob": 0.06171104684472084
+        },
+        {
+          "action": "trot_cautious",
+          "final_score": -4.188723652275984,
+          "has_learned_score": true,
+          "learned_z": 0.2800987442288787,
+          "prob": 0.013000363484025002
+        },
+        {
+          "action": "trot_soft_mid_clear",
+          "final_score": -4.369684814903492,
+          "has_learned_score": true,
+          "learned_z": -1.1653317916010972,
+          "prob": 0.024022789672017097
+        }
+      ],
+      "world_name": "stairs_single"
+    },
+    {
+      "alpha": 0.55,
+      "changed": true,
+      "final_rel_dist": 0.277177149087865,
+      "hold_reward": 0.9495376188759405,
+      "min_rel_dist": 0.14786858036174091,
+      "path": "artifacts/phase_b_learned_score_selector_alpha055_stairs_eval_v0/stairs_single_ep1/ppo_policy_episode_result_v0.json",
+      "raw_action": "trot_solid_fast",
+      "reach_reward": 5.5832521331818725,
+      "reached": true,
+      "selected_action": "trot_mid",
+      "top5": [
+        {
+          "action": "trot_mid",
+          "final_score": -0.6166384199388932,
+          "has_learned_score": true,
+          "learned_z": 1.4846644436219518,
+          "prob": 0.23854343593120575
+        },
+        {
+          "action": "trot_solid_fast",
+          "final_score": -0.7768968275990782,
+          "has_learned_score": true,
+          "learned_z": -0.5994313962497312,
+          "prob": 0.6394098997116089
+        },
+        {
+          "action": "trot_low_body_probe",
+          "final_score": -2.9352923228533156,
+          "has_learned_score": false,
+          "learned_z": 0.0,
+          "prob": 0.06171104684472084
+        },
+        {
+          "action": "trot_cautious",
+          "final_score": -4.188723652275984,
+          "has_learned_score": true,
+          "learned_z": 0.2800987442288787,
+          "prob": 0.013000363484025002
+        },
+        {
+          "action": "trot_soft_mid_clear",
+          "final_score": -4.369684814903492,
+          "has_learned_score": true,
+          "learned_z": -1.1653317916010972,
+          "prob": 0.024022789672017097
+        }
+      ],
+      "world_name": "stairs_single"
+    },
+    {
+      "alpha": 0.55,
+      "changed": true,
+      "final_rel_dist": 0.35107709426431194,
+      "hold_reward": 1.0024398416001101,
+      "min_rel_dist": 0.03519286344231162,
+      "path": "artifacts/phase_b_learned_score_selector_alpha055_stairs_eval_v0/stairs_single_ep2/ppo_policy_episode_result_v0.json",
+      "raw_action": "trot_solid_fast",
+      "reach_reward": 6.672626700031953,
+      "reached": true,
+      "selected_action": "trot_mid",
+      "top5": [
+        {
+          "action": "trot_mid",
+          "final_score": -0.6166384199388932,
+          "has_learned_score": true,
+          "learned_z": 1.4846644436219518,
+          "prob": 0.23854343593120575
+        },
+        {
+          "action": "trot_solid_fast",
+          "final_score": -0.7768968275990782,
+          "has_learned_score": true,
+          "learned_z": -0.5994313962497312,
+          "prob": 0.6394098997116089
+        },
+        {
+          "action": "trot_low_body_probe",
+          "final_score": -2.9352923228533156,
+          "has_learned_score": false,
+          "learned_z": 0.0,
+          "prob": 0.06171104684472084
+        },
+        {
+          "action": "trot_cautious",
+          "final_score": -4.188723652275984,
+          "has_learned_score": true,
+          "learned_z": 0.2800987442288787,
+          "prob": 0.013000363484025002
+        },
+        {
+          "action": "trot_soft_mid_clear",
+          "final_score": -4.369684814903492,
+          "has_learned_score": true,
+          "learned_z": -1.1653317916010972,
+          "prob": 0.024022789672017097
+        }
+      ],
+      "world_name": "stairs_single"
+    }
+  ],
+  "schema": "phase_b_learned_score_selector_decision_report_v0"
+}
