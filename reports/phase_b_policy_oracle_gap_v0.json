@@ -1,0 +1,102 @@
+{
+  "comparison_json": "reports/phase_b_reach_terminated_policy_comparison_v0.json",
+  "interpretation": {
+    "main_metric": "mean_reward from the TRACER slide-style proxy reward, with reach_rate and R_v/R_s reported separately.",
+    "note": "The oracle fixed baseline is not a deployable policy; it is an analysis tool showing which terrain-action preference the high-level planner should learn.",
+    "purpose": "Compare the current TRACER high-level policy against the best fixed-action baseline per terrain."
+  },
+  "schema": "phase_b_policy_oracle_gap_report_v0",
+  "tracer_policy": "tracer_proxy_ppo_argmax_v1",
+  "worlds": {
+    "earth": {
+      "best_fixed": {
+        "mean_R_s": 2.4140560818894445,
+        "mean_R_v": 9.120865297268752,
+        "mean_final_rel_dist": 0.24312484422738442,
+        "mean_min_rel_dist": 0.14636372029647807,
+        "mean_post_reach_drift": 0.09676112393090636,
+        "mean_reward": 7.621712143817909,
+        "n": 3,
+        "policy": "fixed_trot_solid_fast",
+        "reach_rate": 1.0,
+        "world": "earth"
+      },
+      "limitation": "",
+      "recommendation": "keep_current",
+      "tracer": {
+        "mean_R_s": 2.513839261319303,
+        "mean_R_v": 9.10970467305851,
+        "mean_final_rel_dist": 0.187419282103648,
+        "mean_min_rel_dist": 0.14822382433151834,
+        "mean_post_reach_drift": 0.039195457772129634,
+        "mean_reward": 7.6433725071392615,
+        "n": 3,
+        "policy": "tracer_proxy_ppo_argmax_v1",
+        "reach_rate": 1.0,
+        "world": "earth"
+      },
+      "tracer_beats_oracle_fixed": true,
+      "tracer_minus_best_fixed_reward": 0.02166036332135235
+    },
+    "stairs_single": {
+      "best_fixed": {
+        "mean_R_s": 1.9940465088316721,
+        "mean_R_v": 9.647332400129095,
+        "mean_final_rel_dist": 0.18197553789163654,
+        "mean_min_rel_dist": 0.05853983807372246,
+        "mean_post_reach_drift": 0.12343569981791407,
+        "mean_reward": 7.374971791567226,
+        "n": 3,
+        "policy": "fixed_trot_mid",
+        "reach_rate": 1.0,
+        "world": "stairs_single"
+      },
+      "limitation": "",
+      "recommendation": "shift_preference_toward_trot_mid",
+      "tracer": {
+        "mean_R_s": 0.7555369974642753,
+        "mean_R_v": 7.605162597086919,
+        "mean_final_rel_dist": 1.008238677932792,
+        "mean_min_rel_dist": 0.14978285206199696,
+        "mean_post_reach_drift": 0.858455825870795,
+        "mean_reward": 5.599490579319365,
+        "n": 3,
+        "policy": "tracer_proxy_ppo_argmax_v1",
+        "reach_rate": 0.6666666666666666,
+        "world": "stairs_single"
+      },
+      "tracer_beats_oracle_fixed": false,
+      "tracer_minus_best_fixed_reward": -1.7754812122478612
+    },
+    "tracer_sponge_firm_flat": {
+      "best_fixed": {
+        "mean_R_s": -3.6570219031458904,
+        "mean_R_v": 7.912174168457992,
+        "mean_final_rel_dist": 3.9855328547188353,
+        "mean_min_rel_dist": 0.12192709957739804,
+        "mean_post_reach_drift": 3.863605755141437,
+        "mean_reward": 3.4173468349737335,
+        "n": 3,
+        "policy": "fixed_trot_solid_fast",
+        "reach_rate": 0.6666666666666666,
+        "world": "tracer_sponge_firm_flat"
+      },
+      "limitation": "TRACER reaches the goal neighborhood, but R_s is negative due to post-reach drift. Treat this as frozen low-level hold limitation.",
+      "recommendation": "keep_current",
+      "tracer": {
+        "mean_R_s": -3.04276019688256,
+        "mean_R_v": 9.595823555458702,
+        "mean_final_rel_dist": 3.82192786691918,
+        "mean_min_rel_dist": 0.06712464551878794,
+        "mean_post_reach_drift": 3.754803221400392,
+        "mean_reward": 4.680846465551525,
+        "n": 3,
+        "policy": "tracer_proxy_ppo_argmax_v1",
+        "reach_rate": 1.0,
+        "world": "tracer_sponge_firm_flat"
+      },
+      "tracer_beats_oracle_fixed": true,
+      "tracer_minus_best_fixed_reward": 1.2634996305777917
+    }
+  }
+}
