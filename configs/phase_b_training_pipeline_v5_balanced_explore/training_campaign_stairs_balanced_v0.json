@@ -1,0 +1,16 @@
+{
+  "schema": "phase_b_training_pipeline_v5_balanced_explore",
+  "description": "Balanced exploration for stairs top theta-lite candidates.",
+  "teacher_json": "configs/phase_b_training_pipeline_v2_sponge_expanded/ppo_warmstart_teacher_table_sponge_expanded_v0.json",
+  "reward_config": "configs/phase_b_reward_v0/tracer_slide_reward_proxy_v0.json",
+  "worlds": ["stairs_single"],
+  "actions": [
+    "trot_mid",
+    "trot_solid_fast"
+  ],
+  "repeats_per_world_action": 5,
+  "record_duration": 35.0,
+  "sample_hz": 20.0,
+  "runner_timeout": 180.0,
+  "goal_distance_ahead": 0.5
+}
