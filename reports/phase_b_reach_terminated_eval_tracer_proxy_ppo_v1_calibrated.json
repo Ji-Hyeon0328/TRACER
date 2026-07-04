@@ -1,0 +1,44 @@
+{
+  "by_action": {},
+  "by_world": {},
+  "by_world_action": {},
+  "interpretation": {
+    "auxiliary_limitation_metrics": [
+      "final_rel_dist",
+      "post_reach_drift",
+      "hold_reward",
+      "R_s"
+    ],
+    "controller_scope": "Low-level controller is frozen. Post-reach hold failures are reported as limitations rather than high-level traversal failures.",
+    "main_claim": "Reach-terminated evaluation treats goal-neighborhood arrival as the high-level planner success condition.",
+    "main_metrics": [
+      "reached_stop_distance",
+      "min_rel_dist",
+      "time_to_reach",
+      "R_v"
+    ]
+  },
+  "num_rows": 0,
+  "overall": {
+    "best_final_rel_dist": null,
+    "best_min_rel_dist": null,
+    "mean_R_e": null,
+    "mean_R_s": null,
+    "mean_R_v": null,
+    "mean_final_rel_dist": null,
+    "mean_hold_reward": null,
+    "mean_min_rel_dist": null,
+    "mean_post_reach_drift": null,
+    "mean_reach_reward": null,
+    "mean_time_to_reach": null,
+    "mean_tracer_proxy_reward": null,
+    "n": 0,
+    "reach_rate": 0.0
+  },
+  "policy_name": "tracer_proxy_ppo_argmax_v1_calibrated",
+  "result_root": "artifacts/phase_b_ppo_policy_smoke_online_v1_tracer_proxy_calibrated",
+  "reward_config": "configs/phase_b_reward_v0/tracer_slide_reward_proxy_v0.json",
+  "rows": [],
+  "schema": "phase_b_reach_terminated_eval_report_v0",
+  "skipped": {}
+}

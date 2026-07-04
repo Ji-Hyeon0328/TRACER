@@ -1,0 +1,31 @@
+{
+  "schema": "phase_b_oracle_gap_selector_calibration_v0",
+  "description": "Prototype Objective Selector/RAM-style calibration derived from Phase-B oracle gap analysis. Low-level controller remains frozen.",
+  "source_report": "reports/phase_b_policy_oracle_gap_v0.json",
+  "scope": {
+    "controller": "frozen",
+    "purpose": "Calibrate high-level action preference without changing low-level MPC/WBC behavior.",
+    "note": "This is an analysis-driven selector calibration. Later versions should learn this from Objective Selector/RAM outputs."
+  },
+  "world_calibration": {
+    "earth": {
+      "mode": "keep_current",
+      "action_logit_bias": {},
+      "risk_note": "TRACER-HL already matches best fixed baseline on solid flat terrain."
+    },
+    "stairs_single": {
+      "mode": "shift_preference",
+      "action_logit_bias": {
+        "trot_mid": 0.85,
+        "trot_solid_fast": -0.45
+      },
+      "risk_note": "Oracle gap indicates fixed_trot_mid outperforms the current TRACER-selected trot_solid_fast on stairs_single."
+    },
+    "tracer_sponge_firm_flat": {
+      "mode": "keep_reach_policy_mark_hold_risk",
+      "action_logit_bias": {},
+      "risk_note": "TRACER-HL reaches goal neighborhood, but post-reach hold drift remains a frozen low-level limitation.",
+      "hold_risk": "high"
+    }
+  }
+}
