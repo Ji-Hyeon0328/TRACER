@@ -1,0 +1,401 @@
+{
+  "by_action": {
+    "trot_mid": {
+      "best_final_rel_dist": 0.18694432061236774,
+      "best_min_rel_dist": 0.11170491151298415,
+      "mean_R_e": -0.6170152494338057,
+      "mean_R_s": -0.8811906929022003,
+      "mean_R_v": 6.8761058658178795,
+      "mean_final_rel_dist": 2.1012108386730324,
+      "mean_hold_reward": -3.4039697499166692,
+      "mean_min_rel_dist": 0.16523394897131463,
+      "mean_post_reach_drift": 1.9359768897017178,
+      "mean_reach_reward": 3.9220700934679336,
+      "mean_time_to_reach": 0.05000000000000001,
+      "mean_tracer_proxy_reward": 4.540283633501474,
+      "n": 6,
+      "reach_rate": 0.5
+    },
+    "trot_solid_fast": {
+      "best_final_rel_dist": 0.1597521186457989,
+      "best_min_rel_dist": 0.009885183477542513,
+      "mean_R_e": -0.8212409630289356,
+      "mean_R_s": 1.644181062477805,
+      "mean_R_v": 9.637756379891115,
+      "mean_final_rel_dist": 0.6265177370957015,
+      "mean_hold_reward": 0.4474049340084389,
+      "mean_min_rel_dist": 0.060135841446719095,
+      "mean_post_reach_drift": 0.5663818956489824,
+      "mean_reach_reward": 6.4358084788057655,
+      "mean_time_to_reach": 0.05000000000000001,
+      "mean_tracer_proxy_reward": 7.276284189740051,
+      "n": 3,
+      "reach_rate": 1.0
+    }
+  },
+  "by_world": {
+    "earth": {
+      "best_final_rel_dist": 0.18694432061236774,
+      "best_min_rel_dist": 0.11170491151298415,
+      "mean_R_e": -0.5402804988676113,
+      "mean_R_s": 1.6424553865273328,
+      "mean_R_v": 9.1813315765094,
+      "mean_final_rel_dist": 0.5951665188484648,
+      "mean_hold_reward": 0.5633244656432471,
+      "mean_min_rel_dist": 0.13620664201033825,
+      "mean_post_reach_drift": 0.4589598768381266,
+      "mean_reach_reward": 5.7025053038261575,
+      "mean_time_to_reach": 0.05000000000000001,
+      "mean_tracer_proxy_reward": 7.56441954424324,
+      "n": 3,
+      "reach_rate": 1.0
+    },
+    "stairs_single": {
+      "best_final_rel_dist": 0.1597521186457989,
+      "best_min_rel_dist": 0.009885183477542513,
+      "mean_R_e": -0.8212409630289356,
+      "mean_R_s": 1.644181062477805,
+      "mean_R_v": 9.637756379891115,
+      "mean_final_rel_dist": 0.6265177370957015,
+      "mean_hold_reward": 0.4474049340084389,
+      "mean_min_rel_dist": 0.060135841446719095,
+      "mean_post_reach_drift": 0.5663818956489824,
+      "mean_reach_reward": 6.4358084788057655,
+      "mean_time_to_reach": 0.05000000000000001,
+      "mean_tracer_proxy_reward": 7.276284189740051,
+      "n": 3,
+      "reach_rate": 1.0
+    },
+    "tracer_sponge_firm_flat": {
+      "best_final_rel_dist": 3.337984913972905,
+      "best_min_rel_dist": 0.15963998418445427,
+      "mean_R_e": -0.69375,
+      "mean_R_s": -3.4048367723317337,
+      "mean_R_v": 4.57088015512636,
+      "mean_final_rel_dist": 3.6072551584976,
+      "mean_hold_reward": -7.371263965476587,
+      "mean_min_rel_dist": 0.19426125593229102,
+      "mean_post_reach_drift": 3.4129939025653093,
+      "mean_reach_reward": 2.14163488310971,
+      "mean_time_to_reach": null,
+      "mean_tracer_proxy_reward": 1.5161477227597084,
+      "n": 3,
+      "reach_rate": 0.0
+    }
+  },
+  "by_world_action": {
+    "earth::trot_mid": {
+      "best_final_rel_dist": 0.18694432061236774,
+      "best_min_rel_dist": 0.11170491151298415,
+      "mean_R_e": -0.5402804988676113,
+      "mean_R_s": 1.6424553865273328,
+      "mean_R_v": 9.1813315765094,
+      "mean_final_rel_dist": 0.5951665188484648,
+      "mean_hold_reward": 0.5633244656432471,
+      "mean_min_rel_dist": 0.13620664201033825,
+      "mean_post_reach_drift": 0.4589598768381266,
+      "mean_reach_reward": 5.7025053038261575,
+      "mean_time_to_reach": 0.05000000000000001,
+      "mean_tracer_proxy_reward": 7.56441954424324,
+      "n": 3,
+      "reach_rate": 1.0
+    },
+    "stairs_single::trot_solid_fast": {
+      "best_final_rel_dist": 0.1597521186457989,
+      "best_min_rel_dist": 0.009885183477542513,
+      "mean_R_e": -0.8212409630289356,
+      "mean_R_s": 1.644181062477805,
+      "mean_R_v": 9.637756379891115,
+      "mean_final_rel_dist": 0.6265177370957015,
+      "mean_hold_reward": 0.4474049340084389,
+      "mean_min_rel_dist": 0.060135841446719095,
+      "mean_post_reach_drift": 0.5663818956489824,
+      "mean_reach_reward": 6.4358084788057655,
+      "mean_time_to_reach": 0.05000000000000001,
+      "mean_tracer_proxy_reward": 7.276284189740051,
+      "n": 3,
+      "reach_rate": 1.0
+    },
+    "tracer_sponge_firm_flat::trot_mid": {
+      "best_final_rel_dist": 3.337984913972905,
+      "best_min_rel_dist": 0.15963998418445427,
+      "mean_R_e": -0.69375,
+      "mean_R_s": -3.4048367723317337,
+      "mean_R_v": 4.57088015512636,
+      "mean_final_rel_dist": 3.6072551584976,
+      "mean_hold_reward": -7.371263965476587,
+      "mean_min_rel_dist": 0.19426125593229102,
+      "mean_post_reach_drift": 3.4129939025653093,
+      "mean_reach_reward": 2.14163488310971,
+      "mean_time_to_reach": null,
+      "mean_tracer_proxy_reward": 1.5161477227597084,
+      "n": 3,
+      "reach_rate": 0.0
+    }
+  },
+  "interpretation": {
+    "auxiliary_limitation_metrics": [
+      "final_rel_dist",
+      "post_reach_drift",
+      "hold_reward",
+      "R_s"
+    ],
+    "controller_scope": "Low-level controller is frozen. Post-reach hold failures are reported as limitations rather than high-level traversal failures.",
+    "main_claim": "Reach-terminated evaluation treats goal-neighborhood arrival as the high-level planner success condition.",
+    "main_metrics": [
+      "reached_stop_distance",
+      "min_rel_dist",
+      "time_to_reach",
+      "R_v"
+    ]
+  },
+  "num_rows": 9,
+  "overall": {
+    "best_final_rel_dist": 0.1597521186457989,
+    "best_min_rel_dist": 0.009885183477542513,
+    "mean_R_e": -0.6850904872988488,
+    "mean_R_s": -0.03940010777553196,
+    "mean_R_v": 7.796656037175625,
+    "mean_final_rel_dist": 1.6096464714805887,
+    "mean_hold_reward": -2.1201781886082998,
+    "mean_min_rel_dist": 0.1302012464631161,
+    "mean_post_reach_drift": 1.4794452250174726,
+    "mean_reach_reward": 4.759982888580544,
+    "mean_time_to_reach": 0.049999999999999996,
+    "mean_tracer_proxy_reward": 5.452283818914332,
+    "n": 9,
+    "reach_rate": 0.6666666666666666
+  },
+  "policy_name": "tracer_beta_ram_candidate_policy_v2_robust",
+  "result_root": "artifacts/phase_b_beta_ram_candidate_policy_v2_robust_eval",
+  "reward_config": "configs/phase_b_reward_v0/tracer_slide_reward_proxy_v0.json",
+  "rows": [
+    {
+      "final_rel_dist": 1.3922631753423877,
+      "hold_reward": -1.0534780007128297,
+      "min_rel_dist": 0.11170491151298415,
+      "policy_name": "tracer_beta_ram_candidate_policy_v2_robust",
+      "post_reach_drift": 1.2805582638294035,
+      "reach_reward": 5.927673443443894,
+      "reached_stop_distance": true,
+      "selected_action_name": "trot_mid",
+      "source": "artifacts/phase_b_beta_ram_candidate_policy_v2_robust_eval/earth_ep0/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.46070392367764,
+      "tracer_terms": {
+        "R_e": -0.69375,
+        "R_s": 0.21811904055213904,
+        "R_v": 9.328341959493525
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.2062920605906391,
+      "hold_reward": 1.3443901195487336,
+      "min_rel_dist": 0.14923551362368612,
+      "policy_name": "tracer_beta_ram_candidate_policy_v2_robust",
+      "post_reach_drift": 0.057056546966952976,
+      "reach_reward": 5.581043053936398,
+      "reached_stop_distance": true,
+      "selected_action_name": "trot_mid",
+      "source": "artifacts/phase_b_beta_ram_candidate_policy_v2_robust_eval/earth_ep1/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.608706939373193,
+      "tracer_terms": {
+        "R_e": -0.467027059153701,
+        "R_s": 2.3302107657828497,
+        "R_v": 9.103158346829312
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.18694432061236774,
+      "hold_reward": 1.3990612780938374,
+      "min_rel_dist": 0.14767950089434448,
+      "policy_name": "tracer_beta_ram_candidate_policy_v2_robust",
+      "post_reach_drift": 0.03926481971802326,
+      "reach_reward": 5.598799414098179,
+      "reached_stop_distance": true,
+      "selected_action_name": "trot_mid",
+      "source": "artifacts/phase_b_beta_ram_candidate_policy_v2_robust_eval/earth_ep2/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.6238477696788856,
+      "tracer_terms": {
+        "R_e": -0.46006443744913295,
+        "R_s": 2.3790363532470096,
+        "R_v": 9.112494423205362
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 1.241791704072015,
+      "hold_reward": -0.7354743410696296,
+      "min_rel_dist": 0.14543775219855595,
+      "policy_name": "tracer_beta_ram_candidate_policy_v2_robust",
+      "post_reach_drift": 1.096353951873459,
+      "reach_reward": 5.625530833214345,
+      "reached_stop_distance": true,
+      "selected_action_name": "trot_solid_fast",
+      "source": "artifacts/phase_b_beta_ram_candidate_policy_v2_robust_eval/stairs_single_ep0/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.23,
+        "beta_v": 0.72
+      },
+      "tracer_proxy_reward": 6.622164671828695,
+      "tracer_terms": {
+        "R_e": -1.0,
+        "R_s": 0.44123622936968376,
+        "R_v": 9.125944915380094
+      },
+      "world_name": "stairs_single"
+    },
+    {
+      "final_rel_dist": 0.47800938856929065,
+      "hold_reward": 0.7016106493777776,
+      "min_rel_dist": 0.025084588664058792,
+      "policy_name": "tracer_beta_ram_candidate_policy_v2_robust",
+      "post_reach_drift": 0.4529247999052319,
+      "reach_reward": 6.757779626879645,
+      "reached_stop_distance": true,
+      "selected_action_name": "trot_solid_fast",
+      "source": "artifacts/phase_b_beta_ram_candidate_policy_v2_robust_eval/stairs_single_ep1/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.23,
+        "beta_v": 0.72
+      },
+      "tracer_proxy_reward": 7.513071074256327,
+      "tracer_terms": {
+        "R_e": -0.7380553095338125,
+        "R_s": 1.9972514530014072,
+        "R_v": 9.848063896587076
+      },
+      "world_name": "stairs_single"
+    },
+    {
+      "final_rel_dist": 0.1597521186457989,
+      "hold_reward": 1.3760784937171686,
+      "min_rel_dist": 0.009885183477542513,
+      "policy_name": "tracer_beta_ram_candidate_policy_v2_robust",
+      "post_reach_drift": 0.1498669351682564,
+      "reach_reward": 6.924114976323307,
+      "reached_stop_distance": true,
+      "selected_action_name": "trot_solid_fast",
+      "source": "artifacts/phase_b_beta_ram_candidate_policy_v2_robust_eval/stairs_single_ep2/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.23,
+        "beta_v": 0.72
+      },
+      "tracer_proxy_reward": 7.69361682313513,
+      "tracer_terms": {
+        "R_e": -0.725667579552994,
+        "R_s": 2.4940555050623248,
+        "R_v": 9.939260327706174
+      },
+      "world_name": "stairs_single"
+    },
+    {
+      "final_rel_dist": 3.337984913972905,
+      "hold_reward": -6.725096118519884,
+      "min_rel_dist": 0.1967509542116999,
+      "policy_name": "tracer_beta_ram_candidate_policy_v2_robust",
+      "post_reach_drift": 3.141233959761205,
+      "reach_reward": 2.1240981720190177,
+      "reached_stop_distance": false,
+      "selected_action_name": "trot_mid",
+      "source": "artifacts/phase_b_beta_ram_candidate_policy_v2_robust_eval/tracer_sponge_firm_flat_ep0/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 1.5640993196741595,
+      "tracer_terms": {
+        "R_e": -0.69375,
+        "R_s": -3.225323275981937,
+        "R_v": 4.546083277113063
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 3.556479422988773,
+      "hold_reward": -7.194679206876083,
+      "min_rel_dist": 0.2263928294007188,
+      "policy_name": "tracer_beta_ram_candidate_policy_v2_robust",
+      "post_reach_drift": 3.330086593588054,
+      "reach_reward": 1.8324582453002103,
+      "reached_stop_distance": false,
+      "selected_action_name": "trot_mid",
+      "source": "artifacts/phase_b_beta_ram_candidate_policy_v2_robust_eval/tracer_sponge_firm_flat_ep1/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 1.300473468060584,
+      "tracer_terms": {
+        "R_e": -0.69375,
+        "R_s": -3.3709862819925154,
+        "R_v": 4.191676944596607
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 3.927301138531123,
+      "hold_reward": -8.19401657103379,
+      "min_rel_dist": 0.15963998418445427,
+      "policy_name": "tracer_beta_ram_candidate_policy_v2_robust",
+      "post_reach_drift": 3.7676611543466687,
+      "reach_reward": 2.468348232009903,
+      "reached_stop_distance": false,
+      "selected_action_name": "trot_mid",
+      "source": "artifacts/phase_b_beta_ram_candidate_policy_v2_robust_eval/tracer_sponge_firm_flat_ep2/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 1.6838703805443818,
+      "tracer_terms": {
+        "R_e": -0.69375,
+        "R_s": -3.618200759020749,
+        "R_v": 4.974880243669406
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    }
+  ],
+  "schema": "phase_b_reach_terminated_eval_report_v0",
+  "skipped": {}
+}
