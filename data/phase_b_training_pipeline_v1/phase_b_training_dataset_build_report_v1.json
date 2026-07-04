@@ -1,0 +1,102 @@
+{
+  "by_world_action": {
+    "earth::trot_cautious": {
+      "mean_risk": 0.32,
+      "mean_score": 3.71081970009773,
+      "n": 5,
+      "reach_count": 1,
+      "reach_rate": 0.2
+    },
+    "earth::trot_mid": {
+      "mean_risk": 0.0,
+      "mean_score": 7.926351451085004,
+      "n": 5,
+      "reach_count": 5,
+      "reach_rate": 1.0
+    },
+    "earth::trot_soft_mid_clear": {
+      "mean_risk": 0.55,
+      "mean_score": 1.8706516512955573,
+      "n": 5,
+      "reach_count": 0,
+      "reach_rate": 0.0
+    },
+    "earth::trot_solid_fast": {
+      "mean_risk": 0.0,
+      "mean_score": 7.9100418923315186,
+      "n": 5,
+      "reach_count": 5,
+      "reach_rate": 1.0
+    },
+    "stairs_single::trot_cautious": {
+      "mean_risk": 0.33,
+      "mean_score": 4.1627108883562425,
+      "n": 5,
+      "reach_count": 2,
+      "reach_rate": 0.4
+    },
+    "stairs_single::trot_mid": {
+      "mean_risk": 0.19,
+      "mean_score": 5.735850576269262,
+      "n": 5,
+      "reach_count": 3,
+      "reach_rate": 0.6
+    },
+    "stairs_single::trot_soft_mid_clear": {
+      "mean_risk": 0.44000000000000006,
+      "mean_score": 2.5608335252575785,
+      "n": 5,
+      "reach_count": 1,
+      "reach_rate": 0.2
+    },
+    "stairs_single::trot_solid_fast": {
+      "mean_risk": 0.02,
+      "mean_score": 8.473802485107395,
+      "n": 5,
+      "reach_count": 5,
+      "reach_rate": 1.0
+    },
+    "tracer_sponge_firm_flat::trot_cautious": {
+      "mean_risk": 0.78,
+      "mean_score": 1.5884460981333928,
+      "n": 5,
+      "reach_count": 2,
+      "reach_rate": 0.4
+    },
+    "tracer_sponge_firm_flat::trot_mid": {
+      "mean_risk": 0.5800000000000001,
+      "mean_score": 3.34789304715122,
+      "n": 5,
+      "reach_count": 3,
+      "reach_rate": 0.6
+    },
+    "tracer_sponge_firm_flat::trot_soft_mid_clear": {
+      "mean_risk": 0.6699999999999999,
+      "mean_score": 2.2304872819430677,
+      "n": 5,
+      "reach_count": 3,
+      "reach_rate": 0.6
+    },
+    "tracer_sponge_firm_flat::trot_solid_fast": {
+      "mean_risk": 0.8300000000000001,
+      "mean_score": -0.4360821436072495,
+      "n": 5,
+      "reach_count": 1,
+      "reach_rate": 0.2
+    }
+  },
+  "num_ppo_rows": 60,
+  "num_preference_pairs": 437,
+  "num_ram_rows": 60,
+  "num_rollouts": 60,
+  "out_dir": "data/phase_b_training_pipeline_v1",
+  "outputs": {
+    "objective_preference_pairs_jsonl": "data/phase_b_training_pipeline_v1/phase_b_objective_preference_pairs_v1.jsonl",
+    "ppo_rows_jsonl": "data/phase_b_training_pipeline_v1/phase_b_discrete_theta_lite_ppo_rows_v1.jsonl",
+    "ram_labels_jsonl": "data/phase_b_training_pipeline_v1/phase_b_ram_teacher_student_episode_labels_v1.jsonl",
+    "rollout_index_csv": "data/phase_b_training_pipeline_v1/phase_b_rollout_index_v1.csv",
+    "rollout_index_jsonl": "data/phase_b_training_pipeline_v1/phase_b_rollout_index_v1.jsonl"
+  },
+  "result_root": "artifacts/phase_b_training_campaign_v1",
+  "schema": "phase_b_training_dataset_build_report_v1"
+}
