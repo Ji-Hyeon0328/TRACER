@@ -1,0 +1,57 @@
+{
+  "actions": {
+    "trot_cautious": {
+      "best_final_dist": 1.3352525381113347,
+      "best_min_dist": 0.052465600282044916,
+      "mean_abs_odom_x_delta": 2.859880877125568,
+      "mean_final_dist": 2.850437474306615,
+      "mean_min_dist": 0.27466313628762545,
+      "n": 10,
+      "reach_rate": 0.4
+    },
+    "trot_high_body_soft": {
+      "best_final_dist": 2.7360447038948736,
+      "best_min_dist": 0.034706385394130436,
+      "mean_abs_odom_x_delta": 3.6630826992868304,
+      "mean_final_dist": 3.4714141425251226,
+      "mean_min_dist": 0.13120271984288848,
+      "n": 10,
+      "reach_rate": 0.8
+    },
+    "trot_soft_mid_clear": {
+      "best_final_dist": 2.68359934229008,
+      "best_min_dist": 0.02120543601175473,
+      "mean_abs_odom_x_delta": 3.672439964966312,
+      "mean_final_dist": 3.501152331807509,
+      "mean_min_dist": 0.1340939872445659,
+      "n": 10,
+      "reach_rate": 0.7
+    },
+    "trot_soft_ultraslow": {
+      "best_final_dist": 0.2935331287341176,
+      "best_min_dist": 0.03603766934315483,
+      "mean_abs_odom_x_delta": 2.7819832613722544,
+      "mean_final_dist": 2.716569766797741,
+      "mean_min_dist": 0.2106530901146047,
+      "n": 10,
+      "reach_rate": 0.4
+    },
+    "trot_solid_fast": {
+      "best_final_dist": 2.7938856363007263,
+      "best_min_dist": 0.010601263057993283,
+      "mean_abs_odom_x_delta": 3.6792010645220454,
+      "mean_final_dist": 3.62534399275237,
+      "mean_min_dist": 0.1526101321090049,
+      "n": 10,
+      "reach_rate": 0.6
+    }
+  },
+  "interpretation": {
+    "hold": "No current theta-lite action is reliably stable after reaching; final drift remains large.",
+    "reach": "Several theta-lite actions can reach the goal neighborhood on sponge-like flat terrain.",
+    "recommended_next_step": "Separate traversal/reach objective from post-reach hold/stabilization objective. Expand theta/action interface before optimizing hold with PPO."
+  },
+  "root": "artifacts/phase_b_sponge_topk_repeat_v0/20260703_193658",
+  "schema": "phase_b_sponge_topk_repeat_summary_v0",
+  "world": "tracer_sponge_firm_flat"
+}
