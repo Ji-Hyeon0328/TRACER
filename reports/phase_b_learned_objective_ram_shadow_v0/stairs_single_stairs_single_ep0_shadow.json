@@ -1,0 +1,74 @@
+{
+  "action_name": "trot_solid_fast",
+  "interpretation": {
+    "control_effect": "none",
+    "mode": "shadow_only",
+    "note": "This adapter records learned Objective/RAM outputs without changing the selected action or low-level controller."
+  },
+  "objective_irl": {
+    "beta": {
+      "beta_energy": 0.050327494740486145,
+      "beta_stability": 0.8586733341217041,
+      "beta_velocity": 0.09099911898374557
+    },
+    "context_cols": [
+      "slope_deg",
+      "slope_abs",
+      "downhill",
+      "uphill",
+      "terrain_backstep_context",
+      "mu",
+      "slip",
+      "roughness",
+      "stiffness_log",
+      "damping_log",
+      "softness",
+      "terrain_slippery",
+      "terrain_sponge",
+      "terrain_rough",
+      "terrain_flat",
+      "named_downslope_world",
+      "negvx_on_slope_world",
+      "postfix_flag",
+      "candidate_repeat_flag"
+    ],
+    "missing_context_cols_defaulted_to_zero": [
+      "softness",
+      "terrain_slippery",
+      "terrain_sponge",
+      "terrain_rough",
+      "terrain_flat",
+      "named_downslope_world",
+      "negvx_on_slope_world",
+      "postfix_flag",
+      "candidate_repeat_flag"
+    ],
+    "model_path": "artifacts/tracer_objective_irl_v1/model.pt",
+    "recovery_score": 9.299770155346554e-12
+  },
+  "observed_reward_components": {
+    "final_rel_dist": 0.49555450761232017,
+    "hold_reward": 1.0003691303635662,
+    "max_abs_mpc_yaw_rate": 0.3,
+    "min_rel_dist": 0.14599465872785344,
+    "odom_x_delta_abs": 0.017043708823586468,
+    "reach_reward": 6.7669172924452035,
+    "reached_stop_distance": true
+  },
+  "policy_result_json": "artifacts/phase_b_ppo_policy_smoke_online_v1_tracer_proxy/stairs_single_ep0/ppo_policy_episode_result_v0.json",
+  "ram_registry_match": {
+    "matched": false,
+    "reason": "no_world_match"
+  },
+  "schema": "phase_b_learned_objective_ram_shadow_v0",
+  "theta_action": {
+    "body_height": 0.32,
+    "goal_slow_distance": 0.2,
+    "goal_stop_distance": 0.15,
+    "name": "trot_solid_fast",
+    "swing_clearance": 0.04,
+    "vx_far": 0.16,
+    "vx_near": 0.08
+  },
+  "world_name": "stairs_single"
+}
