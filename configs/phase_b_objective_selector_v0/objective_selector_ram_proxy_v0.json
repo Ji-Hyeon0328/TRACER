@@ -1,0 +1,65 @@
+{
+  "schema": "phase_b_objective_selector_ram_proxy_v0",
+  "description": "Prototype Objective Selector + RAM proxy for Phase-B. It calibrates high-level PPO action preference while keeping the low-level controller frozen.",
+  "source_reports": [
+    "reports/phase_b_reach_terminated_policy_comparison_v0.json",
+    "reports/phase_b_policy_oracle_gap_v0.json",
+    "reports/phase_b_sponge_topk_repeat_v0_summary.json"
+  ],
+  "scope": {
+    "controller": "frozen",
+    "objective_selector": "proxy",
+    "ram": "proxy_from_empirical_outcome_statistics",
+    "note": "This is not yet a learned Objective Selector/RAM. It is a prototype scaffold that applies terrain-conditioned beta and risk-aware action preference."
+  },
+  "worlds": {
+    "earth": {
+      "terrain_class": "solid_flat",
+      "beta": {
+        "beta_v": 0.80,
+        "beta_s": 0.15,
+        "beta_e": 0.05
+      },
+      "ram_proxy": {
+        "reach_risk": "low",
+        "hold_risk": "low",
+        "uncertainty": 0.10
+      },
+      "action_logit_bias": {},
+      "selection_note": "Raw PPO already matches the best fixed baseline on solid flat terrain."
+    },
+    "stairs_single": {
+      "terrain_class": "solid_step_stair",
+      "beta": {
+        "beta_v": 0.72,
+        "beta_s": 0.23,
+        "beta_e": 0.05
+      },
+      "ram_proxy": {
+        "reach_risk": "medium",
+        "hold_risk": "medium",
+        "uncertainty": 0.35
+      },
+      "action_logit_bias": {
+        "trot_mid": 1.10,
+        "trot_solid_fast": -0.55
+      },
+      "selection_note": "Oracle-gap analysis indicates trot_mid outperforms the current raw PPO preference for trot_solid_fast on stairs_single."
+    },
+    "tracer_sponge_firm_flat": {
+      "terrain_class": "soft_contact_flat_proxy",
+      "beta": {
+        "beta_v": 0.60,
+        "beta_s": 0.35,
+        "beta_e": 0.05
+      },
+      "ram_proxy": {
+        "reach_risk": "medium",
+        "hold_risk": "high",
+        "uncertainty": 0.70
+      },
+      "action_logit_bias": {},
+      "selection_note": "Raw PPO reaches the goal neighborhood, but RAM proxy marks post-reach hold risk as high."
+    }
+  }
+}
