@@ -1,0 +1,537 @@
+{
+  "interpretation": {
+    "main_point": "Learned Objective Selector and RAM artifacts exist, but they are not yet wired into the current Phase-B PPO action-selection loop.",
+    "next_step": "Inspect checkpoint metadata and input/output schemas for high-priority candidates, then add a learned-module inference adapter."
+  },
+  "inventory_json": "reports/phase_b_learned_module_inventory_v0.json",
+  "purpose": "Shortlist previously learned Objective Selector and RAM artifacts that may be connected to the current Phase-B PPO/Gazebo runner.",
+  "rows": [
+    {
+      "connectability": "needs_architecture_check",
+      "exists": true,
+      "group": "objective_selector",
+      "json_head": null,
+      "path": "artifacts/objective_selector_v1/objective_selector_v1.pt",
+      "size_bytes": 27557,
+      "suffix": ".pt",
+      "text_head": ""
+    },
+    {
+      "connectability": "needs_architecture_check",
+      "exists": true,
+      "group": "objective_selector",
+      "json_head": null,
+      "path": "artifacts/objective_selector_v2/objective_selector_v2.pt",
+      "size_bytes": 28069,
+      "suffix": ".pt",
+      "text_head": ""
+    },
+    {
+      "connectability": "needs_architecture_check",
+      "exists": true,
+      "group": "objective_selector",
+      "json_head": null,
+      "path": "artifacts/objective_preference_v2/objective_preference_v2.pt",
+      "size_bytes": 27141,
+      "suffix": ".pt",
+      "text_head": ""
+    },
+    {
+      "connectability": "needs_architecture_check",
+      "exists": true,
+      "group": "objective_selector",
+      "json_head": null,
+      "path": "artifacts/phase_a_objective_selector_pref_v0/phase_a_objective_selector_pref_v0.pt",
+      "size_bytes": 116103,
+      "suffix": ".pt",
+      "text_head": ""
+    },
+    {
+      "connectability": "high_priority_objective_candidate",
+      "exists": true,
+      "group": "objective_selector",
+      "json_head": null,
+      "path": "artifacts/phase_a_objective_selector_pref_with_risk_v0/phase_a_objective_selector_pref_v0.pt",
+      "size_bytes": 116103,
+      "suffix": ".pt",
+      "text_head": ""
+    },
+    {
+      "connectability": "needs_architecture_check",
+      "exists": true,
+      "group": "objective_selector",
+      "json_head": null,
+      "path": "artifacts/tracer_objective_irl_v0/model.pt",
+      "size_bytes": 33573,
+      "suffix": ".pt",
+      "text_head": ""
+    },
+    {
+      "connectability": "high_priority_objective_candidate",
+      "exists": true,
+      "group": "objective_selector",
+      "json_head": null,
+      "path": "artifacts/tracer_objective_irl_v1/model.pt",
+      "size_bytes": 68389,
+      "suffix": ".pt",
+      "text_head": ""
+    },
+    {
+      "connectability": "theta_selection_candidate",
+      "exists": true,
+      "group": "objective_selector",
+      "json_head": null,
+      "path": "artifacts/tracer_highlevel_selector_v0/model.pt",
+      "size_bytes": 71131,
+      "suffix": ".pt",
+      "text_head": ""
+    },
+    {
+      "connectability": "needs_architecture_check",
+      "exists": true,
+      "group": "objective_selector",
+      "json_head": null,
+      "path": "artifacts/preference_reward_slide_v0/model.pt",
+      "size_bytes": 24061,
+      "suffix": ".pt",
+      "text_head": ""
+    },
+    {
+      "connectability": "needs_architecture_check",
+      "exists": true,
+      "group": "objective_selector",
+      "json_head": null,
+      "path": "artifacts/preference_reward_v0/model.pt",
+      "size_bytes": 23229,
+      "suffix": ".pt",
+      "text_head": ""
+    },
+    {
+      "connectability": "runtime_export_candidate",
+      "exists": true,
+      "group": "objective_selector",
+      "json_head": {
+        "description": null,
+        "keys": [
+          "bias",
+          "feature_mean",
+          "feature_names",
+          "feature_std",
+          "interpretation",
+          "model_type",
+          "source_pairs_csv",
+          "train_acc",
+          "training",
+          "version",
+          "weights"
+        ],
+        "metrics": null,
+        "schema": null
+      },
+      "path": "configs/learned_models/tracer_preference_objective_irl_v0_model.json",
+      "size_bytes": 8277,
+      "suffix": ".json",
+      "text_head": ""
+    },
+    {
+      "connectability": "runtime_export_candidate",
+      "exists": true,
+      "group": "objective_selector",
+      "json_head": {
+        "description": null,
+        "keys": [
+          "bias",
+          "feature_mean",
+          "feature_names",
+          "feature_std",
+          "interpretation",
+          "model_type",
+          "source_pairs_csv",
+          "train_acc",
+          "training",
+          "version",
+          "weights"
+        ],
+        "metrics": null,
+        "schema": null
+      },
+      "path": "configs/learned_models/tracer_preference_objective_irl_v1_model.json",
+      "size_bytes": 8296,
+      "suffix": ".json",
+      "text_head": ""
+    },
+    {
+      "connectability": "runtime_export_candidate",
+      "exists": true,
+      "group": "objective_selector",
+      "json_head": {
+        "description": null,
+        "keys": [
+          "default_style_by_terrain",
+          "objective_profiles",
+          "selection_method",
+          "source_pairs_csv",
+          "style_to_semantic",
+          "terrain_objective_rules",
+          "version"
+        ],
+        "metrics": null,
+        "schema": null
+      },
+      "path": "configs/highlevel_policy/tracer_objective_conditioned_selector_v0.json",
+      "size_bytes": 12125,
+      "suffix": ".json",
+      "text_head": ""
+    },
+    {
+      "connectability": "high_priority_phase_b_candidate",
+      "exists": true,
+      "group": "ram",
+      "json_head": null,
+      "path": "artifacts/tracer_ram_scalar_v3/model.pt",
+      "size_bytes": 90405,
+      "suffix": ".pt",
+      "text_head": ""
+    },
+    {
+      "connectability": "high_priority_phase_b_candidate",
+      "exists": true,
+      "group": "ram",
+      "json_head": null,
+      "path": "configs/learned_models/tracer_ram_scalar_v3_model.pt",
+      "size_bytes": 91381,
+      "suffix": ".pt",
+      "text_head": ""
+    },
+    {
+      "connectability": "needs_architecture_check",
+      "exists": true,
+      "group": "ram",
+      "json_head": null,
+      "path": "artifacts/tracer_ram_v0/model.pt",
+      "size_bytes": 218887,
+      "suffix": ".pt",
+      "text_head": ""
+    },
+    {
+      "connectability": "needs_input_schema_check",
+      "exists": true,
+      "group": "ram",
+      "json_head": null,
+      "path": "artifacts/tracer_ram_v2/model.pt",
+      "size_bytes": 117925,
+      "suffix": ".pt",
+      "text_head": ""
+    },
+    {
+      "connectability": "needs_input_schema_check",
+      "exists": true,
+      "group": "ram",
+      "json_head": null,
+      "path": "artifacts/tracer_ram_v2c/model.pt",
+      "size_bytes": 117925,
+      "suffix": ".pt",
+      "text_head": ""
+    },
+    {
+      "connectability": "needs_input_schema_check",
+      "exists": true,
+      "group": "ram",
+      "json_head": null,
+      "path": "artifacts/phase_a_ram_empirical_v1/phase_a_ram_empirical_v1.pt",
+      "size_bytes": 110971,
+      "suffix": ".pt",
+      "text_head": ""
+    },
+    {
+      "connectability": "needs_input_schema_check",
+      "exists": true,
+      "group": "ram",
+      "json_head": null,
+      "path": "artifacts/phase_a_ram_teacher_smoke_v0/phase_a_ram_teacher_smoke_v0.pt",
+      "size_bytes": 72691,
+      "suffix": ".pt",
+      "text_head": ""
+    },
+    {
+      "connectability": "needs_architecture_check",
+      "exists": true,
+      "group": "ram",
+      "json_head": null,
+      "path": "artifacts/ram_shadow_v2/ram_shadow_v2.pt",
+      "size_bytes": 873957,
+      "suffix": ".pt",
+      "text_head": ""
+    },
+    {
+      "connectability": "needs_architecture_check",
+      "exists": true,
+      "group": "ram",
+      "json_head": null,
+      "path": "artifacts/ram_intervention_v1/ram_intervention_v1.pt",
+      "size_bytes": 939077,
+      "suffix": ".pt",
+      "text_head": ""
+    },
+    {
+      "connectability": "phase_b_proxy_candidate",
+      "exists": true,
+      "group": "ram",
+      "json_head": {
+        "description": null,
+        "keys": [
+          "dataset_jsonl",
+          "exemplars",
+          "feature_names",
+          "model_type",
+          "note",
+          "num_examples",
+          "semantic_counts",
+          "x_mean",
+          "x_std"
+        ],
+        "metrics": null,
+        "schema": null
+      },
+      "path": "configs/phase_b_objective_ram_bootstrap_v0/current_model.json",
+      "size_bytes": 40466,
+      "suffix": ".json",
+      "text_head": ""
+    },
+    {
+      "connectability": "phase_b_proxy_candidate",
+      "exists": true,
+      "group": "ram",
+      "json_head": {
+        "description": null,
+        "keys": [
+          "groups",
+          "num_groups",
+          "registry_type",
+          "source_score_csv"
+        ],
+        "metrics": null,
+        "schema": null
+      },
+      "path": "configs/phase_b_objective_ram_uncertainty_v0/current_registry.json",
+      "size_bytes": 2469,
+      "suffix": ".json",
+      "text_head": ""
+    },
+    {
+      "connectability": "integration_or_diagnostic_script",
+      "exists": true,
+      "group": "runtime_scripts",
+      "json_head": null,
+      "path": "scripts/runtime/check_objective_selector_runtime_v0.py",
+      "size_bytes": 5232,
+      "suffix": ".py",
+      "text_head": "#!/usr/bin/env python3\nfrom __future__ import annotations\n\nfrom pathlib import Path\nimport json\nimport sys\n\n\nROOT = Path(__file__).resolve().parents[2]\nif str(ROOT) not in sys.path:\n    sys.path.insert(0, str(ROOT))\n\nfrom tracer_core.highlevel.objective_selector import (\n    RuntimeBaselineObjectiveSelector,\n    objective_selector_input_from_dict,\n)\n\n\nMODEL = ROOT / \"data/preference_datasets/tracer_objective_selector_runtime_v0_baseline_model.json\"\n\n\nCASES = [\n    {\n        \"name\": \"flat_fast_clean\",\n        \"terrain_key\": \"flat_normal\",\n        \"world\": \"earth\",\n        \"semantic_prior\": \"validated_locomotion\",\n        \"style_prior\": \"fast\",\n        \"ramgate_enabled\": True,\n        \"ramgate_calibrated\": True,\n        \"ramgate_observed\": True,\n        \"ram_monitor_observed\": True,\n        \"ram_ctrl_risk\": 0.0,\n        \"ram_fallen_prob\": 0.0,\n        \"ram_recovery_prob\": 0.0,\n        \"gate_stable_prob\": 1.0,\n        \"gate_caution_prob\": 0.0,\n        \"gate_unstable_prob\": 0.0,\n        \"gate_override_prob\": 0.0,\n        \"gate_first_action\": \"keep\",\n        \"gate_last_action\": \"keep\",\n    },\n    {\n        \"name\": \"rough_cautious_clean\",\n        \"terrain_key\": \"rough_mid\",\n        \"worl"
+    },
+    {
+      "connectability": "integration_or_diagnostic_script",
+      "exists": true,
+      "group": "runtime_scripts",
+      "json_head": null,
+      "path": "scripts/runtime/tracer_ensure_objective_selector_beta_node_v0.sh",
+      "size_bytes": 1622,
+      "suffix": ".sh",
+      "text_head": "#!/usr/bin/env bash\nset -euo pipefail\n\nPROFILE=\"${TRACER_OBJECTIVE_PROFILE:-balanced}\"\nHZ=\"${TRACER_OBJECTIVE_HZ:-5.0}\"\nLOG=\"${TRACER_OBJECTIVE_LOG:-/tmp/tracer_objective_selector_beta_node_v0.log}\"\nRESET_DAEMON=\"${TRACER_RESET_ROS2_DAEMON:-0}\"\n\necho \"[TRACER] ensure objective selector beta node v0\"\necho \"[TRACER] profile=${PROFILE}\"\necho \"[TRACER] hz=${HZ}\"\necho \"[TRACER] log=${LOG}\"\necho \"[TRACER] reset_ros2_daemon=${RESET_DAEMON}\"\n\necho\necho \"[TRACER] killing old objective selector beta nodes...\"\npkill -f \"tracer_objective_selector_beta_node_v0.py\" || true\npkill -f \"tracer_objective_selector_stub_node.py\" || true\n\nsleep 0.5\n\nif [ \"${RESET_DAEMON}\" = \"1\" ]; then\n  echo\n  echo \"[TRACER] resetting ROS2 daemon...\"\n  set +u\n  source /opt/ros/humble/setup.bash\n  set -u\n  ros2 daemon stop || true\n  ros2 daemon start || true\nfi\n\nset +u\nsource /opt/ros/humble/setup.bash\nif [ -f ros2_ws/install/setup.bash ]; then\n  source ros2_ws/install/setup.bash\nfi\nset -u\n\necho\necho \"[TRACER] starting objective selector beta node...\"\nnohup /usr/bin/python3 ros2_ws/src/tracer_a1_qpmc_adapter/scripts/tracer_objective_selector_beta_node_v0.py \\\n  --ros-args \\\n  -p profile:=\"${PROFILE}\" \\\n  -p publish_hz:="
+    },
+    {
+      "connectability": "integration_or_diagnostic_script",
+      "exists": true,
+      "group": "runtime_scripts",
+      "json_head": null,
+      "path": "scripts/runtime/tracer_publish_objective_beta_once.sh",
+      "size_bytes": 1137,
+      "suffix": ".sh",
+      "text_head": "#!/usr/bin/env bash\nset -euo pipefail\n\nPROFILE=\"${1:-balanced}\"\n\ncase \"${PROFILE}\" in\n  balanced)\n    BETA=\"[0.34, 0.33, 0.33]\"\n    ;;\n  motion)\n    BETA=\"[0.65, 0.20, 0.15]\"\n    ;;\n  stability)\n    BETA=\"[0.20, 0.65, 0.15]\"\n    ;;\n  energy)\n    BETA=\"[0.20, 0.20, 0.60]\"\n    ;;\n  motion_extreme)\n    BETA=\"[0.85, 0.10, 0.05]\"\n    ;;\n  stability_extreme)\n    BETA=\"[0.05, 0.90, 0.05]\"\n    ;;\n  energy_extreme)\n    BETA=\"[0.05, 0.10, 0.85]\"\n    ;;\n  *)\n    echo \"[TRACER][ERROR] unknown profile: ${PROFILE}\"\n    echo \"valid: balanced motion stability energy motion_extreme stability_extreme energy_extreme\"\n    exit 1\n    ;;\nesac\n\necho \"[TRACER] publish beta profile=${PROFILE} beta=${BETA}\"\n\nset +u\nsource /opt/ros/humble/setup.bash\nif [ -f ros2_ws/install/setup.bash ]; then\n  source ros2_ws/install/setup.bash\nfi\nset -u\n\nros2 topic pub --once /tracer/objective_beta std_msgs/msg/Float64MultiArray \\\n\"{data: ${BETA}}\"\n\necho\necho \"[TRACER] selected theta after beta:\"\ntimeout 3 ros2 topic echo --once /tracer/selected_theta || true\n\necho\necho \"[TRACER] mpc ref after beta:\"\ntimeout 3 ros2 topic echo --once /tracer/mpc_reference || true\n"
+    },
+    {
+      "connectability": "integration_or_diagnostic_script",
+      "exists": true,
+      "group": "runtime_scripts",
+      "json_head": null,
+      "path": "scripts/runtime/tracer_run_learned_stack_v3_beta_blend_robust30.sh",
+      "size_bytes": 1362,
+      "suffix": ".sh",
+      "text_head": "#!/usr/bin/env bash\nset -euo pipefail\n\ncd \"$(git rev-parse --show-toplevel)\"\n\nTERRAINS=\"${TRACER_ROBUST_TERRAINS:-flat_normal rough_mid slope_5deg}\"\nREPEATS=\"${TRACER_ROBUST_REPEATS:-3}\"\nDURATION=\"${TRACER_ROBUST_DURATION_SEC:-30.0}\"\nSAMPLE_HZ=\"${TRACER_ROBUST_SAMPLE_HZ:-5.0}\"\nALPHA=\"${TRACER_LEARNED_STACK_V3_BETA_BLEND_ALPHA:-0.10}\"\n\necho \"[TRACER] learned stack v3 beta blend robust30\"\necho \"[TRACER] terrains:  ${TERRAINS}\"\necho \"[TRACER] repeats:   ${REPEATS}\"\necho \"[TRACER] duration:  ${DURATION}\"\necho \"[TRACER] sample_hz: ${SAMPLE_HZ}\"\necho \"[TRACER] beta alpha:${ALPHA}\"\n\nfor terrain in ${TERRAINS}; do\n  echo\n  echo \"========== BETA BLEND ROBUST30 ${terrain} ==========\"\n\n  TRACER_ROLLOUT_TERRAINS=\"${terrain}\" \\\n  TRACER_ROLLOUT_REPEATS=\"${REPEATS}\" \\\n  TRACER_ROLLOUT_DURATION_SEC=\"${DURATION}\" \\\n  TRACER_ROLLOUT_SAMPLE_HZ=\"${SAMPLE_HZ}\" \\\n  TRACER_POLICY_ID=\"theta_mlp_udp_v0_learned_stack_v3_beta_blend_robust30_${terrain}\" \\\n  TRACER_META_GAIT_POLICY_KIND=udp \\\n  TRACER_ENABLE_LEARNED_STACK_V3=1 \\\n  TRACER_DEPLOY_LEARNED_STACK_V3=1 \\\n  TRACER_DEPLOY_LEARNED_STACK_V3_BETA_BLEND=1 \\\n  TRACER_LEARNED_STACK_V3_BETA_BLEND_ALPHA=\"${ALPHA}\" \\\n  TRACER_LEARNED_STACK_V3_PORT=50430 \\\n  T"
+    },
+    {
+      "connectability": "integration_or_diagnostic_script",
+      "exists": true,
+      "group": "runtime_scripts",
+      "json_head": null,
+      "path": "scripts/runtime/tracer_run_objective_selector_clean_routing_smoke.sh",
+      "size_bytes": 4011,
+      "suffix": ".sh",
+      "text_head": "#!/usr/bin/env bash\nset -eo pipefail\n\nROOT=\"${TRACER_ROOT:-$HOME/Tracer/TRACER}\"\nDURATION=\"${1:-8.0}\"\n\ncd \"$ROOT\"\n\nset +u\nsource /opt/ros/humble/setup.bash\nset -u\n\nparse_yaml_data_py='\nfrom pathlib import Path\nimport sys\n\npath = Path(sys.argv[1])\nvals = []\nin_data = False\n\nfor line in path.read_text().splitlines():\n    stripped = line.strip()\n\n    if stripped == \"data:\":\n        in_data = True\n        continue\n\n    if not in_data:\n        continue\n\n    if stripped == \"---\":\n        if vals:\n            break\n        continue\n\n    if stripped.startswith(\"- \"):\n        token = stripped[2:].strip()\n        try:\n            vals.append(float(token))\n        except ValueError:\n            if vals:\n                break\n        continue\n\n    if vals:\n        break\n\nprint(\" \".join(str(v) for v in vals))\n'\n\nrun_case() {\n  local terrain=\"$1\"\n  local exp_vx=\"$2\"\n  local exp_h=\"$3\"\n  local exp_clr=\"$4\"\n  local exp_beta_v=\"$5\"\n  local exp_beta_s=\"$6\"\n  local exp_beta_e=\"$7\"\n  local exp_semantic=\"$8\"\n\n  local log=\"/tmp/tracer_fusion_policy_mpc_ref_${terrain}.log\"\n  local mpc_out=\"/tmp/tracer_clean_routing_${terrain}_mpc.yaml\"\n  local beta_out=\"/tmp/tracer_clean_routing_${terrain}_beta.yaml\"\n\n  "
+    },
+    {
+      "connectability": "integration_or_diagnostic_script",
+      "exists": true,
+      "group": "runtime_scripts",
+      "json_head": null,
+      "path": "scripts/runtime/tracer_run_objective_selector_overlay_smoke.sh",
+      "size_bytes": 3807,
+      "suffix": ".sh",
+      "text_head": "#!/usr/bin/env bash\nset -eo pipefail\n\nROOT=\"${TRACER_ROOT:-$HOME/Tracer/TRACER}\"\nTERRAIN=\"${1:-flat_normal}\"\nDURATION=\"${2:-8.0}\"\n\nLOG=\"/tmp/tracer_fusion_policy_mpc_ref_${TERRAIN}.log\"\nMPC_OUT=\"/tmp/tracer_objective_selector_smoke_mpc_ref.yaml\"\nBETA_OUT=\"/tmp/tracer_objective_selector_smoke_objective_weights.yaml\"\n\ncd \"$ROOT\"\n\nset +u\nsource /opt/ros/humble/setup.bash\nset -u\n\necho \"[TRACER][SMOKE] objective selector overlay smoke\"\necho \"[TRACER][SMOKE] terrain=$TERRAIN duration=$DURATION\"\n\npkill -f tracer_fusion_policy_mpc_ref_node.py || true\npkill -f tracer_ram_gate_monitor_node.py || true\npkill -f tracer_online_ram_udp_client.py || true\nsleep 0.5\n\nTRACER_OBJECTIVE_SELECTOR_VERBOSE=\"${TRACER_OBJECTIVE_SELECTOR_VERBOSE:-0}\" \\\nTRACER_GMS_GATE_FRESHNESS_SEC=\"${TRACER_GMS_GATE_FRESHNESS_SEC:-5.0}\" \\\nscripts/runtime/tracer_start_fusion_policy_overlay_from_qwerty.sh \"$TERRAIN\" \"$DURATION\"\n\nsleep 1.0\n\necho \"[TRACER][SMOKE] publish fake risky RAM gate\"\npython3 scripts/runtime/tracer_publish_fake_ram_gate_advice.py \\\n  --level unstable \\\n  --action would_conservative_probe \\\n  --would-override 1.0 \\\n  --control-risk 0.80 \\\n  --fallen-prob 0.50 \\\n  --recovery-prob 0.70 \\\n  --duration 2.0 \\\n"
+    },
+    {
+      "connectability": "integration_or_diagnostic_script",
+      "exists": true,
+      "group": "runtime_scripts",
+      "json_head": null,
+      "path": "scripts/training/tracer_check_objective_selector_v1.py",
+      "size_bytes": 1870,
+      "suffix": ".py",
+      "text_head": "#!/usr/bin/env python3\nfrom __future__ import annotations\n\nfrom pathlib import Path\nimport sys\n\nROOT = Path(__file__).resolve().parents[2]\nif str(ROOT) not in sys.path:\n    sys.path.insert(0, str(ROOT))\n\nfrom tracer_core.highlevel.objective_selector_v1 import ObjectiveSelectorV1\n\n\ndef main():\n    selector = ObjectiveSelectorV1()\n\n    terrains = [\n        \"flat_normal\",\n        \"rough_mid\",\n        \"slope_5deg\",\n        \"slippery_downslope_5deg_forward\",\n        \"sponge_firm_downslope_5deg_forward\",\n        \"unknown_terrain\",\n    ]\n\n    missions = [\"motion\", \"deploy\", \"stability\"]\n\n    for terrain in terrains:\n        print(f\"[{terrain}]\")\n        for mission in missions:\n            out = selector.select(\n                terrain=terrain,\n                mission_mode=mission,\n                ram_risk=0.0,\n                recovery_needed=0.0,\n            )\n            print(\n                f\"  mission={mission:9s} \"\n                f\"beta={out.selected_beta_name:10s} \"\n                f\"\u03b2=[{out.beta_motion:.2f},{out.beta_stability:.2f},{out.beta_energy:.2f}] \"\n                f\"style={out.predicted_style:14s} \"\n                f\"score={out.score:+.3f} conf={out.confidence:.3f} \"\n   "
+    },
+    {
+      "connectability": "integration_or_diagnostic_script",
+      "exists": true,
+      "group": "runtime_scripts",
+      "json_head": null,
+      "path": "scripts/training/tracer_check_objective_conditioned_selector_v0.py",
+      "size_bytes": 1268,
+      "suffix": ".py",
+      "text_head": "#!/usr/bin/env python3\nfrom __future__ import annotations\n\nimport argparse\nfrom tracer_core.highlevel.objective_conditioned_selector import ObjectiveConditionedStyleSelector\n\n\ndef main():\n    ap = argparse.ArgumentParser()\n    ap.add_argument(\n        \"--model\",\n        default=\"configs/highlevel_policy/tracer_objective_conditioned_selector_v0.json\",\n    )\n    args = ap.parse_args()\n\n    selector = ObjectiveConditionedStyleSelector(args.model)\n\n    betas = {\n        \"motion\": {\"motion\": 0.70, \"stability\": 0.20, \"energy\": 0.10},\n        \"stability\": {\"motion\": 0.15, \"stability\": 0.75, \"energy\": 0.10},\n        \"deploy\": {\"motion\": 0.34, \"stability\": 0.56, \"energy\": 0.10},\n    }\n\n    for terrain in [\"flat_normal\", \"rough_mid\", \"slope_5deg\"]:\n        print(f\"[{terrain}]\")\n        for name, beta in betas.items():\n            sel = selector.select(terrain, beta, min_confidence=0.0)\n            print(\n                f\"  beta={name:9s} \"\n                f\"objective={sel['objective_name']:20s} \"\n                f\"style={sel['selected_style']:15s} \"\n                f\"semantic={sel['semantic_mode']:28s} \"\n                f\"conf={sel['vote_confidence']:.3f} \"\n                f\"active={int(sel"
+    },
+    {
+      "connectability": "integration_or_diagnostic_script",
+      "exists": true,
+      "group": "runtime_scripts",
+      "json_head": null,
+      "path": "scripts/training/tracer_check_preference_objective_irl_v0.py",
+      "size_bytes": 4043,
+      "suffix": ".py",
+      "text_head": "#!/usr/bin/env python3\nfrom __future__ import annotations\n\nimport argparse\nimport csv\nimport json\nfrom pathlib import Path\nimport sys\n\nROOT = Path(__file__).resolve().parents[2]\nif str(ROOT) not in sys.path:\n    sys.path.insert(0, str(ROOT))\n\nimport numpy as np\n\nfrom scripts.training.tracer_train_preference_objective_irl_v0 import (\n    FEATURE_NAMES,\n    candidate_features,\n)\n\n\ndef score(model: dict, x: np.ndarray) -> float:\n    w = np.asarray(model[\"weights\"], dtype=np.float64)\n    b = float(model[\"bias\"])\n    mean = np.asarray(model[\"feature_mean\"], dtype=np.float64)\n    std = np.asarray(model[\"feature_std\"], dtype=np.float64)\n    xs = (x - mean) / std\n    return float(xs @ w + b)\n\n\ndef main():\n    ap = argparse.ArgumentParser()\n    ap.add_argument(\n        \"--model\",\n        default=\"artifacts/tracer_preference_objective_irl_v0/model.json\",\n    )\n    ap.add_argument(\n        \"--aggregate-csv\",\n        default=\"reports/tracer_world_style_sweep_3x3_v0_aggregate_by_style.csv\",\n    )\n    ap.add_argument(\n        \"--out-csv\",\n        default=\"reports/tracer_preference_objective_irl_v0_style_scores.csv\",\n    )\n    args = ap.parse_args()\n\n    model = json.loads(Path(args.model).read_t"
+    },
+    {
+      "connectability": "integration_or_diagnostic_script",
+      "exists": true,
+      "group": "runtime_scripts",
+      "json_head": null,
+      "path": "scripts/training/tracer_report_learned_stack_v3_beta_blend.py",
+      "size_bytes": 6683,
+      "suffix": ".py",
+      "text_head": "#!/usr/bin/env python3\nfrom __future__ import annotations\n\nimport argparse\nimport glob\nimport json\nfrom pathlib import Path\nfrom statistics import mean, pstdev\n\n\nTERRAINS = [\"flat_normal\", \"rough_mid\", \"slope_5deg\"]\nKEYS = [\"motion\", \"stability\", \"energy\"]\n\n\ndef load_jsonl(path: Path):\n    rows = []\n    if not path.exists():\n        return rows\n\n    for line in path.read_text().splitlines():\n        line = line.strip()\n        if not line:\n            continue\n        try:\n            rows.append(json.loads(line))\n        except Exception:\n            pass\n    return rows\n\n\ndef load_latest_summary(terrain: str):\n    pattern = (\n        \"data/rollout_dataset_v0/summaries/\"\n        f\"{terrain}_theta_mlp_udp_v0_learned_stack_v3_beta_blend_on_{terrain}_r*.json\"\n    )\n    paths = sorted(glob.glob(pattern))\n    if not paths:\n        # flat terrain has sometimes been logged as flat_normal in policy_id suffix.\n        pattern = (\n            \"data/rollout_dataset_v0/summaries/\"\n            f\"{terrain}_theta_mlp_udp_v0_learned_stack_v3_beta_blend_on_*_r*.json\"\n        )\n        paths = sorted(glob.glob(pattern))\n\n    if not paths:\n        return None\n\n    p = Path(paths[-1])\n    try:\n      "
+    },
+    {
+      "connectability": "integration_or_diagnostic_script",
+      "exists": true,
+      "group": "runtime_scripts",
+      "json_head": null,
+      "path": "scripts/training/tracer_report_learned_stack_v3_beta_blend_robust_eval.py",
+      "size_bytes": 5931,
+      "suffix": ".py",
+      "text_head": "#!/usr/bin/env python3\nfrom __future__ import annotations\n\nimport argparse\nimport glob\nimport json\nfrom pathlib import Path\nfrom statistics import mean, pstdev\n\n\nTERRAINS = [\"flat_normal\", \"rough_mid\", \"slope_5deg\"]\n\n\ndef load_json(path: Path):\n    try:\n        return json.loads(path.read_text())\n    except Exception:\n        return None\n\n\ndef stat(xs):\n    xs = [float(x) for x in xs if x is not None]\n    if not xs:\n        return {\"mean\": None, \"std\": None, \"min\": None, \"max\": None}\n    return {\n        \"mean\": mean(xs),\n        \"std\": pstdev(xs) if len(xs) > 1 else 0.0,\n        \"min\": min(xs),\n        \"max\": max(xs),\n    }\n\n\ndef fmt_stat(s, nd=4):\n    if s[\"mean\"] is None:\n        return \"n/a\"\n    return f\"{s['mean']:.{nd}f}\u00b1{s['std']:.{nd}f}\"\n\n\ndef find_summaries(terrain: str, limit: int):\n    pattern = (\n        \"data/rollout_dataset_v0/summaries/\"\n        f\"{terrain}_theta_mlp_udp_v0_learned_stack_v3_beta_blend_robust30_{terrain}_r*.json\"\n    )\n    paths = [Path(p) for p in glob.glob(pattern)]\n    paths = sorted(paths, key=lambda p: p.stat().st_mtime)\n    if limit > 0:\n        paths = paths[-limit:]\n    return paths\n\n\ndef summarize_terrain(terrain: str, limit: int):\n    paths "
+    },
+    {
+      "connectability": "integration_or_diagnostic_script",
+      "exists": true,
+      "group": "runtime_scripts",
+      "json_head": null,
+      "path": "scripts/training/tracer_report_learned_stack_v3_beta_shadow.py",
+      "size_bytes": 4735,
+      "suffix": ".py",
+      "text_head": "#!/usr/bin/env python3\nfrom __future__ import annotations\n\nimport argparse\nimport json\nfrom pathlib import Path\nfrom statistics import mean, pstdev\n\n\nKEYS = [\"motion\", \"stability\", \"energy\"]\n\n\ndef load_rows(path: Path):\n    rows = []\n    if not path.exists():\n        return rows\n    for line in path.read_text().splitlines():\n        line = line.strip()\n        if not line:\n            continue\n        try:\n            rows.append(json.loads(line))\n        except Exception:\n            pass\n    return rows\n\n\ndef stat(xs):\n    if not xs:\n        return {\"mean\": 0.0, \"std\": 0.0, \"min\": 0.0, \"max\": 0.0}\n    return {\n        \"mean\": mean(xs),\n        \"std\": pstdev(xs) if len(xs) > 1 else 0.0,\n        \"min\": min(xs),\n        \"max\": max(xs),\n    }\n\n\ndef summarize_terrain(terrain: str, path: Path):\n    rows = load_rows(path)\n    vals = []\n\n    reasons = {}\n    for r in rows:\n        bs = r.get(\"learned_stack_v3_beta_shadow\") or {}\n        reason = str(bs.get(\"reason\"))\n        reasons[reason] = reasons.get(reason, 0) + 1\n        if reason == \"shadow_only\":\n            vals.append(bs)\n\n    out = {\n        \"terrain\": terrain,\n        \"path\": str(path),\n        \"rows\": len(rows),\n        \"sha"
+    },
+    {
+      "connectability": "supporting_data_or_report",
+      "exists": true,
+      "group": "datasets_reports",
+      "json_head": null,
+      "path": "data/preference_datasets/tracer_objective_selector_runtime_v0.jsonl",
+      "size_bytes": 55272,
+      "suffix": ".jsonl",
+      "text_head": "{\"runtime_sample_id\": \"tracer_runtime_v0_0000\", \"source_sample_id\": \"tracer_v1_base_0000\", \"source_matrix\": \"gms_only\", \"source_path\": \"data/rollout_metrics/feasible_closed_loop_gms_on_v0.json\", \"case_id\": \"flat_normal_fast_closed_loop\", \"terrain_key\": \"flat_normal\", \"world\": \"earth\", \"terrain_family\": \"flat\", \"semantic_prior\": \"validated_locomotion\", \"style_prior\": \"fast\", \"ramgate_enabled\": false, \"ramgate_calibrated\": false, \"ramgate_observed\": false, \"ram_monitor_observed\": false, \"ram_ctrl_risk\": 0.0, \"ram_fallen_prob\": 0.0, \"ram_recovery_prob\": 0.0, \"gate_stable_prob\": 0.0, \"gate_caution_prob\": 0.0, \"gate_unstable_prob\": 0.0, \"gate_override_prob\": 0.0, \"gate_first_action\": \"\", \"gate_last_action\": \"\", \"calibration_first\": \"\", \"calibration_last\": \"\", \"training_role\": \"positive\", \"semantic_target\": \"validated_locomotion\", \"deploy_label\": \"deploy_forward\", \"beta_v_target\": 0.55, \"beta_s_target\": 0.25, \"beta_e_target\": 0.2, \"sample_weight\": 1.0, \"note\": \"\"}\n{\"runtime_sample_id\": \"tracer_runtime_v0_0001\", \"source_sample_id\": \"tracer_v1_base_0001\", \"source_matrix\": \"gms_only\", \"source_path\": \"data/rollout_metrics/feasible_closed_loop_gms_on_v0.json\", \"case_id\": \"rough_mid_cautious_p"
+    },
+    {
+      "connectability": "supporting_data_or_report",
+      "exists": false,
+      "group": "datasets_reports",
+      "json_head": null,
+      "path": "data/preference_datasets/tracer_objective_selector_data_v1_core3_hard3_objective_conditioned_pairs_clean.jsonl",
+      "size_bytes": null,
+      "suffix": ".jsonl",
+      "text_head": ""
+    },
+    {
+      "connectability": "supporting_data_or_report",
+      "exists": true,
+      "group": "datasets_reports",
+      "json_head": null,
+      "path": "data/training/tracer_highlevel_selector_dataset_v0.csv",
+      "size_bytes": 56718,
+      "suffix": ".csv",
+      "text_head": "run_id,terrain,style,success,valid_locomotion,fallen,path_eff,low_z_ratio,style_score,risk_class,beta_motion,beta_stability,beta_energy,slope_deg,slope_abs,downhill,uphill,terrain_backstep_context,mu,slip,roughness,stiffness,damping,stiffness_log,damping_log,softness,terrain_slippery,terrain_sponge,terrain_rough,terrain_flat,style_vx,style_body_height,style_clearance,style_speed_abs,style_backstep,style_forward,style_crawl,style_high_clearance,style_tall\n20260618_003434,flat_normal,nominal,1.0,1.0,0.0,0.986009402104846,0.0,114.93004701052423,0,0.3333333333333333,0.3333333333333333,0.3333333333333333,0.0,0.0,0.0,0.0,0.0,0.8,0.0,0.0,1000000.0,100.0,6.0,2.0,0.0,0.0,0.0,0.0,1.0,0.21,0.3,0.035,0.21,0.0,1.0,0.0,0.0,0.0\n20260618_003709,flat_normal,fast,1.0,1.0,0.0,0.9860459766380116,0.0,114.93022988319008,0,0.7000000000000001,0.20000000000000004,0.10000000000000002,0.0,0.0,0.0,0.0,0.0,0.8,0.0,0.0,1000000.0,100.0,6.0,2.0,0.0,0.0,0.0,0.0,1.0,0.28,0.295,0.03,0.28,0.0,1.0,0.0,0.0,0.0\n20260618_003905,flat_normal,cautious,0.0,0.0,0.0,0.9609956824001412,0.0,4.804978412000706,2,0.2,0.65,0.15,0.0,0.0,0.0,0.0,0.0,0.8,0.0,0.0,1000000.0,100.0,6.0,2.0,0.0,0.0,0.0,0.0,1.0,0.12,0.31,0.06,0.12,0.0,1.0,0."
+    },
+    {
+      "connectability": "supporting_data_or_report",
+      "exists": true,
+      "group": "datasets_reports",
+      "json_head": null,
+      "path": "data/training/tracer_irl_trajectory_features_v0.csv",
+      "size_bytes": 112827,
+      "suffix": ".csv",
+      "text_head": "run_id,terrain,style,status,success,valid_locomotion,fallen,path_eff,low_z_ratio,style_score,expert_score,run_dir,has_npz,T,duration_npz,hz_est,traj_path_npz,traj_net_npz,traj_path_eff_npz,progress_rate,motion_tracking,mean_abs_vx_err,mean_vx_cmd,mean_vx_actual,mean_body_height,min_body_height,mean_abs_roll,mean_abs_pitch,max_abs_roll,max_abs_pitch,stability_feature,contact_balance,mean_contact_ratio,mean_force_z,std_force_z,force_stability,energy_proxy,energy_efficiency,slip_proxy,mean_h_cmd,mean_clearance_cmd\n20260618_003434,flat_normal,nominal,success,1.0,1.0,0.0,0.986009402104846,0.0,114.93004701052423,114.93004701052423,/home/shoko/Tracer/TRACER/data/style_missions/20260618_003434_nominal,1.0,1184,59.14988875389099,20.000305180437934,,,,,,,,0.1870908609550789,0.3383153675719669,0.31592883274607636,0.005478157783598916,0.026347003466734374,0.02618607288473122,0.0563477172752402,0.93833305612699,0.9844916386046246,0.4877260981912145,30.011150755468357,45.160704835988696,0.6366042752762483,23.218043917620868,0.3132034824852892,,,\n20260618_003709,flat_normal,fast,success,1.0,1.0,0.0,0.9860459766380116,0.0,114.93022988319008,114.93022988319007,/home/shoko/Tracer/TRACER/data/style_m"
+    },
+    {
+      "connectability": "supporting_data_or_report",
+      "exists": true,
+      "group": "datasets_reports",
+      "json_head": null,
+      "path": "reports/learned_stack_v3_beta_blend_report.md",
+      "size_bytes": 1021,
+      "suffix": ".md",
+      "text_head": "# TRACER Learned Stack v3 Beta Blend v0 Report\n\nActive components:\n- learned GMS label\n- learned objective beta low-alpha blend\n\nSafety:\n- alpha-limited beta blend\n- terrain-specific max delta limit\n- GMS-only safety path maintained\n- RAM-triggered recovery remains inactive\n\n| terrain | rows | applied | delta_mean | blended_beta_mean | vx_mean | success |\n|---|---:|---:|---|---|---:|---:|\n| flat_normal | 99 | 98 | m=-0.015, s=0.006, e=0.009 | m=0.535, s=0.256, e=0.209 | 0.2800 | True |\n| rough_mid | 99 | 98 | m=-0.004, s=0.007, e=-0.003 | m=0.330, s=0.471, e=0.199 | 0.0478 | True |\n| slope_5deg | 98 | 98 | m=0.000, s=-0.001, e=0.000 | m=0.316, s=0.489, e=0.195 | 0.0410 | True |\n\nInterpretation:\n- Beta blend v0 applies a low-alpha learned beta adjustment while preserving the GMS-only safety path.\n- Delta from rule beta should remain small on all terrains.\n- Rollout success should remain true before moving to robust repeated evaluation.\n- This report does not validate learned RAM as an active recovery gate.\n"
+    },
+    {
+      "connectability": "supporting_data_or_report",
+      "exists": true,
+      "group": "datasets_reports",
+      "json_head": null,
+      "path": "reports/learned_stack_v3_beta_blend_robust_eval_report.md",
+      "size_bytes": 921,
+      "suffix": ".md",
+      "text_head": "# TRACER Learned Stack v3 Beta Blend Robust Eval Report\n\nActive scope: learned GMS label + learned objective beta low-alpha blend.\n\nSafety: alpha-limited, terrain-specific delta-limited, GMS-only safety path; RAM recovery is not active.\n\nOverall status: PASS\n\n| terrain | n | success | vx_mean | body_h | clearance | gate_override | ram_recovery |\n|---|---:|---:|---:|---:|---:|---:|---:|\n| flat_normal | 3 | 1.000 | 0.2794\u00b10.0009 | 0.2943\u00b10.0009 | 0.0300\u00b10.0001 | 0.0000\u00b10.0000 | 0.0000\u00b10.0000 |\n| rough_mid | 3 | 1.000 | 0.0401\u00b10.0003 | 0.3486\u00b10.0007 | 0.1067\u00b10.0008 | 0.7467\u00b10.0109 | 0.0014\u00b10.0014 |\n| slope_5deg | 3 | 1.000 | 0.0375\u00b10.0001 | 0.3537\u00b10.0001 | 0.1120\u00b10.0002 | 0.7533\u00b10.0054 | 0.0001\u00b10.0001 |\n\nNotes:\n- This report validates low-alpha beta blend stability over repeated rollouts.\n- It does not validate full learned beta replacement.\n- It does not activate learned RAM as a recovery gate.\n"
+    },
+    {
+      "connectability": "supporting_data_or_report",
+      "exists": true,
+      "group": "datasets_reports",
+      "json_head": null,
+      "path": "reports/learned_stack_v3_beta_shadow_report.md",
+      "size_bytes": 950,
+      "suffix": ".md",
+      "text_head": "# TRACER Learned Stack v3 Beta Shadow Report\n\nActive component: learned GMS label only.\n\nShadow-only component: learned objective beta.\n\n| terrain | rows | shadow_rows | rule_beta_mean | learned_clamped_mean | delta_mean |\n|---|---:|---:|---|---|---|\n| flat_normal | 99 | 98 | m=0.550, s=0.250, e=0.200 | m=0.403, s=0.307, e=0.290 | m=-0.147, s=0.057, e=0.090 |\n| rough_mid | 99 | 98 | m=0.334, s=0.463, e=0.203 | m=0.294, s=0.538, e=0.168 | m=-0.040, s=0.075, e=-0.035 |\n| slope_5deg | 99 | 98 | m=0.316, s=0.489, e=0.195 | m=0.318, s=0.484, e=0.198 | m=0.003, s=-0.006, e=0.003 |\n\nInterpretation:\n- Learned beta is logged in shadow-only mode and does not affect the command path.\n- Observed trend: flat shifts motion down and stability/energy up; rough shifts motion down and stability up but energy down; slope remains close to the rule beta.\n- Before active beta deployment, use bounded simplex projection, rate limiting, and low-alpha blending.\n"
+    },
+    {
+      "connectability": "supporting_data_or_report",
+      "exists": true,
+      "group": "datasets_reports",
+      "json_head": {
+        "description": null,
+        "keys": [
+          "artifact_json",
+          "history_tail",
+          "n_features",
+          "n_pairs",
+          "report_csv",
+          "top_negative_features",
+          "top_positive_features",
+          "train_acc"
+        ],
+        "metrics": null,
+        "schema": null
+      },
+      "path": "reports/tracer_preference_objective_irl_v1_summary.json",
+      "size_bytes": 4815,
+      "suffix": ".json",
+      "text_head": ""
+    }
+  ],
+  "schema": "phase_b_learned_module_shortlist_v0"
+}
