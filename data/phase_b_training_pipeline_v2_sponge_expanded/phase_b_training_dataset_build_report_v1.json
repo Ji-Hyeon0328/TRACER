@@ -1,0 +1,81 @@
+{
+  "by_world_action": {
+    "tracer_sponge_firm_flat::sponge_mid_brake_clear": {
+      "mean_risk": 0.72,
+      "mean_score": 1.538761987306525,
+      "n": 5,
+      "reach_count": 2,
+      "reach_rate": 0.4
+    },
+    "tracer_sponge_firm_flat::sponge_probe_crawlish": {
+      "mean_risk": 0.5599999999999999,
+      "mean_score": 3.824831154925344,
+      "n": 5,
+      "reach_count": 4,
+      "reach_rate": 0.8
+    },
+    "tracer_sponge_firm_flat::sponge_reach_then_brake": {
+      "mean_risk": 0.5299999999999999,
+      "mean_score": 3.4750707796930724,
+      "n": 5,
+      "reach_count": 4,
+      "reach_rate": 0.8
+    },
+    "tracer_sponge_firm_flat::sponge_short_step_stable": {
+      "mean_risk": 0.75,
+      "mean_score": 1.3668857409549608,
+      "n": 5,
+      "reach_count": 2,
+      "reach_rate": 0.4
+    },
+    "tracer_sponge_firm_flat::sponge_slow_high_clear": {
+      "mean_risk": 0.86,
+      "mean_score": 0.44565673136428285,
+      "n": 5,
+      "reach_count": 1,
+      "reach_rate": 0.2
+    },
+    "tracer_sponge_firm_flat::trot_cautious": {
+      "mean_risk": 0.4699999999999999,
+      "mean_score": 3.6467758600256253,
+      "n": 5,
+      "reach_count": 4,
+      "reach_rate": 0.8
+    },
+    "tracer_sponge_firm_flat::trot_mid": {
+      "mean_risk": 0.5299999999999999,
+      "mean_score": 3.7276048263246793,
+      "n": 5,
+      "reach_count": 4,
+      "reach_rate": 0.8
+    },
+    "tracer_sponge_firm_flat::trot_soft_mid_clear": {
+      "mean_risk": 0.5599999999999999,
+      "mean_score": 3.266231363810378,
+      "n": 5,
+      "reach_count": 4,
+      "reach_rate": 0.8
+    },
+    "tracer_sponge_firm_flat::trot_solid_fast": {
+      "mean_risk": 0.6399999999999999,
+      "mean_score": 2.6679873858750542,
+      "n": 5,
+      "reach_count": 3,
+      "reach_rate": 0.6
+    }
+  },
+  "num_ppo_rows": 45,
+  "num_preference_pairs": 791,
+  "num_ram_rows": 45,
+  "num_rollouts": 45,
+  "out_dir": "data/phase_b_training_pipeline_v2_sponge_expanded",
+  "outputs": {
+    "objective_preference_pairs_jsonl": "data/phase_b_training_pipeline_v2_sponge_expanded/phase_b_objective_preference_pairs_v1.jsonl",
+    "ppo_rows_jsonl": "data/phase_b_training_pipeline_v2_sponge_expanded/phase_b_discrete_theta_lite_ppo_rows_v1.jsonl",
+    "ram_labels_jsonl": "data/phase_b_training_pipeline_v2_sponge_expanded/phase_b_ram_teacher_student_episode_labels_v1.jsonl",
+    "rollout_index_csv": "data/phase_b_training_pipeline_v2_sponge_expanded/phase_b_rollout_index_v1.csv",
+    "rollout_index_jsonl": "data/phase_b_training_pipeline_v2_sponge_expanded/phase_b_rollout_index_v1.jsonl"
+  },
+  "result_root": "artifacts/phase_b_training_campaign_v2_sponge_expanded",
+  "schema": "phase_b_training_dataset_build_report_v1"
+}

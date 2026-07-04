@@ -1,0 +1,38 @@
+{
+  "schema": "phase_b_training_pipeline_v2_sponge_expanded",
+  "description": "Sponge-focused theta-lite action-bank expansion campaign for learned Objective/RAM/candidate policy training.",
+  "teacher_json": "configs/phase_b_training_pipeline_v2_sponge_expanded/ppo_warmstart_teacher_table_sponge_expanded_v0.json",
+  "reward_config": "configs/phase_b_reward_v0/tracer_slide_reward_proxy_v0.json",
+  "worlds": [
+    "tracer_sponge_firm_flat"
+  ],
+  "actions": [
+    "trot_mid",
+    "trot_solid_fast",
+    "trot_cautious",
+    "trot_soft_mid_clear",
+    "sponge_slow_high_clear",
+    "sponge_short_step_stable",
+    "sponge_reach_then_brake",
+    "sponge_mid_brake_clear",
+    "sponge_probe_crawlish"
+  ],
+  "repeats_per_world_action": 5,
+  "record_duration": 35.0,
+  "sample_hz": 20.0,
+  "runner_timeout": 180.0,
+  "goal_distance_ahead": 0.5,
+  "training_modules": {
+    "objective_selector": {
+      "kind": "bootstrap_preference_self_irl",
+      "pair_margin": 0.5
+    },
+    "ram": {
+      "kind": "teacher_student_episode_seed"
+    },
+    "rl": {
+      "kind": "discrete_theta_lite_candidate_policy",
+      "action_space": "expanded_sponge_theta_lite_action_bank"
+    }
+  }
+}
