@@ -1,0 +1,51 @@
+{
+  "schema": "phase_b_training_pipeline_v1",
+  "description": "Phase-B rollout collection and dataset generation for learned Objective Selector, RAM, and discrete theta-lite PPO.",
+  "teacher_json": "configs/phase_b_ppo_warmstart_v0/ppo_warmstart_teacher_table.json",
+  "reward_config": "configs/phase_b_reward_v0/tracer_slide_reward_proxy_v0.json",
+  "worlds": [
+    "earth",
+    "stairs_single",
+    "tracer_sponge_firm_flat"
+  ],
+  "actions": [
+    "trot_mid",
+    "trot_solid_fast",
+    "trot_cautious",
+    "trot_soft_mid_clear"
+  ],
+  "repeats_per_world_action": 5,
+  "record_duration": 35.0,
+  "sample_hz": 20.0,
+  "runner_timeout": 180.0,
+  "goal_distance_ahead": 0.5,
+  "training_modules": {
+    "objective_selector": {
+      "kind": "bootstrap_preference_self_irl",
+      "pair_margin": 0.5,
+      "target": "learn beta/objective utility from same-world action outcome preferences"
+    },
+    "ram": {
+      "kind": "teacher_student_episode_seed",
+      "targets": [
+        "approach_success",
+        "high_drift",
+        "low_progress",
+        "bad_locomotion",
+        "good_locomotion",
+        "future_risk_proxy"
+      ]
+    },
+    "rl": {
+      "kind": "discrete_theta_lite_ppo",
+      "action_space": "theta_lite_action_bank",
+      "initial_observation": [
+        "world_onehot",
+        "terrain_context_proxy",
+        "objective_beta_proxy",
+        "ram_risk_proxy",
+        "ram_uncertainty_proxy"
+      ]
+    }
+  }
+}
