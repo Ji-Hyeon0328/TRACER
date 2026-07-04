@@ -1,0 +1,77 @@
+{
+  "schema": "phase_b_tracer_slide_reward_proxy_v0",
+  "description": "Phase-B proxy implementation of the TRACER slide reward form. Low-level controller is frozen; reward terms are computed from observed episode outcomes.",
+  "reward_form": "R_TRACER = beta_v * R_v + beta_s * R_s + beta_e * R_e",
+  "phase_b_scope": {
+    "low_level_controller": "frozen",
+    "main_goal": "evaluate high-level terrain-conditioned meta-gait planning for waypoint reachability",
+    "not_claimed_yet": [
+      "full low-level stabilization",
+      "active hold on soft-contact terrain",
+      "torque-level energy optimality"
+    ]
+  },
+  "default_beta_by_world": {
+    "earth": {
+      "beta_v": 0.80,
+      "beta_s": 0.15,
+      "beta_e": 0.05
+    },
+    "stairs_single": {
+      "beta_v": 0.72,
+      "beta_s": 0.23,
+      "beta_e": 0.05
+    },
+    "tracer_sponge_firm_flat": {
+      "beta_v": 0.60,
+      "beta_s": 0.35,
+      "beta_e": 0.05
+    },
+    "default": {
+      "beta_v": 0.70,
+      "beta_s": 0.25,
+      "beta_e": 0.05
+    }
+  },
+  "term_definitions": {
+    "R_v": {
+      "meaning": "velocity/progress/reach objective",
+      "uses": [
+        "reached_stop_distance",
+        "min_rel_dist",
+        "progress_initial_minus_min"
+      ],
+      "note": "This is the primary Phase-B traversal objective."
+    },
+    "R_s": {
+      "meaning": "stability/safety proxy objective",
+      "uses": [
+        "final_rel_dist",
+        "abs_odom_x_delta",
+        "max_abs_mpc_yaw_rate",
+        "post_reach_drift_proxy"
+      ],
+      "note": "This is not full low-level stability. It is an observed outcome proxy under the frozen controller."
+    },
+    "R_e": {
+      "meaning": "energy/smoothness proxy objective",
+      "uses": [
+        "max_mpc_vx",
+        "max_abs_mpc_yaw_rate"
+      ],
+      "note": "Torque/GRF energy is not available in Phase-B, so command magnitude is used as a proxy."
+    }
+  },
+  "normalization": {
+    "goal_distance": 0.50,
+    "stop_distance": 0.15,
+    "yaw_limit": 0.30,
+    "vx_ref": 0.16,
+    "large_final_dist": 3.0
+  },
+  "recommended_usage": {
+    "training": "Use tracer_proxy for reporting and later PPO updates, but keep reach metrics separately.",
+    "evaluation": "Report traversal success using reached_stop_distance/min_rel_dist/time_to_reach. Report hold/post-reach drift as auxiliary limitation.",
+    "sponge_note": "On sponge-like terrain, do not force stable hold claims while low-level controller is frozen."
+  }
+}

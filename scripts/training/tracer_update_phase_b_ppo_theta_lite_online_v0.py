@@ -8,6 +8,14 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 
+import sys
+
+_REPO_ROOT = Path(__file__).resolve().parents[2]
+if str(_REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(_REPO_ROOT))
+
+from scripts.training.tracer_compute_phase_b_tracer_reward_v0 import compute_tracer_proxy_reward
+
 
 class PolicyValueNet(nn.Module):
     def __init__(self, obs_dim, action_dim, hidden=64):
@@ -146,11 +154,12 @@ def main():
     ap.add_argument("--value-coef", type=float, default=0.5)
     ap.add_argument(
         "--reward-mode",
-        choices=["reach", "reach_hold"],
+        choices=["reach", "reach_hold", "tracer_proxy"],
         default="reach",
-        help="reach: use reach_reward only. reach_hold: use reach_reward + hold_coef * hold_reward.",
+        help="reach: use reach_reward only. reach_hold: use reach_reward + hold_coef * hold_reward. tracer_proxy: use beta-weighted TRACER slide-style proxy reward.",
     )
     ap.add_argument("--hold-coef", type=float, default=0.20)
+    ap.add_argument("--tracer-reward-config", default="configs/phase_b_reward_v0/tracer_slide_reward_proxy_v0.json")
     args = ap.parse_args()
 
     model, worlds, actions, world_to_i, action_to_i, ckpt = load_model(args.base_checkpoint)
@@ -170,6 +179,21 @@ def main():
             r["reach_reward"] + args.hold_coef * r["hold_reward"]
             for r in rows
         ]
+    elif args.reward_mode == "tracer_proxy":
+        tracer_cfg = load_json(args.tracer_reward_config)
+        raw_reward_values = []
+        for r in rows:
+            result_path = Path(r["source"])
+            summary_path = result_path.parent / "phase_b_summary.json"
+            if not summary_path.exists():
+                raw_reward_values.append(r["reach_reward"])
+                continue
+            summary = load_json(summary_path)
+            tr = compute_tracer_proxy_reward(summary, tracer_cfg)
+            raw_reward_values.append(float(tr["reward"]))
+            r["tracer_proxy_reward"] = float(tr["reward"])
+            r["tracer_proxy_terms"] = tr.get("terms", {})
+            r["tracer_proxy_beta"] = tr.get("beta", {})
     else:
         raise ValueError(args.reward_mode)
 
@@ -230,6 +254,7 @@ def main():
         "skipped": skipped,
         "reward_mode": args.reward_mode,
         "hold_coef": args.hold_coef,
+        "tracer_reward_config": args.tracer_reward_config,
         "reward_mean": float(rew_mean),
         "reward_std": float(rew_std),
         "rows_by_world": {},
