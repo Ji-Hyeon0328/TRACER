@@ -1,0 +1,243 @@
+#!/usr/bin/env python3
+import argparse
+import json
+from pathlib import Path
+from collections import defaultdict
+
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+
+class BetaSelectorNet(nn.Module):
+    def __init__(self, input_dim, hidden=64):
+        super().__init__()
+        self.trunk = nn.Sequential(
+            nn.Linear(input_dim, hidden),
+            nn.ReLU(),
+            nn.Linear(hidden, hidden),
+            nn.ReLU(),
+            nn.Linear(hidden, 32),
+            nn.ReLU(),
+        )
+        self.beta_head = nn.Linear(32, 3)
+
+    def forward(self, x):
+        h = self.trunk(x)
+        return self.beta_head(h)
+
+
+def read_jsonl(p):
+    rows = []
+    with open(p, "r") as f:
+        for line in f:
+            line = line.strip()
+            if line:
+                rows.append(json.loads(line))
+    return rows
+
+
+def save_json(p, obj):
+    p.parent.mkdir(parents=True, exist_ok=True)
+    with open(p, "w") as f:
+        json.dump(obj, f, indent=2, sort_keys=True)
+
+
+def load_json_safe(p):
+    try:
+        with open(p, "r") as f:
+            return json.load(f)
+    except Exception:
+        return None
+
+
+def ff(x, default=0.0):
+    try:
+        if x is None:
+            return default
+        return float(x)
+    except Exception:
+        return default
+
+
+def candidate_result_paths(r):
+    out = []
+    for k in ["source_path", "result_path", "episode_result_path"]:
+        p = r.get(k)
+        if p:
+            out.append(Path(p))
+    for k in ["run_dir", "out_root", "episode_dir"]:
+        p = r.get(k)
+        if p:
+            out.append(Path(p) / "ppo_policy_episode_result_v0.json")
+    p = r.get("source_path")
+    if p and Path(p).is_dir():
+        out.append(Path(p) / "ppo_policy_episode_result_v0.json")
+    return out
+
+
+def hydrate_row(r):
+    merged = dict(r)
+    raw = None
+    used = None
+    for p in candidate_result_paths(r):
+        if p.exists() and p.is_file():
+            raw = load_json_safe(p)
+            if raw:
+                used = p
+                break
+    if raw:
+        for k, v in raw.items():
+            if k not in ["features"]:
+                merged[k] = v
+        if "features" not in merged and "features" in r:
+            merged["features"] = r["features"]
+        merged["_hydrated_from"] = str(used)
+    else:
+        merged["_hydrated_from"] = None
+    return merged
+
+
+def get_component(r, name, *alts):
+    c = r.get("reward_components") or {}
+    if name in c:
+        return ff(c.get(name))
+    for a in alts:
+        if a in r:
+            return ff(r.get(a))
+    return 0.0
+
+
+def build_vec(r, names):
+    feat = r.get("features") or {}
+    w = r.get("world_name", "")
+    vals = []
+    for k in names:
+        if k.startswith("world_onehot:") and k not in feat:
+            vals.append(1.0 if k.split("world_onehot:", 1)[1] == w else 0.0)
+        else:
+            vals.append(ff(feat.get(k), 0.0))
+    return torch.tensor(vals, dtype=torch.float32)
+
+
+def load_beta(path):
+    ckpt = torch.load(path, map_location="cpu", weights_only=False)
+    model = BetaSelectorNet(ckpt["input_dim"], hidden=64)
+    model.load_state_dict(ckpt["model_state_dict"])
+    model.eval()
+    return ckpt, model
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--rollouts", default="data/phase_b_training_pipeline_v5_merged_balanced/phase_b_rollout_index_v1.jsonl")
+    ap.add_argument("--beta-model", default="artifacts/phase_b_objective_selector_beta_v1_hydrated/model.pt")
+    ap.add_argument("--out-json", default="reports/phase_b_beta_weighted_reward_v1_hydrated.json")
+    ap.add_argument("--out-md", default="reports/phase_b_beta_weighted_reward_v1_hydrated.md")
+    args = ap.parse_args()
+
+    rows = [hydrate_row(r) for r in read_jsonl(args.rollouts)]
+    hydrated_count = sum(1 for r in rows if r.get("_hydrated_from"))
+
+    ckpt, model = load_beta(args.beta_model)
+    names = ckpt["feature_names"]
+    mean = torch.tensor(ckpt["feature_mean"], dtype=torch.float32)
+    std = torch.tensor(ckpt["feature_std"], dtype=torch.float32)
+
+    scored = []
+    with torch.no_grad():
+        for r in rows:
+            x = (build_vec(r, names) - mean) / std
+            beta = F.softmax(model(x.unsqueeze(0))[0], dim=0).cpu().tolist()
+
+            R_v = get_component(r, "R_v", "mean_R_v")
+            R_s = get_component(r, "R_s", "mean_R_s")
+            R_e = get_component(r, "R_e", "mean_R_e")
+            final = get_component(r, "final_rel_dist", "mean_final_rel_dist")
+            drift = get_component(r, "post_reach_drift", "mean_post_reach_drift")
+            proxy = get_component(r, "tracer_proxy_reward", "mean_tracer_proxy_reward", "preference_score_seed")
+            reached = bool((r.get("reward_components") or {}).get("reached_stop_distance", r.get("reached_stop_distance", False)))
+
+            score_beta = beta[0] * R_v + beta[1] * R_s + beta[2] * R_e
+
+            scored.append({
+                "world_name": r.get("world_name"),
+                "action_name": r.get("action_name"),
+                "source_path": r.get("source_path"),
+                "hydrated_from": r.get("_hydrated_from"),
+                "beta_v": beta[0],
+                "beta_s": beta[1],
+                "beta_e": beta[2],
+                "R_v": R_v,
+                "R_s": R_s,
+                "R_e": R_e,
+                "score_beta": score_beta,
+                "reached": reached,
+                "final_rel_dist": final,
+                "post_reach_drift": drift,
+                "tracer_proxy_reward": proxy,
+            })
+
+    groups = defaultdict(list)
+    for r in scored:
+        groups[f"{r['world_name']}::{r['action_name']}"].append(r)
+
+    summary = []
+    for k, arr in sorted(groups.items()):
+        n = len(arr)
+        summary.append({
+            "world_action": k,
+            "n": n,
+            "reach_rate": sum(1.0 if x["reached"] else 0.0 for x in arr) / n,
+            "mean_beta_v": sum(x["beta_v"] for x in arr) / n,
+            "mean_beta_s": sum(x["beta_s"] for x in arr) / n,
+            "mean_beta_e": sum(x["beta_e"] for x in arr) / n,
+            "mean_R_v": sum(x["R_v"] for x in arr) / n,
+            "mean_R_s": sum(x["R_s"] for x in arr) / n,
+            "mean_R_e": sum(x["R_e"] for x in arr) / n,
+            "mean_score_beta": sum(x["score_beta"] for x in arr) / n,
+            "mean_proxy_reward": sum(x["tracer_proxy_reward"] for x in arr) / n,
+            "mean_final_dist": sum(x["final_rel_dist"] for x in arr) / n,
+            "mean_drift": sum(x["post_reach_drift"] for x in arr) / n,
+        })
+
+    report = {
+        "schema": "phase_b_beta_weighted_reward_report_v1_hydrated",
+        "rollouts": args.rollouts,
+        "beta_model": args.beta_model,
+        "num_rows": len(rows),
+        "hydrated_count": hydrated_count,
+        "summary": summary,
+        "scored_rows": scored,
+    }
+    save_json(Path(args.out_json), report)
+
+    lines = []
+    lines.append("# Phase-B β-weighted Reward Report v1 Hydrated")
+    lines.append("")
+    lines.append(f"- Rollouts: `{args.rollouts}`")
+    lines.append(f"- Beta model: `{args.beta_model}`")
+    lines.append(f"- Rows: `{len(rows)}`")
+    lines.append(f"- Hydrated rows: `{hydrated_count}`")
+    lines.append("")
+    lines.append("| world::action | n | reach | beta_v | beta_s | beta_e | R_v | R_s | R_e | score_beta | proxy_reward | final | drift |")
+    lines.append("|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|")
+    for s in sorted(summary, key=lambda x: (x["world_action"].split("::")[0], -x["mean_score_beta"])):
+        lines.append(
+            f"| {s['world_action']} | {s['n']} | {s['reach_rate']:.3f} | "
+            f"{s['mean_beta_v']:.3f} | {s['mean_beta_s']:.3f} | {s['mean_beta_e']:.3f} | "
+            f"{s['mean_R_v']:.3f} | {s['mean_R_s']:.3f} | {s['mean_R_e']:.3f} | "
+            f"{s['mean_score_beta']:.3f} | {s['mean_proxy_reward']:.3f} | "
+            f"{s['mean_final_dist']:.3f} | {s['mean_drift']:.3f} |"
+        )
+
+    md = "\n".join(lines) + "\n"
+    Path(args.out_md).parent.mkdir(parents=True, exist_ok=True)
+    Path(args.out_md).write_text(md)
+    print(md)
+    print("[wrote]", args.out_json)
+    print("[wrote]", args.out_md)
+
+
+if __name__ == "__main__":
+    main()
