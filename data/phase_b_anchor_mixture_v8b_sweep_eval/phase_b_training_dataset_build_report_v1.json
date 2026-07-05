@@ -1,0 +1,74 @@
+{
+  "by_world_action": {
+    "tracer_sponge_firm_flat::sponge_reach_then_brake": {
+      "mean_risk": 0.64,
+      "mean_score": 2.5205926810542794,
+      "n": 5,
+      "reach_count": 3,
+      "reach_rate": 0.6
+    },
+    "tracer_sponge_firm_flat::sponge_v8_anchor_mix_top3": {
+      "mean_risk": 0.5599999999999999,
+      "mean_score": 3.4529396838536295,
+      "n": 5,
+      "reach_count": 4,
+      "reach_rate": 0.8
+    },
+    "tracer_sponge_firm_flat::sponge_v8b_probe_reach_fast": {
+      "mean_risk": 0.5299999999999999,
+      "mean_score": 3.689752715970706,
+      "n": 5,
+      "reach_count": 4,
+      "reach_rate": 0.8
+    },
+    "tracer_sponge_firm_flat::sponge_v8b_reach_bias": {
+      "mean_risk": 0.6699999999999999,
+      "mean_score": 2.944746516155908,
+      "n": 5,
+      "reach_count": 3,
+      "reach_rate": 0.6
+    },
+    "tracer_sponge_firm_flat::sponge_v8b_reach_bias_fast": {
+      "mean_risk": 0.45,
+      "mean_score": 4.997098499508238,
+      "n": 5,
+      "reach_count": 5,
+      "reach_rate": 1.0
+    },
+    "tracer_sponge_firm_flat::sponge_v8b_reach_stabilized": {
+      "mean_risk": 0.5299999999999999,
+      "mean_score": 3.6119249997123495,
+      "n": 5,
+      "reach_count": 4,
+      "reach_rate": 0.8
+    },
+    "tracer_sponge_firm_flat::sponge_v8b_soft_reach": {
+      "mean_risk": 0.75,
+      "mean_score": 1.265800359349536,
+      "n": 5,
+      "reach_count": 2,
+      "reach_rate": 0.4
+    },
+    "tracer_sponge_firm_flat::trot_soft_mid_clear": {
+      "mean_risk": 0.6,
+      "mean_score": 2.69496681718273,
+      "n": 5,
+      "reach_count": 3,
+      "reach_rate": 0.6
+    }
+  },
+  "num_ppo_rows": 40,
+  "num_preference_pairs": 627,
+  "num_ram_rows": 40,
+  "num_rollouts": 40,
+  "out_dir": "data/phase_b_anchor_mixture_v8b_sweep_eval",
+  "outputs": {
+    "objective_preference_pairs_jsonl": "data/phase_b_anchor_mixture_v8b_sweep_eval/phase_b_objective_preference_pairs_v1.jsonl",
+    "ppo_rows_jsonl": "data/phase_b_anchor_mixture_v8b_sweep_eval/phase_b_discrete_theta_lite_ppo_rows_v1.jsonl",
+    "ram_labels_jsonl": "data/phase_b_anchor_mixture_v8b_sweep_eval/phase_b_ram_teacher_student_episode_labels_v1.jsonl",
+    "rollout_index_csv": "data/phase_b_anchor_mixture_v8b_sweep_eval/phase_b_rollout_index_v1.csv",
+    "rollout_index_jsonl": "data/phase_b_anchor_mixture_v8b_sweep_eval/phase_b_rollout_index_v1.jsonl"
+  },
+  "result_root": "artifacts/phase_b_anchor_mixture_v8b_sweep_eval",
+  "schema": "phase_b_training_dataset_build_report_v1"
+}

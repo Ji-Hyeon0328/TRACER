@@ -1,0 +1,1320 @@
+{
+  "by_action": {
+    "sponge_reach_then_brake": {
+      "best_final_rel_dist": 3.1829223899795283,
+      "best_min_rel_dist": 0.024150579416326756,
+      "mean_R_e": -0.332139722633604,
+      "mean_R_s": -3.301684311918123,
+      "mean_R_v": 7.492984659924912,
+      "mean_final_rel_dist": 3.737845869055741,
+      "mean_hold_reward": -7.586081724599195,
+      "mean_min_rel_dist": 0.12836358082549926,
+      "mean_post_reach_drift": 3.6094822882302418,
+      "mean_reach_reward": 4.562969560904348,
+      "mean_time_to_reach": 0.05000000000000001,
+      "mean_tracer_proxy_reward": 3.3235943006519237,
+      "n": 5,
+      "reach_rate": 0.6
+    },
+    "sponge_v8_anchor_mix_top3": {
+      "best_final_rel_dist": 2.3182488267222623,
+      "best_min_rel_dist": 0.020318459021855233,
+      "mean_R_e": -0.3520358011244279,
+      "mean_R_s": -2.983023163645501,
+      "mean_R_v": 7.982888442875705,
+      "mean_final_rel_dist": 3.4740051536400456,
+      "mean_hold_reward": -6.983725215643199,
+      "mean_min_rel_dist": 0.16038308664852693,
+      "mean_post_reach_drift": 3.313622066991519,
+      "mean_reach_reward": 4.856654308618732,
+      "mean_time_to_reach": 0.037500000000000006,
+      "mean_tracer_proxy_reward": 3.7280731683932773,
+      "n": 5,
+      "reach_rate": 0.8
+    },
+    "sponge_v8b_probe_reach_fast": {
+      "best_final_rel_dist": 3.433728774275294,
+      "best_min_rel_dist": 0.006745546617046055,
+      "mean_R_e": -0.4114536276941242,
+      "mean_R_s": -3.2445750423250046,
+      "mean_R_v": 8.566991053241367,
+      "mean_final_rel_dist": 3.8512268527945026,
+      "mean_hold_reward": -7.86650770608737,
+      "mean_min_rel_dist": 0.09789634359719639,
+      "mean_post_reach_drift": 3.753330509197306,
+      "mean_reach_reward": 5.4369858268948414,
+      "mean_time_to_reach": 0.05,
+      "mean_tracer_proxy_reward": 3.984020685746362,
+      "n": 5,
+      "reach_rate": 0.8
+    },
+    "sponge_v8b_reach_bias": {
+      "best_final_rel_dist": 2.12454890624201,
+      "best_min_rel_dist": 0.015277422866477096,
+      "mean_R_e": -0.40351836063336793,
+      "mean_R_s": -2.581588905550223,
+      "mean_R_v": 7.2562997074082976,
+      "mean_final_rel_dist": 3.139846790892021,
+      "mean_hold_reward": -6.165989101837383,
+      "mean_min_rel_dist": 0.1442678940355821,
+      "mean_post_reach_drift": 2.995578896856439,
+      "mean_reach_reward": 4.415571917939023,
+      "mean_time_to_reach": 0.05000000000000001,
+      "mean_tracer_proxy_reward": 3.4300477894707315,
+      "n": 5,
+      "reach_rate": 0.6
+    },
+    "sponge_v8b_reach_bias_fast": {
+      "best_final_rel_dist": 3.661695603663483,
+      "best_min_rel_dist": 0.004408740555911009,
+      "mean_R_e": -0.39931589312420546,
+      "mean_R_s": -3.3058486600297785,
+      "mean_R_v": 9.688847225486604,
+      "mean_final_rel_dist": 3.987256982730693,
+      "mean_hold_reward": -8.26556080283613,
+      "mean_min_rel_dist": 0.05166831956175656,
+      "mean_post_reach_drift": 3.9355886631689367,
+      "mean_reach_reward": 6.486498065932189,
+      "mean_time_to_reach": 0.04,
+      "mean_tracer_proxy_reward": 4.636295509625329,
+      "n": 5,
+      "reach_rate": 1.0
+    },
+    "sponge_v8b_reach_stabilized": {
+      "best_final_rel_dist": 2.992101251746709,
+      "best_min_rel_dist": 0.06046764486601362,
+      "mean_R_e": -0.4359321644083566,
+      "mean_R_s": -3.443652355982487,
+      "mean_R_v": 8.477248266219306,
+      "mean_final_rel_dist": 3.782681114112185,
+      "mean_hold_reward": -7.81437083886627,
+      "mean_min_rel_dist": 0.1100813656745792,
+      "mean_post_reach_drift": 3.672599748437606,
+      "mean_reach_reward": 5.329426871318923,
+      "mean_time_to_reach": 0.05,
+      "mean_tracer_proxy_reward": 3.859274026917295,
+      "n": 5,
+      "reach_rate": 0.8
+    },
+    "sponge_v8b_soft_reach": {
+      "best_final_rel_dist": 2.4791801002049856,
+      "best_min_rel_dist": 0.006649049962719432,
+      "mean_R_e": -0.39566877255074245,
+      "mean_R_s": -2.704953085420163,
+      "mean_R_v": 5.8179654399057315,
+      "mean_final_rel_dist": 3.1925978883839696,
+      "mean_hold_reward": -6.302283136957092,
+      "mean_min_rel_dist": 0.20851347297546444,
+      "mean_post_reach_drift": 2.9840844154085056,
+      "mean_reach_reward": 3.206763140776522,
+      "mean_time_to_reach": 0.05,
+      "mean_tracer_proxy_reward": 2.524262245418845,
+      "n": 5,
+      "reach_rate": 0.4
+    },
+    "trot_soft_mid_clear": {
+      "best_final_rel_dist": 0.9852950557326551,
+      "best_min_rel_dist": 0.06202443452630469,
+      "mean_R_e": -0.38274732743607603,
+      "mean_R_s": -2.0002383864460564,
+      "mean_R_v": 6.692736541582836,
+      "mean_final_rel_dist": 2.8401462504436976,
+      "mean_hold_reward": -5.410543177486468,
+      "mean_min_rel_dist": 0.20177047955798583,
+      "mean_post_reach_drift": 2.6383757708857116,
+      "mean_reach_reward": 3.8786089529290906,
+      "mean_time_to_reach": 0.05000000000000001,
+      "mean_tracer_proxy_reward": 3.296421123321778,
+      "n": 5,
+      "reach_rate": 0.6
+    }
+  },
+  "by_world": {
+    "tracer_sponge_firm_flat": {
+      "best_final_rel_dist": 0.9852950557326551,
+      "best_min_rel_dist": 0.004408740555911009,
+      "mean_R_e": -0.3891014587006131,
+      "mean_R_s": -2.9456954889146676,
+      "mean_R_v": 7.7469951670805965,
+      "mean_final_rel_dist": 3.5007008627566067,
+      "mean_hold_reward": -7.049382713039139,
+      "mean_min_rel_dist": 0.13786806785957384,
+      "mean_post_reach_drift": 3.3628327948970322,
+      "mean_reach_reward": 4.771684830664209,
+      "mean_time_to_reach": 0.046428571428571444,
+      "mean_tracer_proxy_reward": 3.5977486061931927,
+      "n": 40,
+      "reach_rate": 0.7
+    }
+  },
+  "by_world_action": {
+    "tracer_sponge_firm_flat::sponge_reach_then_brake": {
+      "best_final_rel_dist": 3.1829223899795283,
+      "best_min_rel_dist": 0.024150579416326756,
+      "mean_R_e": -0.332139722633604,
+      "mean_R_s": -3.301684311918123,
+      "mean_R_v": 7.492984659924912,
+      "mean_final_rel_dist": 3.737845869055741,
+      "mean_hold_reward": -7.586081724599195,
+      "mean_min_rel_dist": 0.12836358082549926,
+      "mean_post_reach_drift": 3.6094822882302418,
+      "mean_reach_reward": 4.562969560904348,
+      "mean_time_to_reach": 0.05000000000000001,
+      "mean_tracer_proxy_reward": 3.3235943006519237,
+      "n": 5,
+      "reach_rate": 0.6
+    },
+    "tracer_sponge_firm_flat::sponge_v8_anchor_mix_top3": {
+      "best_final_rel_dist": 2.3182488267222623,
+      "best_min_rel_dist": 0.020318459021855233,
+      "mean_R_e": -0.3520358011244279,
+      "mean_R_s": -2.983023163645501,
+      "mean_R_v": 7.982888442875705,
+      "mean_final_rel_dist": 3.4740051536400456,
+      "mean_hold_reward": -6.983725215643199,
+      "mean_min_rel_dist": 0.16038308664852693,
+      "mean_post_reach_drift": 3.313622066991519,
+      "mean_reach_reward": 4.856654308618732,
+      "mean_time_to_reach": 0.037500000000000006,
+      "mean_tracer_proxy_reward": 3.7280731683932773,
+      "n": 5,
+      "reach_rate": 0.8
+    },
+    "tracer_sponge_firm_flat::sponge_v8b_probe_reach_fast": {
+      "best_final_rel_dist": 3.433728774275294,
+      "best_min_rel_dist": 0.006745546617046055,
+      "mean_R_e": -0.4114536276941242,
+      "mean_R_s": -3.2445750423250046,
+      "mean_R_v": 8.566991053241367,
+      "mean_final_rel_dist": 3.8512268527945026,
+      "mean_hold_reward": -7.86650770608737,
+      "mean_min_rel_dist": 0.09789634359719639,
+      "mean_post_reach_drift": 3.753330509197306,
+      "mean_reach_reward": 5.4369858268948414,
+      "mean_time_to_reach": 0.05,
+      "mean_tracer_proxy_reward": 3.984020685746362,
+      "n": 5,
+      "reach_rate": 0.8
+    },
+    "tracer_sponge_firm_flat::sponge_v8b_reach_bias": {
+      "best_final_rel_dist": 2.12454890624201,
+      "best_min_rel_dist": 0.015277422866477096,
+      "mean_R_e": -0.40351836063336793,
+      "mean_R_s": -2.581588905550223,
+      "mean_R_v": 7.2562997074082976,
+      "mean_final_rel_dist": 3.139846790892021,
+      "mean_hold_reward": -6.165989101837383,
+      "mean_min_rel_dist": 0.1442678940355821,
+      "mean_post_reach_drift": 2.995578896856439,
+      "mean_reach_reward": 4.415571917939023,
+      "mean_time_to_reach": 0.05000000000000001,
+      "mean_tracer_proxy_reward": 3.4300477894707315,
+      "n": 5,
+      "reach_rate": 0.6
+    },
+    "tracer_sponge_firm_flat::sponge_v8b_reach_bias_fast": {
+      "best_final_rel_dist": 3.661695603663483,
+      "best_min_rel_dist": 0.004408740555911009,
+      "mean_R_e": -0.39931589312420546,
+      "mean_R_s": -3.3058486600297785,
+      "mean_R_v": 9.688847225486604,
+      "mean_final_rel_dist": 3.987256982730693,
+      "mean_hold_reward": -8.26556080283613,
+      "mean_min_rel_dist": 0.05166831956175656,
+      "mean_post_reach_drift": 3.9355886631689367,
+      "mean_reach_reward": 6.486498065932189,
+      "mean_time_to_reach": 0.04,
+      "mean_tracer_proxy_reward": 4.636295509625329,
+      "n": 5,
+      "reach_rate": 1.0
+    },
+    "tracer_sponge_firm_flat::sponge_v8b_reach_stabilized": {
+      "best_final_rel_dist": 2.992101251746709,
+      "best_min_rel_dist": 0.06046764486601362,
+      "mean_R_e": -0.4359321644083566,
+      "mean_R_s": -3.443652355982487,
+      "mean_R_v": 8.477248266219306,
+      "mean_final_rel_dist": 3.782681114112185,
+      "mean_hold_reward": -7.81437083886627,
+      "mean_min_rel_dist": 0.1100813656745792,
+      "mean_post_reach_drift": 3.672599748437606,
+      "mean_reach_reward": 5.329426871318923,
+      "mean_time_to_reach": 0.05,
+      "mean_tracer_proxy_reward": 3.859274026917295,
+      "n": 5,
+      "reach_rate": 0.8
+    },
+    "tracer_sponge_firm_flat::sponge_v8b_soft_reach": {
+      "best_final_rel_dist": 2.4791801002049856,
+      "best_min_rel_dist": 0.006649049962719432,
+      "mean_R_e": -0.39566877255074245,
+      "mean_R_s": -2.704953085420163,
+      "mean_R_v": 5.8179654399057315,
+      "mean_final_rel_dist": 3.1925978883839696,
+      "mean_hold_reward": -6.302283136957092,
+      "mean_min_rel_dist": 0.20851347297546444,
+      "mean_post_reach_drift": 2.9840844154085056,
+      "mean_reach_reward": 3.206763140776522,
+      "mean_time_to_reach": 0.05,
+      "mean_tracer_proxy_reward": 2.524262245418845,
+      "n": 5,
+      "reach_rate": 0.4
+    },
+    "tracer_sponge_firm_flat::trot_soft_mid_clear": {
+      "best_final_rel_dist": 0.9852950557326551,
+      "best_min_rel_dist": 0.06202443452630469,
+      "mean_R_e": -0.38274732743607603,
+      "mean_R_s": -2.0002383864460564,
+      "mean_R_v": 6.692736541582836,
+      "mean_final_rel_dist": 2.8401462504436976,
+      "mean_hold_reward": -5.410543177486468,
+      "mean_min_rel_dist": 0.20177047955798583,
+      "mean_post_reach_drift": 2.6383757708857116,
+      "mean_reach_reward": 3.8786089529290906,
+      "mean_time_to_reach": 0.05000000000000001,
+      "mean_tracer_proxy_reward": 3.296421123321778,
+      "n": 5,
+      "reach_rate": 0.6
+    }
+  },
+  "interpretation": {
+    "auxiliary_limitation_metrics": [
+      "final_rel_dist",
+      "post_reach_drift",
+      "hold_reward",
+      "R_s"
+    ],
+    "controller_scope": "Low-level controller is frozen. Post-reach hold failures are reported as limitations rather than high-level traversal failures.",
+    "main_claim": "Reach-terminated evaluation treats goal-neighborhood arrival as the high-level planner success condition.",
+    "main_metrics": [
+      "reached_stop_distance",
+      "min_rel_dist",
+      "time_to_reach",
+      "R_v"
+    ]
+  },
+  "num_rows": 40,
+  "overall": {
+    "best_final_rel_dist": 0.9852950557326551,
+    "best_min_rel_dist": 0.004408740555911009,
+    "mean_R_e": -0.3891014587006131,
+    "mean_R_s": -2.9456954889146676,
+    "mean_R_v": 7.7469951670805965,
+    "mean_final_rel_dist": 3.5007008627566067,
+    "mean_hold_reward": -7.049382713039139,
+    "mean_min_rel_dist": 0.13786806785957384,
+    "mean_post_reach_drift": 3.3628327948970322,
+    "mean_reach_reward": 4.771684830664209,
+    "mean_time_to_reach": 0.046428571428571444,
+    "mean_tracer_proxy_reward": 3.5977486061931927,
+    "n": 40,
+    "reach_rate": 0.7
+  },
+  "policy_name": "tracer_anchor_mixture_v8b_sponge_sweep",
+  "result_root": "artifacts/phase_b_anchor_mixture_v8b_sweep_eval",
+  "reward_config": "configs/phase_b_reward_v0/tracer_slide_reward_proxy_v0.json",
+  "rows": [
+    {
+      "final_rel_dist": 3.813125204782237,
+      "hold_reward": -7.867140582107764,
+      "min_rel_dist": 0.230149267629111,
+      "policy_name": "tracer_anchor_mixture_v8b_sponge_sweep",
+      "post_reach_drift": 3.582975937153126,
+      "reach_reward": 1.7946855968412476,
+      "reached_stop_distance": false,
+      "selected_action_name": "sponge_reach_then_brake",
+      "source": "artifacts/phase_b_anchor_mixture_v8b_sweep_eval/tracer_sponge_firm_flat/sponge_reach_then_brake/ep000/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 1.2219061311724033,
+      "tracer_terms": {
+        "R_e": -0.521484375,
+        "R_s": -3.5420834698548247,
+        "R_v": 4.146182607285986
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 3.1829223899795283,
+      "hold_reward": -5.9760451825647785,
+      "min_rel_dist": 0.18437576478071988,
+      "policy_name": "tracer_anchor_mixture_v8b_sponge_sweep",
+      "post_reach_drift": 2.9985466251988084,
+      "reach_reward": 2.2356898686893536,
+      "reached_stop_distance": false,
+      "selected_action_name": "sponge_reach_then_brake",
+      "source": "artifacts/phase_b_anchor_mixture_v8b_sweep_eval/tracer_sponge_firm_flat/sponge_reach_then_brake/ep001/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 1.761273099258552,
+      "tracer_terms": {
+        "R_e": -0.521484375,
+        "R_s": -2.9277796118560384,
+        "R_v": 4.686783636930276
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 4.0046294265090285,
+      "hold_reward": -8.28291712785291,
+      "min_rel_dist": 0.1447727686743751,
+      "policy_name": "tracer_anchor_mixture_v8b_sponge_sweep",
+      "post_reach_drift": 3.8598566578346536,
+      "reach_reward": 5.596926284873387,
+      "reached_stop_distance": true,
+      "selected_action_name": "sponge_reach_then_brake",
+      "source": "artifacts/phase_b_anchor_mixture_v8b_sweep_eval/tracer_sponge_firm_flat/sponge_reach_then_brake/ep002/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 4.1785473570630005,
+      "tracer_terms": {
+        "R_e": -0.3,
+        "R_s": -3.669752951006019,
+        "R_v": 9.129934816525179
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 4.023825206212936,
+      "hold_reward": -8.339405570464073,
+      "min_rel_dist": 0.024150579416326756,
+      "policy_name": "tracer_anchor_mixture_v8b_sponge_sweep",
+      "post_reach_drift": 3.9996746267966095,
+      "reach_reward": 6.764526414430669,
+      "reached_stop_distance": true,
+      "selected_action_name": "sponge_reach_then_brake",
+      "source": "artifacts/phase_b_anchor_mixture_v8b_sweep_eval/tracer_sponge_firm_flat/sponge_reach_then_brake/ep003/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 4.8873353378320346,
+      "tracer_terms": {
+        "R_e": -0.017729863168019777,
+        "R_s": -2.925654115010417,
+        "R_v": 9.853667952073469
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 3.6647271177949747,
+      "hold_reward": -7.464900160006453,
+      "min_rel_dist": 0.05836952362696343,
+      "policy_name": "tracer_anchor_mixture_v8b_sponge_sweep",
+      "post_reach_drift": 3.6063575941680113,
+      "reach_reward": 6.423019639687082,
+      "reached_stop_distance": true,
+      "selected_action_name": "sponge_reach_then_brake",
+      "source": "artifacts/phase_b_anchor_mixture_v8b_sweep_eval/tracer_sponge_firm_flat/sponge_reach_then_brake/ep004/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 4.568909577933628,
+      "tracer_terms": {
+        "R_e": -0.3,
+        "R_s": -3.4431514118633166,
+        "R_v": 9.648354286809647
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 2.3182488267222623,
+      "hold_reward": -4.147985859166233,
+      "min_rel_dist": 0.3672040092979999,
+      "policy_name": "tracer_anchor_mixture_v8b_sponge_sweep",
+      "post_reach_drift": 1.9510448174242625,
+      "reach_reward": 0.4965222409375427,
+      "reached_stop_distance": false,
+      "selected_action_name": "sponge_v8_anchor_mix_top3",
+      "source": "artifacts/phase_b_anchor_mixture_v8b_sweep_eval/tracer_sponge_firm_flat/sponge_v8_anchor_mix_top3/ep000/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.15,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 0.948489817518567,
+      "tracer_terms": {
+        "R_e": -0.4068704369408031,
+        "R_s": -1.5871878999121551,
+        "R_v": 2.540581840558102
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 3.3924412924460037,
+      "hold_reward": -6.872347500252911,
+      "min_rel_dist": 0.12277337664754323,
+      "policy_name": "tracer_anchor_mixture_v8b_sponge_sweep",
+      "post_reach_drift": 3.2696679157984603,
+      "reach_reward": 5.817935542440571,
+      "reached_stop_distance": true,
+      "selected_action_name": "sponge_v8_anchor_mix_top3",
+      "source": "artifacts/phase_b_anchor_mixture_v8b_sweep_eval/tracer_sponge_firm_flat/sponge_v8_anchor_mix_top3/ep001/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 4.395245544460594,
+      "tracer_terms": {
+        "R_e": -0.4068704369408031,
+        "R_s": -3.261627528297336,
+        "R_v": 9.26193116868617
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 3.838723817375161,
+      "hold_reward": -7.704753941922526,
+      "min_rel_dist": 0.1412226551416021,
+      "policy_name": "tracer_anchor_mixture_v8b_sponge_sweep",
+      "post_reach_drift": 3.697501162233559,
+      "reach_reward": 5.62101124156862,
+      "reached_stop_distance": true,
+      "selected_action_name": "sponge_v8_anchor_mix_top3",
+      "source": "artifacts/phase_b_anchor_mixture_v8b_sweep_eval/tracer_sponge_firm_flat/sponge_v8_anchor_mix_top3/ep002/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 4.224695552731845,
+      "tracer_terms": {
+        "R_e": -0.4068704369408031,
+        "R_s": -3.5591492115834407,
+        "R_v": 9.151235497721816
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 3.9507457366376424,
+      "hold_reward": -8.227416908982494,
+      "min_rel_dist": 0.15039693313363423,
+      "policy_name": "tracer_anchor_mixture_v8b_sponge_sweep",
+      "post_reach_drift": 3.8003488035040083,
+      "reach_reward": 5.555385084783083,
+      "reached_stop_distance": true,
+      "selected_action_name": "sponge_v8_anchor_mix_top3",
+      "source": "artifacts/phase_b_anchor_mixture_v8b_sweep_eval/tracer_sponge_firm_flat/sponge_v8_anchor_mix_top3/ep003/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 4.1573784831969895,
+      "tracer_terms": {
+        "R_e": -0.4068704369408031,
+        "R_s": -3.6338304910917616,
+        "R_v": 9.082604461543577
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 3.8698660950191606,
+      "hold_reward": -7.966121867891831,
+      "min_rel_dist": 0.020318459021855233,
+      "policy_name": "tracer_anchor_mixture_v8b_sponge_sweep",
+      "post_reach_drift": 3.8495476359973053,
+      "reach_reward": 6.792417433363845,
+      "reached_stop_distance": true,
+      "selected_action_name": "sponge_v8_anchor_mix_top3",
+      "source": "artifacts/phase_b_anchor_mixture_v8b_sweep_eval/tracer_sponge_firm_flat/sponge_v8_anchor_mix_top3/ep004/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.0,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 4.91455644405839,
+      "tracer_terms": {
+        "R_e": -0.1326972578589272,
+        "R_s": -2.87332068734281,
+        "R_v": 9.878089245868868
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 3.433728774275294,
+      "hold_reward": -6.949419005089718,
+      "min_rel_dist": 0.17087572805175658,
+      "policy_name": "tracer_anchor_mixture_v8b_sponge_sweep",
+      "post_reach_drift": 3.2628530462235372,
+      "reach_reward": 2.323336778616946,
+      "reached_stop_distance": false,
+      "selected_action_name": "sponge_v8b_probe_reach_fast",
+      "source": "artifacts/phase_b_anchor_mixture_v8b_sweep_eval/tracer_sponge_firm_flat/sponge_v8b_probe_reach_fast/ep000/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.15,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 1.7103153346739042,
+      "tracer_terms": {
+        "R_e": -0.5264335937500001,
+        "R_s": -3.2891525161835293,
+        "R_v": 4.8130673250427325
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 3.6682191920004876,
+      "hold_reward": -7.097530730822416,
+      "min_rel_dist": 0.006745546617046055,
+      "policy_name": "tracer_anchor_mixture_v8b_sponge_sweep",
+      "post_reach_drift": 3.6614736453834418,
+      "reach_reward": 6.8971316924643205,
+      "reached_stop_distance": true,
+      "selected_action_name": "sponge_v8b_probe_reach_fast",
+      "source": "artifacts/phase_b_anchor_mixture_v8b_sweep_eval/tracer_sponge_firm_flat/sponge_v8b_probe_reach_fast/ep001/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 5.061589224689195,
+      "tracer_terms": {
+        "R_e": -0.232065691068046,
+        "R_s": -2.5761896573682708,
+        "R_v": 9.958098148869153
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 4.0887653433888325,
+      "hold_reward": -8.540395732703635,
+      "min_rel_dist": 0.15582983029632494,
+      "policy_name": "tracer_anchor_mixture_v8b_sponge_sweep",
+      "post_reach_drift": 3.9329355130925077,
+      "reach_reward": 5.4811886876327405,
+      "reached_stop_distance": true,
+      "selected_action_name": "sponge_v8b_probe_reach_fast",
+      "source": "artifacts/phase_b_anchor_mixture_v8b_sweep_eval/tracer_sponge_firm_flat/sponge_v8b_probe_reach_fast/ep002/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 4.0713314414881,
+      "tracer_terms": {
+        "R_e": -0.5264335937500001,
+        "R_s": -3.7258435622592216,
+        "R_v": 9.002830613277213
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 4.565671707800083,
+      "hold_reward": -9.77726646143041,
+      "min_rel_dist": 0.09993445372468315,
+      "policy_name": "tracer_anchor_mixture_v8b_sponge_sweep",
+      "post_reach_drift": 4.4657372540754,
+      "reach_reward": 6.044280652996723,
+      "reached_stop_distance": true,
+      "selected_action_name": "sponge_v8b_probe_reach_fast",
+      "source": "artifacts/phase_b_anchor_mixture_v8b_sweep_eval/tracer_sponge_firm_flat/sponge_v8b_probe_reach_fast/ep003/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 4.1977337455598125,
+      "tracer_terms": {
+        "R_e": -0.5264335937500001,
+        "R_s": -4.043781138533388,
+        "R_v": 9.39896470622333
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 3.499749246507816,
+      "hold_reward": -6.967926600390674,
+      "min_rel_dist": 0.05609615929617128,
+      "policy_name": "tracer_anchor_mixture_v8b_sponge_sweep",
+      "post_reach_drift": 3.443653087211645,
+      "reach_reward": 6.438991322763479,
+      "reached_stop_distance": true,
+      "selected_action_name": "sponge_v8b_probe_reach_fast",
+      "source": "artifacts/phase_b_anchor_mixture_v8b_sweep_eval/tracer_sponge_firm_flat/sponge_v8b_probe_reach_fast/ep004/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 4.879133682320798,
+      "tracer_terms": {
+        "R_e": -0.24590166615257422,
+        "R_s": -2.5879083372806133,
+        "R_v": 9.661994472794401
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 4.066772112765714,
+      "hold_reward": -8.277604346805605,
+      "min_rel_dist": 0.015277422866477096,
+      "policy_name": "tracer_anchor_mixture_v8b_sponge_sweep",
+      "post_reach_drift": 4.051494689899237,
+      "reach_reward": 6.849886858898788,
+      "reached_stop_distance": true,
+      "selected_action_name": "sponge_v8b_reach_bias",
+      "source": "artifacts/phase_b_anchor_mixture_v8b_sweep_eval/tracer_sponge_firm_flat/sponge_v8b_reach_bias/ep000/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 4.879194666023419,
+      "tracer_terms": {
+        "R_e": -0.18584180316683968,
+        "R_s": -3.016163938976511,
+        "R_v": 9.906906891372566
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 2.12454890624201,
+      "hold_reward": -3.700348836621527,
+      "min_rel_dist": 0.2851630217376577,
+      "policy_name": "tracer_anchor_mixture_v8b_sponge_sweep",
+      "post_reach_drift": 1.8393858845043525,
+      "reach_reward": 1.2827739864312049,
+      "reached_stop_distance": false,
+      "selected_action_name": "sponge_v8b_reach_bias",
+      "source": "artifacts/phase_b_anchor_mixture_v8b_sweep_eval/tracer_sponge_firm_flat/sponge_v8b_reach_bias/ep001/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 1.6125284457162545,
+      "tracer_terms": {
+        "R_e": -0.4579375,
+        "R_s": -1.34345720992258,
+        "R_v": 3.5093922403152624
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 2.4566117746031595,
+      "hold_reward": -4.529494045446591,
+      "min_rel_dist": 0.04040463974822995,
+      "policy_name": "tracer_anchor_mixture_v8b_sponge_sweep",
+      "post_reach_drift": 2.4162071348549294,
+      "reach_reward": 6.619187813194281,
+      "reached_stop_distance": true,
+      "selected_action_name": "sponge_v8b_reach_bias",
+      "source": "artifacts/phase_b_anchor_mixture_v8b_sweep_eval/tracer_sponge_firm_flat/sponge_v8b_reach_bias/ep002/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 5.110001751052946,
+      "tracer_terms": {
+        "R_e": -0.4579375,
+        "R_s": -2.05939293713224,
+        "R_v": 9.756143590082049
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 3.0242309935935485,
+      "hold_reward": -5.859989060889504,
+      "min_rel_dist": 0.25366356556550057,
+      "policy_name": "tracer_anchor_mixture_v8b_sponge_sweep",
+      "post_reach_drift": 2.770567428028048,
+      "reach_reward": 1.5723356339665822,
+      "reached_stop_distance": false,
+      "selected_action_name": "sponge_v8b_reach_bias",
+      "source": "artifacts/phase_b_anchor_mixture_v8b_sweep_eval/tracer_sponge_firm_flat/sponge_v8b_reach_bias/ep003/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 1.3185087610473354,
+      "tracer_terms": {
+        "R_e": -0.4579375,
+        "R_s": -2.8042169968826687,
+        "R_v": 3.871469308260449
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 4.027070167255672,
+      "hold_reward": -8.462509219423687,
+      "min_rel_dist": 0.12683082026004508,
+      "policy_name": "tracer_anchor_mixture_v8b_sponge_sweep",
+      "post_reach_drift": 3.9002393469956265,
+      "reach_reward": 5.753675297204261,
+      "reached_stop_distance": true,
+      "selected_action_name": "sponge_v8b_reach_bias",
+      "source": "artifacts/phase_b_anchor_mixture_v8b_sweep_eval/tracer_sponge_firm_flat/sponge_v8b_reach_bias/ep004/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 4.230005323513705,
+      "tracer_terms": {
+        "R_e": -0.4579375,
+        "R_s": -3.6847134448371146,
+        "R_v": 9.237586507011159
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 3.863085719272551,
+      "hold_reward": -8.038691238406349,
+      "min_rel_dist": 0.14028824482177324,
+      "policy_name": "tracer_anchor_mixture_v8b_sponge_sweep",
+      "post_reach_drift": 3.722797474450778,
+      "reach_reward": 5.636727709468362,
+      "reached_stop_distance": true,
+      "selected_action_name": "sponge_v8b_reach_bias_fast",
+      "source": "artifacts/phase_b_anchor_mixture_v8b_sweep_eval/tracer_sponge_firm_flat/sponge_v8b_reach_bias_fast/ep000/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.0,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 4.217253971123855,
+      "tracer_terms": {
+        "R_e": -0.52643359375,
+        "R_s": -3.575390479515034,
+        "R_v": 9.15827053106936
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 4.246939337230891,
+      "hold_reward": -8.82350126803407,
+      "min_rel_dist": 0.008966622916536363,
+      "policy_name": "tracer_anchor_mixture_v8b_sponge_sweep",
+      "post_reach_drift": 4.237972714314354,
+      "reach_reward": 6.89686520849126,
+      "reached_stop_distance": true,
+      "selected_action_name": "sponge_v8b_reach_bias_fast",
+      "source": "artifacts/phase_b_anchor_mixture_v8b_sweep_eval/tracer_sponge_firm_flat/sponge_v8b_reach_bias_fast/ep001/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 4.915711399038852,
+      "tracer_terms": {
+        "R_e": -0.23221521108478646,
+        "R_s": -2.970116728714956,
+        "R_v": 9.94477169107221
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 4.406664887123632,
+      "hold_reward": -9.294407112699373,
+      "min_rel_dist": 0.004408740555911009,
+      "policy_name": "tracer_anchor_mixture_v8b_sponge_sweep",
+      "post_reach_drift": 4.40225614656772,
+      "reach_reward": 6.958116964718844,
+      "reached_stop_distance": true,
+      "selected_action_name": "sponge_v8b_reach_bias_fast",
+      "source": "artifacts/phase_b_anchor_mixture_v8b_sweep_eval/tracer_sponge_firm_flat/sponge_v8b_reach_bias_fast/ep002/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 4.876363438948365,
+      "tracer_terms": {
+        "R_e": -0.23736734585808433,
+        "R_s": -3.1286845282865965,
+        "R_v": 9.972118985235964
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 3.7578993663629086,
+      "hold_reward": -7.770072029110336,
+      "min_rel_dist": 0.09319538835058228,
+      "policy_name": "tracer_anchor_mixture_v8b_sponge_sweep",
+      "post_reach_drift": 3.6647039780123265,
+      "reach_reward": 6.098669376973443,
+      "reached_stop_distance": true,
+      "selected_action_name": "sponge_v8b_reach_bias_fast",
+      "source": "artifacts/phase_b_anchor_mixture_v8b_sweep_eval/tracer_sponge_firm_flat/sponge_v8b_reach_bias_fast/ep003/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 4.4104745939085825,
+      "tracer_terms": {
+        "R_e": -0.52643359375,
+        "R_s": -3.505266244241939,
+        "R_v": 9.439399098467936
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 3.661695603663483,
+      "hold_reward": -7.40113236593053,
+      "min_rel_dist": 0.011482601163979938,
+      "policy_name": "tracer_anchor_mixture_v8b_sponge_sweep",
+      "post_reach_drift": 3.650213002499503,
+      "reach_reward": 6.842111070009039,
+      "reached_stop_distance": true,
+      "selected_action_name": "sponge_v8b_reach_bias_fast",
+      "source": "artifacts/phase_b_anchor_mixture_v8b_sweep_eval/tracer_sponge_firm_flat/sponge_v8b_reach_bias_fast/ep004/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 4.761674145106995,
+      "tracer_terms": {
+        "R_e": -0.4741297211781563,
+        "R_s": -3.3497853193903646,
+        "R_v": 9.92967582158755
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 3.746461669639259,
+      "hold_reward": -7.668325828209441,
+      "min_rel_dist": 0.06840968820045529,
+      "policy_name": "tracer_anchor_mixture_v8b_sponge_sweep",
+      "post_reach_drift": 3.678051981438804,
+      "reach_reward": 6.3345865472616065,
+      "reached_stop_distance": true,
+      "selected_action_name": "sponge_v8b_reach_stabilized",
+      "source": "artifacts/phase_b_anchor_mixture_v8b_sweep_eval/tracer_sponge_firm_flat/sponge_v8b_reach_stabilized/ep000/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 4.559960276842233,
+      "tracer_terms": {
+        "R_e": -0.37809390826561007,
+        "R_s": -3.354294306759156,
+        "R_v": 9.588113299368697
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 2.992101251746709,
+      "hold_reward": -5.795355992209017,
+      "min_rel_dist": 0.1967898223480178,
+      "policy_name": "tracer_anchor_mixture_v8b_sponge_sweep",
+      "post_reach_drift": 2.795311429398691,
+      "reach_reward": 2.1079754949330227,
+      "reached_stop_distance": false,
+      "selected_action_name": "sponge_v8b_reach_stabilized",
+      "source": "artifacts/phase_b_anchor_mixture_v8b_sweep_eval/tracer_sponge_firm_flat/sponge_v8b_reach_stabilized/ep001/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 1.718062994250781,
+      "tracer_terms": {
+        "R_e": -0.4579375,
+        "R_s": -2.799044113240666,
+        "R_v": 4.534375514808357
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 3.949147348068691,
+      "hold_reward": -8.26661219315771,
+      "min_rel_dist": 0.14958628428656323,
+      "policy_name": "tracer_anchor_mixture_v8b_sponge_sweep",
+      "post_reach_drift": 3.7995610637821278,
+      "reach_reward": 5.546615566982565,
+      "reached_stop_distance": true,
+      "selected_action_name": "sponge_v8b_reach_stabilized",
+      "source": "artifacts/phase_b_anchor_mixture_v8b_sweep_eval/tracer_sponge_firm_flat/sponge_v8b_reach_stabilized/ep002/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 4.153836927052901,
+      "tracer_terms": {
+        "R_e": -0.4579375,
+        "R_s": -3.6327648987124608,
+        "R_v": 9.080335861003771
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 4.164851977292099,
+      "hold_reward": -8.80018275383361,
+      "min_rel_dist": 0.06046764486601362,
+      "policy_name": "tracer_anchor_mixture_v8b_sponge_sweep",
+      "post_reach_drift": 4.104384332426085,
+      "reach_reward": 6.412405848603891,
+      "reached_stop_distance": true,
+      "selected_action_name": "sponge_v8b_reach_stabilized",
+      "source": "artifacts/phase_b_anchor_mixture_v8b_sweep_eval/tracer_sponge_firm_flat/sponge_v8b_reach_stabilized/ep003/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 4.436763665923719,
+      "tracer_terms": {
+        "R_e": -0.4579375,
+        "R_s": -3.7765679848613996,
+        "R_v": 9.635765559375347
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 4.060843323814168,
+      "hold_reward": -8.541377426921574,
+      "min_rel_dist": 0.07515338867184604,
+      "policy_name": "tracer_anchor_mixture_v8b_sponge_sweep",
+      "post_reach_drift": 3.9856899351423216,
+      "reach_reward": 6.245550898813525,
+      "reached_stop_distance": true,
+      "selected_action_name": "sponge_v8b_reach_stabilized",
+      "source": "artifacts/phase_b_anchor_mixture_v8b_sweep_eval/tracer_sponge_firm_flat/sponge_v8b_reach_stabilized/ep004/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 4.427746270516839,
+      "tracer_terms": {
+        "R_e": -0.4277544137761725,
+        "R_s": -3.6555904763387534,
+        "R_v": 9.547651096540353
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 2.4791801002049856,
+      "hold_reward": -4.590340440851524,
+      "min_rel_dist": 0.29633097262062297,
+      "policy_name": "tracer_anchor_mixture_v8b_sponge_sweep",
+      "post_reach_drift": 2.1828491275843627,
+      "reach_reward": 1.1818774363569755,
+      "reached_stop_distance": false,
+      "selected_action_name": "sponge_v8b_soft_reach",
+      "source": "artifacts/phase_b_anchor_mixture_v8b_sweep_eval/tracer_sponge_firm_flat/sponge_v8b_soft_reach/ep000/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 1.3314094337953895,
+      "tracer_terms": {
+        "R_e": -0.45380859375000004,
+        "R_s": -1.9293396454872673,
+        "R_v": 3.382281232339055
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 2.7534075288743547,
+      "hold_reward": -5.2696987802013675,
+      "min_rel_dist": 0.4228637707589836,
+      "policy_name": "tracer_anchor_mixture_v8b_sponge_sweep",
+      "post_reach_drift": 2.330543758115371,
+      "reach_reward": -0.019376740748468624,
+      "reached_stop_distance": false,
+      "selected_action_name": "sponge_v8b_soft_reach",
+      "source": "artifacts/phase_b_anchor_mixture_v8b_sweep_eval/tracer_sponge_firm_flat/sponge_v8b_soft_reach/ep001/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 0.3134180285440821,
+      "tracer_terms": {
+        "R_e": -0.45380859375000004,
+        "R_s": -2.297890006294922,
+        "R_v": 1.9006166007246745
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 3.1433099164991423,
+      "hold_reward": -6.216271296672763,
+      "min_rel_dist": 0.19152301298124585,
+      "policy_name": "tracer_anchor_mixture_v8b_sponge_sweep",
+      "post_reach_drift": 2.9517869035178963,
+      "reach_reward": 2.1647466141598426,
+      "reached_stop_distance": false,
+      "selected_action_name": "sponge_v8b_soft_reach",
+      "source": "artifacts/phase_b_anchor_mixture_v8b_sweep_eval/tracer_sponge_firm_flat/sponge_v8b_soft_reach/ep002/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 1.6656508085610584,
+      "tracer_terms": {
+        "R_e": -0.45380859375000004,
+        "R_s": -3.063397880011359,
+        "R_v": 4.60088416042089
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 3.5424980763779064,
+      "hold_reward": -7.05464322093747,
+      "min_rel_dist": 0.006649049962719432,
+      "policy_name": "tracer_anchor_mixture_v8b_sponge_sweep",
+      "post_reach_drift": 3.5358490264151867,
+      "reach_reward": 6.907828859628994,
+      "reached_stop_distance": true,
+      "selected_action_name": "sponge_v8b_soft_reach",
+      "source": "artifacts/phase_b_anchor_mixture_v8b_sweep_eval/tracer_sponge_firm_flat/sponge_v8b_soft_reach/ep003/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 5.078841097523313,
+      "tracer_terms": {
+        "R_e": -0.16310948775371198,
+        "R_s": -2.5377420153316277,
+        "R_v": 9.958677128795113
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 4.044593819963461,
+      "hold_reward": -8.38046194612234,
+      "min_rel_dist": 0.12520055855375029,
+      "policy_name": "tracer_anchor_mixture_v8b_sponge_sweep",
+      "post_reach_drift": 3.9193932614097102,
+      "reach_reward": 5.798739534485268,
+      "reached_stop_distance": true,
+      "selected_action_name": "sponge_v8b_soft_reach",
+      "source": "artifacts/phase_b_anchor_mixture_v8b_sweep_eval/tracer_sponge_firm_flat/sponge_v8b_soft_reach/ep004/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 4.231991858670383,
+      "tracer_terms": {
+        "R_e": -0.45380859375000004,
+        "R_s": -3.6963958799756402,
+        "R_v": 9.247368077248927
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 3.9823912938289565,
+      "hold_reward": -8.24008079411184,
+      "min_rel_dist": 0.06202443452630469,
+      "policy_name": "tracer_anchor_mixture_v8b_sponge_sweep",
+      "post_reach_drift": 3.9203668593026517,
+      "reach_reward": 6.404146515247107,
+      "reached_stop_distance": true,
+      "selected_action_name": "trot_soft_mid_clear",
+      "source": "artifacts/phase_b_anchor_mixture_v8b_sweep_eval/tracer_sponge_firm_flat/trot_soft_mid_clear/ep000/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 4.7039829537106375,
+      "tracer_terms": {
+        "R_e": -0.17779913718038023,
+        "R_s": -3.037091377938586,
+        "R_v": 9.626424821413602
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 4.235396884032905,
+      "hold_reward": -8.948512364295693,
+      "min_rel_dist": 0.13144893954961678,
+      "policy_name": "tracer_anchor_mixture_v8b_sponge_sweep",
+      "post_reach_drift": 4.103947944483289,
+      "reach_reward": 5.742953473508007,
+      "reached_stop_distance": true,
+      "selected_action_name": "trot_soft_mid_clear",
+      "source": "artifacts/phase_b_anchor_mixture_v8b_sweep_eval/tracer_sponge_firm_flat/trot_soft_mid_clear/ep001/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 4.165968183073225,
+      "tracer_terms": {
+        "R_e": -0.433984375,
+        "R_s": -3.8235979226886037,
+        "R_v": 9.209877791273728
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 1.6470573639998636,
+      "hold_reward": -2.3343983898496403,
+      "min_rel_dist": 0.3722556258922448,
+      "policy_name": "tracer_anchor_mixture_v8b_sponge_sweep",
+      "post_reach_drift": 1.2748017381076187,
+      "reach_reward": 0.45012460629523754,
+      "reached_stop_distance": false,
+      "selected_action_name": "trot_soft_mid_clear",
+      "source": "artifacts/phase_b_anchor_mixture_v8b_sweep_eval/tracer_sponge_firm_flat/trot_soft_mid_clear/ep002/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 1.3383744738860714,
+      "tracer_terms": {
+        "R_e": -0.433984375,
+        "R_s": -0.37476184263826356,
+        "R_v": 2.4854005625991062
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 3.3505906546241055,
+      "hold_reward": -6.73917106715437,
+      "min_rel_dist": 0.35937401407729397,
+      "policy_name": "tracer_anchor_mixture_v8b_sponge_sweep",
+      "post_reach_drift": 2.9912166405468117,
+      "reach_reward": 0.5859468662657068,
+      "reached_stop_distance": false,
+      "selected_action_name": "trot_soft_mid_clear",
+      "source": "artifacts/phase_b_anchor_mixture_v8b_sweep_eval/tracer_sponge_firm_flat/trot_soft_mid_clear/ep003/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 0.43608838962399576,
+      "tracer_terms": {
+        "R_e": -0.433984375,
+        "R_s": -3.227871530113945,
+        "R_v": 2.6459044065231274
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 0.9852950557326551,
+      "hold_reward": -0.7905532720207955,
+      "min_rel_dist": 0.08374938374446893,
+      "policy_name": "tracer_anchor_mixture_v8b_sponge_sweep",
+      "post_reach_drift": 0.9015456719881861,
+      "reach_reward": 6.209873303329396,
+      "reached_stop_distance": true,
+      "selected_action_name": "trot_soft_mid_clear",
+      "source": "artifacts/phase_b_anchor_mixture_v8b_sweep_eval/tracer_sponge_firm_flat/trot_soft_mid_clear/ep004/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 5.8376916163149595,
+      "tracer_terms": {
+        "R_e": -0.433984375,
+        "R_s": 0.4621307411491155,
+        "R_v": 9.496075126104616
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    }
+  ],
+  "schema": "phase_b_reach_terminated_eval_report_v0",
+  "skipped": {}
+}

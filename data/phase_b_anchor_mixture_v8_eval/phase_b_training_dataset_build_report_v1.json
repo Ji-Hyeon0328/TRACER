@@ -1,0 +1,46 @@
+{
+  "by_world_action": {
+    "tracer_sponge_firm_flat::sponge_probe_crawlish": {
+      "mean_risk": 0.86,
+      "mean_score": 0.3165802782914984,
+      "n": 5,
+      "reach_count": 1,
+      "reach_rate": 0.2
+    },
+    "tracer_sponge_firm_flat::sponge_reach_then_brake": {
+      "mean_risk": 0.64,
+      "mean_score": 2.6571295574630827,
+      "n": 5,
+      "reach_count": 3,
+      "reach_rate": 0.6
+    },
+    "tracer_sponge_firm_flat::sponge_v8_anchor_mix_top3": {
+      "mean_risk": 0.9,
+      "mean_score": -0.5555154926447651,
+      "n": 5,
+      "reach_count": 0,
+      "reach_rate": 0.0
+    },
+    "tracer_sponge_firm_flat::trot_soft_mid_clear": {
+      "mean_risk": 0.8,
+      "mean_score": 0.8085431042403892,
+      "n": 5,
+      "reach_count": 1,
+      "reach_rate": 0.2
+    }
+  },
+  "num_ppo_rows": 20,
+  "num_preference_pairs": 150,
+  "num_ram_rows": 20,
+  "num_rollouts": 20,
+  "out_dir": "data/phase_b_anchor_mixture_v8_eval",
+  "outputs": {
+    "objective_preference_pairs_jsonl": "data/phase_b_anchor_mixture_v8_eval/phase_b_objective_preference_pairs_v1.jsonl",
+    "ppo_rows_jsonl": "data/phase_b_anchor_mixture_v8_eval/phase_b_discrete_theta_lite_ppo_rows_v1.jsonl",
+    "ram_labels_jsonl": "data/phase_b_anchor_mixture_v8_eval/phase_b_ram_teacher_student_episode_labels_v1.jsonl",
+    "rollout_index_csv": "data/phase_b_anchor_mixture_v8_eval/phase_b_rollout_index_v1.csv",
+    "rollout_index_jsonl": "data/phase_b_anchor_mixture_v8_eval/phase_b_rollout_index_v1.jsonl"
+  },
+  "result_root": "artifacts/phase_b_anchor_mixture_v8_eval",
+  "schema": "phase_b_training_dataset_build_report_v1"
+}

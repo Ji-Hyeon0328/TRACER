@@ -1,0 +1,53 @@
+{
+  "by_world_action": {
+    "tracer_sponge_firm_flat::sponge_v8b_reach_bias_fast": {
+      "mean_risk": 0.9099999999999999,
+      "mean_score": -1.2775236347253622,
+      "n": 5,
+      "reach_count": 0,
+      "reach_rate": 0.0
+    },
+    "tracer_sponge_firm_flat::sponge_v8c_far_fast_early_stop": {
+      "mean_risk": 0.6700000000000002,
+      "mean_score": 2.6878219370885725,
+      "n": 5,
+      "reach_count": 3,
+      "reach_rate": 0.6
+    },
+    "tracer_sponge_firm_flat::sponge_v8c_mid_fast_early_stop": {
+      "mean_risk": 0.5599999999999999,
+      "mean_score": 2.921181108632653,
+      "n": 5,
+      "reach_count": 4,
+      "reach_rate": 0.8
+    },
+    "tracer_sponge_firm_flat::sponge_v8c_soft_stop": {
+      "mean_risk": 0.6699999999999999,
+      "mean_score": 2.4002742675976365,
+      "n": 5,
+      "reach_count": 3,
+      "reach_rate": 0.6
+    },
+    "tracer_sponge_firm_flat::trot_soft_mid_clear": {
+      "mean_risk": 0.5599999999999999,
+      "mean_score": 3.7789842204346633,
+      "n": 5,
+      "reach_count": 4,
+      "reach_rate": 0.8
+    }
+  },
+  "num_ppo_rows": 25,
+  "num_preference_pairs": 248,
+  "num_ram_rows": 25,
+  "num_rollouts": 25,
+  "out_dir": "data/phase_b_anchor_mixture_v8c_phase_scheduled_eval",
+  "outputs": {
+    "objective_preference_pairs_jsonl": "data/phase_b_anchor_mixture_v8c_phase_scheduled_eval/phase_b_objective_preference_pairs_v1.jsonl",
+    "ppo_rows_jsonl": "data/phase_b_anchor_mixture_v8c_phase_scheduled_eval/phase_b_discrete_theta_lite_ppo_rows_v1.jsonl",
+    "ram_labels_jsonl": "data/phase_b_anchor_mixture_v8c_phase_scheduled_eval/phase_b_ram_teacher_student_episode_labels_v1.jsonl",
+    "rollout_index_csv": "data/phase_b_anchor_mixture_v8c_phase_scheduled_eval/phase_b_rollout_index_v1.csv",
+    "rollout_index_jsonl": "data/phase_b_anchor_mixture_v8c_phase_scheduled_eval/phase_b_rollout_index_v1.jsonl"
+  },
+  "result_root": "artifacts/phase_b_anchor_mixture_v8c_phase_scheduled_eval",
+  "schema": "phase_b_training_dataset_build_report_v1"
+}
