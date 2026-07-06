@@ -1,0 +1,102 @@
+{
+  "by_action": {
+    "tracer_sponge_firm_flat::sponge_slow_high_clear": {
+      "invalid": 3,
+      "invalid_rate": 0.6,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 5,
+      "top_reasons": [
+        [
+          "low_base_height",
+          3
+        ],
+        [
+          "folded_joint_posture:FR",
+          1
+        ]
+      ]
+    },
+    "tracer_sponge_firm_flat::sponge_v1d_bias_late_hold_025_013": {
+      "invalid": 1,
+      "invalid_rate": 0.2,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 5,
+      "top_reasons": [
+        [
+          "low_base_height",
+          1
+        ]
+      ]
+    },
+    "tracer_sponge_firm_flat::sponge_v1d_stabilized_late_hold_035_016": {
+      "invalid": 2,
+      "invalid_rate": 0.4,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 5,
+      "top_reasons": [
+        [
+          "low_base_height",
+          2
+        ],
+        [
+          "folded_joint_posture:FL",
+          1
+        ],
+        [
+          "large_roll_or_pitch",
+          1
+        ],
+        [
+          "metric_suspicious_low_progress_stable",
+          1
+        ]
+      ]
+    },
+    "tracer_sponge_firm_flat::sponge_v8b_reach_bias": {
+      "invalid": 2,
+      "invalid_rate": 0.4,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 5,
+      "top_reasons": [
+        [
+          "low_base_height",
+          2
+        ],
+        [
+          "metric_suspicious_low_progress_stable",
+          2
+        ],
+        [
+          "folded_joint_posture:FL,FR,RL,RR",
+          1
+        ],
+        [
+          "folded_joint_posture:FR",
+          1
+        ],
+        [
+          "large_roll_or_pitch",
+          1
+        ]
+      ]
+    }
+  },
+  "by_world": {
+    "tracer_sponge_firm_flat": {
+      "invalid": 8,
+      "invalid_rate": 0.4,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 20
+    }
+  },
+  "num_episodes": 20,
+  "num_invalid": 8,
+  "num_missing_state": 0,
+  "root": "artifacts/phase_b_sponge_state_audit_v1",
+  "schema": "phase_b_invalid_gait_report_v1"
+}
