@@ -1,0 +1,123 @@
+{
+  "by_action": {
+    "tracer_sponge_firm_flat::sponge_slow_high_clear": {
+      "hard_invalid": 1,
+      "hard_invalid_rate": 0.2,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 5,
+      "top_hard_reasons": [
+        [
+          "folded_joint_posture:FR",
+          1
+        ]
+      ],
+      "top_warning_reasons": [
+        [
+          "soft_low_base_height",
+          3
+        ]
+      ],
+      "warning": 3,
+      "warning_rate": 0.6
+    },
+    "tracer_sponge_firm_flat::sponge_v1d_bias_late_hold_025_013": {
+      "hard_invalid": 0,
+      "hard_invalid_rate": 0.0,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 5,
+      "top_hard_reasons": [],
+      "top_warning_reasons": [
+        [
+          "soft_low_base_height",
+          1
+        ]
+      ],
+      "warning": 1,
+      "warning_rate": 0.2
+    },
+    "tracer_sponge_firm_flat::sponge_v1d_stabilized_late_hold_035_016": {
+      "hard_invalid": 1,
+      "hard_invalid_rate": 0.2,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 5,
+      "top_hard_reasons": [
+        [
+          "folded_joint_posture:FL",
+          1
+        ],
+        [
+          "large_roll_or_pitch",
+          1
+        ],
+        [
+          "severe_low_base_height",
+          1
+        ]
+      ],
+      "top_warning_reasons": [
+        [
+          "metric_suspicious_low_progress_stable",
+          1
+        ],
+        [
+          "soft_low_base_height",
+          1
+        ]
+      ],
+      "warning": 2,
+      "warning_rate": 0.4
+    },
+    "tracer_sponge_firm_flat::sponge_v8b_reach_bias": {
+      "hard_invalid": 2,
+      "hard_invalid_rate": 0.4,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 5,
+      "top_hard_reasons": [
+        [
+          "severe_low_base_height",
+          2
+        ],
+        [
+          "folded_joint_posture:FL,FR,RL,RR",
+          1
+        ],
+        [
+          "folded_joint_posture:FR",
+          1
+        ],
+        [
+          "large_roll_or_pitch",
+          1
+        ]
+      ],
+      "top_warning_reasons": [
+        [
+          "metric_suspicious_low_progress_stable",
+          2
+        ]
+      ],
+      "warning": 2,
+      "warning_rate": 0.4
+    }
+  },
+  "by_world": {
+    "tracer_sponge_firm_flat": {
+      "hard_invalid": 4,
+      "hard_invalid_rate": 0.2,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 20,
+      "warning": 8,
+      "warning_rate": 0.4
+    }
+  },
+  "input_jsonl": "data/phase_b_invalid_gait_labels_v1/sponge_state_audit_v1_invalid_gait_labels.jsonl",
+  "num_episodes": 20,
+  "num_hard_invalid": 4,
+  "num_warning": 8,
+  "schema": "phase_b_invalid_gait_calibrated_report_v1b"
+}
