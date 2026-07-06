@@ -1,0 +1,20 @@
+{
+  "schema": "phase_b_sponge_phase_switch_v1c_eval",
+  "description": "Evaluate sponge phase-switch theta profiles: reach-oriented far motion with hold-oriented near/stop behavior.",
+  "teacher_json": "configs/phase_b_sponge_phase_switch_v1c/ppo_warmstart_teacher_table_sponge_phase_switch_v1c.json",
+  "reward_config": "configs/phase_b_reward_v0/tracer_slide_reward_proxy_v0.json",
+  "worlds": ["tracer_sponge_firm_flat"],
+  "actions": [
+    "sponge_v1c_reach_stabilized_to_hold",
+    "sponge_v1c_reach_bias_to_hold",
+    "sponge_v1c_conservative_reach_hold",
+    "sponge_v8b_reach_stabilized",
+    "sponge_v8b_reach_bias",
+    "sponge_slow_high_clear"
+  ],
+  "repeats_per_world_action": 10,
+  "record_duration": 35.0,
+  "sample_hz": 20.0,
+  "runner_timeout": 180.0,
+  "goal_distance_ahead": 0.5
+}
