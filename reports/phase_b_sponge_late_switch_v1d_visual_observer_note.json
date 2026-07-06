@@ -1,0 +1,21 @@
+{
+  "schema": "phase_b_visual_observer_note_v0",
+  "policy": "tracer_sponge_late_switch_v1d",
+  "world": "tracer_sponge_firm_flat",
+  "controller": "frozen_low_level_controller",
+  "report": "reports/phase_b_reach_terminated_eval_sponge_late_switch_v1d.md",
+  "quantitative_summary": {
+    "reach_rate": 0.17777777777777778,
+    "mean_final_rel_dist": 0.8633076847215096,
+    "mean_post_reach_drift": 0.5198614173604768,
+    "mean_R_s": 1.0245286512509166
+  },
+  "visual_observation": {
+    "rf_lh_folded_or_inactive": true,
+    "lf_rh_dominant_motion": true,
+    "crawl_or_drag_like_motion": true,
+    "normal_deployable_gait": false
+  },
+  "interpretation": "Metric-favorable but visually invalid locomotion. Do not use as deployable gait target.",
+  "decision": "Stop manual sponge theta tuning after v1d. Move to invalid gait labeling/detection and recovery gating."
+}

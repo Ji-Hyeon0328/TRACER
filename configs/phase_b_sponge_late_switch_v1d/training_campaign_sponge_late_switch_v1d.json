@@ -1,0 +1,24 @@
+{
+  "schema": "phase_b_sponge_late_switch_v1d_eval",
+  "description": "Evaluate late-switch sponge theta profiles: reach-oriented far motion, hold-oriented near motion, with slow/stop distances below the 0.5m goal distance.",
+  "teacher_json": "configs/phase_b_sponge_late_switch_v1d/ppo_warmstart_teacher_table_sponge_late_switch_v1d.json",
+  "reward_config": "configs/phase_b_reward_v0/tracer_slide_reward_proxy_v0.json",
+  "worlds": ["tracer_sponge_firm_flat"],
+  "actions": [
+    "sponge_v1d_bias_late_hold_025_013",
+    "sponge_v1d_bias_late_hold_030_015",
+    "sponge_v1d_bias_late_hold_035_016",
+    "sponge_v1d_stabilized_late_hold_025_013",
+    "sponge_v1d_stabilized_late_hold_030_015",
+    "sponge_v1d_stabilized_late_hold_035_016",
+    "sponge_v1c_reach_bias_to_hold",
+    "sponge_slow_high_clear",
+    "sponge_v8b_reach_bias",
+    "sponge_v8b_reach_stabilized"
+  ],
+  "repeats_per_world_action": 10,
+  "record_duration": 35.0,
+  "sample_hz": 20.0,
+  "runner_timeout": 180.0,
+  "goal_distance_ahead": 0.5
+}
