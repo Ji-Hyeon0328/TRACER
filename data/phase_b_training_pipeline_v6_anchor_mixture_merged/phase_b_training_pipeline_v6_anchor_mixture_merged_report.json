@@ -1,0 +1,104 @@
+{
+  "files": {
+    "phase_b_discrete_theta_lite_ppo_rows_v1.jsonl": {
+      "rows": 258
+    },
+    "phase_b_objective_preference_pairs_v1.jsonl": {
+      "rows": 2686
+    },
+    "phase_b_ram_teacher_student_episode_labels_v1.jsonl": {
+      "rows": 258
+    },
+    "phase_b_rollout_index_v1.jsonl": {
+      "rows": 258
+    }
+  },
+  "out_dir": "data/phase_b_training_pipeline_v6_anchor_mixture_merged",
+  "rollout_summary_by_world_action": {
+    "earth::trot_cautious": {
+      "n": 5
+    },
+    "earth::trot_mid": {
+      "n": 12
+    },
+    "earth::trot_soft_mid_clear": {
+      "n": 5
+    },
+    "earth::trot_solid_fast": {
+      "n": 14
+    },
+    "stairs_single::trot_cautious": {
+      "n": 5
+    },
+    "stairs_single::trot_mid": {
+      "n": 10
+    },
+    "stairs_single::trot_soft_mid_clear": {
+      "n": 5
+    },
+    "stairs_single::trot_solid_fast": {
+      "n": 16
+    },
+    "tracer_sponge_firm_flat::sponge_mid_brake_clear": {
+      "n": 5
+    },
+    "tracer_sponge_firm_flat::sponge_probe_crawlish": {
+      "n": 19
+    },
+    "tracer_sponge_firm_flat::sponge_reach_then_brake": {
+      "n": 22
+    },
+    "tracer_sponge_firm_flat::sponge_short_step_stable": {
+      "n": 5
+    },
+    "tracer_sponge_firm_flat::sponge_slow_high_clear": {
+      "n": 5
+    },
+    "tracer_sponge_firm_flat::sponge_v8_anchor_mix_top3": {
+      "n": 10
+    },
+    "tracer_sponge_firm_flat::sponge_v8b_probe_reach_fast": {
+      "n": 5
+    },
+    "tracer_sponge_firm_flat::sponge_v8b_reach_bias": {
+      "n": 5
+    },
+    "tracer_sponge_firm_flat::sponge_v8b_reach_bias_fast": {
+      "n": 10
+    },
+    "tracer_sponge_firm_flat::sponge_v8b_reach_stabilized": {
+      "n": 5
+    },
+    "tracer_sponge_firm_flat::sponge_v8b_soft_reach": {
+      "n": 5
+    },
+    "tracer_sponge_firm_flat::sponge_v8c_far_fast_early_stop": {
+      "n": 5
+    },
+    "tracer_sponge_firm_flat::sponge_v8c_mid_fast_early_stop": {
+      "n": 5
+    },
+    "tracer_sponge_firm_flat::sponge_v8c_soft_stop": {
+      "n": 5
+    },
+    "tracer_sponge_firm_flat::trot_cautious": {
+      "n": 16
+    },
+    "tracer_sponge_firm_flat::trot_mid": {
+      "n": 17
+    },
+    "tracer_sponge_firm_flat::trot_soft_mid_clear": {
+      "n": 32
+    },
+    "tracer_sponge_firm_flat::trot_solid_fast": {
+      "n": 10
+    }
+  },
+  "schema": "phase_b_training_pipeline_v6_anchor_mixture_merged_report",
+  "sources": [
+    "data/phase_b_training_pipeline_v5_merged_balanced",
+    "data/phase_b_anchor_mixture_v8_eval",
+    "data/phase_b_anchor_mixture_v8b_sweep_eval",
+    "data/phase_b_anchor_mixture_v8c_phase_scheduled_eval"
+  ]
+}
