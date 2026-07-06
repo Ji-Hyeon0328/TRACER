@@ -132,6 +132,10 @@ TRACER_GAZEBO_MODEL_NAME="$MODEL_NAME" \
 "$ROOT/scripts/runtime/tracer_start_modelstate_odom_bridge_only.sh"
 
 echo
+echo "========== state bridge =========="
+"$ROOT/scripts/runtime/tracer_start_state_bridge_only.sh" || true
+
+echo
 echo "========== unpause briefly for odom =========="
 ros1_ctrl "rosservice call /gazebo/unpause_physics '{}'"
 
@@ -160,7 +164,11 @@ print_bridge_status
 
 echo
 echo "========== start recorder =========="
-/usr/bin/python3 "$ROOT/scripts/runtime/tracer_phase_b_episode_recorder_v0.py" \
+RECORDER_SCRIPT="${TRACER_PHASE_B_RECORDER_SCRIPT:-$ROOT/scripts/runtime/tracer_phase_b_episode_recorder_v0.py}"
+
+echo "[TRACER] recorder: $RECORDER_SCRIPT"
+
+/usr/bin/python3 "$RECORDER_SCRIPT" \
   --duration "$DURATION" \
   --sample-hz "$SAMPLE_HZ" \
   --stop-distance "$STOP_DISTANCE" \
