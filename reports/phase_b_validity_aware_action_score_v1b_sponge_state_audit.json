@@ -1,0 +1,123 @@
+{
+  "invalid_v1b_json": "reports/phase_b_invalid_gait_v1b_sponge_state_audit.json",
+  "reach_json": "reports/phase_b_reach_terminated_eval_sponge_state_audit_v1.json",
+  "rows": [
+    {
+      "hard_invalid_rate": 0.4,
+      "mean_R_s": 0.5146386101051799,
+      "mean_R_v": 6.474127371675837,
+      "mean_final_dist": 1.0808453159226268,
+      "mean_post_reach_drift": 0.8658932754845733,
+      "n": 5,
+      "reach_rate": 0.6,
+      "top_hard_reasons": [
+        [
+          "severe_low_base_height",
+          2
+        ],
+        [
+          "folded_joint_posture:FL,FR,RL,RR",
+          1
+        ],
+        [
+          "folded_joint_posture:FR",
+          1
+        ],
+        [
+          "large_roll_or_pitch",
+          1
+        ]
+      ],
+      "top_warning_reasons": [
+        [
+          "metric_suspicious_low_progress_stable",
+          2
+        ]
+      ],
+      "validity_aware_score_v1b": 0.5790851968243576,
+      "warning_rate": 0.4,
+      "world_action": "tracer_sponge_firm_flat::sponge_v8b_reach_bias"
+    },
+    {
+      "hard_invalid_rate": 0.2,
+      "mean_R_s": -0.4985720694213972,
+      "mean_R_v": 7.747176657788829,
+      "mean_final_dist": 1.712548404149319,
+      "mean_post_reach_drift": 1.537411180447457,
+      "n": 5,
+      "reach_rate": 0.8,
+      "top_hard_reasons": [
+        [
+          "folded_joint_posture:FL",
+          1
+        ],
+        [
+          "large_roll_or_pitch",
+          1
+        ],
+        [
+          "severe_low_base_height",
+          1
+        ]
+      ],
+      "top_warning_reasons": [
+        [
+          "metric_suspicious_low_progress_stable",
+          1
+        ],
+        [
+          "soft_low_base_height",
+          1
+        ]
+      ],
+      "validity_aware_score_v1b": 0.16091091457835316,
+      "warning_rate": 0.4,
+      "world_action": "tracer_sponge_firm_flat::sponge_v1d_stabilized_late_hold_035_016"
+    },
+    {
+      "hard_invalid_rate": 0.0,
+      "mean_R_s": -1.2074973827908388,
+      "mean_R_v": 8.670545862524511,
+      "mean_final_dist": 2.0222491656737382,
+      "mean_post_reach_drift": 1.9344234760944903,
+      "n": 5,
+      "reach_rate": 0.8,
+      "top_hard_reasons": [],
+      "top_warning_reasons": [
+        [
+          "soft_low_base_height",
+          1
+        ]
+      ],
+      "validity_aware_score_v1b": 0.015840606745799013,
+      "warning_rate": 0.2,
+      "world_action": "tracer_sponge_firm_flat::sponge_v1d_bias_late_hold_025_013"
+    },
+    {
+      "hard_invalid_rate": 0.2,
+      "mean_R_s": -0.9940322078305293,
+      "mean_R_v": 7.574858434237122,
+      "mean_final_dist": 1.9521812637588654,
+      "mean_post_reach_drift": 1.8401557089115783,
+      "n": 5,
+      "reach_rate": 0.6,
+      "top_hard_reasons": [
+        [
+          "folded_joint_posture:FR",
+          1
+        ]
+      ],
+      "top_warning_reasons": [
+        [
+          "soft_low_base_height",
+          3
+        ]
+      ],
+      "validity_aware_score_v1b": -1.202823896348869,
+      "warning_rate": 0.6,
+      "world_action": "tracer_sponge_firm_flat::sponge_slow_high_clear"
+    }
+  ],
+  "schema": "phase_b_validity_aware_action_score_v1b",
+  "score_formula": "2*reach + 0.20*R_v + 1.00*R_s - 3*hard_invalid - 0.75*warning - 0.70*drift - 0.30*final_dist"
+}
