@@ -1,0 +1,71 @@
+{
+  "by_action": {
+    "sponge_slow_high_clear": {
+      "n": 10,
+      "reach_rate": 0.0,
+      "reached": 0,
+      "suspicious": 10,
+      "suspicious_rate": 1.0
+    },
+    "sponge_v1d_bias_late_hold_025_013": {
+      "n": 10,
+      "reach_rate": 0.3,
+      "reached": 3,
+      "suspicious": 6,
+      "suspicious_rate": 0.6
+    },
+    "sponge_v1d_bias_late_hold_030_015": {
+      "n": 10,
+      "reach_rate": 0.1,
+      "reached": 1,
+      "suspicious": 9,
+      "suspicious_rate": 0.9
+    },
+    "sponge_v1d_bias_late_hold_035_016": {
+      "n": 10,
+      "reach_rate": 0.1,
+      "reached": 1,
+      "suspicious": 9,
+      "suspicious_rate": 0.9
+    },
+    "sponge_v1d_stabilized_late_hold_025_013": {
+      "n": 10,
+      "reach_rate": 0.0,
+      "reached": 0,
+      "suspicious": 10,
+      "suspicious_rate": 1.0
+    },
+    "sponge_v1d_stabilized_late_hold_030_015": {
+      "n": 10,
+      "reach_rate": 0.1,
+      "reached": 1,
+      "suspicious": 9,
+      "suspicious_rate": 0.9
+    },
+    "sponge_v1d_stabilized_late_hold_035_016": {
+      "n": 10,
+      "reach_rate": 0.4,
+      "reached": 4,
+      "suspicious": 6,
+      "suspicious_rate": 0.6
+    },
+    "sponge_v8b_reach_bias": {
+      "n": 10,
+      "reach_rate": 0.5,
+      "reached": 5,
+      "suspicious": 5,
+      "suspicious_rate": 0.5
+    },
+    "sponge_v8b_reach_stabilized": {
+      "n": 10,
+      "reach_rate": 0.1,
+      "reached": 1,
+      "suspicious": 8,
+      "suspicious_rate": 0.8
+    }
+  },
+  "num_episodes": 90,
+  "num_suspicious": 72,
+  "root": "artifacts/phase_b_sponge_late_switch_v1d_eval",
+  "schema": "phase_b_suspicious_gait_label_report_v0"
+}

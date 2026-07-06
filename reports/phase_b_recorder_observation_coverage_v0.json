@@ -1,0 +1,34 @@
+{
+  "schema": "phase_b_recorder_observation_coverage_v0",
+  "current_columns": [
+    "t_rel",
+    "wall_time",
+    "rel_x",
+    "rel_y",
+    "rel_yaw",
+    "rel_enable",
+    "rel_dist",
+    "mpc_counter",
+    "mpc_vx",
+    "mpc_yaw_rate",
+    "mpc_body_height",
+    "mpc_swing_clearance",
+    "mpc_enable",
+    "odom_x",
+    "odom_y",
+    "odom_z",
+    "odom_yaw",
+    "odom_vx",
+    "odom_vy"
+  ],
+  "missing_for_invalid_gait_detector": [
+    "12_joint_positions",
+    "12_joint_velocities",
+    "4_foot_contacts",
+    "base_roll",
+    "base_pitch",
+    "per_leg_motion_statistics"
+  ],
+  "limitation": "Current Phase-B logs cannot directly detect folded-leg, diagonal-pair collapse, or contact asymmetry. Existing suspicious labels are weak summary-level labels only.",
+  "decision": "Extend recorder before training direct invalid-gait detector."
+}
