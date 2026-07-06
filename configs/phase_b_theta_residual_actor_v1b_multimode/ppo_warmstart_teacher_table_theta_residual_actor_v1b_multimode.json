@@ -1,0 +1,1787 @@
+{
+  "schema": "phase_b_ppo_warmstart_teacher_table_v0",
+  "source_policy_json": "configs/phase_b_theta_lite_rl_v0/current_bandit_policy.json",
+  "sponge_expanded_v0_meta": {
+    "added_actions": [
+      "sponge_slow_high_clear",
+      "sponge_short_step_stable",
+      "sponge_reach_then_brake",
+      "sponge_mid_brake_clear",
+      "sponge_probe_crawlish"
+    ],
+    "base_teacher_json": "configs/phase_b_ppo_warmstart_v0/ppo_warmstart_teacher_table.json",
+    "expanded_world": "tracer_sponge_firm_flat",
+    "note": "Sponge-specific theta-lite candidates for action-bank expansion.",
+    "num_added": 5
+  },
+  "worlds": {
+    "earth": {
+      "actions": [
+        {
+          "action_name": "theta_actor_v1b_earth_balanced_from_trot_solid_fast",
+          "anchor_action": "trot_solid_fast",
+          "anchor_score_task_beta": 0.8163978134662632,
+          "anchor_theta": {
+            "body_height": 0.32,
+            "goal_slow_distance": 0.2,
+            "goal_stop_distance": 0.15,
+            "swing_clearance": 0.04,
+            "vx_far": 0.16,
+            "vx_near": 0.08
+          },
+          "beta": {
+            "beta_e": 0.17,
+            "beta_s": 0.23,
+            "beta_v": 0.6
+          },
+          "pred_delta": {
+            "body_height": 0.010104341804981232,
+            "goal_slow_distance": 0.04984917640686035,
+            "goal_stop_distance": -0.0003457620972767472,
+            "swing_clearance": 0.010032644122838975,
+            "vx_far": -0.039865455031394964,
+            "vx_near": -0.0199048712849617
+          },
+          "pred_delta_norm": {
+            "body_height": 0.20208683609962463,
+            "goal_slow_distance": 0.16616392135620117,
+            "goal_stop_distance": -0.002305080648511648,
+            "swing_clearance": 0.20065288245677948,
+            "vx_far": -0.3986545503139496,
+            "vx_near": -0.398097425699234
+          },
+          "source": "theta_residual_actor_v1b_multimode",
+          "target_mode": "balanced",
+          "theta_action": {
+            "body_height": 0.3301043418049812,
+            "goal_slow_distance": 0.24984917640686036,
+            "goal_stop_distance": 0.14965423790272325,
+            "swing_clearance": 0.050032644122838976,
+            "vx_far": 0.12013454496860504,
+            "vx_near": 0.060095128715038304
+          },
+          "world": "earth"
+        },
+        {
+          "action_name": "theta_actor_v1b_earth_reach_from_trot_mid",
+          "anchor_action": "trot_mid",
+          "anchor_score_task_beta": 1.0,
+          "anchor_theta": {
+            "body_height": 0.33,
+            "goal_slow_distance": 0.25,
+            "goal_stop_distance": 0.15,
+            "swing_clearance": 0.05,
+            "vx_far": 0.12,
+            "vx_near": 0.06
+          },
+          "beta": {
+            "beta_e": 0.17,
+            "beta_s": 0.23,
+            "beta_v": 0.6
+          },
+          "pred_delta": {
+            "body_height": -0.010027717798948288,
+            "goal_slow_distance": -0.04984243512153625,
+            "goal_stop_distance": -0.0002335098513867706,
+            "swing_clearance": -0.00971524864435196,
+            "vx_far": 0.03994817435741425,
+            "vx_near": 0.020338679850101474
+          },
+          "pred_delta_norm": {
+            "body_height": -0.20055435597896576,
+            "goal_slow_distance": -0.16614145040512085,
+            "goal_stop_distance": -0.0015567323425784707,
+            "swing_clearance": -0.19430497288703918,
+            "vx_far": 0.39948174357414246,
+            "vx_near": 0.4067735970020294
+          },
+          "source": "theta_residual_actor_v1b_multimode",
+          "target_mode": "reach",
+          "theta_action": {
+            "body_height": 0.3199722822010517,
+            "goal_slow_distance": 0.20015756487846376,
+            "goal_stop_distance": 0.14976649014861323,
+            "swing_clearance": 0.040284751355648046,
+            "vx_far": 0.15994817435741424,
+            "vx_near": 0.08033867985010147
+          },
+          "world": "earth"
+        },
+        {
+          "action_name": "theta_actor_v1b_earth_stability_from_trot_solid_fast",
+          "anchor_action": "trot_solid_fast",
+          "anchor_score_task_beta": 0.8163978134662632,
+          "anchor_theta": {
+            "body_height": 0.32,
+            "goal_slow_distance": 0.2,
+            "goal_stop_distance": 0.15,
+            "swing_clearance": 0.04,
+            "vx_far": 0.16,
+            "vx_near": 0.08
+          },
+          "beta": {
+            "beta_e": 0.17,
+            "beta_s": 0.23,
+            "beta_v": 0.6
+          },
+          "pred_delta": {
+            "body_height": 0.010075664520263672,
+            "goal_slow_distance": 0.049483019113540645,
+            "goal_stop_distance": -0.0003930692793801427,
+            "swing_clearance": 0.01006850302219391,
+            "vx_far": -0.0398682177066803,
+            "vx_near": -0.019917097687721253
+          },
+          "pred_delta_norm": {
+            "body_height": 0.20151329040527344,
+            "goal_slow_distance": 0.1649433970451355,
+            "goal_stop_distance": -0.0026204618625342846,
+            "swing_clearance": 0.20137006044387817,
+            "vx_far": -0.398682177066803,
+            "vx_near": -0.39834195375442505
+          },
+          "source": "theta_residual_actor_v1b_multimode",
+          "target_mode": "stability",
+          "theta_action": {
+            "body_height": 0.33007566452026366,
+            "goal_slow_distance": 0.24948301911354065,
+            "goal_stop_distance": 0.14960693072061984,
+            "swing_clearance": 0.050068503022193914,
+            "vx_far": 0.1201317822933197,
+            "vx_near": 0.06008290231227875
+          },
+          "world": "earth"
+        }
+      ],
+      "num_actions_seen": 10,
+      "ppo_action_prior": [
+        {
+          "action_name": "trot_mid",
+          "mean_hold_reward": 2.1098213118503946,
+          "mean_reach_reward": 6.113288927292736,
+          "prob": 0.8242486607911225,
+          "reach_success_rate": 0.9473684210526315,
+          "theta_action": {
+            "body_height": 0.33,
+            "goal_slow_distance": 0.25,
+            "goal_stop_distance": 0.15,
+            "name": "trot_mid",
+            "swing_clearance": 0.05,
+            "vx_far": 0.12,
+            "vx_near": 0.06
+          }
+        },
+        {
+          "action_name": "trot_low_body_probe",
+          "mean_hold_reward": 1.2889134936345252,
+          "mean_reach_reward": 4.413096326258361,
+          "prob": 0.15054765162317027,
+          "reach_success_rate": 0.75,
+          "theta_action": {
+            "body_height": 0.31,
+            "goal_slow_distance": 0.28,
+            "goal_stop_distance": 0.16,
+            "name": "trot_low_body_probe",
+            "swing_clearance": 0.05,
+            "vx_far": 0.1,
+            "vx_near": 0.05
+          }
+        },
+        {
+          "action_name": "trot_fast_low_clear",
+          "mean_hold_reward": 0.0,
+          "mean_reach_reward": 2.2183441519151774,
+          "prob": 0.016768925177684562,
+          "reach_success_rate": 0.5,
+          "theta_action": {
+            "body_height": 0.32,
+            "goal_slow_distance": 0.2,
+            "goal_stop_distance": 0.15,
+            "name": "trot_fast_low_clear",
+            "swing_clearance": 0.04,
+            "vx_far": 0.18,
+            "vx_near": 0.09
+          }
+        },
+        {
+          "action_name": "trot_cautious",
+          "mean_hold_reward": -0.31776393811543563,
+          "mean_reach_reward": 1.0364446929427573,
+          "prob": 0.005142956058638567,
+          "reach_success_rate": 0.2222222222222222,
+          "theta_action": {
+            "body_height": 0.33,
+            "goal_slow_distance": 0.3,
+            "goal_stop_distance": 0.16,
+            "name": "trot_cautious",
+            "swing_clearance": 0.06,
+            "vx_far": 0.08,
+            "vx_near": 0.04
+          }
+        },
+        {
+          "action_name": "trot_soft_high_clear",
+          "mean_hold_reward": -0.3176122364965557,
+          "mean_reach_reward": 0.5902531265774192,
+          "prob": 0.0032918063493841197,
+          "reach_success_rate": 0.0,
+          "theta_action": {
+            "body_height": 0.34,
+            "goal_slow_distance": 0.4,
+            "goal_stop_distance": 0.18,
+            "name": "trot_soft_high_clear",
+            "swing_clearance": 0.09,
+            "vx_far": 0.06,
+            "vx_near": 0.025
+          }
+        }
+      ],
+      "ranked_actions": [
+        {
+          "action_name": "trot_mid",
+          "best_hold_reward": 2.6410634148018115,
+          "best_reach_reward": 7.476179025032357,
+          "hold_success_rate": 0.9473684210526315,
+          "last_reach_reward": 6.604699422109965,
+          "mean_hold_reward": 2.1098213118503946,
+          "mean_reach_reward": 6.113288927292736,
+          "n": 57,
+          "reach_success_rate": 0.9473684210526315,
+          "semantic_counts": {
+            "cautious_probe_required": 1,
+            "forward_walk_unreliable_on_soft_terrain": 1,
+            "no_meaningful_progress": 1,
+            "stable_goal_reach_flat_locomotion": 54
+          },
+          "std_reach_reward": 1.4912074679740333,
+          "theta_action": {
+            "body_height": 0.33,
+            "goal_slow_distance": 0.25,
+            "goal_stop_distance": 0.15,
+            "name": "trot_mid",
+            "swing_clearance": 0.05,
+            "vx_far": 0.12,
+            "vx_near": 0.06
+          },
+          "world_name": "earth"
+        },
+        {
+          "action_name": "trot_low_body_probe",
+          "best_hold_reward": 2.584363718364159,
+          "best_reach_reward": 6.487255543894687,
+          "hold_success_rate": 0.75,
+          "last_reach_reward": 6.4826764144530795,
+          "mean_hold_reward": 1.2889134936345252,
+          "mean_reach_reward": 4.413096326258361,
+          "n": 4,
+          "reach_success_rate": 0.75,
+          "semantic_counts": {
+            "cautious_probe_required": 1,
+            "stable_goal_reach_flat_locomotion": 3
+          },
+          "std_reach_reward": 2.97077511467372,
+          "theta_action": {
+            "body_height": 0.31,
+            "goal_slow_distance": 0.28,
+            "goal_stop_distance": 0.16,
+            "name": "trot_low_body_probe",
+            "swing_clearance": 0.05,
+            "vx_far": 0.1,
+            "vx_near": 0.05
+          },
+          "world_name": "earth"
+        },
+        {
+          "action_name": "trot_fast_low_clear",
+          "best_hold_reward": 0.0,
+          "best_reach_reward": 5.394978507275405,
+          "hold_success_rate": 0.5,
+          "last_reach_reward": -0.9582902034450498,
+          "mean_hold_reward": 0.0,
+          "mean_reach_reward": 2.2183441519151774,
+          "n": 2,
+          "reach_success_rate": 0.5,
+          "semantic_counts": {
+            "cautious_probe_required": 1,
+            "stable_goal_reach_flat_locomotion": 1
+          },
+          "std_reach_reward": 3.1766343553602274,
+          "theta_action": {
+            "body_height": 0.32,
+            "goal_slow_distance": 0.2,
+            "goal_stop_distance": 0.15,
+            "name": "trot_fast_low_clear",
+            "swing_clearance": 0.04,
+            "vx_far": 0.18,
+            "vx_near": 0.09
+          },
+          "world_name": "earth"
+        },
+        {
+          "action_name": "trot_cautious",
+          "best_hold_reward": 0.0,
+          "best_reach_reward": 5.355944987466704,
+          "hold_success_rate": 0.2222222222222222,
+          "last_reach_reward": 2.3488855707341565,
+          "mean_hold_reward": -0.31776393811543563,
+          "mean_reach_reward": 1.0364446929427573,
+          "n": 9,
+          "reach_success_rate": 0.2222222222222222,
+          "semantic_counts": {
+            "approach_possible_but_post_reach_hold_needed": 1,
+            "cautious_probe_required": 4,
+            "forward_walk_unreliable_on_soft_terrain": 2,
+            "stable_goal_reach_flat_locomotion": 2
+          },
+          "std_reach_reward": 3.1784527538050864,
+          "theta_action": {
+            "body_height": 0.33,
+            "goal_slow_distance": 0.3,
+            "goal_stop_distance": 0.16,
+            "name": "trot_cautious",
+            "swing_clearance": 0.06,
+            "vx_far": 0.08,
+            "vx_near": 0.04
+          },
+          "world_name": "earth"
+        },
+        {
+          "action_name": "trot_soft_high_clear",
+          "best_hold_reward": 0.0,
+          "best_reach_reward": 1.2236561308084632,
+          "hold_success_rate": 0.0,
+          "last_reach_reward": 0.6195205761406404,
+          "mean_hold_reward": -0.3176122364965557,
+          "mean_reach_reward": 0.5902531265774192,
+          "n": 3,
+          "reach_success_rate": 0.0,
+          "semantic_counts": {
+            "cautious_probe_required": 3
+          },
+          "std_reach_reward": 0.5295243399205066,
+          "theta_action": {
+            "body_height": 0.34,
+            "goal_slow_distance": 0.4,
+            "goal_stop_distance": 0.18,
+            "name": "trot_soft_high_clear",
+            "swing_clearance": 0.09,
+            "vx_far": 0.06,
+            "vx_near": 0.025
+          },
+          "world_name": "earth"
+        },
+        {
+          "action_name": "trot_high_body_soft",
+          "best_hold_reward": 0.0,
+          "best_reach_reward": 0.31456726072380903,
+          "hold_success_rate": 0.0,
+          "last_reach_reward": 0.2412431189970723,
+          "mean_hold_reward": -0.3853238396396049,
+          "mean_reach_reward": 0.1534766300158702,
+          "n": 4,
+          "reach_success_rate": 0.0,
+          "semantic_counts": {
+            "cautious_probe_required": 4
+          },
+          "std_reach_reward": 0.18055625818454382,
+          "theta_action": {
+            "body_height": 0.36,
+            "goal_slow_distance": 0.42,
+            "goal_stop_distance": 0.2,
+            "name": "trot_high_body_soft",
+            "swing_clearance": 0.08,
+            "vx_far": 0.05,
+            "vx_near": 0.02
+          },
+          "world_name": "earth"
+        },
+        {
+          "action_name": "trot_brake_near_goal",
+          "best_hold_reward": 0.0,
+          "best_reach_reward": -0.6170038923798478,
+          "hold_success_rate": 0.0,
+          "last_reach_reward": -0.6170038923798478,
+          "mean_hold_reward": -0.3336587199681362,
+          "mean_reach_reward": -0.9973256546599178,
+          "n": 2,
+          "reach_success_rate": 0.0,
+          "semantic_counts": {
+            "no_meaningful_progress": 2
+          },
+          "std_reach_reward": 0.3803217622800701,
+          "theta_action": {
+            "body_height": 0.33,
+            "goal_slow_distance": 0.5,
+            "goal_stop_distance": 0.2,
+            "name": "trot_brake_near_goal",
+            "swing_clearance": 0.06,
+            "vx_far": 0.1,
+            "vx_near": 0.015
+          },
+          "world_name": "earth"
+        },
+        {
+          "action_name": "trot_soft_ultraslow",
+          "best_hold_reward": 0.0,
+          "best_reach_reward": -0.08111436873503086,
+          "hold_success_rate": 0.0,
+          "last_reach_reward": -0.19251371600775014,
+          "mean_hold_reward": -0.41350880757068,
+          "mean_reach_reward": -1.2945617201934108,
+          "n": 5,
+          "reach_success_rate": 0.0,
+          "semantic_counts": {
+            "forward_walk_unreliable_on_soft_terrain": 1,
+            "no_meaningful_progress": 4
+          },
+          "std_reach_reward": 2.341399324224551,
+          "theta_action": {
+            "body_height": 0.34,
+            "goal_slow_distance": 0.45,
+            "goal_stop_distance": 0.2,
+            "name": "trot_soft_ultraslow",
+            "swing_clearance": 0.09,
+            "vx_far": 0.035,
+            "vx_near": 0.015
+          },
+          "world_name": "earth"
+        },
+        {
+          "action_name": "trot_solid_fast",
+          "best_hold_reward": 0.0,
+          "best_reach_reward": -2.0133074354268574,
+          "hold_success_rate": 0.0,
+          "last_reach_reward": -2.0133074354268574,
+          "mean_hold_reward": 0.0,
+          "mean_reach_reward": -2.0133074354268574,
+          "n": 1,
+          "reach_success_rate": 0.0,
+          "semantic_counts": {
+            "no_meaningful_progress": 1
+          },
+          "std_reach_reward": 0.0,
+          "theta_action": {
+            "body_height": 0.32,
+            "goal_slow_distance": 0.2,
+            "goal_stop_distance": 0.15,
+            "name": "trot_solid_fast",
+            "swing_clearance": 0.04,
+            "vx_far": 0.16,
+            "vx_near": 0.08
+          },
+          "world_name": "earth"
+        },
+        {
+          "action_name": "trot_soft_mid_clear",
+          "best_hold_reward": 0.0,
+          "best_reach_reward": -6.207628660411551,
+          "hold_success_rate": 0.0,
+          "last_reach_reward": -6.207628660411551,
+          "mean_hold_reward": 0.0,
+          "mean_reach_reward": -6.207628660411551,
+          "n": 1,
+          "reach_success_rate": 0.0,
+          "semantic_counts": {
+            "forward_walk_unreliable_on_soft_terrain": 1
+          },
+          "std_reach_reward": 0.0,
+          "theta_action": {
+            "body_height": 0.34,
+            "goal_slow_distance": 0.35,
+            "goal_stop_distance": 0.18,
+            "name": "trot_soft_mid_clear",
+            "swing_clearance": 0.07,
+            "vx_far": 0.07,
+            "vx_near": 0.035
+          },
+          "world_name": "earth"
+        }
+      ],
+      "top_k": 5
+    },
+    "stairs_single": {
+      "actions": [
+        {
+          "action_name": "theta_actor_v1b_stairs_balanced_from_trot_mid",
+          "anchor_action": "trot_mid",
+          "anchor_score_task_beta": 0.5662448722036089,
+          "anchor_theta": {
+            "body_height": 0.33,
+            "goal_slow_distance": 0.25,
+            "goal_stop_distance": 0.15,
+            "swing_clearance": 0.05,
+            "vx_far": 0.12,
+            "vx_near": 0.06
+          },
+          "beta": {
+            "beta_e": 0.141,
+            "beta_s": 0.399,
+            "beta_v": 0.461
+          },
+          "pred_delta": {
+            "body_height": -0.009800828248262406,
+            "goal_slow_distance": -0.050012889504432674,
+            "goal_stop_distance": -0.0004555821418762207,
+            "swing_clearance": -0.010032087564468384,
+            "vx_far": 0.040183511376380925,
+            "vx_near": 0.02006288915872574
+          },
+          "pred_delta_norm": {
+            "body_height": -0.1960165649652481,
+            "goal_slow_distance": -0.16670963168144226,
+            "goal_stop_distance": -0.0030372142791748047,
+            "swing_clearance": -0.20064175128936768,
+            "vx_far": 0.4018351137638092,
+            "vx_near": 0.40125778317451477
+          },
+          "source": "theta_residual_actor_v1b_multimode",
+          "target_mode": "balanced",
+          "theta_action": {
+            "body_height": 0.3201991717517376,
+            "goal_slow_distance": 0.19998711049556733,
+            "goal_stop_distance": 0.14954441785812378,
+            "swing_clearance": 0.03996791243553162,
+            "vx_far": 0.16018351137638093,
+            "vx_near": 0.08006288915872574
+          },
+          "world": "stairs_single"
+        },
+        {
+          "action_name": "theta_actor_v1b_stairs_reach_from_trot_mid",
+          "anchor_action": "trot_mid",
+          "anchor_score_task_beta": 0.5662448722036089,
+          "anchor_theta": {
+            "body_height": 0.33,
+            "goal_slow_distance": 0.25,
+            "goal_stop_distance": 0.15,
+            "swing_clearance": 0.05,
+            "vx_far": 0.12,
+            "vx_near": 0.06
+          },
+          "beta": {
+            "beta_e": 0.141,
+            "beta_s": 0.399,
+            "beta_v": 0.461
+          },
+          "pred_delta": {
+            "body_height": -0.009790434688329698,
+            "goal_slow_distance": -0.05028668493032455,
+            "goal_stop_distance": -0.000254694779869169,
+            "swing_clearance": -0.009982503950595856,
+            "vx_far": 0.04021812975406647,
+            "vx_near": 0.020130330324172975
+          },
+          "pred_delta_norm": {
+            "body_height": -0.19580869376659393,
+            "goal_slow_distance": -0.16762228310108185,
+            "goal_stop_distance": -0.0016979651991277933,
+            "swing_clearance": -0.19965007901191711,
+            "vx_far": 0.4021812975406647,
+            "vx_near": 0.4026066064834595
+          },
+          "source": "theta_residual_actor_v1b_multimode",
+          "target_mode": "reach",
+          "theta_action": {
+            "body_height": 0.32020956531167033,
+            "goal_slow_distance": 0.19974530522013084,
+            "goal_stop_distance": 0.14974530522013083,
+            "swing_clearance": 0.04001749604940415,
+            "vx_far": 0.16021812975406646,
+            "vx_near": 0.08013033032417297
+          },
+          "world": "stairs_single"
+        },
+        {
+          "action_name": "theta_actor_v1b_stairs_stability_from_trot_solid_fast",
+          "anchor_action": "trot_solid_fast",
+          "anchor_score_task_beta": 1.0,
+          "anchor_theta": {
+            "body_height": 0.32,
+            "goal_slow_distance": 0.2,
+            "goal_stop_distance": 0.15,
+            "swing_clearance": 0.04,
+            "vx_far": 0.16,
+            "vx_near": 0.08
+          },
+          "beta": {
+            "beta_e": 0.141,
+            "beta_s": 0.399,
+            "beta_v": 0.461
+          },
+          "pred_delta": {
+            "body_height": 0.009931164234876633,
+            "goal_slow_distance": 0.04986439794301987,
+            "goal_stop_distance": -0.000626792013645172,
+            "swing_clearance": 0.010119187831878663,
+            "vx_far": -0.03990755379199982,
+            "vx_near": -0.019866260886192325
+          },
+          "pred_delta_norm": {
+            "body_height": 0.19862328469753265,
+            "goal_slow_distance": 0.16621465981006622,
+            "goal_stop_distance": -0.0041786134243011475,
+            "swing_clearance": 0.20238375663757324,
+            "vx_far": -0.39907553791999817,
+            "vx_near": -0.39732521772384644
+          },
+          "source": "theta_residual_actor_v1b_multimode",
+          "target_mode": "stability",
+          "theta_action": {
+            "body_height": 0.3299311642348766,
+            "goal_slow_distance": 0.24986439794301987,
+            "goal_stop_distance": 0.1493732079863548,
+            "swing_clearance": 0.050119187831878666,
+            "vx_far": 0.12009244620800019,
+            "vx_near": 0.06013373911380768
+          },
+          "world": "stairs_single"
+        }
+      ],
+      "num_actions_seen": 10,
+      "ppo_action_prior": [
+        {
+          "action_name": "trot_mid",
+          "mean_hold_reward": 0.825478048038398,
+          "mean_reach_reward": 6.534008739694727,
+          "prob": 0.3658067026600801,
+          "reach_success_rate": 0.9354838709677419,
+          "theta_action": {
+            "body_height": 0.33,
+            "goal_slow_distance": 0.25,
+            "goal_stop_distance": 0.15,
+            "name": "trot_mid",
+            "swing_clearance": 0.05,
+            "vx_far": 0.12,
+            "vx_near": 0.06
+          }
+        },
+        {
+          "action_name": "trot_solid_fast",
+          "mean_hold_reward": 0.3882636753955182,
+          "mean_reach_reward": 6.533497179540027,
+          "prob": 0.36561961838318774,
+          "reach_success_rate": 0.9523809523809523,
+          "theta_action": {
+            "body_height": 0.32,
+            "goal_slow_distance": 0.2,
+            "goal_stop_distance": 0.15,
+            "name": "trot_solid_fast",
+            "swing_clearance": 0.04,
+            "vx_far": 0.16,
+            "vx_near": 0.08
+          }
+        },
+        {
+          "action_name": "trot_cautious",
+          "mean_hold_reward": 0.45894861169761114,
+          "mean_reach_reward": 5.215743494308418,
+          "prob": 0.09788955111868944,
+          "reach_success_rate": 0.6666666666666666,
+          "theta_action": {
+            "body_height": 0.33,
+            "goal_slow_distance": 0.3,
+            "goal_stop_distance": 0.16,
+            "name": "trot_cautious",
+            "swing_clearance": 0.06,
+            "vx_far": 0.08,
+            "vx_near": 0.04
+          }
+        },
+        {
+          "action_name": "trot_fast_low_clear",
+          "mean_hold_reward": -1.920944739435599,
+          "mean_reach_reward": 5.178489198949099,
+          "prob": 0.09430983870920573,
+          "reach_success_rate": 0.6666666666666666,
+          "theta_action": {
+            "body_height": 0.32,
+            "goal_slow_distance": 0.2,
+            "goal_stop_distance": 0.15,
+            "name": "trot_fast_low_clear",
+            "swing_clearance": 0.04,
+            "vx_far": 0.18,
+            "vx_near": 0.09
+          }
+        },
+        {
+          "action_name": "trot_low_body_probe",
+          "mean_hold_reward": 0.11110954107589083,
+          "mean_reach_reward": 4.967549790420569,
+          "prob": 0.07637428912883691,
+          "reach_success_rate": 0.6666666666666666,
+          "theta_action": {
+            "body_height": 0.31,
+            "goal_slow_distance": 0.28,
+            "goal_stop_distance": 0.16,
+            "name": "trot_low_body_probe",
+            "swing_clearance": 0.05,
+            "vx_far": 0.1,
+            "vx_near": 0.05
+          }
+        }
+      ],
+      "ranked_actions": [
+        {
+          "action_name": "trot_mid",
+          "best_hold_reward": 2.5999201865817247,
+          "best_reach_reward": 7.985236168108335,
+          "hold_success_rate": 0.4838709677419355,
+          "last_reach_reward": 5.716577919321072,
+          "mean_hold_reward": 0.825478048038398,
+          "mean_reach_reward": 6.534008739694727,
+          "n": 31,
+          "reach_success_rate": 0.9354838709677419,
+          "semantic_counts": {
+            "approach_possible_but_post_reach_hold_needed": 14,
+            "cautious_probe_required": 2,
+            "stable_goal_reach_flat_locomotion": 15
+          },
+          "std_reach_reward": 1.4448202477806082,
+          "theta_action": {
+            "body_height": 0.33,
+            "goal_slow_distance": 0.25,
+            "goal_stop_distance": 0.15,
+            "name": "trot_mid",
+            "swing_clearance": 0.05,
+            "vx_far": 0.12,
+            "vx_near": 0.06
+          },
+          "world_name": "stairs_single"
+        },
+        {
+          "action_name": "trot_solid_fast",
+          "best_hold_reward": 2.6760937907878115,
+          "best_reach_reward": 7.996115325997752,
+          "hold_success_rate": 0.4603174603174603,
+          "last_reach_reward": 2.5730987036899755,
+          "mean_hold_reward": 0.3882636753955182,
+          "mean_reach_reward": 6.533497179540027,
+          "n": 63,
+          "reach_success_rate": 0.9523809523809523,
+          "semantic_counts": {
+            "approach_possible_but_post_reach_hold_needed": 24,
+            "cautious_probe_required": 2,
+            "forward_walk_unreliable_on_soft_terrain": 1,
+            "reached_but_failed_to_hold": 7,
+            "stable_goal_reach_flat_locomotion": 29
+          },
+          "std_reach_reward": 1.701910929881291,
+          "theta_action": {
+            "body_height": 0.32,
+            "goal_slow_distance": 0.2,
+            "goal_stop_distance": 0.15,
+            "name": "trot_solid_fast",
+            "swing_clearance": 0.04,
+            "vx_far": 0.16,
+            "vx_near": 0.08
+          },
+          "world_name": "stairs_single"
+        },
+        {
+          "action_name": "trot_cautious",
+          "best_hold_reward": 2.5799367481187927,
+          "best_reach_reward": 7.752579819019053,
+          "hold_success_rate": 0.3333333333333333,
+          "last_reach_reward": 6.120872518383012,
+          "mean_hold_reward": 0.45894861169761114,
+          "mean_reach_reward": 5.215743494308418,
+          "n": 3,
+          "reach_success_rate": 0.6666666666666666,
+          "semantic_counts": {
+            "approach_possible_but_post_reach_hold_needed": 1,
+            "cautious_probe_required": 1,
+            "stable_goal_reach_flat_locomotion": 1
+          },
+          "std_reach_reward": 2.523352436134108,
+          "theta_action": {
+            "body_height": 0.33,
+            "goal_slow_distance": 0.3,
+            "goal_stop_distance": 0.16,
+            "name": "trot_cautious",
+            "swing_clearance": 0.06,
+            "vx_far": 0.08,
+            "vx_near": 0.04
+          },
+          "world_name": "stairs_single"
+        },
+        {
+          "action_name": "trot_fast_low_clear",
+          "best_hold_reward": -0.8605074238611811,
+          "best_reach_reward": 6.7210748084516005,
+          "hold_success_rate": 0.0,
+          "last_reach_reward": 6.520465952978482,
+          "mean_hold_reward": -1.920944739435599,
+          "mean_reach_reward": 5.178489198949099,
+          "n": 3,
+          "reach_success_rate": 0.6666666666666666,
+          "semantic_counts": {
+            "approach_possible_but_post_reach_hold_needed": 1,
+            "forward_walk_unreliable_on_soft_terrain": 1,
+            "reached_but_failed_to_hold": 1
+          },
+          "std_reach_reward": 2.0413371434841507,
+          "theta_action": {
+            "body_height": 0.32,
+            "goal_slow_distance": 0.2,
+            "goal_stop_distance": 0.15,
+            "name": "trot_fast_low_clear",
+            "swing_clearance": 0.04,
+            "vx_far": 0.18,
+            "vx_near": 0.09
+          },
+          "world_name": "stairs_single"
+        },
+        {
+          "action_name": "trot_low_body_probe",
+          "best_hold_reward": 2.6482086683125985,
+          "best_reach_reward": 7.968305592216364,
+          "hold_success_rate": 0.25,
+          "last_reach_reward": 5.527213418614082,
+          "mean_hold_reward": 0.11110954107589083,
+          "mean_reach_reward": 4.967549790420569,
+          "n": 12,
+          "reach_success_rate": 0.6666666666666666,
+          "semantic_counts": {
+            "approach_possible_but_post_reach_hold_needed": 5,
+            "cautious_probe_required": 3,
+            "forward_walk_unreliable_on_soft_terrain": 1,
+            "stable_goal_reach_flat_locomotion": 3
+          },
+          "std_reach_reward": 2.8178426444237235,
+          "theta_action": {
+            "body_height": 0.31,
+            "goal_slow_distance": 0.28,
+            "goal_stop_distance": 0.16,
+            "name": "trot_low_body_probe",
+            "swing_clearance": 0.05,
+            "vx_far": 0.1,
+            "vx_near": 0.05
+          },
+          "world_name": "stairs_single"
+        },
+        {
+          "action_name": "trot_soft_mid_clear",
+          "best_hold_reward": 2.5706629463353825,
+          "best_reach_reward": 7.693964019231939,
+          "hold_success_rate": 0.42857142857142855,
+          "last_reach_reward": 7.693964019231939,
+          "mean_hold_reward": 0.6443947970724562,
+          "mean_reach_reward": 4.300255439734265,
+          "n": 7,
+          "reach_success_rate": 0.5714285714285714,
+          "semantic_counts": {
+            "approach_possible_but_post_reach_hold_needed": 1,
+            "cautious_probe_required": 1,
+            "forward_walk_unreliable_on_soft_terrain": 2,
+            "stable_goal_reach_flat_locomotion": 3
+          },
+          "std_reach_reward": 3.1685189367955267,
+          "theta_action": {
+            "body_height": 0.34,
+            "goal_slow_distance": 0.35,
+            "goal_stop_distance": 0.18,
+            "name": "trot_soft_mid_clear",
+            "swing_clearance": 0.07,
+            "vx_far": 0.07,
+            "vx_near": 0.035
+          },
+          "world_name": "stairs_single"
+        },
+        {
+          "action_name": "trot_soft_high_clear",
+          "best_hold_reward": -0.5090502390469169,
+          "best_reach_reward": 0.7146179545313414,
+          "hold_success_rate": 0.0,
+          "last_reach_reward": 0.6065031567032664,
+          "mean_hold_reward": -0.6527476110158394,
+          "mean_reach_reward": 0.6037697780008122,
+          "n": 6,
+          "reach_success_rate": 0.0,
+          "semantic_counts": {
+            "cautious_probe_required": 6
+          },
+          "std_reach_reward": 0.08449436404975895,
+          "theta_action": {
+            "body_height": 0.34,
+            "goal_slow_distance": 0.4,
+            "goal_stop_distance": 0.18,
+            "name": "trot_soft_high_clear",
+            "swing_clearance": 0.09,
+            "vx_far": 0.06,
+            "vx_near": 0.025
+          },
+          "world_name": "stairs_single"
+        },
+        {
+          "action_name": "trot_high_body_soft",
+          "best_hold_reward": -0.5343248840013419,
+          "best_reach_reward": 0.36557910288630113,
+          "hold_success_rate": 0.0,
+          "last_reach_reward": 0.12379475644888949,
+          "mean_hold_reward": -0.6171124261329085,
+          "mean_reach_reward": 0.24770766024205423,
+          "n": 6,
+          "reach_success_rate": 0.0,
+          "semantic_counts": {
+            "cautious_probe_required": 6
+          },
+          "std_reach_reward": 0.09338345666101028,
+          "theta_action": {
+            "body_height": 0.36,
+            "goal_slow_distance": 0.42,
+            "goal_stop_distance": 0.2,
+            "name": "trot_high_body_soft",
+            "swing_clearance": 0.08,
+            "vx_far": 0.05,
+            "vx_near": 0.02
+          },
+          "world_name": "stairs_single"
+        },
+        {
+          "action_name": "trot_soft_ultraslow",
+          "best_hold_reward": -0.5057813802789166,
+          "best_reach_reward": 0.801654679441123,
+          "hold_success_rate": 0.0,
+          "last_reach_reward": 0.801654679441123,
+          "mean_hold_reward": -0.5467614911226161,
+          "mean_reach_reward": 0.15909568524520518,
+          "n": 4,
+          "reach_success_rate": 0.0,
+          "semantic_counts": {
+            "cautious_probe_required": 2,
+            "no_meaningful_progress": 2
+          },
+          "std_reach_reward": 0.3910782575771534,
+          "theta_action": {
+            "body_height": 0.34,
+            "goal_slow_distance": 0.45,
+            "goal_stop_distance": 0.2,
+            "name": "trot_soft_ultraslow",
+            "swing_clearance": 0.09,
+            "vx_far": 0.035,
+            "vx_near": 0.015
+          },
+          "world_name": "stairs_single"
+        },
+        {
+          "action_name": "trot_brake_near_goal",
+          "best_hold_reward": -0.575528979100828,
+          "best_reach_reward": -0.0767128826592337,
+          "hold_success_rate": 0.0,
+          "last_reach_reward": -0.6166532215871061,
+          "mean_hold_reward": -0.678051312130062,
+          "mean_reach_reward": -0.4343525065132053,
+          "n": 7,
+          "reach_success_rate": 0.0,
+          "semantic_counts": {
+            "no_meaningful_progress": 7
+          },
+          "std_reach_reward": 0.167812388193826,
+          "theta_action": {
+            "body_height": 0.33,
+            "goal_slow_distance": 0.5,
+            "goal_stop_distance": 0.2,
+            "name": "trot_brake_near_goal",
+            "swing_clearance": 0.06,
+            "vx_far": 0.1,
+            "vx_near": 0.015
+          },
+          "world_name": "stairs_single"
+        }
+      ],
+      "top_k": 5
+    },
+    "tracer_sponge_firm_flat": {
+      "actions": [
+        {
+          "action_name": "sponge_slow_high_clear",
+          "note": "Sponge-specific theta-lite candidate for soft-contact terrain.",
+          "source": "sponge_expanded_v0",
+          "theta_action": {
+            "body_height": 0.35,
+            "goal_slow_distance": 0.45,
+            "goal_stop_distance": 0.15,
+            "swing_clearance": 0.09,
+            "vx_far": 0.06,
+            "vx_near": 0.015
+          }
+        },
+        {
+          "action_name": "sponge_short_step_stable",
+          "note": "Sponge-specific theta-lite candidate for soft-contact terrain.",
+          "source": "sponge_expanded_v0",
+          "theta_action": {
+            "body_height": 0.335,
+            "goal_slow_distance": 0.4,
+            "goal_stop_distance": 0.15,
+            "swing_clearance": 0.065,
+            "vx_far": 0.045,
+            "vx_near": 0.01
+          }
+        },
+        {
+          "action_name": "sponge_reach_then_brake",
+          "note": "Sponge-specific theta-lite candidate for soft-contact terrain.",
+          "source": "sponge_expanded_v0",
+          "theta_action": {
+            "body_height": 0.34,
+            "goal_slow_distance": 0.5,
+            "goal_stop_distance": 0.15,
+            "swing_clearance": 0.075,
+            "vx_far": 0.09,
+            "vx_near": 0.0
+          }
+        },
+        {
+          "action_name": "sponge_mid_brake_clear",
+          "note": "Sponge-specific theta-lite candidate for soft-contact terrain.",
+          "source": "sponge_expanded_v0",
+          "theta_action": {
+            "body_height": 0.345,
+            "goal_slow_distance": 0.55,
+            "goal_stop_distance": 0.15,
+            "swing_clearance": 0.085,
+            "vx_far": 0.075,
+            "vx_near": 0.005
+          }
+        },
+        {
+          "action_name": "sponge_probe_crawlish",
+          "note": "Sponge-specific theta-lite candidate for soft-contact terrain.",
+          "source": "sponge_expanded_v0",
+          "theta_action": {
+            "body_height": 0.31,
+            "goal_slow_distance": 0.35,
+            "goal_stop_distance": 0.15,
+            "swing_clearance": 0.055,
+            "vx_far": 0.03,
+            "vx_near": 0.0
+          }
+        },
+        {
+          "action_name": "sponge_v8_anchor_mix_top3",
+          "anchor_scores": [
+            0.688,
+            0.677,
+            0.66
+          ],
+          "anchor_weights": [
+            0.3551333877133073,
+            0.3361284770130518,
+            0.3087381352736409
+          ],
+          "anchors": [
+            "sponge_probe_crawlish",
+            "sponge_reach_then_brake",
+            "trot_soft_mid_clear"
+          ],
+          "source": "v8_anchor_mixture_top3",
+          "theta_action": {
+            "body_height": 0.3293459983686008,
+            "goal_slow_distance": 0.4004192715519578,
+            "goal_stop_distance": 0.1592621440582092,
+            "swing_clearance": 0.06635364156936566,
+            "vx_far": 0.06251723403172875,
+            "vx_near": 0.010805834734577432
+          }
+        },
+        {
+          "action_name": "sponge_v8b_reach_bias",
+          "anchor_weights": {
+            "sponge_probe_crawlish": 0.15,
+            "sponge_reach_then_brake": 0.6,
+            "trot_soft_mid_clear": 0.25
+          },
+          "anchors": [
+            "sponge_probe_crawlish",
+            "sponge_reach_then_brake",
+            "trot_soft_mid_clear"
+          ],
+          "overrides": {},
+          "source": "v8b_anchor_mixture_sweep",
+          "theta_action": {
+            "body_height": 0.3355,
+            "goal_slow_distance": 0.43999999999999995,
+            "goal_stop_distance": 0.15749999999999997,
+            "swing_clearance": 0.07075000000000001,
+            "vx_far": 0.076,
+            "vx_near": 0.00875
+          }
+        },
+        {
+          "action_name": "sponge_v8b_reach_bias_fast",
+          "anchor_weights": {
+            "sponge_probe_crawlish": 0.15,
+            "sponge_reach_then_brake": 0.6,
+            "trot_soft_mid_clear": 0.25
+          },
+          "anchors": [
+            "sponge_probe_crawlish",
+            "sponge_reach_then_brake",
+            "trot_soft_mid_clear"
+          ],
+          "overrides": {
+            "delta_vx_far": 0.015,
+            "goal_slow_distance": 0.35,
+            "vx_near": 0.005
+          },
+          "source": "v8b_anchor_mixture_sweep",
+          "theta_action": {
+            "body_height": 0.3355,
+            "goal_slow_distance": 0.35,
+            "goal_stop_distance": 0.15749999999999997,
+            "swing_clearance": 0.07075000000000001,
+            "vx_far": 0.091,
+            "vx_near": 0.005
+          }
+        },
+        {
+          "action_name": "sponge_v8b_soft_reach",
+          "anchor_weights": {
+            "sponge_probe_crawlish": 0.1,
+            "sponge_reach_then_brake": 0.45,
+            "trot_soft_mid_clear": 0.45
+          },
+          "anchors": [
+            "sponge_probe_crawlish",
+            "sponge_reach_then_brake",
+            "trot_soft_mid_clear"
+          ],
+          "overrides": {
+            "goal_slow_distance": 0.35,
+            "vx_near": 0.005
+          },
+          "source": "v8b_anchor_mixture_sweep",
+          "theta_action": {
+            "body_height": 0.3370000000000001,
+            "goal_slow_distance": 0.35,
+            "goal_stop_distance": 0.1635,
+            "swing_clearance": 0.07075000000000001,
+            "vx_far": 0.07500000000000001,
+            "vx_near": 0.005
+          }
+        },
+        {
+          "action_name": "sponge_v8b_probe_reach_fast",
+          "anchor_weights": {
+            "sponge_probe_crawlish": 0.25,
+            "sponge_reach_then_brake": 0.55,
+            "trot_soft_mid_clear": 0.2
+          },
+          "anchors": [
+            "sponge_probe_crawlish",
+            "sponge_reach_then_brake",
+            "trot_soft_mid_clear"
+          ],
+          "overrides": {
+            "delta_vx_far": 0.02,
+            "goal_slow_distance": 0.34,
+            "vx_near": 0.005
+          },
+          "source": "v8b_anchor_mixture_sweep",
+          "theta_action": {
+            "body_height": 0.3325,
+            "goal_slow_distance": 0.34,
+            "goal_stop_distance": 0.156,
+            "swing_clearance": 0.069,
+            "vx_far": 0.09100000000000001,
+            "vx_near": 0.005
+          }
+        },
+        {
+          "action_name": "sponge_v8b_reach_stabilized",
+          "anchor_weights": {
+            "sponge_probe_crawlish": 0.2,
+            "sponge_reach_then_brake": 0.7,
+            "trot_soft_mid_clear": 0.1
+          },
+          "anchors": [
+            "sponge_probe_crawlish",
+            "sponge_reach_then_brake",
+            "trot_soft_mid_clear"
+          ],
+          "overrides": {
+            "body_height": 0.325,
+            "goal_slow_distance": 0.38,
+            "swing_clearance": 0.065,
+            "vx_near": 0.0
+          },
+          "source": "v8b_anchor_mixture_sweep",
+          "theta_action": {
+            "body_height": 0.325,
+            "goal_slow_distance": 0.38,
+            "goal_stop_distance": 0.153,
+            "swing_clearance": 0.065,
+            "vx_far": 0.07600000000000001,
+            "vx_near": 0.0
+          }
+        },
+        {
+          "action_name": "sponge_v8c_far_fast_early_stop",
+          "source": "v8c_phase_scheduled_far_fast_early_stop",
+          "theta_action": {
+            "body_height": 0.325,
+            "goal_slow_distance": 0.6,
+            "goal_stop_distance": 0.22,
+            "name": "sponge_v8b_reach_bias_fast",
+            "swing_clearance": 0.065,
+            "vx_far": 0.091,
+            "vx_near": 0.0
+          }
+        },
+        {
+          "action_name": "sponge_v8c_mid_fast_early_stop",
+          "source": "v8c_phase_scheduled_mid_fast_early_stop",
+          "theta_action": {
+            "body_height": 0.32,
+            "goal_slow_distance": 0.62,
+            "goal_stop_distance": 0.24,
+            "name": "sponge_v8b_reach_bias_fast",
+            "swing_clearance": 0.06,
+            "vx_far": 0.076,
+            "vx_near": 0.0
+          }
+        },
+        {
+          "action_name": "sponge_v8c_soft_stop",
+          "source": "v8c_phase_scheduled_soft_stop",
+          "theta_action": {
+            "body_height": 0.315,
+            "goal_slow_distance": 0.65,
+            "goal_stop_distance": 0.25,
+            "name": "trot_soft_mid_clear",
+            "swing_clearance": 0.06,
+            "vx_far": 0.07,
+            "vx_near": 0.0
+          }
+        },
+        {
+          "action_name": "theta_actor_v1b_sponge_balanced_from_trot_soft_mid_clear",
+          "anchor_action": "trot_soft_mid_clear",
+          "anchor_score_task_beta": 0.6534511788534008,
+          "anchor_theta": {
+            "body_height": 0.34,
+            "goal_slow_distance": 0.35,
+            "goal_stop_distance": 0.18,
+            "swing_clearance": 0.07,
+            "vx_far": 0.07,
+            "vx_near": 0.035
+          },
+          "beta": {
+            "beta_e": 0.063,
+            "beta_s": 0.796,
+            "beta_v": 0.14
+          },
+          "pred_delta": {
+            "body_height": -0.004258638992905617,
+            "goal_slow_distance": 0.08900422453880309,
+            "goal_stop_distance": -0.02272598147392273,
+            "swing_clearance": 0.0009036620147526265,
+            "vx_far": 0.005968154221773148,
+            "vx_near": -0.02604939043521881
+          },
+          "pred_delta_norm": {
+            "body_height": -0.08517277985811234,
+            "goal_slow_distance": 0.296680748462677,
+            "goal_stop_distance": -0.15150654315948486,
+            "swing_clearance": 0.01807324029505253,
+            "vx_far": 0.059681542217731476,
+            "vx_near": -0.5209878087043762
+          },
+          "source": "theta_residual_actor_v1b_multimode",
+          "target_mode": "balanced",
+          "theta_action": {
+            "body_height": 0.3357413610070944,
+            "goal_slow_distance": 0.43900422453880306,
+            "goal_stop_distance": 0.15727401852607725,
+            "swing_clearance": 0.07090366201475264,
+            "vx_far": 0.07596815422177315,
+            "vx_near": 0.008950609564781192
+          },
+          "world": "tracer_sponge_firm_flat"
+        },
+        {
+          "action_name": "theta_actor_v1b_sponge_reach_from_trot_soft_mid_clear",
+          "anchor_action": "trot_soft_mid_clear",
+          "anchor_score_task_beta": 0.6534511788534008,
+          "anchor_theta": {
+            "body_height": 0.34,
+            "goal_slow_distance": 0.35,
+            "goal_stop_distance": 0.18,
+            "swing_clearance": 0.07,
+            "vx_far": 0.07,
+            "vx_near": 0.035
+          },
+          "beta": {
+            "beta_e": 0.063,
+            "beta_s": 0.796,
+            "beta_v": 0.14
+          },
+          "pred_delta": {
+            "body_height": -0.014789536595344543,
+            "goal_slow_distance": 0.02842024639248848,
+            "goal_stop_distance": -0.027215485274791718,
+            "swing_clearance": -0.004854823648929596,
+            "vx_far": 0.006316965073347092,
+            "vx_near": -0.03484440445899963
+          },
+          "pred_delta_norm": {
+            "body_height": -0.29579073190689087,
+            "goal_slow_distance": 0.09473415464162827,
+            "goal_stop_distance": -0.18143656849861145,
+            "swing_clearance": -0.09709647297859192,
+            "vx_far": 0.06316965073347092,
+            "vx_near": -0.6968880891799927
+          },
+          "source": "theta_residual_actor_v1b_multimode",
+          "target_mode": "reach",
+          "theta_action": {
+            "body_height": 0.3252104634046555,
+            "goal_slow_distance": 0.37842024639248845,
+            "goal_stop_distance": 0.15278451472520826,
+            "swing_clearance": 0.06514517635107041,
+            "vx_far": 0.07631696507334709,
+            "vx_near": 0.00015559554100037093
+          },
+          "world": "tracer_sponge_firm_flat"
+        },
+        {
+          "action_name": "theta_actor_v1b_sponge_stability_from_trot_soft_mid_clear",
+          "anchor_action": "trot_soft_mid_clear",
+          "anchor_score_task_beta": 0.6534511788534008,
+          "anchor_theta": {
+            "body_height": 0.34,
+            "goal_slow_distance": 0.35,
+            "goal_stop_distance": 0.18,
+            "swing_clearance": 0.07,
+            "vx_far": 0.07,
+            "vx_near": 0.035
+          },
+          "beta": {
+            "beta_e": 0.063,
+            "beta_s": 0.796,
+            "beta_v": 0.14
+          },
+          "pred_delta": {
+            "body_height": 0.010162467509508133,
+            "goal_slow_distance": 0.09937937557697296,
+            "goal_stop_distance": -0.029946982115507125,
+            "swing_clearance": 0.019924424588680267,
+            "vx_far": -0.009325002133846284,
+            "vx_near": -0.019804303348064423
+          },
+          "pred_delta_norm": {
+            "body_height": 0.20324935019016266,
+            "goal_slow_distance": 0.33126458525657654,
+            "goal_stop_distance": -0.19964654743671417,
+            "swing_clearance": 0.39848849177360535,
+            "vx_far": -0.09325002133846283,
+            "vx_near": -0.39608606696128845
+          },
+          "source": "theta_residual_actor_v1b_multimode",
+          "target_mode": "stability",
+          "theta_action": {
+            "body_height": 0.35016246750950814,
+            "goal_slow_distance": 0.44937937557697294,
+            "goal_stop_distance": 0.15005301788449288,
+            "swing_clearance": 0.08992442458868027,
+            "vx_far": 0.060674997866153726,
+            "vx_near": 0.01519569665193558
+          },
+          "world": "tracer_sponge_firm_flat"
+        }
+      ],
+      "anchor_mixture_v8_meta": {
+        "sponge_v8_anchor_mix_top3": {
+          "anchor_scores": [
+            0.688,
+            0.677,
+            0.66
+          ],
+          "anchor_weights": [
+            0.3551333877133073,
+            0.3361284770130518,
+            0.3087381352736409
+          ],
+          "anchors": [
+            "sponge_probe_crawlish",
+            "sponge_reach_then_brake",
+            "trot_soft_mid_clear"
+          ],
+          "theta_action": {
+            "body_height": 0.3293459983686008,
+            "goal_slow_distance": 0.4004192715519578,
+            "goal_stop_distance": 0.1592621440582092,
+            "swing_clearance": 0.06635364156936566,
+            "vx_far": 0.06251723403172875,
+            "vx_near": 0.010805834734577432
+          }
+        }
+      },
+      "num_actions_seen": 10,
+      "ppo_action_prior": [
+        {
+          "action_name": "trot_solid_fast",
+          "mean_hold_reward": -6.533678171186237,
+          "mean_reach_reward": 4.6169370359454724,
+          "prob": 0.3200334351160031,
+          "reach_success_rate": 0.6206896551724138,
+          "theta_action": {
+            "body_height": 0.32,
+            "goal_slow_distance": 0.2,
+            "goal_stop_distance": 0.15,
+            "name": "trot_solid_fast",
+            "swing_clearance": 0.04,
+            "vx_far": 0.16,
+            "vx_near": 0.08
+          }
+        },
+        {
+          "action_name": "trot_soft_mid_clear",
+          "mean_hold_reward": -6.250432051126543,
+          "mean_reach_reward": 4.506616851276696,
+          "prob": 0.2866050943632235,
+          "reach_success_rate": 0.5818181818181818,
+          "theta_action": {
+            "body_height": 0.34,
+            "goal_slow_distance": 0.35,
+            "goal_stop_distance": 0.18,
+            "name": "trot_soft_mid_clear",
+            "swing_clearance": 0.07,
+            "vx_far": 0.07,
+            "vx_near": 0.035
+          }
+        },
+        {
+          "action_name": "trot_high_body_soft",
+          "mean_hold_reward": -5.1930561887335385,
+          "mean_reach_reward": 4.082700750840612,
+          "prob": 0.18757695539262204,
+          "reach_success_rate": 0.5535714285714286,
+          "theta_action": {
+            "body_height": 0.36,
+            "goal_slow_distance": 0.42,
+            "goal_stop_distance": 0.2,
+            "name": "trot_high_body_soft",
+            "swing_clearance": 0.08,
+            "vx_far": 0.05,
+            "vx_near": 0.02
+          }
+        },
+        {
+          "action_name": "trot_cautious",
+          "mean_hold_reward": -5.085109445027486,
+          "mean_reach_reward": 3.585377666571492,
+          "prob": 0.11407613834706423,
+          "reach_success_rate": 0.5,
+          "theta_action": {
+            "body_height": 0.33,
+            "goal_slow_distance": 0.3,
+            "goal_stop_distance": 0.16,
+            "name": "trot_cautious",
+            "swing_clearance": 0.06,
+            "vx_far": 0.08,
+            "vx_near": 0.04
+          }
+        },
+        {
+          "action_name": "trot_soft_high_clear",
+          "mean_hold_reward": -4.534764144541428,
+          "mean_reach_reward": 3.367125285810896,
+          "prob": 0.09170837678108723,
+          "reach_success_rate": 0.5,
+          "theta_action": {
+            "body_height": 0.34,
+            "goal_slow_distance": 0.4,
+            "goal_stop_distance": 0.18,
+            "name": "trot_soft_high_clear",
+            "swing_clearance": 0.09,
+            "vx_far": 0.06,
+            "vx_near": 0.025
+          }
+        }
+      ],
+      "ranked_actions": [
+        {
+          "action_name": "trot_solid_fast",
+          "best_hold_reward": 0.0,
+          "best_reach_reward": 7.90197660000082,
+          "hold_success_rate": 0.0,
+          "last_reach_reward": 7.237742580557372,
+          "mean_hold_reward": -6.533678171186237,
+          "mean_reach_reward": 4.6169370359454724,
+          "n": 29,
+          "reach_success_rate": 0.6206896551724138,
+          "semantic_counts": {
+            "cautious_probe_required": 2,
+            "forward_walk_unreliable_on_soft_terrain": 10,
+            "reached_but_failed_to_hold": 17
+          },
+          "std_reach_reward": 3.8041337164510605,
+          "theta_action": {
+            "body_height": 0.32,
+            "goal_slow_distance": 0.2,
+            "goal_stop_distance": 0.15,
+            "name": "trot_solid_fast",
+            "swing_clearance": 0.04,
+            "vx_far": 0.16,
+            "vx_near": 0.08
+          },
+          "world_name": "tracer_sponge_firm_flat"
+        },
+        {
+          "action_name": "trot_soft_mid_clear",
+          "best_hold_reward": 0.0,
+          "best_reach_reward": 7.907194182201421,
+          "hold_success_rate": 0.0,
+          "last_reach_reward": 7.8630463605918335,
+          "mean_hold_reward": -6.250432051126543,
+          "mean_reach_reward": 4.506616851276696,
+          "n": 55,
+          "reach_success_rate": 0.5818181818181818,
+          "semantic_counts": {
+            "forward_walk_unreliable_on_soft_terrain": 22,
+            "no_meaningful_progress": 1,
+            "reached_but_failed_to_hold": 32
+          },
+          "std_reach_reward": 3.550633436169393,
+          "theta_action": {
+            "body_height": 0.34,
+            "goal_slow_distance": 0.35,
+            "goal_stop_distance": 0.18,
+            "name": "trot_soft_mid_clear",
+            "swing_clearance": 0.07,
+            "vx_far": 0.07,
+            "vx_near": 0.035
+          },
+          "world_name": "tracer_sponge_firm_flat"
+        },
+        {
+          "action_name": "trot_high_body_soft",
+          "best_hold_reward": 2.4090709147597544,
+          "best_reach_reward": 7.970930981893461,
+          "hold_success_rate": 0.017857142857142856,
+          "last_reach_reward": 0.5859934527825379,
+          "mean_hold_reward": -5.1930561887335385,
+          "mean_reach_reward": 4.082700750840612,
+          "n": 56,
+          "reach_success_rate": 0.5535714285714286,
+          "semantic_counts": {
+            "approach_possible_but_post_reach_hold_needed": 1,
+            "forward_walk_unreliable_on_soft_terrain": 21,
+            "no_meaningful_progress": 4,
+            "reached_but_failed_to_hold": 29,
+            "stable_goal_reach_flat_locomotion": 1
+          },
+          "std_reach_reward": 3.6106460947333927,
+          "theta_action": {
+            "body_height": 0.36,
+            "goal_slow_distance": 0.42,
+            "goal_stop_distance": 0.2,
+            "name": "trot_high_body_soft",
+            "swing_clearance": 0.08,
+            "vx_far": 0.05,
+            "vx_near": 0.02
+          },
+          "world_name": "tracer_sponge_firm_flat"
+        },
+        {
+          "action_name": "trot_cautious",
+          "best_hold_reward": 0.0,
+          "best_reach_reward": 7.931311849094884,
+          "hold_success_rate": 0.0,
+          "last_reach_reward": 6.861953067488442,
+          "mean_hold_reward": -5.085109445027486,
+          "mean_reach_reward": 3.585377666571492,
+          "n": 40,
+          "reach_success_rate": 0.5,
+          "semantic_counts": {
+            "approach_possible_but_post_reach_hold_needed": 1,
+            "cautious_probe_required": 3,
+            "forward_walk_unreliable_on_soft_terrain": 16,
+            "no_meaningful_progress": 1,
+            "reached_but_failed_to_hold": 19
+          },
+          "std_reach_reward": 4.191818744713391,
+          "theta_action": {
+            "body_height": 0.33,
+            "goal_slow_distance": 0.3,
+            "goal_stop_distance": 0.16,
+            "name": "trot_cautious",
+            "swing_clearance": 0.06,
+            "vx_far": 0.08,
+            "vx_near": 0.04
+          },
+          "world_name": "tracer_sponge_firm_flat"
+        },
+        {
+          "action_name": "trot_soft_high_clear",
+          "best_hold_reward": 0.0,
+          "best_reach_reward": 7.512739058620692,
+          "hold_success_rate": 0.0,
+          "last_reach_reward": 7.281268536761319,
+          "mean_hold_reward": -4.534764144541428,
+          "mean_reach_reward": 3.367125285810896,
+          "n": 6,
+          "reach_success_rate": 0.5,
+          "semantic_counts": {
+            "forward_walk_unreliable_on_soft_terrain": 2,
+            "no_meaningful_progress": 1,
+            "reached_but_failed_to_hold": 3
+          },
+          "std_reach_reward": 3.862038410247384,
+          "theta_action": {
+            "body_height": 0.34,
+            "goal_slow_distance": 0.4,
+            "goal_stop_distance": 0.18,
+            "name": "trot_soft_high_clear",
+            "swing_clearance": 0.09,
+            "vx_far": 0.06,
+            "vx_near": 0.025
+          },
+          "world_name": "tracer_sponge_firm_flat"
+        },
+        {
+          "action_name": "trot_mid",
+          "best_hold_reward": 0.0,
+          "best_reach_reward": 7.800395756583976,
+          "hold_success_rate": 0.0,
+          "last_reach_reward": 7.439672303740335,
+          "mean_hold_reward": -4.896205295737188,
+          "mean_reach_reward": 3.22133912759139,
+          "n": 18,
+          "reach_success_rate": 0.3888888888888889,
+          "semantic_counts": {
+            "approach_possible_but_post_reach_hold_needed": 1,
+            "cautious_probe_required": 1,
+            "forward_walk_unreliable_on_soft_terrain": 9,
+            "no_meaningful_progress": 1,
+            "reached_but_failed_to_hold": 6
+          },
+          "std_reach_reward": 3.5599280230170103,
+          "theta_action": {
+            "body_height": 0.33,
+            "goal_slow_distance": 0.25,
+            "goal_stop_distance": 0.15,
+            "name": "trot_mid",
+            "swing_clearance": 0.05,
+            "vx_far": 0.12,
+            "vx_near": 0.06
+          },
+          "world_name": "tracer_sponge_firm_flat"
+        },
+        {
+          "action_name": "trot_fast_low_clear",
+          "best_hold_reward": 0.0,
+          "best_reach_reward": 7.805180369331107,
+          "hold_success_rate": 0.0,
+          "last_reach_reward": 6.897350836297061,
+          "mean_hold_reward": -5.476899602744263,
+          "mean_reach_reward": 2.975102237860143,
+          "n": 9,
+          "reach_success_rate": 0.5555555555555556,
+          "semantic_counts": {
+            "cautious_probe_required": 1,
+            "forward_walk_unreliable_on_soft_terrain": 4,
+            "reached_but_failed_to_hold": 4
+          },
+          "std_reach_reward": 5.00667796465216,
+          "theta_action": {
+            "body_height": 0.32,
+            "goal_slow_distance": 0.2,
+            "goal_stop_distance": 0.15,
+            "name": "trot_fast_low_clear",
+            "swing_clearance": 0.04,
+            "vx_far": 0.18,
+            "vx_near": 0.09
+          },
+          "world_name": "tracer_sponge_firm_flat"
+        },
+        {
+          "action_name": "trot_low_body_probe",
+          "best_hold_reward": 0.0,
+          "best_reach_reward": 7.7133317026242505,
+          "hold_success_rate": 0.0,
+          "last_reach_reward": 6.695652243871166,
+          "mean_hold_reward": -4.567551833373623,
+          "mean_reach_reward": 2.7539073382791006,
+          "n": 13,
+          "reach_success_rate": 0.38461538461538464,
+          "semantic_counts": {
+            "cautious_probe_required": 1,
+            "forward_walk_unreliable_on_soft_terrain": 6,
+            "no_meaningful_progress": 1,
+            "reached_but_failed_to_hold": 5
+          },
+          "std_reach_reward": 3.9458195338427635,
+          "theta_action": {
+            "body_height": 0.31,
+            "goal_slow_distance": 0.28,
+            "goal_stop_distance": 0.16,
+            "name": "trot_low_body_probe",
+            "swing_clearance": 0.05,
+            "vx_far": 0.1,
+            "vx_near": 0.05
+          },
+          "world_name": "tracer_sponge_firm_flat"
+        },
+        {
+          "action_name": "trot_soft_ultraslow",
+          "best_hold_reward": 0.0,
+          "best_reach_reward": 7.703880568101422,
+          "hold_success_rate": 0.0,
+          "last_reach_reward": 7.4003578910354175,
+          "mean_hold_reward": -4.227099862637503,
+          "mean_reach_reward": 2.254046397079511,
+          "n": 27,
+          "reach_success_rate": 0.6666666666666666,
+          "semantic_counts": {
+            "cautious_probe_required": 4,
+            "forward_walk_unreliable_on_soft_terrain": 7,
+            "reached_but_failed_to_hold": 16
+          },
+          "std_reach_reward": 5.160997982928831,
+          "theta_action": {
+            "body_height": 0.34,
+            "goal_slow_distance": 0.45,
+            "goal_stop_distance": 0.2,
+            "name": "trot_soft_ultraslow",
+            "swing_clearance": 0.09,
+            "vx_far": 0.035,
+            "vx_near": 0.015
+          },
+          "world_name": "tracer_sponge_firm_flat"
+        },
+        {
+          "action_name": "trot_brake_near_goal",
+          "best_hold_reward": 0.0,
+          "best_reach_reward": 6.734470651909985,
+          "hold_success_rate": 0.0,
+          "last_reach_reward": 6.374391280090256,
+          "mean_hold_reward": -2.5868432179130965,
+          "mean_reach_reward": -1.240178620583358,
+          "n": 13,
+          "reach_success_rate": 0.3076923076923077,
+          "semantic_counts": {
+            "cautious_probe_required": 2,
+            "forward_walk_unreliable_on_soft_terrain": 6,
+            "no_meaningful_progress": 1,
+            "reached_but_failed_to_hold": 4
+          },
+          "std_reach_reward": 5.056822604031158,
+          "theta_action": {
+            "body_height": 0.33,
+            "goal_slow_distance": 0.5,
+            "goal_stop_distance": 0.2,
+            "name": "trot_brake_near_goal",
+            "swing_clearance": 0.06,
+            "vx_far": 0.1,
+            "vx_near": 0.015
+          },
+          "world_name": "tracer_sponge_firm_flat"
+        }
+      ],
+      "top_k": 5
+    }
+  }
+}

@@ -1,0 +1,402 @@
+{
+  "best_epoch": 2500,
+  "best_val_mse": 0.00011015184281859547,
+  "dataset": "data/phase_b_theta_residual_actor_v1b_multimode/phase_b_theta_residual_actor_seed_v1b_multimode.jsonl",
+  "group_summary": [
+    {
+      "group": "earth::balanced::trot_cautious -> trot_mid",
+      "mse_mean": 4.848109659941738e-06,
+      "n": 5
+    },
+    {
+      "group": "earth::balanced::trot_mid -> trot_mid",
+      "mse_mean": 4.794232969425911e-06,
+      "n": 12
+    },
+    {
+      "group": "earth::balanced::trot_soft_mid_clear -> trot_mid",
+      "mse_mean": 3.31491342610475e-06,
+      "n": 5
+    },
+    {
+      "group": "earth::balanced::trot_solid_fast -> trot_mid",
+      "mse_mean": 2.6295523133388122e-06,
+      "n": 14
+    },
+    {
+      "group": "earth::reach::trot_cautious -> trot_solid_fast",
+      "mse_mean": 0.00048317819393645345,
+      "n": 5
+    },
+    {
+      "group": "earth::reach::trot_mid -> trot_solid_fast",
+      "mse_mean": 1.3598353024239947e-05,
+      "n": 12
+    },
+    {
+      "group": "earth::reach::trot_soft_mid_clear -> trot_solid_fast",
+      "mse_mean": 5.145291393146773e-05,
+      "n": 5
+    },
+    {
+      "group": "earth::reach::trot_solid_fast -> trot_solid_fast",
+      "mse_mean": 6.731807788749217e-06,
+      "n": 14
+    },
+    {
+      "group": "earth::stability::trot_cautious -> trot_mid",
+      "mse_mean": 3.5179254754705188e-06,
+      "n": 5
+    },
+    {
+      "group": "earth::stability::trot_mid -> trot_mid",
+      "mse_mean": 5.808979449975726e-06,
+      "n": 12
+    },
+    {
+      "group": "earth::stability::trot_soft_mid_clear -> trot_mid",
+      "mse_mean": 5.066458640177778e-06,
+      "n": 5
+    },
+    {
+      "group": "earth::stability::trot_solid_fast -> trot_mid",
+      "mse_mean": 3.081561111297637e-06,
+      "n": 14
+    },
+    {
+      "group": "stairs_single::balanced::trot_cautious -> trot_solid_fast",
+      "mse_mean": 1.6287477584261324e-05,
+      "n": 5
+    },
+    {
+      "group": "stairs_single::balanced::trot_mid -> trot_solid_fast",
+      "mse_mean": 5.075962833971264e-06,
+      "n": 10
+    },
+    {
+      "group": "stairs_single::balanced::trot_soft_mid_clear -> trot_solid_fast",
+      "mse_mean": 2.4243966413979917e-05,
+      "n": 5
+    },
+    {
+      "group": "stairs_single::balanced::trot_solid_fast -> trot_solid_fast",
+      "mse_mean": 4.249296494529517e-06,
+      "n": 16
+    },
+    {
+      "group": "stairs_single::reach::trot_cautious -> trot_solid_fast",
+      "mse_mean": 2.2105108967159903e-05,
+      "n": 5
+    },
+    {
+      "group": "stairs_single::reach::trot_mid -> trot_solid_fast",
+      "mse_mean": 5.506372924631173e-06,
+      "n": 10
+    },
+    {
+      "group": "stairs_single::reach::trot_soft_mid_clear -> trot_solid_fast",
+      "mse_mean": 1.8621728878531973e-05,
+      "n": 5
+    },
+    {
+      "group": "stairs_single::reach::trot_solid_fast -> trot_solid_fast",
+      "mse_mean": 4.976718750200935e-06,
+      "n": 16
+    },
+    {
+      "group": "stairs_single::stability::trot_cautious -> trot_mid",
+      "mse_mean": 4.147555467547381e-05,
+      "n": 5
+    },
+    {
+      "group": "stairs_single::stability::trot_mid -> trot_mid",
+      "mse_mean": 3.2273838508494986e-05,
+      "n": 10
+    },
+    {
+      "group": "stairs_single::stability::trot_soft_mid_clear -> trot_mid",
+      "mse_mean": 6.283670300978202e-06,
+      "n": 5
+    },
+    {
+      "group": "stairs_single::stability::trot_solid_fast -> trot_mid",
+      "mse_mean": 5.541975240262238e-06,
+      "n": 16
+    },
+    {
+      "group": "tracer_sponge_firm_flat::balanced::sponge_mid_brake_clear -> sponge_v8b_reach_bias",
+      "mse_mean": 4.307690167061919e-05,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::balanced::sponge_probe_crawlish -> sponge_v8b_reach_bias",
+      "mse_mean": 7.66731110117402e-06,
+      "n": 19
+    },
+    {
+      "group": "tracer_sponge_firm_flat::balanced::sponge_reach_then_brake -> sponge_v8b_reach_bias",
+      "mse_mean": 2.0166321147320077e-06,
+      "n": 22
+    },
+    {
+      "group": "tracer_sponge_firm_flat::balanced::sponge_short_step_stable -> sponge_v8b_reach_bias",
+      "mse_mean": 0.0004944473767146263,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::balanced::sponge_slow_high_clear -> sponge_v8b_reach_bias",
+      "mse_mean": 1.9337385085971592e-05,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::balanced::sponge_v8_anchor_mix_top3 -> sponge_v8b_reach_bias",
+      "mse_mean": 0.0003855203506638964,
+      "n": 10
+    },
+    {
+      "group": "tracer_sponge_firm_flat::balanced::sponge_v8b_probe_reach_fast -> sponge_v8b_reach_bias",
+      "mse_mean": 0.00014905278587123245,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::balanced::sponge_v8b_reach_bias -> sponge_v8b_reach_bias",
+      "mse_mean": 5.807507551399512e-05,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::balanced::sponge_v8b_reach_bias_fast -> sponge_v8b_reach_bias",
+      "mse_mean": 4.7249928366612285e-05,
+      "n": 10
+    },
+    {
+      "group": "tracer_sponge_firm_flat::balanced::sponge_v8b_reach_stabilized -> sponge_v8b_reach_bias",
+      "mse_mean": 7.61918851551531e-05,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::balanced::sponge_v8b_soft_reach -> sponge_v8b_reach_bias",
+      "mse_mean": 0.0001909209187298663,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::balanced::sponge_v8c_far_fast_early_stop -> sponge_v8b_reach_bias",
+      "mse_mean": 3.110222977050249e-05,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::balanced::sponge_v8c_mid_fast_early_stop -> sponge_v8b_reach_bias",
+      "mse_mean": 0.0003565046517961757,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::balanced::sponge_v8c_soft_stop -> sponge_v8b_reach_bias",
+      "mse_mean": 7.748473995286567e-05,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::balanced::trot_cautious -> sponge_v8b_reach_bias",
+      "mse_mean": 6.24916329217366e-05,
+      "n": 16
+    },
+    {
+      "group": "tracer_sponge_firm_flat::balanced::trot_mid -> sponge_v8b_reach_bias",
+      "mse_mean": 0.0003958523719672742,
+      "n": 17
+    },
+    {
+      "group": "tracer_sponge_firm_flat::balanced::trot_soft_mid_clear -> sponge_v8b_reach_bias",
+      "mse_mean": 1.0372176270093197e-05,
+      "n": 32
+    },
+    {
+      "group": "tracer_sponge_firm_flat::balanced::trot_solid_fast -> sponge_v8b_reach_bias",
+      "mse_mean": 4.313613306308087e-05,
+      "n": 10
+    },
+    {
+      "group": "tracer_sponge_firm_flat::reach::sponge_mid_brake_clear -> sponge_v8b_reach_stabilized",
+      "mse_mean": 7.762746550384876e-05,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::reach::sponge_probe_crawlish -> sponge_v8b_reach_stabilized",
+      "mse_mean": 2.6355820570353136e-05,
+      "n": 19
+    },
+    {
+      "group": "tracer_sponge_firm_flat::reach::sponge_reach_then_brake -> sponge_v8b_reach_stabilized",
+      "mse_mean": 4.3536280123658405e-05,
+      "n": 22
+    },
+    {
+      "group": "tracer_sponge_firm_flat::reach::sponge_short_step_stable -> sponge_v8b_reach_stabilized",
+      "mse_mean": 0.0005715852925325008,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::reach::sponge_slow_high_clear -> sponge_v8b_reach_stabilized",
+      "mse_mean": 6.609334905287251e-05,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::reach::sponge_v8_anchor_mix_top3 -> sponge_v8b_reach_stabilized",
+      "mse_mean": 0.0005567020428954172,
+      "n": 10
+    },
+    {
+      "group": "tracer_sponge_firm_flat::reach::sponge_v8b_probe_reach_fast -> sponge_v8b_reach_stabilized",
+      "mse_mean": 0.00017253085789563968,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::reach::sponge_v8b_reach_bias -> sponge_v8b_reach_stabilized",
+      "mse_mean": 9.174067025053915e-05,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::reach::sponge_v8b_reach_bias_fast -> sponge_v8b_reach_stabilized",
+      "mse_mean": 5.587588134228871e-05,
+      "n": 10
+    },
+    {
+      "group": "tracer_sponge_firm_flat::reach::sponge_v8b_reach_stabilized -> sponge_v8b_reach_stabilized",
+      "mse_mean": 7.271850526860432e-05,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::reach::sponge_v8b_soft_reach -> sponge_v8b_reach_stabilized",
+      "mse_mean": 0.000436044443347162,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::reach::sponge_v8c_far_fast_early_stop -> sponge_v8b_reach_stabilized",
+      "mse_mean": 0.00019844212936384175,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::reach::sponge_v8c_mid_fast_early_stop -> sponge_v8b_reach_stabilized",
+      "mse_mean": 0.0001772873890828337,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::reach::sponge_v8c_soft_stop -> sponge_v8b_reach_stabilized",
+      "mse_mean": 0.0006266330111540293,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::reach::trot_cautious -> sponge_v8b_reach_stabilized",
+      "mse_mean": 0.00016229030789412124,
+      "n": 16
+    },
+    {
+      "group": "tracer_sponge_firm_flat::reach::trot_mid -> sponge_v8b_reach_stabilized",
+      "mse_mean": 0.0002867436352581274,
+      "n": 17
+    },
+    {
+      "group": "tracer_sponge_firm_flat::reach::trot_soft_mid_clear -> sponge_v8b_reach_stabilized",
+      "mse_mean": 1.2611989692845951e-05,
+      "n": 32
+    },
+    {
+      "group": "tracer_sponge_firm_flat::reach::trot_solid_fast -> sponge_v8b_reach_stabilized",
+      "mse_mean": 7.475679904842508e-05,
+      "n": 10
+    },
+    {
+      "group": "tracer_sponge_firm_flat::stability::sponge_mid_brake_clear -> sponge_slow_high_clear",
+      "mse_mean": 7.186625806437738e-05,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::stability::sponge_probe_crawlish -> sponge_slow_high_clear",
+      "mse_mean": 4.817480243720941e-05,
+      "n": 19
+    },
+    {
+      "group": "tracer_sponge_firm_flat::stability::sponge_reach_then_brake -> sponge_slow_high_clear",
+      "mse_mean": 1.9099706940141264e-05,
+      "n": 22
+    },
+    {
+      "group": "tracer_sponge_firm_flat::stability::sponge_short_step_stable -> sponge_slow_high_clear",
+      "mse_mean": 0.0014541666285460848,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::stability::sponge_slow_high_clear -> sponge_slow_high_clear",
+      "mse_mean": 3.689909904953136e-05,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::stability::sponge_v8_anchor_mix_top3 -> sponge_slow_high_clear",
+      "mse_mean": 0.00026829086424266677,
+      "n": 10
+    },
+    {
+      "group": "tracer_sponge_firm_flat::stability::sponge_v8b_probe_reach_fast -> sponge_slow_high_clear",
+      "mse_mean": 5.432089577557487e-05,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::stability::sponge_v8b_reach_bias -> sponge_slow_high_clear",
+      "mse_mean": 4.326939701954752e-05,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::stability::sponge_v8b_reach_bias_fast -> sponge_slow_high_clear",
+      "mse_mean": 0.00018691461864109356,
+      "n": 10
+    },
+    {
+      "group": "tracer_sponge_firm_flat::stability::sponge_v8b_reach_stabilized -> sponge_slow_high_clear",
+      "mse_mean": 9.561999522115486e-05,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::stability::sponge_v8b_soft_reach -> sponge_slow_high_clear",
+      "mse_mean": 0.00025039923466300723,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::stability::sponge_v8c_far_fast_early_stop -> sponge_slow_high_clear",
+      "mse_mean": 1.2626250420854584e-05,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::stability::sponge_v8c_mid_fast_early_stop -> sponge_slow_high_clear",
+      "mse_mean": 0.00021701129596951729,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::stability::sponge_v8c_soft_stop -> sponge_slow_high_clear",
+      "mse_mean": 0.0002517477138497594,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::stability::trot_cautious -> sponge_slow_high_clear",
+      "mse_mean": 2.814212584358799e-05,
+      "n": 16
+    },
+    {
+      "group": "tracer_sponge_firm_flat::stability::trot_mid -> sponge_slow_high_clear",
+      "mse_mean": 1.6472275991838586e-05,
+      "n": 17
+    },
+    {
+      "group": "tracer_sponge_firm_flat::stability::trot_soft_mid_clear -> sponge_slow_high_clear",
+      "mse_mean": 1.3021444143180305e-05,
+      "n": 32
+    },
+    {
+      "group": "tracer_sponge_firm_flat::stability::trot_solid_fast -> sponge_slow_high_clear",
+      "mse_mean": 0.0009617894241230082,
+      "n": 10
+    }
+  ],
+  "input_dim": 16,
+  "rows": 774,
+  "schema": "phase_b_theta_residual_actor_train_report_v1b_multimode",
+  "train_rows": 620,
+  "val_rows": 154
+}
