@@ -1,0 +1,16 @@
+{
+  "schema": "phase_b_theta_residual_actor_v0_eval",
+  "teacher_json": "configs/phase_b_theta_residual_actor_v0/ppo_warmstart_teacher_table_theta_residual_actor_v0.json",
+  "reward_config": "configs/phase_b_reward_v0/tracer_slide_reward_proxy_v0.json",
+  "worlds": ["tracer_sponge_firm_flat"],
+  "actions": [
+    "theta_actor_v0_sponge_from_trot_soft_mid_clear",
+    "theta_actor_v0_sponge_from_sponge_reach_then_brake",
+    "theta_actor_v0_sponge_from_sponge_probe_crawlish"
+  ],
+  "repeats_per_world_action": 5,
+  "record_duration": 35.0,
+  "sample_hz": 20.0,
+  "runner_timeout": 180.0,
+  "goal_distance_ahead": 0.5
+}
