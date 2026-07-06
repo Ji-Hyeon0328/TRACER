@@ -137,7 +137,7 @@ def main():
     for leg, topic in FOOT_TOPICS.items():
         rospy.Subscriber(topic, WrenchStamped, make_contact_cb(leg), queue_size=1)
 
-    rate = rospy.Rate(PUB_HZ)
+    sleep_dt = 1.0 / max(PUB_HZ, 1e-6)
     seq = 0
 
     rospy.loginfo("TRACER ROS1 state UDP sender -> %s:%d", UDP_IP, UDP_PORT)
@@ -170,7 +170,7 @@ def main():
         data = json.dumps(packet, separators=(",", ":")).encode("utf-8")
         sock.sendto(data, (UDP_IP, UDP_PORT))
         seq += 1
-        rate.sleep()
+        time.sleep(sleep_dt)
 
 
 if __name__ == "__main__":
