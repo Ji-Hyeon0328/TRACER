@@ -1,0 +1,53 @@
+{
+  "by_action": {
+    "tracer_sponge_firm_flat::sponge_slow_high_clear": {
+      "deploy_valid_success_rate_v1c": 0.0,
+      "hard_invalid_rate": 0.2,
+      "mean_deploy_valid_score_v1c": -1.0999177931345914,
+      "mean_drift_proxy": 1.8401557089115783,
+      "mean_final_dist": 1.9521812637588654,
+      "n": 5,
+      "reach_rate": 0.6,
+      "valid_success_rate_v1b_compatible": 0.0,
+      "warning_rate": 0.6
+    },
+    "tracer_sponge_firm_flat::sponge_v1d_bias_late_hold_025_013": {
+      "deploy_valid_success_rate_v1c": 0.0,
+      "hard_invalid_rate": 0.0,
+      "mean_deploy_valid_score_v1c": 0.09377184022355385,
+      "mean_drift_proxy": 1.9344234760944903,
+      "mean_final_dist": 2.0222491656737382,
+      "n": 5,
+      "reach_rate": 0.8,
+      "valid_success_rate_v1b_compatible": 0.0,
+      "warning_rate": 0.2
+    },
+    "tracer_sponge_firm_flat::sponge_v1d_stabilized_late_hold_035_016": {
+      "deploy_valid_success_rate_v1c": 0.0,
+      "hard_invalid_rate": 0.2,
+      "mean_deploy_valid_score_v1c": 0.11794538837250838,
+      "mean_drift_proxy": 1.537411180447457,
+      "mean_final_dist": 1.712548404149319,
+      "n": 5,
+      "reach_rate": 0.8,
+      "valid_success_rate_v1b_compatible": 0.0,
+      "warning_rate": 0.4
+    },
+    "tracer_sponge_firm_flat::sponge_v8b_reach_bias": {
+      "deploy_valid_success_rate_v1c": 0.0,
+      "hard_invalid_rate": 0.4,
+      "mean_deploy_valid_score_v1c": 0.5809050068870233,
+      "mean_drift_proxy": 0.8658932754845733,
+      "mean_final_dist": 1.0808453159226268,
+      "n": 5,
+      "reach_rate": 0.6,
+      "valid_success_rate_v1b_compatible": 0.2,
+      "warning_rate": 0.4
+    }
+  },
+  "deploy_valid_success_rate_v1c": 0.0,
+  "input": "data/phase_b_invalid_gait_labels_v1/sponge_state_audit_v1_invalid_gait_labels_v1b_calibrated.jsonl",
+  "mean_deploy_valid_score_v1c": -0.0768238894128765,
+  "num_episodes": 20,
+  "schema": "phase_b_validity_episode_label_report_v1c"
+}
