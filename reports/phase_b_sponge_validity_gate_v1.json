@@ -1,0 +1,71 @@
+{
+  "decision_note": "No deploy-valid sponge primitive found in the current frozen low-level theta-lite action bank. Use reach-safe probe only for data collection, not as a deployable traversal primitive.",
+  "deploy_valid_available": false,
+  "recommended_deploy_action": null,
+  "recommended_low_drift_risky_probe": "tracer_sponge_firm_flat::sponge_v8b_reach_bias",
+  "recommended_reach_safe_probe": "tracer_sponge_firm_flat::sponge_v1d_bias_late_hold_025_013",
+  "recovery_needed": true,
+  "rows": [
+    {
+      "deploy_valid_score_v1c": 0.5809050068870233,
+      "deploy_valid_success_rate_v1c": 0.0,
+      "hard_invalid_rate": 0.4,
+      "is_deploy_valid": false,
+      "is_low_drift_risky": true,
+      "is_reach_safe_probe": false,
+      "mean_drift_proxy": 0.8658932754845733,
+      "mean_final_dist": 1.0808453159226268,
+      "reach_rate": 0.6,
+      "reject_or_recovery_needed": false,
+      "validity_aware_score_v1b": 0.5790851968243576,
+      "warning_rate": 0.4,
+      "world_action": "tracer_sponge_firm_flat::sponge_v8b_reach_bias"
+    },
+    {
+      "deploy_valid_score_v1c": 0.11794538837250838,
+      "deploy_valid_success_rate_v1c": 0.0,
+      "hard_invalid_rate": 0.2,
+      "is_deploy_valid": false,
+      "is_low_drift_risky": false,
+      "is_reach_safe_probe": false,
+      "mean_drift_proxy": 1.537411180447457,
+      "mean_final_dist": 1.712548404149319,
+      "reach_rate": 0.8,
+      "reject_or_recovery_needed": false,
+      "validity_aware_score_v1b": 0.16091091457835316,
+      "warning_rate": 0.4,
+      "world_action": "tracer_sponge_firm_flat::sponge_v1d_stabilized_late_hold_035_016"
+    },
+    {
+      "deploy_valid_score_v1c": 0.09377184022355385,
+      "deploy_valid_success_rate_v1c": 0.0,
+      "hard_invalid_rate": 0.0,
+      "is_deploy_valid": false,
+      "is_low_drift_risky": false,
+      "is_reach_safe_probe": true,
+      "mean_drift_proxy": 1.9344234760944903,
+      "mean_final_dist": 2.0222491656737382,
+      "reach_rate": 0.8,
+      "reject_or_recovery_needed": false,
+      "validity_aware_score_v1b": 0.015840606745799013,
+      "warning_rate": 0.2,
+      "world_action": "tracer_sponge_firm_flat::sponge_v1d_bias_late_hold_025_013"
+    },
+    {
+      "deploy_valid_score_v1c": -1.0999177931345914,
+      "deploy_valid_success_rate_v1c": 0.0,
+      "hard_invalid_rate": 0.2,
+      "is_deploy_valid": false,
+      "is_low_drift_risky": false,
+      "is_reach_safe_probe": false,
+      "mean_drift_proxy": 1.8401557089115783,
+      "mean_final_dist": 1.9521812637588654,
+      "reach_rate": 0.6,
+      "reject_or_recovery_needed": true,
+      "validity_aware_score_v1b": -1.202823896348869,
+      "warning_rate": 0.6,
+      "world_action": "tracer_sponge_firm_flat::sponge_slow_high_clear"
+    }
+  ],
+  "schema": "phase_b_sponge_validity_gate_v1"
+}
