@@ -1,0 +1,13 @@
+{
+  "schema": "phase_b_beta_aware_v8_selected_eval",
+  "description": "Evaluate v8 selected action on sponge.",
+  "teacher_json": "configs/phase_b_anchor_mixture_v8/ppo_warmstart_teacher_table_anchor_mixture_v8c_phase_scheduled.json",
+  "reward_config": "configs/phase_b_reward_v0/tracer_slide_reward_proxy_v0.json",
+  "worlds": ["tracer_sponge_firm_flat"],
+  "actions": ["sponge_v8c_far_fast_early_stop"],
+  "repeats_per_world_action": 5,
+  "record_duration": 35.0,
+  "sample_hz": 20.0,
+  "runner_timeout": 180.0,
+  "goal_distance_ahead": 0.5
+}
