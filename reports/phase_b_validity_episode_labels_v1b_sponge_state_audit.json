@@ -1,0 +1,49 @@
+{
+  "by_action": {
+    "tracer_sponge_firm_flat::sponge_slow_high_clear": {
+      "hard_invalid_rate": 0.2,
+      "mean_drift_proxy": 1.8401557089115783,
+      "mean_final_dist": 1.9521812637588654,
+      "mean_valid_score_v1b": 1.015897541377249,
+      "n": 5,
+      "reach_rate": 0.6,
+      "valid_success_rate_v1b": 0.0,
+      "warning_rate": 0.6
+    },
+    "tracer_sponge_firm_flat::sponge_v1d_bias_late_hold_025_013": {
+      "hard_invalid_rate": 0.0,
+      "mean_drift_proxy": 1.9344234760944903,
+      "mean_final_dist": 2.0222491656737382,
+      "mean_valid_score_v1b": 2.3007687289937273,
+      "n": 5,
+      "reach_rate": 0.8,
+      "valid_success_rate_v1b": 0.0,
+      "warning_rate": 0.2
+    },
+    "tracer_sponge_firm_flat::sponge_v1d_stabilized_late_hold_035_016": {
+      "hard_invalid_rate": 0.2,
+      "mean_drift_proxy": 1.537411180447457,
+      "mean_final_dist": 1.712548404149319,
+      "mean_valid_score_v1b": 1.6598995584473162,
+      "n": 5,
+      "reach_rate": 0.8,
+      "valid_success_rate_v1b": 0.0,
+      "warning_rate": 0.4
+    },
+    "tracer_sponge_firm_flat::sponge_v8b_reach_bias": {
+      "hard_invalid_rate": 0.4,
+      "mean_drift_proxy": 0.8658932754845733,
+      "mean_final_dist": 1.0808453159226268,
+      "mean_valid_score_v1b": 1.0625232972773975,
+      "n": 5,
+      "reach_rate": 0.6,
+      "valid_success_rate_v1b": 0.2,
+      "warning_rate": 0.4
+    }
+  },
+  "input": "data/phase_b_invalid_gait_labels_v1/sponge_state_audit_v1_invalid_gait_labels_v1b_calibrated.jsonl",
+  "mean_valid_score_v1b": 1.5097722815239227,
+  "num_episodes": 20,
+  "schema": "phase_b_validity_episode_label_report_v1b",
+  "valid_success_rate_v1b": 0.05
+}
