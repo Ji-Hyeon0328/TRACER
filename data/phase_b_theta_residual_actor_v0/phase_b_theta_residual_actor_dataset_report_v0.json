@@ -1,0 +1,56 @@
+{
+  "best_by_world": {
+    "earth": {
+      "score_task_beta": 1.0,
+      "target_action": "trot_mid"
+    },
+    "stairs_single": {
+      "score_task_beta": 1.0,
+      "target_action": "trot_solid_fast"
+    },
+    "tracer_sponge_firm_flat": {
+      "score_task_beta": 0.7097176084585661,
+      "target_action": "sponge_v8c_far_fast_early_stop"
+    }
+  },
+  "beta_report": "reports/phase_b_objective_selector_beta_v2_anchor_mixture_merged.json",
+  "by_world_anchor": {
+    "earth::trot_cautious": 5,
+    "earth::trot_mid": 12,
+    "earth::trot_soft_mid_clear": 5,
+    "earth::trot_solid_fast": 14,
+    "stairs_single::trot_cautious": 5,
+    "stairs_single::trot_mid": 10,
+    "stairs_single::trot_soft_mid_clear": 5,
+    "stairs_single::trot_solid_fast": 16,
+    "tracer_sponge_firm_flat::sponge_mid_brake_clear": 5,
+    "tracer_sponge_firm_flat::sponge_probe_crawlish": 19,
+    "tracer_sponge_firm_flat::sponge_reach_then_brake": 22,
+    "tracer_sponge_firm_flat::sponge_short_step_stable": 5,
+    "tracer_sponge_firm_flat::sponge_slow_high_clear": 5,
+    "tracer_sponge_firm_flat::sponge_v8_anchor_mix_top3": 10,
+    "tracer_sponge_firm_flat::sponge_v8b_probe_reach_fast": 5,
+    "tracer_sponge_firm_flat::sponge_v8b_reach_bias": 5,
+    "tracer_sponge_firm_flat::sponge_v8b_reach_bias_fast": 10,
+    "tracer_sponge_firm_flat::sponge_v8b_reach_stabilized": 5,
+    "tracer_sponge_firm_flat::sponge_v8b_soft_reach": 5,
+    "tracer_sponge_firm_flat::sponge_v8c_far_fast_early_stop": 5,
+    "tracer_sponge_firm_flat::sponge_v8c_mid_fast_early_stop": 5,
+    "tracer_sponge_firm_flat::sponge_v8c_soft_stop": 5,
+    "tracer_sponge_firm_flat::trot_cautious": 16,
+    "tracer_sponge_firm_flat::trot_mid": 17,
+    "tracer_sponge_firm_flat::trot_soft_mid_clear": 32,
+    "tracer_sponge_firm_flat::trot_solid_fast": 10
+  },
+  "by_world_target": {
+    "earth::trot_mid": 36,
+    "stairs_single::trot_solid_fast": 36,
+    "tracer_sponge_firm_flat::sponge_v8c_far_fast_early_stop": 186
+  },
+  "rollouts": "data/phase_b_training_pipeline_v6_anchor_mixture_merged/phase_b_rollout_index_v1.jsonl",
+  "rows": 258,
+  "schema": "phase_b_theta_residual_actor_dataset_report_v0",
+  "skipped": {},
+  "task_beta_report": "reports/phase_b_task_beta_reward_v1_anchor_mixture_merged.json",
+  "teacher_json": "configs/phase_b_anchor_mixture_v8/ppo_warmstart_teacher_table_anchor_mixture_v8c_phase_scheduled.json"
+}
