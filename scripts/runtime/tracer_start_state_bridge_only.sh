@@ -30,7 +30,7 @@ source /opt/ros/melodic/setup.bash
 source /root/unitree_ws/devel/setup.bash 2>/dev/null || true
 source /root/A1_ctrl_ws/devel/setup.bash 2>/dev/null || true
 chmod +x ${ROS1_SENDER_DOCKER}
-python3 ${ROS1_SENDER_DOCKER} \
+python ${ROS1_SENDER_DOCKER} \
   _udp_ip:=127.0.0.1 \
   _udp_port:=${UDP_PORT} \
   _pub_hz:=50.0 \
