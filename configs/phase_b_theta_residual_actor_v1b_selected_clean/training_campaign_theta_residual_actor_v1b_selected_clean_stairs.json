@@ -1,0 +1,17 @@
+{
+  "actions": [
+    "theta_actor_v1b_stairs_reach_from_trot_mid"
+  ],
+  "description": "Clean rerun of v1b mode-selected theta residual actor with more repeats.",
+  "goal_distance_ahead": 0.5,
+  "record_duration": 35.0,
+  "repeats_per_world_action": 10,
+  "reward_config": "configs/phase_b_reward_v0/tracer_slide_reward_proxy_v0.json",
+  "runner_timeout": 180.0,
+  "sample_hz": 20.0,
+  "schema": "phase_b_theta_residual_actor_v1b_selected_clean_eval",
+  "teacher_json": "configs/phase_b_theta_residual_actor_v1b_multimode/ppo_warmstart_teacher_table_theta_residual_actor_v1b_multimode.json",
+  "worlds": [
+    "stairs_single"
+  ]
+}
