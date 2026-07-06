@@ -1,0 +1,402 @@
+{
+  "best_epoch": 2500,
+  "best_val_mse": 0.00015662467922084033,
+  "dataset": "data/phase_b_theta_residual_actor_v1_multimode/phase_b_theta_residual_actor_seed_v1_multimode.jsonl",
+  "group_summary": [
+    {
+      "group": "earth::balanced::trot_cautious -> trot_mid",
+      "mse_mean": 1.5626142941509827e-05,
+      "n": 5
+    },
+    {
+      "group": "earth::balanced::trot_mid -> trot_mid",
+      "mse_mean": 2.815518977640337e-06,
+      "n": 12
+    },
+    {
+      "group": "earth::balanced::trot_soft_mid_clear -> trot_mid",
+      "mse_mean": 7.040922669825526e-06,
+      "n": 5
+    },
+    {
+      "group": "earth::balanced::trot_solid_fast -> trot_mid",
+      "mse_mean": 1.546441185726641e-06,
+      "n": 14
+    },
+    {
+      "group": "earth::reach::trot_cautious -> trot_solid_fast",
+      "mse_mean": 0.0006554322827212019,
+      "n": 5
+    },
+    {
+      "group": "earth::reach::trot_mid -> trot_solid_fast",
+      "mse_mean": 1.0962433501373686e-05,
+      "n": 12
+    },
+    {
+      "group": "earth::reach::trot_soft_mid_clear -> trot_solid_fast",
+      "mse_mean": 7.351348126302924e-05,
+      "n": 5
+    },
+    {
+      "group": "earth::reach::trot_solid_fast -> trot_solid_fast",
+      "mse_mean": 2.4325101618425957e-06,
+      "n": 14
+    },
+    {
+      "group": "earth::stability::trot_cautious -> trot_mid",
+      "mse_mean": 1.6269977545837737e-05,
+      "n": 5
+    },
+    {
+      "group": "earth::stability::trot_mid -> trot_mid",
+      "mse_mean": 4.042105798582525e-06,
+      "n": 12
+    },
+    {
+      "group": "earth::stability::trot_soft_mid_clear -> trot_mid",
+      "mse_mean": 3.2695790318560146e-05,
+      "n": 5
+    },
+    {
+      "group": "earth::stability::trot_solid_fast -> trot_mid",
+      "mse_mean": 4.068094700994423e-06,
+      "n": 14
+    },
+    {
+      "group": "stairs_single::balanced::trot_cautious -> trot_solid_fast",
+      "mse_mean": 5.39351691385462e-05,
+      "n": 5
+    },
+    {
+      "group": "stairs_single::balanced::trot_mid -> trot_solid_fast",
+      "mse_mean": 6.491099184769176e-06,
+      "n": 10
+    },
+    {
+      "group": "stairs_single::balanced::trot_soft_mid_clear -> trot_solid_fast",
+      "mse_mean": 0.00010126620819231272,
+      "n": 5
+    },
+    {
+      "group": "stairs_single::balanced::trot_solid_fast -> trot_solid_fast",
+      "mse_mean": 5.560784104083932e-06,
+      "n": 16
+    },
+    {
+      "group": "stairs_single::reach::trot_cautious -> trot_solid_fast",
+      "mse_mean": 4.9308986417954374e-05,
+      "n": 5
+    },
+    {
+      "group": "stairs_single::reach::trot_mid -> trot_solid_fast",
+      "mse_mean": 9.65645122428958e-06,
+      "n": 10
+    },
+    {
+      "group": "stairs_single::reach::trot_soft_mid_clear -> trot_solid_fast",
+      "mse_mean": 2.1735168303294462e-05,
+      "n": 5
+    },
+    {
+      "group": "stairs_single::reach::trot_solid_fast -> trot_solid_fast",
+      "mse_mean": 4.6610479532825115e-06,
+      "n": 16
+    },
+    {
+      "group": "stairs_single::stability::trot_cautious -> trot_mid",
+      "mse_mean": 0.0001924138761373996,
+      "n": 5
+    },
+    {
+      "group": "stairs_single::stability::trot_mid -> trot_mid",
+      "mse_mean": 7.443415479866965e-05,
+      "n": 10
+    },
+    {
+      "group": "stairs_single::stability::trot_soft_mid_clear -> trot_mid",
+      "mse_mean": 9.443069997537371e-05,
+      "n": 5
+    },
+    {
+      "group": "stairs_single::stability::trot_solid_fast -> trot_mid",
+      "mse_mean": 7.1680777607436685e-06,
+      "n": 16
+    },
+    {
+      "group": "tracer_sponge_firm_flat::balanced::sponge_mid_brake_clear -> sponge_v8c_far_fast_early_stop",
+      "mse_mean": 0.00018678189377684226,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::balanced::sponge_probe_crawlish -> sponge_v8c_far_fast_early_stop",
+      "mse_mean": 5.3463725842639444e-05,
+      "n": 19
+    },
+    {
+      "group": "tracer_sponge_firm_flat::balanced::sponge_reach_then_brake -> sponge_v8c_far_fast_early_stop",
+      "mse_mean": 2.9635578115383927e-05,
+      "n": 22
+    },
+    {
+      "group": "tracer_sponge_firm_flat::balanced::sponge_short_step_stable -> sponge_v8c_far_fast_early_stop",
+      "mse_mean": 0.0009066051352613688,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::balanced::sponge_slow_high_clear -> sponge_v8c_far_fast_early_stop",
+      "mse_mean": 0.00023962240907082633,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::balanced::sponge_v8_anchor_mix_top3 -> sponge_v8c_far_fast_early_stop",
+      "mse_mean": 0.0006584646176265915,
+      "n": 10
+    },
+    {
+      "group": "tracer_sponge_firm_flat::balanced::sponge_v8b_probe_reach_fast -> sponge_v8c_far_fast_early_stop",
+      "mse_mean": 0.00038732375377244574,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::balanced::sponge_v8b_reach_bias -> sponge_v8c_far_fast_early_stop",
+      "mse_mean": 0.0001817060662627143,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::balanced::sponge_v8b_reach_bias_fast -> sponge_v8c_far_fast_early_stop",
+      "mse_mean": 0.00020748078989118315,
+      "n": 10
+    },
+    {
+      "group": "tracer_sponge_firm_flat::balanced::sponge_v8b_reach_stabilized -> sponge_v8c_far_fast_early_stop",
+      "mse_mean": 0.00015172306485419912,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::balanced::sponge_v8b_soft_reach -> sponge_v8c_far_fast_early_stop",
+      "mse_mean": 0.0005829639389457888,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::balanced::sponge_v8c_far_fast_early_stop -> sponge_v8c_far_fast_early_stop",
+      "mse_mean": 0.0001502879164144563,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::balanced::sponge_v8c_mid_fast_early_stop -> sponge_v8c_far_fast_early_stop",
+      "mse_mean": 0.00020691058890993293,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::balanced::sponge_v8c_soft_stop -> sponge_v8c_far_fast_early_stop",
+      "mse_mean": 0.00015215081065067429,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::balanced::trot_cautious -> sponge_v8c_far_fast_early_stop",
+      "mse_mean": 0.0005739491445099851,
+      "n": 16
+    },
+    {
+      "group": "tracer_sponge_firm_flat::balanced::trot_mid -> sponge_v8c_far_fast_early_stop",
+      "mse_mean": 0.00013747035194281858,
+      "n": 17
+    },
+    {
+      "group": "tracer_sponge_firm_flat::balanced::trot_soft_mid_clear -> sponge_v8c_far_fast_early_stop",
+      "mse_mean": 3.007815984775711e-05,
+      "n": 32
+    },
+    {
+      "group": "tracer_sponge_firm_flat::balanced::trot_solid_fast -> sponge_v8c_far_fast_early_stop",
+      "mse_mean": 2.460458909155933e-05,
+      "n": 10
+    },
+    {
+      "group": "tracer_sponge_firm_flat::reach::sponge_mid_brake_clear -> sponge_v8b_probe_reach_fast",
+      "mse_mean": 0.00035819915162947413,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::reach::sponge_probe_crawlish -> sponge_v8b_probe_reach_fast",
+      "mse_mean": 1.141609607732028e-05,
+      "n": 19
+    },
+    {
+      "group": "tracer_sponge_firm_flat::reach::sponge_reach_then_brake -> sponge_v8b_probe_reach_fast",
+      "mse_mean": 9.006190008954207e-05,
+      "n": 22
+    },
+    {
+      "group": "tracer_sponge_firm_flat::reach::sponge_short_step_stable -> sponge_v8b_probe_reach_fast",
+      "mse_mean": 0.001237981107029552,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::reach::sponge_slow_high_clear -> sponge_v8b_probe_reach_fast",
+      "mse_mean": 0.0002097198632893815,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::reach::sponge_v8_anchor_mix_top3 -> sponge_v8b_probe_reach_fast",
+      "mse_mean": 0.0003185722994988922,
+      "n": 10
+    },
+    {
+      "group": "tracer_sponge_firm_flat::reach::sponge_v8b_probe_reach_fast -> sponge_v8b_probe_reach_fast",
+      "mse_mean": 0.0003596774563506028,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::reach::sponge_v8b_reach_bias -> sponge_v8b_probe_reach_fast",
+      "mse_mean": 0.00015941298926069,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::reach::sponge_v8b_reach_bias_fast -> sponge_v8b_probe_reach_fast",
+      "mse_mean": 9.983239339836503e-05,
+      "n": 10
+    },
+    {
+      "group": "tracer_sponge_firm_flat::reach::sponge_v8b_reach_stabilized -> sponge_v8b_probe_reach_fast",
+      "mse_mean": 0.00013689414158449018,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::reach::sponge_v8b_soft_reach -> sponge_v8b_probe_reach_fast",
+      "mse_mean": 0.0003462800281311409,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::reach::sponge_v8c_far_fast_early_stop -> sponge_v8b_probe_reach_fast",
+      "mse_mean": 6.959529828562637e-05,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::reach::sponge_v8c_mid_fast_early_stop -> sponge_v8b_probe_reach_fast",
+      "mse_mean": 0.00033614936601554925,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::reach::sponge_v8c_soft_stop -> sponge_v8b_probe_reach_fast",
+      "mse_mean": 0.0008367071947251387,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::reach::trot_cautious -> sponge_v8b_probe_reach_fast",
+      "mse_mean": 0.0003655356212359093,
+      "n": 16
+    },
+    {
+      "group": "tracer_sponge_firm_flat::reach::trot_mid -> sponge_v8b_probe_reach_fast",
+      "mse_mean": 0.000638195018999093,
+      "n": 17
+    },
+    {
+      "group": "tracer_sponge_firm_flat::reach::trot_soft_mid_clear -> sponge_v8b_probe_reach_fast",
+      "mse_mean": 1.3754125166917171e-05,
+      "n": 32
+    },
+    {
+      "group": "tracer_sponge_firm_flat::reach::trot_solid_fast -> sponge_v8b_probe_reach_fast",
+      "mse_mean": 1.753181636747914e-05,
+      "n": 10
+    },
+    {
+      "group": "tracer_sponge_firm_flat::stability::sponge_mid_brake_clear -> sponge_v8_anchor_mix_top3",
+      "mse_mean": 0.000245181739839677,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::stability::sponge_probe_crawlish -> sponge_v8_anchor_mix_top3",
+      "mse_mean": 1.5232157285474283e-05,
+      "n": 19
+    },
+    {
+      "group": "tracer_sponge_firm_flat::stability::sponge_reach_then_brake -> sponge_v8_anchor_mix_top3",
+      "mse_mean": 3.5821624544462385e-05,
+      "n": 22
+    },
+    {
+      "group": "tracer_sponge_firm_flat::stability::sponge_short_step_stable -> sponge_v8_anchor_mix_top3",
+      "mse_mean": 0.0008825068303431209,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::stability::sponge_slow_high_clear -> sponge_v8_anchor_mix_top3",
+      "mse_mean": 0.0002394708321639267,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::stability::sponge_v8_anchor_mix_top3 -> sponge_v8_anchor_mix_top3",
+      "mse_mean": 0.0003547174956166327,
+      "n": 10
+    },
+    {
+      "group": "tracer_sponge_firm_flat::stability::sponge_v8b_probe_reach_fast -> sponge_v8_anchor_mix_top3",
+      "mse_mean": 0.00013240997340044719,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::stability::sponge_v8b_reach_bias -> sponge_v8_anchor_mix_top3",
+      "mse_mean": 8.501914902794815e-05,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::stability::sponge_v8b_reach_bias_fast -> sponge_v8_anchor_mix_top3",
+      "mse_mean": 4.082054186523424e-05,
+      "n": 10
+    },
+    {
+      "group": "tracer_sponge_firm_flat::stability::sponge_v8b_reach_stabilized -> sponge_v8_anchor_mix_top3",
+      "mse_mean": 4.672720880258765e-05,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::stability::sponge_v8b_soft_reach -> sponge_v8_anchor_mix_top3",
+      "mse_mean": 0.00040697865982666776,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::stability::sponge_v8c_far_fast_early_stop -> sponge_v8_anchor_mix_top3",
+      "mse_mean": 0.00010154933764196235,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::stability::sponge_v8c_mid_fast_early_stop -> sponge_v8_anchor_mix_top3",
+      "mse_mean": 0.00012585275341410462,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::stability::sponge_v8c_soft_stop -> sponge_v8_anchor_mix_top3",
+      "mse_mean": 0.000451337953146669,
+      "n": 5
+    },
+    {
+      "group": "tracer_sponge_firm_flat::stability::trot_cautious -> sponge_v8_anchor_mix_top3",
+      "mse_mean": 0.00017465708922908063,
+      "n": 16
+    },
+    {
+      "group": "tracer_sponge_firm_flat::stability::trot_mid -> sponge_v8_anchor_mix_top3",
+      "mse_mean": 0.00014995183068546627,
+      "n": 17
+    },
+    {
+      "group": "tracer_sponge_firm_flat::stability::trot_soft_mid_clear -> sponge_v8_anchor_mix_top3",
+      "mse_mean": 5.8890873935350106e-05,
+      "n": 32
+    },
+    {
+      "group": "tracer_sponge_firm_flat::stability::trot_solid_fast -> sponge_v8_anchor_mix_top3",
+      "mse_mean": 0.0007060101500019903,
+      "n": 10
+    }
+  ],
+  "input_dim": 16,
+  "rows": 774,
+  "schema": "phase_b_theta_residual_actor_train_report_v1_multimode",
+  "train_rows": 620,
+  "val_rows": 154
+}

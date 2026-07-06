@@ -1,0 +1,1509 @@
+{
+  "by_action": {
+    "theta_actor_v1_earth_balanced_from_trot_solid_fast": {
+      "best_final_rel_dist": 0.1873381511476394,
+      "best_min_rel_dist": 0.14677031561893483,
+      "mean_R_e": -0.44454995236132183,
+      "mean_R_s": 2.442594768917579,
+      "mean_R_v": 9.104211302396713,
+      "mean_final_rel_dist": 0.21353071490267883,
+      "mean_hold_reward": 1.3696798648566617,
+      "mean_min_rel_dist": 0.14906002102911947,
+      "mean_post_reach_drift": 0.06447069387355935,
+      "mean_reach_reward": 5.583695577750002,
+      "mean_time_to_reach": 0.05,
+      "mean_tracer_proxy_reward": 7.62753075963694,
+      "n": 5,
+      "reach_rate": 1.0
+    },
+    "theta_actor_v1_earth_reach_from_trot_mid": {
+      "best_final_rel_dist": 0.21194438892884798,
+      "best_min_rel_dist": 0.1427385413981513,
+      "mean_R_e": -0.7514973792903754,
+      "mean_R_s": 2.4168653606738504,
+      "mean_R_v": 9.11359167617073,
+      "mean_final_rel_dist": 0.2286867624225529,
+      "mean_hold_reward": 1.3377179935146728,
+      "mean_min_rel_dist": 0.14749662540011652,
+      "mean_post_reach_drift": 0.08119013702243641,
+      "mean_reach_reward": 5.599058356173714,
+      "mean_time_to_reach": 0.05,
+      "mean_tracer_proxy_reward": 7.615828276073143,
+      "n": 5,
+      "reach_rate": 1.0
+    },
+    "theta_actor_v1_earth_stability_from_trot_solid_fast": {
+      "best_final_rel_dist": 0.16869986607816673,
+      "best_min_rel_dist": 0.14878031191520438,
+      "mean_R_e": -0.5117215581719438,
+      "mean_R_s": 2.23867580286609,
+      "mean_R_v": 9.102239127060296,
+      "mean_final_rel_dist": 0.20014920741088119,
+      "mean_hold_reward": 1.3389231299346875,
+      "mean_min_rel_dist": 0.14941726290595486,
+      "mean_post_reach_drift": 0.05073194450492635,
+      "mean_reach_reward": 5.582018151953676,
+      "mean_time_to_reach": 0.04,
+      "mean_tracer_proxy_reward": 7.592006594169554,
+      "n": 5,
+      "reach_rate": 1.0
+    },
+    "theta_actor_v1_sponge_balanced_from_trot_soft_mid_clear": {
+      "best_final_rel_dist": 0.530381841787487,
+      "best_min_rel_dist": 0.053454908389169845,
+      "mean_R_e": -0.3380703703555479,
+      "mean_R_s": -2.295173924394619,
+      "mean_R_v": 5.898135743390304,
+      "mean_final_rel_dist": 3.1659847337676252,
+      "mean_hold_reward": -6.089803473368541,
+      "mean_min_rel_dist": 0.2730840945285127,
+      "mean_post_reach_drift": 2.8929006392391123,
+      "mean_reach_reward": 3.1348596357231036,
+      "mean_time_to_reach": 0.050023843586075346,
+      "mean_tracer_proxy_reward": 2.718667053978288,
+      "n": 5,
+      "reach_rate": 0.6
+    },
+    "theta_actor_v1_sponge_reach_from_trot_soft_mid_clear": {
+      "best_final_rel_dist": 2.2524501587321004,
+      "best_min_rel_dist": 0.1254891281191971,
+      "mean_R_e": -0.526609887515368,
+      "mean_R_s": -2.741070142417545,
+      "mean_R_v": 4.425342816655877,
+      "mean_final_rel_dist": 3.1162368469430533,
+      "mean_hold_reward": -6.016569762281944,
+      "mean_min_rel_dist": 0.2725791895879831,
+      "mean_post_reach_drift": 2.8436576573550703,
+      "mean_reach_reward": 1.9921703957098411,
+      "mean_time_to_reach": 0.05,
+      "mean_tracer_proxy_reward": 1.6695006457716173,
+      "n": 5,
+      "reach_rate": 0.2
+    },
+    "theta_actor_v1_sponge_stability_from_trot_soft_mid_clear": {
+      "best_final_rel_dist": 1.8893285834142681,
+      "best_min_rel_dist": 0.0568664693600624,
+      "mean_R_e": -0.3554913543600135,
+      "mean_R_s": -2.360729254704848,
+      "mean_R_v": 7.110207463771265,
+      "mean_final_rel_dist": 3.116032676270211,
+      "mean_hold_reward": -5.990346745316058,
+      "mean_min_rel_dist": 0.16874108464889748,
+      "mean_post_reach_drift": 2.947291591621313,
+      "mean_reach_reward": 4.1754724068871125,
+      "mean_time_to_reach": 0.05000000000000001,
+      "mean_tracer_proxy_reward": 3.422094671398061,
+      "n": 5,
+      "reach_rate": 0.6
+    },
+    "theta_actor_v1_stairs_balanced_from_trot_mid": {
+      "best_final_rel_dist": 0.06530925278422753,
+      "best_min_rel_dist": 0.016861631492266813,
+      "mean_R_e": -0.8108000873312757,
+      "mean_R_s": 1.9907768013682436,
+      "mean_R_v": 9.495500766821422,
+      "mean_final_rel_dist": 0.36683984164330613,
+      "mean_hold_reward": 0.9693520953747073,
+      "mean_min_rel_dist": 0.08389272933928697,
+      "mean_post_reach_drift": 0.2829471123040191,
+      "mean_reach_reward": 6.213444882486314,
+      "mean_time_to_reach": 0.04,
+      "mean_tracer_proxy_reward": 7.254099212059555,
+      "n": 5,
+      "reach_rate": 1.0
+    },
+    "theta_actor_v1_stairs_reach_from_trot_mid": {
+      "best_final_rel_dist": 0.13052568151978872,
+      "best_min_rel_dist": 0.003070560557248671,
+      "mean_R_e": -0.895908721978177,
+      "mean_R_s": 1.9455199535582708,
+      "mean_R_v": 9.578270456269813,
+      "mean_final_rel_dist": 0.22833397222404156,
+      "mean_hold_reward": 1.184485111840725,
+      "mean_min_rel_dist": 0.07005016205026952,
+      "mean_post_reach_drift": 0.15828381017377208,
+      "mean_reach_reward": 6.337643912238488,
+      "mean_time_to_reach": 0.05,
+      "mean_tracer_proxy_reward": 7.299028881733757,
+      "n": 5,
+      "reach_rate": 1.0
+    },
+    "theta_actor_v1_stairs_stability_from_trot_solid_fast": {
+      "best_final_rel_dist": 0.03418589532532563,
+      "best_min_rel_dist": 0.024139529323813618,
+      "mean_R_e": -0.6144265279017124,
+      "mean_R_s": 1.8949296758400418,
+      "mean_R_v": 9.519035553741912,
+      "mean_final_rel_dist": 0.23774443714223809,
+      "mean_hold_reward": 1.1831530897569924,
+      "mean_min_rel_dist": 0.0799702648525383,
+      "mean_post_reach_drift": 0.15777417228969978,
+      "mean_reach_reward": 6.245124727091383,
+      "mean_time_to_reach": 0.04,
+      "mean_tracer_proxy_reward": 7.258818097742302,
+      "n": 5,
+      "reach_rate": 1.0
+    }
+  },
+  "by_world": {
+    "earth": {
+      "best_final_rel_dist": 0.16869986607816673,
+      "best_min_rel_dist": 0.1427385413981513,
+      "mean_R_e": -0.5692562966078805,
+      "mean_R_s": 2.3660453108191737,
+      "mean_R_v": 9.106680701875915,
+      "mean_final_rel_dist": 0.21412222824537094,
+      "mean_hold_reward": 1.348773662768674,
+      "mean_min_rel_dist": 0.14865796977839693,
+      "mean_post_reach_drift": 0.06546425846697404,
+      "mean_reach_reward": 5.588257361959131,
+      "mean_time_to_reach": 0.04666666666666667,
+      "mean_tracer_proxy_reward": 7.611788543293213,
+      "n": 15,
+      "reach_rate": 1.0
+    },
+    "stairs_single": {
+      "best_final_rel_dist": 0.03418589532532563,
+      "best_min_rel_dist": 0.003070560557248671,
+      "mean_R_e": -0.7737117790703884,
+      "mean_R_s": 1.943742143588852,
+      "mean_R_v": 9.530935592277716,
+      "mean_final_rel_dist": 0.2776394170031953,
+      "mean_hold_reward": 1.112330098990808,
+      "mean_min_rel_dist": 0.07797105208069827,
+      "mean_post_reach_drift": 0.199668364922497,
+      "mean_reach_reward": 6.265404507272062,
+      "mean_time_to_reach": 0.043333333333333335,
+      "mean_tracer_proxy_reward": 7.27064873051187,
+      "n": 15,
+      "reach_rate": 1.0
+    },
+    "tracer_sponge_firm_flat": {
+      "best_final_rel_dist": 0.530381841787487,
+      "best_min_rel_dist": 0.053454908389169845,
+      "mean_R_e": -0.4067238707436432,
+      "mean_R_s": -2.465657773839004,
+      "mean_R_v": 5.811228674605816,
+      "mean_final_rel_dist": 3.1327514189936294,
+      "mean_hold_reward": -6.032239993655514,
+      "mean_min_rel_dist": 0.23813478958846437,
+      "mean_post_reach_drift": 2.8946166294051654,
+      "mean_reach_reward": 3.1008341461066857,
+      "mean_time_to_reach": 0.050010218679746574,
+      "mean_tracer_proxy_reward": 2.6034207903826556,
+      "n": 15,
+      "reach_rate": 0.4666666666666667
+    }
+  },
+  "by_world_action": {
+    "earth::theta_actor_v1_earth_balanced_from_trot_solid_fast": {
+      "best_final_rel_dist": 0.1873381511476394,
+      "best_min_rel_dist": 0.14677031561893483,
+      "mean_R_e": -0.44454995236132183,
+      "mean_R_s": 2.442594768917579,
+      "mean_R_v": 9.104211302396713,
+      "mean_final_rel_dist": 0.21353071490267883,
+      "mean_hold_reward": 1.3696798648566617,
+      "mean_min_rel_dist": 0.14906002102911947,
+      "mean_post_reach_drift": 0.06447069387355935,
+      "mean_reach_reward": 5.583695577750002,
+      "mean_time_to_reach": 0.05,
+      "mean_tracer_proxy_reward": 7.62753075963694,
+      "n": 5,
+      "reach_rate": 1.0
+    },
+    "earth::theta_actor_v1_earth_reach_from_trot_mid": {
+      "best_final_rel_dist": 0.21194438892884798,
+      "best_min_rel_dist": 0.1427385413981513,
+      "mean_R_e": -0.7514973792903754,
+      "mean_R_s": 2.4168653606738504,
+      "mean_R_v": 9.11359167617073,
+      "mean_final_rel_dist": 0.2286867624225529,
+      "mean_hold_reward": 1.3377179935146728,
+      "mean_min_rel_dist": 0.14749662540011652,
+      "mean_post_reach_drift": 0.08119013702243641,
+      "mean_reach_reward": 5.599058356173714,
+      "mean_time_to_reach": 0.05,
+      "mean_tracer_proxy_reward": 7.615828276073143,
+      "n": 5,
+      "reach_rate": 1.0
+    },
+    "earth::theta_actor_v1_earth_stability_from_trot_solid_fast": {
+      "best_final_rel_dist": 0.16869986607816673,
+      "best_min_rel_dist": 0.14878031191520438,
+      "mean_R_e": -0.5117215581719438,
+      "mean_R_s": 2.23867580286609,
+      "mean_R_v": 9.102239127060296,
+      "mean_final_rel_dist": 0.20014920741088119,
+      "mean_hold_reward": 1.3389231299346875,
+      "mean_min_rel_dist": 0.14941726290595486,
+      "mean_post_reach_drift": 0.05073194450492635,
+      "mean_reach_reward": 5.582018151953676,
+      "mean_time_to_reach": 0.04,
+      "mean_tracer_proxy_reward": 7.592006594169554,
+      "n": 5,
+      "reach_rate": 1.0
+    },
+    "stairs_single::theta_actor_v1_stairs_balanced_from_trot_mid": {
+      "best_final_rel_dist": 0.06530925278422753,
+      "best_min_rel_dist": 0.016861631492266813,
+      "mean_R_e": -0.8108000873312757,
+      "mean_R_s": 1.9907768013682436,
+      "mean_R_v": 9.495500766821422,
+      "mean_final_rel_dist": 0.36683984164330613,
+      "mean_hold_reward": 0.9693520953747073,
+      "mean_min_rel_dist": 0.08389272933928697,
+      "mean_post_reach_drift": 0.2829471123040191,
+      "mean_reach_reward": 6.213444882486314,
+      "mean_time_to_reach": 0.04,
+      "mean_tracer_proxy_reward": 7.254099212059555,
+      "n": 5,
+      "reach_rate": 1.0
+    },
+    "stairs_single::theta_actor_v1_stairs_reach_from_trot_mid": {
+      "best_final_rel_dist": 0.13052568151978872,
+      "best_min_rel_dist": 0.003070560557248671,
+      "mean_R_e": -0.895908721978177,
+      "mean_R_s": 1.9455199535582708,
+      "mean_R_v": 9.578270456269813,
+      "mean_final_rel_dist": 0.22833397222404156,
+      "mean_hold_reward": 1.184485111840725,
+      "mean_min_rel_dist": 0.07005016205026952,
+      "mean_post_reach_drift": 0.15828381017377208,
+      "mean_reach_reward": 6.337643912238488,
+      "mean_time_to_reach": 0.05,
+      "mean_tracer_proxy_reward": 7.299028881733757,
+      "n": 5,
+      "reach_rate": 1.0
+    },
+    "stairs_single::theta_actor_v1_stairs_stability_from_trot_solid_fast": {
+      "best_final_rel_dist": 0.03418589532532563,
+      "best_min_rel_dist": 0.024139529323813618,
+      "mean_R_e": -0.6144265279017124,
+      "mean_R_s": 1.8949296758400418,
+      "mean_R_v": 9.519035553741912,
+      "mean_final_rel_dist": 0.23774443714223809,
+      "mean_hold_reward": 1.1831530897569924,
+      "mean_min_rel_dist": 0.0799702648525383,
+      "mean_post_reach_drift": 0.15777417228969978,
+      "mean_reach_reward": 6.245124727091383,
+      "mean_time_to_reach": 0.04,
+      "mean_tracer_proxy_reward": 7.258818097742302,
+      "n": 5,
+      "reach_rate": 1.0
+    },
+    "tracer_sponge_firm_flat::theta_actor_v1_sponge_balanced_from_trot_soft_mid_clear": {
+      "best_final_rel_dist": 0.530381841787487,
+      "best_min_rel_dist": 0.053454908389169845,
+      "mean_R_e": -0.3380703703555479,
+      "mean_R_s": -2.295173924394619,
+      "mean_R_v": 5.898135743390304,
+      "mean_final_rel_dist": 3.1659847337676252,
+      "mean_hold_reward": -6.089803473368541,
+      "mean_min_rel_dist": 0.2730840945285127,
+      "mean_post_reach_drift": 2.8929006392391123,
+      "mean_reach_reward": 3.1348596357231036,
+      "mean_time_to_reach": 0.050023843586075346,
+      "mean_tracer_proxy_reward": 2.718667053978288,
+      "n": 5,
+      "reach_rate": 0.6
+    },
+    "tracer_sponge_firm_flat::theta_actor_v1_sponge_reach_from_trot_soft_mid_clear": {
+      "best_final_rel_dist": 2.2524501587321004,
+      "best_min_rel_dist": 0.1254891281191971,
+      "mean_R_e": -0.526609887515368,
+      "mean_R_s": -2.741070142417545,
+      "mean_R_v": 4.425342816655877,
+      "mean_final_rel_dist": 3.1162368469430533,
+      "mean_hold_reward": -6.016569762281944,
+      "mean_min_rel_dist": 0.2725791895879831,
+      "mean_post_reach_drift": 2.8436576573550703,
+      "mean_reach_reward": 1.9921703957098411,
+      "mean_time_to_reach": 0.05,
+      "mean_tracer_proxy_reward": 1.6695006457716173,
+      "n": 5,
+      "reach_rate": 0.2
+    },
+    "tracer_sponge_firm_flat::theta_actor_v1_sponge_stability_from_trot_soft_mid_clear": {
+      "best_final_rel_dist": 1.8893285834142681,
+      "best_min_rel_dist": 0.0568664693600624,
+      "mean_R_e": -0.3554913543600135,
+      "mean_R_s": -2.360729254704848,
+      "mean_R_v": 7.110207463771265,
+      "mean_final_rel_dist": 3.116032676270211,
+      "mean_hold_reward": -5.990346745316058,
+      "mean_min_rel_dist": 0.16874108464889748,
+      "mean_post_reach_drift": 2.947291591621313,
+      "mean_reach_reward": 4.1754724068871125,
+      "mean_time_to_reach": 0.05000000000000001,
+      "mean_tracer_proxy_reward": 3.422094671398061,
+      "n": 5,
+      "reach_rate": 0.6
+    }
+  },
+  "interpretation": {
+    "auxiliary_limitation_metrics": [
+      "final_rel_dist",
+      "post_reach_drift",
+      "hold_reward",
+      "R_s"
+    ],
+    "controller_scope": "Low-level controller is frozen. Post-reach hold failures are reported as limitations rather than high-level traversal failures.",
+    "main_claim": "Reach-terminated evaluation treats goal-neighborhood arrival as the high-level planner success condition.",
+    "main_metrics": [
+      "reached_stop_distance",
+      "min_rel_dist",
+      "time_to_reach",
+      "R_v"
+    ]
+  },
+  "num_rows": 45,
+  "overall": {
+    "best_final_rel_dist": 0.03418589532532563,
+    "best_min_rel_dist": 0.003070560557248671,
+    "mean_R_e": -0.5832306488073039,
+    "mean_R_s": 0.6147098935230072,
+    "mean_R_v": 8.149614989586484,
+    "mean_final_rel_dist": 1.2081710214140657,
+    "mean_hold_reward": -1.190378743965344,
+    "mean_min_rel_dist": 0.1549212704825199,
+    "mean_post_reach_drift": 1.0532497509315455,
+    "mean_reach_reward": 4.984832005112626,
+    "mean_time_to_reach": 0.045947879209681804,
+    "mean_tracer_proxy_reward": 5.828619354729246,
+    "n": 45,
+    "reach_rate": 0.8222222222222222
+  },
+  "policy_name": "tracer_theta_residual_actor_v1_multimode",
+  "result_root": "artifacts/phase_b_theta_residual_actor_v1_multimode_eval",
+  "reward_config": "configs/phase_b_reward_v0/tracer_slide_reward_proxy_v0.json",
+  "rows": [
+    {
+      "final_rel_dist": 0.1985854792149233,
+      "hold_reward": 1.364629894860671,
+      "min_rel_dist": 0.14677031561893483,
+      "policy_name": "tracer_theta_residual_actor_v1_multimode",
+      "post_reach_drift": 0.05181516359598848,
+      "reach_reward": 5.601939405274614,
+      "reached_stop_distance": true,
+      "selected_action_name": "theta_actor_v1_earth_balanced_from_trot_solid_fast",
+      "source": "artifacts/phase_b_theta_residual_actor_v1_multimode_eval/earth/earth/theta_actor_v1_earth_balanced_from_trot_solid_fast/ep000/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.600497666384475,
+      "tracer_terms": {
+        "R_e": -0.5103915389153226,
+        "R_s": 2.2110507696265698,
+        "R_v": 9.11794953485782
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.24931891328867048,
+      "hold_reward": 1.30579037992566,
+      "min_rel_dist": 0.14922644778536984,
+      "policy_name": "tracer_theta_residual_actor_v1_multimode",
+      "post_reach_drift": 0.10009246550330064,
+      "reach_reward": 5.5830985690044095,
+      "reached_stop_distance": true,
+      "selected_action_name": "theta_actor_v1_earth_balanced_from_trot_solid_fast",
+      "source": "artifacts/phase_b_theta_residual_actor_v1_multimode_eval/earth/earth/theta_actor_v1_earth_balanced_from_trot_solid_fast/ep001/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.610929783943838,
+      "tracer_terms": {
+        "R_e": -0.4493317366735848,
+        "R_s": 2.3388411819343315,
+        "R_v": 9.10321274185921
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.23629485261893904,
+      "hold_reward": 1.3509674803226863,
+      "min_rel_dist": 0.14986765206668076,
+      "policy_name": "tracer_theta_residual_actor_v1_multimode",
+      "post_reach_drift": 0.08642720055225828,
+      "reach_reward": 5.576384155427098,
+      "reached_stop_distance": true,
+      "selected_action_name": "theta_actor_v1_earth_balanced_from_trot_solid_fast",
+      "source": "artifacts/phase_b_theta_residual_actor_v1_multimode_eval/earth/earth/theta_actor_v1_earth_balanced_from_trot_solid_fast/ep002/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.640346605240173,
+      "tracer_terms": {
+        "R_e": -0.4118704868322738,
+        "R_s": 2.542984777631402,
+        "R_v": 9.099365516171344
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.1961161782432219,
+      "hold_reward": 1.429821198600465,
+      "min_rel_dist": 0.14947103471112985,
+      "policy_name": "tracer_theta_residual_actor_v1_multimode",
+      "post_reach_drift": 0.04664514353209204,
+      "reach_reward": 5.581653924221158,
+      "reached_stop_distance": true,
+      "selected_action_name": "theta_actor_v1_earth_balanced_from_trot_solid_fast",
+      "source": "artifacts/phase_b_theta_residual_actor_v1_multimode_eval/earth/earth/theta_actor_v1_earth_balanced_from_trot_solid_fast/ep003/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.667504295155834,
+      "tracer_terms": {
+        "R_e": -0.3994649378075943,
+        "R_s": 2.707209105349954,
+        "R_v": 9.10174522030465
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.1873381511476394,
+      "hold_reward": 1.3971903705738262,
+      "min_rel_dist": 0.1499646549634821,
+      "policy_name": "tracer_theta_residual_actor_v1_multimode",
+      "post_reach_drift": 0.03737349618415731,
+      "reach_reward": 5.575401834822733,
+      "reached_stop_distance": true,
+      "selected_action_name": "theta_actor_v1_earth_balanced_from_trot_solid_fast",
+      "source": "artifacts/phase_b_theta_residual_actor_v1_multimode_eval/earth/earth/theta_actor_v1_earth_balanced_from_trot_solid_fast/ep004/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.618375447460384,
+      "tracer_terms": {
+        "R_e": -0.45169106157783395,
+        "R_s": 2.4128880100456382,
+        "R_v": 9.098783498790537
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.23335811640030882,
+      "hold_reward": 1.3606718219196114,
+      "min_rel_dist": 0.1427385413981513,
+      "policy_name": "tracer_theta_residual_actor_v1_multimode",
+      "post_reach_drift": 0.09061957500215753,
+      "reach_reward": 5.644824093303933,
+      "reached_stop_distance": true,
+      "selected_action_name": "theta_actor_v1_earth_reach_from_trot_mid",
+      "source": "artifacts/phase_b_theta_residual_actor_v1_multimode_eval/earth/earth/theta_actor_v1_earth_reach_from_trot_mid/ep000/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.661042161107408,
+      "tracer_terms": {
+        "R_e": -0.717337190755835,
+        "R_s": 2.5546458433278874,
+        "R_v": 9.14214018018252
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.22239271630886454,
+      "hold_reward": 1.3266662948342003,
+      "min_rel_dist": 0.14916490720400608,
+      "policy_name": "tracer_theta_residual_actor_v1_multimode",
+      "post_reach_drift": 0.07322780910485846,
+      "reach_reward": 5.581423580523127,
+      "reached_stop_distance": true,
+      "selected_action_name": "theta_actor_v1_earth_reach_from_trot_mid",
+      "source": "artifacts/phase_b_theta_residual_actor_v1_multimode_eval/earth/earth/theta_actor_v1_earth_reach_from_trot_mid/ep001/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.599837809831846,
+      "tracer_terms": {
+        "R_e": -0.7588022274387558,
+        "R_s": 2.3660822195058038,
+        "R_v": 9.103581985347391
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.23730267237190125,
+      "hold_reward": 1.285888700957257,
+      "min_rel_dist": 0.14933954420603532,
+      "policy_name": "tracer_theta_residual_actor_v1_multimode",
+      "post_reach_drift": 0.08796312816586593,
+      "reach_reward": 5.581393127493174,
+      "reached_stop_distance": true,
+      "selected_action_name": "theta_actor_v1_earth_reach_from_trot_mid",
+      "source": "artifacts/phase_b_theta_residual_actor_v1_multimode_eval/earth/earth/theta_actor_v1_earth_reach_from_trot_mid/ep002/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.5695613622842846,
+      "tracer_terms": {
+        "R_e": -0.808403356504218,
+        "R_s": 2.1863613296088134,
+        "R_v": 9.102534163335216
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.23843591810284198,
+      "hold_reward": 1.3670501806381792,
+      "min_rel_dist": 0.14709065485906067,
+      "policy_name": "tracer_theta_residual_actor_v1_multimode",
+      "post_reach_drift": 0.09134526324378131,
+      "reach_reward": 5.604447693199628,
+      "reached_stop_distance": true,
+      "selected_action_name": "theta_actor_v1_earth_reach_from_trot_mid",
+      "source": "artifacts/phase_b_theta_residual_actor_v1_multimode_eval/earth/earth/theta_actor_v1_earth_reach_from_trot_mid/ep003/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.64927490894185,
+      "tracer_terms": {
+        "R_e": -0.709935673962389,
+        "R_s": 2.6129979540421133,
+        "R_v": 9.116027499417065
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.21194438892884798,
+      "hold_reward": 1.348312969224116,
+      "min_rel_dist": 0.14914947933332917,
+      "policy_name": "tracer_theta_residual_actor_v1_multimode",
+      "post_reach_drift": 0.06279490959551881,
+      "reach_reward": 5.583203286348711,
+      "reached_stop_distance": true,
+      "selected_action_name": "theta_actor_v1_earth_reach_from_trot_mid",
+      "source": "artifacts/phase_b_theta_residual_actor_v1_multimode_eval/earth/earth/theta_actor_v1_earth_reach_from_trot_mid/ep004/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.599425138200324,
+      "tracer_terms": {
+        "R_e": -0.7630084477906796,
+        "R_s": 2.3642394568846354,
+        "R_v": 9.103674552571453
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.21515495096348675,
+      "hold_reward": 1.35274147942298,
+      "min_rel_dist": 0.14878031191520438,
+      "policy_name": "tracer_theta_residual_actor_v1_multimode",
+      "post_reach_drift": 0.06637463904828236,
+      "reach_reward": 5.58761113085268,
+      "reached_stop_distance": true,
+      "selected_action_name": "theta_actor_v1_earth_stability_from_trot_solid_fast",
+      "source": "artifacts/phase_b_theta_residual_actor_v1_multimode_eval/earth/earth/theta_actor_v1_earth_stability_from_trot_solid_fast/ep000/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.0,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.640078277731407,
+      "tracer_terms": {
+        "R_e": -0.4223040541341208,
+        "R_s": 2.502259850873958,
+        "R_v": 9.107318128508773
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.2129478503288006,
+      "hold_reward": 1.3507202562051022,
+      "min_rel_dist": 0.1496032300644589,
+      "policy_name": "tracer_theta_residual_actor_v1_multimode",
+      "post_reach_drift": 0.0633446202643417,
+      "reach_reward": 5.581789394277319,
+      "reached_stop_distance": true,
+      "selected_action_name": "theta_actor_v1_earth_stability_from_trot_solid_fast",
+      "source": "artifacts/phase_b_theta_residual_actor_v1_multimode_eval/earth/earth/theta_actor_v1_earth_stability_from_trot_solid_fast/ep001/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.605230121450942,
+      "tracer_terms": {
+        "R_e": -0.4675196243605758,
+        "R_s": 2.318963094141537,
+        "R_v": 9.100952048184675
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.20752279473950586,
+      "hold_reward": 1.2722933899225481,
+      "min_rel_dist": 0.1488515177000493,
+      "policy_name": "tracer_theta_residual_actor_v1_multimode",
+      "post_reach_drift": 0.05867127703945654,
+      "reach_reward": 5.588056346023308,
+      "reached_stop_distance": true,
+      "selected_action_name": "theta_actor_v1_earth_stability_from_trot_solid_fast",
+      "source": "artifacts/phase_b_theta_residual_actor_v1_multimode_eval/earth/earth/theta_actor_v1_earth_stability_from_trot_solid_fast/ep002/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.542766275237985,
+      "tracer_terms": {
+        "R_e": -0.6308809568757919,
+        "R_s": 1.9329364345657793,
+        "R_v": 9.105462322371134
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.19642057494444615,
+      "hold_reward": 1.3674171653673715,
+      "min_rel_dist": 0.1498078607408633,
+      "policy_name": "tracer_theta_residual_actor_v1_multimode",
+      "post_reach_drift": 0.046612714203582845,
+      "reach_reward": 5.578500048306698,
+      "reached_stop_distance": true,
+      "selected_action_name": "theta_actor_v1_earth_stability_from_trot_solid_fast",
+      "source": "artifacts/phase_b_theta_residual_actor_v1_multimode_eval/earth/earth/theta_actor_v1_earth_stability_from_trot_solid_fast/ep003/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.602983640168055,
+      "tracer_terms": {
+        "R_e": -0.47602780966633834,
+        "R_s": 2.313370795669141,
+        "R_v": 9.09972426412625
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.16869986607816673,
+      "hold_reward": 1.3514433587554362,
+      "min_rel_dist": 0.1500433941091984,
+      "policy_name": "tracer_theta_residual_actor_v1_multimode",
+      "post_reach_drift": 0.01865647196896833,
+      "reach_reward": 5.574133840308379,
+      "reached_stop_distance": true,
+      "selected_action_name": "theta_actor_v1_earth_stability_from_trot_solid_fast",
+      "source": "artifacts/phase_b_theta_residual_actor_v1_multimode_eval/earth/earth/theta_actor_v1_earth_stability_from_trot_solid_fast/ep004/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.568974656259381,
+      "tracer_terms": {
+        "R_e": -0.561875345822892,
+        "R_s": 2.125848839080035,
+        "R_v": 9.09773887211065
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.530381841787487,
+      "hold_reward": 0.7754494780208714,
+      "min_rel_dist": 0.47898090327867304,
+      "policy_name": "tracer_theta_residual_actor_v1_multimode",
+      "post_reach_drift": 0.051400938508814,
+      "reach_reward": -0.5534926220304002,
+      "reached_stop_distance": false,
+      "selected_action_name": "theta_actor_v1_sponge_balanced_from_trot_soft_mid_clear",
+      "source": "artifacts/phase_b_theta_residual_actor_v1_multimode_eval/sponge/tracer_sponge_firm_flat/theta_actor_v1_sponge_balanced_from_trot_soft_mid_clear/ep000/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 1.2835254087639405,
+      "tracer_terms": {
+        "R_e": -0.5248410482154039,
+        "R_s": 1.6121448131357994,
+        "R_v": 1.2425279609619684
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 2.9182603595206777,
+      "hold_reward": -5.599103492085787,
+      "min_rel_dist": 0.5006231314272068,
+      "policy_name": "tracer_theta_residual_actor_v1_multimode",
+      "post_reach_drift": 2.417637228093471,
+      "reach_reward": -0.7509346971408102,
+      "reached_stop_distance": false,
+      "selected_action_name": "theta_actor_v1_sponge_balanced_from_trot_soft_mid_clear",
+      "source": "artifacts/phase_b_theta_residual_actor_v1_multimode_eval/sponge/tracer_sponge_firm_flat/theta_actor_v1_sponge_balanced_from_trot_soft_mid_clear/ep001/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": -0.2900779460882484,
+      "tracer_terms": {
+        "R_e": -0.5248410482154039,
+        "R_s": -2.4656535737723866,
+        "R_v": 0.9985714285714286
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 3.943270241490567,
+      "hold_reward": -8.057564500544641,
+      "min_rel_dist": 0.18211137566882465,
+      "policy_name": "tracer_theta_residual_actor_v1_multimode",
+      "post_reach_drift": 3.7611588658217423,
+      "reach_reward": 5.251614696202884,
+      "reached_stop_distance": true,
+      "selected_action_name": "theta_actor_v1_sponge_balanced_from_trot_soft_mid_clear",
+      "source": "artifacts/phase_b_theta_residual_actor_v1_multimode_eval/sponge/tracer_sponge_firm_flat/theta_actor_v1_sponge_balanced_from_trot_soft_mid_clear/ep002/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 3.9404947689725764,
+      "tracer_terms": {
+        "R_e": -0.30000143339435753,
+        "R_s": -3.6288468276603782,
+        "R_v": 8.709318717205711
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 4.621599493034876,
+      "hold_reward": -9.903178554607782,
+      "min_rel_dist": 0.15025015387868904,
+      "policy_name": "tracer_theta_residual_actor_v1_multimode",
+      "post_reach_drift": 4.471349339156187,
+      "reach_reward": 5.246115007759689,
+      "reached_stop_distance": true,
+      "selected_action_name": "theta_actor_v1_sponge_balanced_from_trot_soft_mid_clear",
+      "source": "artifacts/phase_b_theta_residual_actor_v1_multimode_eval/sponge/tracer_sponge_firm_flat/theta_actor_v1_sponge_balanced_from_trot_soft_mid_clear/ep003/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 3.874079118715983,
+      "tracer_terms": {
+        "R_e": -0.30000143339435753,
+        "R_s": -4.081066328689918,
+        "R_v": 8.862420675711954
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 3.8164117330045166,
+      "hold_reward": -7.664620297625362,
+      "min_rel_dist": 0.053454908389169845,
+      "policy_name": "tracer_theta_residual_actor_v1_multimode",
+      "post_reach_drift": 3.7629568246153466,
+      "reach_reward": 6.480995793824155,
+      "reached_stop_distance": true,
+      "selected_action_name": "theta_actor_v1_sponge_balanced_from_trot_soft_mid_clear",
+      "source": "artifacts/phase_b_theta_residual_actor_v1_multimode_eval/sponge/tracer_sponge_firm_flat/theta_actor_v1_sponge_balanced_from_trot_soft_mid_clear/ep004/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05007153075822604,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 4.785313919527189,
+      "tracer_terms": {
+        "R_e": -0.04066688855821657,
+        "R_s": -2.9124477049862145,
+        "R_v": 9.67783993450046
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 3.3939529404185595,
+      "hold_reward": -6.781198754135194,
+      "min_rel_dist": 0.24885420810285575,
+      "policy_name": "tracer_theta_residual_actor_v1_multimode",
+      "post_reach_drift": 3.145098732315704,
+      "reach_reward": 1.578469287342351,
+      "reached_stop_distance": false,
+      "selected_action_name": "theta_actor_v1_sponge_reach_from_trot_soft_mid_clear",
+      "source": "artifacts/phase_b_theta_residual_actor_v1_multimode_eval/sponge/tracer_sponge_firm_flat/theta_actor_v1_sponge_reach_from_trot_soft_mid_clear/ep000/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 1.1714794034738927,
+      "tracer_terms": {
+        "R_e": -0.526609887515368,
+        "R_s": -3.262635293612373,
+        "R_v": 3.899553751023319
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 3.316394551956836,
+      "hold_reward": -6.575769693672857,
+      "min_rel_dist": 0.1254891281191971,
+      "policy_name": "tracer_theta_residual_actor_v1_multimode",
+      "post_reach_drift": 3.190905423837639,
+      "reach_reward": 5.781236528993858,
+      "reached_stop_distance": true,
+      "selected_action_name": "theta_actor_v1_sponge_reach_from_trot_soft_mid_clear",
+      "source": "artifacts/phase_b_theta_residual_actor_v1_multimode_eval/sponge/tracer_sponge_firm_flat/theta_actor_v1_sponge_reach_from_trot_soft_mid_clear/ep001/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 4.397226106081385,
+      "tracer_terms": {
+        "R_e": -0.526609887515368,
+        "R_s": -3.2109297013045572,
+        "R_v": 9.245636659856247
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 2.2524501587321004,
+      "hold_reward": -4.02097755864427,
+      "min_rel_dist": 0.3654483755318139,
+      "policy_name": "tracer_theta_residual_actor_v1_multimode",
+      "post_reach_drift": 1.8870017832002866,
+      "reach_reward": 0.5166904543857248,
+      "reached_stop_distance": false,
+      "selected_action_name": "theta_actor_v1_sponge_reach_from_trot_soft_mid_clear",
+      "source": "artifacts/phase_b_theta_residual_actor_v1_multimode_eval/sponge/tracer_sponge_firm_flat/theta_actor_v1_sponge_reach_from_trot_soft_mid_clear/ep002/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 0.9872779328477957,
+      "tracer_terms": {
+        "R_e": -0.526609887515368,
+        "R_s": -1.5036861220749707,
+        "R_v": 2.5664976165830065
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 3.882729746744997,
+      "hold_reward": -7.549776621085468,
+      "min_rel_dist": 0.19308057061738337,
+      "policy_name": "tracer_theta_residual_actor_v1_multimode",
+      "post_reach_drift": 3.6896491761276136,
+      "reach_reward": 2.158996803892669,
+      "reached_stop_distance": false,
+      "selected_action_name": "theta_actor_v1_sponge_reach_from_trot_soft_mid_clear",
+      "source": "artifacts/phase_b_theta_residual_actor_v1_multimode_eval/sponge/tracer_sponge_firm_flat/theta_actor_v1_sponge_reach_from_trot_soft_mid_clear/ep003/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 1.4981522730254797,
+      "tracer_terms": {
+        "R_e": -0.526609887515368,
+        "R_s": -3.511364582893647,
+        "R_v": 4.589100619023374
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 2.7356568368627734,
+      "hold_reward": -5.155126183871931,
+      "min_rel_dist": 0.4300236655686652,
+      "policy_name": "tracer_theta_residual_actor_v1_multimode",
+      "post_reach_drift": 2.305633171294108,
+      "reach_reward": -0.07454109606539805,
+      "reached_stop_distance": false,
+      "selected_action_name": "theta_actor_v1_sponge_reach_from_trot_soft_mid_clear",
+      "source": "artifacts/phase_b_theta_residual_actor_v1_multimode_eval/sponge/tracer_sponge_firm_flat/theta_actor_v1_sponge_reach_from_trot_soft_mid_clear/ep004/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 0.29336751342953193,
+      "tracer_terms": {
+        "R_e": -0.526609887515368,
+        "R_s": -2.216735012202177,
+        "R_v": 1.8259254367934372
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 3.4729887756501467,
+      "hold_reward": -7.012611613713597,
+      "min_rel_dist": 0.10048096026108556,
+      "policy_name": "tracer_theta_residual_actor_v1_multimode",
+      "post_reach_drift": 3.3725078153890613,
+      "reach_reward": 6.009913190681297,
+      "reached_stop_distance": true,
+      "selected_action_name": "theta_actor_v1_sponge_stability_from_trot_soft_mid_clear",
+      "source": "artifacts/phase_b_theta_residual_actor_v1_multimode_eval/sponge/tracer_sponge_firm_flat/theta_actor_v1_sponge_stability_from_trot_soft_mid_clear/ep000/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 4.456740048042669,
+      "tracer_terms": {
+        "R_e": -0.4061460901715771,
+        "R_s": -3.3153258504334313,
+        "R_v": 9.395685667004916
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 4.027601558747984,
+      "hold_reward": -8.465893268388228,
+      "min_rel_dist": 0.14926340878385727,
+      "policy_name": "tracer_theta_residual_actor_v1_multimode",
+      "post_reach_drift": 3.8783381499641263,
+      "reach_reward": 5.570509839813881,
+      "reached_stop_distance": true,
+      "selected_action_name": "theta_actor_v1_sponge_stability_from_trot_soft_mid_clear",
+      "source": "artifacts/phase_b_theta_residual_actor_v1_multimode_eval/sponge/tracer_sponge_firm_flat/theta_actor_v1_sponge_stability_from_trot_soft_mid_clear/ep001/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 4.149315706681055,
+      "tracer_terms": {
+        "R_e": -0.4061460901715771,
+        "R_s": -3.685067705831989,
+        "R_v": 9.098994513718049
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 1.8893285834142681,
+      "hold_reward": -2.646654464637837,
+      "min_rel_dist": 0.331255563875216,
+      "policy_name": "tracer_theta_residual_actor_v1_multimode",
+      "post_reach_drift": 1.5580730195390522,
+      "reach_reward": 0.8390729425219657,
+      "reached_stop_distance": false,
+      "selected_action_name": "theta_actor_v1_sponge_stability_from_trot_soft_mid_clear",
+      "source": "artifacts/phase_b_theta_residual_actor_v1_multimode_eval/sponge/tracer_sponge_firm_flat/theta_actor_v1_sponge_stability_from_trot_soft_mid_clear/ep002/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 1.5452751408395133,
+      "tracer_terms": {
+        "R_e": -0.4061460901715771,
+        "R_s": -0.6102659338417475,
+        "R_v": 2.96529253698784
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 2.011938144815501,
+      "hold_reward": -3.1250268918346595,
+      "min_rel_dist": 0.20583902096426615,
+      "policy_name": "tracer_theta_residual_actor_v1_multimode",
+      "post_reach_drift": 1.806099123851235,
+      "reach_reward": 2.0294580288816837,
+      "reached_stop_distance": false,
+      "selected_action_name": "theta_actor_v1_sponge_stability_from_trot_soft_mid_clear",
+      "source": "artifacts/phase_b_theta_residual_actor_v1_multimode_eval/sponge/tracer_sponge_firm_flat/theta_actor_v1_sponge_stability_from_trot_soft_mid_clear/ep003/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 2.2854307188623406,
+      "tracer_terms": {
+        "R_e": -0.4061460901715771,
+        "R_s": -1.0127919139135957,
+        "R_v": 4.433691988734463
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 4.1783063187231555,
+      "hold_reward": -8.701547488005971,
+      "min_rel_dist": 0.0568664693600624,
+      "policy_name": "tracer_theta_residual_actor_v1_multimode",
+      "post_reach_drift": 4.121439849363093,
+      "reach_reward": 6.428408032536739,
+      "reached_stop_distance": true,
+      "selected_action_name": "theta_actor_v1_sponge_stability_from_trot_soft_mid_clear",
+      "source": "artifacts/phase_b_theta_residual_actor_v1_multimode_eval/sponge/tracer_sponge_firm_flat/theta_actor_v1_sponge_stability_from_trot_soft_mid_clear/ep004/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.35,
+        "beta_v": 0.6
+      },
+      "tracer_proxy_reward": 4.673711742564728,
+      "tracer_terms": {
+        "R_e": -0.1528724111137591,
+        "R_s": -3.1801948695034774,
+        "R_v": 9.657372612411054
+      },
+      "world_name": "tracer_sponge_firm_flat"
+    },
+    {
+      "final_rel_dist": 0.447982848437052,
+      "hold_reward": 0.7596400915997692,
+      "min_rel_dist": 0.14941497521412705,
+      "policy_name": "tracer_theta_residual_actor_v1_multimode",
+      "post_reach_drift": 0.29856787322292494,
+      "reach_reward": 5.5995598302897145,
+      "reached_stop_distance": true,
+      "selected_action_name": "theta_actor_v1_stairs_balanced_from_trot_mid",
+      "source": "artifacts/phase_b_theta_residual_actor_v1_multimode_eval/stairs/stairs_single/theta_actor_v1_stairs_balanced_from_trot_mid/ep000/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.23,
+        "beta_v": 0.72
+      },
+      "tracer_proxy_reward": 6.849000708060822,
+      "tracer_terms": {
+        "R_e": -1.0005383386209727,
+        "R_s": 1.5022995188933486,
+        "R_v": 9.102081577286667
+      },
+      "world_name": "stairs_single"
+    },
+    {
+      "final_rel_dist": 1.0031706993566587,
+      "hold_reward": -0.10815305385802786,
+      "min_rel_dist": 0.1417408494466541,
+      "policy_name": "tracer_theta_residual_actor_v1_multimode",
+      "post_reach_drift": 0.8614298499100046,
+      "reach_reward": 5.658968516238776,
+      "reached_stop_distance": true,
+      "selected_action_name": "theta_actor_v1_stairs_balanced_from_trot_mid",
+      "source": "artifacts/phase_b_theta_residual_actor_v1_multimode_eval/stairs/stairs_single/theta_actor_v1_stairs_balanced_from_trot_mid/ep001/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.23,
+        "beta_v": 0.72
+      },
+      "tracer_proxy_reward": 6.854406451329042,
+      "tracer_terms": {
+        "R_e": -0.7556251784088925,
+        "R_s": 1.3284206577721918,
+        "R_v": 9.148126331891504
+      },
+      "world_name": "stairs_single"
+    },
+    {
+      "final_rel_dist": 0.21346110596219994,
+      "hold_reward": 1.2208043183924935,
+      "min_rel_dist": 0.09191386453052297,
+      "policy_name": "tracer_theta_residual_actor_v1_multimode",
+      "post_reach_drift": 0.12154724143167697,
+      "reach_reward": 6.138742442444691,
+      "reached_stop_distance": true,
+      "selected_action_name": "theta_actor_v1_stairs_balanced_from_trot_mid",
+      "source": "artifacts/phase_b_theta_residual_actor_v1_multimode_eval/stairs/stairs_single/theta_actor_v1_stairs_balanced_from_trot_mid/ep002/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.23,
+        "beta_v": 0.72
+      },
+      "tracer_proxy_reward": 7.310545019395645,
+      "tracer_terms": {
+        "R_e": -0.7422604071054927,
+        "R_s": 2.372845678049352,
+        "R_v": 9.447088241388292
+      },
+      "world_name": "stairs_single"
+    },
+    {
+      "final_rel_dist": 0.10427530167639228,
+      "hold_reward": 1.4161816817042239,
+      "min_rel_dist": 0.019532326012863897,
+      "policy_name": "tracer_theta_residual_actor_v1_multimode",
+      "post_reach_drift": 0.08474297566352838,
+      "reach_reward": 6.822387090751434,
+      "reached_stop_distance": true,
+      "selected_action_name": "theta_actor_v1_stairs_balanced_from_trot_mid",
+      "source": "artifacts/phase_b_theta_residual_actor_v1_multimode_eval/stairs/stairs_single/theta_actor_v1_stairs_balanced_from_trot_mid/ep003/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.0,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.23,
+        "beta_v": 0.72
+      },
+      "tracer_proxy_reward": 7.6139044589222085,
+      "tracer_terms": {
+        "R_e": -0.7772342825666775,
+        "R_s": 2.3354166148961526,
+        "R_v": 9.882806043922816
+      },
+      "world_name": "stairs_single"
+    },
+    {
+      "final_rel_dist": 0.06530925278422753,
+      "hold_reward": 1.5582874390350783,
+      "min_rel_dist": 0.016861631492266813,
+      "policy_name": "tracer_theta_residual_actor_v1_multimode",
+      "post_reach_drift": 0.048447621291960716,
+      "reach_reward": 6.847566532706957,
+      "reached_stop_distance": true,
+      "selected_action_name": "theta_actor_v1_stairs_balanced_from_trot_mid",
+      "source": "artifacts/phase_b_theta_residual_actor_v1_multimode_eval/stairs/stairs_single/theta_actor_v1_stairs_balanced_from_trot_mid/ep004/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.23,
+        "beta_v": 0.72
+      },
+      "tracer_proxy_reward": 7.642639422590058,
+      "tracer_terms": {
+        "R_e": -0.7783422299543438,
+        "R_s": 2.4149015372301736,
+        "R_v": 9.897401639617827
+      },
+      "world_name": "stairs_single"
+    },
+    {
+      "final_rel_dist": 0.3283933039507591,
+      "hold_reward": 0.9932879978348702,
+      "min_rel_dist": 0.003070560557248671,
+      "policy_name": "tracer_theta_residual_actor_v1_multimode",
+      "post_reach_drift": 0.3253227433935104,
+      "reach_reward": 6.982772513352327,
+      "reached_stop_distance": true,
+      "selected_action_name": "theta_actor_v1_stairs_reach_from_trot_mid",
+      "source": "artifacts/phase_b_theta_residual_actor_v1_multimode_eval/stairs/stairs_single/theta_actor_v1_stairs_reach_from_trot_mid/ep000/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.23,
+        "beta_v": 0.72
+      },
+      "tracer_proxy_reward": 7.571453632820144,
+      "tracer_terms": {
+        "R_e": -0.847027969249518,
+        "R_s": 1.8612974970369771,
+        "R_v": 9.980148065227937
+      },
+      "world_name": "stairs_single"
+    },
+    {
+      "final_rel_dist": 0.13052568151978872,
+      "hold_reward": 1.408176075634104,
+      "min_rel_dist": 0.08066878515897019,
+      "policy_name": "tracer_theta_residual_actor_v1_multimode",
+      "post_reach_drift": 0.049856896360818526,
+      "reach_reward": 6.237970349645754,
+      "reached_stop_distance": true,
+      "selected_action_name": "theta_actor_v1_stairs_reach_from_trot_mid",
+      "source": "artifacts/phase_b_theta_residual_actor_v1_multimode_eval/stairs/stairs_single/theta_actor_v1_stairs_reach_from_trot_mid/ep001/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.23,
+        "beta_v": 0.72
+      },
+      "tracer_proxy_reward": 7.316432998146435,
+      "tracer_terms": {
+        "R_e": -0.8344736292866559,
+        "R_s": 2.207280012722127,
+        "R_v": 9.514558717617609
+      },
+      "world_name": "stairs_single"
+    },
+    {
+      "final_rel_dist": 0.2654359585920698,
+      "hold_reward": 1.0923212296882328,
+      "min_rel_dist": 0.0902582818347647,
+      "policy_name": "tracer_theta_residual_actor_v1_multimode",
+      "post_reach_drift": 0.1751776767573051,
+      "reach_reward": 6.143932314061949,
+      "reached_stop_distance": true,
+      "selected_action_name": "theta_actor_v1_stairs_reach_from_trot_mid",
+      "source": "artifacts/phase_b_theta_residual_actor_v1_multimode_eval/stairs/stairs_single/theta_actor_v1_stairs_reach_from_trot_mid/ep002/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.23,
+        "beta_v": 0.72
+      },
+      "tracer_proxy_reward": 7.251560846625305,
+      "tracer_terms": {
+        "R_e": -0.8004202063525935,
+        "R_s": 2.0979400256421274,
+        "R_v": 9.457021737562842
+      },
+      "world_name": "stairs_single"
+    },
+    {
+      "final_rel_dist": 0.17084378735140238,
+      "hold_reward": 1.2660874578413308,
+      "min_rel_dist": 0.108234525247739,
+      "policy_name": "tracer_theta_residual_actor_v1_multimode",
+      "post_reach_drift": 0.06260926210366338,
+      "reach_reward": 5.974702046415679,
+      "reached_stop_distance": true,
+      "selected_action_name": "theta_actor_v1_stairs_reach_from_trot_mid",
+      "source": "artifacts/phase_b_theta_residual_actor_v1_multimode_eval/stairs/stairs_single/theta_actor_v1_stairs_reach_from_trot_mid/ep003/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.23,
+        "beta_v": 0.72
+      },
+      "tracer_proxy_reward": 7.105661600126366,
+      "tracer_terms": {
+        "R_e": -0.9988109025010588,
+        "R_s": 1.8443646336966228,
+        "R_v": 9.349164277084995
+      },
+      "world_name": "stairs_single"
+    },
+    {
+      "final_rel_dist": 0.246471129706188,
+      "hold_reward": 1.1625527982050872,
+      "min_rel_dist": 0.06801865745262503,
+      "policy_name": "tracer_theta_residual_actor_v1_multimode",
+      "post_reach_drift": 0.17845247225356298,
+      "reach_reward": 6.348842337716734,
+      "reached_stop_distance": true,
+      "selected_action_name": "theta_actor_v1_stairs_reach_from_trot_mid",
+      "source": "artifacts/phase_b_theta_residual_actor_v1_multimode_eval/stairs/stairs_single/theta_actor_v1_stairs_reach_from_trot_mid/ep004/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.23,
+        "beta_v": 0.72
+      },
+      "tracer_proxy_reward": 7.250035330950541,
+      "tracer_terms": {
+        "R_e": -0.9988109025010588,
+        "R_s": 1.7167175986934995,
+        "R_v": 9.59045948385568
+      },
+      "world_name": "stairs_single"
+    },
+    {
+      "final_rel_dist": 0.03418589532532563,
+      "hold_reward": 1.514791485796468,
+      "min_rel_dist": 0.024139529323813618,
+      "policy_name": "tracer_theta_residual_actor_v1_multimode",
+      "post_reach_drift": 0.01004636600151201,
+      "reach_reward": 6.773572177382357,
+      "reached_stop_distance": true,
+      "selected_action_name": "theta_actor_v1_stairs_stability_from_trot_solid_fast",
+      "source": "artifacts/phase_b_theta_residual_actor_v1_multimode_eval/stairs/stairs_single/theta_actor_v1_stairs_stability_from_trot_solid_fast/ep000/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.0,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.23,
+        "beta_v": 0.72
+      },
+      "tracer_proxy_reward": 7.5116478311086174,
+      "tracer_terms": {
+        "R_e": -0.6941098239523473,
+        "R_s": 1.959287343413521,
+        "R_v": 9.855162824057118
+      },
+      "world_name": "stairs_single"
+    },
+    {
+      "final_rel_dist": 0.17313818218182503,
+      "hold_reward": 1.2842806745892164,
+      "min_rel_dist": 0.04410391577807318,
+      "policy_name": "tracer_theta_residual_actor_v1_multimode",
+      "post_reach_drift": 0.12903426640375185,
+      "reach_reward": 6.580401545568851,
+      "reached_stop_distance": true,
+      "selected_action_name": "theta_actor_v1_stairs_stability_from_trot_solid_fast",
+      "source": "artifacts/phase_b_theta_residual_actor_v1_multimode_eval/stairs/stairs_single/theta_actor_v1_stairs_stability_from_trot_solid_fast/ep001/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.23,
+        "beta_v": 0.72
+      },
+      "tracer_proxy_reward": 7.531043244885754,
+      "tracer_terms": {
+        "R_e": -0.43977683042410015,
+        "R_s": 2.3677807565078526,
+        "R_v": 9.733947933902991
+      },
+      "world_name": "stairs_single"
+    },
+    {
+      "final_rel_dist": 0.1788904955235219,
+      "hold_reward": 1.3071643929021082,
+      "min_rel_dist": 0.13454070860136766,
+      "policy_name": "tracer_theta_residual_actor_v1_multimode",
+      "post_reach_drift": 0.044349786922154244,
+      "reach_reward": 5.728549675650402,
+      "reached_stop_distance": true,
+      "selected_action_name": "theta_actor_v1_stairs_stability_from_trot_solid_fast",
+      "source": "artifacts/phase_b_theta_residual_actor_v1_multimode_eval/stairs/stairs_single/theta_actor_v1_stairs_stability_from_trot_solid_fast/ep002/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.23,
+        "beta_v": 0.72
+      },
+      "tracer_proxy_reward": 7.008819899574232,
+      "tracer_terms": {
+        "R_e": -0.6941098239523473,
+        "R_s": 1.851173145036216,
+        "R_v": 9.191327176963222
+      },
+      "world_name": "stairs_single"
+    },
+    {
+      "final_rel_dist": 0.2026699767948492,
+      "hold_reward": 1.1704571177618222,
+      "min_rel_dist": 0.048475209302442514,
+      "policy_name": "tracer_theta_residual_actor_v1_multimode",
+      "post_reach_drift": 0.15419476749240668,
+      "reach_reward": 6.544492705460618,
+      "reached_stop_distance": true,
+      "selected_action_name": "theta_actor_v1_stairs_stability_from_trot_solid_fast",
+      "source": "artifacts/phase_b_theta_residual_actor_v1_multimode_eval/stairs/stairs_single/theta_actor_v1_stairs_stability_from_trot_solid_fast/ep003/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.23,
+        "beta_v": 0.72
+      },
+      "tracer_proxy_reward": 7.421396956011509,
+      "tracer_terms": {
+        "R_e": -0.55002633722742,
+        "R_s": 1.9971293412521827,
+        "R_v": 9.707720172756774
+      },
+      "world_name": "stairs_single"
+    },
+    {
+      "final_rel_dist": 0.5998376358856687,
+      "hold_reward": 0.6390717777353471,
+      "min_rel_dist": 0.14859196125699453,
+      "policy_name": "tracer_theta_residual_actor_v1_multimode",
+      "post_reach_drift": 0.4512456746286742,
+      "reach_reward": 5.598607531394689,
+      "reached_stop_distance": true,
+      "selected_action_name": "theta_actor_v1_stairs_stability_from_trot_solid_fast",
+      "source": "artifacts/phase_b_theta_residual_actor_v1_multimode_eval/stairs/stairs_single/theta_actor_v1_stairs_stability_from_trot_solid_fast/ep004/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.23,
+        "beta_v": 0.72
+      },
+      "tracer_proxy_reward": 6.8211825571313955,
+      "tracer_terms": {
+        "R_e": -0.6941098239523473,
+        "R_s": 1.299277792990438,
+        "R_v": 9.107019661029462
+      },
+      "world_name": "stairs_single"
+    }
+  ],
+  "schema": "phase_b_reach_terminated_eval_report_v0",
+  "skipped": {}
+}
