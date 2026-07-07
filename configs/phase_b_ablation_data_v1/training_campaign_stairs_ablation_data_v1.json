@@ -1,0 +1,18 @@
+{
+  "actions": [
+    "trot_mid",
+    "trot_solid_fast"
+  ],
+  "description": "Balanced rollout collection for statistically meaningful Phase-B high-level planner / Objective / RAM ablation.",
+  "goal_distance_ahead": 0.5,
+  "record_duration": 20.0,
+  "repeats_per_world_action": 30,
+  "reward_config": "configs/phase_b_reward_v0/tracer_slide_reward_proxy_v0.json",
+  "runner_timeout": 180.0,
+  "sample_hz": 20.0,
+  "schema": "phase_b_ablation_data_v1",
+  "teacher_json": "configs/phase_b_training_pipeline_v2_sponge_expanded/ppo_warmstart_teacher_table_sponge_expanded_v0.json",
+  "worlds": [
+    "stairs_single"
+  ]
+}

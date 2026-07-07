@@ -1,0 +1,31 @@
+{
+  "by_action": {
+    "stairs_single::trot_mid": {
+      "deploy_valid_success_rate_v1c": 0.8,
+      "hard_invalid_rate": 0.16666666666666666,
+      "mean_deploy_valid_score_v1c": 4.312839572832389,
+      "mean_drift_proxy": 0.13810410475827925,
+      "mean_final_dist": 0.25075108753002306,
+      "n": 30,
+      "reach_rate": 0.9333333333333333,
+      "valid_success_rate_v1b_compatible": 0.8,
+      "warning_rate": 0.03333333333333333
+    },
+    "stairs_single::trot_solid_fast": {
+      "deploy_valid_success_rate_v1c": 0.9666666666666667,
+      "hard_invalid_rate": 0.03333333333333333,
+      "mean_deploy_valid_score_v1c": 4.874648316372786,
+      "mean_drift_proxy": 0.1658904656719301,
+      "mean_final_dist": 0.24627386289534162,
+      "n": 30,
+      "reach_rate": 1.0,
+      "valid_success_rate_v1b_compatible": 0.9666666666666667,
+      "warning_rate": 0.0
+    }
+  },
+  "deploy_valid_success_rate_v1c": 0.8833333333333333,
+  "input": "data/phase_b_invalid_gait_labels_v1/ablation_data_v1_stairs_invalid_gait_labels_v1b_calibrated.jsonl",
+  "mean_deploy_valid_score_v1c": 4.593743944602587,
+  "num_episodes": 60,
+  "schema": "phase_b_validity_episode_label_report_v1c"
+}

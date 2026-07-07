@@ -1,0 +1,1628 @@
+{
+  "by_action": {
+    "trot_mid": {
+      "best_final_rel_dist": 0.1470052150086872,
+      "best_min_rel_dist": 0.14683888889542215,
+      "mean_R_e": -0.45981209789930844,
+      "mean_R_s": 2.435524731573427,
+      "mean_R_v": 5.353069420761867,
+      "mean_final_rel_dist": 0.20004247695161795,
+      "mean_hold_reward": 1.372883686785585,
+      "mean_min_rel_dist": 0.18505162308129947,
+      "mean_post_reach_drift": 0.014990853870318422,
+      "mean_reach_reward": 2.742529449927906,
+      "mean_time_to_reach": 0.05,
+      "mean_tracer_proxy_reward": 4.624793641450542,
+      "n": 30,
+      "reach_rate": 0.16666666666666666
+    },
+    "trot_solid_fast": {
+      "best_final_rel_dist": 0.15177325395774674,
+      "best_min_rel_dist": 0.14240621639396642,
+      "mean_R_e": -0.8035958635958861,
+      "mean_R_s": 2.3425998010336917,
+      "mean_R_v": 9.114466636741392,
+      "mean_final_rel_dist": 0.1711283598676964,
+      "mean_hold_reward": 1.4049699581591255,
+      "mean_min_rel_dist": 0.1471722272097682,
+      "mean_post_reach_drift": 0.023956132657928158,
+      "mean_reach_reward": 5.6023234152423145,
+      "mean_time_to_reach": 0.050000000000000024,
+      "mean_tracer_proxy_reward": 7.6027834863683745,
+      "n": 30,
+      "reach_rate": 1.0
+    }
+  },
+  "by_world": {
+    "earth": {
+      "best_final_rel_dist": 0.1470052150086872,
+      "best_min_rel_dist": 0.14240621639396642,
+      "mean_R_e": -0.631703980747597,
+      "mean_R_s": 2.3890622663035592,
+      "mean_R_v": 7.233768028751628,
+      "mean_final_rel_dist": 0.1855854184096572,
+      "mean_hold_reward": 1.3889268224723554,
+      "mean_min_rel_dist": 0.16611192514553377,
+      "mean_post_reach_drift": 0.019473493264123287,
+      "mean_reach_reward": 4.17242643258511,
+      "mean_time_to_reach": 0.050000000000000024,
+      "mean_tracer_proxy_reward": 6.113788563909458,
+      "n": 60,
+      "reach_rate": 0.5833333333333334
+    }
+  },
+  "by_world_action": {
+    "earth::trot_mid": {
+      "best_final_rel_dist": 0.1470052150086872,
+      "best_min_rel_dist": 0.14683888889542215,
+      "mean_R_e": -0.45981209789930844,
+      "mean_R_s": 2.435524731573427,
+      "mean_R_v": 5.353069420761867,
+      "mean_final_rel_dist": 0.20004247695161795,
+      "mean_hold_reward": 1.372883686785585,
+      "mean_min_rel_dist": 0.18505162308129947,
+      "mean_post_reach_drift": 0.014990853870318422,
+      "mean_reach_reward": 2.742529449927906,
+      "mean_time_to_reach": 0.05,
+      "mean_tracer_proxy_reward": 4.624793641450542,
+      "n": 30,
+      "reach_rate": 0.16666666666666666
+    },
+    "earth::trot_solid_fast": {
+      "best_final_rel_dist": 0.15177325395774674,
+      "best_min_rel_dist": 0.14240621639396642,
+      "mean_R_e": -0.8035958635958861,
+      "mean_R_s": 2.3425998010336917,
+      "mean_R_v": 9.114466636741392,
+      "mean_final_rel_dist": 0.1711283598676964,
+      "mean_hold_reward": 1.4049699581591255,
+      "mean_min_rel_dist": 0.1471722272097682,
+      "mean_post_reach_drift": 0.023956132657928158,
+      "mean_reach_reward": 5.6023234152423145,
+      "mean_time_to_reach": 0.050000000000000024,
+      "mean_tracer_proxy_reward": 7.6027834863683745,
+      "n": 30,
+      "reach_rate": 1.0
+    }
+  },
+  "interpretation": {
+    "auxiliary_limitation_metrics": [
+      "final_rel_dist",
+      "post_reach_drift",
+      "hold_reward",
+      "R_s"
+    ],
+    "controller_scope": "Low-level controller is frozen. Post-reach hold failures are reported as limitations rather than high-level traversal failures.",
+    "main_claim": "Reach-terminated evaluation treats goal-neighborhood arrival as the high-level planner success condition.",
+    "main_metrics": [
+      "reached_stop_distance",
+      "min_rel_dist",
+      "time_to_reach",
+      "R_v"
+    ]
+  },
+  "num_rows": 60,
+  "overall": {
+    "best_final_rel_dist": 0.1470052150086872,
+    "best_min_rel_dist": 0.14240621639396642,
+    "mean_R_e": -0.631703980747597,
+    "mean_R_s": 2.3890622663035592,
+    "mean_R_v": 7.233768028751628,
+    "mean_final_rel_dist": 0.1855854184096572,
+    "mean_hold_reward": 1.3889268224723554,
+    "mean_min_rel_dist": 0.16611192514553377,
+    "mean_post_reach_drift": 0.019473493264123287,
+    "mean_reach_reward": 4.17242643258511,
+    "mean_time_to_reach": 0.050000000000000024,
+    "mean_tracer_proxy_reward": 6.113788563909458,
+    "n": 60,
+    "reach_rate": 0.5833333333333334
+  },
+  "policy_name": "phase_b_ablation_data_v1_earth",
+  "result_root": "artifacts/phase_b_ablation_data_v1/earth",
+  "reward_config": "configs/phase_b_reward_v0/tracer_slide_reward_proxy_v0.json",
+  "rows": [
+    {
+      "final_rel_dist": 0.7723905213825873,
+      "hold_reward": 0.16893561935697934,
+      "min_rel_dist": 0.4472281484422406,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.3251623729403467,
+      "reach_reward": -0.2574928752949205,
+      "reached_stop_distance": false,
+      "selected_action_name": "trot_mid",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_mid/ep000/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 1.4430617251126319,
+      "tracer_terms": {
+        "R_e": -0.69375,
+        "R_s": 1.2682980704513773,
+        "R_v": 1.6093806431811566
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.6247329396320604,
+      "hold_reward": 0.6437178822799441,
+      "min_rel_dist": 0.5013609672698102,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.12337197236225028,
+      "reach_reward": -0.7520414509047153,
+      "reached_stop_distance": false,
+      "selected_action_name": "trot_mid",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_mid/ep001/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 1.0481878497792285,
+      "tracer_terms": {
+        "R_e": -0.5239177409982627,
+        "R_s": 1.8425582455276102,
+        "R_v": 0.9975
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.14968267215921388,
+      "hold_reward": 1.506352788363538,
+      "min_rel_dist": 0.14968267215921388,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.0,
+      "reach_reward": 5.578954825529426,
+      "reached_stop_distance": true,
+      "selected_action_name": "trot_mid",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_mid/ep002/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.673100826151834,
+      "tracer_terms": {
+        "R_e": -0.3998901760983979,
+        "R_s": 2.757147742139866,
+        "R_v": 9.099403967044717
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.18508679064160297,
+      "hold_reward": 1.3868780024525165,
+      "min_rel_dist": 0.18508679064160297,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.0,
+      "reach_reward": 2.24089159716654,
+      "reached_stop_distance": false,
+      "selected_action_name": "trot_mid",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_mid/ep003/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 4.0775746542867415,
+      "tracer_terms": {
+        "R_e": -0.4765962589875502,
+        "R_s": 2.3511050511380116,
+        "R_v": 4.685923386956771
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.1720398879203239,
+      "hold_reward": 1.458497722366663,
+      "min_rel_dist": 0.1720398879203239,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.0,
+      "reach_reward": 2.3653734309163674,
+      "reached_stop_distance": false,
+      "selected_action_name": "trot_mid",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_mid/ep004/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 4.249866175001562,
+      "tracer_terms": {
+        "R_e": -0.40897733233614814,
+        "R_s": 2.660011880251477,
+        "R_v": 4.839141574475809
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.16977122570173392,
+      "hold_reward": 1.3909910632430074,
+      "min_rel_dist": 0.16977122570173392,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.0,
+      "reach_reward": 2.387606537362056,
+      "reached_stop_distance": false,
+      "selected_action_name": "trot_mid",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_mid/ep005/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 4.202662931473393,
+      "tracer_terms": {
+        "R_e": -0.520035251103353,
+        "R_s": 2.2380119410662407,
+        "R_v": 4.8662036285857795
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.17569170070025375,
+      "hold_reward": 1.4007760667911382,
+      "min_rel_dist": 0.17515375751267614,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.0005379431875776053,
+      "reach_reward": 2.33570905907488,
+      "reached_stop_distance": false,
+      "selected_action_name": "trot_mid",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_mid/ep006/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 4.1711964645307384,
+      "tracer_terms": {
+        "R_e": -0.4777599125736094,
+        "R_s": 2.3533320877773956,
+        "R_v": 4.802605808741011
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.15513687096474224,
+      "hold_reward": 1.4935806246307899,
+      "min_rel_dist": 0.15513687096474224,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.0,
+      "reach_reward": 2.525250572408276,
+      "reached_stop_distance": false,
+      "selected_action_name": "trot_mid",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_mid/ep007/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 4.41917782035588,
+      "tracer_terms": {
+        "R_e": -0.40177779330405405,
+        "R_s": 2.7329926848965247,
+        "R_v": 5.036647259108253
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.15968022821343517,
+      "hold_reward": 1.469017249937317,
+      "min_rel_dist": 0.15968022821343517,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.0,
+      "reach_reward": 2.482901801147587,
+      "reached_stop_distance": false,
+      "selected_action_name": "trot_mid",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_mid/ep008/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 4.360767383089698,
+      "tracer_terms": {
+        "R_e": -0.4147957817927782,
+        "R_s": 2.6286831422436334,
+        "R_v": 4.984005876053489
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.16689896393695433,
+      "hold_reward": 1.469152001881183,
+      "min_rel_dist": 0.16689896393695433,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.0,
+      "reach_reward": 2.414272755238426,
+      "reached_stop_distance": false,
+      "selected_action_name": "trot_mid",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_mid/ep009/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 4.302145870108308,
+      "tracer_terms": {
+        "R_e": -0.40606145138632427,
+        "R_s": 2.686155221380578,
+        "R_v": 4.899407074338172
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.14963325449606737,
+      "hold_reward": 1.4585708217254785,
+      "min_rel_dist": 0.1494734906584531,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.00015976383761426294,
+      "reach_reward": 5.581809265662954,
+      "reached_stop_distance": true,
+      "selected_action_name": "trot_mid",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_mid/ep010/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.628268296598899,
+      "tracer_terms": {
+        "R_e": -0.449725726785182,
+        "R_s": 2.46818225399154,
+        "R_v": 9.100659056049283
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.1775136918243335,
+      "hold_reward": 1.4033319779445856,
+      "min_rel_dist": 0.1775136918243335,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.0,
+      "reach_reward": 2.3153807356406046,
+      "reached_stop_distance": false,
+      "selected_action_name": "trot_mid",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_mid/ep011/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 4.161775707986716,
+      "tracer_terms": {
+        "R_e": -0.45685139954340515,
+        "R_s": 2.423031330987039,
+        "R_v": 4.7764544728947875
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.16839863420422885,
+      "hold_reward": 1.4385448029981196,
+      "min_rel_dist": 0.16839863420422885,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.0,
+      "reach_reward": 2.4003176592781528,
+      "reached_stop_distance": false,
+      "selected_action_name": "trot_mid",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_mid/ep012/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 4.258307450283801,
+      "tracer_terms": {
+        "R_e": -0.43941187024771466,
+        "R_s": 2.4975980699975304,
+        "R_v": 4.882047916620696
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.15526481706651166,
+      "hold_reward": 1.4956711113880528,
+      "min_rel_dist": 0.15526481706651166,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.0,
+      "reach_reward": 2.5269400171711354,
+      "reached_stop_distance": false,
+      "selected_action_name": "trot_mid",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_mid/ep013/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.0,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 4.4255146698659615,
+      "tracer_terms": {
+        "R_e": -0.39949785547890626,
+        "R_s": 2.7580722103147846,
+        "R_v": 5.039723413865861
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.17988801309161542,
+      "hold_reward": 1.463706350136172,
+      "min_rel_dist": 0.17988801309161542,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.0,
+      "reach_reward": 2.2908190084276123,
+      "reached_stop_distance": false,
+      "selected_action_name": "trot_mid",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_mid/ep014/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 4.193491290353572,
+      "tracer_terms": {
+        "R_e": -0.3973446111612351,
+        "R_s": 2.7706121657138825,
+        "R_v": 4.74720837006819
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.16584870396138568,
+      "hold_reward": 1.4379810432548814,
+      "min_rel_dist": 0.16584870396138568,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.0,
+      "reach_reward": 2.425196763092164,
+      "reached_stop_distance": false,
+      "selected_action_name": "trot_mid",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_mid/ep015/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 4.277956312282266,
+      "tracer_terms": {
+        "R_e": -0.44672315864523127,
+        "R_s": 2.4692233033021704,
+        "R_v": 4.912386218399002
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.1532133117151167,
+      "hold_reward": 1.4926754996698879,
+      "min_rel_dist": 0.1532133117151167,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.0,
+      "reach_reward": 2.545822386035625,
+      "reached_stop_distance": false,
+      "selected_action_name": "trot_mid",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_mid/ep016/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 4.436185235487991,
+      "tracer_terms": {
+        "R_e": -0.40345428707988,
+        "R_s": 2.7180033410367743,
+        "R_v": 5.060821810858085
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.15892387136748842,
+      "hold_reward": 1.4426050463276132,
+      "min_rel_dist": 0.15892387136748842,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.0,
+      "reach_reward": 2.4904799644589892,
+      "reached_stop_distance": false,
+      "selected_action_name": "trot_mid",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_mid/ep017/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 4.337324287955505,
+      "tracer_terms": {
+        "R_e": -0.45628813688355757,
+        "R_s": 2.4374760528614323,
+        "R_v": 4.993146608588086
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.16086649825254887,
+      "hold_reward": 1.4659711858455533,
+      "min_rel_dist": 0.16086649825254887,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.0,
+      "reach_reward": 2.4731420158002244,
+      "reached_stop_distance": false,
+      "selected_action_name": "trot_mid",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_mid/ep018/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 4.347755910807284,
+      "tracer_terms": {
+        "R_e": -0.41752981010700885,
+        "R_s": 2.6112134264360853,
+        "R_v": 4.971187984184027
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.16742421068374622,
+      "hold_reward": 1.4219843244236947,
+      "min_rel_dist": 0.16742421068374622,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.0,
+      "reach_reward": 2.4100303369553626,
+      "reached_stop_distance": false,
+      "selected_action_name": "trot_mid",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_mid/ep019/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.0,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 4.256825891297092,
+      "tracer_terms": {
+        "R_e": -0.4599532276068763,
+        "R_s": 2.41862070075428,
+        "R_v": 4.896288059455367
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.15747044649894062,
+      "hold_reward": 1.4346116830824263,
+      "min_rel_dist": 0.15747044649894062,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.0,
+      "reach_reward": 2.5061709365453697,
+      "reached_stop_distance": false,
+      "selected_action_name": "trot_mid",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_mid/ep020/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 4.346565159039823,
+      "tracer_terms": {
+        "R_e": -0.4659818400316222,
+        "R_s": 2.4043336518848677,
+        "R_v": 5.011517754073342
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.17561907382822398,
+      "hold_reward": 1.4277528647916233,
+      "min_rel_dist": 0.17561907382822398,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.0,
+      "reach_reward": 2.3322131038153877,
+      "reached_stop_distance": false,
+      "selected_action_name": "trot_mid",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_mid/ep021/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 4.190415326195542,
+      "tracer_terms": {
+        "R_e": -0.4390997291658323,
+        "R_s": 2.494120200927874,
+        "R_v": 4.797815353143316
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.1470052150086872,
+      "hold_reward": 1.4369597755865962,
+      "min_rel_dist": 0.14683888889542215,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.00016632611326505842,
+      "reach_reward": 5.606389718839379,
+      "reached_stop_distance": true,
+      "selected_action_name": "trot_mid",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_mid/ep022/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.607928522861196,
+      "tracer_terms": {
+        "R_e": -0.5136867367007314,
+        "R_s": 2.2695968426283915,
+        "R_v": 9.116466666627467
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.16158002773910168,
+      "hold_reward": 1.4635001985219096,
+      "min_rel_dist": 0.16158002773910168,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.0,
+      "reach_reward": 2.4650747807819235,
+      "reached_stop_distance": false,
+      "selected_action_name": "trot_mid",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_mid/ep023/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.0,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 4.341265961749982,
+      "tracer_terms": {
+        "R_e": -0.41860224084205744,
+        "R_s": 2.6044591990629495,
+        "R_v": 4.964408992415802
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.14774853531159168,
+      "hold_reward": 1.4463169994803746,
+      "min_rel_dist": 0.14742129764309295,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.0003272376684987366,
+      "reach_reward": 5.600690197250094,
+      "reached_stop_distance": true,
+      "selected_action_name": "trot_mid",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_mid/ep024/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.623506163545872,
+      "tracer_terms": {
+        "R_e": -0.47547491568121947,
+        "R_s": 2.37934758677853,
+        "R_v": 9.112972214141442
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.1499808208244145,
+      "hold_reward": 1.4659369292595463,
+      "min_rel_dist": 0.1499808208244145,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.0,
+      "reach_reward": 5.575274210523469,
+      "reached_stop_distance": true,
+      "selected_action_name": "trot_mid",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_mid/ep025/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.638381851918238,
+      "tracer_terms": {
+        "R_e": -0.43140417809389514,
+        "R_s": 2.545733338534149,
+        "R_v": 9.097615075053513
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.17531740562837042,
+      "hold_reward": 1.3958631034610742,
+      "min_rel_dist": 0.17531740562837042,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.0,
+      "reach_reward": 2.332686608618064,
+      "reached_stop_distance": false,
+      "selected_action_name": "trot_mid",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_mid/ep026/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 4.1602492222398535,
+      "tracer_terms": {
+        "R_e": -0.4950816317291228,
+        "R_s": 2.3019400834808827,
+        "R_v": 4.799640364130221
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.17610078485848665,
+      "hold_reward": 1.442259021188443,
+      "min_rel_dist": 0.17610078485848665,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.0,
+      "reach_reward": 2.3275443665575026,
+      "reached_stop_distance": false,
+      "selected_action_name": "trot_mid",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_mid/ep027/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 4.204397882382278,
+      "tracer_terms": {
+        "R_e": -0.4160277125434261,
+        "R_s": 2.6100943542193944,
+        "R_v": 4.792106393595675
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.18582814048424434,
+      "hold_reward": 1.345794744522265,
+      "min_rel_dist": 0.18582814048424434,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.0,
+      "reach_reward": 2.2354777756322077,
+      "reached_stop_distance": false,
+      "selected_action_name": "trot_mid",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_mid/ep028/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 4.026413418367367,
+      "tracer_terms": {
+        "R_e": -0.5814628051344874,
+        "R_s": 2.0850966525761487,
+        "R_v": 4.678402575922087
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.1565370504505245,
+      "hold_reward": 1.4185740986561723,
+      "min_rel_dist": 0.1565370504505245,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.0,
+      "reach_reward": 2.512997394107021,
+      "reached_stop_distance": false,
+      "selected_action_name": "trot_mid",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_mid/ep029/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 4.333538982406994,
+      "tracer_terms": {
+        "R_e": -0.5071993649373813,
+        "R_s": 2.280691114841359,
+        "R_v": 5.020994104284574
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.16695452228381127,
+      "hold_reward": 1.340716485274856,
+      "min_rel_dist": 0.14841880256865417,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.018535719715157106,
+      "reach_reward": 5.590174069591059,
+      "reached_stop_distance": true,
+      "selected_action_name": "trot_solid_fast",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_solid_fast/ep000/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.517040723470565,
+      "tracer_terms": {
+        "R_e": -1.0,
+        "R_s": 1.8763398386673544,
+        "R_v": 9.106987184588077
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.1644515837000459,
+      "hold_reward": 1.363673295914577,
+      "min_rel_dist": 0.14822740854670205,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.016224175153343845,
+      "reach_reward": 5.593400751758074,
+      "reached_stop_distance": true,
+      "selected_action_name": "trot_solid_fast",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_solid_fast/ep001/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.54448632800833,
+      "tracer_terms": {
+        "R_e": -0.9185462610714392,
+        "R_s": 2.026034680573805,
+        "R_v": 9.108135548719789
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.16344299256285727,
+      "hold_reward": 1.4525016396364674,
+      "min_rel_dist": 0.14403676850587252,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.01940622405698475,
+      "reach_reward": 5.633016798187688,
+      "reached_stop_distance": true,
+      "selected_action_name": "trot_solid_fast",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_solid_fast/ep002/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.6497759421057365,
+      "tracer_terms": {
+        "R_e": -0.7357427147760334,
+        "R_s": 2.532930444484843,
+        "R_v": 9.133279388964764
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.1738635497409359,
+      "hold_reward": 1.4420521830965265,
+      "min_rel_dist": 0.1486172385766109,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.02524631116432499,
+      "reach_reward": 5.589609587191465,
+      "reached_stop_distance": true,
+      "selected_action_name": "trot_solid_fast",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_solid_fast/ep003/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.641816960812198,
+      "tracer_terms": {
+        "R_e": -0.7182501753117096,
+        "R_s": 2.6206147649701075,
+        "R_v": 9.105796568540335
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.18563042941914326,
+      "hold_reward": 1.335973855699277,
+      "min_rel_dist": 0.1488049101124286,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.036825519306714655,
+      "reach_reward": 5.585340228187496,
+      "reached_stop_distance": true,
+      "selected_action_name": "trot_solid_fast",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_solid_fast/ep004/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.555641373917712,
+      "tracer_terms": {
+        "R_e": -0.8685204053545041,
+        "R_s": 2.1022064181672935,
+        "R_v": 9.10467053932543
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.1828719890920465,
+      "hold_reward": 1.337049766262246,
+      "min_rel_dist": 0.14698104875917337,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.03589094033287313,
+      "reach_reward": 5.603247398806333,
+      "reached_stop_distance": true,
+      "selected_action_name": "trot_solid_fast",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_solid_fast/ep005/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.559599578361448,
+      "tracer_terms": {
+        "R_e": -0.8822207768611562,
+        "R_s": 2.0747976749902555,
+        "R_v": 9.11561370744496
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.1638140121468094,
+      "hold_reward": 1.3400280705473797,
+      "min_rel_dist": 0.1496717341195924,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.014142278027217015,
+      "reach_reward": 5.580617133087748,
+      "reached_stop_distance": true,
+      "selected_action_name": "trot_solid_fast",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_solid_fast/ep006/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.511780047208555,
+      "tracer_terms": {
+        "R_e": -1.0,
+        "R_s": 1.8813624732173158,
+        "R_v": 9.099469595282446
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.15871144390789307,
+      "hold_reward": 1.4640341589904646,
+      "min_rel_dist": 0.1444852425839793,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.014226201323913779,
+      "reach_reward": 5.6273388782477625,
+      "reached_stop_distance": true,
+      "selected_action_name": "trot_solid_fast",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_solid_fast/ep007/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.652789387147609,
+      "tracer_terms": {
+        "R_e": -0.7305418181856322,
+        "R_s": 2.5656376163999437,
+        "R_v": 9.130588544496124
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.18835672881671017,
+      "hold_reward": 1.3840680806694063,
+      "min_rel_dist": 0.14905657141592457,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.0393001574007856,
+      "reach_reward": 5.58507202270364,
+      "reached_stop_distance": true,
+      "selected_action_name": "trot_solid_fast",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_solid_fast/ep008/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.596712110774149,
+      "tracer_terms": {
+        "R_e": -0.7737333718893412,
+        "R_s": 2.3524688144336845,
+        "R_v": 9.103160571504453
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.1587084523778405,
+      "hold_reward": 1.3932018466713016,
+      "min_rel_dist": 0.14425883087658903,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.01444962150125148,
+      "reach_reward": 5.62988484622246,
+      "reached_stop_distance": true,
+      "selected_action_name": "trot_solid_fast",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_solid_fast/ep009/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.584208093498185,
+      "tracer_terms": {
+        "R_e": -0.8638154296076428,
+        "R_s": 2.145608354574621,
+        "R_v": 9.131947014740467
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.16336694784945813,
+      "hold_reward": 1.41368584710964,
+      "min_rel_dist": 0.14859271104820093,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.014774236801257196,
+      "reach_reward": 5.588847120404312,
+      "reached_stop_distance": true,
+      "selected_action_name": "trot_solid_fast",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_solid_fast/ep010/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.5955806971139515,
+      "tracer_terms": {
+        "R_e": -0.7894120228681134,
+        "R_s": 2.335308741924808,
+        "R_v": 9.105943733710795
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.1681537294597821,
+      "hold_reward": 1.4270695924068224,
+      "min_rel_dist": 0.14680209765492194,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.02135163180486016,
+      "reach_reward": 5.605000929960543,
+      "reached_stop_distance": true,
+      "selected_action_name": "trot_solid_fast",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_solid_fast/ep011/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.615665368906087,
+      "tracer_terms": {
+        "R_e": -0.7661334914727862,
+        "R_s": 2.4041474148223316,
+        "R_v": 9.11668741407047
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.16407779796836203,
+      "hold_reward": 1.4286980184241012,
+      "min_rel_dist": 0.14378140178801227,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.020296396180349757,
+      "reach_reward": 5.63276729897961,
+      "reached_stop_distance": true,
+      "selected_action_name": "trot_solid_fast",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_solid_fast/ep012/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.639626356241036,
+      "tracer_terms": {
+        "R_e": -0.7515941357579382,
+        "R_s": 2.4623786107425976,
+        "R_v": 9.134811589271928
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.18322306735247224,
+      "hold_reward": 1.4363372030575796,
+      "min_rel_dist": 0.14925577085108094,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.0339672965013913,
+      "reach_reward": 5.583289773841043,
+      "reached_stop_distance": true,
+      "selected_action_name": "trot_solid_fast",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_solid_fast/ep013/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.637697084225564,
+      "tracer_terms": {
+        "R_e": -0.7175486337164464,
+        "R_s": 2.613348106643821,
+        "R_v": 9.101965374893515
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.16642832097102692,
+      "hold_reward": 1.4535640623749007,
+      "min_rel_dist": 0.14664631829740474,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.01978200267362218,
+      "reach_reward": 5.60705476250582,
+      "reached_stop_distance": true,
+      "selected_action_name": "trot_solid_fast",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_solid_fast/ep014/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.6428780722530325,
+      "tracer_terms": {
+        "R_e": -0.728430898895238,
+        "R_s": 2.568012966835572,
+        "R_v": 9.117622090215573
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.1942717192009562,
+      "hold_reward": 1.3564050734616087,
+      "min_rel_dist": 0.14840318963051627,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.045868529570439937,
+      "reach_reward": 5.592453381623272,
+      "reached_stop_distance": true,
+      "selected_action_name": "trot_solid_fast",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_solid_fast/ep015/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.589125940281801,
+      "tracer_terms": {
+        "R_e": -0.7917179835335837,
+        "R_s": 2.2869809978997226,
+        "R_v": 9.107080862216902
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.15177325395774674,
+      "hold_reward": 1.4707283935261464,
+      "min_rel_dist": 0.1485185023827988,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.0032547515749479505,
+      "reach_reward": 5.58905566890847,
+      "reached_stop_distance": true,
+      "selected_action_name": "trot_solid_fast",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_solid_fast/ep016/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.631197165130887,
+      "tracer_terms": {
+        "R_e": -0.7355473970444029,
+        "R_s": 2.5524223094702685,
+        "R_v": 9.106388985703207
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.1689338840408898,
+      "hold_reward": 1.3868195078302845,
+      "min_rel_dist": 0.147742785301049,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.02119109873984079,
+      "reach_reward": 5.597377680934896,
+      "reached_stop_distance": true,
+      "selected_action_name": "trot_solid_fast",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_solid_fast/ep017/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.591380234440029,
+      "tracer_terms": {
+        "R_e": -0.803840530488792,
+        "R_s": 2.284917536063353,
+        "R_v": 9.111043288193708
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.1587443749338203,
+      "hold_reward": 1.3963484200696246,
+      "min_rel_dist": 0.1455488057930147,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.01319556914080558,
+      "reach_reward": 5.617609539883674,
+      "reached_stop_distance": true,
+      "selected_action_name": "trot_solid_fast",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_solid_fast/ep018/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.58532999723403,
+      "tracer_terms": {
+        "R_e": -0.8457539695251234,
+        "R_s": 2.1883464234450405,
+        "R_v": 9.124207165241913
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.17664959463184113,
+      "hold_reward": 1.3926113183975435,
+      "min_rel_dist": 0.14870170479296632,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.027947889838874806,
+      "reach_reward": 5.588891943779491,
+      "reached_stop_distance": true,
+      "selected_action_name": "trot_solid_fast",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_solid_fast/ep019/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.5848669582020065,
+      "tracer_terms": {
+        "R_e": -0.8048179069478198,
+        "R_s": 2.2725069103708915,
+        "R_v": 9.105289771242203
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.2254608844167916,
+      "hold_reward": 1.2251284853417634,
+      "min_rel_dist": 0.14919680444890013,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.07626407996789147,
+      "reach_reward": 5.580489696649905,
+      "reached_stop_distance": true,
+      "selected_action_name": "trot_solid_fast",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_solid_fast/ep020/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.501682842206811,
+      "tracer_terms": {
+        "R_e": -1.0,
+        "R_s": 1.7988500237435445,
+        "R_v": 9.102319173306599
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.16743589048190022,
+      "hold_reward": 1.4686261906585834,
+      "min_rel_dist": 0.14528575909121036,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.02215013139068986,
+      "reach_reward": 5.620449641846269,
+      "reached_stop_distance": true,
+      "selected_action_name": "trot_solid_fast",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_solid_fast/ep021/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.667769985570661,
+      "tracer_terms": {
+        "R_e": -0.710726467021738,
+        "R_s": 2.6845196837303815,
+        "R_v": 9.125785445452738
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.18793130498430693,
+      "hold_reward": 1.4424956014949435,
+      "min_rel_dist": 0.14886330676508394,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.039067998219222994,
+      "reach_reward": 5.588033490388806,
+      "reached_stop_distance": true,
+      "selected_action_name": "trot_solid_fast",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_solid_fast/ep022/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.650087678385034,
+      "tracer_terms": {
+        "R_e": -0.7084965848480244,
+        "R_s": 2.680375867332244,
+        "R_v": 9.104320159409497
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.15407133312491203,
+      "hold_reward": 1.404783110755958,
+      "min_rel_dist": 0.14567095837404626,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.008400374750865774,
+      "reach_reward": 5.616391429174874,
+      "reached_stop_distance": true,
+      "selected_action_name": "trot_solid_fast",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_solid_fast/ep023/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.596532664525535,
+      "tracer_terms": {
+        "R_e": -0.8202948814650692,
+        "R_s": 2.258453391961394,
+        "R_v": 9.123474249755724
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.1628848062773142,
+      "hold_reward": 1.4050927139462497,
+      "min_rel_dist": 0.1462383660283764,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.0166464402489378,
+      "reach_reward": 5.610999487808344,
+      "reached_stop_distance": true,
+      "selected_action_name": "trot_solid_fast",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_solid_fast/ep024/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.599053067105598,
+      "tracer_terms": {
+        "R_e": -0.8051237257340875,
+        "R_s": 2.288356068856726,
+        "R_v": 9.120069803829741
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.17233218186833255,
+      "hold_reward": 1.4509562365097524,
+      "min_rel_dist": 0.1483466459565975,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.02398553591173505,
+      "reach_reward": 5.588185922000662,
+      "reached_stop_distance": true,
+      "selected_action_name": "trot_solid_fast",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_solid_fast/ep025/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.640283471233236,
+      "tracer_terms": {
+        "R_e": -0.7212869671306055,
+        "R_s": 2.602744801209549,
+        "R_v": 9.107420124260416
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.17856214318920796,
+      "hold_reward": 1.3391390896208553,
+      "min_rel_dist": 0.14895044519072956,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.029611697998478403,
+      "reach_reward": 5.586054681858025,
+      "reached_stop_distance": true,
+      "selected_action_name": "trot_solid_fast",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_solid_fast/ep026/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.531248319768402,
+      "tracer_terms": {
+        "R_e": -0.9394178582181851,
+        "R_s": 1.967875663965413,
+        "R_v": 9.103797328855624
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.15636974030296485,
+      "hold_reward": 1.4464284733011554,
+      "min_rel_dist": 0.14797532663599747,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.008394413666967387,
+      "reach_reward": 5.594234396958024,
+      "reached_stop_distance": true,
+      "selected_action_name": "trot_solid_fast",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_solid_fast/ep027/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.618178643075668,
+      "tracer_terms": {
+        "R_e": -0.7567274859682022,
+        "R_s": 2.455310568179102,
+        "R_v": 9.109648040184016
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.17111083677197725,
+      "hold_reward": 1.4635474057734559,
+      "min_rel_dist": 0.14568114380264519,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.025429692969332063,
+      "reach_reward": 5.617717998315442,
+      "reached_stop_distance": true,
+      "selected_action_name": "trot_solid_fast",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_solid_fast/ep028/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.66605684889554,
+      "tracer_terms": {
+        "R_e": -0.7100942592299458,
+        "R_s": 2.6855403473982284,
+        "R_v": 9.123413137184128
+      },
+      "world_name": "earth"
+    },
+    {
+      "final_rel_dist": 0.15526328019873434,
+      "hold_reward": 1.4873346179502984,
+      "min_rel_dist": 0.14240621639396642,
+      "policy_name": "phase_b_ablation_data_v1_earth",
+      "post_reach_drift": 0.012857063804767921,
+      "reach_reward": 5.647095897464185,
+      "reached_stop_distance": true,
+      "selected_action_name": "trot_solid_fast",
+      "source": "artifacts/phase_b_ablation_data_v1/earth/earth/trot_solid_fast/ep029/ppo_policy_episode_result_v0.json",
+      "status": "ok",
+      "time_to_reach": 0.05,
+      "tracer_beta": {
+        "beta_e": 0.05,
+        "beta_s": 0.15,
+        "beta_v": 0.8
+      },
+      "tracer_proxy_reward": 7.68541265095179,
+      "tracer_terms": {
+        "R_e": -0.709539754953015,
+        "R_s": 2.709596515936529,
+        "R_v": 9.143062701636202
+      },
+      "world_name": "earth"
+    }
+  ],
+  "schema": "phase_b_reach_terminated_eval_report_v0",
+  "skipped": {}
+}

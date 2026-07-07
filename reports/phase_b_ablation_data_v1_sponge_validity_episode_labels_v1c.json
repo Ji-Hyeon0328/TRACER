@@ -1,0 +1,53 @@
+{
+  "by_action": {
+    "tracer_sponge_firm_flat::sponge_slow_high_clear": {
+      "deploy_valid_success_rate_v1c": 0.0,
+      "hard_invalid_rate": 0.13333333333333333,
+      "mean_deploy_valid_score_v1c": -0.7043531255551885,
+      "mean_drift_proxy": 1.713327515401519,
+      "mean_final_dist": 1.869431814901479,
+      "n": 30,
+      "reach_rate": 0.5666666666666667,
+      "valid_success_rate_v1b_compatible": 0.0,
+      "warning_rate": 0.4666666666666667
+    },
+    "tracer_sponge_firm_flat::sponge_v1d_bias_late_hold_025_013": {
+      "deploy_valid_success_rate_v1c": 0.0,
+      "hard_invalid_rate": 0.06666666666666667,
+      "mean_deploy_valid_score_v1c": -0.5761941109715337,
+      "mean_drift_proxy": 1.932444127560096,
+      "mean_final_dist": 2.056588819609364,
+      "n": 30,
+      "reach_rate": 0.6333333333333333,
+      "valid_success_rate_v1b_compatible": 0.0,
+      "warning_rate": 0.3
+    },
+    "tracer_sponge_firm_flat::sponge_v1d_stabilized_late_hold_035_016": {
+      "deploy_valid_success_rate_v1c": 0.0,
+      "hard_invalid_rate": 0.23333333333333334,
+      "mean_deploy_valid_score_v1c": -0.6225031318604277,
+      "mean_drift_proxy": 1.7107346816393503,
+      "mean_final_dist": 1.8453690179986781,
+      "n": 30,
+      "reach_rate": 0.7,
+      "valid_success_rate_v1b_compatible": 0.03333333333333333,
+      "warning_rate": 0.4666666666666667
+    },
+    "tracer_sponge_firm_flat::sponge_v8b_reach_bias": {
+      "deploy_valid_success_rate_v1c": 0.0,
+      "hard_invalid_rate": 0.26666666666666666,
+      "mean_deploy_valid_score_v1c": -1.2573428094849555,
+      "mean_drift_proxy": 1.6654802769822112,
+      "mean_final_dist": 1.843121883585261,
+      "n": 30,
+      "reach_rate": 0.4666666666666667,
+      "valid_success_rate_v1b_compatible": 0.0,
+      "warning_rate": 0.4666666666666667
+    }
+  },
+  "deploy_valid_success_rate_v1c": 0.0,
+  "input": "data/phase_b_invalid_gait_labels_v1/ablation_data_v1_sponge_invalid_gait_labels_v1b_calibrated.jsonl",
+  "mean_deploy_valid_score_v1c": -0.7900982944680263,
+  "num_episodes": 120,
+  "schema": "phase_b_validity_episode_label_report_v1c"
+}

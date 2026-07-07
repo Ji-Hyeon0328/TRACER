@@ -1,0 +1,20 @@
+{
+  "actions": [
+    "sponge_v8b_reach_bias",
+    "sponge_v1d_stabilized_late_hold_035_016",
+    "sponge_v1d_bias_late_hold_025_013",
+    "sponge_slow_high_clear"
+  ],
+  "description": "Balanced rollout collection for statistically meaningful Phase-B high-level planner / Objective / RAM ablation.",
+  "goal_distance_ahead": 0.5,
+  "record_duration": 20.0,
+  "repeats_per_world_action": 30,
+  "reward_config": "configs/phase_b_reward_v0/tracer_slide_reward_proxy_v0.json",
+  "runner_timeout": 180.0,
+  "sample_hz": 20.0,
+  "schema": "phase_b_ablation_data_v1",
+  "teacher_json": "configs/phase_b_sponge_late_switch_v1d/ppo_warmstart_teacher_table_sponge_late_switch_v1d.json",
+  "worlds": [
+    "tracer_sponge_firm_flat"
+  ]
+}

@@ -1,0 +1,122 @@
+{
+  "by_action": {
+    "tracer_sponge_firm_flat::sponge_slow_high_clear": {
+      "invalid": 16,
+      "invalid_rate": 0.5333333333333333,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 30,
+      "top_reasons": [
+        [
+          "low_base_height",
+          16
+        ],
+        [
+          "folded_joint_posture:FR",
+          2
+        ],
+        [
+          "folded_joint_posture:FL",
+          1
+        ]
+      ]
+    },
+    "tracer_sponge_firm_flat::sponge_v1d_bias_late_hold_025_013": {
+      "invalid": 9,
+      "invalid_rate": 0.3,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 30,
+      "top_reasons": [
+        [
+          "low_base_height",
+          9
+        ],
+        [
+          "folded_joint_posture:FR",
+          2
+        ]
+      ]
+    },
+    "tracer_sponge_firm_flat::sponge_v1d_stabilized_late_hold_035_016": {
+      "invalid": 15,
+      "invalid_rate": 0.5,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 30,
+      "top_reasons": [
+        [
+          "low_base_height",
+          15
+        ],
+        [
+          "folded_joint_posture:FR",
+          3
+        ],
+        [
+          "metric_suspicious_low_progress_stable",
+          2
+        ],
+        [
+          "folded_joint_posture:FL",
+          1
+        ],
+        [
+          "folded_joint_posture:FL,FR,RL,RR",
+          1
+        ],
+        [
+          "folded_joint_posture:FL,RL",
+          1
+        ],
+        [
+          "large_roll_or_pitch",
+          1
+        ]
+      ]
+    },
+    "tracer_sponge_firm_flat::sponge_v8b_reach_bias": {
+      "invalid": 15,
+      "invalid_rate": 0.5,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 30,
+      "top_reasons": [
+        [
+          "low_base_height",
+          15
+        ],
+        [
+          "folded_joint_posture:FL",
+          3
+        ],
+        [
+          "folded_joint_posture:FR",
+          3
+        ],
+        [
+          "folded_joint_posture:FR,RR",
+          1
+        ],
+        [
+          "large_roll_or_pitch",
+          1
+        ]
+      ]
+    }
+  },
+  "by_world": {
+    "tracer_sponge_firm_flat": {
+      "invalid": 55,
+      "invalid_rate": 0.4583333333333333,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 120
+    }
+  },
+  "num_episodes": 120,
+  "num_invalid": 55,
+  "num_missing_state": 0,
+  "root": "artifacts/phase_b_ablation_data_v1/sponge",
+  "schema": "phase_b_invalid_gait_report_v1"
+}

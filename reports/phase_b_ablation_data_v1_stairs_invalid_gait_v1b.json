@@ -1,0 +1,57 @@
+{
+  "by_action": {
+    "stairs_single::trot_mid": {
+      "hard_invalid": 5,
+      "hard_invalid_rate": 0.16666666666666666,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 30,
+      "top_hard_reasons": [
+        [
+          "large_roll_or_pitch",
+          5
+        ]
+      ],
+      "top_warning_reasons": [
+        [
+          "metric_suspicious_low_progress_stable",
+          1
+        ]
+      ],
+      "warning": 1,
+      "warning_rate": 0.03333333333333333
+    },
+    "stairs_single::trot_solid_fast": {
+      "hard_invalid": 1,
+      "hard_invalid_rate": 0.03333333333333333,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 30,
+      "top_hard_reasons": [
+        [
+          "large_roll_or_pitch",
+          1
+        ]
+      ],
+      "top_warning_reasons": [],
+      "warning": 0,
+      "warning_rate": 0.0
+    }
+  },
+  "by_world": {
+    "stairs_single": {
+      "hard_invalid": 6,
+      "hard_invalid_rate": 0.1,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 60,
+      "warning": 1,
+      "warning_rate": 0.016666666666666666
+    }
+  },
+  "input_jsonl": "data/phase_b_invalid_gait_labels_v1/ablation_data_v1_stairs_invalid_gait_labels.jsonl",
+  "num_episodes": 60,
+  "num_hard_invalid": 6,
+  "num_warning": 1,
+  "schema": "phase_b_invalid_gait_calibrated_report_v1b"
+}
