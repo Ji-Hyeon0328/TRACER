@@ -1,0 +1,27 @@
+{
+  "actions": [
+    "trot_mid",
+    "trot_solid_fast",
+    "sponge_v1d_bias_late_hold_025_013",
+    "sponge_v1d_stabilized_late_hold_035_016",
+    "sponge_slow_high_clear",
+    "sponge_v8b_reach_bias"
+  ],
+  "description": "Common fixed-action bank benchmark across solid, rough, stair, slippery, and sponge terrains. This supports uniform-command vs terrain-specific high-level selection analysis.",
+  "goal_distance_ahead": 0.5,
+  "record_duration": 20.0,
+  "repeats_per_world_action": 10,
+  "reward_config": "configs/phase_b_reward_v0/tracer_slide_reward_proxy_v0.json",
+  "runner_timeout": 180.0,
+  "sample_hz": 20.0,
+  "schema": "phase_b_common_action_bank_pilot_v1",
+  "teacher_json": "configs/phase_b_sponge_late_switch_v1d/ppo_warmstart_teacher_table_sponge_late_switch_v1d.json",
+  "worlds": [
+    "earth",
+    "tracer_rough_low",
+    "tracer_rough_mid",
+    "stairs_single",
+    "tracer_slippery_flat",
+    "tracer_sponge_firm_flat"
+  ]
+}

@@ -1,0 +1,851 @@
+{
+  "by_action": {
+    "earth::sponge_slow_high_clear": {
+      "hard_invalid": 0,
+      "hard_invalid_rate": 0.0,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 10,
+      "top_hard_reasons": [],
+      "top_warning_reasons": [
+        [
+          "metric_suspicious_low_progress_stable",
+          10
+        ]
+      ],
+      "warning": 10,
+      "warning_rate": 1.0
+    },
+    "earth::sponge_v1d_bias_late_hold_025_013": {
+      "hard_invalid": 0,
+      "hard_invalid_rate": 0.0,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 10,
+      "top_hard_reasons": [],
+      "top_warning_reasons": [
+        [
+          "metric_suspicious_low_progress_stable",
+          3
+        ]
+      ],
+      "warning": 3,
+      "warning_rate": 0.3
+    },
+    "earth::sponge_v1d_stabilized_late_hold_035_016": {
+      "hard_invalid": 0,
+      "hard_invalid_rate": 0.0,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 10,
+      "top_hard_reasons": [],
+      "top_warning_reasons": [
+        [
+          "metric_suspicious_low_progress_stable",
+          10
+        ]
+      ],
+      "warning": 10,
+      "warning_rate": 1.0
+    },
+    "earth::sponge_v8b_reach_bias": {
+      "hard_invalid": 0,
+      "hard_invalid_rate": 0.0,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 10,
+      "top_hard_reasons": [],
+      "top_warning_reasons": [
+        [
+          "metric_suspicious_low_progress_stable",
+          10
+        ]
+      ],
+      "warning": 10,
+      "warning_rate": 1.0
+    },
+    "earth::trot_mid": {
+      "hard_invalid": 0,
+      "hard_invalid_rate": 0.0,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 10,
+      "top_hard_reasons": [],
+      "top_warning_reasons": [],
+      "warning": 0,
+      "warning_rate": 0.0
+    },
+    "earth::trot_solid_fast": {
+      "hard_invalid": 0,
+      "hard_invalid_rate": 0.0,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 10,
+      "top_hard_reasons": [],
+      "top_warning_reasons": [],
+      "warning": 0,
+      "warning_rate": 0.0
+    },
+    "stairs_single::sponge_slow_high_clear": {
+      "hard_invalid": 0,
+      "hard_invalid_rate": 0.0,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 10,
+      "top_hard_reasons": [],
+      "top_warning_reasons": [
+        [
+          "metric_suspicious_low_progress_stable",
+          10
+        ]
+      ],
+      "warning": 10,
+      "warning_rate": 1.0
+    },
+    "stairs_single::sponge_v1d_bias_late_hold_025_013": {
+      "hard_invalid": 3,
+      "hard_invalid_rate": 0.3,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 10,
+      "top_hard_reasons": [
+        [
+          "large_roll_or_pitch",
+          3
+        ],
+        [
+          "severe_low_base_height",
+          2
+        ],
+        [
+          "folded_joint_posture:FL,FR",
+          1
+        ]
+      ],
+      "top_warning_reasons": [
+        [
+          "metric_suspicious_low_progress_stable",
+          3
+        ]
+      ],
+      "warning": 3,
+      "warning_rate": 0.3
+    },
+    "stairs_single::sponge_v1d_stabilized_late_hold_035_016": {
+      "hard_invalid": 0,
+      "hard_invalid_rate": 0.0,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 10,
+      "top_hard_reasons": [],
+      "top_warning_reasons": [
+        [
+          "metric_suspicious_low_progress_stable",
+          9
+        ]
+      ],
+      "warning": 9,
+      "warning_rate": 0.9
+    },
+    "stairs_single::sponge_v8b_reach_bias": {
+      "hard_invalid": 1,
+      "hard_invalid_rate": 0.1,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 10,
+      "top_hard_reasons": [
+        [
+          "folded_joint_posture:FR,RR",
+          1
+        ],
+        [
+          "large_roll_or_pitch",
+          1
+        ],
+        [
+          "severe_low_base_height",
+          1
+        ]
+      ],
+      "top_warning_reasons": [
+        [
+          "metric_suspicious_low_progress_stable",
+          10
+        ]
+      ],
+      "warning": 10,
+      "warning_rate": 1.0
+    },
+    "stairs_single::trot_mid": {
+      "hard_invalid": 1,
+      "hard_invalid_rate": 0.1,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 10,
+      "top_hard_reasons": [
+        [
+          "folded_joint_posture:FL,FR,RL",
+          1
+        ],
+        [
+          "large_roll_or_pitch",
+          1
+        ],
+        [
+          "severe_low_base_height",
+          1
+        ]
+      ],
+      "top_warning_reasons": [
+        [
+          "metric_suspicious_low_progress_stable",
+          1
+        ]
+      ],
+      "warning": 1,
+      "warning_rate": 0.1
+    },
+    "stairs_single::trot_solid_fast": {
+      "hard_invalid": 3,
+      "hard_invalid_rate": 0.3,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 10,
+      "top_hard_reasons": [
+        [
+          "large_roll_or_pitch",
+          3
+        ],
+        [
+          "severe_low_base_height",
+          1
+        ]
+      ],
+      "top_warning_reasons": [],
+      "warning": 0,
+      "warning_rate": 0.0
+    },
+    "tracer_rough_low::sponge_slow_high_clear": {
+      "hard_invalid": 0,
+      "hard_invalid_rate": 0.0,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 10,
+      "top_hard_reasons": [],
+      "top_warning_reasons": [
+        [
+          "metric_suspicious_low_progress_stable",
+          10
+        ]
+      ],
+      "warning": 10,
+      "warning_rate": 1.0
+    },
+    "tracer_rough_low::sponge_v1d_bias_late_hold_025_013": {
+      "hard_invalid": 0,
+      "hard_invalid_rate": 0.0,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 10,
+      "top_hard_reasons": [],
+      "top_warning_reasons": [
+        [
+          "metric_suspicious_low_progress_stable",
+          2
+        ]
+      ],
+      "warning": 2,
+      "warning_rate": 0.2
+    },
+    "tracer_rough_low::sponge_v1d_stabilized_late_hold_035_016": {
+      "hard_invalid": 0,
+      "hard_invalid_rate": 0.0,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 10,
+      "top_hard_reasons": [],
+      "top_warning_reasons": [
+        [
+          "metric_suspicious_low_progress_stable",
+          10
+        ]
+      ],
+      "warning": 10,
+      "warning_rate": 1.0
+    },
+    "tracer_rough_low::sponge_v8b_reach_bias": {
+      "hard_invalid": 0,
+      "hard_invalid_rate": 0.0,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 10,
+      "top_hard_reasons": [],
+      "top_warning_reasons": [
+        [
+          "metric_suspicious_low_progress_stable",
+          10
+        ]
+      ],
+      "warning": 10,
+      "warning_rate": 1.0
+    },
+    "tracer_rough_low::trot_mid": {
+      "hard_invalid": 0,
+      "hard_invalid_rate": 0.0,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 10,
+      "top_hard_reasons": [],
+      "top_warning_reasons": [],
+      "warning": 0,
+      "warning_rate": 0.0
+    },
+    "tracer_rough_low::trot_solid_fast": {
+      "hard_invalid": 2,
+      "hard_invalid_rate": 0.2,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 10,
+      "top_hard_reasons": [
+        [
+          "large_roll_or_pitch",
+          2
+        ],
+        [
+          "severe_low_base_height",
+          2
+        ],
+        [
+          "folded_joint_posture:FL,FR",
+          1
+        ]
+      ],
+      "top_warning_reasons": [
+        [
+          "metric_suspicious_low_progress_stable",
+          2
+        ]
+      ],
+      "warning": 2,
+      "warning_rate": 0.2
+    },
+    "tracer_rough_mid::sponge_slow_high_clear": {
+      "hard_invalid": 0,
+      "hard_invalid_rate": 0.0,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 10,
+      "top_hard_reasons": [],
+      "top_warning_reasons": [
+        [
+          "metric_suspicious_low_progress_stable",
+          10
+        ]
+      ],
+      "warning": 10,
+      "warning_rate": 1.0
+    },
+    "tracer_rough_mid::sponge_v1d_bias_late_hold_025_013": {
+      "hard_invalid": 0,
+      "hard_invalid_rate": 0.0,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 10,
+      "top_hard_reasons": [],
+      "top_warning_reasons": [
+        [
+          "metric_suspicious_low_progress_stable",
+          1
+        ]
+      ],
+      "warning": 1,
+      "warning_rate": 0.1
+    },
+    "tracer_rough_mid::sponge_v1d_stabilized_late_hold_035_016": {
+      "hard_invalid": 0,
+      "hard_invalid_rate": 0.0,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 10,
+      "top_hard_reasons": [],
+      "top_warning_reasons": [
+        [
+          "metric_suspicious_low_progress_stable",
+          10
+        ]
+      ],
+      "warning": 10,
+      "warning_rate": 1.0
+    },
+    "tracer_rough_mid::sponge_v8b_reach_bias": {
+      "hard_invalid": 0,
+      "hard_invalid_rate": 0.0,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 10,
+      "top_hard_reasons": [],
+      "top_warning_reasons": [
+        [
+          "metric_suspicious_low_progress_stable",
+          10
+        ]
+      ],
+      "warning": 10,
+      "warning_rate": 1.0
+    },
+    "tracer_rough_mid::trot_mid": {
+      "hard_invalid": 0,
+      "hard_invalid_rate": 0.0,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 10,
+      "top_hard_reasons": [],
+      "top_warning_reasons": [],
+      "warning": 0,
+      "warning_rate": 0.0
+    },
+    "tracer_rough_mid::trot_solid_fast": {
+      "hard_invalid": 0,
+      "hard_invalid_rate": 0.0,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 10,
+      "top_hard_reasons": [],
+      "top_warning_reasons": [],
+      "warning": 0,
+      "warning_rate": 0.0
+    },
+    "tracer_slippery_flat::sponge_slow_high_clear": {
+      "hard_invalid": 10,
+      "hard_invalid_rate": 1.0,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 10,
+      "top_hard_reasons": [
+        [
+          "large_roll_or_pitch",
+          10
+        ],
+        [
+          "severe_low_base_height",
+          10
+        ],
+        [
+          "folded_joint_posture:RL",
+          9
+        ],
+        [
+          "folded_joint_posture:FR,RL",
+          1
+        ]
+      ],
+      "top_warning_reasons": [
+        [
+          "metric_suspicious_low_progress_stable",
+          10
+        ]
+      ],
+      "warning": 10,
+      "warning_rate": 1.0
+    },
+    "tracer_slippery_flat::sponge_v1d_bias_late_hold_025_013": {
+      "hard_invalid": 10,
+      "hard_invalid_rate": 1.0,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 10,
+      "top_hard_reasons": [
+        [
+          "severe_low_base_height",
+          10
+        ],
+        [
+          "large_roll_or_pitch",
+          8
+        ],
+        [
+          "folded_joint_posture:RL",
+          7
+        ],
+        [
+          "folded_joint_posture:FL,FR,RL,RR",
+          1
+        ],
+        [
+          "folded_joint_posture:FL,RL",
+          1
+        ],
+        [
+          "folded_joint_posture:RL,RR",
+          1
+        ],
+        [
+          "per_leg_motion_collapse",
+          1
+        ]
+      ],
+      "top_warning_reasons": [
+        [
+          "metric_suspicious_low_progress_stable",
+          10
+        ]
+      ],
+      "warning": 10,
+      "warning_rate": 1.0
+    },
+    "tracer_slippery_flat::sponge_v1d_stabilized_late_hold_035_016": {
+      "hard_invalid": 10,
+      "hard_invalid_rate": 1.0,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 10,
+      "top_hard_reasons": [
+        [
+          "severe_low_base_height",
+          10
+        ],
+        [
+          "folded_joint_posture:RL",
+          8
+        ],
+        [
+          "large_roll_or_pitch",
+          8
+        ],
+        [
+          "folded_joint_posture:FL,RL",
+          2
+        ],
+        [
+          "per_leg_motion_collapse",
+          1
+        ]
+      ],
+      "top_warning_reasons": [
+        [
+          "metric_suspicious_low_progress_stable",
+          9
+        ]
+      ],
+      "warning": 9,
+      "warning_rate": 0.9
+    },
+    "tracer_slippery_flat::sponge_v8b_reach_bias": {
+      "hard_invalid": 10,
+      "hard_invalid_rate": 1.0,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 10,
+      "top_hard_reasons": [
+        [
+          "severe_low_base_height",
+          10
+        ],
+        [
+          "large_roll_or_pitch",
+          8
+        ],
+        [
+          "folded_joint_posture:RL",
+          7
+        ],
+        [
+          "folded_joint_posture:FR,RL,RR",
+          2
+        ],
+        [
+          "per_leg_motion_collapse",
+          2
+        ],
+        [
+          "contact_asymmetry",
+          1
+        ],
+        [
+          "folded_joint_posture:RL,RR",
+          1
+        ]
+      ],
+      "top_warning_reasons": [
+        [
+          "metric_suspicious_low_progress_stable",
+          9
+        ]
+      ],
+      "warning": 9,
+      "warning_rate": 0.9
+    },
+    "tracer_slippery_flat::trot_mid": {
+      "hard_invalid": 10,
+      "hard_invalid_rate": 1.0,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 10,
+      "top_hard_reasons": [
+        [
+          "severe_low_base_height",
+          10
+        ],
+        [
+          "large_roll_or_pitch",
+          9
+        ],
+        [
+          "folded_joint_posture:RL",
+          8
+        ],
+        [
+          "per_leg_motion_collapse",
+          2
+        ],
+        [
+          "contact_asymmetry",
+          1
+        ],
+        [
+          "folded_joint_posture:FL,RL,RR",
+          1
+        ],
+        [
+          "folded_joint_posture:RL,RR",
+          1
+        ]
+      ],
+      "top_warning_reasons": [
+        [
+          "metric_suspicious_low_progress_stable",
+          10
+        ]
+      ],
+      "warning": 10,
+      "warning_rate": 1.0
+    },
+    "tracer_slippery_flat::trot_solid_fast": {
+      "hard_invalid": 10,
+      "hard_invalid_rate": 1.0,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 10,
+      "top_hard_reasons": [
+        [
+          "large_roll_or_pitch",
+          10
+        ],
+        [
+          "severe_low_base_height",
+          10
+        ],
+        [
+          "folded_joint_posture:RL",
+          8
+        ],
+        [
+          "folded_joint_posture:FL,RL",
+          2
+        ],
+        [
+          "per_leg_motion_collapse",
+          1
+        ]
+      ],
+      "top_warning_reasons": [
+        [
+          "metric_suspicious_low_progress_stable",
+          10
+        ]
+      ],
+      "warning": 10,
+      "warning_rate": 1.0
+    },
+    "tracer_sponge_firm_flat::sponge_slow_high_clear": {
+      "hard_invalid": 1,
+      "hard_invalid_rate": 0.1,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 10,
+      "top_hard_reasons": [
+        [
+          "severe_low_base_height",
+          1
+        ]
+      ],
+      "top_warning_reasons": [
+        [
+          "soft_low_base_height",
+          6
+        ]
+      ],
+      "warning": 6,
+      "warning_rate": 0.6
+    },
+    "tracer_sponge_firm_flat::sponge_v1d_bias_late_hold_025_013": {
+      "hard_invalid": 2,
+      "hard_invalid_rate": 0.2,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 10,
+      "top_hard_reasons": [
+        [
+          "folded_joint_posture:FL",
+          2
+        ],
+        [
+          "severe_low_base_height",
+          1
+        ]
+      ],
+      "top_warning_reasons": [
+        [
+          "soft_low_base_height",
+          4
+        ],
+        [
+          "metric_suspicious_low_progress_stable",
+          1
+        ]
+      ],
+      "warning": 5,
+      "warning_rate": 0.5
+    },
+    "tracer_sponge_firm_flat::sponge_v1d_stabilized_late_hold_035_016": {
+      "hard_invalid": 1,
+      "hard_invalid_rate": 0.1,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 10,
+      "top_hard_reasons": [
+        [
+          "folded_joint_posture:FR",
+          1
+        ]
+      ],
+      "top_warning_reasons": [
+        [
+          "soft_low_base_height",
+          5
+        ]
+      ],
+      "warning": 5,
+      "warning_rate": 0.5
+    },
+    "tracer_sponge_firm_flat::sponge_v8b_reach_bias": {
+      "hard_invalid": 1,
+      "hard_invalid_rate": 0.1,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 10,
+      "top_hard_reasons": [
+        [
+          "folded_joint_posture:FR,RR",
+          1
+        ]
+      ],
+      "top_warning_reasons": [
+        [
+          "soft_low_base_height",
+          5
+        ]
+      ],
+      "warning": 5,
+      "warning_rate": 0.5
+    },
+    "tracer_sponge_firm_flat::trot_mid": {
+      "hard_invalid": 1,
+      "hard_invalid_rate": 0.1,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 10,
+      "top_hard_reasons": [
+        [
+          "folded_joint_posture:FL",
+          1
+        ]
+      ],
+      "top_warning_reasons": [
+        [
+          "soft_low_base_height",
+          2
+        ]
+      ],
+      "warning": 2,
+      "warning_rate": 0.2
+    },
+    "tracer_sponge_firm_flat::trot_solid_fast": {
+      "hard_invalid": 0,
+      "hard_invalid_rate": 0.0,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 10,
+      "top_hard_reasons": [],
+      "top_warning_reasons": [
+        [
+          "soft_low_base_height",
+          2
+        ]
+      ],
+      "warning": 2,
+      "warning_rate": 0.2
+    }
+  },
+  "by_world": {
+    "earth": {
+      "hard_invalid": 0,
+      "hard_invalid_rate": 0.0,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 60,
+      "warning": 33,
+      "warning_rate": 0.55
+    },
+    "stairs_single": {
+      "hard_invalid": 8,
+      "hard_invalid_rate": 0.13333333333333333,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 60,
+      "warning": 33,
+      "warning_rate": 0.55
+    },
+    "tracer_rough_low": {
+      "hard_invalid": 2,
+      "hard_invalid_rate": 0.03333333333333333,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 60,
+      "warning": 34,
+      "warning_rate": 0.5666666666666667
+    },
+    "tracer_rough_mid": {
+      "hard_invalid": 0,
+      "hard_invalid_rate": 0.0,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 60,
+      "warning": 31,
+      "warning_rate": 0.5166666666666667
+    },
+    "tracer_slippery_flat": {
+      "hard_invalid": 60,
+      "hard_invalid_rate": 1.0,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 60,
+      "warning": 58,
+      "warning_rate": 0.9666666666666667
+    },
+    "tracer_sponge_firm_flat": {
+      "hard_invalid": 6,
+      "hard_invalid_rate": 0.1,
+      "missing_state": 0,
+      "missing_state_rate": 0.0,
+      "n": 60,
+      "warning": 25,
+      "warning_rate": 0.4166666666666667
+    }
+  },
+  "input_jsonl": "data/phase_b_invalid_gait_labels_v1/common_action_bank_pilot_v1_invalid_gait_labels.jsonl",
+  "num_episodes": 360,
+  "num_hard_invalid": 76,
+  "num_warning": 214,
+  "schema": "phase_b_invalid_gait_calibrated_report_v1b"
+}

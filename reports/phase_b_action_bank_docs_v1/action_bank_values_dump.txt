@@ -1,0 +1,42 @@
+
+====================================================================================================
+CONFIG: configs/phase_b_ablation_data_v1/training_campaign_earth_ablation_data_v1.json
+TEACHER: configs/phase_b_training_pipeline_v2_sponge_expanded/ppo_warmstart_teacher_table_sponge_expanded_v0.json
+WORLDS: ['earth']
+ACTIONS: ['trot_mid', 'trot_solid_fast']
+
+ACTION: trot_mid
+  [not found]
+
+ACTION: trot_solid_fast
+  [not found]
+
+====================================================================================================
+CONFIG: configs/phase_b_ablation_data_v1/training_campaign_stairs_ablation_data_v1.json
+TEACHER: configs/phase_b_training_pipeline_v2_sponge_expanded/ppo_warmstart_teacher_table_sponge_expanded_v0.json
+WORLDS: ['stairs_single']
+ACTIONS: ['trot_mid', 'trot_solid_fast']
+
+ACTION: trot_mid
+  [not found]
+
+ACTION: trot_solid_fast
+  [not found]
+
+====================================================================================================
+CONFIG: configs/phase_b_ablation_data_v1/training_campaign_sponge_ablation_data_v1.json
+TEACHER: configs/phase_b_sponge_late_switch_v1d/ppo_warmstart_teacher_table_sponge_late_switch_v1d.json
+WORLDS: ['tracer_sponge_firm_flat']
+ACTIONS: ['sponge_v8b_reach_bias', 'sponge_v1d_stabilized_late_hold_035_016', 'sponge_v1d_bias_late_hold_025_013', 'sponge_slow_high_clear']
+
+ACTION: sponge_v8b_reach_bias
+  [not found]
+
+ACTION: sponge_v1d_stabilized_late_hold_035_016
+  [not found]
+
+ACTION: sponge_v1d_bias_late_hold_025_013
+  [not found]
+
+ACTION: sponge_slow_high_clear
+  [not found]
