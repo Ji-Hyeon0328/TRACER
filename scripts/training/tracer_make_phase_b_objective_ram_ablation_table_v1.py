@@ -18,6 +18,43 @@ REPORT_PATHS = {
 }
 
 
+
+ACTION_LABELS = {
+    "earth::trot_mid": "Flat\nMedium trot",
+    "earth::trot_solid_fast": "Flat\nFast solid trot",
+    "stairs_single::trot_mid": "Stairs\nMedium trot",
+    "stairs_single::trot_solid_fast": "Stairs\nFast solid trot",
+    "sponge::sponge_slow_high_clear": "Sponge\nSlow high-clear",
+    "sponge::sponge_v1d_bias_late_hold_025_013": "Sponge\nSafe reach probe",
+    "sponge::sponge_v1d_stabilized_late_hold_035_016": "Sponge\nLate hold probe",
+    "sponge::sponge_v8b_reach_bias": "Sponge\nReach-biased risky",
+    "tracer_sponge_firm_flat::sponge_slow_high_clear": "Sponge\nSlow high-clear",
+    "tracer_sponge_firm_flat::sponge_v1d_bias_late_hold_025_013": "Sponge\nSafe reach probe",
+    "tracer_sponge_firm_flat::sponge_v1d_stabilized_late_hold_035_016": "Sponge\nLate hold probe",
+    "tracer_sponge_firm_flat::sponge_v8b_reach_bias": "Sponge\nReach-biased risky",
+}
+
+MODE_LABELS_READABLE = {
+    "obj_off_ram_off": "Reach-only",
+    "obj_on_ram_off": "Task\nobjective",
+    "obj_off_ram_on": "Risk\nfilter",
+    "obj_on_ram_on": "Task + risk",
+}
+
+
+def readable_action_label(r):
+    key = r.get("world_action", "")
+    if key in ACTION_LABELS:
+        return ACTION_LABELS[key]
+    world = r.get("world", "")
+    action = r.get("action", "")
+    return f"{world}\n{action}"
+
+
+def readable_mode_label(mode):
+    return MODE_LABELS_READABLE.get(mode, mode)
+
+
 MODES = [
     ("obj_off_ram_off", "Objective OFF / RAM OFF"),
     ("obj_on_ram_off", "Objective ON / RAM OFF"),
@@ -200,7 +237,7 @@ def make_markdown(action_rows, selected):
 def grouped_bar(selected, metric, ylabel, out_path):
     worlds = WORLDS
     mode_keys = [m[0] for m in MODES]
-    mode_labels = [m[1].replace(" / ", "\n") for m in MODES]
+    mode_labels = [readable_mode_label(m[0]) for m in MODES]
 
     vals = []
     for world in worlds:
@@ -229,13 +266,13 @@ def grouped_bar(selected, metric, ylabel, out_path):
 
 
 def action_bar(action_rows, metric, ylabel, out_path):
-    labels = [f"{r['world']}::{r['action']}" for r in action_rows]
+    labels = [readable_action_label(r) for r in action_rows]
     vals = [ff(r.get(metric)) for r in action_rows]
 
-    fig, ax = plt.subplots(figsize=(12, 5))
+    fig, ax = plt.subplots(figsize=(11, 5.8))
     ax.bar(list(range(len(labels))), vals)
     ax.set_xticks(list(range(len(labels))))
-    ax.set_xticklabels(labels, rotation=60, ha="right")
+    ax.set_xticklabels(labels, rotation=0, ha="center")
     ax.set_ylabel(ylabel)
     ax.set_title(ylabel + " for fixed-command action bank")
     fig.tight_layout()
