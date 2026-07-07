@@ -1,0 +1,320 @@
+[
+  {
+    "log_dir": "logs/phase_c_mixed_fixed_20260707_181010",
+    "run_type": "fixed",
+    "control_log": "logs/phase_c_mixed_fixed_20260707_181010/fixed_baseline.log",
+    "context_log": "logs/phase_c_mixed_fixed_20260707_181010/context_provider.log",
+    "num_samples": 204,
+    "num_context_switches": 5,
+    "goal_x": 8.0,
+    "success": true,
+    "stopped": true,
+    "t_start": 1783462247.024394,
+    "t_end": 1783462653.023452,
+    "duration_logged_sec": 405.99905800819397,
+    "time_to_goal_sec": 239.99932217597961,
+    "time_to_stop_sec": 249.999032497406,
+    "final_x": 8.41,
+    "final_y": -0.69,
+    "max_x": 8.424,
+    "min_x": 0.0,
+    "max_abs_y": 0.711,
+    "mean_abs_y": 0.39742647058823527,
+    "progress_rate_logged": 0.02074881661383063,
+    "segment_times": {
+      "upslope_start": {
+        "t_rel": 61.9997193813324,
+        "x": 2.052,
+        "y": -0.192,
+        "seq": 620
+      },
+      "rough_start": {
+        "t_rel": 115.99927043914795,
+        "x": 4.002,
+        "y": -0.441,
+        "seq": 1160
+      },
+      "downslope_start": {
+        "t_rel": 175.99933242797852,
+        "x": 6.051,
+        "y": -0.384,
+        "seq": 1760
+      },
+      "goal_flat_start": {
+        "t_rel": 239.99932217597961,
+        "x": 8.056,
+        "y": -0.497,
+        "seq": 2400
+      }
+    },
+    "context_switches": [
+      {
+        "label": "flat",
+        "t_rel": 0.9576990604400635,
+        "x": 0.0,
+        "y": 0.0
+      },
+      {
+        "label": "upslope",
+        "t_rel": 60.695703983306885,
+        "x": 2.0,
+        "y": -0.187
+      },
+      {
+        "label": "rough",
+        "t_rel": 115.92072606086731,
+        "x": 4.0,
+        "y": -0.441
+      },
+      {
+        "label": "downslope",
+        "t_rel": 174.4060492515564,
+        "x": 6.0,
+        "y": -0.381
+      },
+      {
+        "label": "goal_flat",
+        "t_rel": 238.4702184200287,
+        "x": 8.0,
+        "y": -0.501
+      }
+    ]
+  },
+  {
+    "log_dir": "logs/phase_c_mixed_oracle_20260707_181741",
+    "run_type": "oracle",
+    "control_log": "logs/phase_c_mixed_oracle_20260707_181741/oracle_schedule.log",
+    "context_log": "logs/phase_c_mixed_oracle_20260707_181741/context_provider.log",
+    "num_samples": 162,
+    "num_context_switches": 31,
+    "goal_x": 8.0,
+    "success": true,
+    "stopped": true,
+    "t_start": 1783462697.8970008,
+    "t_end": 1783463019.8961964,
+    "duration_logged_sec": 321.9991955757141,
+    "time_to_goal_sec": 293.9993100166321,
+    "time_to_stop_sec": 289.999342918396,
+    "final_x": 8.021,
+    "final_y": 0.31,
+    "max_x": 8.022,
+    "min_x": 0.0,
+    "max_abs_y": 0.321,
+    "mean_abs_y": 0.09522222222222222,
+    "progress_rate_logged": 0.024913105716482222,
+    "segment_times": {
+      "upslope_start": {
+        "t_rel": 47.998990058898926,
+        "x": 2.075,
+        "y": -0.171,
+        "seq": 480
+      },
+      "rough_start": {
+        "t_rel": 99.99898099899292,
+        "x": 4.022,
+        "y": -0.192,
+        "seq": 1000
+      },
+      "downslope_start": {
+        "t_rel": 173.999098777771,
+        "x": 6.02,
+        "y": 0.015,
+        "seq": 1740
+      },
+      "goal_flat_start": {
+        "t_rel": 293.9993100166321,
+        "x": 8.004,
+        "y": 0.314,
+        "seq": 2940
+      }
+    },
+    "context_switches": [
+      {
+        "label": "flat",
+        "t_rel": 1.0756540298461914,
+        "x": 0.0,
+        "y": 0.0
+      },
+      {
+        "label": "upslope",
+        "t_rel": 46.44366192817688,
+        "x": 2.0,
+        "y": -0.177
+      },
+      {
+        "label": "rough",
+        "t_rel": 99.49813461303711,
+        "x": 4.0,
+        "y": -0.196
+      },
+      {
+        "label": "downslope",
+        "t_rel": 172.88813304901123,
+        "x": 6.0,
+        "y": 0.013
+      },
+      {
+        "label": "goal_flat",
+        "t_rel": 288.7187452316284,
+        "x": 8.0,
+        "y": 0.206
+      },
+      {
+        "label": "downslope",
+        "t_rel": 289.11315536499023,
+        "x": 8.0,
+        "y": 0.213
+      },
+      {
+        "label": "goal_flat",
+        "t_rel": 289.37418580055237,
+        "x": 8.0,
+        "y": 0.216
+      },
+      {
+        "label": "downslope",
+        "t_rel": 289.634770154953,
+        "x": 8.0,
+        "y": 0.219
+      },
+      {
+        "label": "goal_flat",
+        "t_rel": 290.94417667388916,
+        "x": 8.0,
+        "y": 0.257
+      },
+      {
+        "label": "downslope",
+        "t_rel": 291.0684368610382,
+        "x": 8.0,
+        "y": 0.26
+      },
+      {
+        "label": "goal_flat",
+        "t_rel": 292.9947006702423,
+        "x": 8.0,
+        "y": 0.301
+      },
+      {
+        "label": "downslope",
+        "t_rel": 293.1032660007477,
+        "x": 8.0,
+        "y": 0.301
+      },
+      {
+        "label": "goal_flat",
+        "t_rel": 293.71309661865234,
+        "x": 8.0,
+        "y": 0.312
+      },
+      {
+        "label": "downslope",
+        "t_rel": 294.98343539237976,
+        "x": 8.0,
+        "y": 0.313
+      },
+      {
+        "label": "goal_flat",
+        "t_rel": 295.32329177856445,
+        "x": 8.0,
+        "y": 0.317
+      },
+      {
+        "label": "downslope",
+        "t_rel": 299.2331931591034,
+        "x": 8.0,
+        "y": 0.319
+      },
+      {
+        "label": "goal_flat",
+        "t_rel": 299.39596819877625,
+        "x": 8.0,
+        "y": 0.317
+      },
+      {
+        "label": "downslope",
+        "t_rel": 301.53191614151,
+        "x": 8.0,
+        "y": 0.303
+      },
+      {
+        "label": "goal_flat",
+        "t_rel": 301.9733850955963,
+        "x": 8.0,
+        "y": 0.302
+      },
+      {
+        "label": "downslope",
+        "t_rel": 305.08790946006775,
+        "x": 8.0,
+        "y": 0.291
+      },
+      {
+        "label": "goal_flat",
+        "t_rel": 305.2178707122803,
+        "x": 8.0,
+        "y": 0.293
+      },
+      {
+        "label": "downslope",
+        "t_rel": 305.828693151474,
+        "x": 8.0,
+        "y": 0.292
+      },
+      {
+        "label": "goal_flat",
+        "t_rel": 306.0390067100525,
+        "x": 8.0,
+        "y": 0.29
+      },
+      {
+        "label": "downslope",
+        "t_rel": 308.97871136665344,
+        "x": 8.0,
+        "y": 0.291
+      },
+      {
+        "label": "goal_flat",
+        "t_rel": 309.18466997146606,
+        "x": 8.0,
+        "y": 0.291
+      },
+      {
+        "label": "downslope",
+        "t_rel": 309.86475801467896,
+        "x": 8.0,
+        "y": 0.292
+      },
+      {
+        "label": "goal_flat",
+        "t_rel": 310.2037136554718,
+        "x": 8.0,
+        "y": 0.3
+      },
+      {
+        "label": "downslope",
+        "t_rel": 313.7247338294983,
+        "x": 8.0,
+        "y": 0.314
+      },
+      {
+        "label": "goal_flat",
+        "t_rel": 314.1189785003662,
+        "x": 8.0,
+        "y": 0.313
+      },
+      {
+        "label": "downslope",
+        "t_rel": 315.4394586086273,
+        "x": 8.0,
+        "y": 0.31
+      },
+      {
+        "label": "goal_flat",
+        "t_rel": 315.7029619216919,
+        "x": 8.0,
+        "y": 0.309
+      }
+    ]
+  }
+]

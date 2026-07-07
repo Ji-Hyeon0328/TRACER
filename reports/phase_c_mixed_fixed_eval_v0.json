@@ -1,0 +1,83 @@
+[
+  {
+    "log_dir": "logs/phase_c_mixed_fixed_20260707_181010",
+    "run_type": "fixed",
+    "control_log": "logs/phase_c_mixed_fixed_20260707_181010/fixed_baseline.log",
+    "context_log": "logs/phase_c_mixed_fixed_20260707_181010/context_provider.log",
+    "num_samples": 194,
+    "num_context_switches": 5,
+    "goal_x": 8.4,
+    "success": true,
+    "stopped": true,
+    "t_start": 1783462247.024394,
+    "t_end": 1783462633.0233684,
+    "duration_logged_sec": 385.9989743232727,
+    "time_to_goal_sec": 249.999032497406,
+    "time_to_stop_sec": 249.999032497406,
+    "final_x": 8.402,
+    "final_y": -0.655,
+    "max_x": 8.424,
+    "min_x": 0.0,
+    "max_abs_y": 0.655,
+    "mean_abs_y": 0.3822164948453608,
+    "progress_rate_logged": 0.021823892187197706,
+    "segment_times": {
+      "upslope_start": {
+        "t_rel": 61.9997193813324,
+        "x": 2.052,
+        "y": -0.192,
+        "seq": 620
+      },
+      "rough_start": {
+        "t_rel": 115.99927043914795,
+        "x": 4.002,
+        "y": -0.441,
+        "seq": 1160
+      },
+      "downslope_start": {
+        "t_rel": 175.99933242797852,
+        "x": 6.051,
+        "y": -0.384,
+        "seq": 1760
+      },
+      "goal_flat_start": {
+        "t_rel": 239.99932217597961,
+        "x": 8.056,
+        "y": -0.497,
+        "seq": 2400
+      }
+    },
+    "context_switches": [
+      {
+        "label": "flat",
+        "t_rel": 0.9576990604400635,
+        "x": 0.0,
+        "y": 0.0
+      },
+      {
+        "label": "upslope",
+        "t_rel": 60.695703983306885,
+        "x": 2.0,
+        "y": -0.187
+      },
+      {
+        "label": "rough",
+        "t_rel": 115.92072606086731,
+        "x": 4.0,
+        "y": -0.441
+      },
+      {
+        "label": "downslope",
+        "t_rel": 174.4060492515564,
+        "x": 6.0,
+        "y": -0.381
+      },
+      {
+        "label": "goal_flat",
+        "t_rel": 238.4702184200287,
+        "x": 8.0,
+        "y": -0.501
+      }
+    ]
+  }
+]
