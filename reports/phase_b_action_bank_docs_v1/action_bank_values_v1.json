@@ -1,0 +1,149 @@
+{
+  "rows": [
+    {
+      "action": "trot_mid",
+      "config": "configs/phase_b_ablation_data_v1/training_campaign_earth_ablation_data_v1.json",
+      "found": true,
+      "teacher_json": "configs/phase_b_training_pipeline_v2_sponge_expanded/ppo_warmstart_teacher_table_sponge_expanded_v0.json",
+      "theta": {
+        "body_height": 0.33,
+        "goal_slow_distance": 0.25,
+        "goal_stop_distance": 0.15,
+        "name": "trot_mid",
+        "swing_clearance": 0.05,
+        "vx_far": 0.12,
+        "vx_near": 0.06
+      },
+      "worlds": [
+        "earth"
+      ]
+    },
+    {
+      "action": "trot_solid_fast",
+      "config": "configs/phase_b_ablation_data_v1/training_campaign_earth_ablation_data_v1.json",
+      "found": true,
+      "teacher_json": "configs/phase_b_training_pipeline_v2_sponge_expanded/ppo_warmstart_teacher_table_sponge_expanded_v0.json",
+      "theta": {
+        "body_height": 0.32,
+        "goal_slow_distance": 0.2,
+        "goal_stop_distance": 0.15,
+        "name": "trot_solid_fast",
+        "swing_clearance": 0.04,
+        "vx_far": 0.16,
+        "vx_near": 0.08
+      },
+      "worlds": [
+        "earth"
+      ]
+    },
+    {
+      "action": "trot_mid",
+      "config": "configs/phase_b_ablation_data_v1/training_campaign_stairs_ablation_data_v1.json",
+      "found": true,
+      "teacher_json": "configs/phase_b_training_pipeline_v2_sponge_expanded/ppo_warmstart_teacher_table_sponge_expanded_v0.json",
+      "theta": {
+        "body_height": 0.33,
+        "goal_slow_distance": 0.25,
+        "goal_stop_distance": 0.15,
+        "name": "trot_mid",
+        "swing_clearance": 0.05,
+        "vx_far": 0.12,
+        "vx_near": 0.06
+      },
+      "worlds": [
+        "stairs_single"
+      ]
+    },
+    {
+      "action": "trot_solid_fast",
+      "config": "configs/phase_b_ablation_data_v1/training_campaign_stairs_ablation_data_v1.json",
+      "found": true,
+      "teacher_json": "configs/phase_b_training_pipeline_v2_sponge_expanded/ppo_warmstart_teacher_table_sponge_expanded_v0.json",
+      "theta": {
+        "body_height": 0.32,
+        "goal_slow_distance": 0.2,
+        "goal_stop_distance": 0.15,
+        "name": "trot_solid_fast",
+        "swing_clearance": 0.04,
+        "vx_far": 0.16,
+        "vx_near": 0.08
+      },
+      "worlds": [
+        "stairs_single"
+      ]
+    },
+    {
+      "action": "sponge_v8b_reach_bias",
+      "config": "configs/phase_b_ablation_data_v1/training_campaign_sponge_ablation_data_v1.json",
+      "found": true,
+      "teacher_json": "configs/phase_b_sponge_late_switch_v1d/ppo_warmstart_teacher_table_sponge_late_switch_v1d.json",
+      "theta": {
+        "body_height": 0.3355,
+        "goal_slow_distance": 0.43999999999999995,
+        "goal_stop_distance": 0.15749999999999997,
+        "name": "sponge_v8b_reach_bias",
+        "swing_clearance": 0.07075000000000001,
+        "vx_far": 0.076,
+        "vx_near": 0.00875
+      },
+      "worlds": [
+        "tracer_sponge_firm_flat"
+      ]
+    },
+    {
+      "action": "sponge_v1d_stabilized_late_hold_035_016",
+      "config": "configs/phase_b_ablation_data_v1/training_campaign_sponge_ablation_data_v1.json",
+      "found": true,
+      "teacher_json": "configs/phase_b_sponge_late_switch_v1d/ppo_warmstart_teacher_table_sponge_late_switch_v1d.json",
+      "theta": {
+        "body_height": 0.34124999999999994,
+        "goal_slow_distance": 0.35,
+        "goal_stop_distance": 0.16,
+        "name": "sponge_v1d_stabilized_late_hold_035_016",
+        "swing_clearance": 0.08124999999999999,
+        "vx_far": 0.07600000000000001,
+        "vx_near": 0.015
+      },
+      "worlds": [
+        "tracer_sponge_firm_flat"
+      ]
+    },
+    {
+      "action": "sponge_v1d_bias_late_hold_025_013",
+      "config": "configs/phase_b_ablation_data_v1/training_campaign_sponge_ablation_data_v1.json",
+      "found": true,
+      "teacher_json": "configs/phase_b_sponge_late_switch_v1d/ppo_warmstart_teacher_table_sponge_late_switch_v1d.json",
+      "theta": {
+        "body_height": 0.344925,
+        "goal_slow_distance": 0.25,
+        "goal_stop_distance": 0.13,
+        "name": "sponge_v1d_bias_late_hold_025_013",
+        "swing_clearance": 0.08326249999999999,
+        "vx_far": 0.076,
+        "vx_near": 0.015
+      },
+      "worlds": [
+        "tracer_sponge_firm_flat"
+      ]
+    },
+    {
+      "action": "sponge_slow_high_clear",
+      "config": "configs/phase_b_ablation_data_v1/training_campaign_sponge_ablation_data_v1.json",
+      "found": true,
+      "teacher_json": "configs/phase_b_sponge_late_switch_v1d/ppo_warmstart_teacher_table_sponge_late_switch_v1d.json",
+      "theta": {
+        "body_height": 0.35,
+        "goal_slow_distance": 0.45,
+        "goal_stop_distance": 0.15,
+        "name": "sponge_slow_high_clear",
+        "swing_clearance": 0.09,
+        "vx_far": 0.06,
+        "vx_near": 0.015
+      },
+      "worlds": [
+        "tracer_sponge_firm_flat"
+      ]
+    }
+  ],
+  "schema": "phase_b_action_bank_values_v1"
+}
