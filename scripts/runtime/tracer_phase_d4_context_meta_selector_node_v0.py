@@ -53,10 +53,12 @@ class ContextMetaSelector(Node):
         self.pub_hz = float(os.environ.get("TRACER_PHASE_D4_PUB_HZ", "10.0"))
 
         self.default_label = os.environ.get("TRACER_PHASE_D4_DEFAULT_CONTEXT", "flat")
+        # Rollout-selected D4.2 default table: rough_clearance.
+        # rough terrain uses slightly lower vx and higher swing clearance.
         default_table = (
             "flat:0.210,0.320,0.045;"
             "start_flat:0.210,0.320,0.045;"
-            "rough:0.210,0.320,0.045;"
+            "rough:0.2050,0.320,0.055;"
             "upslope:0.210,0.320,0.045;"
             "downslope:0.2025,0.320,0.045;"
             "goal_flat:0.2025,0.320,0.045;"

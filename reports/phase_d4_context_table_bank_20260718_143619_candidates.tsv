@@ -1,0 +1,6 @@
+name	action_table
+baseline_hold025	flat:0.210,0.320,0.045;start_flat:0.210,0.320,0.045;upslope:0.210,0.320,0.045;rough:0.210,0.320,0.045;downslope:0.2025,0.320,0.045;goal_flat:0.2025,0.320,0.045;unknown:0.2025,0.320,0.045
+conservative_down	flat:0.210,0.320,0.045;start_flat:0.210,0.320,0.045;upslope:0.210,0.320,0.045;rough:0.210,0.320,0.045;downslope:0.1900,0.320,0.045;goal_flat:0.1900,0.320,0.045;unknown:0.1900,0.320,0.045
+rough_clearance	flat:0.210,0.320,0.045;start_flat:0.210,0.320,0.045;upslope:0.210,0.320,0.045;rough:0.2050,0.320,0.055;downslope:0.2025,0.320,0.045;goal_flat:0.2025,0.320,0.045;unknown:0.2025,0.320,0.045
+smooth_all	flat:0.205,0.320,0.045;start_flat:0.205,0.320,0.045;upslope:0.205,0.320,0.045;rough:0.205,0.320,0.050;downslope:0.1950,0.320,0.045;goal_flat:0.1950,0.320,0.045;unknown:0.1950,0.320,0.045
+aggressive_flat_rough	flat:0.215,0.320,0.045;start_flat:0.215,0.320,0.045;upslope:0.210,0.320,0.045;rough:0.215,0.320,0.050;downslope:0.2025,0.320,0.045;goal_flat:0.2025,0.320,0.045;unknown:0.2025,0.320,0.045
