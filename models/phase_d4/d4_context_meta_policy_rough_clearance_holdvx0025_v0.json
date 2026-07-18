@@ -62,5 +62,14 @@
     "This is a rollout-selected table policy, not a neural RL policy.",
     "Validated on stress v5 with oracle terrain context labels.",
     "Lateral drift is acceptable but still a tuning target."
-  ]
+  ],
+  "yaw_correction": {
+    "type": "proportional_lateral_feedback",
+    "yaw_gain": -0.025,
+    "yaw_sign": -1.0,
+    "yaw_k": 0.025,
+    "yaw_max": 0.2,
+    "source_method": "D4.4 yaw gain search",
+    "note": "Small negative yaw gain reduced mean lateral drift while preserving goal reach."
+  }
 }

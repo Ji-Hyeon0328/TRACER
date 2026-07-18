@@ -79,9 +79,18 @@ class ContextMetaSelector(Node):
             if "action_table" in policy:
                 action_table_text = policy["action_table"]
 
-            # Explicit env var still has priority. Otherwise use the policy artifact hold_vx.
+            # Explicit env vars still have priority. Otherwise use policy artifact parameters.
             if "TRACER_PHASE_D4_HOLD_VX" not in os.environ and "hold_vx" in policy:
                 self.hold_vx = float(policy["hold_vx"])
+
+            yaw_cfg = policy.get("yaw_correction", {})
+            if yaw_cfg:
+                if "TRACER_PHASE_D4_YAW_SIGN" not in os.environ and "yaw_sign" in yaw_cfg:
+                    self.yaw_sign = float(yaw_cfg["yaw_sign"])
+                if "TRACER_PHASE_D4_YAW_K" not in os.environ and "yaw_k" in yaw_cfg:
+                    self.yaw_k = float(yaw_cfg["yaw_k"])
+                if "TRACER_PHASE_D4_YAW_MAX" not in os.environ and "yaw_max" in yaw_cfg:
+                    self.yaw_max = float(yaw_cfg["yaw_max"])
 
         self.action_table = parse_action_table(action_table_text)
 
