@@ -184,8 +184,8 @@ def main():
     lines.append("")
     lines.append("## Individual rollouts")
     lines.append("")
-    lines.append("| trial | success | goal | startup_failed | out_lane | final_x | final_y | max_x | max_abs_y | mean_abs_y | hold_drift | final_context |")
-    lines.append("|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|")
+    lines.append("| trial | hold_vx | success | goal | startup_failed | out_lane | final_x | final_y | max_x | max_abs_y | mean_abs_y | hold_drift | final_context |")
+    lines.append("|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|")
     for r in rollout_rows:
         def fmt(v):
             if v is None:

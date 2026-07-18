@@ -10,8 +10,8 @@
 
 ## Individual rollouts
 
-| trial | success | goal | startup_failed | out_lane | final_x | final_y | max_x | max_abs_y | mean_abs_y | hold_drift | final_context |
-|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| trial | hold_vx | success | goal | startup_failed | out_lane | final_x | final_y | max_x | max_abs_y | mean_abs_y | hold_drift | final_context |
+|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
 | 1 | 0.025 | True | True | False | False | 8.157 | 0.037 | 8.158 | 0.188 | 0.059 | 0.001 | goal_flat |
 | 2 | 0.025 | True | True | False | False | 8.179 | -0.171 | 8.181 | 0.306 | 0.157 | 0.002 | goal_flat |
 | 3 | 0.025 | True | True | False | False | 8.250 | -0.208 | 8.253 | 0.282 | 0.158 | 0.003 | goal_flat |
