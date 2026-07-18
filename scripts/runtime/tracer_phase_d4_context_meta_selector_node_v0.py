@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import os
+import json
 import time
 from typing import Dict, Tuple
 
@@ -64,9 +65,25 @@ class ContextMetaSelector(Node):
             "goal_flat:0.2025,0.320,0.045;"
             "unknown:0.2025,0.320,0.045"
         )
-        self.action_table = parse_action_table(
-            os.environ.get("TRACER_PHASE_D4_CONTEXT_ACTION_TABLE", default_table)
-        )
+        self.policy_json = os.environ.get("TRACER_PHASE_D4_POLICY_JSON", "").strip()
+        self.policy_name = "env_or_default_table"
+
+        action_table_text = os.environ.get("TRACER_PHASE_D4_CONTEXT_ACTION_TABLE", default_table)
+
+        if self.policy_json:
+            with open(self.policy_json, "r") as f:
+                policy = json.load(f)
+
+            self.policy_name = policy.get("policy_name", self.policy_json)
+
+            if "action_table" in policy:
+                action_table_text = policy["action_table"]
+
+            # Explicit env var still has priority. Otherwise use the policy artifact hold_vx.
+            if "TRACER_PHASE_D4_HOLD_VX" not in os.environ and "hold_vx" in policy:
+                self.hold_vx = float(policy["hold_vx"])
+
+        self.action_table = parse_action_table(action_table_text)
 
         self.current_context = self.default_label
         self.x = 0.0
@@ -88,6 +105,8 @@ class ContextMetaSelector(Node):
             f"yaw_max={self.yaw_max}, yaw_sign={self.yaw_sign}, hold_vx={self.hold_vx}"
         )
         self.get_logger().info(f"default_context={self.default_label}")
+        self.get_logger().info(f"policy_name={self.policy_name}")
+        self.get_logger().info(f"policy_json={self.policy_json if self.policy_json else 'none'}")
         self.get_logger().info(f"action_table={self.action_table}")
 
     def on_context(self, msg: String):

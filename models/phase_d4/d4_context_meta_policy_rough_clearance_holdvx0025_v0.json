@@ -1,0 +1,66 @@
+{
+  "policy_name": "phase_d4_context_meta_rough_clearance_v0",
+  "policy_type": "rollout_selected_context_meta_table",
+  "source_best_json": "reports/phase_d4/phase_d4_context_table_bank_20260718_143619_best_v0.json",
+  "source_method": "D4.2 context table action-bank search",
+  "context_input": "/tracer/terrain_context_label",
+  "output_topic": "/tracer/mpc_reference",
+  "output_protocol": "[seq, vx, yaw_rate, body_h, clearance, enable]",
+  "selected_name": "rough_clearance",
+  "hold_vx": 0.025,
+  "action_table": "flat:0.210,0.320,0.045;start_flat:0.210,0.320,0.045;upslope:0.210,0.320,0.045;rough:0.2050,0.320,0.055;downslope:0.2025,0.320,0.045;goal_flat:0.2025,0.320,0.045;unknown:0.2025,0.320,0.045",
+  "theta_by_context": {
+    "flat": {
+      "vx": 0.21,
+      "body_h": 0.32,
+      "clearance": 0.045
+    },
+    "start_flat": {
+      "vx": 0.21,
+      "body_h": 0.32,
+      "clearance": 0.045
+    },
+    "upslope": {
+      "vx": 0.21,
+      "body_h": 0.32,
+      "clearance": 0.045
+    },
+    "rough": {
+      "vx": 0.205,
+      "body_h": 0.32,
+      "clearance": 0.055
+    },
+    "downslope": {
+      "vx": 0.2025,
+      "body_h": 0.32,
+      "clearance": 0.045
+    },
+    "goal_flat": {
+      "vx": 0.2025,
+      "body_h": 0.32,
+      "clearance": 0.045
+    },
+    "unknown": {
+      "vx": 0.2025,
+      "body_h": 0.32,
+      "clearance": 0.045
+    }
+  },
+  "selection_metrics": {
+    "score": 96.0498353909465,
+    "success_rate": 1.0,
+    "goal_rate": 1.0,
+    "startup_failed_rate": 0.0,
+    "out_lane_rate": 0.0,
+    "first_goal_time_mean": 178.66666666666666,
+    "final_goal_error_mean": 0.03799999999999996,
+    "hold_drift_mean": 0.07200000000000006,
+    "max_abs_y_mean": 0.4266666666666667,
+    "mean_abs_y_mean": 0.16004115226337448
+  },
+  "known_limitations": [
+    "This is a rollout-selected table policy, not a neural RL policy.",
+    "Validated on stress v5 with oracle terrain context labels.",
+    "Lateral drift is acceptable but still a tuning target."
+  ]
+}
