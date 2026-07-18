@@ -47,6 +47,7 @@ class ContextMetaSelector(Node):
         self.yaw_sign = float(os.environ.get("TRACER_PHASE_D4_YAW_SIGN", "0.0"))
         self.startup_timeout_s = float(os.environ.get("TRACER_PHASE_D4_STARTUP_TIMEOUT_S", "60.0"))
         self.startup_min_x = float(os.environ.get("TRACER_PHASE_D4_STARTUP_MIN_X", "0.20"))
+        self.hold_vx = float(os.environ.get("TRACER_PHASE_D4_HOLD_VX", "0.025"))
         self.t0 = time.time()
         self.startup_failed = False
         self.pub_hz = float(os.environ.get("TRACER_PHASE_D4_PUB_HZ", "10.0"))
@@ -82,7 +83,7 @@ class ContextMetaSelector(Node):
         self.get_logger().info(
             f"goal_x={self.goal_x}, stop_margin={self.stop_margin}, "
             f"lateral_bound={self.lateral_bound}, yaw_k={self.yaw_k}, "
-            f"yaw_max={self.yaw_max}, yaw_sign={self.yaw_sign}"
+            f"yaw_max={self.yaw_max}, yaw_sign={self.yaw_sign}, hold_vx={self.hold_vx}"
         )
         self.get_logger().info(f"default_context={self.default_label}")
         self.get_logger().info(f"action_table={self.action_table}")
@@ -131,10 +132,10 @@ class ContextMetaSelector(Node):
             self.stopped = True
 
         if self.stopped:
-            vx, body_h, clearance = 0.0, 0.320, 0.045
+            vx, body_h, clearance = self.hold_vx, 0.320, 0.045
             yaw_rate = 0.0
             # Keep controller enabled during stop/hold.
-            # If enable=0 on slope, the robot may drift backward after reaching the goal region.
+            # A small positive hold_vx can compensate backward drift near/after the goal region.
             enable = 1.0
         else:
             vx, body_h, clearance = self.select_theta()

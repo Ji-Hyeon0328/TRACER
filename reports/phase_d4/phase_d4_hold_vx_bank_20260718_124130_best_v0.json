@@ -1,0 +1,82 @@
+{
+  "best": {
+    "hold_vx": 0.025,
+    "score": 91.99333333333333,
+    "success_rate": 1.0,
+    "goal_rate": 1.0,
+    "startup_failed_rate": 0.0,
+    "out_lane_rate": 0.0,
+    "final_goal_error_mean": 0.14866666666666717,
+    "hold_drift_mean": 0.016666666666666313,
+    "max_abs_y_mean": 0.5273333333333333,
+    "summary_json": "reports/phase_d4/hold_vx_0p025_phase_d4_context_meta_repeat_20260718_131129_summary_v0.json",
+    "summary_md": "reports/phase_d4/hold_vx_0p025_phase_d4_context_meta_repeat_20260718_131129_summary_v0.md"
+  },
+  "rows": [
+    {
+      "hold_vx": 0.025,
+      "score": 91.99333333333333,
+      "success_rate": 1.0,
+      "goal_rate": 1.0,
+      "startup_failed_rate": 0.0,
+      "out_lane_rate": 0.0,
+      "final_goal_error_mean": 0.14866666666666717,
+      "hold_drift_mean": 0.016666666666666313,
+      "max_abs_y_mean": 0.5273333333333333,
+      "summary_json": "reports/phase_d4/hold_vx_0p025_phase_d4_context_meta_repeat_20260718_131129_summary_v0.json",
+      "summary_md": "reports/phase_d4/hold_vx_0p025_phase_d4_context_meta_repeat_20260718_131129_summary_v0.md"
+    },
+    {
+      "hold_vx": 0.015,
+      "score": 91.41833333333332,
+      "success_rate": 1.0,
+      "goal_rate": 1.0,
+      "startup_failed_rate": 0.0,
+      "out_lane_rate": 0.0,
+      "final_goal_error_mean": 0.1473333333333334,
+      "hold_drift_mean": 0.21199999999999974,
+      "max_abs_y_mean": 0.261,
+      "summary_json": "reports/phase_d4/hold_vx_0p015_phase_d4_context_meta_repeat_20260718_125630_summary_v0.json",
+      "summary_md": "reports/phase_d4/hold_vx_0p015_phase_d4_context_meta_repeat_20260718_125630_summary_v0.md"
+    },
+    {
+      "hold_vx": 0.0,
+      "score": 85.37666666666667,
+      "success_rate": 1.0,
+      "goal_rate": 1.0,
+      "startup_failed_rate": 0.0,
+      "out_lane_rate": 0.0,
+      "final_goal_error_mean": 0.26966666666666644,
+      "hold_drift_mean": 0.3330000000000002,
+      "max_abs_y_mean": 0.371,
+      "summary_json": "reports/phase_d4/hold_vx_0p000_phase_d4_context_meta_repeat_20260718_124130_summary_v0.json",
+      "summary_md": "reports/phase_d4/hold_vx_0p000_phase_d4_context_meta_repeat_20260718_124130_summary_v0.md"
+    },
+    {
+      "hold_vx": 0.035,
+      "score": 84.99333333333334,
+      "success_rate": 1.0,
+      "goal_rate": 1.0,
+      "startup_failed_rate": 0.0,
+      "out_lane_rate": 0.0,
+      "final_goal_error_mean": 0.36733333333333285,
+      "hold_drift_mean": 0.0,
+      "max_abs_y_mean": 0.43,
+      "summary_json": "reports/phase_d4/hold_vx_0p035_phase_d4_context_meta_repeat_20260718_132638_summary_v0.json",
+      "summary_md": "reports/phase_d4/hold_vx_0p035_phase_d4_context_meta_repeat_20260718_132638_summary_v0.md"
+    },
+    {
+      "hold_vx": 0.05,
+      "score": 77.41333333333334,
+      "success_rate": 1.0,
+      "goal_rate": 1.0,
+      "startup_failed_rate": 0.0,
+      "out_lane_rate": 0.0,
+      "final_goal_error_mean": 0.592333333333333,
+      "hold_drift_mean": 0.0,
+      "max_abs_y_mean": 0.371,
+      "summary_json": "reports/phase_d4/hold_vx_0p050_phase_d4_context_meta_repeat_20260718_134137_summary_v0.json",
+      "summary_md": "reports/phase_d4/hold_vx_0p050_phase_d4_context_meta_repeat_20260718_134137_summary_v0.md"
+    }
+  ]
+}

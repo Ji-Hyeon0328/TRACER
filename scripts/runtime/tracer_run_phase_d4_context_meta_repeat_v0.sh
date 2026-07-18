@@ -8,6 +8,7 @@ LATERAL_BOUND="${TRACER_D4_REPEAT_LATERAL_BOUND:-2.0}"
 N="${TRACER_D4_REPEAT_N:-3}"
 TIMEOUT_S="${TRACER_D4_REPEAT_TIMEOUT_S:-260}"
 HOLD_OBS_S="${TRACER_D4_HOLD_OBS_S:-60}"
+HOLD_VX="${TRACER_PHASE_D4_HOLD_VX:-0.025}"
 SLEEP_S="${TRACER_D4_REPEAT_SLEEP_S:-10}"
 OPEN_GUI="${TRACER_D4_REPEAT_OPEN_GUI:-0}"
 
@@ -23,7 +24,7 @@ MANIFEST="$ROOT/reports/phase_d4_context_meta_repeat_${TS}_manifest.tsv"
 
 mkdir -p "$ROOT/reports"
 
-echo -e "label\ttrial\tworld\tgoal_x\tlateral_bound\tlog_dir\ttimeout_s\thold_obs_s" > "$MANIFEST"
+echo -e "label\ttrial\tworld\tgoal_x\tlateral_bound\thold_vx\tlog_dir\ttimeout_s\thold_obs_s" > "$MANIFEST"
 
 echo "[TRACER] Phase-D4 context-meta repeat v0"
 echo "  WORLD=$WORLD"
@@ -32,6 +33,7 @@ echo "  LATERAL_BOUND=$LATERAL_BOUND"
 echo "  N=$N"
 echo "  TIMEOUT_S=$TIMEOUT_S"
 echo "  HOLD_OBS_S=$HOLD_OBS_S"
+echo "  HOLD_VX=$HOLD_VX"
 echo "  MANIFEST=$MANIFEST"
 echo
 
@@ -56,11 +58,12 @@ for trial in $(seq 1 "$N"); do
   TRACER_PHASE_D4_YAW_K="$YAW_K" \
   TRACER_PHASE_D4_YAW_MAX="$YAW_MAX" \
   TRACER_PHASE_D4_CONTEXT_ACTION_TABLE="$ACTION_TABLE" \
+  TRACER_PHASE_D4_HOLD_VX="$HOLD_VX" \
   TRACER_OPEN_GZCLIENT="$OPEN_GUI" \
   bash scripts/runtime/tracer_start_phase_d4_context_meta_stack_v0.sh
 
   LOG_DIR="$(ls -td "$ROOT"/logs/phase_d4_context_meta_* | head -1)"
-  echo -e "${label}\t${trial}\t${WORLD}\t${GOAL_X}\t${LATERAL_BOUND}\t${LOG_DIR}\t${TIMEOUT_S}\t${HOLD_OBS_S}" >> "$MANIFEST"
+  echo -e "${label}\t${trial}\t${WORLD}\t${GOAL_X}\t${LATERAL_BOUND}\t${HOLD_VX}\t${LOG_DIR}\t${TIMEOUT_S}\t${HOLD_OBS_S}" >> "$MANIFEST"
 
   echo "[TRACER] monitor: $LOG_DIR"
 

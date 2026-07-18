@@ -157,7 +157,7 @@ def main():
     md_path = Path(base + "_summary_v0.md")
 
     fieldnames = [
-        "label", "trial", "world", "goal_x", "lateral_bound", "log_dir",
+        "label", "trial", "world", "goal_x", "lateral_bound", "hold_vx", "log_dir",
         "success", "goal", "startup_failed", "out_lane",
         "final_x", "final_y", "max_x", "max_abs_y", "mean_abs_y",
         "hold_drift", "first_goal_seq", "final_context",
@@ -194,7 +194,7 @@ def main():
                 return f"{v:.3f}"
             return str(v)
         lines.append(
-            f"| {r['trial']} | {r['success']} | {r['goal']} | {r['startup_failed']} | {r['out_lane']} | "
+            f"| {r['trial']} | {r.get('hold_vx', 'NA')} | {r['success']} | {r['goal']} | {r['startup_failed']} | {r['out_lane']} | "
             f"{fmt(r['final_x'])} | {fmt(r['final_y'])} | {fmt(r['max_x'])} | "
             f"{fmt(r['max_abs_y'])} | {fmt(r['mean_abs_y'])} | {fmt(r['hold_drift'])} | {r['final_context']} |"
         )
