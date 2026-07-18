@@ -1,0 +1,71 @@
+# TRACER Phase-D4 Context-Meta Reach Success with Hold Drift
+
+- log_dir: logs/phase_d4_context_meta_20260718_065053
+- world: tracer_mixed_stress_course_v5_lowfric_from_solid
+- goal_x: 8.0
+- command protocol: 6-field [seq, vx, yaw_rate, body_h, clearance, enable]
+- result: reached goal region once, but drifted backward after stop/hold
+
+## First goal-region evidence
+183:[INFO] [1784372087.923190680] [tracer_phase_d4_context_meta_selector_node_v0]: seq=1790 context=goal_flat x=8.031 y=-0.032 cmd=[seq=1790, vx=0.2025, yaw=-0.0000, h=0.3200, clr=0.0450, enable=1.0] out_of_lane=False startup_failed=False stopped=False
+184:[INFO] [1784372088.923243010] [tracer_phase_d4_context_meta_selector_node_v0]: seq=1800 context=goal_flat x=8.055 y=-0.026 cmd=[seq=1800, vx=0.0000, yaw=0.0000, h=0.3200, clr=0.0450, enable=1.0] out_of_lane=False startup_failed=False stopped=True
+185:[INFO] [1784372089.923207990] [tracer_phase_d4_context_meta_selector_node_v0]: seq=1810 context=goal_flat x=8.052 y=-0.012 cmd=[seq=1810, vx=0.0000, yaw=0.0000, h=0.3200, clr=0.0450, enable=1.0] out_of_lane=False startup_failed=False stopped=True
+186:[INFO] [1784372090.923182789] [tracer_phase_d4_context_meta_selector_node_v0]: seq=1820 context=goal_flat x=8.049 y=-0.005 cmd=[seq=1820, vx=0.0000, yaw=0.0000, h=0.3200, clr=0.0450, enable=1.0] out_of_lane=False startup_failed=False stopped=True
+187:[INFO] [1784372091.923192386] [tracer_phase_d4_context_meta_selector_node_v0]: seq=1830 context=goal_flat x=8.038 y=-0.002 cmd=[seq=1830, vx=0.0000, yaw=0.0000, h=0.3200, clr=0.0450, enable=1.0] out_of_lane=False startup_failed=False stopped=True
+188:[INFO] [1784372092.923207891] [tracer_phase_d4_context_meta_selector_node_v0]: seq=1840 context=goal_flat x=8.029 y=0.008 cmd=[seq=1840, vx=0.0000, yaw=0.0000, h=0.3200, clr=0.0450, enable=1.0] out_of_lane=False startup_failed=False stopped=True
+189:[INFO] [1784372093.923198011] [tracer_phase_d4_context_meta_selector_node_v0]: seq=1850 context=goal_flat x=8.022 y=0.013 cmd=[seq=1850, vx=0.0000, yaw=0.0000, h=0.3200, clr=0.0450, enable=1.0] out_of_lane=False startup_failed=False stopped=True
+190:[INFO] [1784372094.923191945] [tracer_phase_d4_context_meta_selector_node_v0]: seq=1860 context=goal_flat x=8.012 y=0.022 cmd=[seq=1860, vx=0.0000, yaw=0.0000, h=0.3200, clr=0.0450, enable=1.0] out_of_lane=False startup_failed=False stopped=True
+191:[INFO] [1784372095.923184386] [tracer_phase_d4_context_meta_selector_node_v0]: seq=1870 context=goal_flat x=8.002 y=0.028 cmd=[seq=1870, vx=0.0000, yaw=0.0000, h=0.3200, clr=0.0450, enable=1.0] out_of_lane=False startup_failed=False stopped=True
+192:[INFO] [1784372096.923202531] [tracer_phase_d4_context_meta_selector_node_v0]: seq=1880 context=goal_flat x=7.991 y=0.031 cmd=[seq=1880, vx=0.0000, yaw=0.0000, h=0.3200, clr=0.0450, enable=1.0] out_of_lane=False startup_failed=False stopped=True
+193:[INFO] [1784372097.923240915] [tracer_phase_d4_context_meta_selector_node_v0]: seq=1890 context=goal_flat x=7.983 y=0.039 cmd=[seq=1890, vx=0.0000, yaw=0.0000, h=0.3200, clr=0.0450, enable=1.0] out_of_lane=False startup_failed=False stopped=True
+194:[INFO] [1784372098.923645958] [tracer_phase_d4_context_meta_selector_node_v0]: seq=1900 context=goal_flat x=7.975 y=0.043 cmd=[seq=1900, vx=0.0000, yaw=0.0000, h=0.3200, clr=0.0450, enable=1.0] out_of_lane=False startup_failed=False stopped=True
+195:[INFO] [1784372099.923640179] [tracer_phase_d4_context_meta_selector_node_v0]: seq=1910 context=goal_flat x=7.966 y=0.052 cmd=[seq=1910, vx=0.0000, yaw=0.0000, h=0.3200, clr=0.0450, enable=1.0] out_of_lane=False startup_failed=False stopped=True
+196:[INFO] [1784372100.923173287] [tracer_phase_d4_context_meta_selector_node_v0]: seq=1920 context=goal_flat x=7.957 y=0.062 cmd=[seq=1920, vx=0.0000, yaw=0.0000, h=0.3200, clr=0.0450, enable=1.0] out_of_lane=False startup_failed=False stopped=True
+197:[INFO] [1784372101.923177173] [tracer_phase_d4_context_meta_selector_node_v0]: seq=1930 context=goal_flat x=7.949 y=0.067 cmd=[seq=1930, vx=0.0000, yaw=0.0000, h=0.3200, clr=0.0450, enable=1.0] out_of_lane=False startup_failed=False stopped=True
+198:[INFO] [1784372102.923197354] [tracer_phase_d4_context_meta_selector_node_v0]: seq=1940 context=goal_flat x=7.938 y=0.073 cmd=[seq=1940, vx=0.0000, yaw=0.0000, h=0.3200, clr=0.0450, enable=1.0] out_of_lane=False startup_failed=False stopped=True
+199:[INFO] [1784372103.923186831] [tracer_phase_d4_context_meta_selector_node_v0]: seq=1950 context=goal_flat x=7.930 y=0.065 cmd=[seq=1950, vx=0.0000, yaw=0.0000, h=0.3200, clr=0.0450, enable=1.0] out_of_lane=False startup_failed=False stopped=True
+200:[INFO] [1784372104.923186874] [tracer_phase_d4_context_meta_selector_node_v0]: seq=1960 context=goal_flat x=7.918 y=0.055 cmd=[seq=1960, vx=0.0000, yaw=0.0000, h=0.3200, clr=0.0450, enable=1.0] out_of_lane=False startup_failed=False stopped=True
+201:[INFO] [1784372105.923199196] [tracer_phase_d4_context_meta_selector_node_v0]: seq=1970 context=goal_flat x=7.911 y=0.053 cmd=[seq=1970, vx=0.0000, yaw=0.0000, h=0.3200, clr=0.0450, enable=1.0] out_of_lane=False startup_failed=False stopped=True
+202:[INFO] [1784372106.923230789] [tracer_phase_d4_context_meta_selector_node_v0]: seq=1980 context=goal_flat x=7.908 y=0.048 cmd=[seq=1980, vx=0.0000, yaw=0.0000, h=0.3200, clr=0.0450, enable=1.0] out_of_lane=False startup_failed=False stopped=True
+
+## Final hold/drift evidence
+[INFO] [1784372148.923907451] [tracer_phase_d4_context_meta_selector_node_v0]: seq=2400 context=goal_flat x=7.698 y=-0.006 cmd=[seq=2400, vx=0.0000, yaw=0.0000, h=0.3200, clr=0.0450, enable=1.0] out_of_lane=False startup_failed=False stopped=True
+[INFO] [1784372149.923181837] [tracer_phase_d4_context_meta_selector_node_v0]: seq=2410 context=goal_flat x=7.684 y=-0.002 cmd=[seq=2410, vx=0.0000, yaw=0.0000, h=0.3200, clr=0.0450, enable=1.0] out_of_lane=False startup_failed=False stopped=True
+[INFO] [1784372150.923199270] [tracer_phase_d4_context_meta_selector_node_v0]: seq=2420 context=goal_flat x=7.676 y=-0.006 cmd=[seq=2420, vx=0.0000, yaw=0.0000, h=0.3200, clr=0.0450, enable=1.0] out_of_lane=False startup_failed=False stopped=True
+[INFO] [1784372151.923176525] [tracer_phase_d4_context_meta_selector_node_v0]: seq=2430 context=goal_flat x=7.664 y=-0.004 cmd=[seq=2430, vx=0.0000, yaw=0.0000, h=0.3200, clr=0.0450, enable=1.0] out_of_lane=False startup_failed=False stopped=True
+[INFO] [1784372152.923186159] [tracer_phase_d4_context_meta_selector_node_v0]: seq=2440 context=goal_flat x=7.650 y=-0.008 cmd=[seq=2440, vx=0.0000, yaw=0.0000, h=0.3200, clr=0.0450, enable=1.0] out_of_lane=False startup_failed=False stopped=True
+[INFO] [1784372153.923197602] [tracer_phase_d4_context_meta_selector_node_v0]: seq=2450 context=goal_flat x=7.638 y=-0.023 cmd=[seq=2450, vx=0.0000, yaw=0.0000, h=0.3200, clr=0.0450, enable=1.0] out_of_lane=False startup_failed=False stopped=True
+[INFO] [1784372154.923193405] [tracer_phase_d4_context_meta_selector_node_v0]: seq=2460 context=goal_flat x=7.628 y=-0.037 cmd=[seq=2460, vx=0.0000, yaw=0.0000, h=0.3200, clr=0.0450, enable=1.0] out_of_lane=False startup_failed=False stopped=True
+[INFO] [1784372155.923222724] [tracer_phase_d4_context_meta_selector_node_v0]: seq=2470 context=goal_flat x=7.617 y=-0.054 cmd=[seq=2470, vx=0.0000, yaw=0.0000, h=0.3200, clr=0.0450, enable=1.0] out_of_lane=False startup_failed=False stopped=True
+[INFO] [1784372156.923190133] [tracer_phase_d4_context_meta_selector_node_v0]: seq=2480 context=goal_flat x=7.609 y=-0.062 cmd=[seq=2480, vx=0.0000, yaw=0.0000, h=0.3200, clr=0.0450, enable=1.0] out_of_lane=False startup_failed=False stopped=True
+[INFO] [1784372157.923186273] [tracer_phase_d4_context_meta_selector_node_v0]: seq=2490 context=goal_flat x=7.599 y=-0.068 cmd=[seq=2490, vx=0.0000, yaw=0.0000, h=0.3200, clr=0.0450, enable=1.0] out_of_lane=False startup_failed=False stopped=True
+[INFO] [1784372158.923188233] [tracer_phase_d4_context_meta_selector_node_v0]: seq=2500 context=goal_flat x=7.587 y=-0.072 cmd=[seq=2500, vx=0.0000, yaw=0.0000, h=0.3200, clr=0.0450, enable=1.0] out_of_lane=False startup_failed=False stopped=True
+[INFO] [1784372159.923214280] [tracer_phase_d4_context_meta_selector_node_v0]: seq=2510 context=goal_flat x=7.579 y=-0.069 cmd=[seq=2510, vx=0.0000, yaw=0.0000, h=0.3200, clr=0.0450, enable=1.0] out_of_lane=False startup_failed=False stopped=True
+[INFO] [1784372160.923272111] [tracer_phase_d4_context_meta_selector_node_v0]: seq=2520 context=goal_flat x=7.570 y=-0.073 cmd=[seq=2520, vx=0.0000, yaw=0.0000, h=0.3200, clr=0.0450, enable=1.0] out_of_lane=False startup_failed=False stopped=True
+[INFO] [1784372161.923246850] [tracer_phase_d4_context_meta_selector_node_v0]: seq=2530 context=goal_flat x=7.564 y=-0.076 cmd=[seq=2530, vx=0.0000, yaw=0.0000, h=0.3200, clr=0.0450, enable=1.0] out_of_lane=False startup_failed=False stopped=True
+[INFO] [1784372162.923224827] [tracer_phase_d4_context_meta_selector_node_v0]: seq=2540 context=goal_flat x=7.557 y=-0.082 cmd=[seq=2540, vx=0.0000, yaw=0.0000, h=0.3200, clr=0.0450, enable=1.0] out_of_lane=False startup_failed=False stopped=True
+[INFO] [1784372163.923226636] [tracer_phase_d4_context_meta_selector_node_v0]: seq=2550 context=goal_flat x=7.551 y=-0.089 cmd=[seq=2550, vx=0.0000, yaw=0.0000, h=0.3200, clr=0.0450, enable=1.0] out_of_lane=False startup_failed=False stopped=True
+[INFO] [1784372164.923187013] [tracer_phase_d4_context_meta_selector_node_v0]: seq=2560 context=goal_flat x=7.545 y=-0.084 cmd=[seq=2560, vx=0.0000, yaw=0.0000, h=0.3200, clr=0.0450, enable=1.0] out_of_lane=False startup_failed=False stopped=True
+[INFO] [1784372165.923360575] [tracer_phase_d4_context_meta_selector_node_v0]: seq=2570 context=goal_flat x=7.537 y=-0.084 cmd=[seq=2570, vx=0.0000, yaw=0.0000, h=0.3200, clr=0.0450, enable=1.0] out_of_lane=False startup_failed=False stopped=True
+[INFO] [1784372166.923205755] [tracer_phase_d4_context_meta_selector_node_v0]: seq=2580 context=goal_flat x=7.528 y=-0.090 cmd=[seq=2580, vx=0.0000, yaw=0.0000, h=0.3200, clr=0.0450, enable=1.0] out_of_lane=False startup_failed=False stopped=True
+[INFO] [1784372167.923191415] [tracer_phase_d4_context_meta_selector_node_v0]: seq=2590 context=goal_flat x=7.515 y=-0.096 cmd=[seq=2590, vx=0.0000, yaw=0.0000, h=0.3200, clr=0.0450, enable=1.0] out_of_lane=False startup_failed=False stopped=True
+[INFO] [1784372168.923241415] [tracer_phase_d4_context_meta_selector_node_v0]: seq=2600 context=goal_flat x=7.510 y=-0.110 cmd=[seq=2600, vx=0.0000, yaw=0.0000, h=0.3200, clr=0.0450, enable=1.0] out_of_lane=False startup_failed=False stopped=True
+[INFO] [1784372169.923474342] [tracer_phase_d4_context_meta_selector_node_v0]: seq=2610 context=goal_flat x=7.503 y=-0.118 cmd=[seq=2610, vx=0.0000, yaw=0.0000, h=0.3200, clr=0.0450, enable=1.0] out_of_lane=False startup_failed=False stopped=True
+[INFO] [1784372170.923209968] [tracer_phase_d4_context_meta_selector_node_v0]: seq=2620 context=goal_flat x=7.495 y=-0.125 cmd=[seq=2620, vx=0.0000, yaw=0.0000, h=0.3200, clr=0.0450, enable=1.0] out_of_lane=False startup_failed=False stopped=True
+[INFO] [1784372171.923403966] [tracer_phase_d4_context_meta_selector_node_v0]: seq=2630 context=goal_flat x=7.492 y=-0.126 cmd=[seq=2630, vx=0.0000, yaw=0.0000, h=0.3200, clr=0.0450, enable=1.0] out_of_lane=False startup_failed=False stopped=True
+Traceback (most recent call last):
+  File "/mnt/share/nas/Yoo/Tracer/TRACER/scripts/runtime/tracer_phase_d4_context_meta_selector_node_v0.py", line 184, in <module>
+    main()
+  File "/mnt/share/nas/Yoo/Tracer/TRACER/scripts/runtime/tracer_phase_d4_context_meta_selector_node_v0.py", line 171, in main
+    rclpy.spin(node)
+  File "/home/kraken/ros2_humble/install/rclpy/local/lib/python3.10/dist-packages/rclpy/__init__.py", line 229, in spin
+    executor.spin_once()
+  File "/home/kraken/ros2_humble/install/rclpy/local/lib/python3.10/dist-packages/rclpy/executors.py", line 773, in spin_once
+    self._spin_once_impl(timeout_sec)
+  File "/home/kraken/ros2_humble/install/rclpy/local/lib/python3.10/dist-packages/rclpy/executors.py", line 762, in _spin_once_impl
+    handler, entity, node = self.wait_for_ready_callbacks(timeout_sec=timeout_sec)
+  File "/home/kraken/ros2_humble/install/rclpy/local/lib/python3.10/dist-packages/rclpy/executors.py", line 745, in wait_for_ready_callbacks
+    return next(self._cb_iter)
+  File "/home/kraken/ros2_humble/install/rclpy/local/lib/python3.10/dist-packages/rclpy/executors.py", line 646, in _wait_for_ready_callbacks
+    raise ExternalShutdownException()
+rclpy.executors.ExternalShutdownException
