@@ -1,0 +1,51 @@
+{
+  "manifest": "reports/phase_d_segment_policy_20260718_024229_manifest.tsv",
+  "goal_x": 8.0,
+  "lateral_bound": 2.0,
+  "rollout_csv": "datasets/phase_d3c/phase_d_segment_policy_20260718_024229_rollouts_v0.csv",
+  "best_label": "m210_2025_confirm",
+  "ranking": [
+    {
+      "label": "m210_2025_confirm",
+      "n": 5,
+      "schedule": "0,4.000,0.2100,0.3200,0.0450,start;4.000,999,0.2025,0.3200,0.0450,tail",
+      "success_rate": 1.0,
+      "goal_rate": 1.0,
+      "out_lane_rate": 0.0,
+      "startup_failed_rate": 0.0,
+      "score_mean": 120.21548032996188,
+      "score_std": 1.545088640570311,
+      "time_mean": 180.4,
+      "max_abs_y_mean": 0.3386,
+      "mean_abs_y_mean": 0.13730393400762067
+    },
+    {
+      "label": "m210_200_confirm",
+      "n": 5,
+      "schedule": "0,4.000,0.2100,0.3200,0.0450,start;4.000,999,0.2000,0.3200,0.0450,tail",
+      "success_rate": 1.0,
+      "goal_rate": 1.0,
+      "out_lane_rate": 0.0,
+      "startup_failed_rate": 0.0,
+      "score_mean": 117.56564708141323,
+      "score_std": 5.649198393010696,
+      "time_mean": 182.0,
+      "max_abs_y_mean": 0.5469999999999999,
+      "mean_abs_y_mean": 0.25542058371735793
+    },
+    {
+      "label": "m205_200_confirm",
+      "n": 5,
+      "schedule": "0,4.000,0.2050,0.3200,0.0450,start;4.000,999,0.2000,0.3200,0.0450,tail",
+      "success_rate": 0.4,
+      "goal_rate": 0.4,
+      "out_lane_rate": 0.0,
+      "startup_failed_rate": 0.0,
+      "score_mean": 52.75660148376969,
+      "score_std": 58.652998910903385,
+      "time_mean": 182.0,
+      "max_abs_y_mean": 0.5147999999999999,
+      "mean_abs_y_mean": 0.26177970324606264
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+label	policy	trial	schedule	log_dir
+m205_200_confirm	segment	1	0,4.000,0.2050,0.3200,0.0450,start;4.000,999,0.2000,0.3200,0.0450,tail	/home/kraken/Tracer/TRACER/logs/phase_d_segment_action_20260718_024230
+m205_200_confirm	segment	2	0,4.000,0.2050,0.3200,0.0450,start;4.000,999,0.2000,0.3200,0.0450,tail	/home/kraken/Tracer/TRACER/logs/phase_d_segment_action_20260718_024651
+m205_200_confirm	segment	3	0,4.000,0.2050,0.3200,0.0450,start;4.000,999,0.2000,0.3200,0.0450,tail	/home/kraken/Tracer/TRACER/logs/phase_d_segment_action_20260718_025053
+m205_200_confirm	segment	4	0,4.000,0.2050,0.3200,0.0450,start;4.000,999,0.2000,0.3200,0.0450,tail	/home/kraken/Tracer/TRACER/logs/phase_d_segment_action_20260718_025504
+m205_200_confirm	segment	5	0,4.000,0.2050,0.3200,0.0450,start;4.000,999,0.2000,0.3200,0.0450,tail	/home/kraken/Tracer/TRACER/logs/phase_d_segment_action_20260718_025916
+m210_200_confirm	segment	1	0,4.000,0.2100,0.3200,0.0450,start;4.000,999,0.2000,0.3200,0.0450,tail	/home/kraken/Tracer/TRACER/logs/phase_d_segment_action_20260718_030327
+m210_200_confirm	segment	2	0,4.000,0.2100,0.3200,0.0450,start;4.000,999,0.2000,0.3200,0.0450,tail	/home/kraken/Tracer/TRACER/logs/phase_d_segment_action_20260718_030739
+m210_200_confirm	segment	3	0,4.000,0.2100,0.3200,0.0450,start;4.000,999,0.2000,0.3200,0.0450,tail	/home/kraken/Tracer/TRACER/logs/phase_d_segment_action_20260718_031140
+m210_200_confirm	segment	4	0,4.000,0.2100,0.3200,0.0450,start;4.000,999,0.2000,0.3200,0.0450,tail	/home/kraken/Tracer/TRACER/logs/phase_d_segment_action_20260718_031552
+m210_200_confirm	segment	5	0,4.000,0.2100,0.3200,0.0450,start;4.000,999,0.2000,0.3200,0.0450,tail	/home/kraken/Tracer/TRACER/logs/phase_d_segment_action_20260718_032003
+m210_2025_confirm	segment	1	0,4.000,0.2100,0.3200,0.0450,start;4.000,999,0.2025,0.3200,0.0450,tail	/home/kraken/Tracer/TRACER/logs/phase_d_segment_action_20260718_032415
+m210_2025_confirm	segment	2	0,4.000,0.2100,0.3200,0.0450,start;4.000,999,0.2025,0.3200,0.0450,tail	/home/kraken/Tracer/TRACER/logs/phase_d_segment_action_20260718_032826
+m210_2025_confirm	segment	3	0,4.000,0.2100,0.3200,0.0450,start;4.000,999,0.2025,0.3200,0.0450,tail	/home/kraken/Tracer/TRACER/logs/phase_d_segment_action_20260718_033238
+m210_2025_confirm	segment	4	0,4.000,0.2100,0.3200,0.0450,start;4.000,999,0.2025,0.3200,0.0450,tail	/home/kraken/Tracer/TRACER/logs/phase_d_segment_action_20260718_033639
+m210_2025_confirm	segment	5	0,4.000,0.2100,0.3200,0.0450,start;4.000,999,0.2025,0.3200,0.0450,tail	/home/kraken/Tracer/TRACER/logs/phase_d_segment_action_20260718_034051

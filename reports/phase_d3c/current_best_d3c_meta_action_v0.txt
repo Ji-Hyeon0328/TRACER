@@ -1,0 +1,35 @@
+# Current Best D3c Meta-Action v0
+
+Selected candidate:
+  label = m210_2025
+  theta = [vx_start=0.210, vx_tail=0.2025, body_h=0.320, clearance=0.045]
+
+Schedule:
+  0 <= x < 4:
+    vx = 0.210
+    body_h = 0.320
+    clearance = 0.045
+
+  x >= 4:
+    vx = 0.2025
+    body_h = 0.320
+    clearance = 0.045
+
+Main evidence:
+  Source = reports/phase_d_segment_policy_20260718_024229_manifest.tsv
+  N = 5
+  success_rate = 1.000
+  score_mean = 120.215
+  score_std = 1.545
+  time_mean = 180.400
+  max_abs_y_mean = 0.339
+  mean_abs_y_mean = 0.137
+
+Comparison:
+  m215_2025 was faster but failed fresh N=5 confirmation.
+  m210_200 succeeded but had larger lateral drift.
+  m205_200 had poor success rate due to near-goal failures.
+
+Interpretation:
+  m210_2025 is the current robust-fast freeze candidate for Phase-D3c.
+  It should be used as the default motion-capable meta-action until the action space is expanded.

@@ -1,0 +1,42 @@
+# TRACER Phase-D3c Qv4 Checkpoint Summary
+
+Checkpoint:
+  D3c Robust-Q v4
+
+Model:
+  models/phase_d3c/d3c_robust_q_policy_v4.json
+
+Current best meta-action:
+  label = m210_2025
+  theta = [vx_start=0.210, vx_tail=0.2025, body_h=0.320, clearance=0.045]
+
+Evidence:
+  Aggregated Qv4 evidence:
+    n = 8
+    success_rate = 1.000
+    raw_score_mean = 119.597
+    max_abs_y_mean = 0.385
+
+  Fresh N=5 confirmation:
+    source = reports/phase_d_segment_policy_20260718_024229_manifest.tsv
+    success_rate = 1.000
+    score_mean = 120.215
+    score_std = 1.545
+    time_mean = 180.400
+    max_abs_y_mean = 0.339
+    mean_abs_y_mean = 0.137
+
+Interpretation:
+  PPO has not been used yet.
+  The current method is an offline risk-sensitive Q-style selector over discrete high-level meta-actions.
+  Repeated validation showed that aggressive candidates can look good under small N but fail under larger validation.
+  m210_2025 is the current robust-fast freeze candidate.
+
+Limitation:
+  Under the current action bank and v5 course, beta-dependent action separation is weak.
+  Both stability beta and motion beta select m210_2025 because it behaves as a Pareto-strong candidate.
+
+Next step:
+  Move from x-split action scheduling toward TRACER-style context/RAM-conditioned meta-policy:
+    input = [beta, terrain_context, RAM mismatch/uncertainty, robot state/history]
+    output = high-level meta-action theta or action-bank index
