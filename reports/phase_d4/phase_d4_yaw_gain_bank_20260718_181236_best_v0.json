@@ -1,0 +1,42 @@
+{
+  "best": {
+    "yaw_gain": -0.025,
+    "yaw_sign": -1.0,
+    "yaw_k": 0.025,
+    "yaw_max": 0.2,
+    "score": 88.26327868852458,
+    "success_rate": 1.0,
+    "goal_rate": 1.0,
+    "startup_failed_rate": 0.0,
+    "out_lane_rate": 0.0,
+    "first_goal_time_mean": 178.0,
+    "final_goal_error_mean": 0.02200000000000024,
+    "hold_drift_mean": 0.09100000000000108,
+    "max_abs_y_mean": 0.367,
+    "mean_abs_y_mean": 0.17576229508196728,
+    "policy_json": "models/phase_d4/d4_context_meta_policy_rough_clearance_holdvx0025_v0.json",
+    "summary_json": "reports/phase_d4/yaw_gain_m0p025_phase_d4_context_meta_repeat_20260718_181236_summary_v0.json",
+    "summary_md": "reports/phase_d4/yaw_gain_m0p025_phase_d4_context_meta_repeat_20260718_181236_summary_v0.md"
+  },
+  "rows": [
+    {
+      "yaw_gain": -0.025,
+      "yaw_sign": -1.0,
+      "yaw_k": 0.025,
+      "yaw_max": 0.2,
+      "score": 88.26327868852458,
+      "success_rate": 1.0,
+      "goal_rate": 1.0,
+      "startup_failed_rate": 0.0,
+      "out_lane_rate": 0.0,
+      "first_goal_time_mean": 178.0,
+      "final_goal_error_mean": 0.02200000000000024,
+      "hold_drift_mean": 0.09100000000000108,
+      "max_abs_y_mean": 0.367,
+      "mean_abs_y_mean": 0.17576229508196728,
+      "policy_json": "models/phase_d4/d4_context_meta_policy_rough_clearance_holdvx0025_v0.json",
+      "summary_json": "reports/phase_d4/yaw_gain_m0p025_phase_d4_context_meta_repeat_20260718_181236_summary_v0.json",
+      "summary_md": "reports/phase_d4/yaw_gain_m0p025_phase_d4_context_meta_repeat_20260718_181236_summary_v0.md"
+    }
+  ]
+}

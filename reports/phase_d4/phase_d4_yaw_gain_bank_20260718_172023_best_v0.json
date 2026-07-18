@@ -1,0 +1,61 @@
+{
+  "best": {
+    "yaw_gain": 0.0,
+    "yaw_sign": 1.0,
+    "yaw_k": 0.0,
+    "yaw_max": 0.25,
+    "score": 86.7658137108793,
+    "success_rate": 1.0,
+    "goal_rate": 1.0,
+    "startup_failed_rate": 0.0,
+    "out_lane_rate": 0.0,
+    "first_goal_time_mean": 180.66666666666666,
+    "final_goal_error_mean": 0.13500000000000037,
+    "hold_drift_mean": 0.017333333333332607,
+    "max_abs_y_mean": 0.37433333333333335,
+    "mean_abs_y_mean": 0.16895479384003967,
+    "policy_json": "models/phase_d4/d4_context_meta_policy_rough_clearance_holdvx0025_v0.json",
+    "summary_json": "reports/phase_d4/yaw_gain_0p000_phase_d4_context_meta_repeat_20260718_172023_summary_v0.json",
+    "summary_md": "reports/phase_d4/yaw_gain_0p000_phase_d4_context_meta_repeat_20260718_172023_summary_v0.md"
+  },
+  "rows": [
+    {
+      "yaw_gain": 0.0,
+      "yaw_sign": 1.0,
+      "yaw_k": 0.0,
+      "yaw_max": 0.25,
+      "score": 86.7658137108793,
+      "success_rate": 1.0,
+      "goal_rate": 1.0,
+      "startup_failed_rate": 0.0,
+      "out_lane_rate": 0.0,
+      "first_goal_time_mean": 180.66666666666666,
+      "final_goal_error_mean": 0.13500000000000037,
+      "hold_drift_mean": 0.017333333333332607,
+      "max_abs_y_mean": 0.37433333333333335,
+      "mean_abs_y_mean": 0.16895479384003967,
+      "policy_json": "models/phase_d4/d4_context_meta_policy_rough_clearance_holdvx0025_v0.json",
+      "summary_json": "reports/phase_d4/yaw_gain_0p000_phase_d4_context_meta_repeat_20260718_172023_summary_v0.json",
+      "summary_md": "reports/phase_d4/yaw_gain_0p000_phase_d4_context_meta_repeat_20260718_172023_summary_v0.md"
+    },
+    {
+      "yaw_gain": 0.05,
+      "yaw_sign": 1.0,
+      "yaw_k": 0.05,
+      "yaw_max": 0.25,
+      "score": -195.96056890992045,
+      "success_rate": 0.0,
+      "goal_rate": 0.3333333333333333,
+      "startup_failed_rate": 0.0,
+      "out_lane_rate": 1.0,
+      "first_goal_time_mean": 188.0,
+      "final_goal_error_mean": 0.351,
+      "hold_drift_mean": 0.034000000000000696,
+      "max_abs_y_mean": 2.0526666666666666,
+      "mean_abs_y_mean": 0.5009945690696537,
+      "policy_json": "models/phase_d4/d4_context_meta_policy_rough_clearance_holdvx0025_v0.json",
+      "summary_json": "reports/phase_d4/yaw_gain_0p050_phase_d4_context_meta_repeat_20260718_173532_summary_v0.json",
+      "summary_md": "reports/phase_d4/yaw_gain_0p050_phase_d4_context_meta_repeat_20260718_173532_summary_v0.md"
+    }
+  ]
+}
