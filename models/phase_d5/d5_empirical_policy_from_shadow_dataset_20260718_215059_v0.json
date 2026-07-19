@@ -1,0 +1,75 @@
+{
+  "policy_name": "phase_d5_empirical_context_beta_ram_shadow_v0",
+  "policy_type": "empirical_behavior_cloning_table",
+  "source_dataset": "datasets/phase_d5/phase_d5_shadow_dataset_20260718_215059_dataset_v0.csv",
+  "note": "Exported from Phase-D5 shadow logs. This is a dataset-derived empirical policy artifact, not yet a neural RL policy.",
+  "action_table": "flat:0.2100,0.320,0.045;start_flat:0.2100,0.320,0.045;upslope:0.2100,0.320,0.045;rough:0.2050,0.320,0.055;downslope:0.2025,0.320,0.045;goal_flat:0.2025,0.320,0.045;unknown:0.2025,0.320,0.045",
+  "hold_vx": 0.025,
+  "yaw_correction": {
+    "type": "proportional_lateral_feedback",
+    "yaw_gain": -0.024996,
+    "yaw_sign": -1.0,
+    "yaw_k": 0.024996,
+    "yaw_max": 0.2,
+    "fit_method": "least_squares target_yaw_rate = yaw_gain * y over moving rows",
+    "num_fit_samples": 543
+  },
+  "context_stats": {
+    "flat": {
+      "n": 128,
+      "vx_mean": 0.21000000000000058,
+      "vx_std": 5.851573407112433e-16,
+      "body_h_mean": 0.32000000000000023,
+      "clearance_mean": 0.04499999999999995
+    },
+    "start_flat": {
+      "n": 128,
+      "vx_mean": 0.21000000000000058,
+      "vx_std": 5.851573407112433e-16,
+      "body_h_mean": 0.32000000000000023,
+      "clearance_mean": 0.04499999999999995,
+      "copied_from": "flat"
+    },
+    "upslope": {
+      "n": 134,
+      "vx_mean": 0.21000000000000058,
+      "vx_std": 5.850542141413643e-16,
+      "body_h_mean": 0.32000000000000023,
+      "clearance_mean": 0.04499999999999995
+    },
+    "rough": {
+      "n": 130,
+      "vx_mean": 0.20499999999999935,
+      "vx_std": 6.408477966949046e-16,
+      "body_h_mean": 0.32000000000000023,
+      "clearance_mean": 0.05499999999999992
+    },
+    "downslope": {
+      "n": 148,
+      "vx_mean": 0.20250000000000037,
+      "vx_std": 3.620476902062908e-16,
+      "body_h_mean": 0.32000000000000023,
+      "clearance_mean": 0.04499999999999995
+    },
+    "goal_flat": {
+      "n": 3,
+      "vx_mean": 0.2025,
+      "vx_std": 0.0,
+      "body_h_mean": 0.32,
+      "clearance_mean": 0.045000000000000005
+    },
+    "unknown": {
+      "n": 3,
+      "vx_mean": 0.2025,
+      "vx_std": 0.0,
+      "body_h_mean": 0.32,
+      "clearance_mean": 0.045000000000000005,
+      "copied_from": "goal_flat"
+    }
+  },
+  "hold_stats": {
+    "n": 193,
+    "hold_vx_mean": 0.025000000000000005,
+    "hold_vx_std": 3.478470236248124e-18
+  }
+}
