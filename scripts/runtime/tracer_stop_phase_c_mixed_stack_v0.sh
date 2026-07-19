@@ -64,3 +64,6 @@ pkill -f "tracer_phase_d5_learned_selector_shadow_node_v0.py" 2>/dev/null || tru
 
 # Phase-D5 gated selector dry-run node
 pkill -f "tracer_phase_d5_gated_selector_dryrun_node_v0.py" 2>/dev/null || true
+
+# Phase-D6 MLP selector shadow node
+pkill -f "tracer_phase_d6_mlp_selector_shadow_node_v0.py" 2>/dev/null || true

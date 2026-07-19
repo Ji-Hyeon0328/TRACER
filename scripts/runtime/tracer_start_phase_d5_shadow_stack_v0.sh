@@ -90,6 +90,34 @@ if [ "${TRACER_PHASE_D5_ENABLE_GATE_DRYRUN:-0}" = "1" ] || [ "$CONTROL_MODE" = "
   echo "  gate_node_log=$D5_LOG_DIR/gated_selector_dryrun_node.log"
 fi
 
+
+D6_MLP_MODEL_PT="${TRACER_PHASE_D6_MLP_MODEL_PT:-}"
+if [ -n "$D6_MLP_MODEL_PT" ]; then
+  echo "[TRACER] launching D6 MLP selector shadow node"
+  pkill -f "tracer_phase_d6_mlp_selector_shadow_node_v0.py" 2>/dev/null || true
+
+  if [ "$CONTROL_MODE" = "gated" ]; then
+    D6_MLP_ACTUAL_REF_TOPIC="$EMPIRICAL_REF_TOPIC"
+  else
+    D6_MLP_ACTUAL_REF_TOPIC="${TRACER_REF_TOPIC:-/tracer/mpc_reference}"
+  fi
+
+  D6_TORCH_SITE="${TRACER_PHASE_D6_TORCH_SITE_PACKAGES:-/home/kraken/miniconda3/envs/tracer_train/lib/python3.10/site-packages}"
+
+  TRACER_PHASE_D6_TORCH_SITE_PACKAGES="$D6_TORCH_SITE" \
+  TRACER_PHASE_D6_MLP_MODEL_PT="$D6_MLP_MODEL_PT" \
+  TRACER_PHASE_D6_MLP_LOG="$D5_LOG_DIR/mlp_selector_shadow_v0.csv" \
+  TRACER_PHASE_D6_MLP_ACTUAL_REF_TOPIC="$D6_MLP_ACTUAL_REF_TOPIC" \
+  PYTHONPATH="$D6_TORCH_SITE:${PYTHONPATH:-}" \
+  nohup /usr/bin/python3 scripts/runtime/tracer_phase_d6_mlp_selector_shadow_node_v0.py \
+    > "$D5_LOG_DIR/mlp_selector_shadow_node.log" 2>&1 &
+
+  echo "  mlp_model=$D6_MLP_MODEL_PT"
+  echo "  mlp_actual_ref_topic=$D6_MLP_ACTUAL_REF_TOPIC"
+  echo "  mlp_log=$D5_LOG_DIR/mlp_selector_shadow_v0.csv"
+  echo "  mlp_node_log=$D5_LOG_DIR/mlp_selector_shadow_node.log"
+fi
+
 echo "[TRACER] D5 shadow nodes launched"
 echo "  input_log=$D5_LOG_DIR/policy_inputs_v0.csv"
 echo "  shadow_log=$D5_LOG_DIR/shadow_inputs_node.log"
