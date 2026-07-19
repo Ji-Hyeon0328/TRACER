@@ -61,3 +61,6 @@ pkill -f "tracer_ros2_mpc_ref_udp_sender.py" 2>/dev/null || true
 
 # Phase-D5 learned selector shadow node
 pkill -f "tracer_phase_d5_learned_selector_shadow_node_v0.py" 2>/dev/null || true
+
+# Phase-D5 gated selector dry-run node
+pkill -f "tracer_phase_d5_gated_selector_dryrun_node_v0.py" 2>/dev/null || true

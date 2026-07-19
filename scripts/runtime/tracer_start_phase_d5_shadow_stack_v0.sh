@@ -45,6 +45,19 @@ if [ -n "$LEARNED_MODEL_JSON" ]; then
   echo "  learned_node_log=$D5_LOG_DIR/learned_selector_shadow_node.log"
 fi
 
+
+if [ "${TRACER_PHASE_D5_ENABLE_GATE_DRYRUN:-0}" = "1" ]; then
+  echo "[TRACER] launching D5 gated selector dry-run node"
+  pkill -f "tracer_phase_d5_gated_selector_dryrun_node_v0.py" 2>/dev/null || true
+
+  TRACER_PHASE_D5_GATE_LOG="$D5_LOG_DIR/gated_selector_dryrun_v0.csv" \
+  nohup /usr/bin/python3 scripts/runtime/tracer_phase_d5_gated_selector_dryrun_node_v0.py \
+    > "$D5_LOG_DIR/gated_selector_dryrun_node.log" 2>&1 &
+
+  echo "  gate_log=$D5_LOG_DIR/gated_selector_dryrun_v0.csv"
+  echo "  gate_node_log=$D5_LOG_DIR/gated_selector_dryrun_node.log"
+fi
+
 echo "[TRACER] D5 shadow nodes launched"
 echo "  input_log=$D5_LOG_DIR/policy_inputs_v0.csv"
 echo "  shadow_log=$D5_LOG_DIR/shadow_inputs_node.log"
