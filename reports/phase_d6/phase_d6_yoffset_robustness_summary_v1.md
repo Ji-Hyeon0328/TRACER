@@ -1,4 +1,4 @@
-# TRACER Phase-D6.3b Lateral Offset Robustness Summary v0
+# TRACER Phase-D6.3b/c Lateral Offset Robustness Summary v1
 
 ## Scope
 
@@ -48,7 +48,7 @@ empirical/safety protected dimensions:
 
 ## Interpretation
 
-Phase-D6.3b checks whether the MLP-gated selector remains valid when the robot is laterally perturbed at reset.
+Phase-D6.3b/c checks whether the MLP-gated selector remains valid when the robot is laterally perturbed at reset, including moderate ±0.30 sweeps and stronger ±0.60 smoke tests.
 
 A successful result means the controller is not only memorizing the near-center initial condition. It can still reach the goal while remaining inside the lateral bound under moderate initial y-offset perturbations.
 
