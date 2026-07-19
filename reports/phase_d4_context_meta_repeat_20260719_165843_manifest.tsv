@@ -1,0 +1,6 @@
+label	trial	world	goal_x	lateral_bound	hold_vx	log_dir	d5_log_dir	timeout_s	hold_obs_s
+d4_context_meta_v0	1	tracer_mixed_stress_course_v5_lowfric_from_solid	8.0	2.0	0.025	/home/kraken/Tracer/TRACER/logs/phase_d4_context_meta_20260719_165844	/home/kraken/Tracer/TRACER/logs/phase_d5_shadow_20260719_165843_trial_1	260	60
+d4_context_meta_v0	2	tracer_mixed_stress_course_v5_lowfric_from_solid	8.0	2.0	0.025	/home/kraken/Tracer/TRACER/logs/phase_d4_context_meta_20260719_170344	/home/kraken/Tracer/TRACER/logs/phase_d5_shadow_20260719_165843_trial_2	260	60
+d4_context_meta_v0	3	tracer_mixed_stress_course_v5_lowfric_from_solid	8.0	2.0	0.025	/home/kraken/Tracer/TRACER/logs/phase_d4_context_meta_20260719_170844	/home/kraken/Tracer/TRACER/logs/phase_d5_shadow_20260719_165843_trial_3	260	60
+d4_context_meta_v0	4	tracer_mixed_stress_course_v5_lowfric_from_solid	8.0	2.0	0.025	/home/kraken/Tracer/TRACER/logs/phase_d4_context_meta_20260719_171344	/home/kraken/Tracer/TRACER/logs/phase_d5_shadow_20260719_165843_trial_4	260	60
+d4_context_meta_v0	5	tracer_mixed_stress_course_v5_lowfric_from_solid	8.0	2.0	0.025	/home/kraken/Tracer/TRACER/logs/phase_d4_context_meta_20260719_171844	/home/kraken/Tracer/TRACER/logs/phase_d5_shadow_20260719_165843_trial_5	260	60
