@@ -13,7 +13,7 @@ def load_json(p):
 def infer_tag(path):
     name = Path(path).name
     for tag in ["m060", "m030", "p000", "p030", "p060"]:
-        if f"yoffset_{tag}_n3" in name:
+        if f"yoffset_{tag}_" in name:
             return tag
     return "unknown"
 

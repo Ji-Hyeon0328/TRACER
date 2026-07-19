@@ -24,16 +24,17 @@ empirical/safety protected dimensions:
 
 | tag | reset_y | n | success_rate | goal_rate | startup_failed_rate | out_lane_rate | hold_drift_mean | summary_json |
 |---|---:|---:|---:|---:|---:|---:|---:|---|
+| m060 | -0.60 | 1.000000 | 1.000000 | 1.000000 | 0.000000 | 0.000000 | 0.356000 | `reports/phase_d6/phase_d4_context_meta_repeat_20260719_191212_d6_mlp_gated_yoffset_m060_smoke_n1_summary_v0.json` |
 | m030 | -0.30 | 3.000000 | 1.000000 | 1.000000 | 0.000000 | 0.000000 | 0.027667 | `reports/phase_d6/phase_d4_context_meta_repeat_20260719_182201_d6_mlp_gated_yoffset_m030_n3_summary_v0.json` |
 | p000 | 0.00 | 3.000000 | 1.000000 | 1.000000 | 0.000000 | 0.000000 | 0.083667 | `reports/phase_d6/phase_d4_context_meta_repeat_20260719_183716_d6_mlp_gated_yoffset_p000_n3_summary_v0.json` |
 | p030 | 0.30 | 3.000000 | 1.000000 | 1.000000 | 0.000000 | 0.000000 | 0.028333 | `reports/phase_d6/phase_d4_context_meta_repeat_20260719_185241_d6_mlp_gated_yoffset_p030_n3_summary_v0.json` |
-| unknown | unknown | 1.000000 | 1.000000 | 1.000000 | 0.000000 | 0.000000 | 0.356000 | `reports/phase_d6/phase_d4_context_meta_repeat_20260719_191212_d6_mlp_gated_yoffset_m060_smoke_n1_summary_v0.json` |
-| unknown | unknown | 1.000000 | 1.000000 | 1.000000 | 0.000000 | 0.000000 | 0.000000 | `reports/phase_d6/phase_d4_context_meta_repeat_20260719_191713_d6_mlp_gated_yoffset_p060_smoke_n1_summary_v0.json` |
+| p060 | 0.60 | 1.000000 | 1.000000 | 1.000000 | 0.000000 | 0.000000 | 0.000000 | `reports/phase_d6/phase_d4_context_meta_repeat_20260719_191713_d6_mlp_gated_yoffset_p060_smoke_n1_summary_v0.json` |
 
 ## Individual rollouts
 
 | tag | reset_y | trial | success | goal | startup_failed | out_lane | final_x | final_y | max_abs_y | mean_abs_y | hold_drift | final_context |
 |---|---:|---:|---|---|---|---|---:|---:|---:|---:|---:|---|
+| m060 | -0.60 | 1 | True | True | False | False | 7.725000 | 0.231000 | 0.718000 | 0.246906 | 0.356000 | goal_flat |
 | m030 | -0.30 | 1 | True | True | False | False | 8.113000 | -0.820000 | 0.820000 | 0.417836 | 0.000000 | goal_flat |
 | m030 | -0.30 | 2 | True | True | False | False | 8.174000 | -0.014000 | 0.072000 | 0.025848 | 0.007000 | goal_flat |
 | m030 | -0.30 | 3 | True | True | False | False | 8.000000 | -1.036000 | 1.036000 | 0.451272 | 0.076000 | goal_flat |
@@ -43,8 +44,7 @@ empirical/safety protected dimensions:
 | p030 | 0.30 | 1 | True | True | False | False | 8.250000 | -0.316000 | 0.432000 | 0.227078 | 0.000000 | goal_flat |
 | p030 | 0.30 | 2 | True | True | False | False | 8.173000 | -0.168000 | 0.168000 | 0.052859 | 0.024000 | goal_flat |
 | p030 | 0.30 | 3 | True | True | False | False | 7.989000 | -0.675000 | 0.689000 | 0.358318 | 0.061000 | goal_flat |
-| unknown | unknown | 1 | True | True | False | False | 7.725000 | 0.231000 | 0.718000 | 0.246906 | 0.356000 | goal_flat |
-| unknown | unknown | 1 | True | True | False | False | 8.181000 | -0.467000 | 0.490000 | 0.233271 | 0.000000 | goal_flat |
+| p060 | 0.60 | 1 | True | True | False | False | 8.181000 | -0.467000 | 0.490000 | 0.233271 | 0.000000 | goal_flat |
 
 ## Interpretation
 
