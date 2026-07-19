@@ -9,6 +9,7 @@ N="${TRACER_D4_REPEAT_N:-3}"
 TIMEOUT_S="${TRACER_D4_REPEAT_TIMEOUT_S:-260}"
 HOLD_OBS_S="${TRACER_D4_HOLD_OBS_S:-60}"
 HOLD_VX="${TRACER_PHASE_D4_HOLD_VX:-0.025}"
+START_SCRIPT="${TRACER_D4_START_SCRIPT:-scripts/runtime/tracer_start_phase_d4_context_meta_stack_v0.sh}"
 POLICY_JSON="${TRACER_PHASE_D4_POLICY_JSON:-}"
 SLEEP_S="${TRACER_D4_REPEAT_SLEEP_S:-10}"
 OPEN_GUI="${TRACER_D4_REPEAT_OPEN_GUI:-0}"
@@ -25,7 +26,7 @@ MANIFEST="$ROOT/reports/phase_d4_context_meta_repeat_${TS}_manifest.tsv"
 
 mkdir -p "$ROOT/reports"
 
-echo -e "label\ttrial\tworld\tgoal_x\tlateral_bound\thold_vx\tlog_dir\ttimeout_s\thold_obs_s" > "$MANIFEST"
+echo -e "label\ttrial\tworld\tgoal_x\tlateral_bound\thold_vx\tlog_dir\td5_log_dir\ttimeout_s\thold_obs_s" > "$MANIFEST"
 
 echo "[TRACER] Phase-D4 context-meta repeat v0"
 echo "  WORLD=$WORLD"
@@ -35,6 +36,7 @@ echo "  N=$N"
 echo "  TIMEOUT_S=$TIMEOUT_S"
 echo "  HOLD_OBS_S=$HOLD_OBS_S"
 echo "  HOLD_VX=$HOLD_VX"
+echo "  START_SCRIPT=$START_SCRIPT"
 echo "  POLICY_JSON=$POLICY_JSON"
 echo "  MANIFEST=$MANIFEST"
 echo
@@ -43,6 +45,8 @@ cd "$ROOT"
 
 for trial in $(seq 1 "$N"); do
   label="d4_context_meta_v0"
+  D5_TRIAL_LOG_DIR="$ROOT/logs/phase_d5_shadow_${TS}_trial_${trial}"
+  mkdir -p "$D5_TRIAL_LOG_DIR"
 
   echo
   echo "============================================================"
@@ -62,13 +66,26 @@ for trial in $(seq 1 "$N"); do
   TRACER_PHASE_D4_CONTEXT_ACTION_TABLE="$ACTION_TABLE" \
   TRACER_PHASE_D4_HOLD_VX="$HOLD_VX" \
   TRACER_PHASE_D4_POLICY_JSON="$POLICY_JSON" \
+  TRACER_PHASE_D5_LOG_DIR="$D5_TRIAL_LOG_DIR" \
   TRACER_OPEN_GZCLIENT="$OPEN_GUI" \
-  bash scripts/runtime/tracer_start_phase_d4_context_meta_stack_v0.sh
+  bash "$START_SCRIPT"
 
-  LOG_DIR="$(ls -td "$ROOT"/logs/phase_d4_context_meta_* | head -1)"
-  echo -e "${label}\t${trial}\t${WORLD}\t${GOAL_X}\t${LATERAL_BOUND}\t${HOLD_VX}\t${LOG_DIR}\t${TIMEOUT_S}\t${HOLD_OBS_S}" >> "$MANIFEST"
+  LOG_DIR="$(python3 - "$ROOT" <<'PYLOG'
+import sys
+from pathlib import Path
+
+root = Path(sys.argv[1])
+dirs = [p for p in root.glob("logs/phase_d4_context_meta_*") if p.is_dir()]
+if not dirs:
+    raise SystemExit("[ERROR] no phase_d4_context_meta log dirs found")
+dirs.sort(key=lambda p: p.stat().st_mtime, reverse=True)
+print(dirs[0])
+PYLOG
+)"
+  echo -e "${label}\t${trial}\t${WORLD}\t${GOAL_X}\t${LATERAL_BOUND}\t${HOLD_VX}\t${LOG_DIR}\t${D5_TRIAL_LOG_DIR}\t${TIMEOUT_S}\t${HOLD_OBS_S}" >> "$MANIFEST"
 
   echo "[TRACER] monitor: $LOG_DIR"
+  echo "[TRACER] d5 log: $D5_TRIAL_LOG_DIR"
 
   reached_at=""
   start_t="$(date +%s)"

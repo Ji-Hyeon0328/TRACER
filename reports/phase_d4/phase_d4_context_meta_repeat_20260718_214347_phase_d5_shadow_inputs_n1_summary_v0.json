@@ -1,0 +1,36 @@
+{
+  "manifest": "reports/phase_d4_context_meta_repeat_20260718_214347_manifest.tsv",
+  "n": 1,
+  "success_rate": 1.0,
+  "goal_rate": 1.0,
+  "startup_failed_rate": 0.0,
+  "out_lane_rate": 0.0,
+  "hold_drift_mean": 0.012000000000000455,
+  "rollouts": [
+    {
+      "label": "d4_context_meta_v0",
+      "trial": "1",
+      "world": "tracer_mixed_stress_course_v5_lowfric_from_solid",
+      "goal_x": "8.0",
+      "lateral_bound": "2.0",
+      "hold_vx": "0.025",
+      "log_dir": "/home/kraken/Tracer/TRACER/logs/phase_d4_context_meta_20260718_214347",
+      "d5_log_dir": "/home/kraken/Tracer/TRACER/logs/phase_d5_shadow_20260718_214347_trial_1",
+      "timeout_s": "260",
+      "hold_obs_s": "60",
+      "n": 244,
+      "goal": true,
+      "success": true,
+      "startup_failed": false,
+      "out_lane": false,
+      "final_x": 8.1,
+      "final_y": 0.016,
+      "max_x": 8.112,
+      "max_abs_y": 0.079,
+      "mean_abs_y": 0.027803278688524564,
+      "hold_drift": 0.012000000000000455,
+      "first_goal_seq": 1820,
+      "final_context": "goal_flat"
+    }
+  ]
+}

@@ -84,13 +84,20 @@ class ContextMetaSelector(Node):
                 self.hold_vx = float(policy["hold_vx"])
 
             yaw_cfg = policy.get("yaw_correction", {})
-            if yaw_cfg:
-                if "TRACER_PHASE_D4_YAW_SIGN" not in os.environ and "yaw_sign" in yaw_cfg:
+            force_env_yaw = os.environ.get("TRACER_PHASE_D4_FORCE_ENV_YAW", "0").strip() == "1"
+
+            # By default, a policy artifact owns its yaw correction.
+            # Env yaw values are treated as explicit overrides only when
+            # TRACER_PHASE_D4_FORCE_ENV_YAW=1 is set.
+            if yaw_cfg and not force_env_yaw:
+                if "yaw_sign" in yaw_cfg:
                     self.yaw_sign = float(yaw_cfg["yaw_sign"])
-                if "TRACER_PHASE_D4_YAW_K" not in os.environ and "yaw_k" in yaw_cfg:
+                if "yaw_k" in yaw_cfg:
                     self.yaw_k = float(yaw_cfg["yaw_k"])
-                if "TRACER_PHASE_D4_YAW_MAX" not in os.environ and "yaw_max" in yaw_cfg:
+                if "yaw_max" in yaw_cfg:
                     self.yaw_max = float(yaw_cfg["yaw_max"])
+            elif yaw_cfg and force_env_yaw:
+                self.get_logger().info("TRACER_PHASE_D4_FORCE_ENV_YAW=1; keeping env yaw values")
 
         self.action_table = parse_action_table(action_table_text)
 
