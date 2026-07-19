@@ -29,6 +29,22 @@ TRACER_PHASE_D5_INPUT_LOG="$D5_LOG_DIR/policy_inputs_v0.csv" \
 nohup /usr/bin/python3 scripts/runtime/tracer_phase_d5_policy_input_logger_v0.py \
   > "$D5_LOG_DIR/policy_input_logger.log" 2>&1 &
 
+
+LEARNED_MODEL_JSON="${TRACER_PHASE_D5_LEARNED_MODEL_JSON:-}"
+if [ -n "$LEARNED_MODEL_JSON" ]; then
+  echo "[TRACER] launching D5 learned selector shadow node"
+  pkill -f "tracer_phase_d5_learned_selector_shadow_node_v0.py" 2>/dev/null || true
+
+  TRACER_PHASE_D5_LEARNED_MODEL_JSON="$LEARNED_MODEL_JSON" \
+  TRACER_PHASE_D5_LEARNED_LOG="$D5_LOG_DIR/learned_selector_shadow_v0.csv" \
+  nohup /usr/bin/python3 scripts/runtime/tracer_phase_d5_learned_selector_shadow_node_v0.py \
+    > "$D5_LOG_DIR/learned_selector_shadow_node.log" 2>&1 &
+
+  echo "  learned_model=$LEARNED_MODEL_JSON"
+  echo "  learned_log=$D5_LOG_DIR/learned_selector_shadow_v0.csv"
+  echo "  learned_node_log=$D5_LOG_DIR/learned_selector_shadow_node.log"
+fi
+
 echo "[TRACER] D5 shadow nodes launched"
 echo "  input_log=$D5_LOG_DIR/policy_inputs_v0.csv"
 echo "  shadow_log=$D5_LOG_DIR/shadow_inputs_node.log"
