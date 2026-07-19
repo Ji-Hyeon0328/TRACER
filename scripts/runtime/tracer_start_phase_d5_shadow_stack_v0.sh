@@ -14,6 +14,9 @@ CONTROL_MODE="${TRACER_PHASE_D5_CONTROL_MODE:-shadow}"
 EMPIRICAL_REF_TOPIC="${TRACER_PHASE_D5_EMPIRICAL_REF_TOPIC:-/tracer/empirical_mpc_reference}"
 GATED_CONTROL_TOPIC="${TRACER_PHASE_D5_GATED_CONTROL_TOPIC:-/tracer/mpc_reference}"
 
+D6_USE_MLP_GATE="${TRACER_PHASE_D6_USE_MLP_GATE:-0}"
+D6_MLP_GATE_TOPIC="${TRACER_PHASE_D6_MLP_GATE_TOPIC:-/tracer/mlp_selector_shadow_ref}"
+
 echo "[TRACER] starting base D4 policy stack first"
 echo "  POLICY_JSON=$POLICY_JSON"
 echo "  D5_LOG_DIR=$D5_LOG_DIR"
@@ -78,13 +81,30 @@ if [ "${TRACER_PHASE_D5_ENABLE_GATE_DRYRUN:-0}" = "1" ] || [ "$CONTROL_MODE" = "
 
   pkill -f "tracer_phase_d5_gated_selector_dryrun_node_v0.py" 2>/dev/null || true
 
+  if [ "$D6_USE_MLP_GATE" = "1" ]; then
+    GATE_LEARNED_TOPIC="$D6_MLP_GATE_TOPIC"
+    GATE_USE_BODY_H="${TRACER_PHASE_D5_GATE_USE_LEARNED_BODY_H:-0}"
+    GATE_USE_ENABLE="${TRACER_PHASE_D5_GATE_USE_LEARNED_ENABLE:-0}"
+  else
+    GATE_LEARNED_TOPIC="${TRACER_PHASE_D5_LEARNED_SHADOW_TOPIC:-/tracer/learned_selector_shadow_ref}"
+    GATE_USE_BODY_H="${TRACER_PHASE_D5_GATE_USE_LEARNED_BODY_H:-1}"
+    GATE_USE_ENABLE="${TRACER_PHASE_D5_GATE_USE_LEARNED_ENABLE:-1}"
+  fi
+
   TRACER_PHASE_D5_GATE_LOG="$D5_LOG_DIR/gated_selector_dryrun_v0.csv" \
   TRACER_PHASE_D5_EMPIRICAL_REF_TOPIC="$GATE_EMPIRICAL_TOPIC" \
+  TRACER_PHASE_D5_LEARNED_SHADOW_TOPIC="$GATE_LEARNED_TOPIC" \
   TRACER_PHASE_D5_GATED_SHADOW_TOPIC="$GATE_OUTPUT_TOPIC" \
+  TRACER_PHASE_D5_GATE_USE_LEARNED_VX="${TRACER_PHASE_D5_GATE_USE_LEARNED_VX:-1}" \
+  TRACER_PHASE_D5_GATE_USE_LEARNED_YAW="${TRACER_PHASE_D5_GATE_USE_LEARNED_YAW:-1}" \
+  TRACER_PHASE_D5_GATE_USE_LEARNED_BODY_H="$GATE_USE_BODY_H" \
+  TRACER_PHASE_D5_GATE_USE_LEARNED_CLEARANCE="${TRACER_PHASE_D5_GATE_USE_LEARNED_CLEARANCE:-1}" \
+  TRACER_PHASE_D5_GATE_USE_LEARNED_ENABLE="$GATE_USE_ENABLE" \
   nohup /usr/bin/python3 scripts/runtime/tracer_phase_d5_gated_selector_dryrun_node_v0.py \
     > "$D5_LOG_DIR/gated_selector_dryrun_node.log" 2>&1 &
 
   echo "  gate_empirical_topic=$GATE_EMPIRICAL_TOPIC"
+  echo "  gate_learned_topic=$GATE_LEARNED_TOPIC"
   echo "  gate_output_topic=$GATE_OUTPUT_TOPIC"
   echo "  gate_log=$D5_LOG_DIR/gated_selector_dryrun_v0.csv"
   echo "  gate_node_log=$D5_LOG_DIR/gated_selector_dryrun_node.log"

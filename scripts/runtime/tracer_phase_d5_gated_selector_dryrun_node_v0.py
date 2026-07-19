@@ -30,6 +30,16 @@ class GatedSelectorDryRun(Node):
         self.clearance_tol = float(os.environ.get("TRACER_PHASE_D5_GATE_CLEARANCE_TOL", "0.010"))
         self.enable_tol = float(os.environ.get("TRACER_PHASE_D5_GATE_ENABLE_TOL", "0.250"))
         self.hold_vx_threshold = float(os.environ.get("TRACER_PHASE_D5_GATE_HOLD_VX_THRESHOLD", "0.050"))
+
+        # Dimension-selective gating.
+        # For D6 MLP control, we usually trust learned vx/yaw/clearance,
+        # but preserve empirical body_h/enable for safety.
+        self.use_learned_vx = os.environ.get("TRACER_PHASE_D5_GATE_USE_LEARNED_VX", "1") == "1"
+        self.use_learned_yaw = os.environ.get("TRACER_PHASE_D5_GATE_USE_LEARNED_YAW", "1") == "1"
+        self.use_learned_body_h = os.environ.get("TRACER_PHASE_D5_GATE_USE_LEARNED_BODY_H", "1") == "1"
+        self.use_learned_clearance = os.environ.get("TRACER_PHASE_D5_GATE_USE_LEARNED_CLEARANCE", "1") == "1"
+        self.use_learned_enable = os.environ.get("TRACER_PHASE_D5_GATE_USE_LEARNED_ENABLE", "1") == "1"
+
         self.pub_hz = float(os.environ.get("TRACER_PHASE_D5_GATE_PUB_HZ", "10.0"))
 
         self.current_context = "unknown"
@@ -85,6 +95,14 @@ class GatedSelectorDryRun(Node):
             f"body_h={self.body_h_tol}, clearance={self.clearance_tol}, "
             f"enable={self.enable_tol}, hold_vx_threshold={self.hold_vx_threshold}"
         )
+        self.get_logger().info(
+            "learned_dims: "
+            f"vx={self.use_learned_vx}, "
+            f"yaw={self.use_learned_yaw}, "
+            f"body_h={self.use_learned_body_h}, "
+            f"clearance={self.use_learned_clearance}, "
+            f"enable={self.use_learned_enable}"
+        )
         self.get_logger().info(f"log_path={self.log_path}")
 
     def on_context(self, msg):
@@ -125,13 +143,17 @@ class GatedSelectorDryRun(Node):
         if self.current_context == "goal_flat" or abs(e["vx"]) <= self.hold_vx_threshold:
             return False, "hold_phase_empirical"
 
-        checks = [
-            ("vx", abs(l["vx"] - e["vx"]), self.vx_tol),
-            ("yaw_rate", abs(l["yaw_rate"] - e["yaw_rate"]), self.yaw_tol),
-            ("body_h", abs(l["body_h"] - e["body_h"]), self.body_h_tol),
-            ("clearance", abs(l["clearance"] - e["clearance"]), self.clearance_tol),
-            ("enable", abs(l["enable"] - e["enable"]), self.enable_tol),
-        ]
+        checks = []
+        if self.use_learned_vx:
+            checks.append(("vx", abs(l["vx"] - e["vx"]), self.vx_tol))
+        if self.use_learned_yaw:
+            checks.append(("yaw_rate", abs(l["yaw_rate"] - e["yaw_rate"]), self.yaw_tol))
+        if self.use_learned_body_h:
+            checks.append(("body_h", abs(l["body_h"] - e["body_h"]), self.body_h_tol))
+        if self.use_learned_clearance:
+            checks.append(("clearance", abs(l["clearance"] - e["clearance"]), self.clearance_tol))
+        if self.use_learned_enable:
+            checks.append(("enable", abs(l["enable"] - e["enable"]), self.enable_tol))
 
         bad = [name for name, val, tol in checks if val > tol]
         if bad:
@@ -151,8 +173,22 @@ class GatedSelectorDryRun(Node):
             "body_h": 0.32, "clearance": 0.045, "enable": 0.0,
         }
 
-        selected = l if accept else e
-        selected_source = "learned" if accept else "empirical"
+        if accept:
+            selected = dict(e)
+            if self.use_learned_vx:
+                selected["vx"] = l["vx"]
+            if self.use_learned_yaw:
+                selected["yaw_rate"] = l["yaw_rate"]
+            if self.use_learned_body_h:
+                selected["body_h"] = l["body_h"]
+            if self.use_learned_clearance:
+                selected["clearance"] = l["clearance"]
+            if self.use_learned_enable:
+                selected["enable"] = l["enable"]
+            selected_source = "learned_selected_dims"
+        else:
+            selected = e
+            selected_source = "empirical"
 
         msg = Float64MultiArray()
         msg.data = [
