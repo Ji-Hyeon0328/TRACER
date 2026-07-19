@@ -12,7 +12,7 @@ def load_json(p):
 
 def infer_tag(path):
     name = Path(path).name
-    for tag in ["m030", "p000", "p030"]:
+    for tag in ["m060", "m030", "p000", "p030", "p060"]:
         if f"yoffset_{tag}_n3" in name:
             return tag
     return "unknown"
@@ -20,9 +20,11 @@ def infer_tag(path):
 
 def tag_to_offset(tag):
     return {
+        "m060": "-0.60",
         "m030": "-0.30",
         "p000": "0.00",
         "p030": "0.30",
+        "p060": "0.60",
     }.get(tag, "unknown")
 
 
@@ -52,7 +54,7 @@ def main():
         tag = infer_tag(p)
         entries.append((tag, tag_to_offset(tag), Path(p), js))
 
-    entries.sort(key=lambda x: {"m030": 0, "p000": 1, "p030": 2}.get(x[0], 99))
+    entries.sort(key=lambda x: {"m060": 0, "m030": 1, "p000": 2, "p030": 3, "p060": 4}.get(x[0], 99))
 
     lines = []
     lines.append("# TRACER Phase-D6.3b Lateral Offset Robustness Summary v0")
