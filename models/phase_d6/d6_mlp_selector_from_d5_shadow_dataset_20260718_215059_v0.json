@@ -1,0 +1,237 @@
+{
+  "model_name": "phase_d6_mlp_selector_v0",
+  "model_type": "supervised_mlp_selector",
+  "source_dataset": "datasets/phase_d5/phase_d5_shadow_dataset_20260718_215059_dataset_v0.csv",
+  "out_pt": "models/phase_d6/d6_mlp_selector_from_d5_shadow_dataset_20260718_215059_v0.pt",
+  "features": [
+    "ctx_flat",
+    "ctx_start_flat",
+    "ctx_upslope",
+    "ctx_rough",
+    "ctx_downslope",
+    "ctx_goal_flat",
+    "ctx_unknown",
+    "x",
+    "y",
+    "beta_motion",
+    "beta_stability",
+    "beta_energy",
+    "ram_slip_proxy",
+    "ram_roughness_proxy",
+    "ram_sigma"
+  ],
+  "targets": [
+    "target_vx",
+    "target_yaw_rate",
+    "target_body_h",
+    "target_clearance",
+    "target_enable"
+  ],
+  "hidden_sizes": [
+    64,
+    64
+  ],
+  "epochs": 2500,
+  "best_train_normalized_mse": 0.004640613682568073,
+  "lr": 0.001,
+  "weight_decay": 1e-05,
+  "train_ratio": 0.8,
+  "seed": 42,
+  "num_samples": 736,
+  "num_train": 588,
+  "num_test": 148,
+  "train_metrics": {
+    "target_vx": {
+      "rmse": 0.010107283358061728,
+      "mae": 0.001455887509066434
+    },
+    "target_yaw_rate": {
+      "rmse": 0.000281075033615886,
+      "mae": 5.92173826227773e-05
+    },
+    "target_body_h": {
+      "rmse": 0.0010864167093283844,
+      "mae": 0.0006876363843476691
+    },
+    "target_clearance": {
+      "rmse": 1.5238388576253875e-05,
+      "mae": 1.0651853062263151e-05
+    },
+    "target_enable": {
+      "rmse": 0.0012697200190306878,
+      "mae": 0.0009276399604317282
+    }
+  },
+  "test_metrics": {
+    "target_vx": {
+      "rmse": 0.014839674282988097,
+      "mae": 0.0019992425836421347
+    },
+    "target_yaw_rate": {
+      "rmse": 0.0001129315621939984,
+      "mae": 4.68958978917972e-05
+    },
+    "target_body_h": {
+      "rmse": 0.0009235832182488087,
+      "mae": 0.000671401821278237
+    },
+    "target_clearance": {
+      "rmse": 1.513981532076062e-05,
+      "mae": 1.1090440927325068e-05
+    },
+    "target_enable": {
+      "rmse": 0.001302944798326791,
+      "mae": 0.0009853018296731484
+    }
+  },
+  "all_metrics": {
+    "target_vx": {
+      "rmse": 0.011220394500912868,
+      "mae": 0.0015651491475696473
+    },
+    "target_yaw_rate": {
+      "rmse": 0.0002562835090597395,
+      "mae": 5.673968991128158e-05
+    },
+    "target_body_h": {
+      "rmse": 0.001055692474688247,
+      "mae": 0.0006843719874387202
+    },
+    "target_clearance": {
+      "rmse": 1.5218618066111861e-05,
+      "mae": 1.0740047361215819e-05
+    },
+    "target_enable": {
+      "rmse": 0.0012764702948531068,
+      "mae": 0.0009392348482556965
+    }
+  },
+  "context_metrics": {
+    "downslope": {
+      "n": 30,
+      "metrics": {
+        "target_vx": {
+          "rmse": 0.00023010256534871276,
+          "mae": 0.0001588389277458191
+        },
+        "target_yaw_rate": {
+          "rmse": 4.491602231419756e-05,
+          "mae": 3.467096636692683e-05
+        },
+        "target_body_h": {
+          "rmse": 0.0008559552574444559,
+          "mae": 0.0006759673357009888
+        },
+        "target_clearance": {
+          "rmse": 1.0975575283274859e-05,
+          "mae": 9.418899814287822e-06
+        },
+        "target_enable": {
+          "rmse": 0.0007630498636716103,
+          "mae": 0.0005981763203938802
+        }
+      }
+    },
+    "flat": {
+      "n": 23,
+      "metrics": {
+        "target_vx": {
+          "rmse": 0.00012985101790065806,
+          "mae": 0.000104868541593137
+        },
+        "target_yaw_rate": {
+          "rmse": 1.3414320551409708e-05,
+          "mae": 1.1847317459203465e-05
+        },
+        "target_body_h": {
+          "rmse": 0.0014330217789015618,
+          "mae": 0.0012674694475920303
+        },
+        "target_clearance": {
+          "rmse": 3.31187435252343e-06,
+          "mae": 3.004689579424651e-06
+        },
+        "target_enable": {
+          "rmse": 0.0006030881657965372,
+          "mae": 0.0004907379979672639
+        }
+      }
+    },
+    "goal_flat": {
+      "n": 43,
+      "metrics": {
+        "target_vx": {
+          "rmse": 0.02752861005593175,
+          "mae": 0.0065101211847260945
+        },
+        "target_yaw_rate": {
+          "rmse": 0.00020104569082508278,
+          "mae": 9.372016566610614e-05
+        },
+        "target_body_h": {
+          "rmse": 0.0003348788458173124,
+          "mae": 0.00027033755945604903
+        },
+        "target_clearance": {
+          "rmse": 1.0050099212156055e-05,
+          "mae": 8.42452742332636e-06
+        },
+        "target_enable": {
+          "rmse": 0.001276441500189338,
+          "mae": 0.0010569844135018282
+        }
+      }
+    },
+    "rough": {
+      "n": 27,
+      "metrics": {
+        "target_vx": {
+          "rmse": 9.882025118104693e-05,
+          "mae": 8.836443777437564e-05
+        },
+        "target_yaw_rate": {
+          "rmse": 3.962313267872146e-05,
+          "mae": 3.153333198969011e-05
+        },
+        "target_body_h": {
+          "rmse": 0.0012742321145880569,
+          "mae": 0.0010325080818600124
+        },
+        "target_clearance": {
+          "rmse": 2.516403490382541e-05,
+          "mae": 2.1763697818473532e-05
+        },
+        "target_enable": {
+          "rmse": 0.0018523578784462587,
+          "mae": 0.0015978150897555882
+        }
+      }
+    },
+    "upslope": {
+      "n": 25,
+      "metrics": {
+        "target_vx": {
+          "rmse": 0.00036167335150052727,
+          "mae": 0.000255589485168457
+        },
+        "target_yaw_rate": {
+          "rmse": 4.120125724653811e-05,
+          "mae": 2.9864275129511954e-05
+        },
+        "target_body_h": {
+          "rmse": 0.0005786932530789975,
+          "mae": 0.0004173731803894043
+        },
+        "target_clearance": {
+          "rmse": 1.856570273556941e-05,
+          "mae": 1.3593435287475586e-05
+        },
+        "target_enable": {
+          "rmse": 0.001583901073700343,
+          "mae": 0.0011200475692749023
+        }
+      }
+    }
+  },
+  "note": "Offline supervised MLP selector trained to imitate Phase-D5 empirical/gated references. This is not yet an RL policy."
+}
