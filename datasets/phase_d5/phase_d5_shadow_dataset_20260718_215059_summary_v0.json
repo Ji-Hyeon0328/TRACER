@@ -1,0 +1,52 @@
+{
+  "manifest": "reports/phase_d4_context_meta_repeat_20260718_215059_manifest.tsv",
+  "dataset_csv": "datasets/phase_d5/phase_d5_shadow_dataset_20260718_215059_dataset_v0.csv",
+  "num_samples": 736,
+  "stride": 10,
+  "max_per_context": 2000,
+  "context_counts": {
+    "flat": 128,
+    "upslope": 134,
+    "rough": 130,
+    "downslope": 148,
+    "goal_flat": 196
+  },
+  "per_trial_rows": [
+    {
+      "trial": 1,
+      "d5_csv": "/home/kraken/Tracer/TRACER/logs/phase_d5_shadow_20260718_215059_trial_1/policy_inputs_v0.csv",
+      "raw_rows": 2520,
+      "used_rows": 252
+    },
+    {
+      "trial": 2,
+      "d5_csv": "/home/kraken/Tracer/TRACER/logs/phase_d5_shadow_20260718_215059_trial_2/policy_inputs_v0.csv",
+      "raw_rows": 2420,
+      "used_rows": 242
+    },
+    {
+      "trial": 3,
+      "d5_csv": "/home/kraken/Tracer/TRACER/logs/phase_d5_shadow_20260718_215059_trial_3/policy_inputs_v0.csv",
+      "raw_rows": 2420,
+      "used_rows": 242
+    }
+  ],
+  "feature_columns": [
+    "context one-hot",
+    "x",
+    "y",
+    "beta_motion",
+    "beta_stability",
+    "beta_energy",
+    "ram_slip_proxy",
+    "ram_roughness_proxy",
+    "ram_sigma"
+  ],
+  "target_columns": [
+    "target_vx",
+    "target_yaw_rate",
+    "target_body_h",
+    "target_clearance",
+    "target_enable"
+  ]
+}
