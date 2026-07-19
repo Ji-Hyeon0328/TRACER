@@ -41,6 +41,11 @@ echo
 echo "========== 2. qwer standing reset =========="
 scripts/runtime/tracer_reset_to_qwer_state.sh
 
+if [ -n "${TRACER_RESET_Y_OFFSET:-}" ]; then
+  echo "[TRACER] applying requested reset y-offset after qwer reset: ${TRACER_RESET_Y_OFFSET}"
+  scripts/runtime/tracer_apply_reset_y_offset_v0.sh
+fi
+
 echo
 echo "========== 3. validate standing pose =========="
 timeout -s INT -k 2s 20s scripts/runtime/tracer_validate_a1_ready_standing_pose.sh || echo '[WARN] D4 ready-standing validation timed out; continuing smoke test'

@@ -27,6 +27,20 @@ if [ "$CONTROL_MODE" = "gated" ]; then
   TRACER_PHASE_D4_POLICY_JSON="$POLICY_JSON" \
   TRACER_REF_TOPIC="$EMPIRICAL_REF_TOPIC" \
   bash scripts/runtime/tracer_start_phase_d4_context_meta_stack_v0.sh
+
+# Phase-D6/D6.3 reset y-offset evidence hook v0
+if [ -n "${TRACER_RESET_Y_OFFSET:-}" ]; then
+  echo "[TRACER] applying requested reset y-offset after base reset: ${TRACER_RESET_Y_OFFSET}" | tee -a "$D5_LOG_DIR/reset_y_offset_v0.log"
+  echo "[TRACER] reset_y_offset_log=$D5_LOG_DIR/reset_y_offset_v0.log" | tee -a "$D5_LOG_DIR/reset_y_offset_v0.log"
+  TRACER_RESET_Y_OFFSET="${TRACER_RESET_Y_OFFSET}" \
+    scripts/runtime/tracer_apply_reset_y_offset_v0.sh 2>&1 | tee -a "$D5_LOG_DIR/reset_y_offset_v0.log"
+fi
+
+
+if [ -n "${TRACER_RESET_Y_OFFSET:-}" ]; then
+  echo "[TRACER] applying requested reset y-offset after D5/D4 base reset: ${TRACER_RESET_Y_OFFSET}"
+  scripts/runtime/tracer_apply_reset_y_offset_v0.sh
+fi
 else
   TRACER_PHASE_D4_POLICY_JSON="$POLICY_JSON" \
   bash scripts/runtime/tracer_start_phase_d4_context_meta_stack_v0.sh
