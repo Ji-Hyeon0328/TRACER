@@ -28,6 +28,14 @@ mkdir -p "$ROOT/reports"
 
 echo -e "label\ttrial\tworld\tgoal_x\tlateral_bound\thold_vx\tlog_dir\td5_log_dir\ttimeout_s\thold_obs_s" > "$MANIFEST"
 
+
+tracer_kill_phase_d7_objective_shadow() {
+  echo "[TRACER] ensure D7 objective shadow node is stopped"
+  pkill -TERM -f "[t]racer_phase_d7_objective_selector_shadow_node_v0.py" 2>/dev/null || true
+  sleep 0.5
+  pkill -KILL -f "[t]racer_phase_d7_objective_selector_shadow_node_v0.py" 2>/dev/null || true
+}
+
 echo "[TRACER] Phase-D4 context-meta repeat v0"
 echo "  WORLD=$WORLD"
 echo "  GOAL_X=$GOAL_X"
@@ -54,6 +62,7 @@ for trial in $(seq 1 "$N"); do
   echo "============================================================"
 
   bash scripts/runtime/tracer_stop_phase_c_mixed_stack_v0.sh || true
+tracer_kill_phase_d7_objective_shadow || true
   pkill -f "tracer_phase_d4_context_meta_selector_node_v0.py" 2>/dev/null || true
 
   TRACER_PHASE_C_WORLD="$WORLD" \
@@ -154,6 +163,7 @@ PY
   done
 
   bash scripts/runtime/tracer_stop_phase_c_mixed_stack_v0.sh || true
+tracer_kill_phase_d7_objective_shadow || true
   pkill -f "tracer_phase_d4_context_meta_selector_node_v0.py" 2>/dev/null || true
 done
 
