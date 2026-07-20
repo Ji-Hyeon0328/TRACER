@@ -40,6 +40,7 @@ class ShadowInputs(Node):
 
         self.create_subscription(String, self.context_topic, self.on_context, 10)
         self.beta_pub = self.create_publisher(Float64MultiArray, self.beta_topic, 10)
+        self.get_logger().info(f"[TRACER] D5 beta_topic={self.beta_topic}")
         self.ram_pub = self.create_publisher(Float64MultiArray, self.ram_topic, 10)
 
         self.timer = self.create_timer(1.0 / self.pub_hz, self.on_timer)
