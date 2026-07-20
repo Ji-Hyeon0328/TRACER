@@ -12,7 +12,11 @@ import rclpy
 from rclpy.executors import ExternalShutdownException
 from rclpy.node import Node
 from rclpy.utilities import remove_ros_args
-from rclpy.exceptions import RCLError
+try:
+    from rclpy.exceptions import RCLError
+except Exception:
+    class RCLError(Exception):
+        pass
 
 from std_msgs.msg import Float64MultiArray, String
 
