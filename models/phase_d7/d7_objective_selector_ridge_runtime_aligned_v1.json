@@ -1,0 +1,223 @@
+{
+  "model_type": "ridge_regression_beta_selector_v0",
+  "source_csv": "datasets/phase_d7/d7_runtime_aligned_objective_dataset_v1.csv",
+  "contexts": [
+    "flat",
+    "start_flat",
+    "upslope",
+    "rough",
+    "downslope",
+    "goal_flat",
+    "unknown"
+  ],
+  "features": [
+    "reset_y",
+    "y_mean",
+    "mean_abs_y_context",
+    "max_abs_y_context",
+    "ram_slip_proxy_mean",
+    "ram_roughness_proxy_mean",
+    "ram_sigma_mean",
+    "motion_score",
+    "stability_score",
+    "energy_score",
+    "effort_proxy",
+    "hold_drift",
+    "rollout_max_abs_y",
+    "rollout_mean_abs_y"
+  ],
+  "feature_names_with_intercept": [
+    "intercept",
+    "ctx_flat",
+    "ctx_start_flat",
+    "ctx_upslope",
+    "ctx_rough",
+    "ctx_downslope",
+    "ctx_goal_flat",
+    "ctx_unknown",
+    "reset_y",
+    "y_mean",
+    "mean_abs_y_context",
+    "max_abs_y_context",
+    "ram_slip_proxy_mean",
+    "ram_roughness_proxy_mean",
+    "ram_sigma_mean",
+    "motion_score",
+    "stability_score",
+    "energy_score",
+    "effort_proxy",
+    "hold_drift",
+    "rollout_max_abs_y",
+    "rollout_mean_abs_y"
+  ],
+  "targets": [
+    "target_beta_motion",
+    "target_beta_stability",
+    "target_beta_energy"
+  ],
+  "alpha": 0.0001,
+  "train_ratio": 0.8,
+  "seed": 42,
+  "n_samples": 2419,
+  "n_train": 1935,
+  "n_test": 484,
+  "weights": [
+    [
+      0.2523505762424461,
+      0.7325428030592949,
+      0.015106623404230399
+    ],
+    [
+      0.10664711605733736,
+      -0.14237652113010227,
+      0.03572939793123915
+    ],
+    [
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.04022132675675388,
+      -0.04691815837769874,
+      0.00669683252509521
+    ],
+    [
+      -0.03131984946061524,
+      0.05654172328799901,
+      -0.02522186563667192
+    ],
+    [
+      -0.03001825939149642,
+      0.09480827027809119,
+      -0.06479000271261585
+    ],
+    [
+      -0.085530330018941,
+      0.03794468358389908,
+      0.0475856392942242
+    ],
+    [
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      -0.16227435149191854,
+      -0.09436473265613703,
+      0.25663908413673275
+    ],
+    [
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      -0.019335103473107983,
+      0.003880307741443173,
+      0.015454795589926476
+    ],
+    [
+      -0.039550951284510284,
+      0.03903989769044899,
+      0.0005110548779732153
+    ],
+    [
+      -0.012004490595785688,
+      0.031191399376513773,
+      -0.019186910495928
+    ],
+    [
+      0.0010528810271257121,
+      0.011354415089764158,
+      -0.012407284364422492
+    ],
+    [
+      -0.009070647331165018,
+      0.03145115342168764,
+      -0.022380570336226795
+    ],
+    [
+      -0.18643808597280223,
+      0.12991226636245307,
+      0.05652581960932282
+    ],
+    [
+      0.21448895126119727,
+      -0.4294229500802628,
+      0.21493400630718287
+    ],
+    [
+      0.01851932123549629,
+      0.03190435004452924,
+      -0.05042367170745822
+    ],
+    [
+      -0.01851931637530927,
+      -0.03190435776127037,
+      0.0504236737085802
+    ],
+    [
+      -0.256545223066583,
+      0.525831841434948,
+      -0.26928661238145785
+    ],
+    [
+      -0.0020208201123760425,
+      -0.0001533355351103711,
+      0.002174157419649532
+    ],
+    [
+      0.020662866391425137,
+      -0.0008580866654025809,
+      -0.01980477964532252
+    ]
+  ],
+  "train_metrics": {
+    "target_beta_motion": {
+      "rmse": 0.0021129938069995406,
+      "mae": 0.0015865157758274873
+    },
+    "target_beta_stability": {
+      "rmse": 0.0023275983407379385,
+      "mae": 0.0017525401999881143
+    },
+    "target_beta_energy": {
+      "rmse": 0.0015431332323899076,
+      "mae": 0.001025458967202503
+    }
+  },
+  "test_metrics": {
+    "target_beta_motion": {
+      "rmse": 0.002287818883904016,
+      "mae": 0.0017860567366209655
+    },
+    "target_beta_stability": {
+      "rmse": 0.0025990356203046583,
+      "mae": 0.0019312196028284283
+    },
+    "target_beta_energy": {
+      "rmse": 0.0014747472179511224,
+      "mae": 0.0010407297583180744
+    }
+  },
+  "all_metrics": {
+    "target_beta_motion": {
+      "rmse": 0.0021491116589481872,
+      "mae": 0.0016264404657919482
+    },
+    "target_beta_stability": {
+      "rmse": 0.002384382314942785,
+      "mae": 0.0017882908535535168
+    },
+    "target_beta_energy": {
+      "rmse": 0.0015296950501257013,
+      "mae": 0.0010285143879961952
+    }
+  },
+  "notes": [
+    "This is a supervised bootstrap Objective Selector, not IRL yet.",
+    "Predicted beta is clamped positive and normalized to sum to 1.",
+    "Runtime use should prefer online-observable features; rollout-only scores are for D7 bootstrap analysis."
+  ]
+}
