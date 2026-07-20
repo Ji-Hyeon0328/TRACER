@@ -1,0 +1,237 @@
+{
+  "model_name": "phase_d6_mlp_selector_v0",
+  "model_type": "supervised_mlp_selector",
+  "source_dataset": "datasets/phase_d6/d6_d7_beta_conditioned_selector_dataset_v0.csv",
+  "out_pt": "models/phase_d6/d6_mlp_selector_d7_beta_conditioned_v0.pt",
+  "features": [
+    "ctx_flat",
+    "ctx_start_flat",
+    "ctx_upslope",
+    "ctx_rough",
+    "ctx_downslope",
+    "ctx_goal_flat",
+    "ctx_unknown",
+    "x",
+    "y",
+    "beta_motion",
+    "beta_stability",
+    "beta_energy",
+    "ram_slip_proxy",
+    "ram_roughness_proxy",
+    "ram_sigma"
+  ],
+  "targets": [
+    "target_vx",
+    "target_yaw_rate",
+    "target_body_h",
+    "target_clearance",
+    "target_enable"
+  ],
+  "hidden_sizes": [
+    64,
+    64
+  ],
+  "epochs": 2500,
+  "best_train_normalized_mse": 0.3050089478492737,
+  "lr": 0.001,
+  "weight_decay": 1e-05,
+  "train_ratio": 0.8,
+  "seed": 42,
+  "num_samples": 21797,
+  "num_train": 17437,
+  "num_test": 4360,
+  "train_metrics": {
+    "target_vx": {
+      "rmse": 0.0076684365224731505,
+      "mae": 0.003096204093062065
+    },
+    "target_yaw_rate": {
+      "rmse": 0.00021873999912673279,
+      "mae": 9.490515773949826e-05
+    },
+    "target_body_h": {
+      "rmse": 0.004173332203060823,
+      "mae": 0.00023191559340023096
+    },
+    "target_clearance": {
+      "rmse": 0.0006488847932889187,
+      "mae": 6.278580565353992e-05
+    },
+    "target_enable": {
+      "rmse": 0.013045941795726074,
+      "mae": 0.000722030809988442
+    }
+  },
+  "test_metrics": {
+    "target_vx": {
+      "rmse": 0.0072275281855211215,
+      "mae": 0.0030582729453613997
+    },
+    "target_yaw_rate": {
+      "rmse": 0.00018944649824101156,
+      "mae": 9.511165575732033e-05
+    },
+    "target_body_h": {
+      "rmse": 0.003269669182595401,
+      "mae": 0.0002144916102700277
+    },
+    "target_clearance": {
+      "rmse": 0.00046883131818034824,
+      "mae": 5.57404438700151e-05
+    },
+    "target_enable": {
+      "rmse": 0.01016667551583469,
+      "mae": 0.0006665280515994501
+    }
+  },
+  "all_metrics": {
+    "target_vx": {
+      "rmse": 0.007582294302492152,
+      "mae": 0.003088616818034436
+    },
+    "target_yaw_rate": {
+      "rmse": 0.00021320275745722285,
+      "mae": 9.494646317682144e-05
+    },
+    "target_body_h": {
+      "rmse": 0.004008905525252934,
+      "mae": 0.00022843031578175096
+    },
+    "target_clearance": {
+      "rmse": 0.0006170868668077446,
+      "mae": 6.137653901928984e-05
+    },
+    "target_enable": {
+      "rmse": 0.012523086533626148,
+      "mae": 0.0007109287414396772
+    }
+  },
+  "context_metrics": {
+    "downslope": {
+      "n": 930,
+      "metrics": {
+        "target_vx": {
+          "rmse": 0.0023993820312713477,
+          "mae": 0.001503125169584828
+        },
+        "target_yaw_rate": {
+          "rmse": 7.564806343949521e-05,
+          "mae": 6.111941615780515e-05
+        },
+        "target_body_h": {
+          "rmse": 0.00010165718744696082,
+          "mae": 7.77717880023423e-05
+        },
+        "target_clearance": {
+          "rmse": 0.00017668035267227362,
+          "mae": 5.136464712440327e-05
+        },
+        "target_enable": {
+          "rmse": 0.0003012762835182142,
+          "mae": 0.00023495343423658802
+        }
+      }
+    },
+    "flat": {
+      "n": 810,
+      "metrics": {
+        "target_vx": {
+          "rmse": 0.005615014411975168,
+          "mae": 0.0014712642740320277
+        },
+        "target_yaw_rate": {
+          "rmse": 0.00015268024574665405,
+          "mae": 8.631823674264008e-05
+        },
+        "target_body_h": {
+          "rmse": 0.007573944726192264,
+          "mae": 0.0007725096227210245
+        },
+        "target_clearance": {
+          "rmse": 0.0010030011748996426,
+          "mae": 0.00011791496733088553
+        },
+        "target_enable": {
+          "rmse": 0.023552214047011546,
+          "mae": 0.0024488335774268634
+        }
+      }
+    },
+    "goal_flat": {
+      "n": 1148,
+      "metrics": {
+        "target_vx": {
+          "rmse": 0.012668357215486219,
+          "mae": 0.006953958123403144
+        },
+        "target_yaw_rate": {
+          "rmse": 0.0003229651646299489,
+          "mae": 0.00017295503511843157
+        },
+        "target_body_h": {
+          "rmse": 0.00031351641799857066,
+          "mae": 8.319362426884083e-05
+        },
+        "target_clearance": {
+          "rmse": 6.967721091042674e-05,
+          "mae": 2.0878327822228343e-05
+        },
+        "target_enable": {
+          "rmse": 0.0009402191157773121,
+          "mae": 0.00023159940275996405
+        }
+      }
+    },
+    "rough": {
+      "n": 748,
+      "metrics": {
+        "target_vx": {
+          "rmse": 0.003274772728100217,
+          "mae": 0.002066796376584048
+        },
+        "target_yaw_rate": {
+          "rmse": 0.00011241050501980284,
+          "mae": 7.102680566875055e-05
+        },
+        "target_body_h": {
+          "rmse": 0.00014562101188672597,
+          "mae": 0.00011152005131869393
+        },
+        "target_clearance": {
+          "rmse": 0.0003796901675127073,
+          "mae": 7.352484937976388e-05
+        },
+        "target_enable": {
+          "rmse": 0.0005038551644263334,
+          "mae": 0.00039483710406298304
+        }
+      }
+    },
+    "upslope": {
+      "n": 724,
+      "metrics": {
+        "target_vx": {
+          "rmse": 0.0025208942795948543,
+          "mae": 0.001678635319952148
+        },
+        "target_yaw_rate": {
+          "rmse": 6.522858149682215e-05,
+          "mae": 5.00656900418027e-05
+        },
+        "target_body_h": {
+          "rmse": 0.00010473412593591076,
+          "mae": 8.038616641450323e-05
+        },
+        "target_clearance": {
+          "rmse": 3.7747716483135546e-05,
+          "mae": 2.8706052808801114e-05
+        },
+        "target_enable": {
+          "rmse": 0.0002720336098252574,
+          "mae": 0.0001972184326108648
+        }
+      }
+    }
+  },
+  "note": "Offline supervised MLP selector trained to imitate Phase-D5 empirical/gated references. This is not yet an RL policy."
+}
