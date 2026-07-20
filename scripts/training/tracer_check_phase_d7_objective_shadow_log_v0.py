@@ -56,6 +56,13 @@ def main():
         vals = [v for v in vals if math.isfinite(v)]
         print(f"  {k}: min={min(vals):.6f}, max={max(vals):.6f}, mean={mean(vals):.6f}")
 
+    if "raw_beta_motion" in rows[0]:
+        print("[TRACER] raw beta ranges before floor/prior blend:")
+        for k in ["raw_beta_motion", "raw_beta_stability", "raw_beta_energy"]:
+            vals = [f(r, k) for r in rows]
+            vals = [v for v in vals if math.isfinite(v)]
+            print(f"  {k}: min={min(vals):.6f}, max={max(vals):.6f}, mean={mean(vals):.6f}")
+
     sums = [
         f(r, "pred_beta_motion") + f(r, "pred_beta_stability") + f(r, "pred_beta_energy")
         for r in rows

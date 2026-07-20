@@ -45,6 +45,17 @@ def normalize_beta(v):
     return [x / s for x in vals]
 
 
+CONTEXT_PRIOR_BETA = {
+    "flat":       (0.45, 0.25, 0.30),
+    "start_flat": (0.45, 0.25, 0.30),
+    "rough":      (0.25, 0.55, 0.20),
+    "upslope":    (0.35, 0.40, 0.25),
+    "downslope":  (0.25, 0.60, 0.15),
+    "goal_flat":  (0.20, 0.50, 0.30),
+    "unknown":    (0.33, 0.34, 0.33),
+}
+
+
 class D7ObjectiveSelectorShadow(Node):
     def __init__(self):
         super().__init__("tracer_phase_d7_objective_selector_shadow_v0")
@@ -83,6 +94,12 @@ class D7ObjectiveSelectorShadow(Node):
         self.stop_margin = float(os.environ.get("TRACER_PHASE_D7_STOP_MARGIN", "-0.05"))
         self.window_n = int(os.environ.get("TRACER_PHASE_D7_WINDOW_N", "300"))
         self.pub_hz = float(os.environ.get("TRACER_PHASE_D7_PUB_HZ", "10.0"))
+
+        # Runtime-safe post-processing for shadow beta.
+        # The ridge model can produce out-of-distribution raw beta during online rollout.
+        # Keep raw beta in logs, but publish a floor/prior-blended normalized beta.
+        self.beta_floor = float(os.environ.get("TRACER_PHASE_D7_BETA_FLOOR", "0.05"))
+        self.prior_blend = float(os.environ.get("TRACER_PHASE_D7_PRIOR_BLEND", "0.20"))
 
         self.log_csv = os.environ.get("TRACER_PHASE_D7_SHADOW_LOG_CSV", "")
         if not self.log_csv:
@@ -144,6 +161,12 @@ class D7ObjectiveSelectorShadow(Node):
                 "pred_beta_motion",
                 "pred_beta_stability",
                 "pred_beta_energy",
+                "raw_beta_motion",
+                "raw_beta_stability",
+                "raw_beta_energy",
+                "prior_beta_motion",
+                "prior_beta_stability",
+                "prior_beta_energy",
                 "actual_beta_motion",
                 "actual_beta_stability",
                 "actual_beta_energy",
@@ -178,6 +201,7 @@ class D7ObjectiveSelectorShadow(Node):
         self.get_logger().info(f"actual beta topic   -> {self.actual_beta_topic}")
         self.get_logger().info(f"ref topic           -> {self.ref_topic}")
         self.get_logger().info(f"log csv             -> {self.log_csv}")
+        self.get_logger().info(f"beta floor/blend    -> floor={self.beta_floor}, prior_blend={self.prior_blend}")
 
     def on_context(self, msg):
         c = (msg.data or "unknown").strip()
@@ -247,6 +271,15 @@ class D7ObjectiveSelectorShadow(Node):
             y.append(yj)
         return normalize_beta(y)
 
+    def postprocess_beta(self, raw_beta):
+        floored = normalize_beta([max(self.beta_floor, b) for b in raw_beta])
+        prior = list(CONTEXT_PRIOR_BETA.get(self.current_context, CONTEXT_PRIOR_BETA["unknown"]))
+        beta = normalize_beta([
+            (1.0 - self.prior_blend) * floored[i] + self.prior_blend * prior[i]
+            for i in range(3)
+        ])
+        return beta, floored, prior
+
     def compute_features(self):
         ctx_y_vals = list(self.context_y[self.current_context])
         y_vals = list(self.y_window)
@@ -310,7 +343,8 @@ class D7ObjectiveSelectorShadow(Node):
 
     def on_timer(self):
         feature_vec, values = self.compute_features()
-        beta = self.predict(feature_vec)
+        raw_beta = self.predict(feature_vec)
+        beta, floored_beta, prior_beta = self.postprocess_beta(raw_beta)
 
         msg = Float64MultiArray()
         msg.data = beta
@@ -332,6 +366,12 @@ class D7ObjectiveSelectorShadow(Node):
             "pred_beta_motion": f"{beta[0]:.9f}",
             "pred_beta_stability": f"{beta[1]:.9f}",
             "pred_beta_energy": f"{beta[2]:.9f}",
+            "raw_beta_motion": f"{raw_beta[0]:.9f}",
+            "raw_beta_stability": f"{raw_beta[1]:.9f}",
+            "raw_beta_energy": f"{raw_beta[2]:.9f}",
+            "prior_beta_motion": f"{prior_beta[0]:.9f}",
+            "prior_beta_stability": f"{prior_beta[1]:.9f}",
+            "prior_beta_energy": f"{prior_beta[2]:.9f}",
             "actual_beta_motion": f"{self.actual_beta[0]:.9f}" if math.isfinite(self.actual_beta[0]) else "",
             "actual_beta_stability": f"{self.actual_beta[1]:.9f}" if math.isfinite(self.actual_beta[1]) else "",
             "actual_beta_energy": f"{self.actual_beta[2]:.9f}" if math.isfinite(self.actual_beta[2]) else "",
