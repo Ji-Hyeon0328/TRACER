@@ -158,6 +158,7 @@ class D7ObjectiveSelectorShadow(Node):
                 "x",
                 "y",
                 "reset_y",
+                "y_mean",
                 "pred_beta_motion",
                 "pred_beta_stability",
                 "pred_beta_energy",
