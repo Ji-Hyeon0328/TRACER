@@ -80,7 +80,7 @@ docker exec a1_unitree_gazebo_docker bash --noprofile --norc -lc '
 set +u
 source /opt/ros/melodic/setup.bash
 source /root/unitree_ws/devel/setup.bash
-rosservice call /gazebo/unpause_physics "{}"
+timeout 8s rosservice call /gazebo/unpause_physics "{}"
 '
 
 echo

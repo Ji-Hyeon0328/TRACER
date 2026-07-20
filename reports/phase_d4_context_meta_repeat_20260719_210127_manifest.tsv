@@ -1,0 +1,2 @@
+label	trial	world	goal_x	lateral_bound	hold_vx	log_dir	d5_log_dir	timeout_s	hold_obs_s
+d4_context_meta_v0	1	tracer_mixed_stress_course_v5_lowfric_from_solid	8.0	2.0	0.025	/home/kraken/Tracer/TRACER/logs/phase_d4_context_meta_20260719_210135	/home/kraken/Tracer/TRACER/logs/phase_d5_shadow_20260719_210127_trial_1	260	60
