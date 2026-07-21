@@ -23,8 +23,8 @@
     ],
     "lateral_guard_action": "lateral_recovery_soft"
   },
-  "fallback_action_name": "downslope_stable",
-  "fallback_action_id": 6,
+  "fallback_action_name": "lateral_recovery_soft",
+  "fallback_action_id": 7,
   "global_action_probs": [
     {
       "action_id": 0,
@@ -391,6 +391,23 @@
           "count": 0
         }
       ]
+    },
+    "unknown": {
+      "rows": 0,
+      "source": "manual_safe_unknown_fallback",
+      "top_action_name": "lateral_recovery_soft",
+      "top_action_id": 7,
+      "action_probs": [
+        {
+          "action_id": 7,
+          "action_name": "lateral_recovery_soft",
+          "prob": 1.0,
+          "count": 0
+        }
+      ]
     }
-  }
+  },
+  "patch_notes": [
+    "J3 active smoke showed unknown context using global fallback downslope_stable; set unknown/fallback to lateral_recovery_soft for safer shadow projection."
+  ]
 }
