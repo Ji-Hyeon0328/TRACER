@@ -31,9 +31,9 @@ This audits whether runtime-safe D7/log features separate the grouped true-metri
 
 | target | range/std | clean mean | m030 mean | p030 mean |
 |---|---:|---:|---:|---:|
-| target_beta_stability_grouped_true_metric | 3.4486 | 0.299503 | 0.288130 | 0.405933 |
-| target_beta_motion_grouped_true_metric | 3.2216 | 0.349789 | 0.336426 | 0.565829 |
-| target_beta_energy_grouped_true_metric | 3.1808 | 0.350708 | 0.375444 | 0.028238 |
+| target_beta_stability_grouped_true_metric | 3.9816 | 0.204777 | 0.196735 | 0.308085 |
+| target_beta_motion_grouped_true_metric | 3.5306 | 0.397469 | 0.397597 | 0.660085 |
+| target_beta_energy_grouped_true_metric | 2.4343 | 0.397754 | 0.405668 | 0.031830 |
 
 ## Safe interpretation
 

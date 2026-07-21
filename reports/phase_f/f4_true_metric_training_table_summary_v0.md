@@ -2,7 +2,7 @@
 
 This table aggregates Phase-F3 true metric rollout summaries into a compact training/evaluation table for Objective Selector and RAM follow-up work.
 
-- input summaries: `20`
+- input summaries: `21`
 - output csv: `datasets/phase_f/f4_true_metric_training_table_v0.csv`
 
 | tag | reset_y | n_rows | base_vx_mean | base_vy_abs_mean | joint_abs_power_mean | imu_ang_vel_norm_mean | contact_force_z_sum_mean |
@@ -27,6 +27,7 @@ This table aggregates Phase-F3 true metric rollout summaries into a compact trai
 | p030_r2 |  | 8397 | 0.17388946913218356 | 0.03640548580059789 | 161.59181924687533 | 0.44402735882807653 | 123.72482057623257 |
 | p060 |  | 8393 | 0.17018795783937915 | 0.03533711853464203 | 159.30244568553488 | 0.42153433784642774 | 122.43538194331327 |
 | p060_r1 |  | 8392 | 0.17537601656400584 | 0.035150272382560147 | 161.4786863210433 | 0.4542619050732168 | 122.98861844325354 |
+| p060_r2 |  | 8391 | 0.056886178897218594 | 0.024020702895438638 | 155.603656550237 | 0.3107945327837787 | 76.63737510121105 |
 
 ## Safe interpretation
 
