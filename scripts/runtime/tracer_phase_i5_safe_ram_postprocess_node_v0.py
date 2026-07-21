@@ -74,7 +74,7 @@ class I5SafeRAMPostprocess(Node):
         self.learned_t = None
         self.legacy = None
         self.legacy_t = None
-        self.context = "unknown"
+        self.ctx = "unknown"
         self.x = None
         self.y = None
 
@@ -133,7 +133,7 @@ class I5SafeRAMPostprocess(Node):
         return json.loads(self.postprocess_json.read_text())
 
     def on_context(self, msg):
-        self.context = context_key(msg.data)
+        self.ctx = context_key(msg.data)
 
     def on_odom(self, msg):
         data = list(msg.data)
@@ -205,7 +205,7 @@ class I5SafeRAMPostprocess(Node):
 
         self.writer.writerow({
             "t_wall": f"{now:.6f}",
-            "context": context_key(self.context),
+            "context": context_key(self.ctx),
             "x": "" if self.x is None else f"{self.x:.6f}",
             "y": "" if self.y is None else f"{self.y:.6f}",
             "used_legacy": "1" if use_legacy else "0",
