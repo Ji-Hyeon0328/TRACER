@@ -1,0 +1,90 @@
+{
+  "phase": "I0",
+  "purpose": "RAM supervised pretraining teacher dataset",
+  "input_csv": "datasets/phase_h/h0_objective_selector_training_table_v0.csv",
+  "output_csv": "datasets/phase_i/i0_ram_teacher_dataset_v0.csv",
+  "n_rows": 22,
+  "input_features": [
+    "context_frac_flat",
+    "context_frac_start_flat",
+    "context_frac_rough",
+    "context_frac_upslope",
+    "context_frac_downslope",
+    "context_frac_goal_flat",
+    "context_frac_unknown",
+    "context_unique_count",
+    "ref_vx_mean_mean_g1",
+    "ref_vx_mean_std_g1",
+    "ref_yaw_rate_mean_mean_g1",
+    "ref_yaw_rate_mean_std_g1",
+    "ref_clearance_mean_mean_g1",
+    "ref_clearance_mean_std_g1",
+    "x_progress_g1",
+    "y_change_g1",
+    "abs_y_change_g1",
+    "y_late_minus_early_g1",
+    "abs_y_late_minus_early_g1",
+    "vx_tracking_error_g1",
+    "vx_tracking_abs_error_g1",
+    "vx_tracking_ratio_g1",
+    "lateral_per_forward_g1"
+  ],
+  "target_cols": [
+    "rho_slip_target",
+    "rho_rough_target",
+    "sigma_target"
+  ],
+  "teacher_construction": {
+    "rho_slip_target": [
+      "vx_tracking_abs_error_g1",
+      "lateral_per_forward_g1",
+      "abs_y_change_g1",
+      "abs_y_late_minus_early_g1"
+    ],
+    "rho_rough_target": [
+      "power_per_vx_g1",
+      "contact_per_vx_g1",
+      "imu_per_vx_g1"
+    ],
+    "sigma_target": {
+      "signals": [
+        "vx_tracking_abs_error_g1",
+        "lateral_per_forward_g1",
+        "imu_per_vx_g1"
+      ],
+      "coverage_uncertainty": "1/sqrt(base_condition_count)",
+      "formula": "0.55*mean(normalized uncertainty signals)+0.45*coverage_uncertainty"
+    }
+  },
+  "scales": {
+    "abs_y_change_g1": {
+      "lo": 0.050923865,
+      "hi": 0.61658674
+    },
+    "abs_y_late_minus_early_g1": {
+      "lo": 0.004294287783592646,
+      "hi": 0.53024739051417
+    },
+    "contact_per_vx_g1": {
+      "lo": 701.2033427064291,
+      "hi": 724.837809378708
+    },
+    "imu_per_vx_g1": {
+      "lo": 2.472232188962778,
+      "hi": 2.8927822738345608
+    },
+    "lateral_per_forward_g1": {
+      "lo": 0.20042804638416212,
+      "hi": 0.2290395857486422
+    },
+    "power_per_vx_g1": {
+      "lo": 899.3744609861859,
+      "hi": 948.2085659881702
+    },
+    "vx_tracking_abs_error_g1": {
+      "lo": 0.011660271665912852,
+      "hi": 0.01946139575850034
+    }
+  },
+  "safe_claim": "Heuristic RAM teacher seeds for supervised pretraining; not final teacher-student RAM."
+}
