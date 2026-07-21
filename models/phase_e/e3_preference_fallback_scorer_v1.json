@@ -1,0 +1,98 @@
+{
+  "model_name": "phase_e3_preference_fallback_scorer_v0",
+  "kind": "pairwise_logistic_bootstrap",
+  "note": "This is not true IRL. It is a weak preference-supervised fallback/deployment scorer trained from E2 filtered pairs.",
+  "features": [
+    "bias",
+    "reset_y",
+    "abs_reset_y",
+    "learned_vx",
+    "learned_yaw",
+    "learned_clearance",
+    "abs_reset_y_x_learned_vx",
+    "abs_reset_y_x_learned_yaw",
+    "abs_reset_y_x_learned_clearance",
+    "reset_y_x_learned_vx",
+    "reset_y_x_learned_yaw",
+    "reset_y_x_learned_clearance"
+  ],
+  "weights": {
+    "bias": 0.0,
+    "reset_y": 0.0,
+    "abs_reset_y": 0.0,
+    "learned_vx": -1.3861966714226486,
+    "learned_yaw": 1.0584128792977903,
+    "learned_clearance": 0.0,
+    "abs_reset_y_x_learned_vx": -1.557603668727665,
+    "abs_reset_y_x_learned_yaw": -0.8242208035115338,
+    "abs_reset_y_x_learned_clearance": 0.0,
+    "reset_y_x_learned_vx": 4.521441725692874,
+    "reset_y_x_learned_yaw": 3.7880588604767467,
+    "reset_y_x_learned_clearance": 0.0
+  },
+  "metrics_csv": "datasets/phase_e/e1_rollout_objective_metrics_v2.csv",
+  "pairs_csv": "datasets/phase_e/e2_preference_pairs_filtered_v2.csv",
+  "num_metric_rows": 13,
+  "num_pairs": 32,
+  "epochs": 4000,
+  "lr": 0.05,
+  "l2": 0.001,
+  "pair_accuracy": 0.875,
+  "history": [
+    {
+      "epoch": 0,
+      "loss": 0.6931471805599448,
+      "pair_acc": 0.0
+    },
+    {
+      "epoch": 1,
+      "loss": 0.687752577667534,
+      "pair_acc": 0.8125
+    },
+    {
+      "epoch": 2,
+      "loss": 0.6825039304132148,
+      "pair_acc": 0.8125
+    },
+    {
+      "epoch": 5,
+      "loss": 0.6675910102697876,
+      "pair_acc": 0.8125
+    },
+    {
+      "epoch": 10,
+      "loss": 0.6452726361862521,
+      "pair_acc": 0.8125
+    },
+    {
+      "epoch": 50,
+      "loss": 0.5395341627392507,
+      "pair_acc": 0.8125
+    },
+    {
+      "epoch": 100,
+      "loss": 0.4862063087573952,
+      "pair_acc": 0.8125
+    },
+    {
+      "epoch": 500,
+      "loss": 0.38749461213295555,
+      "pair_acc": 0.75
+    },
+    {
+      "epoch": 1000,
+      "loss": 0.3379313929981978,
+      "pair_acc": 0.75
+    },
+    {
+      "epoch": 2000,
+      "loss": 0.2861004531562635,
+      "pair_acc": 0.875
+    },
+    {
+      "epoch": 3999,
+      "loss": 0.24734524152801862,
+      "pair_acc": 0.875
+    }
+  ]
+}
