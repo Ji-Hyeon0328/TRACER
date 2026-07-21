@@ -50,29 +50,105 @@ def find_first_existing_col(cols, candidates):
     return None
 
 def parse_report_l1s(path):
+    """
+    Return (train_l1_by_tag, loto_l1_by_tag).
+
+    This parser accepts both console-style lines:
+      clean: target=(...) pred=(...) L1=0.123
+      clean: pred=(...) target=(...) L1=0.456
+
+    and markdown table rows containing tag + L1 columns.
+    """
     train = {}
     loto = {}
 
     if not path.exists():
         return train, loto
 
+    known_tags = {"clean", "m015", "m030", "m060", "p015", "p030", "p045", "p060"}
     mode = "train"
-    for line in path.read_text(errors="ignore").splitlines():
-        low = line.lower()
-        if "leave-one-tag-out" in low or "leave-one" in low:
-            mode = "loto"
+    last_header = None
 
-        m = re.search(r"^\s*([A-Za-z0-9_]+):.*?L1=([0-9.]+)", line)
-        if not m:
+    for line in path.read_text(errors="ignore").splitlines():
+        raw = line.strip()
+        low = raw.lower()
+
+        if "leave-one" in low or "loto" in low or "heldout" in low:
+            mode = "loto"
+        if "train" in low and ("fit" in low or "training" in low):
+            mode = "train"
+
+        # Keep markdown header for table parsing.
+        if raw.startswith("|") and "---" not in raw and any(k in low for k in ["tag", "heldout", "base_tag", "l1"]):
+            last_header = [c.strip().lower().replace(" ", "_") for c in raw.strip("|").split("|")]
             continue
 
-        tag = m.group(1)
-        l1 = float(m.group(2))
+        # Console-style parser.
+        m = re.search(r"^\s*([A-Za-z0-9_]+):.*?L1\s*=\s*([0-9.]+)", raw)
+        if m:
+            tag = m.group(1)
+            if tag in known_tags:
+                if mode == "loto":
+                    loto[tag] = float(m.group(2))
+                else:
+                    train[tag] = float(m.group(2))
+            continue
 
-        if mode == "loto":
-            loto[tag] = l1
-        else:
-            train[tag] = l1
+        # Markdown table parser.
+        if raw.startswith("|") and "---" not in raw and last_header is not None:
+            cells = [c.strip() for c in raw.strip("|").split("|")]
+            if len(cells) != len(last_header):
+                continue
+
+            row = dict(zip(last_header, cells))
+
+            tag = ""
+            for k in ["base_tag", "heldout", "tag", "condition", "suite"]:
+                if row.get(k, "") in known_tags:
+                    tag = row[k]
+                    break
+
+            if not tag:
+                for c in cells:
+                    if c in known_tags:
+                        tag = c
+                        break
+
+            if not tag:
+                continue
+
+            # Prefer explicit LOTO/leave-one columns, otherwise use any L1-like column.
+            l1_candidates = []
+            for k, v in row.items():
+                lk = k.lower()
+                if "loto" in lk and "l1" in lk:
+                    l1_candidates.append(v)
+                elif "leave" in lk and "l1" in lk:
+                    l1_candidates.append(v)
+                elif lk in {"l1", "loto_l1", "heldout_l1", "mean_l1"}:
+                    l1_candidates.append(v)
+
+            if not l1_candidates:
+                # Fall back: scan numeric cells near the end.
+                l1_candidates = cells[::-1]
+
+            val = None
+            for cand in l1_candidates:
+                mm = re.search(r"[-+]?\d*\.\d+|[-+]?\d+", cand)
+                if mm:
+                    try:
+                        val = float(mm.group(0))
+                        break
+                    except Exception:
+                        pass
+
+            if val is None:
+                continue
+
+            if mode == "loto":
+                loto[tag] = val
+            else:
+                train[tag] = val
 
     return train, loto
 
