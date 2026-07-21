@@ -33,6 +33,49 @@ def find_d7_csv(manifest_row):
         raise FileNotFoundError(f"missing D7 csv: {p}")
     return p
 
+def parse_d7_csv_from_run_log(run_log):
+    if not run_log:
+        return None
+    p = rel_path(run_log)
+    if not p.exists() or p.is_dir():
+        return None
+    try:
+        for line in p.read_text(errors="ignore").splitlines():
+            if "D7 objective shadow csv=" in line:
+                cand = rel_path(line.split("D7 objective shadow csv=", 1)[1].strip())
+                if cand.exists() and not cand.is_dir():
+                    return cand
+    except Exception:
+        return None
+    return None
+
+def find_d7_csv_from_rollout_row(rr):
+    # Preferred: explicit metadata added by the patched F4 builder.
+    for key in ["d7_csv", "group_d7_csv"]:
+        cand = rr.get(key, "")
+        if cand:
+            p = rel_path(cand)
+            if p.exists() and not p.is_dir():
+                return p
+
+    # Fallback: parse the F3 rollout log.
+    for key in ["run_log", "group_run_log"]:
+        cand = parse_d7_csv_from_run_log(rr.get(key, ""))
+        if cand is not None:
+            return cand
+
+    # Fallback: old manifest-based path.
+    manifest = rr.get("manifest", "")
+    if manifest:
+        mp = rel_path(manifest)
+        if mp.exists() and not mp.is_dir():
+            mrow = read_manifest(manifest)
+            return find_d7_csv(mrow)
+
+    raise FileNotFoundError(
+        f"missing D7 csv metadata for tag={rr.get('tag', rr.get('f19_source_tag', 'unknown'))}"
+    )
+
 def get_first(row, keys, default=""):
     for k in keys:
         if k in row and row[k] != "":
@@ -53,8 +96,7 @@ for rr in rollouts:
     base_tag = rr.get("base_tag", tag)
 
     try:
-        mrow = read_manifest(rr.get("manifest", ""))
-        d7_csv = find_d7_csv(mrow)
+        d7_csv = find_d7_csv_from_rollout_row(rr)
     except Exception as e:
         missing.append((tag, rr.get("manifest", ""), str(e)))
         continue
@@ -81,6 +123,8 @@ for rr in rollouts:
         out["f19_source_tag"] = tag
         out["f19_base_tag"] = base_tag
         out["f19_manifest"] = rr.get("manifest", "")
+        out["f19_run_log"] = rr.get("run_log", "")
+        out["f19_d5_log_dir"] = rr.get("d5_log_dir", "")
         out["f19_d7_csv"] = str(d7_csv)
         out["f19_true_csv"] = rr.get("true_csv", "")
         out["f19_summary_csv"] = rr.get("summary_csv", "")

@@ -79,8 +79,52 @@ def find_summary_csv(true_csv):
     p = Path(str(true_csv).replace("_true_metrics.csv", "_true_metric_summary.csv"))
     return str(p) if p.exists() else ""
 
+def parse_tag_stamp(path):
+    m = re.match(r"f3_(.+?)_(\d{8}_\d{6})_true_metrics\.csv", path.name)
+    if not m:
+        return infer_tag(path), ""
+    return m.group(1), m.group(2)
+
+def rel_repo_path_string(x):
+    x = str(x).strip()
+    root = "/home/kraken/Tracer/TRACER/"
+    if x.startswith(root):
+        x = x.replace(root, "", 1)
+    return x
+
+def parse_run_log_metadata(tag, stamp):
+    meta = {
+        "run_log": "",
+        "manifest": "",
+        "d5_log_dir": "",
+        "d7_csv": "",
+    }
+    if not tag or not stamp:
+        return meta
+
+    log = Path("logs/phase_f") / f"f3_{tag}_{stamp}_rollout.log"
+    if not log.exists():
+        return meta
+
+    meta["run_log"] = str(log)
+    try:
+        lines = log.read_text(errors="ignore").splitlines()
+    except Exception:
+        return meta
+
+    for line in lines:
+        if "MANIFEST:" in line:
+            meta["manifest"] = rel_repo_path_string(line.split("MANIFEST:", 1)[1].strip())
+        if "D7 objective shadow csv=" in line:
+            meta["d7_csv"] = rel_repo_path_string(line.split("D7 objective shadow csv=", 1)[1].strip())
+        if "[TRACER] d5 log:" in line:
+            meta["d5_log_dir"] = rel_repo_path_string(line.split("d5 log:", 1)[1].strip())
+
+    return meta
+
 def summarize_true_csv(p):
-    tag = infer_tag(p)
+    tag, stamp = parse_tag_stamp(p)
+    run_meta = parse_run_log_metadata(tag, stamp)
     rows = list(csv.DictReader(open(p)))
     if not rows:
         return None
@@ -123,7 +167,10 @@ def summarize_true_csv(p):
     row = {
         "tag": tag,
         "reset_y": infer_reset_y(tag),
-        "manifest": latest_manifest_for_tag(tag),
+        "manifest": run_meta.get("manifest") or latest_manifest_for_tag(tag),
+        "run_log": run_meta.get("run_log", ""),
+        "d5_log_dir": run_meta.get("d5_log_dir", ""),
+        "d7_csv": run_meta.get("d7_csv", ""),
         "true_csv": str(p),
         "summary_csv": find_summary_csv(p),
         "n_rows": len(rows),
@@ -166,7 +213,7 @@ if not rows:
 
 OUT_CSV.parent.mkdir(parents=True, exist_ok=True)
 fields = [
-    "tag", "reset_y", "manifest", "true_csv", "summary_csv", "n_rows",
+    "tag", "reset_y", "manifest", "run_log", "d5_log_dir", "d7_csv", "true_csv", "summary_csv", "n_rows",
     "t_ros_start", "t_ros_end",
     "base_dx", "base_dy",
     "base_vx_mean", "base_vx_std", "base_vy_abs_mean",
