@@ -21,11 +21,16 @@ METRICS = [
     "contact_force_z_sum_mean",
 ]
 
-RESET_Y_MAP = {
-    "clean": 0.0,
-    "m030": -0.30,
-    "p030": 0.30,
-}
+def infer_reset_y(tag):
+    if tag == "clean":
+        return 0.0
+    m = re.match(r"m([0-9]+)$", tag)
+    if m:
+        return -float(m.group(1)) / 100.0
+    m = re.match(r"p([0-9]+)$", tag)
+    if m:
+        return float(m.group(1)) / 100.0
+    return ""
 
 def base_tag(tag):
     return re.sub(r"_r[0-9]+$", "", tag)
@@ -73,7 +78,7 @@ group_rows = []
 for g, rs in sorted(groups.items()):
     out = {
         "base_tag": g,
-        "reset_y": RESET_Y_MAP.get(g, ""),
+        "reset_y": infer_reset_y(g),
         "n_rollouts": len(rs),
     }
 
