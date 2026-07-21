@@ -4,21 +4,21 @@ This compares leave-one-condition-out vs leave-one-rollout-out validation on G1 
 
 - input: `datasets/phase_g/g1_enriched_runtime_feature_table_v0.csv`
 - output csv: `datasets/phase_g/g3_split_diagnostic_v0.csv`
-- rollouts: `21`
+- rollouts: `22`
 - alpha: `1.0`
 
 ## Split summary
 
 | suite | split | mean L1 | max L1 | worst | best |
 |---|---|---:|---:|---|---|
-| online_safe_g3 | leave_one_condition | 0.608253 | 1.043200 | p060 | p015 |
-| online_safe_g3 | leave_one_rollout | 0.663609 | 1.637041 | p060_r2 | p015_r2 |
-| ram_ref_context_g3 | leave_one_condition | 0.565804 | 0.918083 | p060 | clean |
-| ram_ref_context_g3 | leave_one_rollout | 0.522932 | 1.582195 | p060 | m060_r2 |
-| tracking_energy_proxy_g3 | leave_one_condition | 0.522679 | 1.245095 | p060 | p015 |
-| tracking_energy_proxy_g3 | leave_one_rollout | 0.474714 | 1.600423 | p060_r2 | p015 |
-| true_metric_upper_bound_g3_leaky | leave_one_condition | 0.428244 | 1.012411 | p060 | clean |
-| true_metric_upper_bound_g3_leaky | leave_one_rollout | 0.363935 | 0.991802 | p060_r1 | clean_r2 |
+| online_safe_g3 | leave_one_condition | 0.433056 | 0.913592 | p060 | m060 |
+| online_safe_g3 | leave_one_rollout | 0.456907 | 1.554420 | p060_r2 | clean |
+| ram_ref_context_g3 | leave_one_condition | 0.387122 | 0.727846 | p060 | p030 |
+| ram_ref_context_g3 | leave_one_rollout | 0.362354 | 1.165774 | p060 | m060_r2 |
+| tracking_energy_proxy_g3 | leave_one_condition | 0.366466 | 1.065904 | p060 | clean |
+| tracking_energy_proxy_g3 | leave_one_rollout | 0.317566 | 1.325894 | m015_r2 | clean |
+| true_metric_upper_bound_g3_leaky | leave_one_condition | 0.312125 | 0.890352 | p060 | clean |
+| true_metric_upper_bound_g3_leaky | leave_one_rollout | 0.265575 | 1.086469 | m015_r2 | p030 |
 
 ## Interpretation guide
 

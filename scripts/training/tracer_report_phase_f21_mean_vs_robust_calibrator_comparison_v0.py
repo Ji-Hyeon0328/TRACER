@@ -76,9 +76,12 @@ tags = sorted(set(f14_loto) | set(f20_loto) | set(f14_train) | set(f20_train))
 
 rows = []
 for tag in tags:
-    train14 = f(f14_train.get(tag, {}).get("l1"))
+    has_f14_train = tag in f14_train
+    has_f14_loto = tag in f14_loto
+
+    train14 = f(f14_train.get(tag, {}).get("l1")) if has_f14_train else ""
     train20 = f(f20_train.get(tag, {}).get("l1"))
-    loto14 = f(f14_loto.get(tag, {}).get("l1_mean"))
+    loto14 = f(f14_loto.get(tag, {}).get("l1_mean")) if has_f14_loto else ""
     loto20 = f(f20_loto.get(tag, {}).get("l1_mean"))
 
     rows.append({
@@ -90,10 +93,10 @@ for tag in tags:
         "f17_mean_rollout_loo_beta_delta_l1": mean(group_mean_outlier_delta[tag]) if tag in group_mean_outlier_delta else 0.0,
         "f14_train_l1": train14,
         "f20_train_l1": train20,
-        "train_l1_improvement_f14_minus_f20": train14 - train20,
+        "train_l1_improvement_f14_minus_f20": (train14 - train20) if train14 != "" else "",
         "f14_loto_l1": loto14,
         "f20_loto_l1": loto20,
-        "loto_l1_improvement_f14_minus_f20": loto14 - loto20,
+        "loto_l1_improvement_f14_minus_f20": (loto14 - loto20) if loto14 != "" else "",
     })
 
 rows.sort(key=lambda r: r["loto_l1_improvement_f14_minus_f20"], reverse=True)
@@ -118,22 +121,31 @@ with open(OUT_MD, "w") as f:
     f.write(f"- F17 rollout outlier audit: `{F17_CSV}`\n")
     f.write(f"- output csv: `{OUT_CSV}`\n\n")
 
-    f.write("## Leave-one-tag-out comparison\n\n")
-    f.write("| base_tag | mean beta | robust beta | target shift L1 | F14 LOTO L1 | F20 LOTO L1 | improvement | F17 max rollout delta |\n")
-    f.write("|---|---|---|---:|---:|---:|---:|---:|\n")
+    f.write("## Leave-one-tag-out comparison\\n\\n")
+    f.write("| base_tag | mean beta | robust beta | target shift L1 | F14 LOTO L1 | F20 LOTO L1 | improvement | F17 max rollout delta |\\n")
+    f.write("|---|---|---|---:|---:|---:|---:|---:|\\n")
     for r in rows:
+        f14_loto_s = f"{r['f14_loto_l1']:.6f}" if r["f14_loto_l1"] != "" else "NA"
+        f20_loto_s = f"{r['f20_loto_l1']:.6f}"
+        improvement_s = (
+            f"{r['loto_l1_improvement_f14_minus_f20']:.6f}"
+            if r["loto_l1_improvement_f14_minus_f20"] != ""
+            else "NA"
+        )
         f.write(
             f"| {r['base_tag']} | {r['mean_beta']} | {r['robust_beta']} | "
             f"{r['mean_vs_robust_beta_l1']:.6f} | "
-            f"{r['f14_loto_l1']:.6f} | "
-            f"{r['f20_loto_l1']:.6f} | "
-            f"{r['loto_l1_improvement_f14_minus_f20']:.6f} | "
-            f"{r['f17_max_rollout_loo_beta_delta_l1']:.6f} |\n"
+            f"{f14_loto_s} | "
+            f"{f20_loto_s} | "
+            f"{improvement_s} | "
+            f"{r['f17_max_rollout_loo_beta_delta_l1']:.6f} |\\n"
         )
 
     f.write("\n## Summary\n\n")
-    f.write(f"- conditions improved by robust target: `{len(improved)}` / `{len(rows)}`\n")
-    f.write(f"- conditions worsened by robust target: `{len(worse)}` / `{len(rows)}`\n\n")
+    f.write(f"- comparable conditions: `{len(comparable)}`\n")
+    f.write(f"- new conditions without F14 baseline: `{len(new_conditions)}`\n")
+    f.write(f"- conditions improved by robust target: `{len(improved)}` / `{len(comparable)}`\n")
+    f.write(f"- conditions worsened by robust target: `{len(worse)}` / `{len(comparable)}`\n\n")
 
     if improved:
         best = improved[0]
@@ -153,5 +165,5 @@ for r in rows:
         f"  {r['base_tag']}: "
         f"F14={r['f14_loto_l1']:.6f} "
         f"F20={r['f20_loto_l1']:.6f} "
-        f"improvement={r['loto_l1_improvement_f14_minus_f20']:.6f}"
+        f"improvement={(f'{r[\'loto_l1_improvement_f14_minus_f20\']:.6f}' if r['loto_l1_improvement_f14_minus_f20'] != '' else 'NA')}"
     )
