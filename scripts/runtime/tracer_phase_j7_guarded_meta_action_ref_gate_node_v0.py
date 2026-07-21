@@ -56,6 +56,14 @@ class J7GuardedMetaActionRefGate(Node):
         self.goal_x_threshold = env_float("TRACER_PHASE_J7_GOAL_X_THRESHOLD", 7.90)
         self.max_input_age_s = env_float("TRACER_PHASE_J7_MAX_INPUT_AGE_S", 1.0)
 
+        # Active-mode safeguard. Disabled by default for shadow tests.
+        # When enabled, stale/missing projected inputs output a conservative hold ref
+        # instead of replaying a stale empirical ref.
+        self.active_failsafe_hold = os.environ.get("TRACER_PHASE_J7_ACTIVE_FAILSAFE_HOLD", "0") == "1"
+        self.failsafe_hold_vx = env_float("TRACER_PHASE_J7_FAILSAFE_HOLD_VX", 0.025)
+        self.failsafe_body_h = env_float("TRACER_PHASE_J7_FAILSAFE_BODY_H", 0.320)
+        self.failsafe_clearance = env_float("TRACER_PHASE_J7_FAILSAFE_CLEARANCE", 0.045)
+
         self.allowed_contexts = set(env_list("TRACER_PHASE_J7_ALLOWED_CONTEXTS", ["flat", "upslope", "downslope"]))
 
         self.ctx = "unknown"
@@ -106,6 +114,7 @@ class J7GuardedMetaActionRefGate(Node):
         self.get_logger().info(f"[TRACER:J7] theta input={self.theta_topic}")
         self.get_logger().info(f"[TRACER:J7] output={self.out_topic}")
         self.get_logger().info(f"[TRACER:J7] allowed_contexts={sorted(self.allowed_contexts)}")
+        self.get_logger().info(f"[TRACER:J7] active_failsafe_hold={self.active_failsafe_hold}")
         self.get_logger().info(f"[TRACER:J7] logging to {self.log_csv}")
         self.get_logger().info("[TRACER:J7] shadow-only unless output topic is explicitly changed")
 
@@ -196,9 +205,28 @@ class J7GuardedMetaActionRefGate(Node):
         now = time.time()
         accepted, reason = self.decide(now)
 
+        stale_or_missing = reason in {
+            "missing_projected_ref",
+            "missing_theta",
+            "stale_empirical_ref",
+            "stale_projected_ref",
+            "stale_theta",
+        }
+
         if accepted and self.proj_ref is not None:
             out = list(self.proj_ref)
             source = "projected"
+        elif self.active_failsafe_hold and stale_or_missing:
+            seq = self.emp_ref[0] if self.emp_ref is not None else 0.0
+            out = [
+                seq,
+                self.failsafe_hold_vx,
+                0.0,
+                self.failsafe_body_h,
+                self.failsafe_clearance,
+                1.0,
+            ]
+            source = "failsafe_hold"
         else:
             out = list(self.emp_ref)
             source = "empirical"
