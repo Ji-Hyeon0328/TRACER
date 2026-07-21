@@ -117,19 +117,28 @@ def parse_report_l1s(path):
             if not tag:
                 continue
 
-            # Prefer explicit LOTO/leave-one columns, otherwise use any L1-like column.
+            # Prefer the explicit table L1 error column.
+            # F14/F20 reports use:
+            #   train table:   "L1 mean error" -> l1_mean_error
+            #   LOTO table:    "mean L1 error" -> mean_l1_error
             l1_candidates = []
-            for k, v in row.items():
-                lk = k.lower()
-                if "loto" in lk and "l1" in lk:
-                    l1_candidates.append(v)
-                elif "leave" in lk and "l1" in lk:
-                    l1_candidates.append(v)
-                elif lk in {"l1", "loto_l1", "heldout_l1", "mean_l1"}:
-                    l1_candidates.append(v)
+
+            for key in ["mean_l1_error", "l1_mean_error", "loto_l1", "heldout_l1", "mean_l1", "l1"]:
+                if key in row:
+                    l1_candidates.append(row[key])
 
             if not l1_candidates:
-                # Fall back: scan numeric cells near the end.
+                for k, v in row.items():
+                    lk = k.lower()
+                    if "l1" in lk and "error" in lk:
+                        l1_candidates.append(v)
+                    elif "loto" in lk and "l1" in lk:
+                        l1_candidates.append(v)
+                    elif "leave" in lk and "l1" in lk:
+                        l1_candidates.append(v)
+
+            if not l1_candidates:
+                # Last-resort fallback only. Avoid this for F14/F20 if headers are parsed.
                 l1_candidates = cells[::-1]
 
             val = None
