@@ -2,7 +2,7 @@
 
 This summarizes the Phase-F1 ROS1 true metric logger smoke CSV into rollout-level physical metrics for future Objective Selector / RAM training.
 
-- manifest: `reports/phase_d4_context_meta_repeat_YYYYMMDD_HHMMSS_manifest.tsv`
+- manifest: `reports/phase_d4_context_meta_repeat_20260721_130339_manifest.tsv`
 - true_csv: `datasets/phase_f/f3_p060_r2_20260721_130338_true_metrics.csv`
 - out_csv: `datasets/phase_f/f3_p060_r2_20260721_130338_true_metric_summary.csv`
 - n_rows: `8391`

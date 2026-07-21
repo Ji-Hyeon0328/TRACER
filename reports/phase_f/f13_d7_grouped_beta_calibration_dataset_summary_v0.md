@@ -4,8 +4,8 @@ This attaches Phase-F12 grouped true-metric beta targets to D7 runtime shadow lo
 
 - input F12 rollout table: `datasets/phase_f/f12_rollout_with_group_beta_targets_v0.csv`
 - output csv: `datasets/phase_f/f13_d7_grouped_beta_calibration_dataset_v0.csv`
-- total rows: `43279`
-- missing sources: `1`
+- total rows: `45402`
+- missing sources: `0`
 
 ## Rows by base condition
 
@@ -17,7 +17,7 @@ This attaches Phase-F12 grouped true-metric beta targets to D7 runtime shadow lo
 | m060 | 3 | 6677 | 0.6776 | 0.2774 | 0.0450 |
 | p015 | 3 | 6474 | 0.4765 | 0.2502 | 0.2733 |
 | p030 | 3 | 6570 | 0.6601 | 0.3081 | 0.0318 |
-| p060 | 2 | 4348 | 0.0268 | 0.5622 | 0.4110 |
+| p060 | 3 | 6471 | 0.0268 | 0.5622 | 0.4110 |
 
 ## Safe interpretation
 
