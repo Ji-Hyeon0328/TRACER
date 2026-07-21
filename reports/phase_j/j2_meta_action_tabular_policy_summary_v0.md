@@ -16,7 +16,7 @@ This trains a simple tabular/context-guarded policy from J1 meta-action pseudo-l
 
 | split | rows | accuracy |
 |---|---:|---:|
-| all | 2124 | 0.749529 |
+| all | 2124 | 0.955273 |
 | high_conf | 1686 | 0.944247 |
 
 ## Margin summary
@@ -28,19 +28,20 @@ This trains a simple tabular/context-guarded policy from J1 meta-action pseudo-l
 
 ## Context policy top actions
 
-| context | rows used | top action | top action id |
-|---|---:|---|---:|
-| downslope | 497 | downslope_stable | 6 |
-| goal_flat | 335 | goal_hold | 8 |
-| rough | 434 | lateral_recovery_soft | 7 |
-| upslope | 420 | upslope_push | 5 |
+| context | rows used | source | top action | top action id |
+|---|---:|---|---|---:|
+| downslope | 497 | high_conf | downslope_stable | 6 |
+| flat | 437 | all_rows_context_fallback | fast_motion | 1 |
+| goal_flat | 335 | high_conf | goal_hold | 8 |
+| rough | 434 | high_conf | lateral_recovery_soft | 7 |
+| upslope | 420 | high_conf | upslope_push | 5 |
 
 ## Accuracy by context
 
 | context | rows | correct | accuracy |
 |---|---:|---:|---:|
 | downslope | 497 | 469 | 0.943662 |
-| flat | 437 | 0 | 0.000000 |
+| flat | 437 | 437 | 1.000000 |
 | goal_flat | 335 | 335 | 1.000000 |
 | rough | 435 | 368 | 0.845977 |
 | upslope | 420 | 420 | 1.000000 |
@@ -49,8 +50,7 @@ This trains a simple tabular/context-guarded policy from J1 meta-action pseudo-l
 
 | reason | rows |
 |---|---:|
-| context_top1 | 1246 |
-| fallback | 437 |
+| context_top1 | 1683 |
 | goal_context_guard | 335 |
 | lateral_guard | 86 |
 | goal_x_guard | 20 |
@@ -59,7 +59,6 @@ This trains a simple tabular/context-guarded policy from J1 meta-action pseudo-l
 
 | context | true | pred | rows |
 |---|---|---|---:|
-| flat | fast_motion | downslope_stable | 437 |
 | rough | rough_stability | lateral_recovery_soft | 67 |
 | downslope | lateral_recovery_soft | downslope_stable | 28 |
 

@@ -118,19 +118,36 @@ high_conf_rows = [
 train_rows = high_conf_rows if high_conf_rows else rows
 
 global_counts = Counter(r["best_action_name"] for r in train_rows)
-context_counts = defaultdict(Counter)
+
+# Build both high-confidence and all-row context counts.
+# Important: some contexts, especially flat, may have low top-2 margins and disappear
+# from high_conf_rows. In that case, falling back to a global action is unsafe.
+context_counts_high = defaultdict(Counter)
 for r in train_rows:
-    context_counts[r.get("context", "unknown") or "unknown"][r["best_action_name"]] += 1
+    context_counts_high[r.get("context", "unknown") or "unknown"][r["best_action_name"]] += 1
+
+context_counts_all = defaultdict(Counter)
+for r in rows:
+    context_counts_all[r.get("context", "unknown") or "unknown"][r["best_action_name"]] += 1
 
 global_probs = norm_probs(global_counts, action_names, args.alpha)
 fallback_action_name = top_action_from_probs(global_probs)
 
 context_policy = {}
-for ctx in sorted(context_counts):
-    probs = norm_probs(context_counts[ctx], action_names, args.alpha)
+all_contexts = sorted(set(context_counts_high.keys()) | set(context_counts_all.keys()))
+for ctx in all_contexts:
+    if sum(context_counts_high[ctx].values()) > 0:
+        counts = context_counts_high[ctx]
+        source = "high_conf"
+    else:
+        counts = context_counts_all[ctx]
+        source = "all_rows_context_fallback"
+
+    probs = norm_probs(counts, action_names, args.alpha)
     top_name = top_action_from_probs(probs)
     context_policy[ctx] = {
-        "rows": sum(context_counts[ctx].values()),
+        "rows": sum(counts.values()),
+        "source": source,
         "top_action_name": top_name,
         "top_action_id": id_map[top_name],
         "action_probs": [
@@ -138,7 +155,7 @@ for ctx in sorted(context_counts):
                 "action_id": id_map[name],
                 "action_name": name,
                 "prob": probs[name],
-                "count": context_counts[ctx].get(name, 0),
+                "count": counts.get(name, 0),
             }
             for name in action_names
         ],
@@ -154,6 +171,7 @@ policy = {
         "rows_total": len(rows),
         "rows_high_conf": len(high_conf_rows),
         "rows_used": len(train_rows),
+        "context_fallback_policy": "Use high-confidence rows per context when available; otherwise use all rows for that context.",
         "top2_margin_threshold": args.margin_threshold,
         "dirichlet_alpha": args.alpha,
     },
@@ -276,11 +294,11 @@ with open(out_md, "w") as f:
     f.write(f"| high_conf | {st_high['n']} | {fmt(st_high['mean'])} | {fmt(st_high['std'])} | {fmt(st_high['min'])} | {fmt(st_high['max'])} |\n")
 
     f.write("\n## Context policy top actions\n\n")
-    f.write("| context | rows used | top action | top action id |\n")
-    f.write("|---|---:|---|---:|\n")
+    f.write("| context | rows used | source | top action | top action id |\n")
+    f.write("|---|---:|---|---|---:|\n")
     for ctx in sorted(context_policy):
         cp = context_policy[ctx]
-        f.write(f"| {ctx} | {cp['rows']} | {cp['top_action_name']} | {cp['top_action_id']} |\n")
+        f.write(f"| {ctx} | {cp['rows']} | {cp['source']} | {cp['top_action_name']} | {cp['top_action_id']} |\n")
 
     f.write("\n## Accuracy by context\n\n")
     f.write("| context | rows | correct | accuracy |\n")
