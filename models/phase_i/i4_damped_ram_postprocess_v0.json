@@ -1,0 +1,21 @@
+{
+  "phase": "I4",
+  "purpose": "Damped/calibrated RAM shadow postprocess",
+  "input_log": "logs/phase_i/i2_ram_shadow_active_20260721_160236/ram_shadow_i2_v0.csv",
+  "output_csv": "datasets/phase_i/i4_damped_ram_shadow_20260721_160236_v0.csv",
+  "prior": {
+    "source": "Phase-I0 target means",
+    "rho_slip": 0.454269,
+    "rho_rough": 0.458988,
+    "sigma": 0.518588
+  },
+  "postprocess": {
+    "damped": "prior + gain * (learned - prior)",
+    "safe": "(1 - legacy_blend) * legacy + legacy_blend * damped when legacy is available, else damped",
+    "gain": 0.35,
+    "legacy_blend": 0.35,
+    "floor": 0.02,
+    "ceil": 0.98
+  },
+  "safe_claim": "Offline calibration only; not active RAM deployment."
+}
