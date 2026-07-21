@@ -1,0 +1,4 @@
+label,trial,world,goal_x,lateral_bound,hold_vx,log_dir,success,goal,startup_failed,out_lane,final_x,final_y,max_x,max_abs_y,mean_abs_y,hold_drift,first_goal_seq,final_context
+d4_context_meta_v0,1,tracer_mixed_stress_course_v5_lowfric_from_solid,8.0,2.0,0.025,/home/kraken/Tracer/TRACER/logs/phase_d4_context_meta_20260720_194815,True,True,False,False,8.066,-0.259,8.099,0.321,0.1422073170731707,0.032999999999999474,1810,goal_flat
+d4_context_meta_v0,2,tracer_mixed_stress_course_v5_lowfric_from_solid,8.0,2.0,0.025,/home/kraken/Tracer/TRACER/logs/phase_d4_context_meta_20260720_195321,True,True,False,False,8.211,-0.503,8.212,0.516,0.20666260162601618,0.0009999999999994458,1840,goal_flat
+d4_context_meta_v0,3,tracer_mixed_stress_course_v5_lowfric_from_solid,8.0,2.0,0.025,/home/kraken/Tracer/TRACER/logs/phase_d4_context_meta_20260720_195827,True,True,False,False,8.051,-0.443,8.078,0.498,0.32591869918699184,0.026999999999999247,1850,goal_flat
