@@ -1,0 +1,25 @@
+{
+  "phase": "J1",
+  "purpose": "Offline surrogate scorer for J0 meta-action bank",
+  "safe_claim": "Pseudo-label generator for contextual-bandit/offline-RL preparation; not active control.",
+  "d7_csv": "logs/phase_d5_shadow_20260721_164242_trial_1/d7_objective_selector_shadow_v0.csv",
+  "bank_json": "configs/phase_j/meta_action_bank_v0.json",
+  "outputs": {
+    "scores": "datasets/phase_j/j1_meta_action_surrogate_scores_v0.csv",
+    "teacher": "datasets/phase_j/j1_meta_action_teacher_v0.csv"
+  },
+  "scoring_policy": {
+    "uses": [
+      "D7 beta",
+      "terrain context",
+      "legacy RAM proxy",
+      "x/y drift",
+      "J0 action metadata"
+    ],
+    "not_uses": [
+      "online exploration",
+      "real action rollout outcome"
+    ],
+    "note": "Scores are heuristic pseudo-labels and must be validated by shadow/rollout tests."
+  }
+}
