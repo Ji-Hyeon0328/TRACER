@@ -1,0 +1,329 @@
+{
+  "phase": "J2",
+  "name": "TRACER meta-action tabular policy v0",
+  "safe_claim": "Supervised/tabular initialization from J1 pseudo-labels; not active control and not final RL.",
+  "teacher_csv": "datasets/phase_j/j1_meta_action_teacher_v0.csv",
+  "bank_json": "configs/phase_j/meta_action_bank_v0.json",
+  "training": {
+    "rows_total": 2124,
+    "rows_high_conf": 1686,
+    "rows_used": 1686,
+    "top2_margin_threshold": 0.05,
+    "dirichlet_alpha": 0.05
+  },
+  "guards": {
+    "goal_context": "context == goal_flat -> goal_hold",
+    "goal_x_threshold": 7.9,
+    "lateral_abs_y_threshold": 0.45,
+    "lateral_guard_contexts": [
+      "rough",
+      "downslope",
+      "unknown"
+    ],
+    "lateral_guard_action": "lateral_recovery_soft"
+  },
+  "fallback_action_name": "downslope_stable",
+  "fallback_action_id": 6,
+  "global_action_probs": [
+    {
+      "action_id": 0,
+      "action_name": "nominal_cruise",
+      "prob": 2.9648077322185657e-05,
+      "count": 0
+    },
+    {
+      "action_id": 1,
+      "action_name": "fast_motion",
+      "prob": 2.9648077322185657e-05,
+      "count": 0
+    },
+    {
+      "action_id": 2,
+      "action_name": "energy_saver",
+      "prob": 2.9648077322185657e-05,
+      "count": 0
+    },
+    {
+      "action_id": 3,
+      "action_name": "rough_high_clearance",
+      "prob": 2.9648077322185657e-05,
+      "count": 0
+    },
+    {
+      "action_id": 4,
+      "action_name": "rough_stability",
+      "prob": 0.03916511014260725,
+      "count": 66
+    },
+    {
+      "action_id": 5,
+      "action_name": "upslope_push",
+      "prob": 0.2490734975836817,
+      "count": 420
+    },
+    {
+      "action_id": 6,
+      "action_name": "downslope_stable",
+      "prob": 0.2662693824305494,
+      "count": 449
+    },
+    {
+      "action_id": 7,
+      "action_name": "lateral_recovery_soft",
+      "prob": 0.2348424204690326,
+      "count": 396
+    },
+    {
+      "action_id": 8,
+      "action_name": "goal_hold",
+      "prob": 0.21053099706484035,
+      "count": 355
+    }
+  ],
+  "context_policy": {
+    "downslope": {
+      "rows": 497,
+      "top_action_name": "downslope_stable",
+      "top_action_id": 6,
+      "action_probs": [
+        {
+          "action_id": 0,
+          "action_name": "nominal_cruise",
+          "prob": 0.00010051261433309881,
+          "count": 0
+        },
+        {
+          "action_id": 1,
+          "action_name": "fast_motion",
+          "prob": 0.00010051261433309881,
+          "count": 0
+        },
+        {
+          "action_id": 2,
+          "action_name": "energy_saver",
+          "prob": 0.00010051261433309881,
+          "count": 0
+        },
+        {
+          "action_id": 3,
+          "action_name": "rough_high_clearance",
+          "prob": 0.00010051261433309881,
+          "count": 0
+        },
+        {
+          "action_id": 4,
+          "action_name": "rough_stability",
+          "prob": 0.00010051261433309881,
+          "count": 0
+        },
+        {
+          "action_id": 5,
+          "action_name": "upslope_push",
+          "prob": 0.00010051261433309881,
+          "count": 0
+        },
+        {
+          "action_id": 6,
+          "action_name": "downslope_stable",
+          "prob": 0.9027037893255604,
+          "count": 449
+        },
+        {
+          "action_id": 7,
+          "action_name": "lateral_recovery_soft",
+          "prob": 0.05638757664086843,
+          "count": 28
+        },
+        {
+          "action_id": 8,
+          "action_name": "goal_hold",
+          "prob": 0.04030555834757262,
+          "count": 20
+        }
+      ]
+    },
+    "goal_flat": {
+      "rows": 335,
+      "top_action_name": "goal_hold",
+      "top_action_id": 8,
+      "action_probs": [
+        {
+          "action_id": 0,
+          "action_name": "nominal_cruise",
+          "prob": 0.00014905351021016547,
+          "count": 0
+        },
+        {
+          "action_id": 1,
+          "action_name": "fast_motion",
+          "prob": 0.00014905351021016547,
+          "count": 0
+        },
+        {
+          "action_id": 2,
+          "action_name": "energy_saver",
+          "prob": 0.00014905351021016547,
+          "count": 0
+        },
+        {
+          "action_id": 3,
+          "action_name": "rough_high_clearance",
+          "prob": 0.00014905351021016547,
+          "count": 0
+        },
+        {
+          "action_id": 4,
+          "action_name": "rough_stability",
+          "prob": 0.00014905351021016547,
+          "count": 0
+        },
+        {
+          "action_id": 5,
+          "action_name": "upslope_push",
+          "prob": 0.00014905351021016547,
+          "count": 0
+        },
+        {
+          "action_id": 6,
+          "action_name": "downslope_stable",
+          "prob": 0.00014905351021016547,
+          "count": 0
+        },
+        {
+          "action_id": 7,
+          "action_name": "lateral_recovery_soft",
+          "prob": 0.00014905351021016547,
+          "count": 0
+        },
+        {
+          "action_id": 8,
+          "action_name": "goal_hold",
+          "prob": 0.9988075719183187,
+          "count": 335
+        }
+      ]
+    },
+    "rough": {
+      "rows": 434,
+      "top_action_name": "lateral_recovery_soft",
+      "top_action_id": 7,
+      "action_probs": [
+        {
+          "action_id": 0,
+          "action_name": "nominal_cruise",
+          "prob": 0.00011508804235239959,
+          "count": 0
+        },
+        {
+          "action_id": 1,
+          "action_name": "fast_motion",
+          "prob": 0.00011508804235239959,
+          "count": 0
+        },
+        {
+          "action_id": 2,
+          "action_name": "energy_saver",
+          "prob": 0.00011508804235239959,
+          "count": 0
+        },
+        {
+          "action_id": 3,
+          "action_name": "rough_high_clearance",
+          "prob": 0.00011508804235239959,
+          "count": 0
+        },
+        {
+          "action_id": 4,
+          "action_name": "rough_stability",
+          "prob": 0.15203130394751985,
+          "count": 66
+        },
+        {
+          "action_id": 5,
+          "action_name": "upslope_push",
+          "prob": 0.00011508804235239959,
+          "count": 0
+        },
+        {
+          "action_id": 6,
+          "action_name": "downslope_stable",
+          "prob": 0.00011508804235239959,
+          "count": 0
+        },
+        {
+          "action_id": 7,
+          "action_name": "lateral_recovery_soft",
+          "prob": 0.8471630797560133,
+          "count": 368
+        },
+        {
+          "action_id": 8,
+          "action_name": "goal_hold",
+          "prob": 0.00011508804235239959,
+          "count": 0
+        }
+      ]
+    },
+    "upslope": {
+      "rows": 420,
+      "top_action_name": "upslope_push",
+      "top_action_id": 5,
+      "action_probs": [
+        {
+          "action_id": 0,
+          "action_name": "nominal_cruise",
+          "prob": 0.00011892020454275183,
+          "count": 0
+        },
+        {
+          "action_id": 1,
+          "action_name": "fast_motion",
+          "prob": 0.00011892020454275183,
+          "count": 0
+        },
+        {
+          "action_id": 2,
+          "action_name": "energy_saver",
+          "prob": 0.00011892020454275183,
+          "count": 0
+        },
+        {
+          "action_id": 3,
+          "action_name": "rough_high_clearance",
+          "prob": 0.00011892020454275183,
+          "count": 0
+        },
+        {
+          "action_id": 4,
+          "action_name": "rough_stability",
+          "prob": 0.00011892020454275183,
+          "count": 0
+        },
+        {
+          "action_id": 5,
+          "action_name": "upslope_push",
+          "prob": 0.9990486383636581,
+          "count": 420
+        },
+        {
+          "action_id": 6,
+          "action_name": "downslope_stable",
+          "prob": 0.00011892020454275183,
+          "count": 0
+        },
+        {
+          "action_id": 7,
+          "action_name": "lateral_recovery_soft",
+          "prob": 0.00011892020454275183,
+          "count": 0
+        },
+        {
+          "action_id": 8,
+          "action_name": "goal_hold",
+          "prob": 0.00011892020454275183,
+          "count": 0
+        }
+      ]
+    }
+  }
+}
