@@ -148,6 +148,7 @@ def load_f18_rows():
     robust_cols = {
         "motion": find_first_existing_col(cols, [
             "group_robust_median_beta_motion_true_seed",
+            "robust_median_beta_motion_true_seed",
             "robust_beta_motion_true_metric",
             "target_beta_motion_robust_true_metric",
             "beta_motion_robust_true_metric",
@@ -155,6 +156,7 @@ def load_f18_rows():
         ]),
         "stability": find_first_existing_col(cols, [
             "group_robust_median_beta_stability_true_seed",
+            "robust_median_beta_stability_true_seed",
             "robust_beta_stability_true_metric",
             "target_beta_stability_robust_true_metric",
             "beta_stability_robust_true_metric",
@@ -162,6 +164,7 @@ def load_f18_rows():
         ]),
         "energy": find_first_existing_col(cols, [
             "group_robust_median_beta_energy_true_seed",
+            "robust_median_beta_energy_true_seed",
             "robust_beta_energy_true_metric",
             "target_beta_energy_robust_true_metric",
             "beta_energy_robust_true_metric",
