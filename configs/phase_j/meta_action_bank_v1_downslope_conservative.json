@@ -1,0 +1,207 @@
+{
+  "action_space_type": "discrete_meta_action_bank",
+  "actions": [
+    {
+      "description": "Default forward traversal action close to the current empirical policy.",
+      "id": 0,
+      "intended_contexts": [
+        "flat",
+        "start_flat",
+        "goal_flat"
+      ],
+      "name": "nominal_cruise",
+      "theta": {
+        "body_h_delta": 0.0,
+        "clearance_delta": 0.0,
+        "energy_bias": 0.0,
+        "hold_override": false,
+        "stability_bias": 0.0,
+        "vx_delta": 0.0,
+        "vx_scale": 1.0,
+        "yaw_gain_scale": 1.0
+      }
+    },
+    {
+      "description": "Slightly faster motion-oriented traversal for low-risk flat terrain.",
+      "id": 1,
+      "intended_contexts": [
+        "flat",
+        "start_flat"
+      ],
+      "name": "fast_motion",
+      "theta": {
+        "body_h_delta": 0.0,
+        "clearance_delta": -0.003,
+        "energy_bias": -0.05,
+        "hold_override": false,
+        "stability_bias": -0.1,
+        "vx_delta": 0.0,
+        "vx_scale": 1.08,
+        "yaw_gain_scale": 1.0
+      }
+    },
+    {
+      "description": "Moderate slower gait with lower clearance to reduce unnecessary actuation.",
+      "id": 2,
+      "intended_contexts": [
+        "flat",
+        "goal_flat"
+      ],
+      "name": "energy_saver",
+      "theta": {
+        "body_h_delta": 0.0,
+        "clearance_delta": -0.004,
+        "energy_bias": 0.15,
+        "hold_override": false,
+        "stability_bias": 0.0,
+        "vx_delta": 0.0,
+        "vx_scale": 0.88,
+        "yaw_gain_scale": 0.9
+      }
+    },
+    {
+      "description": "Increase foot clearance and slightly reduce speed for rough terrain traversal.",
+      "id": 3,
+      "intended_contexts": [
+        "rough"
+      ],
+      "name": "rough_high_clearance",
+      "theta": {
+        "body_h_delta": 0.0,
+        "clearance_delta": 0.01,
+        "energy_bias": -0.05,
+        "hold_override": false,
+        "stability_bias": 0.15,
+        "vx_delta": 0.0,
+        "vx_scale": 0.92,
+        "yaw_gain_scale": 1.0
+      }
+    },
+    {
+      "description": "More conservative rough-terrain action emphasizing stability over speed.",
+      "id": 4,
+      "intended_contexts": [
+        "rough"
+      ],
+      "name": "rough_stability",
+      "theta": {
+        "body_h_delta": -0.005,
+        "clearance_delta": 0.012,
+        "energy_bias": -0.1,
+        "hold_override": false,
+        "stability_bias": 0.25,
+        "vx_delta": 0.0,
+        "vx_scale": 0.82,
+        "yaw_gain_scale": 0.85
+      }
+    },
+    {
+      "description": "Maintain forward progress on upslope with mild stability margin.",
+      "id": 5,
+      "intended_contexts": [
+        "upslope"
+      ],
+      "name": "upslope_push",
+      "theta": {
+        "body_h_delta": 0.0,
+        "clearance_delta": 0.004,
+        "energy_bias": -0.05,
+        "hold_override": false,
+        "stability_bias": 0.12,
+        "vx_delta": 0.0,
+        "vx_scale": 0.96,
+        "yaw_gain_scale": 0.95
+      }
+    },
+    {
+      "description": "Reduce speed and increase stability margin for downslope traversal.",
+      "id": 6,
+      "intended_contexts": [
+        "downslope"
+      ],
+      "name": "downslope_stable",
+      "theta": {
+        "body_h_delta": -0.004,
+        "clearance_delta": 0.004,
+        "energy_bias": -0.1,
+        "hold_override": false,
+        "stability_bias": 0.3,
+        "vx_delta": 0.0,
+        "vx_scale": 0.88,
+        "yaw_gain_scale": 0.9
+      }
+    },
+    {
+      "description": "Conservative action for lateral drift or mismatch; not a full recovery primitive.",
+      "id": 7,
+      "intended_contexts": [
+        "rough",
+        "downslope",
+        "unknown"
+      ],
+      "name": "lateral_recovery_soft",
+      "theta": {
+        "body_h_delta": -0.008,
+        "clearance_delta": 0.008,
+        "energy_bias": -0.15,
+        "hold_override": false,
+        "stability_bias": 0.35,
+        "vx_delta": 0.0,
+        "vx_scale": 0.65,
+        "yaw_gain_scale": 0.7
+      }
+    },
+    {
+      "description": "Goal/hold behavior. This action should only be selected near the goal or by the existing stop guard.",
+      "id": 8,
+      "intended_contexts": [
+        "goal_flat"
+      ],
+      "name": "goal_hold",
+      "theta": {
+        "body_h_delta": 0.0,
+        "clearance_delta": 0.0,
+        "energy_bias": 0.1,
+        "hold_override": true,
+        "stability_bias": 0.25,
+        "vx_delta": 0.025,
+        "vx_scale": 0.0,
+        "yaw_gain_scale": 0.0
+      }
+    }
+  ],
+  "base_reference_convention": {
+    "application": "theta modifies the empirical/D7-conditioned high-level reference before safety projection",
+    "input_ref": "[seq, vx, yaw_rate, body_h, clearance, enable]",
+    "not_yet_active": true
+  },
+  "name": "TRACER meta-action bank v0",
+  "phase": "J0",
+  "safe_claim": "Defines candidate high-level meta-actions only; not active control and not final RL.",
+  "safety_projection": {
+    "body_h_max": 0.34,
+    "body_h_min": 0.3,
+    "clearance_max": 0.065,
+    "clearance_min": 0.035,
+    "enable_values": [
+      1.0
+    ],
+    "hold_vx": 0.025,
+    "notes": [
+      "The action bank must never bypass the existing goal/hold guard.",
+      "The action bank should first be evaluated offline or in shadow mode.",
+      "The action bank is intended for contextual-bandit/offline-RL preparation before online PPO."
+    ],
+    "vx_max": 0.22,
+    "vx_min": 0.025,
+    "yaw_rate_max": 0.2,
+    "yaw_rate_min": -0.2
+  },
+  "state_inputs_for_future_policy": [
+    "terrain_context",
+    "D7_beta",
+    "legacy_ram_or_I5_safe_ram_shadow",
+    "x/y progress",
+    "recent tracking/drift window features"
+  ]
+}
