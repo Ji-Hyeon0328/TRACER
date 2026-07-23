@@ -40,7 +40,7 @@ class FlatMicroActionOverride(Node):
         )
         self.flat_theta = parse_theta(theta_env)
 
-        self.context = "unknown"
+        self.terrain_context = "unknown"
         self.latest_input = None
         self.seq = 0
 
@@ -70,12 +70,12 @@ class FlatMicroActionOverride(Node):
         self.get_logger().info(
             f"K4 flat micro override started: profile={self.profile}, "
             f"input={self.input_topic}, output={self.output_topic}, "
-            f"context={self.context_topic}, flat_theta={self.flat_theta}, "
+            f"context_topic={self.context_topic}, flat_theta={self.flat_theta}, "
             f"log={self.csv_path}"
         )
 
     def on_context(self, msg):
-        self.context = (msg.data or "unknown").strip()
+        self.terrain_context = (msg.data or "unknown").strip()
 
     def on_theta(self, msg):
         self.latest_input = list(msg.data)
@@ -88,7 +88,7 @@ class FlatMicroActionOverride(Node):
         out_theta = list(in_theta)
         override = 0
 
-        if self.context in ("flat", "start_flat"):
+        if self.terrain_context in ("flat", "start_flat"):
             out_theta = list(self.flat_theta)
             override = 1
 
@@ -101,7 +101,7 @@ class FlatMicroActionOverride(Node):
             "t": f"{time.time():.6f}",
             "seq": self.seq,
             "profile": self.profile,
-            "context": self.context,
+            "context": self.terrain_context,
             "override": override,
             "in_action_id": in_theta[0] if len(in_theta) > 0 else "",
             "out_action_id": out_theta[0] if len(out_theta) > 0 else "",
