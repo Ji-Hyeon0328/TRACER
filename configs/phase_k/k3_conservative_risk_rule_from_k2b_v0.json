@@ -1,0 +1,170 @@
+{
+  "active_mode": "j19_profile",
+  "baseline_mode": "baseline",
+  "context_rules": {
+    "downslope": {
+      "active": {
+        "abs_delta_y_mean": 0.15073811111111113,
+        "j7_accepted_mean": 0.0,
+        "j7_projected_mean": 0.0,
+        "max_abs_y_mean": 0.26716311111111113,
+        "mean_abs_y_mean": 0.18689111111111112
+      },
+      "baseline": {
+        "abs_delta_y_mean": 0.1264805,
+        "max_abs_y_mean": 0.3035159,
+        "mean_abs_y_mean": 0.2301155
+      },
+      "checks": {
+        "has_active_projection": false,
+        "nonworse_abs_delta_y": false,
+        "nonworse_max_abs_y": true,
+        "nonworse_mean_abs_y": true
+      },
+      "decision": "block",
+      "delta_active_minus_baseline": {
+        "abs_delta_y_mean": 0.024257611111111133,
+        "max_abs_y_mean": -0.036352788888888876,
+        "mean_abs_y_mean": -0.04322438888888888
+      },
+      "n_active": 9,
+      "n_baseline": 10,
+      "reason": "active_degrades_segment_metrics"
+    },
+    "flat": {
+      "active": {
+        "abs_delta_y_mean": 0.0910601111111111,
+        "j7_accepted_mean": 448.22222222222223,
+        "j7_projected_mean": 448.22222222222223,
+        "max_abs_y_mean": 0.11942933333333333,
+        "mean_abs_y_mean": 0.06007211111111112
+      },
+      "baseline": {
+        "abs_delta_y_mean": 0.0638154,
+        "max_abs_y_mean": 0.0921086,
+        "mean_abs_y_mean": 0.040952999999999996
+      },
+      "checks": {
+        "has_active_projection": true,
+        "nonworse_abs_delta_y": false,
+        "nonworse_max_abs_y": false,
+        "nonworse_mean_abs_y": false
+      },
+      "decision": "block",
+      "delta_active_minus_baseline": {
+        "abs_delta_y_mean": 0.02724471111111111,
+        "max_abs_y_mean": 0.027320733333333333,
+        "mean_abs_y_mean": 0.01911911111111112
+      },
+      "n_active": 9,
+      "n_baseline": 10,
+      "reason": "active_degrades_segment_metrics"
+    },
+    "goal_flat": {
+      "active": {
+        "abs_delta_y_mean": 0.06589,
+        "j7_accepted_mean": 0.0,
+        "j7_projected_mean": 0.0,
+        "max_abs_y_mean": 0.28450466666666663,
+        "mean_abs_y_mean": 0.2399938888888889
+      },
+      "baseline": {
+        "abs_delta_y_mean": 0.090531,
+        "max_abs_y_mean": 0.2967545,
+        "mean_abs_y_mean": 0.24017160000000004
+      },
+      "checks": {
+        "has_active_projection": false,
+        "nonworse_abs_delta_y": true,
+        "nonworse_max_abs_y": true,
+        "nonworse_mean_abs_y": true
+      },
+      "decision": "protected_empirical",
+      "delta_active_minus_baseline": {
+        "abs_delta_y_mean": -0.024640999999999996,
+        "max_abs_y_mean": -0.012249833333333349,
+        "mean_abs_y_mean": -0.00017771111111114513
+      },
+      "n_active": 9,
+      "n_baseline": 10,
+      "reason": "nonworse_but_no_active_projection_in_this_context"
+    },
+    "rough": {
+      "active": {
+        "abs_delta_y_mean": 0.10839566666666665,
+        "j7_accepted_mean": 0.0,
+        "j7_projected_mean": 0.0,
+        "max_abs_y_mean": 0.26320466666666664,
+        "mean_abs_y_mean": 0.20216922222222225
+      },
+      "baseline": {
+        "abs_delta_y_mean": 0.10765850000000002,
+        "max_abs_y_mean": 0.24060420000000002,
+        "mean_abs_y_mean": 0.17262709999999998
+      },
+      "checks": {
+        "has_active_projection": false,
+        "nonworse_abs_delta_y": false,
+        "nonworse_max_abs_y": false,
+        "nonworse_mean_abs_y": false
+      },
+      "decision": "block",
+      "delta_active_minus_baseline": {
+        "abs_delta_y_mean": 0.000737166666666636,
+        "max_abs_y_mean": 0.022600466666666624,
+        "mean_abs_y_mean": 0.029542122222222272
+      },
+      "n_active": 9,
+      "n_baseline": 10,
+      "reason": "active_degrades_segment_metrics"
+    },
+    "upslope": {
+      "active": {
+        "abs_delta_y_mean": 0.13428077777777778,
+        "j7_accepted_mean": 0.0,
+        "j7_projected_mean": 0.0,
+        "max_abs_y_mean": 0.21548866666666666,
+        "mean_abs_y_mean": 0.14491933333333334
+      },
+      "baseline": {
+        "abs_delta_y_mean": 0.0846873,
+        "max_abs_y_mean": 0.15417750000000002,
+        "mean_abs_y_mean": 0.10355829999999999
+      },
+      "checks": {
+        "has_active_projection": false,
+        "nonworse_abs_delta_y": false,
+        "nonworse_max_abs_y": false,
+        "nonworse_mean_abs_y": false
+      },
+      "decision": "block",
+      "delta_active_minus_baseline": {
+        "abs_delta_y_mean": 0.049593477777777784,
+        "max_abs_y_mean": 0.06131116666666664,
+        "mean_abs_y_mean": 0.04136103333333335
+      },
+      "n_active": 9,
+      "n_baseline": 10,
+      "reason": "active_degrades_segment_metrics"
+    }
+  },
+  "global_decision": {
+    "actually_active_contexts": [
+      "flat"
+    ],
+    "allowed_active_contexts": [],
+    "blocked_active_contexts": [
+      "flat"
+    ],
+    "deploy_performance_policy": false,
+    "recommended_runtime_mode": "empirical_default_active_shadow_only"
+  },
+  "margins": {
+    "abs_delta_y_margin": 0.0,
+    "max_abs_y_margin": 0.0,
+    "mean_abs_y_margin": 0.0
+  },
+  "name": "conservative_risk_rule_from_k2b_v0",
+  "phase": "K3",
+  "source_segment_csv": "datasets/phase_k/k2b_segment_metrics_from_k1_corrected_v0.csv"
+}
