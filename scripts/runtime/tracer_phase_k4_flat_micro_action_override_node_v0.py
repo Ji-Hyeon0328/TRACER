@@ -127,9 +127,20 @@ def main():
         rclpy.spin(node)
     except KeyboardInterrupt:
         pass
+    except Exception as e:
+        # ROS2 launch/cleanup can raise ExternalShutdownException during normal teardown.
+        if e.__class__.__name__ != "ExternalShutdownException":
+            raise
     finally:
-        node.destroy_node()
-        rclpy.shutdown()
+        try:
+            node.destroy_node()
+        except Exception:
+            pass
+        try:
+            if rclpy.ok():
+                rclpy.shutdown()
+        except Exception:
+            pass
 
 
 if __name__ == "__main__":
