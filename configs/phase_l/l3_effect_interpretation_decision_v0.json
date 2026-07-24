@@ -1,0 +1,35 @@
+{
+  "phase": "L3",
+  "name": "matched_effect_interpretation_decision_v0",
+  "default_runtime_action": "empirical",
+  "deploy_active_performance_policy": false,
+  "candidate_effect_decisions": {
+    "flat_slow03": {
+      "effect_class": "uncertain_within_placebo",
+      "promote": false,
+      "interpretation": "Weak stability-improvement tendency with small progress penalty, but all group-mean effects remain inside the no-op placebo variability band."
+    },
+    "flat_clear03": {
+      "effect_class": "uncertain_within_placebo",
+      "promote": false,
+      "interpretation": "Lateral metrics trend toward degradation, but observed effects remain inside the no-op placebo variability band."
+    },
+    "flat_slow03_clear03": {
+      "effect_class": "uncertain_within_placebo",
+      "promote": false,
+      "interpretation": "Small progress penalty and weak stability-improvement tendency, but observed effects remain inside the no-op placebo variability band."
+    }
+  },
+  "control_findings": {
+    "flat_noop": "control_equivalent_noop",
+    "j19_profile_flat_exposure": "control_equivalent_noop"
+  },
+  "training_decision": {
+    "create_beneficial_label": false,
+    "create_detrimental_label": false,
+    "train_selector_from_l3_labels": false,
+    "reason": "Current intervention effects are not distinguishable from empirical/no-op rollout variability."
+  },
+  "next_direction": "systematic paired candidate experiment with controlled intervention magnitudes and guarded active exposure",
+  "safety": "Keep empirical/default as active runtime. Do not promote any Phase-L3 candidate."
+}

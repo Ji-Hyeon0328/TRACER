@@ -1,0 +1,42 @@
+{
+  "phase": "L3",
+  "name": "matched_action_effect_estimation_v0",
+  "context": "flat",
+  "match_k": 5,
+  "match_features": [
+    "x_start",
+    "abs_y_start",
+    "duration_s",
+    "beta_motion_mean",
+    "beta_stability_mean",
+    "beta_energy_mean",
+    "ram_slip_mean",
+    "ram_roughness_mean",
+    "ram_sigma_mean",
+    "emp_vx_mean",
+    "emp_body_h_mean",
+    "emp_clearance_mean"
+  ],
+  "effect_metrics": {
+    "progress_rate": "higher_better",
+    "mean_abs_y_window": "lower_better",
+    "max_abs_y_window": "lower_better",
+    "end_abs_y": "lower_better",
+    "lateral_growth": "lower_better"
+  },
+  "baseline_role": "reference_anchor",
+  "noop_role": "control_equivalent_noop",
+  "intervention_roles": [
+    "near_miss_exposure",
+    "rollout_associated_negative_unpaired"
+  ],
+  "placebo_quantile": 0.95,
+  "bootstrap_samples": 2000,
+  "random_seed": 328,
+  "interpretation": {
+    "positive_effect": "candidate-associated improvement relative to matched control",
+    "negative_effect": "candidate-associated degradation relative to matched control",
+    "placebo_band": "natural/no-op variability calibration; not a causal confidence interval"
+  },
+  "safety_note": "L3 does not promote any active runtime policy. Empirical/default remains active."
+}
