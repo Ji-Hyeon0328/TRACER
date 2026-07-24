@@ -1,0 +1,74 @@
+{
+  "baseline": {
+    "goals": 6,
+    "max_abs_y_mean": 0.33512650000000005,
+    "mean_abs_y_mean": 0.15232366666666666,
+    "n_ok": 6
+  },
+  "candidate_decisions": {
+    "baseline": {
+      "decision": "reference",
+      "delta_max_abs_y_vs_baseline": 0.0,
+      "delta_mean_abs_y_vs_baseline": 0.0,
+      "goals": 6,
+      "j7_accepted_mean": 0.0,
+      "max_abs_y_mean": 0.33512650000000005,
+      "mean_abs_y_mean": 0.15232366666666666,
+      "n_ok": 6,
+      "reason": "baseline_reference"
+    },
+    "flat_clear03": {
+      "decision": "reject",
+      "delta_max_abs_y_vs_baseline": 0.06468899999999989,
+      "delta_mean_abs_y_vs_baseline": 0.07070016666666668,
+      "goals": 6,
+      "j7_accepted_mean": 446.3333333333333,
+      "max_abs_y_mean": 0.39981549999999993,
+      "mean_abs_y_mean": 0.22302383333333334,
+      "n_ok": 6,
+      "reason": "does_not_improve_lateral_metrics"
+    },
+    "flat_noop": {
+      "decision": "reject",
+      "delta_max_abs_y_vs_baseline": 0.06089249999999996,
+      "delta_mean_abs_y_vs_baseline": 0.022264933333333348,
+      "goals": 5,
+      "j7_accepted_mean": 447.0,
+      "max_abs_y_mean": 0.396019,
+      "mean_abs_y_mean": 0.1745886,
+      "n_ok": 5,
+      "reason": "does_not_improve_lateral_metrics"
+    },
+    "flat_slow03": {
+      "decision": "shadow_only",
+      "delta_max_abs_y_vs_baseline": -0.005148333333333366,
+      "delta_mean_abs_y_vs_baseline": 0.004883166666666661,
+      "goals": 6,
+      "j7_accepted_mean": 460.0,
+      "max_abs_y_mean": 0.3299781666666667,
+      "mean_abs_y_mean": 0.15720683333333332,
+      "n_ok": 6,
+      "reason": "improves_max_abs_y_only_but_worsens_mean_abs_y"
+    },
+    "flat_slow03_clear03": {
+      "decision": "reject",
+      "delta_max_abs_y_vs_baseline": 0.05215949999999997,
+      "delta_mean_abs_y_vs_baseline": 0.027263499999999996,
+      "goals": 6,
+      "j7_accepted_mean": 464.6666666666667,
+      "max_abs_y_mean": 0.387286,
+      "mean_abs_y_mean": 0.17958716666666666,
+      "n_ok": 6,
+      "reason": "does_not_improve_lateral_metrics"
+    }
+  },
+  "global_decision": {
+    "deploy_active_performance_policy": false,
+    "recommended_candidate": null,
+    "recommended_runtime_mode": "empirical_default_active_shadow_only"
+  },
+  "name": "flat_micro_candidate_promotion_decision_v0",
+  "phase": "K5",
+  "promoted_candidates": [],
+  "source": "datasets/phase_k/k4c_flat_micro_candidates_fixed_summary_v0.csv"
+}
