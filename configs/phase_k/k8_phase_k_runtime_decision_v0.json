@@ -1,0 +1,39 @@
+{
+  "phase": "K8",
+  "name": "phase_k_runtime_decision_v0",
+  "runtime_decision": {
+    "default_runtime_action": "empirical",
+    "deploy_active_performance_policy": false,
+    "active_modes": [],
+    "shadow_only_modes": [
+      "flat_slow03"
+    ],
+    "rejected_modes": [
+      "j19_profile",
+      "flat_noop",
+      "flat_clear03",
+      "flat_slow03_clear03"
+    ],
+    "safe_runtime_stack": [
+      "D7 objective selector",
+      "D6 beta-conditioned gated selector",
+      "empirical/default MPC reference routing"
+    ],
+    "active_routing_status": "scaffold_debug_shadow_only"
+  },
+  "interpretation": {
+    "phase_k_result": "manual active candidates did not beat empirical baseline",
+    "next_direction": "broader data-backed selector or true RL meta-planner",
+    "do_not_claim": [
+      "do not claim J19 as deployable performance policy",
+      "do not claim flat micro-actions as improved policy",
+      "do not claim Phase-K as final RL meta-planner"
+    ],
+    "safe_claims": [
+      "guarded active routing scaffold works",
+      "J7 gate can protect unproven candidates",
+      "empirical/default remains current deployable runtime policy",
+      "flat_slow03 is shadow-only near-miss"
+    ]
+  }
+}
