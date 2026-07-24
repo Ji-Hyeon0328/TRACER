@@ -1,0 +1,163 @@
+{
+  "phase": "L1",
+  "name": "selector_dataset_schema_v0",
+  "schema_version": "phase_l1_v0",
+  "purpose": "Canonical schema for conservative data-backed meta-action candidate evaluation.",
+  "current_seed_granularity": "rollout_candidate_outcome",
+  "future_target_granularity": "state_context_candidate_action",
+  "active_runtime_policy": "empirical_default",
+  "learned_selector_runtime_mode": "shadow_only",
+  "label_semantics": {
+    "empirical": "Reference anchor. No candidate is promoted over the empirical/default action.",
+    "reject": "Candidate is invalid, unsafe, unstable, or inferior.",
+    "shadow_only": "Candidate is a plausible near-miss but lacks evidence for deployment.",
+    "candidate_positive_later": "Reserved future label for candidates with repeatable evidence of improvement. Not present in the initial seed dataset."
+  },
+  "raw_label_mapping": {
+    "reference": "empirical",
+    "reject": "reject",
+    "shadow_only": "shadow_only"
+  },
+  "supervision_roles": {
+    "empirical": "reference_anchor",
+    "reject": "negative",
+    "shadow_only": "near_miss",
+    "candidate_positive_later": "future_positive"
+  },
+  "feature_groups": {
+    "provenance": [
+      "source_phase",
+      "source_row_index",
+      "source_rollout_id",
+      "manifest",
+      "d5_log_dir",
+      "j7_csv",
+      "run_dir"
+    ],
+    "situation": [
+      "world_name",
+      "context_label",
+      "next_context",
+      "segment_id",
+      "segment_progress",
+      "x_start",
+      "y_start",
+      "abs_y_start"
+    ],
+    "objective_adaptation": [
+      "beta_motion",
+      "beta_stability",
+      "beta_energy",
+      "ram_rho_summary",
+      "sigma_uncertainty"
+    ],
+    "baseline_action": [
+      "baseline_vx",
+      "baseline_yaw",
+      "baseline_body_h",
+      "baseline_clearance",
+      "baseline_enable"
+    ],
+    "candidate_action": [
+      "candidate_mode",
+      "candidate_action_id",
+      "candidate_theta_desc",
+      "candidate_vx",
+      "candidate_yaw",
+      "candidate_body_h",
+      "candidate_clearance",
+      "candidate_enable",
+      "candidate_vx_scale",
+      "candidate_vx_delta",
+      "candidate_yaw_gain",
+      "candidate_body_h_delta",
+      "candidate_clearance_delta"
+    ],
+    "routing_guard": [
+      "active_used",
+      "j7_accepted",
+      "j7_projected",
+      "j7_failsafe",
+      "flat_rows",
+      "flat_accepted",
+      "flat_accept_rate"
+    ],
+    "outcome": [
+      "status",
+      "goal_reached",
+      "final_x",
+      "final_y",
+      "max_abs_y",
+      "mean_abs_y",
+      "risk_score_lower_better",
+      "delta_progress",
+      "time_to_goal",
+      "termination_reason"
+    ],
+    "supervision": [
+      "decision_raw",
+      "decision_label",
+      "supervision_role",
+      "decision_reason"
+    ]
+  },
+  "k6_seed_available_fields": [
+    "source_phase",
+    "candidate_mode",
+    "candidate_theta_desc",
+    "status",
+    "goal_reached",
+    "final_x",
+    "final_y",
+    "max_abs_y",
+    "mean_abs_y",
+    "risk_score_lower_better",
+    "active_used",
+    "j7_accepted",
+    "j7_projected",
+    "j7_failsafe",
+    "flat_rows",
+    "flat_accepted",
+    "flat_accept_rate",
+    "decision_raw",
+    "decision_label",
+    "decision_reason",
+    "manifest",
+    "d5_log_dir",
+    "j7_csv",
+    "run_dir"
+  ],
+  "k6_seed_missing_for_state_conditioned_learning": [
+    "world_name",
+    "context_label",
+    "next_context",
+    "segment_id",
+    "segment_progress",
+    "x_start",
+    "y_start",
+    "abs_y_start",
+    "beta_motion",
+    "beta_stability",
+    "beta_energy",
+    "ram_rho_summary",
+    "sigma_uncertainty",
+    "baseline_vx",
+    "baseline_yaw",
+    "baseline_body_h",
+    "baseline_clearance",
+    "candidate_vx",
+    "candidate_yaw",
+    "candidate_body_h",
+    "candidate_clearance",
+    "candidate_vx_delta",
+    "candidate_body_h_delta",
+    "candidate_clearance_delta"
+  ],
+  "important_constraints": [
+    "Do not infer unavailable context, beta, RAM, or numerical action values from candidate names.",
+    "Do not treat rollout-level K6 rows as state-level selector samples.",
+    "Do not create positive deployment labels from near-miss samples.",
+    "Keep empirical/default as the active runtime during initial Phase-L.",
+    "Invalid or failed routing studies must remain distinguishable through provenance and status."
+  ]
+}
