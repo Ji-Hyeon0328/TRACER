@@ -56,6 +56,21 @@ class J7GuardedMetaActionRefGate(Node):
         self.goal_x_threshold = env_float("TRACER_PHASE_J7_GOAL_X_THRESHOLD", 7.90)
         self.max_input_age_s = env_float("TRACER_PHASE_J7_MAX_INPUT_AGE_S", 1.0)
 
+        # Optional active-routing sequence alignment.
+        #
+        # J4 and J7 run on independent timers. Without this guard, J7 may
+        # compare the current empirical reference against a projected
+        # reference generated from the previous empirical sequence.
+        #
+        # Disabled by default to preserve historical shadow behavior.
+        self.require_seq_match = (
+            os.environ.get(
+                "TRACER_PHASE_J7_REQUIRE_SEQ_MATCH",
+                "0",
+            )
+            == "1"
+        )
+
         # Active-mode safeguard. Disabled by default for shadow tests.
         # When enabled, stale/missing projected inputs output a conservative hold ref
         # instead of replaying a stale empirical ref.
@@ -114,6 +129,7 @@ class J7GuardedMetaActionRefGate(Node):
         self.get_logger().info(f"[TRACER:J7] theta input={self.theta_topic}")
         self.get_logger().info(f"[TRACER:J7] output={self.out_topic}")
         self.get_logger().info(f"[TRACER:J7] allowed_contexts={sorted(self.allowed_contexts)}")
+        self.get_logger().info(f"[TRACER:J7] require_seq_match={self.require_seq_match}")
         self.get_logger().info(f"[TRACER:J7] active_failsafe_hold={self.active_failsafe_hold}")
         self.get_logger().info(f"[TRACER:J7] logging to {self.log_csv}")
         self.get_logger().info("[TRACER:J7] shadow-only unless output topic is explicitly changed")
@@ -175,6 +191,13 @@ class J7GuardedMetaActionRefGate(Node):
 
         emp = self.emp_ref
         proj = self.proj_ref
+
+        if self.require_seq_match:
+            emp_seq = int(round(emp[0]))
+            proj_seq = int(round(proj[0]))
+
+            if emp_seq != proj_seq:
+                return False, "emp_proj_seq_mismatch"
 
         dvx = proj[1] - emp[1]
         dyaw = proj[2] - emp[2]

@@ -10,10 +10,30 @@ from std_msgs.msg import Float64MultiArray, String
 
 
 def parse_theta(s):
-    vals = [float(x.strip()) for x in s.split(",") if x.strip() != ""]
+    vals = [
+        float(x.strip())
+        for x in s.split(",")
+        if x.strip() != ""
+    ]
+
     if len(vals) != 9:
-        raise ValueError(f"Expected 9 theta values, got {len(vals)} from {s!r}")
+        raise ValueError(
+            f"Expected 9 theta values, "
+            f"got {len(vals)} from {s!r}"
+        )
+
     return vals
+
+
+def context_matches(target, current):
+    target = (target or "flat").strip()
+    current = (current or "unknown").strip()
+
+    # Preserve historical flat behavior.
+    if target == "flat":
+        return current in {"flat", "start_flat"}
+
+    return current == target
 
 
 class FlatMicroActionOverride(Node):
@@ -33,12 +53,30 @@ class FlatMicroActionOverride(Node):
             "/tracer/terrain_context_label",
         )
 
-        self.profile = os.environ.get("TRACER_PHASE_K4_PROFILE", "flat_noop")
-        theta_env = os.environ.get(
-            "TRACER_PHASE_K4_FLAT_THETA",
-            "1.0,1.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0",
+        self.profile = os.environ.get(
+            "TRACER_PHASE_K4_PROFILE",
+            "flat_noop",
         )
-        self.flat_theta = parse_theta(theta_env)
+
+        self.target_context = os.environ.get(
+            "TRACER_PHASE_K4_TARGET_CONTEXT",
+            "flat",
+        ).strip()
+
+        # TARGET_THETA is the generalized interface.
+        # FLAT_THETA remains as a backward-compatible fallback.
+        theta_env = os.environ.get(
+            "TRACER_PHASE_K4_TARGET_THETA",
+            os.environ.get(
+                "TRACER_PHASE_K4_FLAT_THETA",
+                (
+                    "1.0,1.0,0.0,1.0,"
+                    "0.0,0.0,0.0,0.0,0.0"
+                ),
+            ),
+        )
+
+        self.target_theta = parse_theta(theta_env)
 
         self.terrain_context = "unknown"
         self.latest_input = None
@@ -70,7 +108,9 @@ class FlatMicroActionOverride(Node):
         self.get_logger().info(
             f"K4 flat micro override started: profile={self.profile}, "
             f"input={self.input_topic}, output={self.output_topic}, "
-            f"context_topic={self.context_topic}, flat_theta={self.flat_theta}, "
+            f"context_topic={self.context_topic}, "
+            f"target_context={self.target_context}, "
+            f"target_theta={self.target_theta}, "
             f"log={self.csv_path}"
         )
 
@@ -88,8 +128,11 @@ class FlatMicroActionOverride(Node):
         out_theta = list(in_theta)
         override = 0
 
-        if self.terrain_context in ("flat", "start_flat"):
-            out_theta = list(self.flat_theta)
+        if context_matches(
+            self.target_context,
+            self.terrain_context,
+        ):
+            out_theta = list(self.target_theta)
             override = 1
 
         msg = Float64MultiArray()

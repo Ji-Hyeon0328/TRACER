@@ -57,6 +57,22 @@ class J4MetaActionRefProjectionShadow(Node):
 
         self.pub_hz = env_float("TRACER_PHASE_J4_PUB_HZ", 10.0)
 
+        # Optional message-driven projection.
+        #
+        # In timer mode, J4 and J7 may become phase-locked such that
+        # J7 repeatedly compares empirical sequence N against projected
+        # sequence N-1. Event-driven mode projects each newly received
+        # empirical reference immediately.
+        #
+        # Disabled by default to preserve historical behavior.
+        self.event_driven = (
+            os.environ.get(
+                "TRACER_PHASE_J4_EVENT_DRIVEN",
+                "0",
+            )
+            == "1"
+        )
+
         self.vx_min = env_float("TRACER_PHASE_J4_VX_MIN", 0.025)
         self.vx_max = env_float("TRACER_PHASE_J4_VX_MAX", 0.220)
         self.yaw_min = env_float("TRACER_PHASE_J4_YAW_MIN", -0.200)
@@ -127,11 +143,18 @@ class J4MetaActionRefProjectionShadow(Node):
         self.writer.writeheader()
         self.log_f.flush()
 
-        self.timer = self.create_timer(1.0 / max(self.pub_hz, 1e-6), self.on_timer)
+        self.timer = None
+
+        if not self.event_driven:
+            self.timer = self.create_timer(
+                1.0 / max(self.pub_hz, 1e-6),
+                self.on_timer,
+            )
 
         self.get_logger().info(f"[TRACER:J4] empirical ref input={self.empirical_ref_topic}")
         self.get_logger().info(f"[TRACER:J4] theta input={self.theta_topic}")
         self.get_logger().info(f"[TRACER:J4] projected ref output={self.out_topic}")
+        self.get_logger().info(f"[TRACER:J4] event_driven={self.event_driven}")
         self.get_logger().info(f"[TRACER:J4] logging to {self.log_csv}")
         self.get_logger().info("[TRACER:J4] shadow only: does not publish /tracer/mpc_reference")
 
@@ -146,9 +169,21 @@ class J4MetaActionRefProjectionShadow(Node):
 
     def on_emp_ref(self, msg):
         data = list(msg.data)
+
         if len(data) >= 6:
-            self.emp_ref = [float(v) for v in data[:6]]
-            self.emp_ref_t = time.time()
+            now = time.time()
+
+            self.emp_ref = [
+                float(v)
+                for v in data[:6]
+            ]
+            self.emp_ref_t = now
+
+            if (
+                self.event_driven
+                and self.theta is not None
+            ):
+                self.publish_projection(now)
 
     def on_theta(self, msg):
         data = list(msg.data)
@@ -204,11 +239,12 @@ class J4MetaActionRefProjectionShadow(Node):
             "proj": [seq, proj_vx, proj_yaw, proj_body_h, proj_clearance, proj_enable],
         }
 
-    def on_timer(self):
+    def publish_projection(self, now=None):
         if self.emp_ref is None or self.theta is None:
             return
 
-        now = time.time()
+        if now is None:
+            now = time.time()
         out = self.project()
         proj = out["proj"]
 
@@ -251,6 +287,10 @@ class J4MetaActionRefProjectionShadow(Node):
             "delta_clearance": f"{proj[4] - emp[4]:.8f}",
         })
         self.log_f.flush()
+
+    def on_timer(self):
+        self.publish_projection()
+
 
     def destroy_node(self):
         try:
