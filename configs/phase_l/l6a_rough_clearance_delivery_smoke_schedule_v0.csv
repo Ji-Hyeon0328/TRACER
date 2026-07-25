@@ -1,0 +1,4 @@
+order,mode,repeat_idx,kind,active_override,theta
+1,rough_noop,1,noop_control,1,"1.0,1.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0"
+2,rough_clear_low05,1,clearance_single_axis,1,"1.0,1.0,0.0,1.0,0.0,-0.005,0.0,0.0,0.0"
+3,rough_clear_high05,1,clearance_single_axis,1,"1.0,1.0,0.0,1.0,0.0,0.005,0.0,0.0,0.0"

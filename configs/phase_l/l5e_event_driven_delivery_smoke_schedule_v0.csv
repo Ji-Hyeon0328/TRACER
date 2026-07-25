@@ -1,0 +1,4 @@
+order,mode,repeat_idx,kind,active_override,theta
+1,flat_noop,1,noop_control,1,"1.0,1.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0"
+2,flat_body_low05,1,body_height_single_axis,1,"1.0,1.0,0.0,1.0,-0.005,0.0,0.0,0.0,0.0"
+3,flat_body_high05,1,body_height_single_axis,1,"1.0,1.0,0.0,1.0,0.005,0.0,0.0,0.0,0.0"
