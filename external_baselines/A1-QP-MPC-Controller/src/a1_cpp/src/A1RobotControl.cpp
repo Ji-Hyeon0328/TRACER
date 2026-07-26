@@ -3,6 +3,7 @@
 //
 
 #include "A1RobotControl.h"
+#include <algorithm>
 #include <cmath>
 
 A1RobotControl::A1RobotControl() {
@@ -143,7 +144,14 @@ A1RobotControl::A1RobotControl(ros::NodeHandle &_nh) : A1RobotControl() {
 
         foot_path_marker[i].lifetime = ros::Duration();
     }
-    pub_terrain_angle = nh.advertise<std_msgs::Float64>("a1_debug/terrain_angle", 100);
+    pub_terrain_angle = nh.advertise<std_msgs::Float64>(
+            "a1_debug/terrain_angle",
+            100);
+
+    pub_tracer_swing_apex_debug =
+            nh.advertise<std_msgs::Float64MultiArray>(
+                    "/tracer/lowlevel/swing_apex_debug",
+                    20);
 }
 
 void A1RobotControl::update_plan(A1CtrlStates &state, double dt) {
@@ -212,6 +220,11 @@ void A1RobotControl::generate_swing_legs_ctrl(A1CtrlStates &state, double dt) {
     spline_time.setZero();
     Eigen::Matrix<double, 3, NUM_LEG> foot_pos_target;
     foot_pos_target.setZero();
+
+    // Physical z residual actually applied to each leg on this tick.
+    Eigen::Matrix<double, 1, NUM_LEG> tracer_applied_apex_bump;
+    tracer_applied_apex_bump.setZero();
+
     Eigen::Matrix<double, 3, NUM_LEG> foot_vel_target;
     foot_vel_target.setZero();
     Eigen::Matrix<double, 3, NUM_LEG> foot_pos_error;
@@ -236,10 +249,49 @@ void A1RobotControl::generate_swing_legs_ctrl(A1CtrlStates &state, double dt) {
             spline_time(i) = float(state.gait_counter(i) - state.counter_per_swing) / float(state.counter_per_swing);
         }
 
-        foot_pos_target.block<3, 1>(0, i) = bezierUtils[i].get_foot_pos_curve(spline_time(i),
-                                                                              state.foot_pos_start.block<3, 1>(0, i),
-                                                                              state.foot_pos_target_rel.block<3, 1>(0, i),
-                                                                              0.0);
+        foot_pos_target.block<3, 1>(0, i) =
+                bezierUtils[i].get_foot_pos_curve(
+                        spline_time(i),
+                        state.foot_pos_start.block<3, 1>(0, i),
+                        state.foot_pos_target_rel.block<3, 1>(0, i),
+                        0.0);
+
+        // Add a normalized smooth z bump on top of the untouched
+        // native Bezier trajectory.
+        //
+        // phi(s) = 16 s^2 (1-s)^2
+        //
+        // phi(0)   = 0
+        // phi(0.5) = 1
+        // phi(1)   = 0
+        //
+        // Therefore tracer_swing_apex_delta is expressed directly in
+        // physical metres at the target swing apex.
+        if (
+                state.tracer_swing_apex_residual_active &&
+                !state.plan_contacts[i]) {
+            const double swing_phase =
+                    std::max(
+                            0.0,
+                            std::min(
+                                    1.0,
+                                    static_cast<double>(spline_time(i))));
+
+            const double one_minus_phase = 1.0 - swing_phase;
+            const double normalized_apex_shape =
+                    16.0 *
+                    swing_phase *
+                    swing_phase *
+                    one_minus_phase *
+                    one_minus_phase;
+
+            tracer_applied_apex_bump(i) =
+                    state.tracer_swing_apex_delta *
+                    normalized_apex_shape;
+
+            foot_pos_target(2, i) +=
+                    tracer_applied_apex_bump(i);
+        }
 
         foot_vel_cur.block<3, 1>(0, i) = (foot_pos_cur.block<3, 1>(0, i) - state.foot_pos_rel_last_time.block<3, 1>(0, i)) / dt;
         state.foot_pos_rel_last_time.block<3, 1>(0, i) = foot_pos_cur.block<3, 1>(0, i);
@@ -253,6 +305,73 @@ void A1RobotControl::generate_swing_legs_ctrl(A1CtrlStates &state, double dt) {
                                             foot_vel_error.block<3, 1>(0, i).cwiseProduct(state.kd_foot.block<3, 1>(0, i));
     }
     state.foot_pos_cur = foot_pos_cur;
+
+    // Publish at approximately 50 Hz. The main controller runs at
+    // approximately 400 Hz with the current 2.5 ms update period.
+    tracer_swing_debug_counter += 1;
+
+    if (tracer_swing_debug_counter >= 8) {
+        tracer_swing_debug_counter = 0;
+
+        std_msgs::Float64MultiArray debug_msg;
+
+        // Layout:
+        //
+        // [0] active
+        // [1] raw clearance command
+        // [2] canonical neutral command
+        // [3] bounded physical apex delta
+        //
+        // Then, for each leg FL, FR, RL, RR:
+        //   phase,
+        //   swing_flag,
+        //   normalized_apex_shape,
+        //   applied_apex_bump,
+        //   target_z,
+        //   actual_z
+        //
+        // Total length: 4 + 4 * 6 = 28.
+        debug_msg.data.reserve(28);
+
+        debug_msg.data.push_back(
+                state.tracer_swing_apex_residual_active ? 1.0 : 0.0);
+        debug_msg.data.push_back(
+                state.tracer_swing_clearance);
+        debug_msg.data.push_back(
+                state.tracer_clearance_cmd_neutral);
+        debug_msg.data.push_back(
+                state.tracer_swing_apex_delta);
+
+        for (int i = 0; i < NUM_LEG; ++i) {
+            const double phase =
+                    std::max(
+                            0.0,
+                            std::min(
+                                    1.0,
+                                    static_cast<double>(spline_time(i))));
+            const double one_minus_phase = 1.0 - phase;
+            const double normalized_apex_shape =
+                    16.0 *
+                    phase *
+                    phase *
+                    one_minus_phase *
+                    one_minus_phase;
+
+            debug_msg.data.push_back(phase);
+            debug_msg.data.push_back(
+                    state.plan_contacts[i] ? 0.0 : 1.0);
+            debug_msg.data.push_back(
+                    normalized_apex_shape);
+            debug_msg.data.push_back(
+                    tracer_applied_apex_bump(i));
+            debug_msg.data.push_back(
+                    foot_pos_target(2, i));
+            debug_msg.data.push_back(
+                    foot_pos_cur(2, i));
+        }
+
+        pub_tracer_swing_apex_debug.publish(debug_msg);
+    }
 
     // detect early contact
     bool last_contacts[NUM_LEG];

@@ -80,6 +80,10 @@ private:
 //    ros::Publisher pub_root_lin_vel_d;
     ros::Publisher pub_terrain_angle;
 
+    // TRACER swing target/response audit.
+    ros::Publisher pub_tracer_swing_apex_debug;
+    int tracer_swing_debug_counter = 0;
+
     ros::Publisher pub_foot_pose_target_FL;
     ros::Publisher pub_foot_pose_target_FR;
     ros::Publisher pub_foot_pose_target_RL;

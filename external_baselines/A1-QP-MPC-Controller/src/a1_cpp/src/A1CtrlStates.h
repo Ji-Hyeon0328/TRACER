@@ -130,6 +130,19 @@ public:
         joint_torques.setZero();
 
         power_level = 5;
+
+        // TRACER swing-apex residual defaults.
+        //
+        // The incoming clearance command preserves the historical
+        // high-level interface. 0.045 is the canonical command that
+        // reproduces the native A1-QP-MPC swing trajectory.
+        tracer_enable_swing_apex_residual = false;
+        tracer_swing_apex_residual_active = false;
+        tracer_swing_clearance = 0.045;
+        tracer_clearance_cmd_neutral = 0.045;
+        tracer_swing_apex_delta_min = -0.010;
+        tracer_swing_apex_delta_max = 0.020;
+        tracer_swing_apex_delta = 0.0;
     }
 
     void resetFromROSParam(ros::NodeHandle &_nh) {
@@ -317,6 +330,32 @@ public:
                 << a1_gait_counter_speed_FL, a1_gait_counter_speed_FR, a1_gait_counter_speed_RL, a1_gait_counter_speed_RR;
 
         _nh.param("a1_hardware_power_level", power_level, 2);
+
+        // TRACER low-level swing-apex residual interface.
+        //
+        // Disabled by default so legacy/native Bezier behavior is
+        // preserved unless explicitly enabled.
+        _nh.param(
+                "tracer_enable_swing_apex_residual",
+                tracer_enable_swing_apex_residual,
+                false);
+        _nh.param(
+                "tracer_clearance_cmd_neutral",
+                tracer_clearance_cmd_neutral,
+                0.045);
+        _nh.param(
+                "tracer_swing_apex_delta_min",
+                tracer_swing_apex_delta_min,
+                -0.010);
+        _nh.param(
+                "tracer_swing_apex_delta_max",
+                tracer_swing_apex_delta_max,
+                0.020);
+
+        // A newly loaded controller starts from the native trajectory.
+        tracer_swing_apex_residual_active = false;
+        tracer_swing_clearance = tracer_clearance_cmd_neutral;
+        tracer_swing_apex_delta = 0.0;
     }
 
     void gait_counter_reset() {
@@ -389,9 +428,25 @@ public:
     double walking_surface_height_tmp;
     double walking_surface_height;
 
-    // Additional swing clearance commanded by TRACER high-level.
-    // This is added as a smooth z bump during swing phase.
-    double tracer_swing_clearance = 0.0;
+    // TRACER high-level clearance command and its physical
+    // interpretation inside the low-level swing controller.
+    //
+    // tracer_swing_clearance:
+    //   Raw command carried by /tracer/mpc_reference[4].
+    //
+    // tracer_swing_apex_delta:
+    //   Bounded physical z residual applied at the swing apex.
+    //
+    // A command equal to tracer_clearance_cmd_neutral reproduces the
+    // native A1-QP-MPC Bezier trajectory exactly.
+    bool tracer_enable_swing_apex_residual = false;
+    bool tracer_swing_apex_residual_active = false;
+    double tracer_swing_clearance = 0.045;
+    double tracer_clearance_cmd_neutral = 0.045;
+    double tracer_swing_apex_delta_min = -0.010;
+    double tracer_swing_apex_delta_max = 0.020;
+    double tracer_swing_apex_delta = 0.0;
+
     int walking_surface_fit_count;
 
     Eigen::Matrix<double, 3, NUM_LEG> foot_pos_target_world; // in the world frame

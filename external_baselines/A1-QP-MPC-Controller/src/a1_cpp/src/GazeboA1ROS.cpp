@@ -162,10 +162,36 @@ bool GazeboA1ROS::main_update(double t, double dt) {
         // Let TRACER command directly enter walking mode.
         joy_cmd_ctrl_state = 1;
 
-        // Clearance is consumed by A1RobotControl::generate_swing_legs_ctrl().
-        a1_ctrl_states.tracer_swing_clearance = tracer_cmd_clearance;
+        // Preserve the historical absolute-looking command at
+        // the interface, then convert it into a bounded physical
+        // swing-apex residual.
+        a1_ctrl_states.tracer_swing_clearance =
+                tracer_cmd_clearance;
+
+        if (a1_ctrl_states.tracer_enable_swing_apex_residual) {
+            const double raw_apex_delta =
+                    tracer_cmd_clearance -
+                    a1_ctrl_states.tracer_clearance_cmd_neutral;
+
+            a1_ctrl_states.tracer_swing_apex_delta =
+                    std::max(
+                            a1_ctrl_states.tracer_swing_apex_delta_min,
+                            std::min(
+                                    a1_ctrl_states.tracer_swing_apex_delta_max,
+                                    raw_apex_delta));
+
+            a1_ctrl_states.tracer_swing_apex_residual_active = true;
+        } else {
+            a1_ctrl_states.tracer_swing_apex_delta = 0.0;
+            a1_ctrl_states.tracer_swing_apex_residual_active = false;
+        }
     } else {
-        a1_ctrl_states.tracer_swing_clearance = 0.0;
+        // A stale or absent TRACER reference must reproduce the native
+        // controller trajectory.
+        a1_ctrl_states.tracer_swing_clearance =
+                a1_ctrl_states.tracer_clearance_cmd_neutral;
+        a1_ctrl_states.tracer_swing_apex_delta = 0.0;
+        a1_ctrl_states.tracer_swing_apex_residual_active = false;
     }
 
     prev_joy_cmd_ctrl_state = joy_cmd_ctrl_state;
