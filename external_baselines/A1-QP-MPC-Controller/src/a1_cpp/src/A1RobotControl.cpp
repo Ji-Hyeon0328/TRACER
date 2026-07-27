@@ -269,6 +269,7 @@ void A1RobotControl::generate_swing_legs_ctrl(A1CtrlStates &state, double dt) {
         // physical metres at the target swing apex.
         if (
                 state.tracer_swing_apex_residual_active &&
+                std::isfinite(state.tracer_swing_apex_delta) &&
                 !state.plan_contacts[i]) {
             const double swing_phase =
                     std::max(

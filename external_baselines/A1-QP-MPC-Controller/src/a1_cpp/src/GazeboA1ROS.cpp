@@ -4,6 +4,7 @@
 
 #include "GazeboA1ROS.h"
 #include <algorithm>
+#include <cmath>
 
 // constructor
 GazeboA1ROS::GazeboA1ROS(ros::NodeHandle &_nh) {
@@ -168,7 +169,20 @@ bool GazeboA1ROS::main_update(double t, double dt) {
         a1_ctrl_states.tracer_swing_clearance =
                 tracer_cmd_clearance;
 
-        if (a1_ctrl_states.tracer_enable_swing_apex_residual) {
+        const bool tracer_clearance_config_valid =
+                std::isfinite(tracer_cmd_clearance) &&
+                std::isfinite(
+                        a1_ctrl_states.tracer_clearance_cmd_neutral) &&
+                std::isfinite(
+                        a1_ctrl_states.tracer_swing_apex_delta_min) &&
+                std::isfinite(
+                        a1_ctrl_states.tracer_swing_apex_delta_max) &&
+                a1_ctrl_states.tracer_swing_apex_delta_min <=
+                        a1_ctrl_states.tracer_swing_apex_delta_max;
+
+        if (
+                a1_ctrl_states.tracer_enable_swing_apex_residual &&
+                tracer_clearance_config_valid) {
             const double raw_apex_delta =
                     tracer_cmd_clearance -
                     a1_ctrl_states.tracer_clearance_cmd_neutral;
@@ -184,6 +198,16 @@ bool GazeboA1ROS::main_update(double t, double dt) {
         } else {
             a1_ctrl_states.tracer_swing_apex_delta = 0.0;
             a1_ctrl_states.tracer_swing_apex_residual_active = false;
+
+            if (
+                    a1_ctrl_states.tracer_enable_swing_apex_residual &&
+                    !tracer_clearance_config_valid) {
+                ROS_ERROR_THROTTLE(
+                    1.0,
+                    "[TRACER] disabled swing-apex residual "
+                    "because its command or bounds are invalid"
+                );
+            }
         }
     } else {
         // A stale or absent TRACER reference must reproduce the native
@@ -479,6 +503,21 @@ void GazeboA1ROS::tracer_mpc_reference_callback(const std_msgs::Float64MultiArra
     const double yaw_rate = msg->data[2];
     const double body_height = msg->data[3];
     const double clearance = msg->data[4];
+
+    const bool tracer_reference_values_finite =
+            std::isfinite(vx) &&
+            std::isfinite(yaw_rate) &&
+            std::isfinite(body_height) &&
+            std::isfinite(clearance);
+
+    if (!tracer_reference_values_finite) {
+        ROS_WARN_THROTTLE(
+            1.0,
+            "[TRACER] rejected non-finite "
+            "/tracer/mpc_reference message"
+        );
+        return;
+    }
 
     tracer_ref_enable = true;
     tracer_cmd_vx = std::max(-0.30, std::min(0.30, vx));
