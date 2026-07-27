@@ -1,0 +1,13 @@
+matched apex cells = 12
+FL: target Δ=+11.12 mm, actual Δ=+11.45 mm, tracking-error change=+0.33 mm
+FR: target Δ=+12.16 mm, actual Δ=+11.43 mm, tracking-error change=-0.73 mm
+RL: target Δ=+12.08 mm, actual Δ=+11.23 mm, tracking-error change=-0.85 mm
+RR: target Δ=+11.12 mm, actual Δ=+12.01 mm, tracking-error change=+0.89 mm
+
+combined median target delta mm = +11.359966
+combined median actual delta mm = +11.439227
+combined tracking-error change mm = -0.198968
+positive actual cells = 1.000000
+median realized/target ratio = 1.006977
+
+[EVIDENCE] high-clearance command produced a positive realized foot-height shift across most matched apex cells
