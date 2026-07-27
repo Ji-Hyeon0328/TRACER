@@ -1,0 +1,58 @@
+TRACER LL1 complete ROS2-to-low-level clearance authority evidence
+
+Run:
+  tracer_ll1_e2e_authority_20260727_152058
+
+Transport:
+  ROS2 /tracer/mpc_reference
+  -> little-endian UDP <6d>
+  -> UDP 50110
+  -> ROS1 /tracer/mpc_reference
+  -> LL1 controller
+
+Reference layout:
+  [counter, vx, yaw_rate, body_height, clearance, enable]
+
+Neutral trial:
+  clearance                 = 0.045 m
+  expected apex residual    = 0.000 m
+  ROS1 reference packets    = 101
+  unique debug packets      = 62
+  saw swing                 = True
+  saw stance                = True
+  max normalized shape      = 1.000000000
+  max applied bump          = 0.000000000
+  max active error          = 0.000000000000
+  max raw-command error     = 0.000000000000
+  max delta error           = 0.000000000000
+  max relation error        = 0.000000000000
+  max stance bump           = 0.000000000000
+  bounded                   = True
+
+High-clearance trial:
+  clearance                 = 0.060 m
+  expected apex residual    = 0.015 m
+  ROS1 reference packets    = 101
+  unique debug packets      = 62
+  saw swing                 = True
+  saw stance                = True
+  max normalized shape      = 1.000000000
+  max applied bump          = 0.015000000
+  max active error          = 0.000000000000
+  max raw-command error     = 0.000000000000
+  max delta error           = 0.000000000000
+  max relation error        = 0.000000000000
+  max stance bump           = 0.000000000000
+  bounded                   = True
+
+Conclusion:
+  The ROS2 clearance command reached the LL1 controller without
+  transport or semantic error and produced the expected bounded
+  swing-apex residual.
+
+Scope:
+  This establishes end-to-end target-level authority.
+  Realized actual-foot authority was established separately by the
+  matched-phase A/B evidence frozen in commit f6fb596.
+  This result does not yet establish terrain-performance improvement
+  or J7-source activation.
