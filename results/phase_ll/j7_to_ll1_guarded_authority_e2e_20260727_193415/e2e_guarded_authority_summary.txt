@@ -1,0 +1,190 @@
+TRACER J7-to-LL1 guarded authority evidence
+============================================================
+
+Date:
+2026-07-27
+
+Base branch:
+TRACER-lowcontroller
+
+Base commit:
+ec2f212
+
+Base ROS2-to-LL1 harness SHA-256:
+f116238a3545ccb841f9c4bdb526d466eecefcdd796bf88feda00a2a08239e53
+
+Generated J7-to-LL1 harness SHA-256:
+96e20211b81d0f62a08b56c0bfffbbf1fa861f629488ab579dad5fb2c7bb1423
+
+Audited J7 source SHA-256:
+2b2692af30e164db53d3c125323ff27d42849f7b6a9fc28485f4742b4580811a
+
+
+Accepted trial: accepted_050
+----------------------------------------
+
+Empirical clearance:
+0.045 m
+
+Projected clearance:
+0.050 m
+
+J7 decision:
+accept = 1
+reason = accepted_guarded
+source = projected
+
+J7 output / ROS1 reference clearance:
+0.050 m
+
+Expected LL1 residual:
++0.005 m
+
+Observed LL1 maximum applied bump:
++0.005000000 m
+
+ROS1 reference packets:
+101
+
+Unique LL1 debug packets:
+61
+
+Swing observed:
+true
+
+Stance observed:
+true
+
+Maximum normalized shape:
+1.000000000
+
+Maximum active error:
+0.000000000000
+
+Maximum raw-command error:
+0.000000000000
+
+Maximum delta error:
+0.000000000000
+
+Maximum bump-relation error:
+0.000000000000
+
+Maximum stance bump:
+0.000000000000
+
+Robot state bounded:
+true
+
+
+Rejected trial: rejected_060
+----------------------------------------
+
+Empirical clearance:
+0.045 m
+
+Projected clearance:
+0.060 m
+
+J7 decision:
+accept = 0
+reason = delta_clearance_too_large
+source = empirical
+
+J7 output / ROS1 reference clearance:
+0.045 m
+
+Expected LL1 residual:
+0.000 m
+
+Observed LL1 maximum applied bump:
+0.000000000 m
+
+ROS1 reference packets:
+101
+
+Unique LL1 debug packets:
+62
+
+Swing observed:
+true
+
+Stance observed:
+true
+
+Maximum normalized shape:
+1.000000000
+
+Maximum active error:
+0.000000000000
+
+Maximum raw-command error:
+0.000000000000
+
+Maximum delta error:
+0.000000000000
+
+Maximum bump-relation error:
+0.000000000000
+
+Maximum stance bump:
+0.000000000000
+
+Robot state bounded:
+true
+
+
+Final safe state
+----------------------------------------
+
+J7 active source:
+stopped
+
+LL1 controller:
+stopped
+
+ROS2 sender:
+stopped
+
+ROS1 receiver:
+stopped
+
+Swing-apex residual feature:
+false
+
+Gazebo physics:
+paused
+
+Joint command publisher:
+none
+
+
+Supported conclusion
+----------------------------------------
+
+The same-run guarded command path was directly validated:
+
+J7 guarded decision
+→ ROS2 /tracer/mpc_reference
+→ UDP
+→ ROS1 /tracer/mpc_reference
+→ LL1 clearance command
+→ LL1 swing-apex target residual
+
+Accepted bounded proposals reach LL1 as the expected residual.
+Excessive clearance proposals are rejected and fall back to the
+empirical command before reaching LL1.
+
+
+Not established by this run
+----------------------------------------
+
+- Same-run actual foot-height displacement
+- Terrain-performance improvement
+- Stability improvement
+- Energy improvement
+- Learned Objective Selector readiness
+- Learned RL/meta-planner readiness
+
+Actual low-level foot-height realization was established independently
+in the earlier f6fb596 matched-phase LL1 evidence.
