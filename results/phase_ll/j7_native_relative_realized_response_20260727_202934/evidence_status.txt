@@ -1,0 +1,63 @@
+TRACER J7 native-relative realized response evidence
+
+Base commit:
+3db3a82
+
+Executed harness SHA-256:
+e26b2c35c530faf178256addfe4dba32f5c8e0233134925aa6c99ce7d592d7bf
+
+Experiment structure:
+Two reset-separated trials in one harness invocation
+
+Accepted condition:
+J7 projected 0.050 m
+LL1 residual +0.005 m
+
+Rejected condition:
+J7 rejected projected 0.060 m
+Empirical fallback 0.045 m
+LL1 residual 0 m
+
+Matched apex cells:
+12
+
+Matched legs:
+FL, FR, RL, RR
+
+Median native-target difference:
+-6.654658 mm
+
+Median applied-bump difference:
++4.608000 mm
+
+Median final-target difference:
+-1.654658 mm
+
+Median native-relative actual response:
++3.678587 mm
+
+Median absolute actual difference:
+-3.188466 mm
+
+Positive native-relative cells:
+100%
+
+Positive absolute actual cells:
+16.6667%
+
+Interpretation:
+The native trajectory mismatch opposed and exceeded the selected
+residual. Absolute trial-to-trial height therefore cannot be used as
+the authority endpoint for this reset-separated comparison.
+
+Supported evidence:
+The J7-selected residual produced a positive actual swing-foot response
+relative to each trial's reconstructed native swing trajectory across
+all matched apex cells.
+
+Evidence classification:
+Post-hoc diagnostic evidence
+
+Not supported:
+Absolute foot-height increase, terrain benefit, stability benefit,
+energy benefit, or learned-policy readiness.

@@ -1,0 +1,26 @@
+matched apex cells = 12
+matched legs = FL,FR,RL,RR
+
+combined median native-target delta mm = -6.654658
+combined median bump delta mm = +4.608000
+combined median final-target delta mm = -1.654658
+combined median tracking-error delta mm = -1.321413
+combined median native-relative realized delta mm = +3.678587
+combined median absolute actual delta mm = -3.188466
+
+positive bump cells fraction = 1.000000
+positive native-relative realized cells fraction = 1.000000
+positive absolute actual cells fraction = 0.166667
+
+max target decomposition error = 1.387778780781e-17
+max actual decomposition error = 3.816391647149e-17
+max debug relation error = 1.387778780781e-17
+
+native mismatch overwhelmed guarded bump = True
+FL: cells=3 native_mm=-6.860666 bump_mm=+4.608000 relative_realized_mm=+4.306080 absolute_actual_mm=-3.245031
+FR: cells=3 native_mm=-6.448651 bump_mm=+4.608000 relative_realized_mm=+2.694253 absolute_actual_mm=-3.380485
+RL: cells=3 native_mm=-6.367622 bump_mm=+4.608000 relative_realized_mm=+2.735370 absolute_actual_mm=-2.433286
+RR: cells=3 native_mm=-6.873440 bump_mm=+4.608000 relative_realized_mm=+4.236205 absolute_actual_mm=-3.131900
+
+[DIAGNOSIS] absolute target/actual comparison was confounded by an opposing native-trajectory mismatch larger than the guarded bump
+[EVIDENCE] the J7-selected residual produced a positive realized response relative to each trial's reconstructed native swing trajectory

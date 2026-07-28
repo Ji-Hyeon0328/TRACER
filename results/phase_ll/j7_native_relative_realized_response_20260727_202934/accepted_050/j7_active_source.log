@@ -1,0 +1,25 @@
+[INFO] [1785198591.526120851] [tracer_phase_j7_guarded_meta_action_ref_gate_node_v0]: [TRACER:J7] empirical input=/tracer/empirical_mpc_reference
+[INFO] [1785198591.526518722] [tracer_phase_j7_guarded_meta_action_ref_gate_node_v0]: [TRACER:J7] projected input=/tracer/meta_action_projected_ref_shadow
+[INFO] [1785198591.526812836] [tracer_phase_j7_guarded_meta_action_ref_gate_node_v0]: [TRACER:J7] theta input=/tracer/meta_action_theta_shadow
+[INFO] [1785198591.527102417] [tracer_phase_j7_guarded_meta_action_ref_gate_node_v0]: [TRACER:J7] output=/tracer/mpc_reference
+[INFO] [1785198591.527390644] [tracer_phase_j7_guarded_meta_action_ref_gate_node_v0]: [TRACER:J7] allowed_contexts=['flat']
+[INFO] [1785198591.527683020] [tracer_phase_j7_guarded_meta_action_ref_gate_node_v0]: [TRACER:J7] require_seq_match=True
+[INFO] [1785198591.527963838] [tracer_phase_j7_guarded_meta_action_ref_gate_node_v0]: [TRACER:J7] active_failsafe_hold=True
+[INFO] [1785198591.528248148] [tracer_phase_j7_guarded_meta_action_ref_gate_node_v0]: [TRACER:J7] logging to /tmp/tracer_j7_to_realized_foot_authority_20260727_202934/accepted_050/j7_log/guarded_meta_action_ref_gate_j7_v0.csv
+[INFO] [1785198591.528524684] [tracer_phase_j7_guarded_meta_action_ref_gate_node_v0]: [TRACER:J7] shadow-only unless output topic is explicitly changed
+Traceback (most recent call last):
+  File "/tmp/tracer_j7_to_ll1_active_source.py", line 222, in <module>
+    main()
+  File "/tmp/tracer_j7_to_ll1_active_source.py", line 207, in main
+    executor.spin()
+  File "/home/kraken/ros2_humble/install/rclpy/local/lib/python3.10/dist-packages/rclpy/executors.py", line 298, in spin
+    self.spin_once()
+  File "/home/kraken/ros2_humble/install/rclpy/local/lib/python3.10/dist-packages/rclpy/executors.py", line 773, in spin_once
+    self._spin_once_impl(timeout_sec)
+  File "/home/kraken/ros2_humble/install/rclpy/local/lib/python3.10/dist-packages/rclpy/executors.py", line 762, in _spin_once_impl
+    handler, entity, node = self.wait_for_ready_callbacks(timeout_sec=timeout_sec)
+  File "/home/kraken/ros2_humble/install/rclpy/local/lib/python3.10/dist-packages/rclpy/executors.py", line 745, in wait_for_ready_callbacks
+    return next(self._cb_iter)
+  File "/home/kraken/ros2_humble/install/rclpy/local/lib/python3.10/dist-packages/rclpy/executors.py", line 618, in _wait_for_ready_callbacks
+    wait_set = _rclpy.WaitSet(
+rclpy._rclpy_pybind11.RCLError: failed to initialize wait set: the given context is not valid, either rcl_init() was not called or rcl_shutdown() was called., at /home/kraken/ros2_humble/src/ros2/rcl/rcl/src/rcl/wait.c:130

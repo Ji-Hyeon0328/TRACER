@@ -1,0 +1,21 @@
+matched apex cells = 12
+matched legs = FL,FR,RL,RR
+accepted apex rows = 60
+rejected apex rows = 60
+combined median bump delta mm = +4.608000
+combined median target delta mm = -1.654658
+combined median actual delta mm = -3.188466
+combined median tracking-error change mm = -1.321413
+positive target cells fraction = 0.333333
+positive actual cells fraction = 0.166667
+median realized/target ratio = 1.926963
+FL: cells=3 median_target_delta_mm=-1.860666 median_actual_delta_mm=-3.245031
+FR: cells=3 median_target_delta_mm=-1.448651 median_actual_delta_mm=-3.380485
+RL: cells=3 median_target_delta_mm=-1.367622 median_actual_delta_mm=-2.433286
+RR: cells=3 median_target_delta_mm=-1.873440 median_actual_delta_mm=-3.131900
+
+[FAIL]
+- median target-z shift was not positive enough
+- positive target-cell coverage below 75%
+- median actual-z shift was not positive enough
+- positive actual-cell coverage below 65%
