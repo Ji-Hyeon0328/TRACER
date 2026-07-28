@@ -1,0 +1,25 @@
+[INFO] [1785204145.288998860] [tracer_phase_j7_guarded_meta_action_ref_gate_node_v0]: [TRACER:J7] empirical input=/tracer/empirical_mpc_reference
+[INFO] [1785204145.289393281] [tracer_phase_j7_guarded_meta_action_ref_gate_node_v0]: [TRACER:J7] projected input=/tracer/meta_action_projected_ref_shadow
+[INFO] [1785204145.289706347] [tracer_phase_j7_guarded_meta_action_ref_gate_node_v0]: [TRACER:J7] theta input=/tracer/meta_action_theta_shadow
+[INFO] [1785204145.290006048] [tracer_phase_j7_guarded_meta_action_ref_gate_node_v0]: [TRACER:J7] output=/tracer/mpc_reference
+[INFO] [1785204145.290307448] [tracer_phase_j7_guarded_meta_action_ref_gate_node_v0]: [TRACER:J7] allowed_contexts=['flat']
+[INFO] [1785204145.290605449] [tracer_phase_j7_guarded_meta_action_ref_gate_node_v0]: [TRACER:J7] require_seq_match=True
+[INFO] [1785204145.290912523] [tracer_phase_j7_guarded_meta_action_ref_gate_node_v0]: [TRACER:J7] active_failsafe_hold=True
+[INFO] [1785204145.291204085] [tracer_phase_j7_guarded_meta_action_ref_gate_node_v0]: [TRACER:J7] logging to /tmp/tracer_j7_interleaved_abba_absolute_authority_20260727_220207/interleaved_abba/j7_log/guarded_meta_action_ref_gate_j7_v0.csv
+[INFO] [1785204145.291486587] [tracer_phase_j7_guarded_meta_action_ref_gate_node_v0]: [TRACER:J7] shadow-only unless output topic is explicitly changed
+Traceback (most recent call last):
+  File "/tmp/tracer_j7_to_ll1_active_source.py", line 241, in <module>
+    main()
+  File "/tmp/tracer_j7_to_ll1_active_source.py", line 226, in main
+    executor.spin()
+  File "/home/kraken/ros2_humble/install/rclpy/local/lib/python3.10/dist-packages/rclpy/executors.py", line 298, in spin
+    self.spin_once()
+  File "/home/kraken/ros2_humble/install/rclpy/local/lib/python3.10/dist-packages/rclpy/executors.py", line 773, in spin_once
+    self._spin_once_impl(timeout_sec)
+  File "/home/kraken/ros2_humble/install/rclpy/local/lib/python3.10/dist-packages/rclpy/executors.py", line 762, in _spin_once_impl
+    handler, entity, node = self.wait_for_ready_callbacks(timeout_sec=timeout_sec)
+  File "/home/kraken/ros2_humble/install/rclpy/local/lib/python3.10/dist-packages/rclpy/executors.py", line 745, in wait_for_ready_callbacks
+    return next(self._cb_iter)
+  File "/home/kraken/ros2_humble/install/rclpy/local/lib/python3.10/dist-packages/rclpy/executors.py", line 646, in _wait_for_ready_callbacks
+    raise ExternalShutdownException()
+rclpy.executors.ExternalShutdownException

@@ -1,0 +1,27 @@
+four-window matched apex cells = 12
+matched legs = FL,FR,RL,RR
+apex rows total = 148
+
+combined median A-endpoint native drift mm = -2.765077
+combined median B-half native drift mm = -0.097765
+combined median ABBA native effect mm = -3.042848
+combined median ABBA bump effect mm = +4.608000
+combined median ABBA final-target effect mm = +1.957152
+combined median ABBA tracking-error effect mm = -0.542292
+combined median ABBA native-relative effect mm = +4.065708
+combined median ABBA absolute-actual effect mm = +1.376650
+
+positive bump cells fraction = 1.000000
+positive final-target cells fraction = 0.833333
+positive native-relative cells fraction = 1.000000
+positive absolute-actual cells fraction = 0.666667
+median realized/target ratio = 0.703395
+
+max target decomposition error = 1.387778780781e-17
+max actual decomposition error = 5.898059818321e-17
+FL: cells=3 native_mm=-3.471375 bump_mm=+4.608000 target_mm=+1.528625 actual_mm=+0.368308
+FR: cells=3 native_mm=-2.787759 bump_mm=+4.608000 target_mm=+2.212241 actual_mm=+0.958866
+RL: cells=3 native_mm=-2.765970 bump_mm=+4.608000 target_mm=+2.234030 actual_mm=+2.544464
+RR: cells=3 native_mm=-3.297937 bump_mm=+4.608000 target_mm=+1.702063 actual_mm=+1.794434
+
+[EVIDENCE] one-reset continuous J7 ABBA routing produced a positive absolute swing-foot response over the bracketing empirical fallback

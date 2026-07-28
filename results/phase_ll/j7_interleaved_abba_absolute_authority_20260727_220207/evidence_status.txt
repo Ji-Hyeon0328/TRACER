@@ -1,0 +1,18 @@
+TRACER J7 interleaved ABBA absolute authority evidence
+======================================================
+
+Base commit: 15af5c5
+Executed harness SHA-256: 59948e99453992b539e96ff26e91f8133a7daa520c272db3636d40af0c4543f3
+Design: one reset, one controller, one J7 process, continuous A-B-B-A rollout
+Matched apex cells: 12
+Matched legs: FL, FR, RL, RR
+Median native effect: -3.042848 mm
+Median applied-bump effect: +4.608000 mm
+Median final-target effect: +1.957152 mm
+Median absolute actual effect: +1.376650 mm
+Positive final-target cells: 83.3333%
+Positive absolute-actual cells: 66.6667%
+Median realized/target ratio: 0.703395
+
+Supported evidence: the J7-selected clearance residual produced a positive absolute swing-foot response over the bracketing empirical fallback.
+Not supported: terrain benefit, stability benefit, energy benefit, robust generalization, or learned-policy readiness.
