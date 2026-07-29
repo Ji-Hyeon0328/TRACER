@@ -1,0 +1,48 @@
+TRACER LL1 VX A/B confirmatory extension v0
+
+Existing balanced blocks:
+  block 1: A B
+  block 2: C A B
+  block 3: B C A
+
+New confirmatory blocks:
+  block 4: A B
+  block 5: B A
+
+Combined A/B sample count:
+  A n=5
+  B n=5
+
+Required core confirmation:
+  mean paired B-A mission time <= -3.0 simulated seconds
+  B faster in at least 4 of 5 blocks
+  mean paired commanded-work proxy <= -300
+  B lower work in at least 4 of 5 blocks
+  mean paired work-per-meter proxy <= -35
+  B lower work-per-meter in at least 4 of 5 blocks
+
+Supporting execution confirmation:
+  mean paired realized body-frame VX >= +0.003 m/s
+  B higher realized VX in at least 4 of 5 blocks
+
+No meaningful lateral penalty:
+  mean paired goal-entry abs-y penalty <= +0.15 m
+  mean paired maximum abs-y penalty <= +0.15 m
+  mean paired rough abs-dy penalty <= +0.10 m
+
+No meaningful safety penalty:
+  mean paired maximum-roll penalty <= +1.0 degree
+  mean paired maximum-pitch penalty <= +1.0 degree
+  mean paired minimum-base-height effect >= -0.005 m
+  mean paired VX tracking-error penalty <= +0.003 m/s
+
+Hard rollout safety:
+  every B maximum |roll| <= 20 degrees
+  every B maximum |pitch| <= 20 degrees
+  every B minimum base z > 0.20 m
+
+Scope:
+  world-v5 engineering confirmation only
+  commanded mechanical-work proxy, not battery energy
+  not cross-world validation
+  not final Objective Selector supervision
