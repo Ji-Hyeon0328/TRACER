@@ -1,0 +1,63 @@
+TRACER LL1 transition-aware VX candidate B2 preregistration v0
+
+World:
+  tracer_mixed_stress_course_v5_lowfric_from_solid
+
+Frozen parameters:
+  body_height=0.320
+  clearance=0.045
+  yaw=0
+  enable=1
+  frozen LL1 A1-QP-MPC
+
+Conditions:
+  A fixed-low:
+    vx=0.090 on all active terrain
+
+  B abrupt schedule:
+    flat/start-flat=0.115
+    upslope/rough/downslope=0.090
+    transition occurs at terrain-label boundary near x=2.0
+
+  T transition-aware B2:
+    x<=1.40: vx=0.115
+    1.40<x<1.90: linear ramp from 0.115 to 0.090
+    x>=1.90: vx=0.090
+    difficult terrain: vx=0.090
+
+Hypothesis:
+  The lateral confirmation failure of B is partly caused by unfavorable
+  state at the flat-to-upslope transition. Reaching low VX before the
+  boundary should reduce later lateral variability while retaining a
+  useful portion of the flat-speed benefit.
+
+Smoke purpose:
+  Verify exact ramp publication, command coverage, telemetry validity,
+  complete terrain traversal, and logger integrity.
+  Smoke data is not performance evidence.
+
+Future balanced screening:
+  order ABC / CAB / BCA, where internal condition C denotes T.
+
+Screening success requirements:
+  T minus A:
+    mean mission-time effect <= -3.0 simulated seconds
+    mean commanded-work effect <= -300
+    mean maximum-abs-y penalty <= +0.15 m
+    mean rough abs-dy penalty <= +0.10 m
+
+  T minus B:
+    mean maximum-abs-y effect <= -0.05 m
+    mean rough abs-dy effect <= -0.05 m
+    mean mission-time penalty <= +3.0 simulated seconds
+    mean commanded-work penalty <= +300
+
+  Hard safety:
+    every T max abs roll <= 20 deg
+    every T max abs pitch <= 20 deg
+    every T min base z > 0.20 m
+
+Interpretation:
+  Passing is screening evidence for a transition-aware oracle candidate.
+  Failing closes this hand-designed VX-transition hypothesis for LL1.
+  Neither outcome creates a final Objective Selector teacher label.
