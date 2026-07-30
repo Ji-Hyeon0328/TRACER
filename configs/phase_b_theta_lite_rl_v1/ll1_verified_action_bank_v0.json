@@ -1,0 +1,346 @@
+{
+  "schema": "phase_b_ll1_verified_theta_lite_action_bank_v0",
+  "description": "Versioned 9-action high-level bank aligned with the frozen LL1 command envelope. The RL action chooses vx_far and swing_clearance only. Near-goal speed, stop/slow distances, body height, enable, and yaw policy are fixed.",
+  "legacy_compatible_action_fields": [
+    "vx_far",
+    "vx_near",
+    "goal_slow_distance",
+    "goal_stop_distance",
+    "body_height",
+    "swing_clearance"
+  ],
+  "action_count": 9,
+  "action_order": "vx_far_major_then_swing_clearance",
+  "learned_dimensions": {
+    "vx_far": [
+      0.04,
+      0.065,
+      0.09
+    ],
+    "swing_clearance": [
+      0.035,
+      0.045,
+      0.055
+    ]
+  },
+  "fixed_dimensions": {
+    "vx_near": 0.04,
+    "goal_slow_distance": 0.25,
+    "goal_stop_distance": 0.15,
+    "body_height": 0.32,
+    "enable": 1.0,
+    "rl_yaw_dimension": false,
+    "yaw_policy": "deterministic_goal_heading_guarded_not_rl_action_v0"
+  },
+  "provenance": {
+    "audit_branch": "TRACER-lowcontroller",
+    "audit_base_commit": "f5fb1d038431ed156e21ba88fd846eaeb62d9229",
+    "direct_yaw_authority_tag": "tracer-ll1-yaw-direct-authority-v1",
+    "j7_guarded_yaw_result": "transport_pass_but_strict_small_signal_authority_not_formally_proven",
+    "do_not_overwrite": "configs/phase_b_theta_lite_rl_v0/action_bank_v0.json"
+  },
+  "claims": {
+    "in_scope": [
+      "versioned high-level candidate bank",
+      "legacy field compatibility",
+      "bounded exploration around the audited LL1 operating region"
+    ],
+    "out_of_scope": [
+      "performance superiority",
+      "energy improvement",
+      "terrain generalization",
+      "learned yaw selection",
+      "Objective Selector or RAM readiness"
+    ]
+  },
+  "actions": [
+    {
+      "action_id": 0,
+      "name": "ll1_v040_c035",
+      "vx_far": 0.04,
+      "vx_near": 0.04,
+      "goal_slow_distance": 0.25,
+      "goal_stop_distance": 0.15,
+      "body_height": 0.32,
+      "swing_clearance": 0.035,
+      "yaw_policy": "deterministic_goal_heading_guarded_not_rl_action_v0",
+      "enable": 1.0,
+      "metadata": {
+        "learned_dimensions": [
+          "vx_far",
+          "swing_clearance"
+        ],
+        "fixed_dimensions": {
+          "vx_near": 0.04,
+          "goal_slow_distance": 0.25,
+          "goal_stop_distance": 0.15,
+          "body_height": 0.32,
+          "enable": 1.0
+        },
+        "authority_basis": {
+          "vx": "LL1 realized command authority established; this exact bank point remains a feasibility candidate until rollout validation",
+          "yaw": "excluded from RL action v0; downstream deterministic/guarded heading path only",
+          "body_height": "fixed because sustained repeatable body-height authority was not promoted",
+          "swing_clearance": "routed/realized authority exists; no performance promotion implied"
+        },
+        "scope": "high_level_action_candidate_not_performance_promoted"
+      }
+    },
+    {
+      "action_id": 1,
+      "name": "ll1_v040_c045",
+      "vx_far": 0.04,
+      "vx_near": 0.04,
+      "goal_slow_distance": 0.25,
+      "goal_stop_distance": 0.15,
+      "body_height": 0.32,
+      "swing_clearance": 0.045,
+      "yaw_policy": "deterministic_goal_heading_guarded_not_rl_action_v0",
+      "enable": 1.0,
+      "metadata": {
+        "learned_dimensions": [
+          "vx_far",
+          "swing_clearance"
+        ],
+        "fixed_dimensions": {
+          "vx_near": 0.04,
+          "goal_slow_distance": 0.25,
+          "goal_stop_distance": 0.15,
+          "body_height": 0.32,
+          "enable": 1.0
+        },
+        "authority_basis": {
+          "vx": "LL1 realized command authority established; this exact bank point remains a feasibility candidate until rollout validation",
+          "yaw": "excluded from RL action v0; downstream deterministic/guarded heading path only",
+          "body_height": "fixed because sustained repeatable body-height authority was not promoted",
+          "swing_clearance": "routed/realized authority exists; no performance promotion implied"
+        },
+        "scope": "high_level_action_candidate_not_performance_promoted"
+      }
+    },
+    {
+      "action_id": 2,
+      "name": "ll1_v040_c055",
+      "vx_far": 0.04,
+      "vx_near": 0.04,
+      "goal_slow_distance": 0.25,
+      "goal_stop_distance": 0.15,
+      "body_height": 0.32,
+      "swing_clearance": 0.055,
+      "yaw_policy": "deterministic_goal_heading_guarded_not_rl_action_v0",
+      "enable": 1.0,
+      "metadata": {
+        "learned_dimensions": [
+          "vx_far",
+          "swing_clearance"
+        ],
+        "fixed_dimensions": {
+          "vx_near": 0.04,
+          "goal_slow_distance": 0.25,
+          "goal_stop_distance": 0.15,
+          "body_height": 0.32,
+          "enable": 1.0
+        },
+        "authority_basis": {
+          "vx": "LL1 realized command authority established; this exact bank point remains a feasibility candidate until rollout validation",
+          "yaw": "excluded from RL action v0; downstream deterministic/guarded heading path only",
+          "body_height": "fixed because sustained repeatable body-height authority was not promoted",
+          "swing_clearance": "routed/realized authority exists; no performance promotion implied"
+        },
+        "scope": "high_level_action_candidate_not_performance_promoted"
+      }
+    },
+    {
+      "action_id": 3,
+      "name": "ll1_v065_c035",
+      "vx_far": 0.065,
+      "vx_near": 0.04,
+      "goal_slow_distance": 0.25,
+      "goal_stop_distance": 0.15,
+      "body_height": 0.32,
+      "swing_clearance": 0.035,
+      "yaw_policy": "deterministic_goal_heading_guarded_not_rl_action_v0",
+      "enable": 1.0,
+      "metadata": {
+        "learned_dimensions": [
+          "vx_far",
+          "swing_clearance"
+        ],
+        "fixed_dimensions": {
+          "vx_near": 0.04,
+          "goal_slow_distance": 0.25,
+          "goal_stop_distance": 0.15,
+          "body_height": 0.32,
+          "enable": 1.0
+        },
+        "authority_basis": {
+          "vx": "LL1 realized command authority established; this exact bank point remains a feasibility candidate until rollout validation",
+          "yaw": "excluded from RL action v0; downstream deterministic/guarded heading path only",
+          "body_height": "fixed because sustained repeatable body-height authority was not promoted",
+          "swing_clearance": "routed/realized authority exists; no performance promotion implied"
+        },
+        "scope": "high_level_action_candidate_not_performance_promoted"
+      }
+    },
+    {
+      "action_id": 4,
+      "name": "ll1_v065_c045",
+      "vx_far": 0.065,
+      "vx_near": 0.04,
+      "goal_slow_distance": 0.25,
+      "goal_stop_distance": 0.15,
+      "body_height": 0.32,
+      "swing_clearance": 0.045,
+      "yaw_policy": "deterministic_goal_heading_guarded_not_rl_action_v0",
+      "enable": 1.0,
+      "metadata": {
+        "learned_dimensions": [
+          "vx_far",
+          "swing_clearance"
+        ],
+        "fixed_dimensions": {
+          "vx_near": 0.04,
+          "goal_slow_distance": 0.25,
+          "goal_stop_distance": 0.15,
+          "body_height": 0.32,
+          "enable": 1.0
+        },
+        "authority_basis": {
+          "vx": "LL1 realized command authority established; this exact bank point remains a feasibility candidate until rollout validation",
+          "yaw": "excluded from RL action v0; downstream deterministic/guarded heading path only",
+          "body_height": "fixed because sustained repeatable body-height authority was not promoted",
+          "swing_clearance": "routed/realized authority exists; no performance promotion implied"
+        },
+        "scope": "high_level_action_candidate_not_performance_promoted"
+      }
+    },
+    {
+      "action_id": 5,
+      "name": "ll1_v065_c055",
+      "vx_far": 0.065,
+      "vx_near": 0.04,
+      "goal_slow_distance": 0.25,
+      "goal_stop_distance": 0.15,
+      "body_height": 0.32,
+      "swing_clearance": 0.055,
+      "yaw_policy": "deterministic_goal_heading_guarded_not_rl_action_v0",
+      "enable": 1.0,
+      "metadata": {
+        "learned_dimensions": [
+          "vx_far",
+          "swing_clearance"
+        ],
+        "fixed_dimensions": {
+          "vx_near": 0.04,
+          "goal_slow_distance": 0.25,
+          "goal_stop_distance": 0.15,
+          "body_height": 0.32,
+          "enable": 1.0
+        },
+        "authority_basis": {
+          "vx": "LL1 realized command authority established; this exact bank point remains a feasibility candidate until rollout validation",
+          "yaw": "excluded from RL action v0; downstream deterministic/guarded heading path only",
+          "body_height": "fixed because sustained repeatable body-height authority was not promoted",
+          "swing_clearance": "routed/realized authority exists; no performance promotion implied"
+        },
+        "scope": "high_level_action_candidate_not_performance_promoted"
+      }
+    },
+    {
+      "action_id": 6,
+      "name": "ll1_v090_c035",
+      "vx_far": 0.09,
+      "vx_near": 0.04,
+      "goal_slow_distance": 0.25,
+      "goal_stop_distance": 0.15,
+      "body_height": 0.32,
+      "swing_clearance": 0.035,
+      "yaw_policy": "deterministic_goal_heading_guarded_not_rl_action_v0",
+      "enable": 1.0,
+      "metadata": {
+        "learned_dimensions": [
+          "vx_far",
+          "swing_clearance"
+        ],
+        "fixed_dimensions": {
+          "vx_near": 0.04,
+          "goal_slow_distance": 0.25,
+          "goal_stop_distance": 0.15,
+          "body_height": 0.32,
+          "enable": 1.0
+        },
+        "authority_basis": {
+          "vx": "LL1 realized command authority established; this exact bank point remains a feasibility candidate until rollout validation",
+          "yaw": "excluded from RL action v0; downstream deterministic/guarded heading path only",
+          "body_height": "fixed because sustained repeatable body-height authority was not promoted",
+          "swing_clearance": "routed/realized authority exists; no performance promotion implied"
+        },
+        "scope": "high_level_action_candidate_not_performance_promoted"
+      }
+    },
+    {
+      "action_id": 7,
+      "name": "ll1_v090_c045",
+      "vx_far": 0.09,
+      "vx_near": 0.04,
+      "goal_slow_distance": 0.25,
+      "goal_stop_distance": 0.15,
+      "body_height": 0.32,
+      "swing_clearance": 0.045,
+      "yaw_policy": "deterministic_goal_heading_guarded_not_rl_action_v0",
+      "enable": 1.0,
+      "metadata": {
+        "learned_dimensions": [
+          "vx_far",
+          "swing_clearance"
+        ],
+        "fixed_dimensions": {
+          "vx_near": 0.04,
+          "goal_slow_distance": 0.25,
+          "goal_stop_distance": 0.15,
+          "body_height": 0.32,
+          "enable": 1.0
+        },
+        "authority_basis": {
+          "vx": "LL1 realized command authority established; this exact bank point remains a feasibility candidate until rollout validation",
+          "yaw": "excluded from RL action v0; downstream deterministic/guarded heading path only",
+          "body_height": "fixed because sustained repeatable body-height authority was not promoted",
+          "swing_clearance": "routed/realized authority exists; no performance promotion implied"
+        },
+        "scope": "high_level_action_candidate_not_performance_promoted"
+      }
+    },
+    {
+      "action_id": 8,
+      "name": "ll1_v090_c055",
+      "vx_far": 0.09,
+      "vx_near": 0.04,
+      "goal_slow_distance": 0.25,
+      "goal_stop_distance": 0.15,
+      "body_height": 0.32,
+      "swing_clearance": 0.055,
+      "yaw_policy": "deterministic_goal_heading_guarded_not_rl_action_v0",
+      "enable": 1.0,
+      "metadata": {
+        "learned_dimensions": [
+          "vx_far",
+          "swing_clearance"
+        ],
+        "fixed_dimensions": {
+          "vx_near": 0.04,
+          "goal_slow_distance": 0.25,
+          "goal_stop_distance": 0.15,
+          "body_height": 0.32,
+          "enable": 1.0
+        },
+        "authority_basis": {
+          "vx": "LL1 realized command authority established; this exact bank point remains a feasibility candidate until rollout validation",
+          "yaw": "excluded from RL action v0; downstream deterministic/guarded heading path only",
+          "body_height": "fixed because sustained repeatable body-height authority was not promoted",
+          "swing_clearance": "routed/realized authority exists; no performance promotion implied"
+        },
+        "scope": "high_level_action_candidate_not_performance_promoted"
+      }
+    }
+  ]
+}

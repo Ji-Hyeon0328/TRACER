@@ -1,0 +1,120 @@
+{
+  "schema": "phase_b_beta_conditioned_discrete_policy_design_v0",
+  "description": "Design contract for the first true beta-conditioned categorical high-level policy. This is not the legacy world-one-hot-only offline PPO-like trainer.",
+  "action_space": {
+    "type": "categorical_action_bank",
+    "bank": "configs/phase_b_theta_lite_rl_v1/ll1_verified_action_bank_v0.json",
+    "num_actions": 9,
+    "rl_selected_fields": [
+      "vx_far",
+      "swing_clearance"
+    ],
+    "fixed_or_external_fields": [
+      "vx_near",
+      "goal_slow_distance",
+      "goal_stop_distance",
+      "body_height",
+      "enable",
+      "yaw_policy"
+    ]
+  },
+  "observation_v0": {
+    "terrain_context": [
+      "terrain_one_hot:start_flat",
+      "terrain_one_hot:rough",
+      "terrain_one_hot:upslope",
+      "terrain_one_hot:downslope",
+      "terrain_one_hot:goal_flat",
+      "slope",
+      "roughness",
+      "risk"
+    ],
+    "task_state": [
+      "relative_goal_x",
+      "relative_goal_y",
+      "current_vx_world",
+      "current_vy_world",
+      "current_yaw"
+    ],
+    "objective": [
+      "beta_motion",
+      "beta_stability",
+      "beta_energy"
+    ],
+    "ram_bootstrap": {
+      "rho": "zeros_until_student_or_teacher_latent_is_connected",
+      "sigma": "zeros_until_uncertainty_head_is_connected"
+    },
+    "policy_memory": [
+      "previous_action_one_hot_9"
+    ]
+  },
+  "beta_anchors": {
+    "balanced": [
+      0.34,
+      0.33,
+      0.33
+    ],
+    "motion": [
+      0.7,
+      0.2,
+      0.1
+    ],
+    "stability": [
+      0.15,
+      0.7,
+      0.15
+    ],
+    "energy": [
+      0.15,
+      0.2,
+      0.65
+    ]
+  },
+  "reward_contract": {
+    "formula": "beta_motion*R_motion + beta_stability*R_stability + beta_energy*R_energy - R_failure - R_switch",
+    "requirements": [
+      "log every component separately",
+      "store the beta used for every transition or episode",
+      "do not infer beta from action labels",
+      "do not train on legacy action IDs without explicit remapping"
+    ]
+  },
+  "training_stages": [
+    {
+      "name": "bank_feasibility_collection",
+      "policy": "systematic_or_uniform_action_sampling",
+      "ram": "rho=0,sigma=0",
+      "objective_selector": "external_beta_anchor"
+    },
+    {
+      "name": "beta_conditioned_base_policy",
+      "policy": "categorical_policy_over_9_actions",
+      "ram": "rho=0,sigma=0",
+      "objective_selector": "external_beta_anchor"
+    },
+    {
+      "name": "objective_selector_and_ram_offline_training",
+      "input": "new_bank_rollout_dataset"
+    },
+    {
+      "name": "integrated_finetuning",
+      "input": "learned_beta_and_ram_latents"
+    }
+  ],
+  "legacy_pipeline_diagnosis": {
+    "legacy_trainer": "scripts/training/tracer_train_phase_b_ppo_theta_lite_discrete_v0.py",
+    "legacy_behavior": "world_one_hot_only_episode_level_offline_ppo_like_update",
+    "legacy_dataset_reuse": {
+      "policy_action_labels": false,
+      "reward_preference_seed": "possible_after_schema/provenance filtering",
+      "ram_episode_seed": "possible_as historical auxiliary data only"
+    }
+  },
+  "implementation_status": {
+    "bank": "ready_for_install_and_static_validation",
+    "runtime_consumer_wiring": "pending focused inspection",
+    "feasibility_rollout": "pending",
+    "beta_conditioned_trainer_v1": "pending"
+  }
+}
