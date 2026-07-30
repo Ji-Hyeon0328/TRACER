@@ -1,0 +1,241 @@
+{
+  "classification": "valid_direct_signed_yaw_authority_smoke_v0",
+  "all_pass": true,
+  "transport_pass": true,
+  "duration_pass": true,
+  "authority_pass": true,
+  "safety_pass": true,
+  "plus_wz_effect_rad_s": 0.04481504282387904,
+  "minus_wz_effect_rad_s": -0.054206990828683826,
+  "plus_yaw_slope_effect_rad_s": 0.04390286387279966,
+  "minus_yaw_slope_effect_rad_s": -0.05548289235977896,
+  "worst_roll_deg": 2.531765364,
+  "worst_pitch_deg": 4.793632927,
+  "worst_min_z": 0.310533141,
+  "segments": {
+    "Z0": {
+      "label": "Z0",
+      "n": 131,
+      "duration_sim_s": 2.4467499999999998,
+      "cmd_mean": 0.0,
+      "wz_mean": -0.0018406465877862598,
+      "wz_median": -0.004154344,
+      "yaw_slope_rad_s": 0.001298904497198065,
+      "heading_delta_rad": -0.006243366,
+      "positive_wz_fraction": 0.4580152671755725,
+      "negative_wz_fraction": 0.5419847328244275,
+      "max_abs_roll_deg": 1.030522615,
+      "max_abs_pitch_deg": 2.828184706,
+      "min_z": 0.321445256
+    },
+    "P": {
+      "label": "P",
+      "n": 220,
+      "duration_sim_s": 4.43825,
+      "cmd_mean": 0.05,
+      "wz_mean": 0.04914033917727273,
+      "wz_median": 0.046991896,
+      "yaw_slope_rad_s": 0.04831946874341628,
+      "heading_delta_rad": 0.21751295199999998,
+      "positive_wz_fraction": 0.6909090909090909,
+      "negative_wz_fraction": 0.3090909090909091,
+      "max_abs_roll_deg": 1.757790408,
+      "max_abs_pitch_deg": 3.471430915,
+      "min_z": 0.351630264
+    },
+    "Z1": {
+      "label": "Z1",
+      "n": 129,
+      "duration_sim_s": 2.459249999999999,
+      "cmd_mean": 0.0,
+      "wz_mean": 0.010491239294573643,
+      "wz_median": 0.010611316,
+      "yaw_slope_rad_s": 0.007534305244035167,
+      "heading_delta_rad": 0.017725031000000002,
+      "positive_wz_fraction": 0.5426356589147286,
+      "negative_wz_fraction": 0.4573643410852713,
+      "max_abs_roll_deg": 1.07954617,
+      "max_abs_pitch_deg": 3.013443455,
+      "min_z": 0.357665819
+    },
+    "N": {
+      "label": "N",
+      "n": 244,
+      "duration_sim_s": 4.4304999999999986,
+      "cmd_mean": -0.05,
+      "wz_mean": -0.05304112112704918,
+      "wz_median": -0.05175572,
+      "yaw_slope_rad_s": -0.05633798532181248,
+      "heading_delta_rad": -0.247006565,
+      "positive_wz_fraction": 0.25,
+      "negative_wz_fraction": 0.75,
+      "max_abs_roll_deg": 1.289703072,
+      "max_abs_pitch_deg": 3.157023452,
+      "min_z": 0.344735695
+    },
+    "Z2": {
+      "label": "Z2",
+      "n": 184,
+      "duration_sim_s": 3.353999999999999,
+      "cmd_mean": 0.0,
+      "wz_mean": -0.008159499891304349,
+      "wz_median": -0.0022048305000000002,
+      "yaw_slope_rad_s": -0.009244491168102203,
+      "heading_delta_rad": -0.025087826,
+      "positive_wz_fraction": 0.4891304347826087,
+      "negative_wz_fraction": 0.5108695652173914,
+      "max_abs_roll_deg": 1.363780077,
+      "max_abs_pitch_deg": 2.673774103,
+      "min_z": 0.35365674
+    }
+  },
+  "rules": [
+    {
+      "name": "plus_command_transport",
+      "value": 0.05,
+      "operator": "abs(value-0.050)<=",
+      "threshold": 0.002,
+      "passed": true
+    },
+    {
+      "name": "minus_command_transport",
+      "value": -0.05,
+      "operator": "abs(value+0.050)<=",
+      "threshold": 0.002,
+      "passed": true
+    },
+    {
+      "name": "Z0_neutral_transport",
+      "value": 0.0,
+      "operator": "abs(value)<=",
+      "threshold": 0.002,
+      "passed": true
+    },
+    {
+      "name": "Z1_neutral_transport",
+      "value": 0.0,
+      "operator": "abs(value)<=",
+      "threshold": 0.002,
+      "passed": true
+    },
+    {
+      "name": "Z2_neutral_transport",
+      "value": 0.0,
+      "operator": "abs(value)<=",
+      "threshold": 0.002,
+      "passed": true
+    },
+    {
+      "name": "Z0_duration_sim_s",
+      "value": 2.4467499999999998,
+      "operator": ">=",
+      "threshold": 1.5,
+      "passed": true
+    },
+    {
+      "name": "Z1_duration_sim_s",
+      "value": 2.459249999999999,
+      "operator": ">=",
+      "threshold": 1.5,
+      "passed": true
+    },
+    {
+      "name": "Z2_duration_sim_s",
+      "value": 3.353999999999999,
+      "operator": ">=",
+      "threshold": 1.5,
+      "passed": true
+    },
+    {
+      "name": "P_duration_sim_s",
+      "value": 4.43825,
+      "operator": ">=",
+      "threshold": 2.5,
+      "passed": true
+    },
+    {
+      "name": "N_duration_sim_s",
+      "value": 4.4304999999999986,
+      "operator": ">=",
+      "threshold": 2.5,
+      "passed": true
+    },
+    {
+      "name": "plus_realized_wz_effect",
+      "value": 0.04481504282387904,
+      "operator": ">=",
+      "threshold": 0.005,
+      "passed": true
+    },
+    {
+      "name": "minus_realized_wz_effect",
+      "value": -0.054206990828683826,
+      "operator": "<=",
+      "threshold": -0.005,
+      "passed": true
+    },
+    {
+      "name": "plus_unwrapped_yaw_slope_effect",
+      "value": 0.04390286387279966,
+      "operator": ">=",
+      "threshold": 0.005,
+      "passed": true
+    },
+    {
+      "name": "minus_unwrapped_yaw_slope_effect",
+      "value": -0.05548289235977896,
+      "operator": "<=",
+      "threshold": -0.005,
+      "passed": true
+    },
+    {
+      "name": "plus_heading_delta",
+      "value": 0.21751295199999998,
+      "operator": ">=",
+      "threshold": 0.03,
+      "passed": true
+    },
+    {
+      "name": "minus_heading_delta",
+      "value": -0.247006565,
+      "operator": "<=",
+      "threshold": -0.03,
+      "passed": true
+    },
+    {
+      "name": "plus_positive_wz_fraction",
+      "value": 0.6909090909090909,
+      "operator": ">=",
+      "threshold": 0.6,
+      "passed": true
+    },
+    {
+      "name": "minus_negative_wz_fraction",
+      "value": 0.75,
+      "operator": ">=",
+      "threshold": 0.6,
+      "passed": true
+    },
+    {
+      "name": "hard_safety_roll",
+      "value": 2.531765364,
+      "operator": "<=",
+      "threshold": 20.0,
+      "passed": true
+    },
+    {
+      "name": "hard_safety_pitch",
+      "value": 4.793632927,
+      "operator": "<=",
+      "threshold": 20.0,
+      "passed": true
+    },
+    {
+      "name": "hard_safety_min_z",
+      "value": 0.310533141,
+      "operator": ">",
+      "threshold": 0.2,
+      "passed": true
+    }
+  ]
+}

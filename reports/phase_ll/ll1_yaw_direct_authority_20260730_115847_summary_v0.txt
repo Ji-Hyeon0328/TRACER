@@ -1,0 +1,57 @@
+============================================================
+LL1 DIRECT SIGNED YAW AUTHORITY SMOKE RESULT
+============================================================
+classification=valid_direct_signed_yaw_authority_smoke_v0
+all_pass=True
+transport_pass=True
+duration_pass=True
+authority_pass=True
+safety_pass=True
+
+segment metrics:
+Z0: duration=2.4467s cmd=+0.000000 wz_mean=-0.001841 yaw_slope=+0.001299 heading_delta=-0.006243 pos_frac=0.4580 neg_frac=0.5420
+P: duration=4.4383s cmd=+0.050000 wz_mean=+0.049140 yaw_slope=+0.048319 heading_delta=+0.217513 pos_frac=0.6909 neg_frac=0.3091
+Z1: duration=2.4592s cmd=+0.000000 wz_mean=+0.010491 yaw_slope=+0.007534 heading_delta=+0.017725 pos_frac=0.5426 neg_frac=0.4574
+N: duration=4.4305s cmd=-0.050000 wz_mean=-0.053041 yaw_slope=-0.056338 heading_delta=-0.247007 pos_frac=0.2500 neg_frac=0.7500
+Z2: duration=3.3540s cmd=+0.000000 wz_mean=-0.008159 yaw_slope=-0.009244 heading_delta=-0.025088 pos_frac=0.4891 neg_frac=0.5109
+
+plus_wz_effect_rad_s=+0.04481504
+minus_wz_effect_rad_s=-0.05420699
+plus_yaw_slope_effect_rad_s=+0.04390286
+minus_yaw_slope_effect_rad_s=-0.05548289
+
+worst_roll_deg=2.531765
+worst_pitch_deg=4.793633
+worst_min_z=0.310533
+
+rules:
+PASS plus_command_transport: value=0.050000000 requirement=abs(value-0.050)<= 0.002
+PASS minus_command_transport: value=-0.050000000 requirement=abs(value+0.050)<= 0.002
+PASS Z0_neutral_transport: value=0.000000000 requirement=abs(value)<= 0.002
+PASS Z1_neutral_transport: value=0.000000000 requirement=abs(value)<= 0.002
+PASS Z2_neutral_transport: value=0.000000000 requirement=abs(value)<= 0.002
+PASS Z0_duration_sim_s: value=2.446750000 requirement=>= 1.5
+PASS Z1_duration_sim_s: value=2.459250000 requirement=>= 1.5
+PASS Z2_duration_sim_s: value=3.354000000 requirement=>= 1.5
+PASS P_duration_sim_s: value=4.438250000 requirement=>= 2.5
+PASS N_duration_sim_s: value=4.430500000 requirement=>= 2.5
+PASS plus_realized_wz_effect: value=0.044815043 requirement=>= 0.005
+PASS minus_realized_wz_effect: value=-0.054206991 requirement=<= -0.005
+PASS plus_unwrapped_yaw_slope_effect: value=0.043902864 requirement=>= 0.005
+PASS minus_unwrapped_yaw_slope_effect: value=-0.055482892 requirement=<= -0.005
+PASS plus_heading_delta: value=0.217512952 requirement=>= 0.03
+PASS minus_heading_delta: value=-0.247006565 requirement=<= -0.03
+PASS plus_positive_wz_fraction: value=0.690909091 requirement=>= 0.6
+PASS minus_negative_wz_fraction: value=0.750000000 requirement=>= 0.6
+PASS hard_safety_roll: value=2.531765364 requirement=<= 20.0
+PASS hard_safety_pitch: value=4.793632927 requirement=<= 20.0
+PASS hard_safety_min_z: value=0.310533141 requirement=> 0.2
+
+scope:
+- direct ROS2-to-UDP-to-ROS1-to-LL1 route
+- selector phases use odom-fresh active wall time
+- duration gates use realized ROS1/Gazebo simulation time
+- J4/J7 bypassed
+- authority only
+- no lateral-performance or generalization claim
+- commanded mechanical work is not evaluated here
