@@ -1,0 +1,31 @@
+{
+  "schema": "phase_b_beta_conditioned_discrete_policy_design_v1",
+  "description": "Beta-conditioned categorical policy design updated to reference the frozen-J7-compatible runtime bank.",
+  "action_space": {
+    "type": "categorical_action_bank",
+    "bank": "configs/phase_b_theta_lite_rl_v1/ll1_j7_compatible_action_bank_v1.json",
+    "num_actions": 9,
+    "rl_selected_fields": [
+      "vx_far",
+      "swing_clearance"
+    ],
+    "fixed_or_external_fields": [
+      "vx_near",
+      "goal_slow_distance",
+      "goal_stop_distance",
+      "body_height",
+      "enable",
+      "yaw_policy"
+    ]
+  },
+  "runtime_contract": "configs/phase_b_theta_lite_rl_v1/ll1_bank_j7_runtime_contract_v2.json",
+  "training_gate": {
+    "required_before_policy_training": "flat feasibility sweep of all action IDs 0..8",
+    "do_not_use_as_policy_labels": "legacy action-bank-v0 rollout IDs without explicit remap"
+  },
+  "implementation_status": {
+    "bank_static_guard_compatibility": "validated",
+    "flat_runtime_feasibility": "pending",
+    "beta_conditioned_trainer": "pending"
+  }
+}

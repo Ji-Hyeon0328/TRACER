@@ -1,0 +1,253 @@
+{
+  "schema": "phase_b_ll1_j7_compatible_theta_lite_action_bank_v1",
+  "description": "Versioned 9-action bank corrected to fit the frozen J7 default clearance guard. The legacy candidate bank v0 used clearance 0.035/0.045/0.055, whose +/-0.010 m extremes exceed J7's +/-0.006 m default around the empirical 0.045 m anchor.",
+  "legacy_compatible_action_fields": [
+    "vx_far",
+    "vx_near",
+    "goal_slow_distance",
+    "goal_stop_distance",
+    "body_height",
+    "swing_clearance"
+  ],
+  "action_count": 9,
+  "action_order": "vx_far_major_then_swing_clearance",
+  "learned_dimensions": {
+    "vx_far": [
+      0.04,
+      0.065,
+      0.09
+    ],
+    "swing_clearance": [
+      0.04,
+      0.045,
+      0.05
+    ]
+  },
+  "fixed_dimensions": {
+    "vx_near": 0.04,
+    "goal_slow_distance": 0.25,
+    "goal_stop_distance": 0.15,
+    "body_height": 0.32,
+    "enable": 1.0,
+    "rl_yaw_dimension": false,
+    "yaw_policy": "deterministic_goal_heading_guarded_not_rl_action_v0"
+  },
+  "empirical_anchor": {
+    "vx_far": 0.065,
+    "vx_near": 0.04,
+    "yaw_rate": 0.0,
+    "body_height": 0.32,
+    "swing_clearance": 0.045,
+    "enable": 1.0
+  },
+  "frozen_j7_default_envelope": {
+    "max_abs_delta_vx": 0.03,
+    "max_abs_delta_yaw_rate": 0.02,
+    "max_abs_delta_body_height": 0.006,
+    "max_abs_delta_swing_clearance": 0.006,
+    "min_active_body_height": 0.314
+  },
+  "provenance": {
+    "audit_branch": "TRACER-lowcontroller",
+    "audit_base_commit": "3822d8f4e8050e1bb18e505195c9c58a1e6d6c13",
+    "supersedes_for_runtime": "configs/phase_b_theta_lite_rl_v1/ll1_verified_action_bank_v0.json",
+    "historical_bank_preserved": true,
+    "frozen_j7_source_sha256": "2b2692af30e164db53d3c125323ff27d42849f7b6a9fc28485f4742b4580811a"
+  },
+  "claims": {
+    "in_scope": [
+      "static compatibility with frozen J7 default numerical guards",
+      "versioned 9-action high-level candidate bank",
+      "preservation of action IDs 0..8"
+    ],
+    "out_of_scope": [
+      "Gazebo feasibility",
+      "performance superiority",
+      "energy improvement",
+      "terrain generalization",
+      "Objective Selector or RAM readiness"
+    ]
+  },
+  "actions": [
+    {
+      "action_id": 0,
+      "name": "ll1_j7_v040_c040",
+      "vx_far": 0.04,
+      "vx_near": 0.04,
+      "goal_slow_distance": 0.25,
+      "goal_stop_distance": 0.15,
+      "body_height": 0.32,
+      "swing_clearance": 0.04,
+      "yaw_policy": "deterministic_goal_heading_guarded_not_rl_action_v0",
+      "enable": 1.0,
+      "metadata": {
+        "learned_dimensions": [
+          "vx_far",
+          "swing_clearance"
+        ],
+        "runtime_status": "candidate_for_j7_active_flat_feasibility",
+        "scope": "command-envelope-compatible_not_performance_promoted"
+      }
+    },
+    {
+      "action_id": 1,
+      "name": "ll1_j7_v040_c045",
+      "vx_far": 0.04,
+      "vx_near": 0.04,
+      "goal_slow_distance": 0.25,
+      "goal_stop_distance": 0.15,
+      "body_height": 0.32,
+      "swing_clearance": 0.045,
+      "yaw_policy": "deterministic_goal_heading_guarded_not_rl_action_v0",
+      "enable": 1.0,
+      "metadata": {
+        "learned_dimensions": [
+          "vx_far",
+          "swing_clearance"
+        ],
+        "runtime_status": "candidate_for_j7_active_flat_feasibility",
+        "scope": "command-envelope-compatible_not_performance_promoted"
+      }
+    },
+    {
+      "action_id": 2,
+      "name": "ll1_j7_v040_c050",
+      "vx_far": 0.04,
+      "vx_near": 0.04,
+      "goal_slow_distance": 0.25,
+      "goal_stop_distance": 0.15,
+      "body_height": 0.32,
+      "swing_clearance": 0.05,
+      "yaw_policy": "deterministic_goal_heading_guarded_not_rl_action_v0",
+      "enable": 1.0,
+      "metadata": {
+        "learned_dimensions": [
+          "vx_far",
+          "swing_clearance"
+        ],
+        "runtime_status": "candidate_for_j7_active_flat_feasibility",
+        "scope": "command-envelope-compatible_not_performance_promoted"
+      }
+    },
+    {
+      "action_id": 3,
+      "name": "ll1_j7_v065_c040",
+      "vx_far": 0.065,
+      "vx_near": 0.04,
+      "goal_slow_distance": 0.25,
+      "goal_stop_distance": 0.15,
+      "body_height": 0.32,
+      "swing_clearance": 0.04,
+      "yaw_policy": "deterministic_goal_heading_guarded_not_rl_action_v0",
+      "enable": 1.0,
+      "metadata": {
+        "learned_dimensions": [
+          "vx_far",
+          "swing_clearance"
+        ],
+        "runtime_status": "candidate_for_j7_active_flat_feasibility",
+        "scope": "command-envelope-compatible_not_performance_promoted"
+      }
+    },
+    {
+      "action_id": 4,
+      "name": "ll1_j7_v065_c045",
+      "vx_far": 0.065,
+      "vx_near": 0.04,
+      "goal_slow_distance": 0.25,
+      "goal_stop_distance": 0.15,
+      "body_height": 0.32,
+      "swing_clearance": 0.045,
+      "yaw_policy": "deterministic_goal_heading_guarded_not_rl_action_v0",
+      "enable": 1.0,
+      "metadata": {
+        "learned_dimensions": [
+          "vx_far",
+          "swing_clearance"
+        ],
+        "runtime_status": "candidate_for_j7_active_flat_feasibility",
+        "scope": "command-envelope-compatible_not_performance_promoted"
+      }
+    },
+    {
+      "action_id": 5,
+      "name": "ll1_j7_v065_c050",
+      "vx_far": 0.065,
+      "vx_near": 0.04,
+      "goal_slow_distance": 0.25,
+      "goal_stop_distance": 0.15,
+      "body_height": 0.32,
+      "swing_clearance": 0.05,
+      "yaw_policy": "deterministic_goal_heading_guarded_not_rl_action_v0",
+      "enable": 1.0,
+      "metadata": {
+        "learned_dimensions": [
+          "vx_far",
+          "swing_clearance"
+        ],
+        "runtime_status": "candidate_for_j7_active_flat_feasibility",
+        "scope": "command-envelope-compatible_not_performance_promoted"
+      }
+    },
+    {
+      "action_id": 6,
+      "name": "ll1_j7_v090_c040",
+      "vx_far": 0.09,
+      "vx_near": 0.04,
+      "goal_slow_distance": 0.25,
+      "goal_stop_distance": 0.15,
+      "body_height": 0.32,
+      "swing_clearance": 0.04,
+      "yaw_policy": "deterministic_goal_heading_guarded_not_rl_action_v0",
+      "enable": 1.0,
+      "metadata": {
+        "learned_dimensions": [
+          "vx_far",
+          "swing_clearance"
+        ],
+        "runtime_status": "candidate_for_j7_active_flat_feasibility",
+        "scope": "command-envelope-compatible_not_performance_promoted"
+      }
+    },
+    {
+      "action_id": 7,
+      "name": "ll1_j7_v090_c045",
+      "vx_far": 0.09,
+      "vx_near": 0.04,
+      "goal_slow_distance": 0.25,
+      "goal_stop_distance": 0.15,
+      "body_height": 0.32,
+      "swing_clearance": 0.045,
+      "yaw_policy": "deterministic_goal_heading_guarded_not_rl_action_v0",
+      "enable": 1.0,
+      "metadata": {
+        "learned_dimensions": [
+          "vx_far",
+          "swing_clearance"
+        ],
+        "runtime_status": "candidate_for_j7_active_flat_feasibility",
+        "scope": "command-envelope-compatible_not_performance_promoted"
+      }
+    },
+    {
+      "action_id": 8,
+      "name": "ll1_j7_v090_c050",
+      "vx_far": 0.09,
+      "vx_near": 0.04,
+      "goal_slow_distance": 0.25,
+      "goal_stop_distance": 0.15,
+      "body_height": 0.32,
+      "swing_clearance": 0.05,
+      "yaw_policy": "deterministic_goal_heading_guarded_not_rl_action_v0",
+      "enable": 1.0,
+      "metadata": {
+        "learned_dimensions": [
+          "vx_far",
+          "swing_clearance"
+        ],
+        "runtime_status": "candidate_for_j7_active_flat_feasibility",
+        "scope": "command-envelope-compatible_not_performance_promoted"
+      }
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "schema": "phase_b_ll1_bank_j7_runtime_contract_v2",
+  "description": "Runtime contract aligned exactly with the frozen J7 default numerical guards and the v1 gate-token/action-ID semantic split.",
+  "action_bank": "configs/phase_b_theta_lite_rl_v1/ll1_j7_compatible_action_bank_v1.json",
+  "frozen_j7_source": "scripts/runtime/tracer_phase_j7_guarded_meta_action_ref_gate_node_v0.py",
+  "frozen_j7_source_sha256": "2b2692af30e164db53d3c125323ff27d42849f7b6a9fc28485f4742b4580811a",
+  "topics": {
+    "relative_goal": "/tracer/relative_goal",
+    "robot_odom": "/tracer/robot_odom_flat",
+    "action_index": "/tracer/hl_action_index",
+    "empirical_reference": "/tracer/empirical_mpc_reference",
+    "projected_reference": "/tracer/meta_action_projected_ref_shadow",
+    "theta_shadow": "/tracer/meta_action_theta_shadow",
+    "terrain_context_label": "/tracer/terrain_context_label",
+    "debug": "/tracer/phase_b_ll1_bank_mapper_info",
+    "j7_active_output": "/tracer/mpc_reference"
+  },
+  "reference_layout": [
+    "sequence",
+    "vx",
+    "yaw_rate",
+    "body_height",
+    "swing_clearance",
+    "enable"
+  ],
+  "theta_shadow_layout": {
+    "length": 9,
+    "j7_gate_action_token_index": 0,
+    "bank_action_id_index": 1,
+    "hold_override_index": 8,
+    "j7_active_action_token": 1,
+    "legacy_reserved_rejected_token": 8
+  },
+  "empirical_anchor": {
+    "vx_far": 0.065,
+    "vx_near": 0.04,
+    "yaw_rate": 0.0,
+    "body_height": 0.32,
+    "swing_clearance": 0.045,
+    "enable": 1.0
+  },
+  "goal_logic": {
+    "goal_stop_distance": 0.15,
+    "goal_slow_distance": 0.25,
+    "yaw_gain": 1.2,
+    "yaw_rate_max": 0.02,
+    "reached_latch": true
+  },
+  "frozen_j7_defaults": {
+    "max_abs_delta_vx": 0.03,
+    "max_abs_delta_yaw_rate": 0.02,
+    "max_abs_delta_body_height": 0.006,
+    "max_abs_delta_swing_clearance": 0.006,
+    "min_active_body_height": 0.314,
+    "goal_x_threshold": 7.9,
+    "max_input_age_s": 1.0,
+    "require_sequence_match_default": false,
+    "active_failsafe_hold_default": false,
+    "allowed_contexts": [
+      "flat",
+      "upslope",
+      "downslope"
+    ]
+  },
+  "active_runtime_overrides_required": {
+    "TRACER_PHASE_J7_OUTPUT_REF_TOPIC": "/tracer/mpc_reference",
+    "TRACER_PHASE_J7_REQUIRE_SEQ_MATCH": "1",
+    "TRACER_PHASE_J7_ACTIVE_FAILSAFE_HOLD": "1",
+    "TRACER_PHASE_J7_ALLOWED_CONTEXTS": "flat,upslope,downslope"
+  },
+  "flat_feasibility_context": "flat",
+  "claims": {
+    "in_scope": [
+      "exact static numerical compatibility with frozen J7 defaults",
+      "action-ID semantic compatibility for IDs 0..8",
+      "explicit active-routing environment contract"
+    ],
+    "out_of_scope": [
+      "runtime acceptance",
+      "realized locomotion feasibility",
+      "performance or safety promotion"
+    ]
+  }
+}
