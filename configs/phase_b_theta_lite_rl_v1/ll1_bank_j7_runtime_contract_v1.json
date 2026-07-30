@@ -1,0 +1,92 @@
+{
+  "schema": "phase_b_ll1_bank_j7_runtime_contract_v1",
+  "description": "Runtime contract between the 9-action LL1-aligned bank and the frozen J7 guard. This v1 resolves the J7 legacy semantic collision in which theta[0]==8 is reserved/rejected by the frozen gate while bank action ID 8 is a valid locomotion action.",
+  "action_bank": "configs/phase_b_theta_lite_rl_v1/ll1_verified_action_bank_v0.json",
+  "topics": {
+    "relative_goal": "/tracer/relative_goal",
+    "robot_odom": "/tracer/robot_odom_flat",
+    "action_index": "/tracer/hl_action_index",
+    "empirical_reference": "/tracer/empirical_mpc_reference",
+    "projected_reference": "/tracer/meta_action_projected_ref_shadow",
+    "theta_shadow": "/tracer/meta_action_theta_shadow",
+    "debug": "/tracer/phase_b_ll1_bank_mapper_info"
+  },
+  "reference_layout": [
+    "sequence",
+    "vx",
+    "yaw_rate",
+    "body_height",
+    "swing_clearance",
+    "enable"
+  ],
+  "theta_shadow_layout": {
+    "length": 9,
+    "j7_gate_action_token_index": 0,
+    "bank_action_id_index": 1,
+    "hold_override_index": 8,
+    "j7_active_action_token": 1,
+    "legacy_reserved_rejected_token": 8,
+    "semantics": "theta[0] is a gate-control token, not the bank action ID; theta[1] carries the actual bank action ID for provenance."
+  },
+  "empirical_anchor": {
+    "vx_far": 0.065,
+    "vx_near": 0.04,
+    "yaw_rate": 0.0,
+    "body_height": 0.32,
+    "swing_clearance": 0.045,
+    "enable": 1.0
+  },
+  "goal_logic": {
+    "goal_stop_distance": 0.15,
+    "goal_slow_distance": 0.25,
+    "yaw_gain": 1.2,
+    "yaw_rate_max": 0.02,
+    "reached_latch": true
+  },
+  "j7_guard_assumptions": {
+    "max_abs_delta_vx": 0.04,
+    "max_abs_delta_yaw_rate": 0.02,
+    "max_abs_delta_body_height": 0.012,
+    "max_abs_delta_swing_clearance": 0.01,
+    "require_sequence_match": true,
+    "comparison_semantics": "projected_minus_same_cycle_empirical",
+    "legacy_action_id_reject_value": 8,
+    "active_gate_token": 1,
+    "active_gate_token_is_not_reserved": true
+  },
+  "mode_semantics": {
+    "far": {
+      "empirical_vx": "anchor.vx_far",
+      "projected_vx": "selected_action.vx_far"
+    },
+    "near": {
+      "empirical_vx": "anchor.vx_near",
+      "projected_vx": "selected_action.vx_near"
+    },
+    "stop_or_hold": {
+      "empirical_vx": 0.0,
+      "projected_vx": 0.0,
+      "empirical_yaw_rate": 0.0,
+      "projected_yaw_rate": 0.0
+    }
+  },
+  "claims": {
+    "in_scope": [
+      "policy-index to bank-action mapping",
+      "goal-conditioned far/near/stop command construction",
+      "same-cycle J7 empirical/projected reference construction",
+      "static proof that every bank action lies within configured J7 deltas",
+      "resolution of the frozen J7 theta[0]==8 rejection collision",
+      "preservation of the true bank action ID in theta[1] and mapper debug"
+    ],
+    "out_of_scope": [
+      "Gazebo feasibility",
+      "performance superiority",
+      "lateral-drift improvement",
+      "terrain generalization",
+      "Objective Selector or RAM training",
+      "formal promotion of J7 small-signal yaw authority",
+      "changing or re-freezing the J7 gate implementation"
+    ]
+  }
+}
