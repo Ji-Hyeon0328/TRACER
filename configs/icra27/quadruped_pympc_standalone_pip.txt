@@ -1,0 +1,5 @@
+mujoco
+readchar
+liecasadi
+gym-quadruped>=1.1.5
+adam-robotics[all]

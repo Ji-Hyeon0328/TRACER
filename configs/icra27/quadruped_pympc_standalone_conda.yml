@@ -1,0 +1,25 @@
+name: tracer_icra27_pympc_standalone
+
+channels:
+  - conda-forge
+  - nvidia
+  - nodefaults
+
+dependencies:
+  - python=3.12
+  - pip
+  - casadi
+  - numpy
+  - matplotlib
+  - scipy=1.15.1
+  - pinocchio
+  - jax
+  - jaxlib
+  - meshcat-python
+  - compilers
+  - cmake
+  - pkg-config
+  - make
+  - ninja
+  - tqdm
+  - gymnasium
