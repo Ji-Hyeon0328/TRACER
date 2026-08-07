@@ -56,3 +56,15 @@
 - [ ] Scheduled high-level command
 - [ ] Minimal learned-policy reconnection
 - [ ] Decide when to reconnect Objective Selector / RAM / GMS
+
+<!-- M3_FREQUENCY_DUTY_V0 -->
+### M3 frequency × duty characterization v0
+
+- [x] planned → physical contact instrumentation
+- [x] stability-aware first-rollout analysis
+- [x] direct-start 3×3/local coupling characterization
+- [x] guarded-entry paired viability characterization
+- [x] contact/attitude/foothold failure-precursor trace
+- [x] cross-reset time-aliasing contamination identified and excluded
+- [x] frequency × duty M3 v0 slice closed
+- [ ] final global operating envelope deferred until remaining action pairs
