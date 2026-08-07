@@ -25,8 +25,8 @@
 - [x] MetaGaitCommand → PyMPC references
 - [x] Safety bounds
 - [ ] Rate limiting
-- [ ] Gait timing synchronization
-- [ ] Safe dynamic command transitions
+- [x] Gait timing synchronization
+- [~] Safe dynamic command transitions — abrupt transition smoke PASS; guarded transition pending
 
 ## M3 — Action-Authority Characterization
 
