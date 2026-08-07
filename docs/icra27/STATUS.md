@@ -30,7 +30,8 @@
 
 ## M3 — Action-Authority Characterization
 
-- [ ] Single-variable sweeps
+- [~] Single-variable sweeps — preliminary 3-point sensitivity summary PASS; denser/repeatability pending
+- [x] vx × yaw coupling — weak coupling over vx=0.1–0.3 m/s, yaw gain≈0.80–0.82
 - [ ] Command vs internal reference logging
 - [ ] Command vs measured response logging
 - [ ] Sensitivity / authority table
