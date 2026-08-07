@@ -68,3 +68,16 @@
 - [x] cross-reset time-aliasing contamination identified and excluded
 - [x] frequency × duty M3 v0 slice closed
 - [ ] final global operating envelope deferred until remaining action pairs
+
+<!-- M3_HEIGHT_CLEARANCE_V0 -->
+### M3 body height × swing clearance characterization v0
+
+- [x] physical height / swing-clearance instrumentation
+- [x] central-point smoke validation
+- [x] 3×3 body-height × clearance characterization
+- [x] 9/9 tested points viable
+- [x] approximately linear diagonal authority
+- [x] weak measured off-diagonal coupling in tested range
+- [x] body height × swing clearance M3 v0 slice closed
+- [ ] targeted repeatability
+- [ ] consolidated M3 operating envelope
