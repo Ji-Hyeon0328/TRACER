@@ -88,3 +88,23 @@ must not be interpreted as a global safety guarantee.
 ## Status
 
 Body height × swing clearance M3 v0 slice: CLOSED.
+
+## Targeted protocol repeatability
+
+Five representative points were repeated with seeds 0, 1, and 2:
+
+- (h=0.24, clearance=0.03)
+- (h=0.24, clearance=0.09)
+- (h=0.28, clearance=0.06)
+- (h=0.32, clearance=0.03)
+- (h=0.32, clearance=0.09)
+
+All five points were usable in 3/3 trials with zero termination.
+
+Measured body height, physical swing clearance, attitude extrema, and
+lateral drift were effectively identical across the three seeds.
+
+Therefore the present flat/direct-start protocol is effectively
+deterministic with respect to the supplied seed. This verifies
+reproducibility of the characterization protocol, but should not be
+interpreted as stochastic robustness evidence.

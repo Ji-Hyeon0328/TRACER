@@ -79,5 +79,18 @@
 - [x] approximately linear diagonal authority
 - [x] weak measured off-diagonal coupling in tested range
 - [x] body height × swing clearance M3 v0 slice closed
-- [ ] targeted repeatability
+- [x] targeted repeatability — tested protocol is effectively deterministic across seeds 0/1/2
 - [ ] consolidated M3 operating envelope
+
+<!-- M3_CONSOLIDATED_V0 -->
+### M3 consolidated action-space characterization v0
+
+- [x] vx / yaw locomotion authority
+- [x] body-height / swing-clearance authority
+- [x] body-height × clearance weak-coupling characterization
+- [x] frequency × duty conditional-viability characterization
+- [x] physical gait cadence verified from touchdown intervals
+- [x] targeted deterministic repeatability
+- [x] continuous action group identified: vx / yaw / height / clearance
+- [x] structural action group identified: frequency / duty
+- [x] M3 v0 characterization sufficient for M4 low-level-box closure
