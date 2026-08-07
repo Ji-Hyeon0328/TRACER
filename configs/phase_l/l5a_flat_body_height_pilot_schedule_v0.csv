@@ -1,0 +1,15 @@
+order,mode,repeat_idx,kind,active_override,theta
+1,flat_body_high05,1,body_height_single_axis,1,"1.0,1.0,0.0,1.0,0.005,0.0,0.0,0.0,0.0"
+2,baseline,1,empirical_control,0,
+3,flat_body_low04,1,body_height_single_axis,1,"1.0,1.0,0.0,1.0,-0.004,0.0,0.0,0.0,0.0"
+4,flat_noop,1,noop_control,1,"1.0,1.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0"
+5,flat_body_high03,1,body_height_single_axis,1,"1.0,1.0,0.0,1.0,0.003,0.0,0.0,0.0,0.0"
+6,flat_body_low02,1,body_height_single_axis,1,"1.0,1.0,0.0,1.0,-0.002,0.0,0.0,0.0,0.0"
+7,flat_body_low05,1,body_height_single_axis,1,"1.0,1.0,0.0,1.0,-0.005,0.0,0.0,0.0,0.0"
+8,baseline,2,empirical_control,0,
+9,flat_body_low04,2,body_height_single_axis,1,"1.0,1.0,0.0,1.0,-0.004,0.0,0.0,0.0,0.0"
+10,flat_noop,2,noop_control,1,"1.0,1.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0"
+11,flat_body_high05,2,body_height_single_axis,1,"1.0,1.0,0.0,1.0,0.005,0.0,0.0,0.0,0.0"
+12,flat_body_high03,2,body_height_single_axis,1,"1.0,1.0,0.0,1.0,0.003,0.0,0.0,0.0,0.0"
+13,flat_body_low05,2,body_height_single_axis,1,"1.0,1.0,0.0,1.0,-0.005,0.0,0.0,0.0,0.0"
+14,flat_body_low02,2,body_height_single_axis,1,"1.0,1.0,0.0,1.0,-0.002,0.0,0.0,0.0,0.0"

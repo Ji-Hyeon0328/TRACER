@@ -1,0 +1,97 @@
+{
+  "phase": "L5A",
+  "name": "flat_body_height_single_axis_candidate_bank_v0",
+  "purpose": "Identify whether body-height reference changes produce repeatable motion-stability trade-offs over the frozen A1-QP-MPC controller.",
+  "context": "flat",
+  "empirical_body_height": 0.320,
+  "random_seed": 333,
+  "pilot_repeats": [1, 2],
+
+  "guard_reference": {
+    "max_abs_delta_body_h": 0.006,
+    "min_active_body_h": 0.314,
+    "boundary_candidate_excluded": -0.006
+  },
+
+  "theta_layout": [
+    "action_id",
+    "vx_scale",
+    "vx_delta",
+    "yaw_gain_scale",
+    "body_h_delta",
+    "clearance_delta",
+    "stability_bias",
+    "energy_bias",
+    "hold_override"
+  ],
+
+  "candidates": [
+    {
+      "name": "baseline",
+      "kind": "empirical_control",
+      "active_override": false,
+      "theta": null,
+      "expected_body_height": 0.320
+    },
+    {
+      "name": "flat_noop",
+      "kind": "noop_control",
+      "active_override": true,
+      "theta": [1.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+      "expected_body_height": 0.320
+    },
+    {
+      "name": "flat_body_low02",
+      "kind": "body_height_single_axis",
+      "dose": "mild_lower",
+      "active_override": true,
+      "theta": [1.0, 1.0, 0.0, 1.0, -0.002, 0.0, 0.0, 0.0, 0.0],
+      "expected_body_height": 0.318
+    },
+    {
+      "name": "flat_body_low04",
+      "kind": "body_height_single_axis",
+      "dose": "medium_lower",
+      "active_override": true,
+      "theta": [1.0, 1.0, 0.0, 1.0, -0.004, 0.0, 0.0, 0.0, 0.0],
+      "expected_body_height": 0.316
+    },
+    {
+      "name": "flat_body_low05",
+      "kind": "body_height_single_axis",
+      "dose": "strong_guarded_lower",
+      "active_override": true,
+      "theta": [1.0, 1.0, 0.0, 1.0, -0.005, 0.0, 0.0, 0.0, 0.0],
+      "expected_body_height": 0.315
+    },
+    {
+      "name": "flat_body_high03",
+      "kind": "body_height_single_axis",
+      "dose": "medium_higher",
+      "active_override": true,
+      "theta": [1.0, 1.0, 0.0, 1.0, 0.003, 0.0, 0.0, 0.0, 0.0],
+      "expected_body_height": 0.323
+    },
+    {
+      "name": "flat_body_high05",
+      "kind": "body_height_single_axis",
+      "dose": "strong_guarded_higher",
+      "active_override": true,
+      "theta": [1.0, 1.0, 0.0, 1.0, 0.005, 0.0, 0.0, 0.0, 0.0],
+      "expected_body_height": 0.325
+    }
+  ],
+
+  "excluded_from_l5a": [
+    "combined_body_height_velocity_actions",
+    "combined_body_height_clearance_actions",
+    "non_flat_active_exposure",
+    "automatic_candidate_promotion"
+  ],
+
+  "safety": {
+    "empirical_remains_default": true,
+    "j7_sequence_match_required": true,
+    "automatic_promotion": false
+  }
+}

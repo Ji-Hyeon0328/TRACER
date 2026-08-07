@@ -1,0 +1,3 @@
+[submodule "external_baselines/Quadruped-PyMPC"]
+	path = external_baselines/Quadruped-PyMPC
+	url = https://github.com/iit-DLSLab/Quadruped-PyMPC.git
