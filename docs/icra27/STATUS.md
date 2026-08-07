@@ -22,8 +22,8 @@
 
 ## M2 — MetaGaitCommand Adapter
 
-- [ ] MetaGaitCommand → PyMPC references
-- [ ] Safety bounds
+- [x] MetaGaitCommand → PyMPC references
+- [x] Safety bounds
 - [ ] Rate limiting
 - [ ] Gait timing synchronization
 - [ ] Safe dynamic command transitions
