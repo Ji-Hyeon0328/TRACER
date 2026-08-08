@@ -39,10 +39,33 @@
 
 ## M4 — Closed TRACER Low-Level Box
 
-- [ ] Fixed MetaGaitCommand → torque
-- [ ] Runtime-changing MetaGaitCommand → torque
-- [ ] Clean shutdown/reset
-- [ ] Reproducible launcher
+- [x] Fixed MetaGaitCommand → torque
+- [x] Runtime-changing MetaGaitCommand → torque
+- [x] Clean shutdown/reset
+- [x] Reproducible launcher
+- [x] Meta-gait safety projection / admissibility
+- [x] Continuous reference slew limiting
+- [x] Full-stance atomic structural gait transition
+- [x] Runtime physical-health monitor
+- [x] UNSAFE latch → guarded known-nominal back-off
+- [x] Canonical deterministic M4 evaluation
+- [x] Explicit M4 ON/OFF paired ablation
+- [x] Episode reset lifecycle / clean-state semantics
+- [x] Reusable `PyMPCLowLevelRuntime`
+- [x] Standalone nominal live validation
+- [x] Standalone M4 intervention live validation
+- [x] Closed low-level E2E acceptance
+
+M4-v0 behavior is frozen as:
+
+- NORMAL → pass-through
+- WATCH → diagnostic only
+- UNSAFE → latch/reject active high-level target and request
+  guarded return to the known nominal operating point
+
+This is an empirical runtime execution supervisor / command governor,
+not a formally certified CLF/CBF safety controller. Recovery is not
+guaranteed.
 
 ## M5 — ROS2 Interface
 
