@@ -69,9 +69,47 @@ guaranteed.
 
 ## M5 — ROS2 Interface
 
-- [ ] MetaGaitCommand ROS2 interface
-- [ ] ROS2 → PyMPC adapter
-- [ ] Telemetry/output topics
+- [x] MetaGaitCommand ROS2 interface
+- [x] ROS2 ↔ PyMPC process separation via localhost UDP
+- [x] Versioned named-field command/telemetry protocol
+- [x] ROS2 → PyMPC command adapter
+- [x] PyMPC → ROS2 telemetry/output topics
+- [x] ROS source freshness gate
+- [x] UDP transport timeout → known nominal through the same closed runtime
+- [x] Structural command → guarded full-stance atomic commit
+- [x] Simulation-time and structural-commit-count observability
+- [x] Canonical M3 structural transition cross-validated through ROS2/UDP
+
+M5 frozen boundary:
+
+- ROS2 command topic: `/tracer/meta_gait_cmd`
+- command fields: `vx`, `yaw_rate`, `body_height`, `swing_clearance`,
+  `gait_period`, `duty_factor`
+- command UDP: `127.0.0.1:50510`
+- telemetry UDP: `127.0.0.1:50511`
+- ROS source stale timeout: 0.25 s
+- PyMPC UDP stale timeout: 0.25 s
+- stale transport falls back to the known nominal command through
+  `PyMPCLowLevelRuntime` and `TransitionManager`; it does not bypass M4
+- ROS/PyMPC Python ABI separation is intentional:
+  ROS2 Humble uses Python 3.10 while the PyMPC/acados environment uses
+  Python 3.12
+
+Canonical structural live acceptance:
+
+- nominal: `f=1.4 Hz`, `D=0.65`
+- target: `f=1.1 Hz`, `D=0.50`
+- ROS2/UDP target first applied at simulation `t=3.012 s`
+- guarded structural commit at simulation `t=3.216 s`
+- `UNSAFE=None`
+- `override=False`
+- `terminations=0`
+- UDP bad packets: 0
+- standalone hooks restored after run
+
+The ROS2/UDP boundary therefore preserves the closed low-level runtime
+semantics characterized in M2–M4. M5 is an interface boundary, not a
+separate controller or formal safety layer.
 
 ## M6 — Minimal High-Level Reconnection
 
