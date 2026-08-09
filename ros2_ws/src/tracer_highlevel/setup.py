@@ -43,6 +43,11 @@ setup(
                 "tracer_highlevel.structural_meta_gait_node:"
                 "main"
             ),
+            (
+                "learned_meta_gait_node = "
+                "tracer_highlevel.learned_meta_gait_node:"
+                "main"
+            ),
         ],
     },
 )
