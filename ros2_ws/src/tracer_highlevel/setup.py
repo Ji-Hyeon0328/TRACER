@@ -33,6 +33,16 @@ setup(
                 "tracer_highlevel.fixed_meta_gait_node:"
                 "main"
             ),
+            (
+                "scheduled_meta_gait_node = "
+                "tracer_highlevel.scheduled_meta_gait_node:"
+                "main"
+            ),
+            (
+                "structural_meta_gait_node = "
+                "tracer_highlevel.structural_meta_gait_node:"
+                "main"
+            ),
         ],
     },
 )

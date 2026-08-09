@@ -114,7 +114,7 @@ separate controller or formal safety layer.
 ## M6 — Minimal High-Level Reconnection
 
 - [x] Fixed high-level command
-- [ ] Scheduled high-level command
+- [x] Scheduled high-level command
 - [ ] Minimal learned-policy reconnection
 - [ ] Decide when to reconnect Objective Selector / RAM / GMS
 
@@ -144,6 +144,65 @@ Canonical M6.1 live acceptance:
 
 M6.1 changes only the command producer above the frozen M5 boundary.
 The PyMPC low-level runtime and M4 execution semantics remain unchanged.
+
+### M6.2 scheduled high-level reconnection
+
+- [x] Continuous high-level schedule through the frozen M5 boundary
+- [x] Structural high-level schedule through the frozen M5 boundary
+- [x] Continuous command changes observed during live locomotion
+- [x] Structural frequency / duty change committed exactly once
+- [x] Single high-level publisher requirement verified
+- [x] High-level process cleanup verified after the live run
+- [x] Frozen low-level runtime left unchanged
+
+Canonical M6.2 continuous live acceptance:
+
+- scheduled `vx` sequence:
+  `0.12 -> 0.16 -> 0.08 -> 0.12 m/s`
+- `yaw_rate=0.0`, `body_height=0.30`,
+  `swing_clearance=0.06`, `f=1.4 Hz`, `D=0.65` held fixed
+- the full requested sequence reached the PyMPC runtime
+- UDP bad packets: 0
+- `UNSAFE=None`
+- `override=False`
+- `terminations=0`
+- standalone hooks restored after run
+
+Canonical M6.2 structural live acceptance:
+
+- fixed:
+  `vx=0.20`, `yaw_rate=0.0`, `body_height=0.30`,
+  `swing_clearance=0.06`
+- nominal structural command:
+  `f=1.4 Hz`, `D=0.65`
+- target structural command:
+  `f=1.1 Hz`, `D=0.60`
+- requested structural states changed exactly once
+- structural commit occurred exactly once at simulation
+  `t=3.572 s`
+- UDP bad packets: 0
+- `UNSAFE=None`
+- `override=False`
+- `terminations=0`
+- standalone hooks restored after run
+- no high-level producer process remained after cleanup
+
+A contaminated structural trial exposed that multiple concurrent
+publishers on `/tracer/meta_gait_cmd` can alternate incompatible
+high-level requests. M6.2 therefore treats one active high-level
+publisher as an execution precondition.
+
+A lower-margin trial using `vx=0.12 m/s` with the structural target
+`f=1.1 Hz`, `D=0.50` triggered M4 intervention in the tested entry
+condition. It is retained as a stress observation, not as the
+canonical M6.2 acceptance case. This is consistent with the M3
+finding that structural-command viability depends on entry state,
+gait phase, and transition history.
+
+M6.2 therefore establishes dynamic high-level command authority across
+the ROS2/UDP boundary without changing the frozen M5 low-level
+execution semantics.
+
 
 <!-- M3_FREQUENCY_DUTY_V0 -->
 ### M3 frequency × duty characterization v0
