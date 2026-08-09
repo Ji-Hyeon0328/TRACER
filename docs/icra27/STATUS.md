@@ -113,10 +113,37 @@ separate controller or formal safety layer.
 
 ## M6 — Minimal High-Level Reconnection
 
-- [ ] Fixed high-level command
+- [x] Fixed high-level command
 - [ ] Scheduled high-level command
 - [ ] Minimal learned-policy reconnection
 - [ ] Decide when to reconnect Objective Selector / RAM / GMS
+
+### M6.1 fixed high-level reconnection
+
+- [x] Separate `tracer_highlevel` ROS2 package
+- [x] High-level node is independent of PyMPC / M4 / TransitionManager
+- [x] Publishes `/tracer/meta_gait_cmd` as six values:
+  `vx`, `yaw_rate`, `body_height`, `swing_clearance`,
+  `gait_period`, `duty_factor`
+- [x] Fixed command ROS wire contract validated
+- [x] One high-level publisher and one frozen-M5 bridge subscriber
+- [x] Live high-level → ROS2 → UDP → frozen low-level → MuJoCo E2E
+
+Canonical M6.1 live acceptance:
+
+- fixed high-level command:
+  `vx=0.12`, `yaw_rate=0.0`, `body_height=0.30`,
+  `swing_clearance=0.06`, `gait_period=1/1.4`, `duty_factor=0.65`
+- PyMPC received the high-level command from simulation start
+- final command sequence: 507
+- UDP bad packets: 0
+- `UNSAFE=None`
+- `override=False`
+- `terminations=0`
+- standalone hooks restored after run
+
+M6.1 changes only the command producer above the frozen M5 boundary.
+The PyMPC low-level runtime and M4 execution semantics remain unchanged.
 
 <!-- M3_FREQUENCY_DUTY_V0 -->
 ### M3 frequency × duty characterization v0
