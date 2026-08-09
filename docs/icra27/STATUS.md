@@ -275,6 +275,120 @@ Objective Selector, RAM, GMS, full terrain context, goal conditioning, or
 the final high-level RL planner.
 
 
+
+<!-- M7_HIGHLEVEL_RL_V0 -->
+## M7 — High-Level RL Meta-Action Planner
+
+Scope:
+
+- frozen M4 / M5 / PyMPC low-level execution semantics
+- given / oracle terrain context
+- no RAM
+- no Objective Selector
+- no GMS
+- one active high-level command producer
+
+### M7.0 architecture / legacy audit
+
+- [x] Existing high-level / RL asset inventory
+- [x] Classify legacy RL code as REUSE / ADAPT / PARK
+- [x] Continuous vs structural action separation retained from M3
+- [x] M7-v0 structural action held at characterized nominal
+- [x] Observation contract frozen
+- [x] Action range / normalization contract frozen
+- [x] Reward-v0 component contract frozen
+- [x] High-level decision frequency frozen
+- [x] M7 environment / state-tap boundary frozen
+
+
+M7.0 frozen decisions:
+
+- policy action: normalized continuous `[-1,1]^4`
+- zero normalized action maps to characterized nominal
+  `[vx=0.20, yaw=0.0, h=0.30, clr=0.06]`
+- physical action envelope:
+  `vx=[0.00,0.40] m/s`,
+  `yaw=[-0.40,0.40] rad/s`,
+  `h=[0.24,0.32] m`,
+  `clr=[0.03,0.09] m`
+- structural M7-v0:
+  `gait_period=1/1.4 s`, `duty_factor=0.65`
+- observation:
+  `oracle context[K] + goal[4] + base response[6] +
+  applied command[4] + previous action[4]`
+- observation dimension: `K + 18`
+- high-level decision rate: `5 Hz` (`0.2 s`)
+- M5 transport may repeat the latest action at its existing
+  higher publish rate; policy inference remains 5 Hz
+- reward-v0 is fixed-weight and componentized; no Objective
+  Selector / RAM / GMS is active
+- M4 UNSAFE / override is exposed as an explicit negative
+  reward component
+- M7 physical-state instrumentation is a read-only wrapper/tap;
+  frozen M4/M5 execution semantics are not modified
+
+### M7.1 minimal closed RL environment
+
+- [x] Read-only MuJoCo physical-state tap
+
+  - acceptance: UDP `50512`, 20 Hz read-only state stream
+  - smoke: 20 packets, monotonic seq/sim-time
+  - state phase: `controller_input_pre_env_step`
+  - frozen M5 result: no UNSAFE / override / termination
+  - standalone hooks restored after run
+- [x] Gymnasium reset / step semantics
+
+  - real subprocess-backed PyMPC episode on `reset()`
+  - observation: `K+18`; smoke used `K=3 -> 21`
+  - point goal: reset pose + `0.5 m` forward
+  - policy action interval observed at approximately `0.20–0.21 s`
+  - oracle context propagated into observation
+  - reward uses measured decision dt
+  - M4 UNSAFE/override observed live and penalized in reward
+  - same-seed fresh-process reset max observation difference: `0.0`
+  - JSONL episode logs created
+  - runner / transport / UDP cleanup passed
+- [x] Requested vs applied action observability
+
+  - isolated M7 training ports:
+    command `50610`, telemetry `50611`, state `50612`
+  - scripted actions: nominal / faster / slow-turn / geometry
+  - M5 `command_seq` matched each logical policy action
+  - requested and guarded/applied actions separately observable
+  - physical state returned for each transition
+  - transition sim-time approximately `0.20–0.24 s`
+  - no bad packets / UNSAFE / override / termination
+- [x] M4 intervention exposed in reward / info
+- [x] Oracle terrain context input
+- [x] Scripted/random-action closed-loop smoke through frozen M5
+- [x] Deterministic reset smoke
+- [x] Episode logging / cleanup validation
+
+### M7.2 RL training smoke
+
+- [ ] Select PPO / SAC implementation
+- [ ] Continuous 4D policy training smoke
+- [ ] Reward improves beyond random-policy baseline
+- [ ] Policy checkpoint save / reload
+- [ ] Deterministic evaluation rollout
+
+### M7.3 learned-policy M5 E2E
+
+- [ ] Learned policy inference through ROS2
+- [ ] Learned MetaGaitCommand through frozen M5
+- [ ] Requested vs applied action trace
+- [ ] M4 intervention rate reported
+- [ ] Learned vs heuristic/fixed baseline comparison
+
+### Deferred beyond M7-v0
+
+- [ ] Restricted structural action bank
+- [ ] Learned gait-period / duty-factor selection
+- [ ] RAM reconnection
+- [ ] Objective Selector reconnection
+- [ ] GMS reconnection
+
+
 <!-- M3_FREQUENCY_DUTY_V0 -->
 ### M3 frequency × duty characterization v0
 

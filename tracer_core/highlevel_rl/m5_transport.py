@@ -1,0 +1,600 @@
+from __future__ import annotations
+
+from dataclasses import dataclass
+import json
+import socket
+import time
+from typing import Any, Sequence
+
+import numpy as np
+
+from tracer_core.highlevel_rl.contracts import (
+    normalized_action_to_meta_gait,
+    physical_action_to_normalized,
+)
+
+from tracer_core.highlevel_rl.state_protocol import (
+    decode_state_payload,
+)
+
+from tracer_core.lowlevel.pympc_udp_protocol import (
+    TELEMETRY_SCHEMA,
+    encode_command,
+    make_command,
+)
+
+
+COMMAND_KEYS = (
+    "vx",
+    "yaw_rate",
+    "body_height",
+    "swing_clearance",
+    "gait_period",
+    "duty_factor",
+)
+
+
+@dataclass(frozen=True)
+class M7TransportSample:
+    command_seq: int
+
+    requested_normalized: tuple[float, ...]
+    requested_physical: tuple[float, ...]
+
+    applied_physical: tuple[float, ...] | None
+
+    applied_normalized: tuple[float, ...] | None
+
+    state: dict[str, Any]
+    telemetry: dict[str, Any]
+
+    sim_dt_s: float
+
+    @property
+    def safety_state(self) -> str:
+        return str(
+            self.telemetry["safety_state"]
+        )
+
+    @property
+    def override_active(self) -> bool:
+        return bool(
+            self.telemetry["override_active"]
+        )
+
+    @property
+    def terminated(self) -> bool:
+        return bool(
+            self.state["terminated"]
+        )
+
+    @property
+    def truncated(self) -> bool:
+        return bool(
+            self.state["truncated"]
+        )
+
+
+def decode_m5_telemetry(
+    raw: bytes,
+) -> dict[str, Any]:
+    payload = json.loads(
+        raw.decode("utf-8")
+    )
+
+    if not isinstance(payload, dict):
+        raise ValueError(
+            "M5 telemetry packet must be object"
+        )
+
+    if (
+        payload.get("schema")
+        != TELEMETRY_SCHEMA
+    ):
+        raise ValueError(
+            "unexpected M5 telemetry schema: "
+            f"{payload.get('schema')!r}"
+        )
+
+    required = (
+        "seq",
+        "command_seq",
+        "safety_state",
+        "override_active",
+        "sim_time_s",
+        "applied",
+    )
+
+    missing = [
+        name
+        for name in required
+        if name not in payload
+    ]
+
+    if missing:
+        raise ValueError(
+            "M5 telemetry missing fields: "
+            f"{missing}"
+        )
+
+    payload["seq"] = int(
+        payload["seq"]
+    )
+
+    payload["sim_time_s"] = float(
+        payload["sim_time_s"]
+    )
+
+    if payload["command_seq"] is not None:
+        payload["command_seq"] = int(
+            payload["command_seq"]
+        )
+
+    safety = str(
+        payload["safety_state"]
+    ).lower()
+
+    if safety not in {
+        "normal",
+        "watch",
+        "unsafe",
+    }:
+        raise ValueError(
+            f"invalid safety state {safety!r}"
+        )
+
+    payload["safety_state"] = safety
+
+    return payload
+
+
+def _command_tuple(
+    mapping: dict[str, Any] | None,
+) -> tuple[float, ...] | None:
+    if mapping is None:
+        return None
+
+    return tuple(
+        float(mapping[name])
+        for name in COMMAND_KEYS
+    )
+
+
+class M7M5Transport:
+    """
+    Synchronous M7-v0 transport boundary.
+
+    Policy rate:
+        5 Hz nominal
+
+    Command freshness:
+        repeat current logical command at 20 Hz
+
+    The same command seq is repeated within one high-level
+    action interval so M5 command freshness is maintained
+    without turning repeats into new policy decisions.
+    """
+
+    def __init__(
+        self,
+        *,
+        host: str = "127.0.0.1",
+        command_port: int = 50610,
+        telemetry_port: int = 50611,
+        state_port: int = 50612,
+        command_repeat_hz: float = 20.0,
+    ) -> None:
+        self.host = str(host)
+
+        self.command_addr = (
+            self.host,
+            int(command_port),
+        )
+
+        self.command_repeat_period_s = (
+            1.0
+            / max(
+                float(command_repeat_hz),
+                1.0,
+            )
+        )
+
+        self.command_sock = socket.socket(
+            socket.AF_INET,
+            socket.SOCK_DGRAM,
+        )
+
+        self.telemetry_sock = socket.socket(
+            socket.AF_INET,
+            socket.SOCK_DGRAM,
+        )
+
+        self.telemetry_sock.setsockopt(
+            socket.SOL_SOCKET,
+            socket.SO_REUSEADDR,
+            1,
+        )
+
+        self.telemetry_sock.bind(
+            (
+                self.host,
+                int(telemetry_port),
+            )
+        )
+
+        self.telemetry_sock.setblocking(
+            False
+        )
+
+        self.state_sock = socket.socket(
+            socket.AF_INET,
+            socket.SOCK_DGRAM,
+        )
+
+        self.state_sock.setsockopt(
+            socket.SOL_SOCKET,
+            socket.SO_REUSEADDR,
+            1,
+        )
+
+        self.state_sock.bind(
+            (
+                self.host,
+                int(state_port),
+            )
+        )
+
+        self.state_sock.setblocking(
+            False
+        )
+
+        self.next_command_seq = 0
+
+        self.latest_telemetry = None
+        self.latest_state = None
+
+        self.bad_telemetry_packets = 0
+        self.bad_state_packets = 0
+
+    def close(self) -> None:
+        self.command_sock.close()
+        self.telemetry_sock.close()
+        self.state_sock.close()
+
+    def _drain_telemetry(
+        self,
+    ) -> list[dict[str, Any]]:
+        packets = []
+
+        while True:
+            try:
+                raw, _ = (
+                    self.telemetry_sock.recvfrom(
+                        65535
+                    )
+                )
+
+            except BlockingIOError:
+                break
+
+            try:
+                payload = (
+                    decode_m5_telemetry(raw)
+                )
+
+            except Exception:
+                self.bad_telemetry_packets += 1
+                continue
+
+            self.latest_telemetry = payload
+            packets.append(payload)
+
+        return packets
+
+    def _drain_state(
+        self,
+    ) -> list[dict[str, Any]]:
+        packets = []
+
+        while True:
+            try:
+                raw, _ = (
+                    self.state_sock.recvfrom(
+                        65535
+                    )
+                )
+
+            except BlockingIOError:
+                break
+
+            try:
+                payload = (
+                    decode_state_payload(raw)
+                )
+
+            except Exception:
+                self.bad_state_packets += 1
+                continue
+
+            self.latest_state = payload
+            packets.append(payload)
+
+        return packets
+
+    def poll(self) -> None:
+        self._drain_telemetry()
+        self._drain_state()
+
+    def wait_initial(
+        self,
+        *,
+        timeout_s: float = 15.0,
+    ) -> tuple[
+        dict[str, Any],
+        dict[str, Any],
+    ]:
+        deadline = (
+            time.monotonic()
+            + float(timeout_s)
+        )
+
+        while time.monotonic() < deadline:
+            self.poll()
+
+            if (
+                self.latest_telemetry
+                is not None
+                and self.latest_state
+                is not None
+            ):
+                return (
+                    self.latest_telemetry,
+                    self.latest_state,
+                )
+
+            time.sleep(0.005)
+
+        raise TimeoutError(
+            "Timed out waiting for initial "
+            "M5 telemetry + M7 state"
+        )
+
+    def step(
+        self,
+        normalized_action: Sequence[float],
+        *,
+        target_sim_dt: float = 0.20,
+        timeout_s: float = 10.0,
+    ) -> M7TransportSample:
+        action = np.asarray(
+            normalized_action,
+            dtype=np.float64,
+        ).reshape(-1)
+
+        if action.shape != (4,):
+            raise ValueError(
+                "normalized_action must "
+                f"have shape (4,), got {action.shape}"
+            )
+
+        policy_command = (
+            normalized_action_to_meta_gait(
+                action
+            )
+        )
+
+        seq = self.next_command_seq
+        self.next_command_seq += 1
+
+        udp_command = make_command(
+            seq=seq,
+            label=f"m7_policy_{seq}",
+            vx=policy_command.vx,
+            yaw_rate=policy_command.yaw_rate,
+            body_height=(
+                policy_command.body_height
+            ),
+            swing_clearance=(
+                policy_command.swing_clearance
+            ),
+            gait_period=(
+                policy_command.gait_period
+            ),
+            duty_factor=(
+                policy_command.duty_factor
+            ),
+        )
+
+        raw_command = encode_command(
+            udp_command
+        )
+
+        requested_physical = tuple(
+            float(x)
+            for x in udp_command.values
+        )
+
+        deadline = (
+            time.monotonic()
+            + float(timeout_s)
+        )
+
+        next_send = 0.0
+
+        ack_sim_time = None
+        target_sim_time = None
+
+        matched_telemetry = None
+        matched_state = None
+
+        while time.monotonic() < deadline:
+            now = time.monotonic()
+
+            if now >= next_send:
+                self.command_sock.sendto(
+                    raw_command,
+                    self.command_addr,
+                )
+
+                next_send = (
+                    now
+                    + self.command_repeat_period_s
+                )
+
+            telemetry_packets = (
+                self._drain_telemetry()
+            )
+
+            state_packets = (
+                self._drain_state()
+            )
+
+            for telemetry in telemetry_packets:
+                if (
+                    telemetry["command_seq"]
+                    != seq
+                ):
+                    continue
+
+                if ack_sim_time is None:
+                    ack_sim_time = float(
+                        telemetry["sim_time_s"]
+                    )
+
+                    target_sim_time = (
+                        ack_sim_time
+                        + float(target_sim_dt)
+                    )
+
+                if (
+                    target_sim_time
+                    is not None
+                    and float(
+                        telemetry["sim_time_s"]
+                    )
+                    >= (
+                        target_sim_time - 0.06
+                    )
+                ):
+                    matched_telemetry = telemetry
+
+            if target_sim_time is not None:
+                for state in state_packets:
+                    if float(
+                        state["sample_time_s"]
+                    ) >= target_sim_time:
+                        matched_state = state
+
+            # Also allow already-buffered latest samples.
+            if (
+                target_sim_time is not None
+                and self.latest_state is not None
+                and float(
+                    self.latest_state[
+                        "sample_time_s"
+                    ]
+                )
+                >= target_sim_time
+            ):
+                matched_state = (
+                    self.latest_state
+                )
+
+            if (
+                target_sim_time is not None
+                and self.latest_telemetry
+                is not None
+                and self.latest_telemetry[
+                    "command_seq"
+                ] == seq
+                and float(
+                    self.latest_telemetry[
+                        "sim_time_s"
+                    ]
+                )
+                >= (
+                    target_sim_time - 0.06
+                )
+            ):
+                matched_telemetry = (
+                    self.latest_telemetry
+                )
+
+            if (
+                matched_state is not None
+                and matched_telemetry is not None
+            ):
+                break
+
+            time.sleep(0.002)
+
+        if ack_sim_time is None:
+            raise TimeoutError(
+                f"M5 never acknowledged "
+                f"command seq={seq}"
+            )
+
+        if matched_state is None:
+            raise TimeoutError(
+                "No physical-state sample reached "
+                f"target sim time for seq={seq}"
+            )
+
+        if matched_telemetry is None:
+            raise TimeoutError(
+                "No matching M5 telemetry reached "
+                f"target sim time for seq={seq}"
+            )
+
+        applied_physical = _command_tuple(
+            matched_telemetry.get(
+                "applied"
+            )
+        )
+
+        applied_normalized = None
+
+        if applied_physical is not None:
+            applied_normalized = tuple(
+                float(x)
+                for x in (
+                    physical_action_to_normalized(
+                        applied_physical[:4]
+                    )
+                )
+            )
+
+        sim_dt = (
+            float(
+                matched_state[
+                    "sample_time_s"
+                ]
+            )
+            - float(ack_sim_time)
+        )
+
+        return M7TransportSample(
+            command_seq=seq,
+
+            requested_normalized=tuple(
+                float(x)
+                for x in action
+            ),
+
+            requested_physical=(
+                requested_physical
+            ),
+
+            applied_physical=(
+                applied_physical
+            ),
+
+            applied_normalized=(
+                applied_normalized
+            ),
+
+            state=matched_state,
+            telemetry=matched_telemetry,
+
+            sim_dt_s=float(sim_dt),
+        )
