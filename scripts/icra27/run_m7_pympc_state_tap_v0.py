@@ -523,6 +523,24 @@ def m7_udp_env_step(
         _native_reward(result)
     )
 
+    if LATEST_ENERGY_SAMPLE is None:
+        raise RuntimeError(
+            "State packet is ready but "
+            "mechanical-energy sample is missing"
+        )
+
+    payload["energy_sample_time_s"] = float(
+        LATEST_ENERGY_SAMPLE[
+            "time_post_s"
+        ]
+    )
+
+    payload["mechanical_energy"] = dict(
+        LATEST_ENERGY_SAMPLE[
+            "cumulative_energy"
+        ]
+    )
+
     STATE_SENDER.send(
         payload
     )

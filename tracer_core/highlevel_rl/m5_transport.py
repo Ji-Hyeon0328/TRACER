@@ -35,6 +35,29 @@ COMMAND_KEYS = (
 
 
 @dataclass(frozen=True)
+class M7MechanicalEnergyInterval:
+    """
+    Raw physical mechanical-energy increment measured
+    during one command interval.
+
+    Reward normalization intentionally does not live
+    at the transport layer.
+    """
+
+    start_time_s: float
+    end_time_s: float
+    dt_s: float
+
+    commanded_signed_j: float
+    commanded_abs_j: float
+    commanded_positive_j: float
+
+    applied_signed_j: float
+    applied_abs_j: float
+    applied_positive_j: float
+
+
+@dataclass(frozen=True)
 class M7TransportSample:
     command_seq: int
 
@@ -49,6 +72,11 @@ class M7TransportSample:
     telemetry: dict[str, Any]
 
     sim_dt_s: float
+
+    energy_interval: (
+        M7MechanicalEnergyInterval
+        | None
+    ) = None
 
     @property
     def safety_state(self) -> str:
@@ -157,6 +185,185 @@ def _command_tuple(
     return tuple(
         float(mapping[name])
         for name in COMMAND_KEYS
+    )
+
+
+def _mechanical_energy_interval(
+    start_state: dict[str, Any],
+    end_state: dict[str, Any],
+) -> M7MechanicalEnergyInterval | None:
+    """
+    Difference two cumulative mechanical-energy snapshots.
+
+    Missing optional energy telemetry preserves backward
+    compatibility and returns None.
+    """
+
+    start_energy = start_state.get(
+        "mechanical_energy"
+    )
+
+    end_energy = end_state.get(
+        "mechanical_energy"
+    )
+
+    start_time = start_state.get(
+        "energy_sample_time_s"
+    )
+
+    end_time = end_state.get(
+        "energy_sample_time_s"
+    )
+
+    if (
+        start_energy is None
+        or end_energy is None
+        or start_time is None
+        or end_time is None
+    ):
+        return None
+
+    start_time = float(
+        start_time
+    )
+
+    end_time = float(
+        end_time
+    )
+
+    dt = (
+        end_time
+        - start_time
+    )
+
+    if dt <= 0.0:
+        return None
+
+    def delta(
+        name: str,
+    ) -> float:
+        return (
+            float(end_energy[name])
+            - float(start_energy[name])
+        )
+
+    commanded_signed = delta(
+        "commanded_signed_j"
+    )
+
+    commanded_abs = delta(
+        "commanded_abs_j"
+    )
+
+    commanded_positive = delta(
+        "commanded_positive_j"
+    )
+
+    applied_signed = delta(
+        "applied_signed_j"
+    )
+
+    applied_abs = delta(
+        "applied_abs_j"
+    )
+
+    applied_positive = delta(
+        "applied_positive_j"
+    )
+
+    tolerance = 1e-9
+
+    for name, value in (
+        (
+            "commanded_abs_j",
+            commanded_abs,
+        ),
+        (
+            "commanded_positive_j",
+            commanded_positive,
+        ),
+        (
+            "applied_abs_j",
+            applied_abs,
+        ),
+        (
+            "applied_positive_j",
+            applied_positive,
+        ),
+    ):
+        if value < -tolerance:
+            raise RuntimeError(
+                "Cumulative mechanical energy "
+                f"decreased for {name}: {value}"
+            )
+
+    # Remove possible tiny floating-point negatives.
+    commanded_abs = max(
+        commanded_abs,
+        0.0,
+    )
+
+    commanded_positive = max(
+        commanded_positive,
+        0.0,
+    )
+
+    applied_abs = max(
+        applied_abs,
+        0.0,
+    )
+
+    applied_positive = max(
+        applied_positive,
+        0.0,
+    )
+
+    if (
+        commanded_positive
+        > commanded_abs + tolerance
+    ):
+        raise RuntimeError(
+            "Commanded positive work exceeds "
+            "absolute work in interval"
+        )
+
+    if (
+        applied_positive
+        > applied_abs + tolerance
+    ):
+        raise RuntimeError(
+            "Applied positive work exceeds "
+            "absolute work in interval"
+        )
+
+    return M7MechanicalEnergyInterval(
+        start_time_s=start_time,
+        end_time_s=end_time,
+        dt_s=float(dt),
+
+        commanded_signed_j=float(
+            commanded_signed
+        ),
+
+        commanded_abs_j=float(
+            commanded_abs
+        ),
+
+        commanded_positive_j=float(
+            commanded_positive
+        ),
+
+        applied_signed_j=float(
+            applied_signed
+        ),
+
+        applied_abs_j=float(
+            applied_abs
+        ),
+
+        applied_positive_j=float(
+            applied_positive
+        ),
     )
 
 
@@ -427,6 +634,8 @@ class M7M5Transport:
         matched_telemetry = None
         matched_state = None
 
+        energy_start_state = None
+
         while time.monotonic() < deadline:
             now = time.monotonic()
 
@@ -477,6 +686,35 @@ class M7M5Transport:
                     )
                 ):
                     matched_telemetry = telemetry
+
+            if (
+                ack_sim_time is not None
+                and energy_start_state is None
+            ):
+                for state in state_packets:
+                    energy = state.get(
+                        "mechanical_energy"
+                    )
+
+                    energy_time = state.get(
+                        "energy_sample_time_s"
+                    )
+
+                    if (
+                        energy is None
+                        or energy_time is None
+                    ):
+                        continue
+
+                    if (
+                        float(energy_time)
+                        >= float(ack_sim_time)
+                    ):
+                        energy_start_state = (
+                            state
+                        )
+
+                        break
 
             if target_sim_time is not None:
                 for state in state_packets:
@@ -573,6 +811,16 @@ class M7M5Transport:
             - float(ack_sim_time)
         )
 
+        energy_interval = None
+
+        if energy_start_state is not None:
+            energy_interval = (
+                _mechanical_energy_interval(
+                    energy_start_state,
+                    matched_state,
+                )
+            )
+
         return M7TransportSample(
             command_seq=seq,
 
@@ -597,4 +845,8 @@ class M7M5Transport:
             telemetry=matched_telemetry,
 
             sim_dt_s=float(sim_dt),
+
+            energy_interval=(
+                energy_interval
+            ),
         )

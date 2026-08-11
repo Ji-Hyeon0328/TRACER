@@ -108,6 +108,114 @@ def validate_state_payload(
             )
         )
 
+    mechanical_energy = out.get(
+        "mechanical_energy"
+    )
+
+    if mechanical_energy is not None:
+        if not isinstance(
+            mechanical_energy,
+            Mapping,
+        ):
+            raise ValueError(
+                "mechanical_energy must "
+                "be a mapping"
+            )
+
+        required_energy_fields = (
+            "samples",
+            "elapsed_s",
+            "commanded_signed_j",
+            "commanded_abs_j",
+            "commanded_positive_j",
+            "applied_signed_j",
+            "applied_abs_j",
+            "applied_positive_j",
+        )
+
+        missing_energy_fields = [
+            name
+            for name in required_energy_fields
+            if name not in mechanical_energy
+        ]
+
+        if missing_energy_fields:
+            raise ValueError(
+                "mechanical_energy missing fields: "
+                f"{missing_energy_fields}"
+            )
+
+        energy = {
+            "samples":
+                int(
+                    mechanical_energy[
+                        "samples"
+                    ]
+                ),
+        }
+
+        if energy["samples"] < 0:
+            raise ValueError(
+                "mechanical_energy.samples "
+                "must be >= 0"
+            )
+
+        for name in (
+            "elapsed_s",
+            "commanded_signed_j",
+            "commanded_abs_j",
+            "commanded_positive_j",
+            "applied_signed_j",
+            "applied_abs_j",
+            "applied_positive_j",
+        ):
+            energy[name] = _finite_float(
+                f"mechanical_energy.{name}",
+                mechanical_energy[name],
+            )
+
+        for name in (
+            "elapsed_s",
+            "commanded_abs_j",
+            "commanded_positive_j",
+            "applied_abs_j",
+            "applied_positive_j",
+        ):
+            if energy[name] < 0.0:
+                raise ValueError(
+                    f"mechanical_energy.{name} "
+                    "must be >= 0"
+                )
+
+        if (
+            energy["commanded_positive_j"]
+            > energy["commanded_abs_j"]
+            + 1e-9
+        ):
+            raise ValueError(
+                "commanded positive work "
+                "exceeds absolute work"
+            )
+
+        if (
+            energy["applied_positive_j"]
+            > energy["applied_abs_j"]
+            + 1e-9
+        ):
+            raise ValueError(
+                "applied positive work "
+                "exceeds absolute work"
+            )
+
+        out["mechanical_energy"] = energy
+
+        out["energy_sample_time_s"] = (
+            _finite_float(
+                "energy_sample_time_s",
+                out["energy_sample_time_s"],
+            )
+        )
+
     return out
 
 
