@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import os
 from pathlib import Path
 import socket
@@ -25,6 +26,12 @@ from tracer_core.highlevel_rl.state_protocol import (
     encode_state_payload,
 )
 
+from tracer_core.highlevel_rl.mechanical_energy import (
+    MechanicalEnergyAccumulator,
+    applied_generalized_power,
+    commanded_joint_power,
+)
+
 
 standalone = m5.standalone
 
@@ -45,6 +52,55 @@ ORIGINAL_M5_UDP_ENV_STEP = (
 LATEST_STATE: dict | None = None
 EPISODE_INDEX = -1
 STATE_SENDER = None
+
+
+ENERGY_ACCUMULATOR = (
+    MechanicalEnergyAccumulator()
+)
+
+LATEST_ENERGY_SAMPLE: dict | None = None
+
+ENERGY_LOG_PATH = (
+    os.environ.get(
+        "TRACER_M7_ENERGY_LOG",
+        "",
+    ).strip()
+)
+
+
+def _append_energy_log(
+    row: dict,
+) -> None:
+    """
+    Optional logging-only mechanical-energy side channel.
+
+    This does not alter M5 telemetry, M7 observation,
+    task reward, or controller behavior.
+    """
+
+    if not ENERGY_LOG_PATH:
+        return
+
+    path = Path(
+        ENERGY_LOG_PATH
+    )
+
+    path.parent.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
+
+    with path.open(
+        "a",
+        encoding="utf-8",
+    ) as handle:
+        handle.write(
+            json.dumps(
+                row,
+                separators=(",", ":"),
+            )
+            + "\n"
+        )
 
 
 class M7StateUdpSender:
@@ -308,13 +364,140 @@ def m7_udp_env_step(
     action,
 ):
     """
-    Preserve the exact frozen M5 env-step semantics first,
-    then publish a read-only M7 physical-state packet.
+    Preserve the exact frozen M5 env-step semantics,
+    while adding a read-only mechanical-energy tap.
+
+    Timing:
+      1. snapshot qvel/time before mj_step
+      2. compute commanded torque power
+      3. execute frozen M5/MuJoCo step
+      4. read qfrc_actuator generated during that step
+      5. pair it with the pre-step qvel snapshot
     """
 
+    global ENERGY_ACCUMULATOR
+    global LATEST_ENERGY_SAMPLE
+
+    qvel_pre = np.asarray(
+        self.mjData.qvel,
+        dtype=float,
+    ).copy()
+
+    base_position_pre = np.asarray(
+        self.mjData.qpos[:3],
+        dtype=float,
+    ).copy()
+
+    time_pre = float(
+        self.mjData.time
+    )
+
+    commanded_power = (
+        commanded_joint_power(
+            self,
+            action,
+        )
+    )
+
+    # Exact frozen M5/MuJoCo behavior.
     result = ORIGINAL_M5_UDP_ENV_STEP(
         self,
         action,
+    )
+
+    time_post = float(
+        self.mjData.time
+    )
+
+    base_position_post = np.asarray(
+        self.mjData.qpos[:3],
+        dtype=float,
+    ).copy()
+
+    robot_mass_kg = float(
+        np.sum(
+            np.asarray(
+                self.mjModel.body_mass,
+                dtype=float,
+            )
+        )
+    )
+
+    if (
+        not np.isfinite(robot_mass_kg)
+        or robot_mass_kg <= 0.0
+    ):
+        raise RuntimeError(
+            "Invalid MuJoCo robot mass: "
+            f"{robot_mass_kg!r}"
+        )
+
+    dt = (
+        time_post
+        - time_pre
+    )
+
+    if not np.isfinite(dt) or dt <= 0.0:
+        raise RuntimeError(
+            "Unexpected MuJoCo step dt: "
+            f"{dt!r}"
+        )
+
+    applied_power = (
+        applied_generalized_power(
+            self,
+            qvel_snapshot=qvel_pre,
+        )
+    )
+
+    ENERGY_ACCUMULATOR.add(
+        dt=dt,
+        commanded=commanded_power,
+        applied=applied_power,
+    )
+
+    LATEST_ENERGY_SAMPLE = {
+        "episode_index":
+            int(EPISODE_INDEX),
+
+        "time_pre_s":
+            float(time_pre),
+
+        "time_post_s":
+            float(time_post),
+
+        "dt_s":
+            float(dt),
+
+        "robot_mass_kg":
+            float(robot_mass_kg),
+
+        "base_position_pre_world":
+            [
+                float(x)
+                for x in base_position_pre
+            ],
+
+        "base_position_post_world":
+            [
+                float(x)
+                for x in base_position_post
+            ],
+
+        "commanded_power_w":
+            dict(commanded_power),
+
+        "applied_power_w":
+            dict(applied_power),
+
+        "cumulative_energy":
+            ENERGY_ACCUMULATOR.as_dict(),
+    }
+
+    # Keep energy as a separate local diagnostic channel.
+    # Do not modify the validated M7 state protocol.
+    _append_energy_log(
+        LATEST_ENERGY_SAMPLE
     )
 
     if (
@@ -353,6 +536,8 @@ def m7_wrapper_reset(
 ):
     global LATEST_STATE
     global EPISODE_INDEX
+    global ENERGY_ACCUMULATOR
+    global LATEST_ENERGY_SAMPLE
 
     result = (
         ORIGINAL_STANDALONE_WRAPPER_RESET(
@@ -363,6 +548,12 @@ def m7_wrapper_reset(
 
     EPISODE_INDEX += 1
     LATEST_STATE = None
+
+    ENERGY_ACCUMULATOR = (
+        MechanicalEnergyAccumulator()
+    )
+
+    LATEST_ENERGY_SAMPLE = None
 
     print(
         "[M7 state tap] reset "

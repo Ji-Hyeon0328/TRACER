@@ -210,6 +210,8 @@ def commanded_joint_power(
 
 def applied_generalized_power(
     env,
+    *,
+    qvel_snapshot=None,
 ) -> dict[str, float]:
     """
     MuJoCo generalized actuator mechanical power.
@@ -217,12 +219,22 @@ def applied_generalized_power(
     Uses only the 12 actuated leg velocity coordinates:
         qfrc_actuator[j] * qvel[j]
 
+    For post-mj_step measurement, pass the pre-step
+    qvel snapshot so qfrc_actuator is paired with the
+    state/control at which forward actuation was computed.
+
     This intentionally excludes floating-base coordinates.
     """
 
+    qvel_source = (
+        env.mjData.qvel
+        if qvel_snapshot is None
+        else qvel_snapshot
+    )
+
     qvel = _as_vector(
-        env.mjData.qvel,
-        name="mjData.qvel",
+        qvel_source,
+        name="qvel_snapshot",
     )
 
     qfrc = _as_vector(
