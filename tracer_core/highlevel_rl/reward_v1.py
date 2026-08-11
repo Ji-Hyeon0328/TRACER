@@ -57,6 +57,62 @@ UNIFORM_BETA = (
 )
 
 
+# Behavior-preserving structured representation of the
+# frozen M7-v0 fixed-additive reward.
+#
+# Frozen objective-relevant coefficients:
+#
+#   2.00 * progress
+# + 0.05 * heading
+# + 0.25 * stability_tilt
+# + 0.02 * effort_proxy
+#
+# With:
+#
+#   motion =
+#       (2.00 / 2.05) * progress
+#     + (0.05 / 2.05) * heading
+#
+#   stability =
+#       stability_tilt / 4
+#
+#   command_economy_proxy =
+#       effort_proxy
+#
+# the exact structured coefficients are:
+#
+#   objective_scale = 3.07
+#   beta_ref =
+#       [2.05 / 3.07,
+#        1.00 / 3.07,
+#        0.02 / 3.07]
+#
+# beta_ref is NOT claimed to be optimal.
+# It is the reference point that preserves the frozen
+# fixed-additive objective.
+REFERENCE_OBJECTIVE_SCALE = 3.07
+
+REFERENCE_BETA = (
+    2.05 / REFERENCE_OBJECTIVE_SCALE,
+    1.00 / REFERENCE_OBJECTIVE_SCALE,
+    0.02 / REFERENCE_OBJECTIVE_SCALE,
+)
+
+REFERENCE_TRACER_REWARD_CONFIG = (
+    TRACERRewardConfig(
+        motion_progress_mix=(
+            2.00 / 2.05
+        ),
+        motion_heading_mix=(
+            0.05 / 2.05
+        ),
+        objective_scale=(
+            REFERENCE_OBJECTIVE_SCALE
+        ),
+    )
+)
+
+
 def _as_action(
     x: Sequence[float],
     *,
@@ -375,6 +431,62 @@ def compute_tracer_uniform_reward(
         "note":
             "third beta objective is command-economy "
             "proxy, not physical energy",
+    }
+
+    return total, components
+
+
+def compute_tracer_reference_reward(
+    **kwargs,
+) -> tuple[float, dict[str, Any]]:
+    """
+    Structured reward that is mathematically equivalent to
+    the frozen M7-v0 fixed-additive reward.
+
+    This is the calibrated reference beta before introducing
+    terrain-specific objective adaptation.
+
+    The third objective remains a command-economy proxy,
+    NOT physical energy.
+    """
+
+    forbidden = {
+        "beta",
+        "cfg",
+    }.intersection(
+        kwargs
+    )
+
+    if forbidden:
+        raise TypeError(
+            "compute_tracer_reference_reward "
+            "owns beta/cfg; received overrides: "
+            f"{sorted(forbidden)}"
+        )
+
+    total, components = (
+        compute_tracer_uniform_reward(
+            **kwargs,
+            beta=REFERENCE_BETA,
+            cfg=(
+                REFERENCE_TRACER_REWARD_CONFIG
+            ),
+        )
+    )
+
+    components = {
+        **components,
+
+        "reward_schema":
+            "icra27_tracer_reference_v1",
+
+        "reference_equivalent_to":
+            "icra27_fixed_additive_v0",
+
+        "reference_objective_scale":
+            float(
+                REFERENCE_OBJECTIVE_SCALE
+            ),
     }
 
     return total, components
