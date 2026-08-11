@@ -1,0 +1,52 @@
+{
+  "characterization_repeats": 3,
+  "fixed_clearance_m": 0.06,
+  "schema": "icra27_m7_perlin_seed_split_v0",
+  "source": "results/icra27/m7_perlin_seed_bank_v0/seed_bank.json",
+  "source_policy": "frozen_nominal_zero_action",
+  "split_rng_seed": 27027,
+  "splits": {
+    "test": [
+      27,
+      2,
+      3,
+      19,
+      26
+    ],
+    "train": [
+      13,
+      7,
+      15,
+      0,
+      5,
+      11,
+      4,
+      25,
+      12,
+      6,
+      29,
+      18,
+      10,
+      8,
+      22,
+      20,
+      28,
+      17
+    ],
+    "validation": [
+      1,
+      21,
+      16,
+      14
+    ]
+  },
+  "stress_banks": {
+    "boundary": [],
+    "hard": [
+      9,
+      23,
+      24
+    ]
+  },
+  "terrain": "rough_perlin"
+}
