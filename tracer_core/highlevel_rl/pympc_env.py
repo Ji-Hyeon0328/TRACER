@@ -23,12 +23,23 @@ from tracer_core.highlevel_rl.m5_transport import (
     M7M5Transport,
 )
 
-from tracer_core.highlevel_rl.reward import (
-    compute_m7_reward,
+from tracer_core.highlevel_rl.reward_v1 import (
+    compute_fixed_additive_baseline,
+    compute_tracer_uniform_reward,
+)
+
+from tracer_core.highlevel_rl.terrain import (
+    get_terrain_preset,
 )
 
 
 ROOT = Path(__file__).resolve().parents[2]
+
+
+REWARD_MODES = (
+    "fixed_additive",
+    "tracer_uniform",
+)
 
 
 def _wrap_pi(x: float) -> float:
@@ -45,6 +56,70 @@ def _command_tuple(mapping):
         float(mapping[k])
         for k in COMMAND_KEYS
     )
+
+
+def _resolve_episode_status(
+    *,
+    success: bool,
+    native_terminated: bool,
+    native_truncated: bool,
+    episode_step: int,
+    max_episode_steps: int,
+    safety_state: str,
+    override_active: bool,
+    terminate_on_m4_unsafe: bool,
+) -> dict:
+    """
+    Resolve Gymnasium termination semantics independently
+    of the physical simulator.
+
+    WATCH is diagnostic only.
+    Only UNSAFE or active override counts as M4 intervention.
+    """
+
+    m4_unsafe = (
+        str(safety_state).strip().lower()
+        == "unsafe"
+    )
+
+    m4_intervention = bool(
+        override_active
+        or m4_unsafe
+    )
+
+    m4_terminal = bool(
+        terminate_on_m4_unsafe
+        and m4_intervention
+    )
+
+    terminated = bool(
+        success
+        or native_terminated
+        or m4_terminal
+    )
+
+    time_limit = (
+        int(episode_step)
+        >= int(max_episode_steps)
+    )
+
+    truncated = bool(
+        native_truncated
+        or (
+            time_limit
+            and not terminated
+        )
+    )
+
+    return {
+        "m4_unsafe": m4_unsafe,
+        "m4_intervention":
+            m4_intervention,
+        "m4_terminal": m4_terminal,
+        "terminated": terminated,
+        "truncated": truncated,
+        "time_limit": time_limit,
+    }
 
 
 class PyMPCM7Env(gym.Env):
@@ -70,15 +145,16 @@ class PyMPCM7Env(gym.Env):
     def __init__(
         self,
         *,
-        oracle_context: Sequence[float] = (
-            1.0,
-            0.0,
-            0.0,
-        ),
+        terrain: str = "flat",
+        terrain_friction: float | None = None,
+        rough_height_scale: float = 1.0,
+        oracle_context: Sequence[float] | None = None,
         goal_distance_m: float = 0.50,
         success_radius_m: float = 0.15,
         decision_dt_s: float = 0.20,
         max_episode_steps: int = 25,
+        terminate_on_m4_unsafe: bool = False,
+        reward_mode: str = "fixed_additive",
         host: str = "127.0.0.1",
         command_port: int = 50610,
         telemetry_port: int = 50611,
@@ -90,14 +166,87 @@ class PyMPCM7Env(gym.Env):
     ):
         super().__init__()
 
-        self.oracle_context = tuple(
-            float(x)
-            for x in oracle_context
+        self.terrain_preset = (
+            get_terrain_preset(
+                terrain,
+                friction_override=(
+                    terrain_friction
+                ),
+            )
         )
 
-        if len(self.oracle_context) == 0:
+        self.terrain_name = (
+            self.terrain_preset.name
+        )
+
+        self.terrain_scene = (
+            self.terrain_preset.scene
+        )
+
+        self.terrain_friction = float(
+            self.terrain_preset.friction_coeff
+        )
+
+        self.rough_height_scale = float(
+            rough_height_scale
+        )
+
+        if self.rough_height_scale <= 0.0:
             raise ValueError(
-                "oracle_context must be non-empty"
+                "rough_height_scale must be > 0"
+            )
+
+        preset_context = tuple(
+            float(x)
+            for x in (
+                self.terrain_preset
+                .oracle_context
+            )
+        )
+
+        # Backward compatibility:
+        # old M7 callers may still explicitly provide
+        # [1,0,0] for the flat terrain.
+        #
+        # Terrain is now the source-of-truth, so an
+        # explicitly supplied context must agree with it.
+        if oracle_context is None:
+            self.oracle_context = (
+                preset_context
+            )
+
+        else:
+            provided_context = tuple(
+                float(x)
+                for x in oracle_context
+            )
+
+            if (
+                len(provided_context)
+                != len(preset_context)
+                or not np.allclose(
+                    np.asarray(
+                        provided_context,
+                        dtype=float,
+                    ),
+                    np.asarray(
+                        preset_context,
+                        dtype=float,
+                    ),
+                    rtol=0.0,
+                    atol=1e-8,
+                )
+            ):
+                raise ValueError(
+                    "oracle_context disagrees "
+                    "with terrain preset: "
+                    f"terrain={self.terrain_name!r} "
+                    f"preset={preset_context} "
+                    f"provided={provided_context}"
+                )
+
+            self.oracle_context = (
+                provided_context
             )
 
         self.goal_distance_m = float(
@@ -115,6 +264,23 @@ class PyMPCM7Env(gym.Env):
         self.max_episode_steps = int(
             max_episode_steps
         )
+
+        self.terminate_on_m4_unsafe = bool(
+            terminate_on_m4_unsafe
+        )
+
+        reward_mode = str(
+            reward_mode
+        ).strip().lower()
+
+        if reward_mode not in REWARD_MODES:
+            raise ValueError(
+                "Unsupported reward_mode: "
+                f"{reward_mode!r}; "
+                f"expected one of {REWARD_MODES}"
+            )
+
+        self.reward_mode = reward_mode
 
         self.host = str(host)
 
@@ -286,12 +452,20 @@ class PyMPCM7Env(gym.Env):
             ROOT
             / "scripts"
             / "icra27"
-            / "run_m7_pympc_state_tap_v0.py"
+            / "run_m7_pympc_state_tap_terrain_seed_v0.py"
         )
 
         command = [
             sys.executable,
             str(runner_script),
+
+            "--terrain",
+            self.terrain_name,
+
+            "--terrain-friction",
+            str(self.terrain_friction),
+            "--rough-height-scale",
+            str(self.rough_height_scale),
 
             "--command-host",
             self.host,
@@ -762,66 +936,137 @@ class PyMPCM7Env(gym.Env):
             sample.truncated
         )
 
-        terminated = bool(
-            success
-            or native_terminated
-        )
-
-        time_limit = (
-            self.episode_step
-            >= self.max_episode_steps
-        )
-
-        truncated = bool(
-            native_truncated
-            or (
-                time_limit
-                and not terminated
+        episode_status = (
+            _resolve_episode_status(
+                success=success,
+                native_terminated=(
+                    native_terminated
+                ),
+                native_truncated=(
+                    native_truncated
+                ),
+                episode_step=(
+                    self.episode_step
+                ),
+                max_episode_steps=(
+                    self.max_episode_steps
+                ),
+                safety_state=(
+                    sample.safety_state
+                ),
+                override_active=(
+                    sample.override_active
+                ),
+                terminate_on_m4_unsafe=(
+                    self.terminate_on_m4_unsafe
+                ),
             )
         )
 
-        reward, reward_components = (
-            compute_m7_reward(
-                previous_goal_distance=(
-                    self.previous_goal_distance
-                ),
+        m4_unsafe = (
+            episode_status[
+                "m4_unsafe"
+            ]
+        )
 
-                goal_distance=goal[2],
-                heading_error=goal[3],
+        m4_intervention = (
+            episode_status[
+                "m4_intervention"
+            ]
+        )
 
-                roll=float(
+        m4_terminal = (
+            episode_status[
+                "m4_terminal"
+            ]
+        )
+
+        terminated = (
+            episode_status[
+                "terminated"
+            ]
+        )
+
+        truncated = (
+            episode_status[
+                "truncated"
+            ]
+        )
+
+        time_limit = (
+            episode_status[
+                "time_limit"
+            ]
+        )
+
+        reward_kwargs = {
+            "previous_goal_distance":
+                self.previous_goal_distance,
+
+            "goal_distance":
+                goal[2],
+
+            "heading_error":
+                goal[3],
+
+            "roll":
+                float(
                     sample.state[
                         "base_rpy"
                     ][0]
                 ),
 
-                pitch=float(
+            "pitch":
+                float(
                     sample.state[
                         "base_rpy"
                     ][1]
                 ),
 
-                normalized_action=action,
+            "normalized_action":
+                action,
 
-                previous_normalized_action=(
-                    self.previous_action
-                ),
+            "previous_normalized_action":
+                self.previous_action,
 
-                decision_dt=(
-                    sample.sim_dt_s
-                ),
+            "decision_dt":
+                sample.sim_dt_s,
 
-                override_active=(
-                    sample.override_active
-                ),
+            "override_active":
+                sample.override_active,
 
-                safety_state=(
-                    sample.safety_state
-                ),
+            "safety_state":
+                sample.safety_state,
 
-                success=success,
-                terminated=terminated,
-                truncated=truncated,
+            "success":
+                success,
+
+            "terminated":
+                terminated,
+
+            "truncated":
+                truncated,
+        }
+
+        if self.reward_mode == "fixed_additive":
+            reward_fn = (
+                compute_fixed_additive_baseline
+            )
+
+        elif self.reward_mode == "tracer_uniform":
+            reward_fn = (
+                compute_tracer_uniform_reward
+            )
+
+        else:
+            raise RuntimeError(
+                "Invalid internal reward mode: "
+                f"{self.reward_mode!r}"
+            )
+
+        reward, reward_components = (
+            reward_fn(
+                **reward_kwargs
             )
         )
 
@@ -893,6 +1138,12 @@ class PyMPCM7Env(gym.Env):
             "override_active":
                 sample.override_active,
 
+            "terminate_on_m4_unsafe":
+                self.terminate_on_m4_unsafe,
+
+            "m4_terminal":
+                m4_terminal,
+
             "override_reasons":
                 list(
                     sample.telemetry.get(
@@ -920,6 +1171,14 @@ class PyMPCM7Env(gym.Env):
 
             "time_limit":
                 bool(time_limit),
+
+            "reward_mode":
+                self.reward_mode,
+
+            "reward_schema":
+                reward_components.get(
+                    "reward_schema"
+                ),
 
             "reward_components":
                 reward_components,
