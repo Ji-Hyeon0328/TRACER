@@ -588,6 +588,160 @@ def check_terminal_single_post_ack_energy_state():
         transport.close()
 
 
+def check_terminal_zero_state_dt_uses_post_step_boundary():
+    """
+    Terminal event occurs in the first env step after ACK.
+
+    The state timestamp is pre-env-step and can therefore equal
+    the command ACK time even though post-step energy/safety
+    telemetry proves that positive simulator time elapsed.
+    """
+    transport = make_transport()
+
+    try:
+        pre_command = state(
+            episode=-1,
+            t=3.650,
+
+            commanded_abs=100.0,
+            commanded_positive=60.0,
+
+            applied_abs=200.0,
+            applied_positive=120.0,
+        )
+
+        terminal = state(
+            episode=-1,
+
+            # Pre-env-step controller-input timestamp.
+            t=3.660,
+
+            commanded_abs=101.0,
+            commanded_positive=60.7,
+
+            applied_abs=201.2,
+            applied_positive=120.8,
+
+            terminated=True,
+        )
+
+        # Mechanical-energy telemetry is attached after the
+        # MuJoCo step and therefore has a later timestamp.
+        terminal[
+            "energy_sample_time_s"
+        ] = 3.686
+
+        terminal[
+            "mechanical_energy"
+        ][
+            "elapsed_s"
+        ] = 3.686
+
+        transport.latest_state = pre_command
+
+        telemetry_batches = [
+            [
+                telemetry(
+                    seq=0,
+                    t=3.660,
+                )
+            ],
+            [
+                telemetry(
+                    seq=0,
+                    t=3.686,
+                    safety="unsafe",
+                    override=True,
+                )
+            ],
+        ]
+
+        state_batches = [
+            [],
+            [terminal],
+        ]
+
+        def drain_telemetry():
+            if telemetry_batches:
+                batch = telemetry_batches.pop(0)
+            else:
+                batch = []
+
+            if batch:
+                transport.latest_telemetry = (
+                    batch[-1]
+                )
+
+            return batch
+
+        def drain_state():
+            if state_batches:
+                batch = state_batches.pop(0)
+            else:
+                batch = []
+
+            if batch:
+                transport.latest_state = (
+                    batch[-1]
+                )
+
+            return batch
+
+        transport._drain_telemetry = (
+            drain_telemetry
+        )
+
+        transport._drain_state = (
+            drain_state
+        )
+
+        sample = transport.step(
+            np.zeros(
+                4,
+                dtype=np.float64,
+            ),
+            target_sim_dt=0.20,
+            timeout_s=1.0,
+        )
+
+        if not math.isclose(
+            sample.sim_dt_s,
+            0.026,
+            rel_tol=0.0,
+            abs_tol=1e-9,
+        ):
+            raise RuntimeError(
+                "Terminal post-step boundary did "
+                "not recover decision dt: "
+                f"{sample.sim_dt_s}"
+            )
+
+        if sample.energy_interval is None:
+            raise RuntimeError(
+                "Terminal zero-state-dt case "
+                "lost energy interval"
+            )
+
+        if not (
+            sample.energy_interval.dt_s > 0.0
+        ):
+            raise RuntimeError(
+                "Terminal energy interval "
+                "must remain positive"
+            )
+
+        print(
+            "terminal zero state-dt     : PASS "
+            f"decision_dt="
+            f"{sample.sim_dt_s:.6f}s "
+            f"energy_dt="
+            f"{sample.energy_interval.dt_s:.6f}s"
+        )
+
+    finally:
+        transport.close()
+
+
 def main():
     print(
         "# ICRA27 M7 TRANSPORT "
@@ -597,6 +751,7 @@ def main():
 
     check_terminal_partial_interval()
     check_terminal_single_post_ack_energy_state()
+    check_terminal_zero_state_dt_uses_post_step_boundary()
     check_reset_boundary_rejected()
     check_monotonicity_guard_preserved()
 

@@ -938,17 +938,6 @@ class M7M5Transport:
                 )
             )
 
-        sim_dt = (
-            float(
-                matched_state[
-                    "sample_time_s"
-                ]
-            )
-            - float(ack_sim_time)
-        )
-
-        energy_interval = None
-
         terminal_transition = bool(
             matched_state["terminated"]
             or matched_state["truncated"]
@@ -966,6 +955,95 @@ class M7M5Transport:
                 ]
             )
         )
+
+        # ----------------------------------------------------
+        # Decision-time semantics.
+        #
+        # State sample_time_s is captured before the MuJoCo
+        # env step. A terminal event may therefore occur in
+        # that step while the state timestamp still equals
+        # the command ACK timestamp.
+        #
+        # Normal transitions retain the existing state-time
+        # semantics. For terminal transitions only, recover
+        # a positive end boundary from post-step energy and/or
+        # matching M5 safety telemetry when necessary.
+        # ----------------------------------------------------
+        state_end_time = float(
+            matched_state[
+                "sample_time_s"
+            ]
+        )
+
+        sim_dt = (
+            state_end_time
+            - float(ack_sim_time)
+        )
+
+        if (
+            terminal_transition
+            and sim_dt <= 0.0
+        ):
+            terminal_end_candidates = []
+
+            energy_end_time = (
+                matched_state.get(
+                    "energy_sample_time_s"
+                )
+            )
+
+            if (
+                energy_end_time is not None
+                and float(energy_end_time)
+                > float(ack_sim_time)
+            ):
+                terminal_end_candidates.append(
+                    float(energy_end_time)
+                )
+
+            telemetry_end_time = (
+                matched_telemetry.get(
+                    "sim_time_s"
+                )
+            )
+
+            if (
+                telemetry_end_time is not None
+                and float(telemetry_end_time)
+                > float(ack_sim_time)
+            ):
+                terminal_end_candidates.append(
+                    float(telemetry_end_time)
+                )
+
+            if not terminal_end_candidates:
+                raise RuntimeError(
+                    "Terminal M7 transition has no "
+                    "positive-duration boundary: "
+                    f"ack={ack_sim_time} "
+                    f"state={state_end_time}"
+                )
+
+            terminal_end_time = min(
+                terminal_end_candidates
+            )
+
+            sim_dt = (
+                terminal_end_time
+                - float(ack_sim_time)
+            )
+
+        if sim_dt <= 0.0:
+            raise RuntimeError(
+                "M7 transport produced non-positive "
+                "decision duration: "
+                f"seq={seq} "
+                f"ack={ack_sim_time} "
+                f"state_end={state_end_time} "
+                f"dt={sim_dt}"
+            )
+
+        energy_interval = None
 
         selected_energy_start_state = (
             energy_start_state
