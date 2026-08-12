@@ -653,6 +653,8 @@ def main():
         choices=(
             "fixed_additive",
             "tracer_uniform",
+            "tracer_cost_v2",
+            "slr_hl_v2",
         ),
         default="fixed_additive",
     )

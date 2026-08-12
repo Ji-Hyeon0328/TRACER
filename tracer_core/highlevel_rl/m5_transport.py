@@ -636,6 +636,28 @@ class M7M5Transport:
 
         energy_start_state = None
 
+        # ----------------------------------------------------
+        # One logical M7 command must never span an internal
+        # simulator reset.
+        #
+        # The state protocol already carries episode_index.
+        # Anchor this command to the episode that was active
+        # when step() began.
+        # ----------------------------------------------------
+        if self.latest_state is None:
+            raise RuntimeError(
+                "M7 transport step has no initial state"
+            )
+
+        active_episode_index = int(
+            self.latest_state["episode_index"]
+        )
+
+        last_active_state = self.latest_state
+        latest_seq_telemetry = None
+        terminal_state = None
+        reset_boundary_seen = False
+
         while time.monotonic() < deadline:
             now = time.monotonic()
 
@@ -658,12 +680,55 @@ class M7M5Transport:
                 self._drain_state()
             )
 
+            active_state_packets = []
+
+            for state in state_packets:
+                state_episode_index = int(
+                    state["episode_index"]
+                )
+
+                if (
+                    state_episode_index
+                    != active_episode_index
+                ):
+                    reset_boundary_seen = True
+                    continue
+
+                active_state_packets.append(
+                    state
+                )
+
+                last_active_state = state
+
+                if (
+                    bool(state["terminated"])
+                    or bool(state["truncated"])
+                ):
+                    terminal_state = state
+
             for telemetry in telemetry_packets:
                 if (
                     telemetry["command_seq"]
                     != seq
                 ):
                     continue
+
+                latest_seq_telemetry = telemetry
+
+                if (
+                    str(
+                        telemetry["safety_state"]
+                    ).strip().lower()
+                    == "unsafe"
+                    or bool(
+                        telemetry["override_active"]
+                    )
+                ):
+                    # M4 is a hard execution boundary.
+                    #
+                    # Do not wait for the nominal target time
+                    # after safety termination.
+                    matched_telemetry = telemetry
 
                 if ack_sim_time is None:
                     ack_sim_time = float(
@@ -691,7 +756,7 @@ class M7M5Transport:
                 ack_sim_time is not None
                 and energy_start_state is None
             ):
-                for state in state_packets:
+                for state in active_state_packets:
                     energy = state.get(
                         "mechanical_energy"
                     )
@@ -716,17 +781,75 @@ class M7M5Transport:
 
                         break
 
-            if target_sim_time is not None:
-                for state in state_packets:
+            # ------------------------------------------------
+            # Terminal events end the logical command interval
+            # immediately.  A 5-Hz target duration is not a
+            # requirement after native/M4 termination.
+            # ------------------------------------------------
+            terminal_telemetry = (
+                latest_seq_telemetry is not None
+                and (
+                    str(
+                        latest_seq_telemetry[
+                            "safety_state"
+                        ]
+                    ).strip().lower()
+                    == "unsafe"
+                    or bool(
+                        latest_seq_telemetry[
+                            "override_active"
+                        ]
+                    )
+                )
+            )
+
+            if terminal_state is not None:
+                matched_state = terminal_state
+
+                if latest_seq_telemetry is not None:
+                    matched_telemetry = (
+                        latest_seq_telemetry
+                    )
+
+            elif (
+                terminal_telemetry
+                and ack_sim_time is not None
+                and last_active_state is not None
+                and float(
+                    last_active_state[
+                        "sample_time_s"
+                    ]
+                )
+                >= float(ack_sim_time)
+            ):
+                # A safety telemetry packet can arrive before
+                # the terminal state packet is emitted at the
+                # state publication rate.  Use the newest
+                # physical state from the same episode.
+                matched_state = last_active_state
+                matched_telemetry = (
+                    latest_seq_telemetry
+                )
+
+            elif target_sim_time is not None:
+                for state in active_state_packets:
                     if float(
                         state["sample_time_s"]
                     ) >= target_sim_time:
                         matched_state = state
 
-            # Also allow already-buffered latest samples.
+            # Also allow an already-buffered latest sample,
+            # but only from this command's original episode.
             if (
-                target_sim_time is not None
+                matched_state is None
+                and target_sim_time is not None
                 and self.latest_state is not None
+                and int(
+                    self.latest_state[
+                        "episode_index"
+                    ]
+                )
+                == active_episode_index
                 and float(
                     self.latest_state[
                         "sample_time_s"
@@ -739,7 +862,8 @@ class M7M5Transport:
                 )
 
             if (
-                target_sim_time is not None
+                matched_telemetry is None
+                and target_sim_time is not None
                 and self.latest_telemetry
                 is not None
                 and self.latest_telemetry[
@@ -763,6 +887,16 @@ class M7M5Transport:
                 and matched_telemetry is not None
             ):
                 break
+
+            if reset_boundary_seen:
+                raise RuntimeError(
+                    "M7 simulator episode changed during "
+                    f"command seq={seq}: "
+                    f"active_episode="
+                    f"{active_episode_index}. "
+                    "Refusing cross-episode state/energy "
+                    "matching."
+                )
 
             time.sleep(0.002)
 
@@ -814,6 +948,29 @@ class M7M5Transport:
         energy_interval = None
 
         if energy_start_state is not None:
+            start_episode_index = int(
+                energy_start_state[
+                    "episode_index"
+                ]
+            )
+
+            end_episode_index = int(
+                matched_state[
+                    "episode_index"
+                ]
+            )
+
+            if (
+                start_episode_index
+                != end_episode_index
+            ):
+                raise RuntimeError(
+                    "Mechanical-energy interval crossed "
+                    "simulator episode boundary: "
+                    f"start={start_episode_index} "
+                    f"end={end_episode_index}"
+                )
+
             energy_interval = (
                 _mechanical_energy_interval(
                     energy_start_state,
