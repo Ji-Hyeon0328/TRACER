@@ -649,6 +649,8 @@ class M7M5Transport:
                 "M7 transport step has no initial state"
             )
 
+        step_entry_state = self.latest_state
+
         active_episode_index = int(
             self.latest_state["episode_index"]
         )
@@ -947,9 +949,119 @@ class M7M5Transport:
 
         energy_interval = None
 
-        if energy_start_state is not None:
+        terminal_transition = bool(
+            matched_state["terminated"]
+            or matched_state["truncated"]
+            or (
+                str(
+                    matched_telemetry[
+                        "safety_state"
+                    ]
+                ).strip().lower()
+                == "unsafe"
+            )
+            or bool(
+                matched_telemetry[
+                    "override_active"
+                ]
+            )
+        )
+
+        selected_energy_start_state = (
+            energy_start_state
+        )
+
+        # ----------------------------------------------------
+        # Sparse terminal-state publication edge case:
+        #
+        # The first state carrying energy after command ACK can
+        # itself be the terminal state. In that case the normal
+        # post-ACK selector chooses the same snapshot as both
+        # interval start and end, yielding dt_E == 0.
+        #
+        # For terminal transitions only, fall back to the last
+        # pre-command energy snapshot from the same simulator
+        # episode. This forms a positive-duration bracket around
+        # the terminal event without weakening energy
+        # monotonicity or permitting cross-episode differencing.
+        # ----------------------------------------------------
+        if terminal_transition:
+            end_energy_time = (
+                matched_state.get(
+                    "energy_sample_time_s"
+                )
+            )
+
+            selected_start_time = None
+
+            if (
+                selected_energy_start_state
+                is not None
+            ):
+                selected_start_time = (
+                    selected_energy_start_state.get(
+                        "energy_sample_time_s"
+                    )
+                )
+
+            needs_terminal_bracket = bool(
+                end_energy_time is not None
+                and (
+                    selected_start_time is None
+                    or float(
+                        selected_start_time
+                    )
+                    >= float(
+                        end_energy_time
+                    ) - 1e-12
+                )
+            )
+
+            if needs_terminal_bracket:
+                candidate = step_entry_state
+
+                candidate_energy = (
+                    None
+                    if candidate is None
+                    else candidate.get(
+                        "mechanical_energy"
+                    )
+                )
+
+                candidate_time = (
+                    None
+                    if candidate is None
+                    else candidate.get(
+                        "energy_sample_time_s"
+                    )
+                )
+
+                if (
+                    candidate is not None
+                    and int(
+                        candidate[
+                            "episode_index"
+                        ]
+                    )
+                    == active_episode_index
+                    and candidate_energy
+                    is not None
+                    and candidate_time
+                    is not None
+                    and float(candidate_time)
+                    < float(end_energy_time)
+                    - 1e-12
+                ):
+                    selected_energy_start_state = (
+                        candidate
+                    )
+
+        if (
+            selected_energy_start_state
+            is not None
+        ):
             start_episode_index = int(
-                energy_start_state[
+                selected_energy_start_state[
                     "episode_index"
                 ]
             )
@@ -973,9 +1085,19 @@ class M7M5Transport:
 
             energy_interval = (
                 _mechanical_energy_interval(
-                    energy_start_state,
+                    selected_energy_start_state,
                     matched_state,
                 )
+            )
+
+        if (
+            terminal_transition
+            and energy_interval is None
+        ):
+            raise RuntimeError(
+                "Terminal M7 transition has no "
+                "positive-duration same-episode "
+                "mechanical-energy bracket"
             )
 
         return M7TransportSample(

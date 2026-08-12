@@ -439,6 +439,155 @@ def check_monotonicity_guard_preserved():
         )
 
 
+def check_terminal_single_post_ack_energy_state():
+    """
+    Reproduce the sparse terminal-publication edge case:
+
+      command ACK
+          |
+          |  no intermediate energy state
+          v
+      first post-ACK energy state == terminal state
+
+    The ordinary post-ACK selector therefore initially chooses
+    the terminal state as both energy start and end.
+
+    Transport must fall back to the last pre-command
+    same-episode energy snapshot.
+    """
+    transport = make_transport()
+
+    try:
+        pre_command = state(
+            episode=-1,
+            t=3.650,
+
+            commanded_abs=100.0,
+            commanded_positive=60.0,
+
+            applied_abs=200.0,
+            applied_positive=120.0,
+        )
+
+        terminal = state(
+            episode=-1,
+            t=3.686,
+
+            commanded_abs=101.0,
+            commanded_positive=60.7,
+
+            applied_abs=201.2,
+            applied_positive=120.8,
+
+            terminated=True,
+        )
+
+        transport.latest_state = pre_command
+
+        telemetry_batches = [
+            [
+                telemetry(
+                    seq=0,
+                    t=3.660,
+                )
+            ],
+            [
+                telemetry(
+                    seq=0,
+                    t=3.686,
+                    safety="unsafe",
+                    override=True,
+                )
+            ],
+        ]
+
+        # Critically, there is NO ordinary post-ACK
+        # energy state before the terminal state.
+        state_batches = [
+            [],
+            [terminal],
+        ]
+
+        def drain_telemetry():
+            if telemetry_batches:
+                batch = telemetry_batches.pop(0)
+            else:
+                batch = []
+
+            if batch:
+                transport.latest_telemetry = (
+                    batch[-1]
+                )
+
+            return batch
+
+        def drain_state():
+            if state_batches:
+                batch = state_batches.pop(0)
+            else:
+                batch = []
+
+            if batch:
+                transport.latest_state = batch[-1]
+
+            return batch
+
+        transport._drain_telemetry = (
+            drain_telemetry
+        )
+
+        transport._drain_state = (
+            drain_state
+        )
+
+        sample = transport.step(
+            np.zeros(
+                4,
+                dtype=np.float64,
+            ),
+            target_sim_dt=0.20,
+            timeout_s=1.0,
+        )
+
+        if sample.energy_interval is None:
+            raise RuntimeError(
+                "Sparse terminal transition "
+                "lost energy interval"
+            )
+
+        if not math.isclose(
+            sample.energy_interval.dt_s,
+            0.036,
+            rel_tol=0.0,
+            abs_tol=1e-9,
+        ):
+            raise RuntimeError(
+                "Unexpected terminal bracket dt: "
+                f"{sample.energy_interval.dt_s}"
+            )
+
+        if not math.isclose(
+            sample.energy_interval.applied_abs_j,
+            1.2,
+            rel_tol=0.0,
+            abs_tol=1e-9,
+        ):
+            raise RuntimeError(
+                "Unexpected terminal bracket work: "
+                f"{sample.energy_interval.applied_abs_j}"
+            )
+
+        print(
+            "sparse terminal bracket    : PASS "
+            f"dtE={sample.energy_interval.dt_s:.6f}s "
+            f"Eabs="
+            f"{sample.energy_interval.applied_abs_j:.6f}J"
+        )
+
+    finally:
+        transport.close()
+
+
 def main():
     print(
         "# ICRA27 M7 TRANSPORT "
@@ -447,6 +596,7 @@ def main():
     print()
 
     check_terminal_partial_interval()
+    check_terminal_single_post_ack_energy_state()
     check_reset_boundary_rejected()
     check_monotonicity_guard_preserved()
 
