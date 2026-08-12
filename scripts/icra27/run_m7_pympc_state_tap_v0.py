@@ -343,11 +343,67 @@ def m7_compute_actions(
         ],
     }
 
-    return ORIGINAL_STANDALONE_COMPUTE_ACTIONS(
+    # Execute the exact frozen controller first.
+    #
+    # WBInterface.update_state_and_reference() updates the
+    # existing PyMPC TerrainEstimator from this same
+    # controller-input state.
+    result = ORIGINAL_STANDALONE_COMPUTE_ACTIONS(
         self,
         *args,
         **kwargs,
     )
+
+    # --------------------------------------------------------
+    # Read-only reward/diagnostic telemetry.
+    #
+    # Do NOT feed these scalars into the frozen 21-D M7
+    # observation. They expose estimates already computed
+    # internally by the frozen PyMPC controller.
+    # --------------------------------------------------------
+    terrain_computation = (
+        self.wb_interface.terrain_computation
+    )
+
+    terrain_height = float(
+        terrain_computation.terrain_height
+    )
+
+    robot_height = float(
+        terrain_computation.robot_height
+    )
+
+    if not np.isfinite(terrain_height):
+        raise RuntimeError(
+            "Non-finite PyMPC terrain-height estimate: "
+            f"{terrain_height!r}"
+        )
+
+    if not np.isfinite(robot_height):
+        raise RuntimeError(
+            "Non-finite PyMPC robot-height estimate: "
+            f"{robot_height!r}"
+        )
+
+    if LATEST_STATE is None:
+        raise RuntimeError(
+            "PyMPC estimator updated before "
+            "LATEST_STATE was captured"
+        )
+
+    LATEST_STATE[
+        "pympc_terrain_height_estimate_world"
+    ] = terrain_height
+
+    LATEST_STATE[
+        "pympc_robot_height_estimate"
+    ] = robot_height
+
+    LATEST_STATE[
+        "pympc_height_estimate_phase"
+    ] = "post_controller_compute_pre_env_step"
+
+    return result
 
 
 def _native_reward(
