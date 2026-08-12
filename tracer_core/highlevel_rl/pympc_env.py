@@ -35,6 +35,10 @@ from tracer_core.highlevel_rl.reward_v2 import (
     task_feasibility_tail_cost,
 )
 
+from tracer_core.highlevel_rl.reward_slr_hl_v1 import (
+    compute_slr_hl_reward,
+)
+
 
 from tracer_core.highlevel_rl.terrain import (
     get_terrain_preset,
@@ -48,6 +52,7 @@ REWARD_MODES = (
     "fixed_additive",
     "tracer_uniform",
     "tracer_cost_v2",
+    "slr_hl_v1",
 )
 
 
@@ -375,6 +380,16 @@ class PyMPCM7Env(gym.Env):
         self.goal_world = None
 
         self.previous_action = np.zeros(
+            4,
+            dtype=np.float32,
+        )
+
+        # Reward-only history for the SLR-HL adapted
+        # second-difference action regularizer.
+        #
+        # This is NOT added to the observation and therefore
+        # preserves the frozen 21D M7 observation contract.
+        self.previous_previous_action = np.zeros(
             4,
             dtype=np.float32,
         )
@@ -728,6 +743,16 @@ class PyMPCM7Env(gym.Env):
         self.runner_seed = seed
 
         self.previous_action = np.zeros(
+            4,
+            dtype=np.float32,
+        )
+
+        # Reward-only history for the SLR-HL adapted
+        # second-difference action regularizer.
+        #
+        # This is NOT added to the observation and therefore
+        # preserves the frozen 21D M7 observation contract.
+        self.previous_previous_action = np.zeros(
             4,
             dtype=np.float32,
         )
@@ -1270,6 +1295,198 @@ class PyMPCM7Env(gym.Env):
                     "absorbing_failure_tail_v1",
             }
 
+        elif self.reward_mode == "slr_hl_v1":
+            energy_interval = (
+                sample.energy_interval
+            )
+
+            if energy_interval is None:
+                raise RuntimeError(
+                    "slr_hl_v1 requires "
+                    "matched mechanical-energy interval"
+                )
+
+            vel_body = sample.state[
+                "base_linear_velocity_body_yaw"
+            ]
+
+            vel_world = sample.state[
+                "base_linear_velocity_world"
+            ]
+
+            ang_base = sample.state[
+                "base_angular_velocity_base"
+            ]
+
+            pos = sample.state[
+                "base_position_world"
+            ]
+
+            rpy = sample.state[
+                "base_rpy"
+            ]
+
+            slr_hl = compute_slr_hl_reward(
+                heading_error=float(
+                    goal[3]
+                ),
+
+                base_vx_body=float(
+                    vel_body[0]
+                ),
+
+                base_vy_body=float(
+                    vel_body[1]
+                ),
+
+                base_vz_world=float(
+                    vel_world[2]
+                ),
+
+                base_wx=float(
+                    ang_base[0]
+                ),
+
+                base_wy=float(
+                    ang_base[1]
+                ),
+
+                base_wz=float(
+                    ang_base[2]
+                ),
+
+                base_z=float(
+                    pos[2]
+                ),
+
+                roll=float(
+                    rpy[0]
+                ),
+
+                pitch=float(
+                    rpy[1]
+                ),
+
+                applied_abs_energy_j=float(
+                    energy_interval.applied_abs_j
+                ),
+
+                energy_dt_s=float(
+                    energy_interval.dt_s
+                ),
+
+                normalized_action=action,
+
+                previous_normalized_action=(
+                    self.previous_action
+                ),
+
+                previous_previous_normalized_action=(
+                    self.previous_previous_action
+                ),
+
+                decision_dt_s=float(
+                    sample.sim_dt_s
+                ),
+            )
+
+            (
+                task_feasibility_cost,
+                task_failure_terminal,
+                task_remaining_steps,
+            ) = task_feasibility_tail_cost(
+                episode_step=(
+                    self.episode_step
+                ),
+
+                max_episode_steps=(
+                    self.max_episode_steps
+                ),
+
+                success=success,
+
+                m4_terminal=m4_terminal,
+
+                native_terminated=(
+                    native_terminated
+                ),
+
+                native_truncated=(
+                    native_truncated
+                ),
+            )
+
+            reward = (
+                float(
+                    slr_hl.centered_reward
+                )
+                - float(
+                    task_feasibility_cost
+                )
+            )
+
+            reward_components = {
+                **slr_hl.as_dict(),
+
+                # Common task/safety semantics shared with
+                # simplified TRACER reward-v2.
+                "m4_unsafe":
+                    bool(m4_unsafe),
+
+                "m4_intervention":
+                    float(
+                        bool(m4_intervention)
+                    ),
+
+                "m4_terminal":
+                    bool(m4_terminal),
+
+                "success":
+                    bool(success),
+
+                "time_limit":
+                    bool(time_limit),
+
+                "objective_reward":
+                    float(
+                        slr_hl.centered_reward
+                    ),
+
+                "task_feasibility_cost":
+                    float(
+                        task_feasibility_cost
+                    ),
+
+                "task_failure_terminal":
+                    bool(
+                        task_failure_terminal
+                    ),
+
+                "task_remaining_steps":
+                    int(
+                        task_remaining_steps
+                    ),
+
+                "total_reward":
+                    float(reward),
+
+                "energy_abs_j":
+                    float(
+                        energy_interval.applied_abs_j
+                    ),
+
+                "energy_dt_s":
+                    float(
+                        energy_interval.dt_s
+                    ),
+
+                "task_feasibility_shaping":
+                    "absorbing_failure_tail_v1",
+
+                "comparison_role":
+                    "slr_hl_adapted_dense_baseline",
+            }
+
         else:
             raise RuntimeError(
                 "Invalid internal reward mode: "
@@ -1411,6 +1628,10 @@ class PyMPCM7Env(gym.Env):
 
         self.previous_goal_distance = (
             goal[2]
+        )
+
+        self.previous_previous_action = (
+            self.previous_action.copy()
         )
 
         self.previous_action = (
