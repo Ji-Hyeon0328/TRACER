@@ -364,13 +364,61 @@ M7.0 frozen decisions:
 - [x] Deterministic reset smoke
 - [x] Episode logging / cleanup validation
 
-### M7.2 RL training smoke
+### M7.2 RL training / semantic reward milestone
 
-- [ ] Select PPO / SAC implementation
-- [ ] Continuous 4D policy training smoke
-- [ ] Reward improves beyond random-policy baseline
-- [ ] Policy checkpoint save / reload
-- [ ] Deterministic evaluation rollout
+- [x] Pure-PyTorch continuous PPO selected
+
+  - actor: tanh-squashed Gaussian
+  - observation: `21D` with `K=3` oracle terrain context
+  - current learned action: `3D [vx, yaw_rate, body_height]`
+  - downstream M7 action remains `4D`
+    `[vx, yaw_rate, body_height, swing_clearance]`
+  - swing clearance is frozen at `0.060 m`
+  - gait period / duty factor remain structural and fixed
+  - five nominal settling decisions are excluded from PPO
+    storage / GAE / returns
+  - real PyMPC rollouts -> GAE -> clipped PPO update passed
+  - policy checkpoint save / reload passed
+  - deterministic checkpoint reload action difference: `0.0`
+
+- [x] Balanced multi-terrain PPO training infrastructure
+
+  - shared policy across `flat`, `low_friction`, and
+    `rough_perlin`
+  - rough-Perlin PPO training uses TRAIN-bank terrain seeds only
+  - validation / test / hard seed banks remain separated
+  - frozen initial exploration std: `0.15`
+
+- [x] Simplified TRACER semantic reward v2
+
+  - zero-best semantic cost vector:
+    `C = [C_motion, C_stability, C_energy]`
+  - objective preference:
+    `R_obj = - beta^T C`
+  - motion cost uses normalized goal-progress rate
+  - stability cost is nondimensionalized by the frozen M4
+    roll / pitch UNSAFE thresholds (`15 deg`)
+  - energy cost uses integrated absolute mechanical work:
+    `C_E = DeltaE_abs / (P_ref * 0.20 s * s_E)`
+  - frozen flat nominal power reference:
+    `P_ref = 21.847058714679683 W`
+  - TRAIN-only selector energy scale:
+    `s_E = 2.0`
+  - `energy_power_ratio` remains an average-power diagnostic
+    and is not the selector-facing energy objective
+  - `WATCH` remains diagnostic only
+  - M4 UNSAFE / native premature failure receives a
+    beta-independent absorbing failure-tail cost
+  - task reward:
+    `R = R_obj - C_failure_tail`
+  - real M4 runtime smoke:
+    `R_obj=-4.7543`, tail cost `11.0`,
+    total reward `-15.7543`
+  - semantic reward-v2 source frozen at commit `bd9e0f4`
+
+- [ ] Final Phase-1 policy improvement comparison
+- [x] Policy checkpoint save / reload
+- [x] Deterministic evaluation rollout
 
 ### M7.3 learned-policy M5 E2E
 
