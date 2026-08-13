@@ -183,6 +183,7 @@ class PyMPCM7Env(gym.Env):
         telemetry_hz: float = 100.0,
         state_hz: float = 100.0,
         log_dir: str | Path | None = None,
+        render_runner: bool = False,
     ):
         super().__init__()
 
@@ -326,6 +327,12 @@ class PyMPCM7Env(gym.Env):
 
         self.state_hz = float(
             state_hz
+        )
+
+        # Visualization is opt-in. Training and deterministic
+        # evaluation remain headless by default.
+        self.render_runner = bool(
+            render_runner
         )
 
         self.log_dir = (
@@ -517,9 +524,12 @@ class PyMPCM7Env(gym.Env):
 
             "--seed",
             str(seed),
-
-            "--no-render",
         ]
+
+        if not self.render_runner:
+            command.append(
+                "--no-render"
+            )
 
         stdout = subprocess.DEVNULL
 
