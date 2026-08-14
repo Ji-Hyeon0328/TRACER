@@ -175,6 +175,11 @@ class PyMPCM7Env(gym.Env):
         max_episode_steps: int = 25,
         terminate_on_m4_unsafe: bool = False,
         reward_mode: str = "fixed_additive",
+        tracer_beta=(
+            1.0 / 3.0,
+            1.0 / 3.0,
+            1.0 / 3.0,
+        ),
         host: str = "127.0.0.1",
         command_port: int = 50610,
         telemetry_port: int = 50611,
@@ -303,6 +308,14 @@ class PyMPCM7Env(gym.Env):
 
         self.reward_mode = reward_mode
 
+        # Phase-1A beta-conditioned objective.
+        #
+        # Default remains the frozen Phase-1.5 uniform beta,
+        # preserving all historical callers and evaluations.
+        self.set_tracer_beta(
+            tracer_beta
+        )
+
         self.host = str(host)
 
         self.command_port = int(
@@ -411,6 +424,25 @@ class PyMPCM7Env(gym.Env):
 
         self.last_observation = None
         self.last_info = None
+
+    def set_tracer_beta(
+        self,
+        beta,
+    ) -> None:
+        """
+        Set the semantic objective weights used by
+        reward_mode='tracer_cost_v2'.
+
+        This changes reward preference only. It does not alter
+        observation, action, transport, safety, or PyMPC state.
+        """
+        from tracer_core.highlevel_rl.reward_v2 import (
+            validate_beta,
+        )
+
+        self.tracer_beta = validate_beta(
+            beta
+        )
 
     # ------------------------------------------------------------
     # Runner lifecycle
@@ -1180,9 +1212,7 @@ class PyMPCM7Env(gym.Env):
             )
 
             tracer_beta = (
-                1.0 / 3.0,
-                1.0 / 3.0,
-                1.0 / 3.0,
+                self.tracer_beta
             )
 
             objective_reward_value = (
