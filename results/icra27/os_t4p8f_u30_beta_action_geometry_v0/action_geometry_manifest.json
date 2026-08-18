@@ -1,0 +1,24 @@
+{
+  "contexts": 9,
+  "global_pc1_direction": {
+    "normalized_height": -0.6427439408305495,
+    "normalized_vx": 0.688278396809921,
+    "normalized_yaw": -0.33638233456943056
+  },
+  "global_pc_explained": [
+    0.9608656574035714,
+    0.03684279562931959,
+    0.00229154696710888
+  ],
+  "mean_cosines": {
+    "motion_energy": -0.9504188782231565,
+    "motion_stability": 0.7901788708618108,
+    "stability_energy": -0.939892080103477
+  },
+  "mean_dimension_range": {
+    "normalized_height": 0.02137964687774536,
+    "normalized_vx": 0.02300320323249357,
+    "normalized_yaw": 0.012079815466635025
+  },
+  "schema": "icra27_os_t4p8f_u30_beta_action_geometry_v0"
+}

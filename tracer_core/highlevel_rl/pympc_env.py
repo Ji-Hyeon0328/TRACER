@@ -35,6 +35,14 @@ from tracer_core.highlevel_rl.reward_v2 import (
     task_feasibility_tail_cost,
 )
 
+from tracer_core.highlevel_rl.reward_v3 import (
+    compute_simplified_tracer_costs_v3,
+)
+
+from tracer_core.highlevel_rl.reward_v4 import (
+    compute_simplified_tracer_costs_v4,
+)
+
 from tracer_core.highlevel_rl.reward_slr_hl_v1 import (
     compute_slr_hl_reward,
 )
@@ -57,6 +65,8 @@ REWARD_MODES = (
     "fixed_additive",
     "tracer_uniform",
     "tracer_cost_v2",
+    "tracer_cost_v3",
+    "tracer_cost_v4",
     "slr_hl_v1",
     "slr_hl_v2",
 )
@@ -189,6 +199,8 @@ class PyMPCM7Env(gym.Env):
         state_hz: float = 100.0,
         log_dir: str | Path | None = None,
         render_runner: bool = False,
+        lockstep_eval: bool = False,
+        lockstep_physics_steps: int = 100,
     ):
         super().__init__()
 
@@ -348,6 +360,23 @@ class PyMPCM7Env(gym.Env):
             render_runner
         )
 
+        self.lockstep_eval = bool(
+            lockstep_eval
+        )
+
+        self.lockstep_physics_steps = int(
+            lockstep_physics_steps
+        )
+
+        if (
+            self.lockstep_physics_steps
+            <= 0
+        ):
+            raise ValueError(
+                "lockstep_physics_steps "
+                "must be > 0"
+            )
+
         self.log_dir = (
             None
             if log_dir is None
@@ -493,15 +522,42 @@ class PyMPCM7Env(gym.Env):
         # Bind receive-side telemetry/state ports BEFORE
         # launching the PyMPC process, so initial packets
         # cannot be missed.
-        self.transport = M7M5Transport(
-            host=self.host,
-            command_port=self.command_port,
-            telemetry_port=self.telemetry_port,
-            state_port=self.state_port,
-            command_repeat_hz=(
-                self.command_repeat_hz
-            ),
-        )
+        if self.lockstep_eval:
+            from tracer_core.highlevel_rl.m5_lockstep_transport import (
+                M7M5LockstepTransport,
+            )
+
+            self.transport = (
+                M7M5LockstepTransport(
+                    host=self.host,
+                    command_port=(
+                        self.command_port
+                    ),
+                    telemetry_port=(
+                        self.telemetry_port
+                    ),
+                    state_port=(
+                        self.state_port
+                    ),
+                    command_repeat_hz=(
+                        self.command_repeat_hz
+                    ),
+                    physics_steps=(
+                        self.lockstep_physics_steps
+                    ),
+                )
+            )
+
+        else:
+            self.transport = M7M5Transport(
+                host=self.host,
+                command_port=self.command_port,
+                telemetry_port=self.telemetry_port,
+                state_port=self.state_port,
+                command_repeat_hz=(
+                    self.command_repeat_hz
+                ),
+            )
 
         env = os.environ.copy()
 
@@ -517,11 +573,24 @@ class PyMPCM7Env(gym.Env):
             self.state_hz
         )
 
+        if self.lockstep_eval:
+            env[
+                "TRACER_M7_LOCKSTEP_PHYSICS_STEPS"
+            ] = str(
+                self.lockstep_physics_steps
+            )
+
+        runner_name = (
+            "run_m7_pympc_lockstep_eval_terrain_seed_v0.py"
+            if self.lockstep_eval
+            else "run_m7_pympc_state_tap_terrain_seed_v0.py"
+        )
+
         runner_script = (
             ROOT
             / "scripts"
             / "icra27"
-            / "run_m7_pympc_state_tap_terrain_seed_v0.py"
+            / runner_name
         )
 
         command = [
@@ -1341,6 +1410,467 @@ class PyMPCM7Env(gym.Env):
                     "absorbing_failure_tail_v1",
             }
 
+        elif self.reward_mode == "tracer_cost_v3":
+            energy_interval = (
+                sample.energy_interval
+            )
+
+            if energy_interval is None:
+                raise RuntimeError(
+                    "tracer_cost_v3 requires "
+                    "matched mechanical-energy interval"
+                )
+
+            traction_interval = (
+                sample.traction_interval
+            )
+
+            if traction_interval is None:
+                raise RuntimeError(
+                    "tracer_cost_v3 requires "
+                    "matched established-stance "
+                    "traction-cost interval"
+                )
+
+            (
+                roll_unsafe_rad,
+                pitch_unsafe_rad,
+            ) = m4_unsafe_attitude_limits()
+
+            tracer_costs = (
+                compute_simplified_tracer_costs_v3(
+                    previous_goal_distance=(
+                        self.previous_goal_distance
+                    ),
+
+                    goal_distance=goal[2],
+
+                    decision_dt=(
+                        sample.sim_dt_s
+                    ),
+
+                    roll=float(
+                        sample.state[
+                            "base_rpy"
+                        ][0]
+                    ),
+
+                    pitch=float(
+                        sample.state[
+                            "base_rpy"
+                        ][1]
+                    ),
+
+                    roll_unsafe_rad=(
+                        roll_unsafe_rad
+                    ),
+
+                    pitch_unsafe_rad=(
+                        pitch_unsafe_rad
+                    ),
+
+                    traction_cost=float(
+                        traction_interval.mean_cost
+                    ),
+
+                    applied_abs_energy_j=(
+                        energy_interval.applied_abs_j
+                    ),
+
+                    energy_dt_s=(
+                        energy_interval.dt_s
+                    ),
+                )
+            )
+
+            tracer_beta = (
+                self.tracer_beta
+            )
+
+            objective_reward_value = (
+                objective_reward(
+                    costs=tracer_costs,
+                    beta=tracer_beta,
+                )
+            )
+
+            (
+                task_feasibility_cost,
+                task_failure_terminal,
+                task_remaining_steps,
+            ) = task_feasibility_tail_cost(
+                episode_step=(
+                    self.episode_step
+                ),
+
+                max_episode_steps=(
+                    self.max_episode_steps
+                ),
+
+                success=success,
+
+                m4_terminal=m4_terminal,
+
+                native_terminated=(
+                    native_terminated
+                ),
+
+                native_truncated=(
+                    native_truncated
+                ),
+            )
+
+            reward = (
+                float(
+                    objective_reward_value
+                )
+                - float(
+                    task_feasibility_cost
+                )
+            )
+
+            reward_components = {
+                "reward_schema":
+                    "icra27_simplified_tracer_cost_v3",
+
+                "m4_unsafe":
+                    bool(m4_unsafe),
+
+                "m4_intervention":
+                    float(
+                        bool(
+                            m4_intervention
+                        )
+                    ),
+
+                "m4_terminal":
+                    bool(m4_terminal),
+
+                "success":
+                    bool(success),
+
+                "time_limit":
+                    bool(time_limit),
+
+                "beta_motion":
+                    tracer_beta[0],
+
+                "beta_stability":
+                    tracer_beta[1],
+
+                "beta_energy":
+                    tracer_beta[2],
+
+                "objective_cost":
+                    -float(
+                        objective_reward_value
+                    ),
+
+                "objective_reward":
+                    float(
+                        objective_reward_value
+                    ),
+
+                "task_feasibility_cost":
+                    float(
+                        task_feasibility_cost
+                    ),
+
+                "task_failure_terminal":
+                    bool(
+                        task_failure_terminal
+                    ),
+
+                "task_remaining_steps":
+                    int(
+                        task_remaining_steps
+                    ),
+
+                "total_reward":
+                    float(reward),
+
+                **tracer_costs.as_dict(),
+
+                "energy_abs_j":
+                    float(
+                        energy_interval.applied_abs_j
+                    ),
+
+                "energy_dt_s":
+                    float(
+                        energy_interval.dt_s
+                    ),
+
+                "traction_interval_contact_dt_s":
+                    float(
+                        traction_interval
+                        .established_contact_dt_s
+                    ),
+
+                "traction_interval_cost_integral_s":
+                    float(
+                        traction_interval
+                        .cost_time_integral_s
+                    ),
+
+                "m4_roll_unsafe_rad":
+                    float(
+                        roll_unsafe_rad
+                    ),
+
+                "m4_pitch_unsafe_rad":
+                    float(
+                        pitch_unsafe_rad
+                    ),
+
+                "stability_composition":
+                    (
+                        "max_endpoint_posture_"
+                        "interval_mean_traction_v0"
+                    ),
+
+                "traction_metric":
+                    (
+                        "established_stance_"
+                        "pointwise_cost_mean_v0"
+                    ),
+
+                "task_feasibility_shaping":
+                    "absorbing_failure_tail_v1",
+            }
+
+        elif self.reward_mode == "tracer_cost_v4":
+            energy_interval = (
+                sample.energy_interval
+            )
+
+            if energy_interval is None:
+                raise RuntimeError(
+                    "tracer_cost_v4 requires "
+                    "matched mechanical-energy interval"
+                )
+
+            traction_interval = (
+                sample.latched_traction_interval
+            )
+
+            if traction_interval is None:
+                raise RuntimeError(
+                    "tracer_cost_v4 requires "
+                    "matched latched-stance "
+                    "traction-cost interval"
+                )
+
+            (
+                roll_unsafe_rad,
+                pitch_unsafe_rad,
+            ) = m4_unsafe_attitude_limits()
+
+            tracer_costs = (
+                compute_simplified_tracer_costs_v4(
+                    previous_goal_distance=(
+                        self.previous_goal_distance
+                    ),
+
+                    goal_distance=goal[2],
+
+                    decision_dt=(
+                        sample.sim_dt_s
+                    ),
+
+                    roll=float(
+                        sample.state[
+                            "base_rpy"
+                        ][0]
+                    ),
+
+                    pitch=float(
+                        sample.state[
+                            "base_rpy"
+                        ][1]
+                    ),
+
+                    roll_unsafe_rad=(
+                        roll_unsafe_rad
+                    ),
+
+                    pitch_unsafe_rad=(
+                        pitch_unsafe_rad
+                    ),
+
+                    traction_cost=float(
+                        traction_interval.mean_cost
+                    ),
+
+                    applied_abs_energy_j=(
+                        energy_interval.applied_abs_j
+                    ),
+
+                    energy_dt_s=(
+                        energy_interval.dt_s
+                    ),
+                )
+            )
+
+            tracer_beta = (
+                self.tracer_beta
+            )
+
+            objective_reward_value = (
+                objective_reward(
+                    costs=tracer_costs,
+                    beta=tracer_beta,
+                )
+            )
+
+            (
+                task_feasibility_cost,
+                task_failure_terminal,
+                task_remaining_steps,
+            ) = task_feasibility_tail_cost(
+                episode_step=(
+                    self.episode_step
+                ),
+
+                max_episode_steps=(
+                    self.max_episode_steps
+                ),
+
+                success=success,
+
+                m4_terminal=m4_terminal,
+
+                native_terminated=(
+                    native_terminated
+                ),
+
+                native_truncated=(
+                    native_truncated
+                ),
+            )
+
+            reward = (
+                float(
+                    objective_reward_value
+                )
+                - float(
+                    task_feasibility_cost
+                )
+            )
+
+            reward_components = {
+                "reward_schema":
+                    "icra27_simplified_tracer_cost_v4",
+
+                "traction_gate_semantics":
+                    "first_actual_touchdown_latched_until_planned_swing_v0",
+
+                "m4_unsafe":
+                    bool(m4_unsafe),
+
+                "m4_intervention":
+                    float(
+                        bool(
+                            m4_intervention
+                        )
+                    ),
+
+                "m4_terminal":
+                    bool(m4_terminal),
+
+                "success":
+                    bool(success),
+
+                "time_limit":
+                    bool(time_limit),
+
+                "beta_motion":
+                    tracer_beta[0],
+
+                "beta_stability":
+                    tracer_beta[1],
+
+                "beta_energy":
+                    tracer_beta[2],
+
+                "objective_cost":
+                    -float(
+                        objective_reward_value
+                    ),
+
+                "objective_reward":
+                    float(
+                        objective_reward_value
+                    ),
+
+                "task_feasibility_cost":
+                    float(
+                        task_feasibility_cost
+                    ),
+
+                "task_failure_terminal":
+                    bool(
+                        task_failure_terminal
+                    ),
+
+                "task_remaining_steps":
+                    int(
+                        task_remaining_steps
+                    ),
+
+                "total_reward":
+                    float(reward),
+
+                **tracer_costs.as_dict(),
+
+                "energy_abs_j":
+                    float(
+                        energy_interval.applied_abs_j
+                    ),
+
+                "energy_dt_s":
+                    float(
+                        energy_interval.dt_s
+                    ),
+
+                "traction_interval_contact_dt_s":
+                    float(
+                        traction_interval
+                        .established_contact_dt_s
+                    ),
+
+                "traction_interval_cost_integral_s":
+                    float(
+                        traction_interval
+                        .cost_time_integral_s
+                    ),
+
+                "m4_roll_unsafe_rad":
+                    float(
+                        roll_unsafe_rad
+                    ),
+
+                "m4_pitch_unsafe_rad":
+                    float(
+                        pitch_unsafe_rad
+                    ),
+
+                "stability_composition":
+                    (
+                        "max_endpoint_posture_"
+                        "interval_mean_traction_v0"
+                    ),
+
+                "traction_metric":
+                    (
+                        "established_stance_"
+                        "pointwise_cost_mean_v0"
+                    ),
+
+                "task_feasibility_shaping":
+                    "absorbing_failure_tail_v1",
+            }
+
         elif self.reward_mode == "slr_hl_v1":
             energy_interval = (
                 sample.energy_interval
@@ -1827,6 +2357,59 @@ class PyMPCM7Env(gym.Env):
             "pympc_height_estimate_phase":
                 sample.state.get(
                     "pympc_height_estimate_phase"
+                ),
+
+            # Evaluation-only MuJoCo contact-slip telemetry.
+            # Intentionally excluded from the frozen M7
+            # observation and reward.
+            "eval_stance_slip":
+                (
+                    None
+                    if sample.state.get(
+                        "eval_stance_slip"
+                    ) is None
+                    else dict(
+                        sample.state[
+                            "eval_stance_slip"
+                        ]
+                    )
+                ),
+
+            # Candidate reward input diagnostic only.
+            #
+            # Not yet consumed by tracer_cost_v2 or any other
+            # reward mode.
+            "traction_interval_cost":
+                (
+                    None
+                    if sample.traction_interval
+                    is None
+                    else float(
+                        sample.traction_interval
+                        .mean_cost
+                    )
+                ),
+
+            "traction_interval_contact_dt_s":
+                (
+                    None
+                    if sample.traction_interval
+                    is None
+                    else float(
+                        sample.traction_interval
+                        .established_contact_dt_s
+                    )
+                ),
+
+            "traction_interval_cost_integral_s":
+                (
+                    None
+                    if sample.traction_interval
+                    is None
+                    else float(
+                        sample.traction_interval
+                        .cost_time_integral_s
+                    )
                 ),
 
             "goal_world":

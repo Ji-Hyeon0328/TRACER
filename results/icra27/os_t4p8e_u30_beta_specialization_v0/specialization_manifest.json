@@ -1,0 +1,27 @@
+{
+  "contexts": 9,
+  "episodes": 36,
+  "interpretation_contract": {
+    "action_distance": "beta-conditioned policy-output separation; diagnostic only",
+    "better_than_balanced": "directional beta semantics",
+    "rank1": "strong objective specialization"
+  },
+  "normalized_action_separation": {
+    "max_pairwise_distance": 0.03359417032541601,
+    "mean_pairwise_distance": 0.01825807673222988,
+    "min_pairwise_distance": 0.006413367695326331
+  },
+  "schema": "icra27_os_t4p8e_u30_beta_specialization_v0",
+  "source_sweep": "/mnt/share/nas/Yoo/Tracer/TRACER-ICRA27/results/icra27/os_t4p8d_v4_lockstep_checkpoint_sweep_v0/train9",
+  "strict_target_rank1": {
+    "energy": "8/9",
+    "motion": "8/9",
+    "stability": "0/9"
+  },
+  "target_better_than_balanced": {
+    "energy": "9/9",
+    "motion": "9/9",
+    "stability": "6/9"
+  },
+  "update": 30
+}

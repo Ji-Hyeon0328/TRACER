@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 import json
+import math
 import socket
 import time
 from typing import Any, Sequence
@@ -58,6 +59,33 @@ class M7MechanicalEnergyInterval:
 
 
 @dataclass(frozen=True)
+class M7TractionCostInterval:
+    """
+    Candidate established-stance traction-cost interval.
+
+    The state tap publishes cumulative sufficient statistics:
+
+        T_est = integral I_established dt
+        I_T   = integral c_T(s) dt
+
+    This transport object differences two same-episode state
+    snapshots and exposes:
+
+        C_T = Delta I_T / Delta T_est
+
+    If no established stance contact occurred in the interval,
+    mean_cost is defined as zero.
+
+    Reward normalization intentionally does not otherwise live
+    at the transport layer.
+    """
+
+    established_contact_dt_s: float
+    cost_time_integral_s: float
+    mean_cost: float
+
+
+@dataclass(frozen=True)
 class M7TransportSample:
     command_seq: int
 
@@ -75,6 +103,20 @@ class M7TransportSample:
 
     energy_interval: (
         M7MechanicalEnergyInterval
+        | None
+    ) = None
+
+    traction_interval: (
+        M7TractionCostInterval
+        | None
+    ) = None
+
+    # tracer_cost_v4:
+    # first actual touchdown starts the transient clock;
+    # micro contact loss does not reset it while PyMPC still
+    # plans stance; planned swing terminates the stance episode.
+    latched_traction_interval: (
+        M7TractionCostInterval
         | None
     ) = None
 
@@ -363,6 +405,304 @@ def _mechanical_energy_interval(
 
         applied_positive_j=float(
             applied_positive
+        ),
+    )
+
+
+def _latched_traction_cost_interval(
+    start_state: dict[str, Any],
+    end_state: dict[str, Any],
+) -> M7TractionCostInterval | None:
+    """
+    Difference tracer_cost_v4 cumulative latched-stance
+    traction statistics.
+
+    Contact semantics are produced by the M7 state tap:
+
+      * first physical touchdown starts stance-contact age
+      * physical micro-break does not reset that age while
+        PyMPC still plans stance
+      * planned swing resets the stance episode
+
+    Missing optional telemetry returns None for backward
+    compatibility.
+    """
+
+    start_slip = start_state.get(
+        "eval_stance_slip"
+    )
+
+    end_slip = end_state.get(
+        "eval_stance_slip"
+    )
+
+    if (
+        start_slip is None
+        or end_slip is None
+    ):
+        return None
+
+    # Pointwise slip normalization must remain the same
+    # calibrated candidate used by tracer_cost_v3.
+    expected_pointwise_role = (
+        "candidate_contact_stability_cost_v0"
+    )
+
+    if (
+        start_slip.get(
+            "traction_cost_role"
+        )
+        != expected_pointwise_role
+        or end_slip.get(
+            "traction_cost_role"
+        )
+        != expected_pointwise_role
+    ):
+        return None
+
+    expected_latched_role = (
+        "candidate_latched_contact_stability_cost_v0"
+    )
+
+    if (
+        start_slip.get(
+            "latched_traction_cost_role"
+        )
+        != expected_latched_role
+        or end_slip.get(
+            "latched_traction_cost_role"
+        )
+        != expected_latched_role
+    ):
+        return None
+
+    required = (
+        "latched_established_contact_time_s",
+        "latched_established_traction_cost_time_sum_s",
+    )
+
+    if any(
+        name not in start_slip
+        or name not in end_slip
+        for name in required
+    ):
+        return None
+
+    contact_dt = (
+        float(
+            end_slip[
+                "latched_established_contact_time_s"
+            ]
+        )
+        - float(
+            start_slip[
+                "latched_established_contact_time_s"
+            ]
+        )
+    )
+
+    cost_integral = (
+        float(
+            end_slip[
+                "latched_established_traction_cost_time_sum_s"
+            ]
+        )
+        - float(
+            start_slip[
+                "latched_established_traction_cost_time_sum_s"
+            ]
+        )
+    )
+
+    tolerance = 1e-9
+
+    if contact_dt < -tolerance:
+        raise RuntimeError(
+            "Cumulative latched established-contact "
+            "time decreased: "
+            f"{contact_dt}"
+        )
+
+    if cost_integral < -tolerance:
+        raise RuntimeError(
+            "Cumulative latched traction-cost "
+            "integral decreased: "
+            f"{cost_integral}"
+        )
+
+    contact_dt = max(
+        float(contact_dt),
+        0.0,
+    )
+
+    cost_integral = max(
+        float(cost_integral),
+        0.0,
+    )
+
+    if contact_dt <= tolerance:
+        mean_cost = 0.0
+
+    else:
+        mean_cost = (
+            cost_integral
+            / contact_dt
+        )
+
+    if not math.isfinite(
+        mean_cost
+    ):
+        raise RuntimeError(
+            "Non-finite latched traction mean cost: "
+            f"{mean_cost!r}"
+        )
+
+    return M7TractionCostInterval(
+        established_contact_dt_s=(
+            float(contact_dt)
+        ),
+
+        cost_time_integral_s=(
+            float(cost_integral)
+        ),
+
+        mean_cost=float(
+            mean_cost
+        ),
+    )
+
+
+def _traction_cost_interval(
+    start_state: dict[str, Any],
+    end_state: dict[str, Any],
+) -> M7TractionCostInterval | None:
+    """
+    Difference candidate cumulative traction-cost statistics.
+
+    Missing optional contact-cost telemetry preserves backward
+    compatibility and returns None.
+    """
+
+    start_slip = start_state.get(
+        "eval_stance_slip"
+    )
+
+    end_slip = end_state.get(
+        "eval_stance_slip"
+    )
+
+    if (
+        start_slip is None
+        or end_slip is None
+    ):
+        return None
+
+    expected_role = (
+        "candidate_contact_stability_cost_v0"
+    )
+
+    if (
+        start_slip.get(
+            "traction_cost_role"
+        )
+        != expected_role
+        or end_slip.get(
+            "traction_cost_role"
+        )
+        != expected_role
+    ):
+        return None
+
+    required = (
+        "established_contact_time_s",
+        "established_traction_cost_time_sum_s",
+    )
+
+    if any(
+        name not in start_slip
+        or name not in end_slip
+        for name in required
+    ):
+        return None
+
+    contact_dt = (
+        float(
+            end_slip[
+                "established_contact_time_s"
+            ]
+        )
+        - float(
+            start_slip[
+                "established_contact_time_s"
+            ]
+        )
+    )
+
+    cost_integral = (
+        float(
+            end_slip[
+                "established_traction_cost_time_sum_s"
+            ]
+        )
+        - float(
+            start_slip[
+                "established_traction_cost_time_sum_s"
+            ]
+        )
+    )
+
+    tolerance = 1e-9
+
+    if contact_dt < -tolerance:
+        raise RuntimeError(
+            "Cumulative established-contact time decreased: "
+            f"{contact_dt}"
+        )
+
+    if cost_integral < -tolerance:
+        raise RuntimeError(
+            "Cumulative traction-cost integral decreased: "
+            f"{cost_integral}"
+        )
+
+    contact_dt = max(
+        float(contact_dt),
+        0.0,
+    )
+
+    cost_integral = max(
+        float(cost_integral),
+        0.0,
+    )
+
+    if contact_dt <= tolerance:
+        mean_cost = 0.0
+
+    else:
+        mean_cost = (
+            cost_integral
+            / contact_dt
+        )
+
+    if not np.isfinite(
+        mean_cost
+    ):
+        raise RuntimeError(
+            "Non-finite traction interval cost: "
+            f"{mean_cost}"
+        )
+
+    return M7TractionCostInterval(
+        established_contact_dt_s=(
+            contact_dt
+        ),
+
+        cost_time_integral_s=(
+            cost_integral
+        ),
+
+        mean_cost=float(
+            mean_cost
         ),
     )
 
@@ -1168,6 +1508,29 @@ class M7M5Transport:
                 )
             )
 
+        traction_interval = None
+        latched_traction_interval = None
+
+        if (
+            selected_energy_start_state
+            is not None
+        ):
+            # Historical tracer_cost_v3 contract.
+            traction_interval = (
+                _traction_cost_interval(
+                    selected_energy_start_state,
+                    matched_state,
+                )
+            )
+
+            # tracer_cost_v4 parallel contract.
+            latched_traction_interval = (
+                _latched_traction_cost_interval(
+                    selected_energy_start_state,
+                    matched_state,
+                )
+            )
+
         if (
             terminal_transition
             and energy_interval is None
@@ -1205,5 +1568,13 @@ class M7M5Transport:
 
             energy_interval=(
                 energy_interval
+            ),
+
+            traction_interval=(
+                traction_interval
+            ),
+
+            latched_traction_interval=(
+                latched_traction_interval
             ),
         )
