@@ -1,0 +1,15 @@
+{
+  "fixed_clearance_m": 0.06,
+  "fixed_meta_command": {
+    "body_height_m": 0.2983897969609695,
+    "vx_mps": 0.21208701415730208,
+    "yaw_rate_rps": 0.004199298764136668
+  },
+  "num_train_contexts": 9,
+  "provenance_note": "Fixed baseline command is derived only from TRAIN balanced-policy action means. No held-out evaluation result is used.",
+  "schema": "icra27_os_t5p1a_fixed_command_train_freeze_v0",
+  "selection_scope": "TRAIN-only",
+  "source": "results/icra27/os_t4p8e_u30_beta_specialization_v0/u30_episode_action_means.csv",
+  "source_beta": "balanced",
+  "source_checkpoint_update": 30
+}
