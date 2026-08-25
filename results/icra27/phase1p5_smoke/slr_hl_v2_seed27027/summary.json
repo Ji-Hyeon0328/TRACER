@@ -1,0 +1,105 @@
+{
+  "downstream_action_dim": 4,
+  "fixed_swing_clearance_m": 0.06,
+  "initial_std": 0.15,
+  "obs_dim": 21,
+  "perlin_seed_split": "/mnt/share/nas/Yoo/Tracer/TRACER-ICRA27/configs/icra27/m7_perlin_seed_split_v0.json",
+  "perlin_split_schema": "icra27_m7_perlin_seed_split_v0",
+  "perlin_train_seeds": [
+    13,
+    7,
+    15,
+    0,
+    5,
+    11,
+    4,
+    25,
+    12,
+    6,
+    29,
+    18,
+    10,
+    8,
+    22,
+    20,
+    28,
+    17
+  ],
+  "policy_action_dim": 3,
+  "policy_episode_steps": 50,
+  "ppo": "pure_pytorch_continuous_ppo",
+  "reward_mode": "slr_hl_v2",
+  "schema": "icra27_m7_ppo_multiterrain_v0",
+  "settling_steps": 5,
+  "steps_per_terrain": 64,
+  "steps_per_update": 192,
+  "terrain_order": [
+    "flat",
+    "low_friction",
+    "rough_perlin"
+  ],
+  "update_metrics": [
+    {
+      "approx_kl": -0.003614310136375328,
+      "batch_action_shape": [
+        192,
+        3
+      ],
+      "batch_obs_shape": [
+        192,
+        21
+      ],
+      "clip_fraction": 0.140625,
+      "entropy_proxy": -1.4379018644491832,
+      "policy_loss": -0.010889433945218721,
+      "steps": 192,
+      "terrains": {
+        "flat": {
+          "completed_episodes": 1,
+          "interventions": 0,
+          "m4_episodes": 0,
+          "max_abs_action": 0.42879486083984375,
+          "mean_completed_return": -0.20152127692407962,
+          "other_terminal_episodes": 0,
+          "reset_attempts": 2,
+          "settling_failures": 0,
+          "steps": 64,
+          "success_episodes": 1,
+          "terrain": "flat",
+          "truncated_episodes": 0
+        },
+        "low_friction": {
+          "completed_episodes": 1,
+          "interventions": 0,
+          "m4_episodes": 0,
+          "max_abs_action": 0.4310901165008545,
+          "mean_completed_return": -0.15694035247182753,
+          "other_terminal_episodes": 0,
+          "reset_attempts": 2,
+          "settling_failures": 0,
+          "steps": 64,
+          "success_episodes": 1,
+          "terrain": "low_friction",
+          "truncated_episodes": 0
+        },
+        "rough_perlin": {
+          "completed_episodes": 1,
+          "interventions": 0,
+          "m4_episodes": 0,
+          "max_abs_action": 0.4328988790512085,
+          "mean_completed_return": -0.42525992044835476,
+          "other_terminal_episodes": 0,
+          "reset_attempts": 2,
+          "settling_failures": 0,
+          "steps": 64,
+          "success_episodes": 1,
+          "terrain": "rough_perlin",
+          "truncated_episodes": 0
+        }
+      },
+      "update": 1,
+      "value_loss": 0.0010243115248158574
+    }
+  ],
+  "updates": 1
+}

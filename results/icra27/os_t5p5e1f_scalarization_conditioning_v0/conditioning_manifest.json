@@ -1,0 +1,25 @@
+{
+  "correlation_transfer_mean_vs_inverse_span": {
+    "energy": 0.5950837707085062,
+    "motion": 0.8512820702672746,
+    "stability": 0.4665396777345026
+  },
+  "heldout_used": false,
+  "interpretation_guard": "Read-only diagnostic. No frozen T5.4b/T5.5d scalarization or labels are changed.",
+  "label_margin": {
+    "le_0p001_fraction": 0.028888888888888888,
+    "le_0p01_fraction": 0.22666666666666666,
+    "median": 0.051621577956553075,
+    "p05": 0.0015147868161839524,
+    "p10": 0.0034979782626153293
+  },
+  "labels_audited": 450,
+  "rough_contexts": 18,
+  "schema": "icra27_os_t5p5e1f_scalarization_conditioning_v0",
+  "span_min": {
+    "energy": 0.25768105351784243,
+    "motion": 0.0010393281577094626,
+    "stability": 0.00010543773371235465
+  },
+  "status": "COMPUTE_PASS"
+}

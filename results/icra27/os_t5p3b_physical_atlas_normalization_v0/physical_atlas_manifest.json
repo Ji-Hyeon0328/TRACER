@@ -1,0 +1,88 @@
+{
+  "beta_points": 21,
+  "context_slots": 9,
+  "episodes": 189,
+  "next_stage": "OS-T5.4: fixed external mission preferences w -> context-specific preferred beta extraction / Pareto audit",
+  "normalization_file": "results/icra27/os_t5p3b_physical_atlas_normalization_v0/normalization_stats.json",
+  "physical_contract": "results/icra27/os_t5p2b_physical_preference_contract_v0/physical_preference_contract.json",
+  "physical_contract_sha256": "99aca9debae529b0e5e8c55d6dca6ee4a310bbe863fbf31569c102355ce675b4",
+  "schema": "icra27_os_t5p3b_physical_atlas_v0",
+  "settling_steps": [
+    5
+  ],
+  "source_atlas_csv": "results/icra27/os_t5p3_train_beta_response_atlas_v0/episodes.csv",
+  "source_atlas_sha256": "0eebb9686dfaba2b3499b2135942de227151fd355ff6625147c914e2e69efd64",
+  "stability_dominance": {
+    "attitude": 126,
+    "slip": 63,
+    "tie": 0
+  },
+  "status": "FREEZE_PASS",
+  "terrain_group_summary": {
+    "flat": {
+      "J_energy_range": [
+        100.54988909022944,
+        101.3186798071945
+      ],
+      "J_motion_range": [
+        4.467153420035954,
+        4.556305297028323
+      ],
+      "J_stability_range": [
+        0.10764727422495432,
+        0.10801105996711
+      ],
+      "rows": 63,
+      "unique_seeds": [
+        27100,
+        27101,
+        27102
+      ]
+    },
+    "low_friction": {
+      "J_energy_range": [
+        110.4678040997217,
+        111.44581246807458
+      ],
+      "J_motion_range": [
+        4.539224297512309,
+        4.626380711988806
+      ],
+      "J_stability_range": [
+        0.2496795992077843,
+        0.2546464188577031
+      ],
+      "rows": 63,
+      "unique_seeds": [
+        27200,
+        27201,
+        27202
+      ]
+    },
+    "rough": {
+      "J_energy_range": [
+        130.33310099906856,
+        155.2102565928621
+      ],
+      "J_motion_range": [
+        4.425768838781536,
+        4.573155468949753
+      ],
+      "J_stability_range": [
+        0.3199357677276557,
+        0.49278800534644407
+      ],
+      "rows": 63,
+      "unique_seeds": [
+        7,
+        13,
+        15
+      ]
+    }
+  },
+  "validation": {
+    "max_energy_reconstruction_error_j": 2.842170943040401e-14,
+    "max_progress_reconstruction_error_m": 2.220446049250313e-16,
+    "max_time_reconstruction_error_s": 0.0
+  }
+}

@@ -1,0 +1,441 @@
+{
+  "betas": {
+    "balanced": [
+      0.3333333333333333,
+      0.3333333333333333,
+      0.3333333333333333
+    ],
+    "energy": [
+      0.15,
+      0.15,
+      0.7
+    ],
+    "stability": [
+      0.15,
+      0.7,
+      0.15
+    ]
+  },
+  "checkpoint": "/mnt/share/nas/Yoo/Tracer/TRACER-ICRA27/results/icra27/phase1a_beta_conditioned_v3_seed27027/checkpoint_update_0040.pt",
+  "episode_rows": {
+    "balanced": {
+      "checkpoint": "/mnt/share/nas/Yoo/Tracer/TRACER-ICRA27/results/icra27/phase1a_beta_conditioned_v3_seed27027/checkpoint_update_0040.pt",
+      "decision_time_s": 7.6,
+      "energy_abs_j": 189.91492026775012,
+      "energy_bracket_time_s": 7.6,
+      "eval_reward_mode": "tracer_cost_v3",
+      "final_goal_distance_m": 0.1191965341794263,
+      "group": "low_friction_u40_k11_trace",
+      "initial_goal_distance_m": 1.8082846522923273,
+      "m4_interventions": 0,
+      "m4_terminal": false,
+      "max_abs_pitch_rad": 0.04203493893146515,
+      "max_abs_roll_rad": 0.011080103926360607,
+      "mean_abs_action_yaw_norm": 0.03665953742242173,
+      "mean_abs_applied_yaw_rps": 0.014663814968968692,
+      "mean_abs_requested_yaw_rps": 0.014663814968968692,
+      "mean_action_height_norm": -0.08408355908958536,
+      "mean_action_vx_norm": 0.0956570528643696,
+      "mean_applied_clearance_m": 0.060000000000000005,
+      "mean_applied_height_m": 0.29495498645462487,
+      "mean_applied_vx_mps": 0.2191314105728739,
+      "mean_cost_energy": 0.5719031935772081,
+      "mean_cost_motion": 0.22218945425774655,
+      "mean_cost_stability": 0.21827419146177504,
+      "mean_energy_power_ratio": 1.143806387154416,
+      "mean_progress_rate_mps": 0.22224843659380278,
+      "mean_requested_clearance_m": 0.060000000000000005,
+      "mean_requested_height_m": 0.29495498645462487,
+      "mean_requested_vx_mps": 0.2191314105728739,
+      "pitch_rms_rad": 0.026301348436636226,
+      "policy": "beta_conditioned",
+      "policy_steps": 38,
+      "progress_m": 1.689088118112901,
+      "roll_rms_rad": 0.003061420656805573,
+      "seed": 27200,
+      "settled": true,
+      "settling_steps": 5,
+      "status": "success",
+      "success": true,
+      "sum_cost_energy": 21.73232135593391,
+      "sum_cost_motion": 8.44319926179437,
+      "sum_cost_stability": 8.294419275547451,
+      "terrain": "low_friction",
+      "trained_reward_mode": "tracer_cost_v3"
+    },
+    "energy": {
+      "checkpoint": "/mnt/share/nas/Yoo/Tracer/TRACER-ICRA27/results/icra27/phase1a_beta_conditioned_v3_seed27027/checkpoint_update_0040.pt",
+      "decision_time_s": 7.6,
+      "energy_abs_j": 188.05328591074274,
+      "energy_bracket_time_s": 7.6,
+      "eval_reward_mode": "tracer_cost_v3",
+      "final_goal_distance_m": 0.12917878673514552,
+      "group": "low_friction_u40_k11_trace",
+      "initial_goal_distance_m": 1.8082846522923273,
+      "m4_interventions": 0,
+      "m4_terminal": false,
+      "max_abs_pitch_rad": 0.042073871940374374,
+      "max_abs_roll_rad": 0.011025870218873024,
+      "mean_abs_action_yaw_norm": 0.027576890271647198,
+      "mean_abs_applied_yaw_rps": 0.011030756108658878,
+      "mean_abs_requested_yaw_rps": 0.011030756108658878,
+      "mean_action_height_norm": -0.09416152458441884,
+      "mean_action_vx_norm": 0.07649240468775756,
+      "mean_applied_clearance_m": 0.060000000000000005,
+      "mean_applied_height_m": 0.2943503085249348,
+      "mean_applied_vx_mps": 0.2152984809375515,
+      "mean_cost_energy": 0.5662971325444859,
+      "mean_cost_motion": 0.22383127211230563,
+      "mean_cost_stability": 0.21362209499583368,
+      "mean_energy_power_ratio": 1.132594265088972,
+      "mean_progress_rate_mps": 0.2209349823101555,
+      "mean_requested_clearance_m": 0.060000000000000005,
+      "mean_requested_height_m": 0.2943503085249348,
+      "mean_requested_vx_mps": 0.2152984809375515,
+      "pitch_rms_rad": 0.026672403275191287,
+      "policy": "beta_conditioned",
+      "policy_steps": 38,
+      "progress_m": 1.6791058655571818,
+      "roll_rms_rad": 0.003029438181281438,
+      "seed": 27200,
+      "settled": true,
+      "settling_steps": 5,
+      "status": "success",
+      "success": true,
+      "sum_cost_energy": 21.519291036690465,
+      "sum_cost_motion": 8.505588340267614,
+      "sum_cost_stability": 8.11763960984168,
+      "terrain": "low_friction",
+      "trained_reward_mode": "tracer_cost_v3"
+    },
+    "stability": {
+      "checkpoint": "/mnt/share/nas/Yoo/Tracer/TRACER-ICRA27/results/icra27/phase1a_beta_conditioned_v3_seed27027/checkpoint_update_0040.pt",
+      "decision_time_s": 7.6,
+      "energy_abs_j": 189.49233202017132,
+      "energy_bracket_time_s": 7.6,
+      "eval_reward_mode": "tracer_cost_v3",
+      "final_goal_distance_m": 0.14496606635686235,
+      "group": "low_friction_u40_k11_trace",
+      "initial_goal_distance_m": 1.8082846522923273,
+      "m4_interventions": 0,
+      "m4_terminal": false,
+      "max_abs_pitch_rad": 0.04392346367239952,
+      "max_abs_roll_rad": 0.011546818539500237,
+      "mean_abs_action_yaw_norm": 0.03970053218501179,
+      "mean_abs_applied_yaw_rps": 0.015880212874004717,
+      "mean_abs_requested_yaw_rps": 0.015880212874004717,
+      "mean_action_height_norm": -0.05693210700624868,
+      "mean_action_vx_norm": 0.07458408157292165,
+      "mean_applied_clearance_m": 0.060000000000000005,
+      "mean_applied_height_m": 0.2965840735796251,
+      "mean_applied_vx_mps": 0.21491681631458434,
+      "mean_cost_energy": 0.570630626008437,
+      "mean_cost_motion": 0.22642786415535113,
+      "mean_cost_stability": 0.2359311317863976,
+      "mean_energy_power_ratio": 1.141261252016874,
+      "mean_progress_rate_mps": 0.21885770867571905,
+      "mean_requested_clearance_m": 0.060000000000000005,
+      "mean_requested_height_m": 0.2965840735796251,
+      "mean_requested_vx_mps": 0.21491681631458434,
+      "pitch_rms_rad": 0.02686258164275695,
+      "policy": "beta_conditioned",
+      "policy_steps": 38,
+      "progress_m": 1.6633185859354649,
+      "roll_rms_rad": 0.0031231392133682662,
+      "seed": 27200,
+      "settled": true,
+      "settling_steps": 5,
+      "status": "success",
+      "success": true,
+      "sum_cost_energy": 21.683963788320604,
+      "sum_cost_motion": 8.604258837903343,
+      "sum_cost_stability": 8.965383007883108,
+      "terrain": "low_friction",
+      "trained_reward_mode": "tracer_cost_v3"
+    }
+  },
+  "per_foot_summary": {
+    "balanced": {
+      "FL": {
+        "established_dt_s": 0.12199999999998656,
+        "max_speed_mps": 0.009849156552292605,
+        "mean_traction_cost": 9.663058249935317e-05,
+        "tail_ge_0p15_s": 0,
+        "tail_ge_0p30_s": 0
+      },
+      "FR": {
+        "established_dt_s": 0.12599999999998612,
+        "max_speed_mps": 0.16936165896918418,
+        "mean_traction_cost": 0.47927531443958576,
+        "tail_ge_0p15_s": 0.015999999999998238,
+        "tail_ge_0p30_s": 0
+      },
+      "RL": {
+        "established_dt_s": 0.13199999999998546,
+        "max_speed_mps": 0.10151444419943083,
+        "mean_traction_cost": 0.018079624058124518,
+        "tail_ge_0p15_s": 0,
+        "tail_ge_0p30_s": 0
+      },
+      "RR": {
+        "established_dt_s": 0.07399999999999185,
+        "max_speed_mps": 0.4474906235888659,
+        "mean_traction_cost": 0.8747806014494866,
+        "tail_ge_0p15_s": 0.007999999999999119,
+        "tail_ge_0p30_s": 0.007999999999999119
+      }
+    },
+    "energy": {
+      "FL": {
+        "established_dt_s": 0.12199999999998656,
+        "max_speed_mps": 0.010125268477897251,
+        "mean_traction_cost": 0.00010416612659971052,
+        "tail_ge_0p15_s": 0,
+        "tail_ge_0p30_s": 0
+      },
+      "FR": {
+        "established_dt_s": 0.12599999999998612,
+        "max_speed_mps": 0.1634880974077746,
+        "mean_traction_cost": 0.4609159541974753,
+        "tail_ge_0p15_s": 0.009999999999998899,
+        "tail_ge_0p30_s": 0
+      },
+      "RL": {
+        "established_dt_s": 0.13199999999998546,
+        "max_speed_mps": 0.100759384012013,
+        "mean_traction_cost": 0.017802373683679422,
+        "tail_ge_0p15_s": 0,
+        "tail_ge_0p30_s": 0
+      },
+      "RR": {
+        "established_dt_s": 0.07399999999999185,
+        "max_speed_mps": 0.45710664642828186,
+        "mean_traction_cost": 0.7134485347565777,
+        "tail_ge_0p15_s": 0.005999999999999339,
+        "tail_ge_0p30_s": 0.005999999999999339
+      }
+    },
+    "stability": {
+      "FL": {
+        "established_dt_s": 0.12199999999998656,
+        "max_speed_mps": 0.00861868364180891,
+        "mean_traction_cost": 6.650107053910057e-05,
+        "tail_ge_0p15_s": 0,
+        "tail_ge_0p30_s": 0
+      },
+      "FR": {
+        "established_dt_s": 0.12599999999998612,
+        "max_speed_mps": 0.16863409448258584,
+        "mean_traction_cost": 0.4564741939793139,
+        "tail_ge_0p15_s": 0.015999999999998238,
+        "tail_ge_0p30_s": 0
+      },
+      "RL": {
+        "established_dt_s": 0.13199999999998546,
+        "max_speed_mps": 0.09974350086856049,
+        "mean_traction_cost": 0.017469221994121608,
+        "tail_ge_0p15_s": 0,
+        "tail_ge_0p30_s": 0
+      },
+      "RR": {
+        "established_dt_s": 0.11599999999998722,
+        "max_speed_mps": 0.43040779372500837,
+        "mean_traction_cost": 1.2057246119719955,
+        "tail_ge_0p15_s": 0.031999999999996476,
+        "tail_ge_0p30_s": 0.015999999999998238
+      }
+    }
+  },
+  "physics_dt_s": 0.002,
+  "physics_rows_per_beta": 100,
+  "schema": "icra27_os_t4p5k6h_u40_k11_perfoot_trace_v0",
+  "seed": 27200,
+  "terrain": "low_friction",
+  "top_stability_high_slip_events": [
+    {
+      "age_s": 0.041999999999995374,
+      "balanced_speed": 0.4474906235888659,
+      "energy_speed": 0.45710664642828186,
+      "leg": "RR",
+      "stability_speed": 0.43040779372500837,
+      "step_num": 1643,
+      "time_post_s": 3.2859999999998597
+    },
+    {
+      "age_s": 0.043999999999995154,
+      "balanced_speed": 0.4303684070897522,
+      "energy_speed": 0.44014955912465015,
+      "leg": "RR",
+      "stability_speed": 0.412976058776408,
+      "step_num": 1644,
+      "time_post_s": 3.2879999999998595
+    },
+    {
+      "age_s": 0.045999999999994934,
+      "balanced_speed": 0.41386262558153764,
+      "energy_speed": 0.42376373746674817,
+      "leg": "RR",
+      "stability_speed": 0.3962317348937414,
+      "step_num": 1645,
+      "time_post_s": 3.2899999999998593
+    },
+    {
+      "age_s": 0.047999999999994714,
+      "balanced_speed": 0.39789499155148433,
+      "energy_speed": null,
+      "leg": "RR",
+      "stability_speed": 0.3800807289511761,
+      "step_num": 1646,
+      "time_post_s": 3.291999999999859
+    },
+    {
+      "age_s": 0.04999999999999449,
+      "balanced_speed": null,
+      "energy_speed": 0.42222277504455463,
+      "leg": "RR",
+      "stability_speed": 0.36002498778972397,
+      "step_num": 1647,
+      "time_post_s": 3.293999999999859
+    },
+    {
+      "age_s": 0.05199999999999427,
+      "balanced_speed": 0.39368740440822236,
+      "energy_speed": 0.3985540142905977,
+      "leg": "RR",
+      "stability_speed": 0.3402259988475395,
+      "step_num": 1648,
+      "time_post_s": 3.2959999999998586
+    },
+    {
+      "age_s": 0.05399999999999405,
+      "balanced_speed": 0.36939728980241704,
+      "energy_speed": 0.3752472231681213,
+      "leg": "RR",
+      "stability_speed": 0.32056640768744843,
+      "step_num": 1649,
+      "time_post_s": 3.2979999999998584
+    },
+    {
+      "age_s": 0.05599999999999383,
+      "balanced_speed": 0.345428724212261,
+      "energy_speed": 0.3522132974697162,
+      "leg": "RR",
+      "stability_speed": 0.30103141255210775,
+      "step_num": 1650,
+      "time_post_s": 3.299999999999858
+    },
+    {
+      "age_s": 0.05799999999999361,
+      "balanced_speed": 0.3216897006430757,
+      "energy_speed": 0.32939210028656074,
+      "leg": "RR",
+      "stability_speed": 0.28160189569024036,
+      "step_num": 1651,
+      "time_post_s": 3.301999999999858
+    },
+    {
+      "age_s": 0.05999999999999339,
+      "balanced_speed": 0.29918566346142067,
+      "energy_speed": 0.3065484387747691,
+      "leg": "RR",
+      "stability_speed": 0.26402294536075327,
+      "step_num": 1652,
+      "time_post_s": 3.3039999999998577
+    },
+    {
+      "age_s": 0.06199999999999317,
+      "balanced_speed": 0.27712522733170586,
+      "energy_speed": 0.28433030486922517,
+      "leg": "RR",
+      "stability_speed": 0.24745194204610088,
+      "step_num": 1653,
+      "time_post_s": 3.3059999999998575
+    },
+    {
+      "age_s": 0.06399999999999295,
+      "balanced_speed": 0.25575650197294647,
+      "energy_speed": 0.2628319910292575,
+      "leg": "RR",
+      "stability_speed": 0.23179711743096337,
+      "step_num": 1654,
+      "time_post_s": 3.3079999999998573
+    },
+    {
+      "age_s": 0.06599999999999273,
+      "balanced_speed": 0.23524367992869183,
+      "energy_speed": 0.24217345409566468,
+      "leg": "RR",
+      "stability_speed": 0.2168602093515206,
+      "step_num": 1655,
+      "time_post_s": 3.309999999999857
+    },
+    {
+      "age_s": 0.06799999999999251,
+      "balanced_speed": 0.2157136444296954,
+      "energy_speed": 0.22245414292265173,
+      "leg": "RR",
+      "stability_speed": 0.20244302572729417,
+      "step_num": 1656,
+      "time_post_s": 3.311999999999857
+    },
+    {
+      "age_s": 0.06999999999999229,
+      "balanced_speed": 0.18784541764580995,
+      "energy_speed": 0.19474915699111392,
+      "leg": "RR",
+      "stability_speed": 0.1786045783982781,
+      "step_num": 1657,
+      "time_post_s": 3.3139999999998566
+    },
+    {
+      "age_s": 0.4439999999999511,
+      "balanced_speed": 0.16936165896918418,
+      "energy_speed": 0.1634880974077746,
+      "leg": "FR",
+      "stability_speed": 0.16863409448258584,
+      "step_num": 1656,
+      "time_post_s": 3.311999999999857
+    },
+    {
+      "age_s": 0.4459999999999509,
+      "balanced_speed": 0.16638658687454874,
+      "energy_speed": 0.1604209588467009,
+      "leg": "FR",
+      "stability_speed": 0.16713965039577033,
+      "step_num": 1657,
+      "time_post_s": 3.3139999999998566
+    },
+    {
+      "age_s": 0.44799999999995066,
+      "balanced_speed": 0.1632633290838244,
+      "energy_speed": 0.15719208369471663,
+      "leg": "FR",
+      "stability_speed": 0.16551207260238893,
+      "step_num": 1658,
+      "time_post_s": 3.3159999999998564
+    },
+    {
+      "age_s": 0.44999999999995044,
+      "balanced_speed": 0.15982788128152026,
+      "energy_speed": 0.15362216073500592,
+      "leg": "FR",
+      "stability_speed": 0.16360205949366527,
+      "step_num": 1659,
+      "time_post_s": 3.317999999999856
+    },
+    {
+      "age_s": 0.4519999999999502,
+      "balanced_speed": 0.1560769429155066,
+      "energy_speed": 0.14971732273500607,
+      "leg": "FR",
+      "stability_speed": 0.16140404088354482,
+      "step_num": 1660,
+      "time_post_s": 3.319999999999856
+    }
+  ],
+  "trace_window_s": {
+    "lower_open": 3.2,
+    "upper_closed": 3.4
+  },
+  "update": 40
+}

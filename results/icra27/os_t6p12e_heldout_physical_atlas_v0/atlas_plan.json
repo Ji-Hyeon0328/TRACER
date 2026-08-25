@@ -1,0 +1,287 @@
+{
+  "beta_points": [
+    {
+      "beta": [
+        0.7,
+        0.15,
+        0.15
+      ],
+      "lambda_energy": 0.0,
+      "lambda_motion": 1.0,
+      "lambda_stability": 0.0,
+      "name": "lm100_ls000_le000"
+    },
+    {
+      "beta": [
+        0.59,
+        0.26,
+        0.15
+      ],
+      "lambda_energy": 0.0,
+      "lambda_motion": 0.8,
+      "lambda_stability": 0.2,
+      "name": "lm080_ls020_le000"
+    },
+    {
+      "beta": [
+        0.59,
+        0.15,
+        0.26
+      ],
+      "lambda_energy": 0.2,
+      "lambda_motion": 0.8,
+      "lambda_stability": 0.0,
+      "name": "lm080_ls000_le020"
+    },
+    {
+      "beta": [
+        0.48,
+        0.37,
+        0.15
+      ],
+      "lambda_energy": 0.0,
+      "lambda_motion": 0.6,
+      "lambda_stability": 0.4,
+      "name": "lm060_ls040_le000"
+    },
+    {
+      "beta": [
+        0.48,
+        0.26,
+        0.26
+      ],
+      "lambda_energy": 0.2,
+      "lambda_motion": 0.6,
+      "lambda_stability": 0.2,
+      "name": "lm060_ls020_le020"
+    },
+    {
+      "beta": [
+        0.48,
+        0.15,
+        0.37
+      ],
+      "lambda_energy": 0.4,
+      "lambda_motion": 0.6,
+      "lambda_stability": 0.0,
+      "name": "lm060_ls000_le040"
+    },
+    {
+      "beta": [
+        0.37,
+        0.48,
+        0.15
+      ],
+      "lambda_energy": 0.0,
+      "lambda_motion": 0.4,
+      "lambda_stability": 0.6,
+      "name": "lm040_ls060_le000"
+    },
+    {
+      "beta": [
+        0.37,
+        0.37,
+        0.26
+      ],
+      "lambda_energy": 0.2,
+      "lambda_motion": 0.4,
+      "lambda_stability": 0.4,
+      "name": "lm040_ls040_le020"
+    },
+    {
+      "beta": [
+        0.36999999999999994,
+        0.26,
+        0.37
+      ],
+      "lambda_energy": 0.4,
+      "lambda_motion": 0.4,
+      "lambda_stability": 0.2,
+      "name": "lm040_ls020_le040"
+    },
+    {
+      "beta": [
+        0.37,
+        0.15,
+        0.48
+      ],
+      "lambda_energy": 0.6,
+      "lambda_motion": 0.4,
+      "lambda_stability": 0.0,
+      "name": "lm040_ls000_le060"
+    },
+    {
+      "beta": [
+        0.26,
+        0.59,
+        0.15
+      ],
+      "lambda_energy": 0.0,
+      "lambda_motion": 0.2,
+      "lambda_stability": 0.8,
+      "name": "lm020_ls080_le000"
+    },
+    {
+      "beta": [
+        0.26,
+        0.48,
+        0.26
+      ],
+      "lambda_energy": 0.2,
+      "lambda_motion": 0.2,
+      "lambda_stability": 0.6,
+      "name": "lm020_ls060_le020"
+    },
+    {
+      "beta": [
+        0.26,
+        0.36999999999999994,
+        0.37
+      ],
+      "lambda_energy": 0.4,
+      "lambda_motion": 0.2,
+      "lambda_stability": 0.4,
+      "name": "lm020_ls040_le040"
+    },
+    {
+      "beta": [
+        0.26,
+        0.26,
+        0.48
+      ],
+      "lambda_energy": 0.6,
+      "lambda_motion": 0.2,
+      "lambda_stability": 0.2,
+      "name": "lm020_ls020_le060"
+    },
+    {
+      "beta": [
+        0.26,
+        0.15,
+        0.59
+      ],
+      "lambda_energy": 0.8,
+      "lambda_motion": 0.2,
+      "lambda_stability": 0.0,
+      "name": "lm020_ls000_le080"
+    },
+    {
+      "beta": [
+        0.15,
+        0.7,
+        0.15
+      ],
+      "lambda_energy": 0.0,
+      "lambda_motion": 0.0,
+      "lambda_stability": 1.0,
+      "name": "lm000_ls100_le000"
+    },
+    {
+      "beta": [
+        0.15,
+        0.59,
+        0.26
+      ],
+      "lambda_energy": 0.2,
+      "lambda_motion": 0.0,
+      "lambda_stability": 0.8,
+      "name": "lm000_ls080_le020"
+    },
+    {
+      "beta": [
+        0.15,
+        0.48,
+        0.37
+      ],
+      "lambda_energy": 0.4,
+      "lambda_motion": 0.0,
+      "lambda_stability": 0.6,
+      "name": "lm000_ls060_le040"
+    },
+    {
+      "beta": [
+        0.15,
+        0.37,
+        0.48
+      ],
+      "lambda_energy": 0.6,
+      "lambda_motion": 0.0,
+      "lambda_stability": 0.4,
+      "name": "lm000_ls040_le060"
+    },
+    {
+      "beta": [
+        0.15,
+        0.26,
+        0.59
+      ],
+      "lambda_energy": 0.8,
+      "lambda_motion": 0.0,
+      "lambda_stability": 0.2,
+      "name": "lm000_ls020_le080"
+    },
+    {
+      "beta": [
+        0.15,
+        0.15,
+        0.7
+      ],
+      "lambda_energy": 1.0,
+      "lambda_motion": 0.0,
+      "lambda_stability": 0.0,
+      "name": "lm000_ls000_le100"
+    }
+  ],
+  "checkpoint": "results/icra27/phase1a_beta_conditioned_v4_seed27027/checkpoint_update_0030.pt",
+  "evaluation_splits": {
+    "hard": [
+      9,
+      23,
+      24
+    ],
+    "test": [
+      27,
+      2,
+      3,
+      19,
+      26
+    ],
+    "val": [
+      1,
+      21,
+      16,
+      14
+    ]
+  },
+  "expected_beta_points": 21,
+  "expected_contexts": 12,
+  "expected_episodes": 252,
+  "feasibility_contract": "success AND no M4 AND positive progress",
+  "infeasible_candidate_scoring_contract": "In T6.12f, an infeasible beta candidate has true Q=+inf. If the precommitted selector chose an infeasible beta, it remains a selector failure and no alternative beta may be substituted.",
+  "physical_objective_source": "results/icra27/os_t5p2b_physical_preference_contract_v0/physical_preference_contract.json",
+  "policy_horizon": 50,
+  "raw_log_pairing": "Within each complete beta block, compact seed-order rows are zipped to sorted episode_*.jsonl files, matching the frozen T5.5c/f3 provenance convention.",
+  "resume_semantics": "Only beta blocks with a valid block_complete.json are reused. An interrupted beta block is never overwritten; resume creates a fresh attempt_NNN directory.",
+  "reward_mode": "tracer_cost_v4",
+  "schema": "icra27_os_t6p12e_heldout_physical_atlas_plan_v0",
+  "seed_order": [
+    1,
+    21,
+    16,
+    14,
+    27,
+    2,
+    3,
+    19,
+    26,
+    9,
+    23,
+    24
+  ],
+  "selector_outputs_frozen_before_outcomes": true,
+  "selector_precommit": "results/icra27/os_t6p12d_heldout_selector_precommit_v0/heldout_selector_precommit_manifest.json",
+  "selector_precommit_sha256": "f47afcb542d279d51d00e4cec1d77945af7becfdb60039a1ad7e7ec91905e1da",
+  "settling_steps": 5,
+  "terrain": "rough_perlin",
+  "zero_feasible_context_contract": "If no beta is feasible for a context, the context is reported as a lattice-infeasible evaluation case; oracle Q/rank are undefined and the context is not silently replaced or removed from the reported population."
+}

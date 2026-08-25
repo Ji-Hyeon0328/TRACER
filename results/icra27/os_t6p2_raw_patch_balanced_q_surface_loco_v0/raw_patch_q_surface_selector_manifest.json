@@ -1,0 +1,39 @@
+{
+  "aggregate": {
+    "held_Q_mae_mean": 1.417372140414308,
+    "no_context_baseline_Q_excess_mean": 0.1998418525268314,
+    "selector_Q_excess_mean": 0.28192948532067447,
+    "selector_Q_excess_median": 0.14073055116576436,
+    "selector_Q_excess_p95": 0.9052569172361311,
+    "selector_beats_no_context_fraction": 0.4444444444444444,
+    "selector_exact_accuracy": 0.1111111111111111,
+    "selector_physical_linf_mean_iqr": 0.15734795903625232,
+    "selector_physical_linf_p95_iqr": 0.45751483926031816,
+    "selector_true_rank_mean": 8.666666666666666,
+    "selector_true_rank_median": 7.5,
+    "train_log_mae_mean": 0.01911793095171243
+  },
+  "candidate_input": "3D beta simplex lambda",
+  "dense_supervision_per_fold": 672,
+  "direct_beta_regression": false,
+  "evaluation": "LOCO over the same 18 original rough TRAIN terrains only",
+  "heldout_used": false,
+  "model": {
+    "activation": "SiLU",
+    "epochs": 2000,
+    "hidden": [
+      64,
+      64
+    ],
+    "lr": 0.003,
+    "target": "standardized log1p(Q)",
+    "type": "shared candidate Q regressor",
+    "weight_decay": 0.0001
+  },
+  "runtime_interface": "evaluate all 21 beta candidates -> Q-vector -> argmin beta",
+  "schema": "icra27_os_t6p2_raw_patch_balanced_q_surface_loco_v0",
+  "status": "COMPUTE_PASS",
+  "terrain_input": "friction_mu + 48D raw oracle local relative height patch",
+  "train_per_fold": "17 remaining original rough + 15 frozen extension rough = 32",
+  "user_preference_or_irl": false
+}

@@ -1,0 +1,524 @@
+{
+  "candidate_updates": [
+    10,
+    20,
+    30,
+    40
+  ],
+  "candidates": [
+    {
+      "checkpoint": "/mnt/share/nas/Yoo/Tracer/TRACER-ICRA27/results/icra27/phase1a_beta_conditioned_v3_seed27027/checkpoint_update_0010.pt",
+      "context_signs": [
+        {
+          "energy_cost_down": 1,
+          "motion_cost_down": 1,
+          "motion_time_down": 0,
+          "motion_vx_up": 1,
+          "seed": 27100,
+          "stability_cost_down": 1,
+          "terrain": "flat"
+        },
+        {
+          "energy_cost_down": 1,
+          "motion_cost_down": 1,
+          "motion_time_down": 0,
+          "motion_vx_up": 1,
+          "seed": 27101,
+          "stability_cost_down": 1,
+          "terrain": "flat"
+        },
+        {
+          "energy_cost_down": 1,
+          "motion_cost_down": 1,
+          "motion_time_down": 0,
+          "motion_vx_up": 1,
+          "seed": 27102,
+          "stability_cost_down": 1,
+          "terrain": "flat"
+        },
+        {
+          "energy_cost_down": 1,
+          "motion_cost_down": 1,
+          "motion_time_down": 1,
+          "motion_vx_up": 1,
+          "seed": 27200,
+          "stability_cost_down": 0,
+          "terrain": "low_friction"
+        },
+        {
+          "energy_cost_down": 1,
+          "motion_cost_down": 1,
+          "motion_time_down": 1,
+          "motion_vx_up": 1,
+          "seed": 27201,
+          "stability_cost_down": 0,
+          "terrain": "low_friction"
+        },
+        {
+          "energy_cost_down": 1,
+          "motion_cost_down": 1,
+          "motion_time_down": 1,
+          "motion_vx_up": 1,
+          "seed": 27202,
+          "stability_cost_down": 0,
+          "terrain": "low_friction"
+        },
+        {
+          "energy_cost_down": 1,
+          "motion_cost_down": 1,
+          "motion_time_down": 1,
+          "motion_vx_up": 1,
+          "seed": 13,
+          "stability_cost_down": 1,
+          "terrain": "rough"
+        },
+        {
+          "energy_cost_down": 1,
+          "motion_cost_down": 1,
+          "motion_time_down": 0,
+          "motion_vx_up": 1,
+          "seed": 7,
+          "stability_cost_down": 1,
+          "terrain": "rough"
+        },
+        {
+          "energy_cost_down": 1,
+          "motion_cost_down": 1,
+          "motion_time_down": 1,
+          "motion_vx_up": 1,
+          "seed": 15,
+          "stability_cost_down": 0,
+          "terrain": "rough"
+        }
+      ],
+      "episodes": 36,
+      "gate_pass": false,
+      "m4_count": 0,
+      "paired_sign_consistency": {
+        "energy_cost_down": "9/9",
+        "episode_energy_abs_down": "6/9",
+        "low_friction_traction_cost_down": "0/3",
+        "motion_cost_down": "9/9",
+        "motion_time_down": "5/9",
+        "motion_vx_up": "9/9",
+        "stability_cost_down": "5/9",
+        "stability_posture_flat_down": "3/3",
+        "stability_posture_rough_down": "3/3"
+      },
+      "predefined_gate_result": {
+        "energy": true,
+        "low_friction_traction": false,
+        "motion": true,
+        "stability": false
+      },
+      "primary_counts": {
+        "energy_cost_down": 9,
+        "low_friction_traction_cost_down": 0,
+        "motion_cost_down": 9,
+        "stability_cost_down": 5
+      },
+      "semantic_sum_ratio": 2.5555555555555554,
+      "semantic_worst_ratio": 0.0,
+      "success_count": 36,
+      "update": 10
+    },
+    {
+      "checkpoint": "/mnt/share/nas/Yoo/Tracer/TRACER-ICRA27/results/icra27/phase1a_beta_conditioned_v3_seed27027/checkpoint_update_0020.pt",
+      "context_signs": [
+        {
+          "energy_cost_down": 1,
+          "motion_cost_down": 1,
+          "motion_time_down": 1,
+          "motion_vx_up": 1,
+          "seed": 27100,
+          "stability_cost_down": 0,
+          "terrain": "flat"
+        },
+        {
+          "energy_cost_down": 1,
+          "motion_cost_down": 1,
+          "motion_time_down": 1,
+          "motion_vx_up": 1,
+          "seed": 27101,
+          "stability_cost_down": 0,
+          "terrain": "flat"
+        },
+        {
+          "energy_cost_down": 1,
+          "motion_cost_down": 1,
+          "motion_time_down": 1,
+          "motion_vx_up": 1,
+          "seed": 27102,
+          "stability_cost_down": 0,
+          "terrain": "flat"
+        },
+        {
+          "energy_cost_down": 1,
+          "motion_cost_down": 1,
+          "motion_time_down": 0,
+          "motion_vx_up": 1,
+          "seed": 27200,
+          "stability_cost_down": 0,
+          "terrain": "low_friction"
+        },
+        {
+          "energy_cost_down": 1,
+          "motion_cost_down": 1,
+          "motion_time_down": 0,
+          "motion_vx_up": 1,
+          "seed": 27201,
+          "stability_cost_down": 0,
+          "terrain": "low_friction"
+        },
+        {
+          "energy_cost_down": 1,
+          "motion_cost_down": 1,
+          "motion_time_down": 0,
+          "motion_vx_up": 1,
+          "seed": 27202,
+          "stability_cost_down": 0,
+          "terrain": "low_friction"
+        },
+        {
+          "energy_cost_down": 1,
+          "motion_cost_down": 1,
+          "motion_time_down": 0,
+          "motion_vx_up": 1,
+          "seed": 13,
+          "stability_cost_down": 1,
+          "terrain": "rough"
+        },
+        {
+          "energy_cost_down": 0,
+          "motion_cost_down": 1,
+          "motion_time_down": 0,
+          "motion_vx_up": 1,
+          "seed": 7,
+          "stability_cost_down": 1,
+          "terrain": "rough"
+        },
+        {
+          "energy_cost_down": 1,
+          "motion_cost_down": 1,
+          "motion_time_down": 1,
+          "motion_vx_up": 1,
+          "seed": 15,
+          "stability_cost_down": 1,
+          "terrain": "rough"
+        }
+      ],
+      "episodes": 36,
+      "gate_pass": false,
+      "m4_count": 0,
+      "paired_sign_consistency": {
+        "energy_cost_down": "8/9",
+        "episode_energy_abs_down": "6/9",
+        "low_friction_traction_cost_down": "0/3",
+        "motion_cost_down": "9/9",
+        "motion_time_down": "4/9",
+        "motion_vx_up": "9/9",
+        "stability_cost_down": "3/9",
+        "stability_posture_flat_down": "0/3",
+        "stability_posture_rough_down": "3/3"
+      },
+      "predefined_gate_result": {
+        "energy": true,
+        "low_friction_traction": false,
+        "motion": true,
+        "stability": false
+      },
+      "primary_counts": {
+        "energy_cost_down": 8,
+        "low_friction_traction_cost_down": 0,
+        "motion_cost_down": 9,
+        "stability_cost_down": 3
+      },
+      "semantic_sum_ratio": 2.2222222222222223,
+      "semantic_worst_ratio": 0.0,
+      "success_count": 36,
+      "update": 20
+    },
+    {
+      "checkpoint": "/mnt/share/nas/Yoo/Tracer/TRACER-ICRA27/results/icra27/phase1a_beta_conditioned_v3_seed27027/checkpoint_update_0030.pt",
+      "context_signs": [
+        {
+          "energy_cost_down": 1,
+          "motion_cost_down": 1,
+          "motion_time_down": 0,
+          "motion_vx_up": 1,
+          "seed": 27100,
+          "stability_cost_down": 0,
+          "terrain": "flat"
+        },
+        {
+          "energy_cost_down": 1,
+          "motion_cost_down": 1,
+          "motion_time_down": 0,
+          "motion_vx_up": 1,
+          "seed": 27101,
+          "stability_cost_down": 0,
+          "terrain": "flat"
+        },
+        {
+          "energy_cost_down": 1,
+          "motion_cost_down": 1,
+          "motion_time_down": 0,
+          "motion_vx_up": 1,
+          "seed": 27102,
+          "stability_cost_down": 0,
+          "terrain": "flat"
+        },
+        {
+          "energy_cost_down": 0,
+          "motion_cost_down": 1,
+          "motion_time_down": 0,
+          "motion_vx_up": 1,
+          "seed": 27200,
+          "stability_cost_down": 0,
+          "terrain": "low_friction"
+        },
+        {
+          "energy_cost_down": 0,
+          "motion_cost_down": 1,
+          "motion_time_down": 0,
+          "motion_vx_up": 1,
+          "seed": 27201,
+          "stability_cost_down": 0,
+          "terrain": "low_friction"
+        },
+        {
+          "energy_cost_down": 0,
+          "motion_cost_down": 1,
+          "motion_time_down": 0,
+          "motion_vx_up": 1,
+          "seed": 27202,
+          "stability_cost_down": 0,
+          "terrain": "low_friction"
+        },
+        {
+          "energy_cost_down": 1,
+          "motion_cost_down": 1,
+          "motion_time_down": 1,
+          "motion_vx_up": 1,
+          "seed": 13,
+          "stability_cost_down": 1,
+          "terrain": "rough"
+        },
+        {
+          "energy_cost_down": 1,
+          "motion_cost_down": 1,
+          "motion_time_down": 0,
+          "motion_vx_up": 1,
+          "seed": 7,
+          "stability_cost_down": 1,
+          "terrain": "rough"
+        },
+        {
+          "energy_cost_down": 0,
+          "motion_cost_down": 1,
+          "motion_time_down": 1,
+          "motion_vx_up": 1,
+          "seed": 15,
+          "stability_cost_down": 1,
+          "terrain": "rough"
+        }
+      ],
+      "episodes": 36,
+      "gate_pass": false,
+      "m4_count": 0,
+      "paired_sign_consistency": {
+        "energy_cost_down": "5/9",
+        "episode_energy_abs_down": "0/9",
+        "low_friction_traction_cost_down": "0/3",
+        "motion_cost_down": "9/9",
+        "motion_time_down": "2/9",
+        "motion_vx_up": "9/9",
+        "stability_cost_down": "3/9",
+        "stability_posture_flat_down": "0/3",
+        "stability_posture_rough_down": "3/3"
+      },
+      "predefined_gate_result": {
+        "energy": false,
+        "low_friction_traction": false,
+        "motion": true,
+        "stability": false
+      },
+      "primary_counts": {
+        "energy_cost_down": 5,
+        "low_friction_traction_cost_down": 0,
+        "motion_cost_down": 9,
+        "stability_cost_down": 3
+      },
+      "semantic_sum_ratio": 1.8888888888888888,
+      "semantic_worst_ratio": 0.0,
+      "success_count": 36,
+      "update": 30
+    },
+    {
+      "checkpoint": "/mnt/share/nas/Yoo/Tracer/TRACER-ICRA27/results/icra27/phase1a_beta_conditioned_v3_seed27027/checkpoint_update_0040.pt",
+      "context_signs": [
+        {
+          "energy_cost_down": 1,
+          "motion_cost_down": 1,
+          "motion_time_down": 1,
+          "motion_vx_up": 1,
+          "seed": 27100,
+          "stability_cost_down": 0,
+          "terrain": "flat"
+        },
+        {
+          "energy_cost_down": 1,
+          "motion_cost_down": 1,
+          "motion_time_down": 1,
+          "motion_vx_up": 1,
+          "seed": 27101,
+          "stability_cost_down": 0,
+          "terrain": "flat"
+        },
+        {
+          "energy_cost_down": 1,
+          "motion_cost_down": 1,
+          "motion_time_down": 1,
+          "motion_vx_up": 1,
+          "seed": 27102,
+          "stability_cost_down": 0,
+          "terrain": "flat"
+        },
+        {
+          "energy_cost_down": 1,
+          "motion_cost_down": 1,
+          "motion_time_down": 1,
+          "motion_vx_up": 1,
+          "seed": 27200,
+          "stability_cost_down": 0,
+          "terrain": "low_friction"
+        },
+        {
+          "energy_cost_down": 1,
+          "motion_cost_down": 1,
+          "motion_time_down": 1,
+          "motion_vx_up": 1,
+          "seed": 27201,
+          "stability_cost_down": 0,
+          "terrain": "low_friction"
+        },
+        {
+          "energy_cost_down": 1,
+          "motion_cost_down": 1,
+          "motion_time_down": 1,
+          "motion_vx_up": 1,
+          "seed": 27202,
+          "stability_cost_down": 0,
+          "terrain": "low_friction"
+        },
+        {
+          "energy_cost_down": 1,
+          "motion_cost_down": 1,
+          "motion_time_down": 1,
+          "motion_vx_up": 1,
+          "seed": 13,
+          "stability_cost_down": 1,
+          "terrain": "rough"
+        },
+        {
+          "energy_cost_down": 1,
+          "motion_cost_down": 1,
+          "motion_time_down": 1,
+          "motion_vx_up": 1,
+          "seed": 7,
+          "stability_cost_down": 1,
+          "terrain": "rough"
+        },
+        {
+          "energy_cost_down": 1,
+          "motion_cost_down": 1,
+          "motion_time_down": 1,
+          "motion_vx_up": 1,
+          "seed": 15,
+          "stability_cost_down": 1,
+          "terrain": "rough"
+        }
+      ],
+      "episodes": 36,
+      "gate_pass": false,
+      "m4_count": 0,
+      "paired_sign_consistency": {
+        "energy_cost_down": "9/9",
+        "episode_energy_abs_down": "7/9",
+        "low_friction_traction_cost_down": "0/3",
+        "motion_cost_down": "9/9",
+        "motion_time_down": "9/9",
+        "motion_vx_up": "9/9",
+        "stability_cost_down": "3/9",
+        "stability_posture_flat_down": "0/3",
+        "stability_posture_rough_down": "3/3"
+      },
+      "predefined_gate_result": {
+        "energy": true,
+        "low_friction_traction": false,
+        "motion": true,
+        "stability": false
+      },
+      "primary_counts": {
+        "energy_cost_down": 9,
+        "low_friction_traction_cost_down": 0,
+        "motion_cost_down": 9,
+        "stability_cost_down": 3
+      },
+      "semantic_sum_ratio": 2.3333333333333335,
+      "semantic_worst_ratio": 0.0,
+      "success_count": 36,
+      "update": 40
+    }
+  ],
+  "gate_result": "FAIL",
+  "predefined_gate": {
+    "energy_cost_down_min": "6/9",
+    "low_friction_traction_cost_down_min": "2/3",
+    "motion_cost_down_min": "7/9",
+    "stability_cost_down_min": "6/9"
+  },
+  "reward_mode": "tracer_cost_v3",
+  "schema": "icra27_os_t4p5k5_lockstep_checkpoint_sweep_v0",
+  "scope": "TRAIN-only checkpoint selection",
+  "selected_checkpoint": null,
+  "selected_update": null,
+  "selection_note": "Recommendation only; checkpoint is not copied/frozen by this evaluator.",
+  "terrain_cases": [
+    {
+      "label": "flat",
+      "seeds": [
+        27100,
+        27101,
+        27102
+      ],
+      "terrain": "flat"
+    },
+    {
+      "label": "low_friction",
+      "seeds": [
+        27200,
+        27201,
+        27202
+      ],
+      "terrain": "low_friction"
+    },
+    {
+      "label": "rough",
+      "seeds": [
+        13,
+        7,
+        15
+      ],
+      "terrain": "rough_perlin"
+    }
+  ],
+  "tie_break": [
+    "gate_pass",
+    "success_count",
+    "fewer_m4",
+    "max_semantic_worst_ratio",
+    "max_semantic_sum_ratio",
+    "earlier_update"
+  ]
+}

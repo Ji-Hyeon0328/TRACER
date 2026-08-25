@@ -1,0 +1,452 @@
+[
+  {
+    "context_index": 0,
+    "context_id": "flat:flat:27027",
+    "group": "flat",
+    "terrain": "flat",
+    "seed": 27027,
+    "candidate_count": 4,
+    "feasible_count": 4,
+    "pareto_count": 3,
+    "pareto_beta_names": [
+      "balanced",
+      "motion",
+      "energy"
+    ]
+  },
+  {
+    "context_index": 1,
+    "context_id": "flat:flat:27028",
+    "group": "flat",
+    "terrain": "flat",
+    "seed": 27028,
+    "candidate_count": 4,
+    "feasible_count": 4,
+    "pareto_count": 4,
+    "pareto_beta_names": [
+      "balanced",
+      "motion",
+      "stability",
+      "energy"
+    ]
+  },
+  {
+    "context_index": 2,
+    "context_id": "flat:flat:27029",
+    "group": "flat",
+    "terrain": "flat",
+    "seed": 27029,
+    "candidate_count": 4,
+    "feasible_count": 4,
+    "pareto_count": 3,
+    "pareto_beta_names": [
+      "balanced",
+      "motion",
+      "energy"
+    ]
+  },
+  {
+    "context_index": 3,
+    "context_id": "flat:flat:27030",
+    "group": "flat",
+    "terrain": "flat",
+    "seed": 27030,
+    "candidate_count": 4,
+    "feasible_count": 4,
+    "pareto_count": 3,
+    "pareto_beta_names": [
+      "balanced",
+      "motion",
+      "energy"
+    ]
+  },
+  {
+    "context_index": 4,
+    "context_id": "flat:flat:27031",
+    "group": "flat",
+    "terrain": "flat",
+    "seed": 27031,
+    "candidate_count": 4,
+    "feasible_count": 4,
+    "pareto_count": 4,
+    "pareto_beta_names": [
+      "balanced",
+      "motion",
+      "stability",
+      "energy"
+    ]
+  },
+  {
+    "context_index": 5,
+    "context_id": "flat:flat:27032",
+    "group": "flat",
+    "terrain": "flat",
+    "seed": 27032,
+    "candidate_count": 4,
+    "feasible_count": 4,
+    "pareto_count": 2,
+    "pareto_beta_names": [
+      "motion",
+      "stability"
+    ]
+  },
+  {
+    "context_index": 6,
+    "context_id": "flat:flat:27033",
+    "group": "flat",
+    "terrain": "flat",
+    "seed": 27033,
+    "candidate_count": 4,
+    "feasible_count": 4,
+    "pareto_count": 4,
+    "pareto_beta_names": [
+      "balanced",
+      "motion",
+      "stability",
+      "energy"
+    ]
+  },
+  {
+    "context_index": 7,
+    "context_id": "flat:flat:27034",
+    "group": "flat",
+    "terrain": "flat",
+    "seed": 27034,
+    "candidate_count": 4,
+    "feasible_count": 4,
+    "pareto_count": 2,
+    "pareto_beta_names": [
+      "balanced",
+      "motion"
+    ]
+  },
+  {
+    "context_index": 8,
+    "context_id": "flat:flat:27035",
+    "group": "flat",
+    "terrain": "flat",
+    "seed": 27035,
+    "candidate_count": 4,
+    "feasible_count": 4,
+    "pareto_count": 4,
+    "pareto_beta_names": [
+      "balanced",
+      "motion",
+      "stability",
+      "energy"
+    ]
+  },
+  {
+    "context_index": 9,
+    "context_id": "flat:flat:27036",
+    "group": "flat",
+    "terrain": "flat",
+    "seed": 27036,
+    "candidate_count": 4,
+    "feasible_count": 4,
+    "pareto_count": 4,
+    "pareto_beta_names": [
+      "balanced",
+      "motion",
+      "stability",
+      "energy"
+    ]
+  },
+  {
+    "context_index": 10,
+    "context_id": "low_friction:low_friction:27027",
+    "group": "low_friction",
+    "terrain": "low_friction",
+    "seed": 27027,
+    "candidate_count": 4,
+    "feasible_count": 4,
+    "pareto_count": 4,
+    "pareto_beta_names": [
+      "balanced",
+      "motion",
+      "stability",
+      "energy"
+    ]
+  },
+  {
+    "context_index": 11,
+    "context_id": "low_friction:low_friction:27028",
+    "group": "low_friction",
+    "terrain": "low_friction",
+    "seed": 27028,
+    "candidate_count": 4,
+    "feasible_count": 4,
+    "pareto_count": 4,
+    "pareto_beta_names": [
+      "balanced",
+      "motion",
+      "stability",
+      "energy"
+    ]
+  },
+  {
+    "context_index": 12,
+    "context_id": "low_friction:low_friction:27029",
+    "group": "low_friction",
+    "terrain": "low_friction",
+    "seed": 27029,
+    "candidate_count": 4,
+    "feasible_count": 4,
+    "pareto_count": 4,
+    "pareto_beta_names": [
+      "balanced",
+      "motion",
+      "stability",
+      "energy"
+    ]
+  },
+  {
+    "context_index": 13,
+    "context_id": "low_friction:low_friction:27030",
+    "group": "low_friction",
+    "terrain": "low_friction",
+    "seed": 27030,
+    "candidate_count": 4,
+    "feasible_count": 4,
+    "pareto_count": 4,
+    "pareto_beta_names": [
+      "balanced",
+      "motion",
+      "stability",
+      "energy"
+    ]
+  },
+  {
+    "context_index": 14,
+    "context_id": "low_friction:low_friction:27031",
+    "group": "low_friction",
+    "terrain": "low_friction",
+    "seed": 27031,
+    "candidate_count": 4,
+    "feasible_count": 4,
+    "pareto_count": 4,
+    "pareto_beta_names": [
+      "balanced",
+      "motion",
+      "stability",
+      "energy"
+    ]
+  },
+  {
+    "context_index": 15,
+    "context_id": "low_friction:low_friction:27032",
+    "group": "low_friction",
+    "terrain": "low_friction",
+    "seed": 27032,
+    "candidate_count": 4,
+    "feasible_count": 4,
+    "pareto_count": 4,
+    "pareto_beta_names": [
+      "balanced",
+      "motion",
+      "stability",
+      "energy"
+    ]
+  },
+  {
+    "context_index": 16,
+    "context_id": "low_friction:low_friction:27033",
+    "group": "low_friction",
+    "terrain": "low_friction",
+    "seed": 27033,
+    "candidate_count": 4,
+    "feasible_count": 4,
+    "pareto_count": 4,
+    "pareto_beta_names": [
+      "balanced",
+      "motion",
+      "stability",
+      "energy"
+    ]
+  },
+  {
+    "context_index": 17,
+    "context_id": "low_friction:low_friction:27034",
+    "group": "low_friction",
+    "terrain": "low_friction",
+    "seed": 27034,
+    "candidate_count": 4,
+    "feasible_count": 4,
+    "pareto_count": 4,
+    "pareto_beta_names": [
+      "balanced",
+      "motion",
+      "stability",
+      "energy"
+    ]
+  },
+  {
+    "context_index": 18,
+    "context_id": "low_friction:low_friction:27035",
+    "group": "low_friction",
+    "terrain": "low_friction",
+    "seed": 27035,
+    "candidate_count": 4,
+    "feasible_count": 4,
+    "pareto_count": 2,
+    "pareto_beta_names": [
+      "balanced",
+      "motion"
+    ]
+  },
+  {
+    "context_index": 19,
+    "context_id": "low_friction:low_friction:27036",
+    "group": "low_friction",
+    "terrain": "low_friction",
+    "seed": 27036,
+    "candidate_count": 4,
+    "feasible_count": 4,
+    "pareto_count": 3,
+    "pareto_beta_names": [
+      "motion",
+      "stability",
+      "energy"
+    ]
+  },
+  {
+    "context_index": 20,
+    "context_id": "rough_test:rough_perlin:2",
+    "group": "rough_test",
+    "terrain": "rough_perlin",
+    "seed": 2,
+    "candidate_count": 4,
+    "feasible_count": 4,
+    "pareto_count": 4,
+    "pareto_beta_names": [
+      "balanced",
+      "motion",
+      "stability",
+      "energy"
+    ]
+  },
+  {
+    "context_index": 21,
+    "context_id": "rough_test:rough_perlin:3",
+    "group": "rough_test",
+    "terrain": "rough_perlin",
+    "seed": 3,
+    "candidate_count": 4,
+    "feasible_count": 4,
+    "pareto_count": 4,
+    "pareto_beta_names": [
+      "balanced",
+      "motion",
+      "stability",
+      "energy"
+    ]
+  },
+  {
+    "context_index": 22,
+    "context_id": "rough_test:rough_perlin:19",
+    "group": "rough_test",
+    "terrain": "rough_perlin",
+    "seed": 19,
+    "candidate_count": 4,
+    "feasible_count": 4,
+    "pareto_count": 3,
+    "pareto_beta_names": [
+      "balanced",
+      "motion",
+      "stability"
+    ]
+  },
+  {
+    "context_index": 23,
+    "context_id": "rough_test:rough_perlin:26",
+    "group": "rough_test",
+    "terrain": "rough_perlin",
+    "seed": 26,
+    "candidate_count": 4,
+    "feasible_count": 4,
+    "pareto_count": 3,
+    "pareto_beta_names": [
+      "balanced",
+      "motion",
+      "stability"
+    ]
+  },
+  {
+    "context_index": 24,
+    "context_id": "rough_test:rough_perlin:27",
+    "group": "rough_test",
+    "terrain": "rough_perlin",
+    "seed": 27,
+    "candidate_count": 4,
+    "feasible_count": 4,
+    "pareto_count": 3,
+    "pareto_beta_names": [
+      "balanced",
+      "motion",
+      "stability"
+    ]
+  },
+  {
+    "context_index": 25,
+    "context_id": "rough_validation:rough_perlin:1",
+    "group": "rough_validation",
+    "terrain": "rough_perlin",
+    "seed": 1,
+    "candidate_count": 4,
+    "feasible_count": 4,
+    "pareto_count": 4,
+    "pareto_beta_names": [
+      "balanced",
+      "motion",
+      "stability",
+      "energy"
+    ]
+  },
+  {
+    "context_index": 26,
+    "context_id": "rough_validation:rough_perlin:14",
+    "group": "rough_validation",
+    "terrain": "rough_perlin",
+    "seed": 14,
+    "candidate_count": 4,
+    "feasible_count": 4,
+    "pareto_count": 4,
+    "pareto_beta_names": [
+      "balanced",
+      "motion",
+      "stability",
+      "energy"
+    ]
+  },
+  {
+    "context_index": 27,
+    "context_id": "rough_validation:rough_perlin:16",
+    "group": "rough_validation",
+    "terrain": "rough_perlin",
+    "seed": 16,
+    "candidate_count": 4,
+    "feasible_count": 4,
+    "pareto_count": 3,
+    "pareto_beta_names": [
+      "balanced",
+      "motion",
+      "stability"
+    ]
+  },
+  {
+    "context_index": 28,
+    "context_id": "rough_validation:rough_perlin:21",
+    "group": "rough_validation",
+    "terrain": "rough_perlin",
+    "seed": 21,
+    "candidate_count": 4,
+    "feasible_count": 4,
+    "pareto_count": 4,
+    "pareto_beta_names": [
+      "balanced",
+      "motion",
+      "stability",
+      "energy"
+    ]
+  }
+]

@@ -1,0 +1,14 @@
+{
+  "balanced_reference": "not rerun in T5.3 lattice; reuse frozen T5.2/u30 Balanced reference later",
+  "beta_points": 21,
+  "beta_probe_scope": "convex-hull interpolation of trained biased anchors",
+  "checkpoint": "results/icra27/phase1a_beta_conditioned_v4_seed27027/checkpoint_update_0030.pt",
+  "episodes": 189,
+  "m4_interventions_total": 0,
+  "next_stage": "extract frozen physical J_M/J_S/J_E from T5.3 raw logs and freeze TRAIN-only normalization statistics",
+  "reward_mode": "tracer_cost_v4",
+  "schema": "icra27_os_t5p3_train_beta_response_atlas_v0",
+  "status": "COMPUTE_PASS",
+  "successes": 189,
+  "train_contexts": 9
+}

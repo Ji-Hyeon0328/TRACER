@@ -1,0 +1,4 @@
+terrain,context_count,rules_agree_count,utopia_l2_ambiguous_count,chebyshev_ambiguous_count,utopia_l2_balanced,utopia_l2_motion,utopia_l2_stability,utopia_l2_energy,chebyshev_balanced,chebyshev_motion,chebyshev_stability,chebyshev_energy,utopia_l2_score_gap_median,chebyshev_score_gap_median
+flat,18,18,0,0,0,18,0,0,0,18,0,0,0.033667406597438894,0.05207434165383884
+low_friction,18,18,0,0,0,18,0,0,0,18,0,0,0.024954000634388032,0.03713086992982996
+rough_perlin,18,18,0,0,1,17,0,0,1,17,0,0,0.048792565644376854,0.07596616183315238

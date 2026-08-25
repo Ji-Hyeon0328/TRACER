@@ -1,0 +1,68 @@
+{
+  "decision_rule": {
+    "all_remain_weak": "Simple static terrain geometry descriptors are insufficient to identify stability/energy beta response; next inspect richer pre-decision causal context or structured spatial models rather than more grid resolution.",
+    "semantic_improves_JS_JE": "Raw terrain contained useful information but the previous flattened representation/metric was poorly aligned with contact-relevant geometry."
+  },
+  "evaluation": "Same strict 18-fold original-rough LOCO with remaining17+extension15 TRAIN-only nearest-neighbor pool. No learned model and no outcome-derived terrain features.",
+  "heldout_used": false,
+  "purpose": "Test whether weak J_stability/J_energy transfer arises from inappropriate raw height-space geometry rather than insufficient spatial resolution.",
+  "raw_t6p3b_regression": "PASS",
+  "representations": {
+    "derivative_field": "friction + height + longitudinal slope + lateral slope + Laplacian fields.",
+    "raw_height": "friction + flattened 16x12 relative-height patch; exact T6.3b baseline.",
+    "semantic_regions": "friction + physically predefined global and 3x2 regional summaries of height, slope, gradient magnitude and curvature."
+  },
+  "sampling_spacing_m": {
+    "lateral": 0.09333333333333334,
+    "longitudinal": 0.10125
+  },
+  "schema": "icra27_os_t6p6a_semantic_geometry_identifiability_v0",
+  "status": "COMPUTE_PASS",
+  "summary": [
+    {
+      "Q_excess_mean": 0.2954333190628253,
+      "Q_excess_median": 0.13896631545034394,
+      "beats_baseline_fraction": 0.3333333333333333,
+      "context_dim": 193,
+      "exact_fraction": 0.16666666666666666,
+      "representation": "raw_height",
+      "rho_J_energy_mean": 0.13953823953823952,
+      "rho_J_motion_mean": 0.9466089466089466,
+      "rho_J_stability_mean": 0.12215007215007215,
+      "rho_Q_mean": 0.28297258297258293,
+      "top3_fraction": 0.2222222222222222,
+      "top5_fraction": 0.2777777777777778,
+      "true_rank_mean": 8.0
+    },
+    {
+      "Q_excess_mean": 0.23765741503078786,
+      "Q_excess_median": 0.16865209702027217,
+      "beats_baseline_fraction": 0.2777777777777778,
+      "context_dim": 769,
+      "exact_fraction": 0.0,
+      "representation": "derivative_field",
+      "rho_J_energy_mean": 0.2846320346320347,
+      "rho_J_motion_mean": 0.8512265512265511,
+      "rho_J_stability_mean": 0.17554112554112555,
+      "rho_Q_mean": 0.3979076479076479,
+      "top3_fraction": 0.16666666666666666,
+      "top5_fraction": 0.3888888888888889,
+      "true_rank_mean": 8.5
+    },
+    {
+      "Q_excess_mean": 0.4674262784210087,
+      "Q_excess_median": 0.058214221825230755,
+      "beats_baseline_fraction": 0.4444444444444444,
+      "context_dim": 74,
+      "exact_fraction": 0.16666666666666666,
+      "representation": "semantic_regions",
+      "rho_J_energy_mean": 0.3242424242424243,
+      "rho_J_motion_mean": 0.8527417027417027,
+      "rho_J_stability_mean": 0.24502164502164503,
+      "rho_Q_mean": 0.42070707070707064,
+      "top3_fraction": 0.2777777777777778,
+      "top5_fraction": 0.5,
+      "true_rank_mean": 6.833333333333333
+    }
+  ]
+}

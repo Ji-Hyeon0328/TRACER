@@ -1,0 +1,68 @@
+{
+  "beta_points": 21,
+  "checkpoint": "/mnt/share/nas/Yoo/Tracer/TRACER-ICRA27/results/icra27/phase1a_beta_conditioned_v4_seed27027/checkpoint_update_0030.pt",
+  "episode_status_counts": {
+    "m4": 16,
+    "success": 335,
+    "time_limit": 27
+  },
+  "episodes": 378,
+  "extension_seeds": [
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47
+  ],
+  "feasibility_contract": "Frozen OS-T5.2b: success AND no M4 AND positive progress.",
+  "feasible_episode_rows": 335,
+  "full_21_beta_eligible_contexts": [
+    30,
+    31,
+    32,
+    33,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    44,
+    45,
+    47
+  ],
+  "full_21_beta_eligible_count": 15,
+  "heldout_used": false,
+  "infeasible_episode_rows": 43,
+  "next_stage": "T5.5f3: reconstruct physical J_M/J_S/J_E for the 15 full-grid eligible extension contexts using the frozen T5.2b metric contract, then append them to the immutable 420-row T5.5c atlas.",
+  "original_split_modified": false,
+  "partial_response_contexts": [
+    46
+  ],
+  "prefix_source": "results/icra27/os_t5p5f2_selector_train_extension_atlas_v0/episodes_partial.csv",
+  "raw_log_storage": "Raw logs remain in their original prefix and recovery-tail source roots. The merged CSV records f2r_source_part and f2r_raw_root for provenance.",
+  "reward_mode": "tracer_cost_v4",
+  "schema": "icra27_os_t5p5f2r_recovered_selector_extension_atlas_v0",
+  "selector_training_guard": "For an apples-to-apples T5.5d-compatible 21-point Pareto/scalarization atlas, use only contexts with all 21 beta rows feasible. Do not replace, resample, or silently delete the other extension contexts.",
+  "status": "FREEZE_PASS",
+  "tail_source": "results/icra27/os_t5p5f2_tail_selector_train_extension_atlas_v0/episodes.csv",
+  "zero_feasible_contexts": [
+    34,
+    43
+  ]
+}

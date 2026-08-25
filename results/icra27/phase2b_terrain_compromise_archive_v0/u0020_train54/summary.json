@@ -1,0 +1,32 @@
+{
+  "schema": "icra27_phase2b_terrain_compromise_archive_v0",
+  "task_conditioning": "none",
+  "candidate_definition": "feasible + Pareto-nondominated TRAIN trajectories",
+  "context_count": 54,
+  "candidate_count": 206,
+  "train_global_normalization": {
+    "cost_motion": {
+      "min": 0.1977714305228086,
+      "max": 0.24266377924386262,
+      "span": 0.04489234872105402
+    },
+    "cost_stability": {
+      "min": 0.009254341602301147,
+      "max": 0.243940420671977,
+      "span": 0.23468607906967584
+    },
+    "cost_energy": {
+      "min": 0.5237216763830551,
+      "max": 0.8073185897736906,
+      "span": 0.28359691339063553
+    }
+  },
+  "primary_rule": "Chebyshev minimax normalized regret",
+  "sensitivity_rule": "Euclidean distance to context ideal point",
+  "rules_agree_count": 54,
+  "rules_agree_fraction": 1.0,
+  "utopia_l2_ambiguous_count": 0,
+  "chebyshev_ambiguous_count": 0,
+  "important_note": "Source beta names are trajectory provenance only and are never used in compromise scoring.",
+  "normalization_note": "Per-objective TRAIN-global spans are used so tiny context-local variations are not artificially amplified."
+}

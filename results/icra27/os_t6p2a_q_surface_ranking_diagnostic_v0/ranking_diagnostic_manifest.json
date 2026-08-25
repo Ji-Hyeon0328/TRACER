@@ -1,0 +1,19 @@
+{
+  "aggregate": {
+    "affine_aligned_Q_mae_mean": 0.7018100149908625,
+    "affine_mae_fraction_mean": 0.40248462708114896,
+    "exact_fraction": 0.1111111111111111,
+    "pearson_mean": 0.2718831646923742,
+    "raw_Q_mae_mean": 1.4173721409951658,
+    "spearman_mean": 0.254847674516164,
+    "top3_hit_fraction": 0.2222222222222222,
+    "top5_hit_fraction": 0.3333333333333333,
+    "true_rank_median": 7.5
+  },
+  "heldout_used": false,
+  "next_decision": "If ranking is materially stronger than absolute calibration, replace global absolute-Q regression with context-wise ranking/listwise training.",
+  "purpose": "Determine whether absolute Q calibration error is misaligned with within-context beta ranking quality.",
+  "schema": "icra27_os_t6p2a_q_surface_ranking_diagnostic_v0",
+  "source": "T6.2 raw-patch balanced Q surface",
+  "status": "COMPUTE_PASS"
+}

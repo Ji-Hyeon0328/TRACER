@@ -1,0 +1,43 @@
+{
+  "schema": "icra27_phase2b_selector_supervision_v0",
+  "selector_input_dim": 12,
+  "selector_input": "terrain3 + mission3 + normalized_budget3 + budget_active_mask3",
+  "training_target": "support-region inequalities beta dot (C_alt - C_selected) >= 0",
+  "mission_decision_count": 1860,
+  "expressible_supervision_count": 1428,
+  "context_count": 54,
+  "context_mission_group_count": 162,
+  "zero_supervision_context_mission_groups": [],
+  "mission_counts": {
+    "fast": 447,
+    "stable": 432,
+    "efficient": 549
+  },
+  "terrain_counts": {
+    "flat": 368,
+    "low_friction": 504,
+    "rough_perlin": 556
+  },
+  "selected_source_beta_counts": {
+    "motion": 504,
+    "energy": 256,
+    "stability": 351,
+    "balanced": 317
+  },
+  "budget_normalization_train_only": {
+    "time": {
+      "min": 6.916000000000002,
+      "max": 7.976
+    },
+    "stability": {
+      "min": 0.009254341602301147,
+      "max": 0.243940420671977
+    },
+    "energy": {
+      "min": 0.5237216763830551,
+      "max": 0.8073185897736906
+    }
+  },
+  "weighting": "each context x mission family has total sample weight 1",
+  "important_note": "No max-margin beta_hat point is used as a regression target."
+}

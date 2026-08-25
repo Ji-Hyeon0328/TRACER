@@ -1,0 +1,237 @@
+{
+  "components": [
+    "w_M",
+    "w_S",
+    "w_E"
+  ],
+  "preferences": [
+    {
+      "kind": "simplex_grid",
+      "name": "wg_m100_s000_e000",
+      "w": [
+        1.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "kind": "simplex_grid",
+      "name": "wg_m080_s020_e000",
+      "w": [
+        0.8,
+        0.2,
+        0.0
+      ]
+    },
+    {
+      "kind": "simplex_grid",
+      "name": "wg_m080_s000_e020",
+      "w": [
+        0.8,
+        0.0,
+        0.2
+      ]
+    },
+    {
+      "kind": "simplex_grid",
+      "name": "wg_m060_s040_e000",
+      "w": [
+        0.6,
+        0.4,
+        0.0
+      ]
+    },
+    {
+      "kind": "simplex_grid",
+      "name": "wg_m060_s020_e020",
+      "w": [
+        0.6,
+        0.2,
+        0.2
+      ]
+    },
+    {
+      "kind": "simplex_grid",
+      "name": "wg_m060_s000_e040",
+      "w": [
+        0.6,
+        0.0,
+        0.4
+      ]
+    },
+    {
+      "kind": "simplex_grid",
+      "name": "wg_m040_s060_e000",
+      "w": [
+        0.4,
+        0.6,
+        0.0
+      ]
+    },
+    {
+      "kind": "simplex_grid",
+      "name": "wg_m040_s040_e020",
+      "w": [
+        0.4,
+        0.4,
+        0.2
+      ]
+    },
+    {
+      "kind": "simplex_grid",
+      "name": "wg_m040_s020_e040",
+      "w": [
+        0.4,
+        0.2,
+        0.4
+      ]
+    },
+    {
+      "kind": "simplex_grid",
+      "name": "wg_m040_s000_e060",
+      "w": [
+        0.4,
+        0.0,
+        0.6
+      ]
+    },
+    {
+      "kind": "simplex_grid",
+      "name": "wg_m020_s080_e000",
+      "w": [
+        0.2,
+        0.8,
+        0.0
+      ]
+    },
+    {
+      "kind": "simplex_grid",
+      "name": "wg_m020_s060_e020",
+      "w": [
+        0.2,
+        0.6,
+        0.2
+      ]
+    },
+    {
+      "kind": "simplex_grid",
+      "name": "wg_m020_s040_e040",
+      "w": [
+        0.2,
+        0.4,
+        0.4
+      ]
+    },
+    {
+      "kind": "simplex_grid",
+      "name": "wg_m020_s020_e060",
+      "w": [
+        0.2,
+        0.2,
+        0.6
+      ]
+    },
+    {
+      "kind": "simplex_grid",
+      "name": "wg_m020_s000_e080",
+      "w": [
+        0.2,
+        0.0,
+        0.8
+      ]
+    },
+    {
+      "kind": "simplex_grid",
+      "name": "wg_m000_s100_e000",
+      "w": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "kind": "simplex_grid",
+      "name": "wg_m000_s080_e020",
+      "w": [
+        0.0,
+        0.8,
+        0.2
+      ]
+    },
+    {
+      "kind": "simplex_grid",
+      "name": "wg_m000_s060_e040",
+      "w": [
+        0.0,
+        0.6,
+        0.4
+      ]
+    },
+    {
+      "kind": "simplex_grid",
+      "name": "wg_m000_s040_e060",
+      "w": [
+        0.0,
+        0.4,
+        0.6
+      ]
+    },
+    {
+      "kind": "simplex_grid",
+      "name": "wg_m000_s020_e080",
+      "w": [
+        0.0,
+        0.2,
+        0.8
+      ]
+    },
+    {
+      "kind": "simplex_grid",
+      "name": "wg_m000_s000_e100",
+      "w": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "kind": "canonical",
+      "name": "w_balanced",
+      "w": [
+        0.3333333333333333,
+        0.3333333333333333,
+        0.3333333333333333
+      ]
+    },
+    {
+      "kind": "canonical",
+      "name": "w_motion",
+      "w": [
+        0.7,
+        0.15,
+        0.15
+      ]
+    },
+    {
+      "kind": "canonical",
+      "name": "w_stability",
+      "w": [
+        0.15,
+        0.7,
+        0.15
+      ]
+    },
+    {
+      "kind": "canonical",
+      "name": "w_energy",
+      "w": [
+        0.15,
+        0.15,
+        0.7
+      ]
+    }
+  ],
+  "schema": "icra27_os_t5p4b_mission_preference_bank_v0",
+  "semantics": "External mission preference over relative attainable physical regret in motion, stability, and energy.",
+  "simplex": "w_k >= 0; sum(w)=1"
+}

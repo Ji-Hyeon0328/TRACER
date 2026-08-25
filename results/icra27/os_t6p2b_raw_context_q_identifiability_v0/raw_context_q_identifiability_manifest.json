@@ -1,0 +1,22 @@
+{
+  "aggregate": {
+    "baseline_Q_excess_mean": 0.1998418525268314,
+    "nn_Q_excess_mean": 0.29718628541937697,
+    "nn_Q_excess_median": 0.13896631545034394,
+    "nn_beats_baseline_fraction": 0.3333333333333333,
+    "nn_exact_fraction": 0.1111111111111111,
+    "nn_q_pearson_mean": 0.31768759463622614,
+    "nn_q_spearman_mean": 0.2593073593073593,
+    "nn_top3_fraction": 0.16666666666666666,
+    "nn_top5_fraction": 0.2777777777777778,
+    "nn_true_rank_mean": 8.166666666666666,
+    "nn_true_rank_median": 8.0
+  },
+  "decision_rule": "If oracle 1-NN Q-surface transfer is weak and does not beat the no-context baseline, the current context representation is not sufficiently identifiable/smooth for c->Q learning. If 1-NN is strong, focus next on learned ranking/listwise objectives.",
+  "evaluation": "Strict LOCO over the same 18 original rough contexts; nearest neighbor selected from 17 original + 15 extension TRAIN contexts.",
+  "heldout_used": false,
+  "purpose": "Test whether geometric similarity in the current terrain context implies similarity of the ground-truth balanced beta-Q surface.",
+  "schema": "icra27_os_t6p2b_raw_context_q_identifiability_v0",
+  "status": "COMPUTE_PASS",
+  "terrain_context": "friction_mu + frozen raw 48D local height patch"
+}

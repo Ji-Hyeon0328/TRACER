@@ -1,0 +1,57 @@
+{
+  "balanced_weights": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.3333333333333333
+  ],
+  "beta_order": [
+    "lm100_ls000_le000",
+    "lm080_ls020_le000",
+    "lm080_ls000_le020",
+    "lm060_ls040_le000",
+    "lm060_ls020_le020",
+    "lm060_ls000_le040",
+    "lm040_ls060_le000",
+    "lm040_ls040_le020",
+    "lm040_ls020_le040",
+    "lm040_ls000_le060",
+    "lm020_ls080_le000",
+    "lm020_ls060_le020",
+    "lm020_ls040_le040",
+    "lm020_ls020_le060",
+    "lm020_ls000_le080",
+    "lm000_ls100_le000",
+    "lm000_ls080_le020",
+    "lm000_ls060_le040",
+    "lm000_ls040_le060",
+    "lm000_ls020_le080",
+    "lm000_ls000_le100"
+  ],
+  "beta_points_per_context": 21,
+  "contexts": 35,
+  "diagnostics": {
+    "best_second_gap_max": 0.1603255211117226,
+    "best_second_gap_median": 0.01440354413086567,
+    "best_second_gap_min": 0.0,
+    "best_second_gap_p10": 0.001260250693896159,
+    "exact_best_count_max": 21,
+    "pareto_count_max": 14,
+    "pareto_count_min": 1
+  },
+  "heldout_used": false,
+  "next_step": "Inspect quality-gap structure before choosing any epsilon-optimal threshold or learned selector loss.",
+  "objective_direction": "all lower is better",
+  "physical_objective_vector": [
+    "J_M=T/progress [s/m]",
+    "J_S=max(attitude, established-contact slip)",
+    "J_E=mechanical_energy/progress [J/m]"
+  ],
+  "quality": "Q=max_k(eta_k*r_k)+rho*sum_k(eta_k*r_k)",
+  "regret": "context-local normalization using Pareto-front ideal/nadir",
+  "rho": 0.01,
+  "rows": 735,
+  "schema": "icra27_os_t6p1_balanced_physical_quality_surface_v0",
+  "selection": "argmin_beta Q(c,beta)",
+  "source_physical_atlas": "results/icra27/os_t5p5f3_expanded_physical_atlas_v0/physical_beta_response_atlas.csv",
+  "status": "FREEZE_PASS"
+}

@@ -1,0 +1,124 @@
+{
+  "context_dim": 87,
+  "eta_profiles": {
+    "balanced": [
+      0.3333333333333333,
+      0.3333333333333333,
+      0.3333333333333333
+    ],
+    "energy_biased": [
+      0.15,
+      0.15,
+      0.7
+    ],
+    "motion_biased": [
+      0.7,
+      0.15,
+      0.15
+    ],
+    "stability_biased": [
+      0.15,
+      0.7,
+      0.15
+    ]
+  },
+  "evaluation_order": [
+    "1. Generate heldout terrain geometry and 0.4 s causal probe observations without policy-outcome labels.",
+    "2. Construct frozen 87D context.",
+    "3. Apply the frozen nine-checkpoint T6.12a selector and save all predicted regret surfaces and selected beta.",
+    "4. Freeze those predictions before opening heldout 21-beta physical outcomes.",
+    "5. Generate the physical 21-beta atlas using the already-frozen policy/evaluator.",
+    "6. Evaluate saved selections against true physical Q and TRAIN-only eta-specific baselines."
+  ],
+  "evaluation_roles": {
+    "hard": "Untouched stress-test set. Reported separately.",
+    "test": "Untouched primary standard heldout evaluation.",
+    "val": "Untouched secondary heldout evaluation. No tuning permitted."
+  },
+  "evaluation_splits": {
+    "hard": [
+      9,
+      23,
+      24
+    ],
+    "test": [
+      27,
+      2,
+      3,
+      19,
+      26
+    ],
+    "val": [
+      1,
+      21,
+      16,
+      14
+    ]
+  },
+  "forbidden_after_this_freeze": [
+    "change context representation",
+    "change probe horizon",
+    "change probe command",
+    "change MLP architecture",
+    "change hidden width",
+    "change ensemble seeds",
+    "change training epochs",
+    "change regret target",
+    "change beta lattice",
+    "change physical objective definitions",
+    "change Tchebycheff rho",
+    "change primary eta",
+    "retrain using VAL",
+    "retrain using TEST",
+    "retrain using HARD",
+    "select a different architecture based on heldout outcomes"
+  ],
+  "frozen_physical_objectives": {
+    "energy": "J_E = mechanical absolute energy / progress",
+    "motion": "J_M = decision_time / progress",
+    "stability": "J_S = max(attitude normalized RMS, established slip fraction)"
+  },
+  "hard_count": 3,
+  "heldout_outcomes_used": false,
+  "primary_eta": "balanced",
+  "primary_evaluation": {
+    "additional_metrics": [
+      "beat/tie/worse versus baseline",
+      "true beta rank",
+      "top3 fraction",
+      "top5 fraction"
+    ],
+    "comparison": "frozen context-aware selector versus TRAIN-only no-context eta-specific baseline",
+    "lower_is_better": true,
+    "metric": "true balanced augmented-Tchebycheff Q excess",
+    "population": "TEST"
+  },
+  "probe_horizon_s": 0.4,
+  "probe_semantics": "Fixed beta-independent nominal-motion interaction. Only information available at or before 0.4 s may enter the Objective Selector.",
+  "representation": "semantic_plus_prop_probe",
+  "schema": "icra27_os_t6p12b_untouched_eval_protocol_v0",
+  "scientific_interpretation": "All 12 evaluation terrains remain untouched with respect to selector architecture and training. Any failure after this point is retained as an untouched generalization result rather than used for model selection.",
+  "secondary_evaluation": {
+    "eta_semantics": [
+      "motion_biased",
+      "stability_biased",
+      "energy_biased"
+    ],
+    "hard": "HARD stress test, n=3",
+    "standard_heldout": "VAL+TEST, n=9"
+  },
+  "selector_source": "results/icra27/os_t6p12a_final_factorized_regret_selector_v0/final_selector_manifest.json",
+  "standard_heldout_aggregate": [
+    1,
+    21,
+    16,
+    14,
+    27,
+    2,
+    3,
+    19,
+    26
+  ],
+  "standard_heldout_count": 9,
+  "status": "FREEZE_PASS"
+}

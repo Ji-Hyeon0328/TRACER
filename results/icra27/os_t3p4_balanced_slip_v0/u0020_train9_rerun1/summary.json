@@ -1,0 +1,133 @@
+{
+  "beta": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.3333333333333333
+  ],
+  "beta_name": "balanced",
+  "checkpoint": "/mnt/share/nas/Yoo/Tracer/TRACER-ICRA27/results/icra27/phase1a_beta_conditioned_v2_seed27027/phase1_beta_identifiable_selected_u20.pt",
+  "diagnostic_gate": {
+    "all_episodes_successful": true,
+    "flat_median_rms_mps": 0.0643637955109848,
+    "low_friction_median_rms_mps": 0.1988392901932217,
+    "low_minus_flat_mps": 0.1344754946822369,
+    "low_over_flat": 3.0893033671279735,
+    "note": "Signal-existence diagnostic only. No significance threshold, reward modification, or stability-cost redefinition.",
+    "question": "Is median low-friction stance-slip RMS greater than flat?",
+    "rough_median_rms_mps": 0.11699568344506502,
+    "rough_over_flat": 1.817725050492053,
+    "verdict": "LOW_FRICTION_GT_FLAT"
+  },
+  "groups": {
+    "flat": {
+      "all_success": true,
+      "episodes": 3,
+      "seeds": [
+        27100,
+        27101,
+        27102
+      ],
+      "slip_max_mps": {
+        "median": 1.6032142008523715,
+        "values": [
+          1.6032142008523715,
+          1.6032142008523715,
+          1.6032142008523715
+        ]
+      },
+      "slip_mean_mps": {
+        "median": 0.012179663660440793,
+        "values": [
+          0.012179663660440793,
+          0.012190745880662062,
+          0.012179582388528372
+        ]
+      },
+      "slip_rms_mps": {
+        "median": 0.0643637955109848,
+        "values": [
+          0.0643637955109848,
+          0.06439272244915378,
+          0.0643542782342714
+        ]
+      },
+      "success_count": 3,
+      "terrain": "flat"
+    },
+    "low_friction": {
+      "all_success": true,
+      "episodes": 3,
+      "seeds": [
+        27200,
+        27201,
+        27202
+      ],
+      "slip_max_mps": {
+        "median": 1.9591671008150546,
+        "values": [
+          1.9591671008150546,
+          1.9591671008150546,
+          1.9591671008150546
+        ]
+      },
+      "slip_mean_mps": {
+        "median": 0.0695485058927282,
+        "values": [
+          0.06955102038958809,
+          0.06954806199709156,
+          0.0695485058927282
+        ]
+      },
+      "slip_rms_mps": {
+        "median": 0.1988392901932217,
+        "values": [
+          0.1988392901932217,
+          0.19885724210643801,
+          0.19883374156114417
+        ]
+      },
+      "success_count": 3,
+      "terrain": "low_friction"
+    },
+    "rough": {
+      "all_success": true,
+      "episodes": 3,
+      "seeds": [
+        13,
+        7,
+        15
+      ],
+      "slip_max_mps": {
+        "median": 2.888623993207324,
+        "values": [
+          2.921035754704823,
+          2.888623993207324,
+          1.9498772329543013
+        ]
+      },
+      "slip_mean_mps": {
+        "median": 0.02355177214507644,
+        "values": [
+          0.027186545813185276,
+          0.02355177214507644,
+          0.021254331700583107
+        ]
+      },
+      "slip_rms_mps": {
+        "median": 0.11699568344506502,
+        "values": [
+          0.134101146061401,
+          0.11699568344506502,
+          0.1031097733643634
+        ]
+      },
+      "success_count": 3,
+      "terrain": "rough_perlin"
+    }
+  },
+  "max_metric_role": "diagnostic_only_touchdown_sensitive",
+  "primary_metric": "slip_speed_rms_mps",
+  "schema": "icra27_os_t3p4_balanced_slip_v0",
+  "scope": "TRAIN-only diagnostic",
+  "secondary_metric": "slip_speed_mean_mps"
+}

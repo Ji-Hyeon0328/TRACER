@@ -1,0 +1,22 @@
+{
+  "aggregate": {
+    "best_Q_excess_delta": -1.4184583553569694,
+    "best_context": "rough_seed_4",
+    "contexts": 18,
+    "semantic_Q_excess_delta_mean": 0.1719929593581834,
+    "semantic_Q_excess_delta_median": -0.02304225884427144,
+    "semantic_Q_excess_delta_p10": -0.6640104311640513,
+    "semantic_Q_excess_delta_p90": 0.2992620476126384,
+    "semantic_higher_Q_excess_contexts": 8,
+    "semantic_lower_Q_excess_contexts": 9,
+    "semantic_rho_JE_delta_mean": 0.1847041847041847,
+    "semantic_rho_JS_delta_mean": 0.12287157287157285,
+    "semantic_rho_Q_delta_mean": 0.13773448773448776,
+    "worst_Q_excess_delta": 5.690150982052125,
+    "worst_context": "rough_seed_18"
+  },
+  "heldout_used": false,
+  "purpose": "Paired per-context audit of the raw-height versus semantic-terrain representation to identify whether the improved median/ranking metrics are offset by a small number of catastrophic Q-selection failures.",
+  "schema": "icra27_os_t6p6b_semantic_geometry_outliers_v0",
+  "status": "COMPUTE_PASS"
+}

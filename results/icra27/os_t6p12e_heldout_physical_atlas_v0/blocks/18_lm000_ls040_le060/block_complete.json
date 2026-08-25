@@ -1,0 +1,14 @@
+{
+  "attempt": "attempt_001",
+  "beta_index": 18,
+  "beta_name": "lm000_ls040_le060",
+  "compact_csv": "results/icra27/os_t6p12e_heldout_physical_atlas_v0/blocks/18_lm000_ls040_le060/attempt_001/episodes.csv",
+  "compact_sha256": "15892f1d6c10b137c87aa6ab9cc466c3281552f274d0543bfb4ee0afb9bb995b",
+  "contexts": 12,
+  "feasible_rows": 9,
+  "physical_csv": "results/icra27/os_t6p12e_heldout_physical_atlas_v0/blocks/18_lm000_ls040_le060/attempt_001/physical.csv",
+  "physical_sha256": "e4134ab3fd6e7fc909aeff8e0ee1445c3eae481b16399de8def1e67c5f70f98f",
+  "raw_log_count": 12,
+  "schema": "icra27_os_t6p12e_beta_block_complete_v0",
+  "status": "BLOCK_COMPLETE"
+}

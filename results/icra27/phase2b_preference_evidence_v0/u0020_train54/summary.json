@@ -1,0 +1,33 @@
+{
+  "schema": "icra27_phase2b_preference_evidence_v0",
+  "mission_decision_count": 1860,
+  "informative_decision_count": 1012,
+  "singleton_no_preference_count": 848,
+  "preference_pair_count": 1596,
+  "feasible_choice_size_histogram": {
+    "1": 848,
+    "2": 561,
+    "3": 318,
+    "4": 133
+  },
+  "mission_decision_counts": {
+    "fast": 582,
+    "stable": 552,
+    "efficient": 726
+  },
+  "informative_mission_counts": {
+    "fast": 321,
+    "stable": 300,
+    "efficient": 391
+  },
+  "pair_mission_counts": {
+    "fast": 512,
+    "stable": 488,
+    "efficient": 596
+  },
+  "informative_context_mission_group_count": 162,
+  "expected_context_mission_group_count": 162,
+  "missing_informative_context_mission_groups": [],
+  "preference_semantics": "selected trajectory is preferred only over alternative good trajectories that satisfy the same mission budgets",
+  "important_note": "No source beta label or inverse-beta point estimate is used as preference ground truth."
+}

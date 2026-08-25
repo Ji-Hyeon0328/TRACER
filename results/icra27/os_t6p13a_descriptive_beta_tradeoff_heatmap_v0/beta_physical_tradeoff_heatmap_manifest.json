@@ -1,0 +1,26 @@
+{
+  "artifact_hashes": {
+    "beta_physical_tradeoff_heatmap.pdf": "93632582a38e6dbb64299e925dfe3af9453a569e631326720d1951703c3c4ebe",
+    "beta_physical_tradeoff_heatmap.png": "322418e0a69849302b74d0b54dbc9ae707ce66d716904c8e83091c6931bb68c0",
+    "beta_physical_tradeoff_summary.csv": "e7af54315167b3633ed4934f7c42d5caba5e18fb06ae48a32a314315394c359d",
+    "per_context_beta_physical_spearman.csv": "d1e4843fa583e60278c62ecd58c4e2e625f29c704ea09a8da3654762605db9fa"
+  },
+  "beta_candidates_per_context": 21,
+  "cell_definition": "Median across contexts of the within-context Spearman correlation between one beta weight and one physical cost over all 21 beta candidates.",
+  "confirmatory_primary_metric": false,
+  "contexts": 9,
+  "hard_contexts_excluded": true,
+  "hard_exclusion_reason": "All 3 HARD contexts had 0/21 feasible beta candidates in the frozen T6.12e atlas.",
+  "interpretation": {
+    "negative_rho": "Increasing the reward weight is associated with lower physical cost (improvement).",
+    "positive_rho": "Increasing the reward weight is associated with higher physical cost (trade-off/degradation)."
+  },
+  "population": "STANDARD_VAL_TEST",
+  "role": "Post-hoc descriptive analysis of the already-frozen T6.12e physical response atlas; no selector tuning.",
+  "rows": 189,
+  "schema": "icra27_os_t6p13a_descriptive_beta_tradeoff_heatmap_v0",
+  "simplex_caveat": "Beta lies on a simplex. Each cell is a directional association toward one reward emphasis, not an isolated causal partial derivative with the other beta components held fixed.",
+  "source": "results/icra27/os_t6p12e_heldout_physical_atlas_v0/heldout_physical_beta_response_atlas.csv",
+  "source_sha256": "c7d41e0571aaf1ab6cecbc65f35eb97fa8ccc650e44d6c3317d72a09690e62fd",
+  "status": "DESCRIPTIVE_ANALYSIS_PASS"
+}

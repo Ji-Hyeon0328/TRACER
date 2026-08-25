@@ -1,0 +1,441 @@
+{
+  "beta_bank": {
+    "balanced": [
+      0.3333333333333333,
+      0.3333333333333333,
+      0.3333333333333333
+    ],
+    "energy": [
+      0.15,
+      0.15,
+      0.7
+    ],
+    "motion": [
+      0.7,
+      0.15,
+      0.15
+    ],
+    "stability": [
+      0.15,
+      0.7,
+      0.15
+    ]
+  },
+  "condition_order": [
+    "flat/balanced",
+    "flat/motion",
+    "flat/stability",
+    "flat/energy",
+    "low_friction/balanced",
+    "low_friction/motion",
+    "low_friction/stability",
+    "low_friction/energy",
+    "rough_perlin/balanced",
+    "rough_perlin/motion",
+    "rough_perlin/stability",
+    "rough_perlin/energy"
+  ],
+  "downstream_action_dim": 4,
+  "fixed_swing_clearance_m": 0.06,
+  "initial_std": 0.1,
+  "obs_dim": 24,
+  "perlin_seed_split": "/mnt/share/nas/Yoo/Tracer/TRACER-ICRA27/configs/icra27/m7_perlin_seed_split_v0.json",
+  "perlin_split_schema": "icra27_m7_perlin_seed_split_v0",
+  "perlin_train_seeds": [
+    13,
+    7,
+    15,
+    0,
+    5,
+    11,
+    4,
+    25,
+    12,
+    6,
+    29,
+    18,
+    10,
+    8,
+    22,
+    20,
+    28,
+    17
+  ],
+  "phase1a_v2_training": {
+    "advantage_normalization": "per_condition_before_historical_global_normalization",
+    "condition_size": 8,
+    "entropy_coef": 0.0,
+    "final_std": 0.05,
+    "fixed_log_std": true,
+    "start_std": 0.1,
+    "std_schedule": "linear_by_update"
+  },
+  "policy_action_dim": 3,
+  "policy_episode_steps": 50,
+  "ppo": "pure_pytorch_continuous_ppo",
+  "reward_mode": "tracer_cost_v3",
+  "schema": "icra27_m7_ppo_beta_conditioned_v2",
+  "settling_steps": 5,
+  "steps_per_condition": 8,
+  "steps_per_update": 96,
+  "terrain_order": [
+    "flat",
+    "low_friction",
+    "rough_perlin"
+  ],
+  "update_metrics": [
+    {
+      "approx_kl": 0.0004544076509773731,
+      "batch_action_shape": [
+        96,
+        3
+      ],
+      "batch_obs_shape": [
+        96,
+        24
+      ],
+      "clip_fraction": 0.154296875,
+      "condition_advantage_stats": [
+        {
+          "condition_index": 0,
+          "normalized_adv_mean": 8.940696716308594e-08,
+          "normalized_adv_std": 1.0,
+          "raw_adv_mean": -0.9527745246887207,
+          "raw_adv_std": 0.4202771782875061
+        },
+        {
+          "condition_index": 1,
+          "normalized_adv_mean": -2.384185791015625e-07,
+          "normalized_adv_std": 1.0,
+          "raw_adv_mean": -0.9296011924743652,
+          "raw_adv_std": 0.39866548776626587
+        },
+        {
+          "condition_index": 2,
+          "normalized_adv_mean": -2.9802322387695312e-08,
+          "normalized_adv_std": 0.9999999403953552,
+          "raw_adv_mean": -0.44774994254112244,
+          "raw_adv_std": 0.20557640492916107
+        },
+        {
+          "condition_index": 3,
+          "normalized_adv_mean": 1.1920928955078125e-07,
+          "normalized_adv_std": 1.0,
+          "raw_adv_mean": -1.5585235357284546,
+          "raw_adv_std": 0.6603455543518066
+        },
+        {
+          "condition_index": 4,
+          "normalized_adv_mean": -2.9802322387695312e-08,
+          "normalized_adv_std": 1.0,
+          "raw_adv_mean": -1.238815188407898,
+          "raw_adv_std": 0.8446608185768127
+        },
+        {
+          "condition_index": 5,
+          "normalized_adv_mean": -2.9802322387695312e-08,
+          "normalized_adv_std": 1.0,
+          "raw_adv_mean": -1.0858814716339111,
+          "raw_adv_std": 0.6420024633407593
+        },
+        {
+          "condition_index": 6,
+          "normalized_adv_mean": 2.9802322387695312e-08,
+          "normalized_adv_std": 1.0,
+          "raw_adv_mean": -0.9357773661613464,
+          "raw_adv_std": 0.862989068031311
+        },
+        {
+          "condition_index": 7,
+          "normalized_adv_mean": -5.960464477539063e-08,
+          "normalized_adv_std": 1.0,
+          "raw_adv_mean": -1.9543302059173584,
+          "raw_adv_std": 1.1033437252044678
+        },
+        {
+          "condition_index": 8,
+          "normalized_adv_mean": 1.1920928955078125e-07,
+          "normalized_adv_std": 0.9999999403953552,
+          "raw_adv_mean": -1.4624799489974976,
+          "raw_adv_std": 0.6796150207519531
+        },
+        {
+          "condition_index": 9,
+          "normalized_adv_mean": 0.0,
+          "normalized_adv_std": 0.9999999403953552,
+          "raw_adv_mean": -1.2044804096221924,
+          "raw_adv_std": 0.5136452317237854
+        },
+        {
+          "condition_index": 10,
+          "normalized_adv_mean": -5.960464477539063e-08,
+          "normalized_adv_std": 0.9999999403953552,
+          "raw_adv_mean": -1.206596851348877,
+          "raw_adv_std": 0.4716644883155823
+        },
+        {
+          "condition_index": 11,
+          "normalized_adv_mean": 5.960464477539063e-08,
+          "normalized_adv_std": 1.0,
+          "raw_adv_mean": -2.115795135498047,
+          "raw_adv_std": 1.0225529670715332
+        }
+      ],
+      "entropy_proxy": -2.65093994140625,
+      "exploration_std": 0.1,
+      "policy_loss": -0.0019795604748651385,
+      "steps": 96,
+      "terrains": {
+        "flat": {
+          "balanced": {
+            "beta": [
+              0.3333333333333333,
+              0.3333333333333333,
+              0.3333333333333333
+            ],
+            "beta_name": "balanced",
+            "completed_episodes": 0,
+            "interventions": 0,
+            "m4_episodes": 0,
+            "max_abs_action": 0.17022176086902618,
+            "mean_completed_return": null,
+            "other_terminal_episodes": 0,
+            "reset_attempts": 1,
+            "settling_failures": 0,
+            "steps": 8,
+            "success_episodes": 0,
+            "terrain": "flat",
+            "truncated_episodes": 0
+          },
+          "energy": {
+            "beta": [
+              0.15,
+              0.15,
+              0.7
+            ],
+            "beta_name": "energy",
+            "completed_episodes": 0,
+            "interventions": 0,
+            "m4_episodes": 0,
+            "max_abs_action": 0.2950899302959442,
+            "mean_completed_return": null,
+            "other_terminal_episodes": 0,
+            "reset_attempts": 1,
+            "settling_failures": 0,
+            "steps": 8,
+            "success_episodes": 0,
+            "terrain": "flat",
+            "truncated_episodes": 0
+          },
+          "motion": {
+            "beta": [
+              0.7,
+              0.15,
+              0.15
+            ],
+            "beta_name": "motion",
+            "completed_episodes": 0,
+            "interventions": 0,
+            "m4_episodes": 0,
+            "max_abs_action": 0.2981518507003784,
+            "mean_completed_return": null,
+            "other_terminal_episodes": 0,
+            "reset_attempts": 1,
+            "settling_failures": 0,
+            "steps": 8,
+            "success_episodes": 0,
+            "terrain": "flat",
+            "truncated_episodes": 0
+          },
+          "stability": {
+            "beta": [
+              0.15,
+              0.7,
+              0.15
+            ],
+            "beta_name": "stability",
+            "completed_episodes": 0,
+            "interventions": 0,
+            "m4_episodes": 0,
+            "max_abs_action": 0.1710737943649292,
+            "mean_completed_return": null,
+            "other_terminal_episodes": 0,
+            "reset_attempts": 1,
+            "settling_failures": 0,
+            "steps": 8,
+            "success_episodes": 0,
+            "terrain": "flat",
+            "truncated_episodes": 0
+          }
+        },
+        "low_friction": {
+          "balanced": {
+            "beta": [
+              0.3333333333333333,
+              0.3333333333333333,
+              0.3333333333333333
+            ],
+            "beta_name": "balanced",
+            "completed_episodes": 0,
+            "interventions": 0,
+            "m4_episodes": 0,
+            "max_abs_action": 0.1983976662158966,
+            "mean_completed_return": null,
+            "other_terminal_episodes": 0,
+            "reset_attempts": 1,
+            "settling_failures": 0,
+            "steps": 8,
+            "success_episodes": 0,
+            "terrain": "low_friction",
+            "truncated_episodes": 0
+          },
+          "energy": {
+            "beta": [
+              0.15,
+              0.15,
+              0.7
+            ],
+            "beta_name": "energy",
+            "completed_episodes": 0,
+            "interventions": 0,
+            "m4_episodes": 0,
+            "max_abs_action": 0.2260255217552185,
+            "mean_completed_return": null,
+            "other_terminal_episodes": 0,
+            "reset_attempts": 1,
+            "settling_failures": 0,
+            "steps": 8,
+            "success_episodes": 0,
+            "terrain": "low_friction",
+            "truncated_episodes": 0
+          },
+          "motion": {
+            "beta": [
+              0.7,
+              0.15,
+              0.15
+            ],
+            "beta_name": "motion",
+            "completed_episodes": 0,
+            "interventions": 0,
+            "m4_episodes": 0,
+            "max_abs_action": 0.18478380143642426,
+            "mean_completed_return": null,
+            "other_terminal_episodes": 0,
+            "reset_attempts": 1,
+            "settling_failures": 0,
+            "steps": 8,
+            "success_episodes": 0,
+            "terrain": "low_friction",
+            "truncated_episodes": 0
+          },
+          "stability": {
+            "beta": [
+              0.15,
+              0.7,
+              0.15
+            ],
+            "beta_name": "stability",
+            "completed_episodes": 0,
+            "interventions": 0,
+            "m4_episodes": 0,
+            "max_abs_action": 0.23155294358730316,
+            "mean_completed_return": null,
+            "other_terminal_episodes": 0,
+            "reset_attempts": 1,
+            "settling_failures": 0,
+            "steps": 8,
+            "success_episodes": 0,
+            "terrain": "low_friction",
+            "truncated_episodes": 0
+          }
+        },
+        "rough_perlin": {
+          "balanced": {
+            "beta": [
+              0.3333333333333333,
+              0.3333333333333333,
+              0.3333333333333333
+            ],
+            "beta_name": "balanced",
+            "completed_episodes": 0,
+            "interventions": 0,
+            "m4_episodes": 0,
+            "max_abs_action": 0.2098415195941925,
+            "mean_completed_return": null,
+            "other_terminal_episodes": 0,
+            "reset_attempts": 1,
+            "settling_failures": 0,
+            "steps": 8,
+            "success_episodes": 0,
+            "terrain": "rough_perlin",
+            "truncated_episodes": 0
+          },
+          "energy": {
+            "beta": [
+              0.15,
+              0.15,
+              0.7
+            ],
+            "beta_name": "energy",
+            "completed_episodes": 0,
+            "interventions": 0,
+            "m4_episodes": 0,
+            "max_abs_action": 0.2995019853115082,
+            "mean_completed_return": null,
+            "other_terminal_episodes": 0,
+            "reset_attempts": 1,
+            "settling_failures": 0,
+            "steps": 8,
+            "success_episodes": 0,
+            "terrain": "rough_perlin",
+            "truncated_episodes": 0
+          },
+          "motion": {
+            "beta": [
+              0.7,
+              0.15,
+              0.15
+            ],
+            "beta_name": "motion",
+            "completed_episodes": 0,
+            "interventions": 0,
+            "m4_episodes": 0,
+            "max_abs_action": 0.21702967584133148,
+            "mean_completed_return": null,
+            "other_terminal_episodes": 0,
+            "reset_attempts": 1,
+            "settling_failures": 0,
+            "steps": 8,
+            "success_episodes": 0,
+            "terrain": "rough_perlin",
+            "truncated_episodes": 0
+          },
+          "stability": {
+            "beta": [
+              0.15,
+              0.7,
+              0.15
+            ],
+            "beta_name": "stability",
+            "completed_episodes": 0,
+            "interventions": 0,
+            "m4_episodes": 0,
+            "max_abs_action": 0.2827056050300598,
+            "mean_completed_return": null,
+            "other_terminal_episodes": 0,
+            "reset_attempts": 1,
+            "settling_failures": 0,
+            "steps": 8,
+            "success_episodes": 0,
+            "terrain": "rough_perlin",
+            "truncated_episodes": 0
+          }
+        }
+      },
+      "update": 1,
+      "value_loss": 1.8101752251386642
+    }
+  ],
+  "updates": 1
+}

@@ -1,0 +1,119 @@
+{
+  "balanced_quality": {
+    "eta": [
+      0.3333333333333333,
+      0.3333333333333333,
+      0.3333333333333333
+    ],
+    "final_decision_metric": "true held-context Q excess of the beta selected from predicted physical response.",
+    "rho": 0.01,
+    "selection": "argmin predicted augmented Tchebycheff quality over the 21 beta candidates."
+  },
+  "beta_candidates": 21,
+  "beta_conditioning": "Physical reward weights reconstructed from the frozen 21-point lambda lattice.",
+  "evaluation": "Strict outer LOCO over 18 original rough TRAIN contexts. Each fold trains on remaining 17 original + 15 extension TRAIN contexts. No validation/test/hard context is used.",
+  "heldout_used": false,
+  "important_semantics": "The regret surrogate is eta-agnostic. Once r(context,beta) is predicted, different physical preference vectors eta can be applied without retraining the surrogate.",
+  "model": {
+    "activation": "SiLU",
+    "device": "CPU",
+    "ensemble_seeds": [
+      27027,
+      27028,
+      27029
+    ],
+    "epochs": 1200,
+    "hidden": [
+      64,
+      64
+    ],
+    "input_standardization": "outer-TRAIN-only per-dimension",
+    "lr": 0.001,
+    "optimizer": "AdamW",
+    "outputs": [
+      "log1p_r_motion",
+      "log1p_r_stability",
+      "log1p_r_energy"
+    ],
+    "target_standardization": "outer-TRAIN-only per-objective",
+    "type": "MLP",
+    "weight_decay": 0.0001
+  },
+  "objective": "Learn a candidate-conditioned normalized physical-regret surrogate g(context,beta)->[r_motion,r_stability,r_energy].",
+  "probe_horizon_s": 0.4,
+  "representations": [
+    "semantic_only",
+    "semantic_plus_probe",
+    "semantic_plus_prop_probe"
+  ],
+  "schema": "icra27_os_t6p9c_augmented_context_regret_surface_loco_v0",
+  "status": "COMPUTE_PASS",
+  "summary": [
+    {
+      "Q_excess_max": 10.634846983014494,
+      "Q_excess_mean": 0.9605589075834686,
+      "Q_excess_median": 0.17655438186289862,
+      "Q_excess_p95": 4.335675656971183,
+      "baseline_Q_excess_mean": 0.1998418525268314,
+      "beats_baseline_fraction": 0.3333333333333333,
+      "context_dim": 74,
+      "exact_fraction": 0.1111111111111111,
+      "held_mae_regret_energy_mean": 1.225841096357458,
+      "held_mae_regret_motion_mean": 3.842407336938646,
+      "held_mae_regret_stability_mean": 2.877359713810876,
+      "representation": "semantic_only",
+      "rho_J_energy_mean": 0.040764790764790795,
+      "rho_J_motion_mean": 0.7094516594516594,
+      "rho_J_stability_mean": -0.014790764790764806,
+      "rho_Q_mean": 0.2142135642135642,
+      "top3_fraction": 0.1111111111111111,
+      "top5_fraction": 0.2222222222222222,
+      "true_rank_mean": 10.833333333333334,
+      "true_rank_median": 10.5
+    },
+    {
+      "Q_excess_max": 1.1933267808274428,
+      "Q_excess_mean": 0.2704263260869022,
+      "Q_excess_median": 0.14956663087859332,
+      "Q_excess_p95": 0.9105987130788006,
+      "baseline_Q_excess_mean": 0.1998418525268314,
+      "beats_baseline_fraction": 0.5,
+      "context_dim": 81,
+      "exact_fraction": 0.1111111111111111,
+      "held_mae_regret_energy_mean": 1.1274391715300793,
+      "held_mae_regret_motion_mean": 3.765548781650372,
+      "held_mae_regret_stability_mean": 2.3759033558069316,
+      "representation": "semantic_plus_probe",
+      "rho_J_energy_mean": 0.243001443001443,
+      "rho_J_motion_mean": 0.8004329004329005,
+      "rho_J_stability_mean": -0.0012265512265512454,
+      "rho_Q_mean": 0.3219336219336219,
+      "top3_fraction": 0.3333333333333333,
+      "top5_fraction": 0.5,
+      "true_rank_mean": 8.88888888888889,
+      "true_rank_median": 7.0
+    },
+    {
+      "Q_excess_max": 1.0631067557243135,
+      "Q_excess_mean": 0.281895886846194,
+      "Q_excess_median": 0.10500140658629668,
+      "Q_excess_p95": 1.0217265202178538,
+      "baseline_Q_excess_mean": 0.1998418525268314,
+      "beats_baseline_fraction": 0.5,
+      "context_dim": 87,
+      "exact_fraction": 0.16666666666666666,
+      "held_mae_regret_energy_mean": 1.1784352808721463,
+      "held_mae_regret_motion_mean": 3.6009692114526723,
+      "held_mae_regret_stability_mean": 2.325740629876411,
+      "representation": "semantic_plus_prop_probe",
+      "rho_J_energy_mean": 0.2810966810966811,
+      "rho_J_motion_mean": 0.868037518037518,
+      "rho_J_stability_mean": 0.09567099567099567,
+      "rho_Q_mean": 0.3411255411255411,
+      "top3_fraction": 0.3333333333333333,
+      "top5_fraction": 0.4444444444444444,
+      "true_rank_mean": 7.888888888888889,
+      "true_rank_median": 6.0
+    }
+  ]
+}

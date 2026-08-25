@@ -1,0 +1,83 @@
+{
+  "beta_points_per_context": 21,
+  "context_slots": 9,
+  "deterministic_group_checks": {
+    "flat": {
+      "context_slots": 3,
+      "front": [
+        "lm100_ls000_le000"
+      ],
+      "front_sets_identical": true
+    },
+    "low_friction": {
+      "context_slots": 3,
+      "front": [
+        "lm100_ls000_le000",
+        "lm080_ls020_le000",
+        "lm060_ls040_le000",
+        "lm040_ls060_le000",
+        "lm020_ls080_le000",
+        "lm000_ls080_le020"
+      ],
+      "front_sets_identical": true
+    }
+  },
+  "dominance_definition": "a dominates b iff a is no worse in all three frozen physical objectives and strictly better in at least one",
+  "episodes": 189,
+  "group_summary": {
+    "flat": {
+      "context_slots": 3,
+      "pareto_count_max": 1,
+      "pareto_count_mean": 1.0,
+      "pareto_count_min": 1,
+      "pareto_counts": [
+        1,
+        1,
+        1
+      ]
+    },
+    "low_friction": {
+      "context_slots": 3,
+      "pareto_count_max": 6,
+      "pareto_count_mean": 6.0,
+      "pareto_count_min": 6,
+      "pareto_counts": [
+        6,
+        6,
+        6
+      ]
+    },
+    "rough": {
+      "context_slots": 3,
+      "pareto_count_max": 12,
+      "pareto_count_mean": 10.666666666666666,
+      "pareto_count_min": 9,
+      "pareto_counts": [
+        12,
+        9,
+        11
+      ]
+    }
+  },
+  "interpretation_guard": "Pareto membership is a geometric property of the frozen physical response atlas. No external mission preference w is used or selected in OS-T5.4a.",
+  "next_stage": "OS-T5.4b preference scalarization contract and context-specific preferred beta extraction",
+  "normalization": "results/icra27/os_t5p3b_physical_atlas_normalization_v0/normalization_stats.json",
+  "normalization_sha256": "a6a9fae9846a36f321c30a82d2c63b651d0d268a79fe92205812d7a1d1dca8ba",
+  "objective_direction": "all_lower_is_better",
+  "objectives": {
+    "energy": "J_energy_j_per_m",
+    "motion": "J_motion_s_per_m",
+    "stability": "J_stability"
+  },
+  "pareto_rows": 53,
+  "raw_normalized_fronts_match": true,
+  "rough_pareto_counts": [
+    12,
+    9,
+    11
+  ],
+  "schema": "icra27_os_t5p4a_context_pareto_audit_v0",
+  "source": "results/icra27/os_t5p3b_physical_atlas_normalization_v0/physical_beta_response_atlas.csv",
+  "source_sha256": "18b9bb4c2c9959872d11634b6e428d1e7006e486be572538e0a82605bc879f3b",
+  "status": "COMPUTE_PASS"
+}

@@ -1,0 +1,9 @@
+{
+  "schema": "icra27_phase2b_shared_latent_preference_v0",
+  "hypothesis": "one latent beta per observable terrain class x mission family",
+  "selected_kappa": 749.8942093324558,
+  "observable_group_count": 9,
+  "exact_contexts_per_group": 18,
+  "primary_test": "leave-one-exact-context-out posterior predictive gain over uniform beta prior",
+  "interpretation_note": "Posterior entropy alone is not used to accept a shared latent preference; cross-context predictive performance is the key diagnostic."
+}

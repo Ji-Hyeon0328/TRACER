@@ -1,0 +1,57 @@
+{
+  "folds": 18,
+  "heldout_used": false,
+  "interpretation_guard": "Read-only TRAIN-context LOCO diagnostic. No selector, PCA contract, label, or held-out evaluation is modified.",
+  "next_stage": "If catastrophic physical-error contexts are also latent-support outliers, add a simple support-aware selector/fallback or broaden TRAIN terrain support. If they are not latent outliers, revisit the terrain-to-beta mapping target rather than increasing network capacity.",
+  "physical_aggregate": {
+    "l1_mean": 0.0877740428684325,
+    "l1_median": 0.055151604112939075,
+    "l1_p95": 0.2663991692510419,
+    "linf_max": 0.7488985787899766,
+    "linf_mean": 0.1856670689321813,
+    "linf_median": 0.10244558576339617,
+    "linf_p95": 0.6284578819391807
+  },
+  "physical_iqr_reporting_scale": {
+    "energy": 12.452713540840207,
+    "motion": 0.16126301072742333,
+    "stability": 0.11078278215759008
+  },
+  "predictions": 450,
+  "purpose": "Separate fold-local terrain-latent support/extrapolation failure from scalarization amplification and actual physical beta-response error.",
+  "remaining_16_context_diagnostic": {
+    "rows": 400,
+    "score_excess_le_0p05_fraction": 0.235,
+    "score_excess_mean": 0.37402833189936074,
+    "score_excess_median": 0.24801962873896666,
+    "score_excess_p95": 1.2448377017111079
+  },
+  "schema": "icra27_os_t5p5e1m_patch_pca_loco_support_v0",
+  "status": "COMPUTE_PASS",
+  "support_correlations": {
+    "held_nn_over_train_max": {
+      "vs_physical_linf_mean": -0.06637869901925326,
+      "vs_score_excess_mean": 0.09060482789677156
+    },
+    "held_nn_over_train_median": {
+      "vs_physical_linf_mean": -0.1572204995944108,
+      "vs_score_excess_mean": 0.07242886241069099
+    },
+    "held_radius_over_train_max": {
+      "vs_physical_linf_mean": 0.1312966311448783,
+      "vs_score_excess_mean": 0.011404787221440449
+    },
+    "held_reconstruction_over_train_max": {
+      "vs_physical_linf_mean": 0.12252957951171298,
+      "vs_score_excess_mean": -0.06361099675523813
+    },
+    "outside_latent_box_fraction": {
+      "vs_physical_linf_mean": 0.1040834531514369,
+      "vs_score_excess_mean": -0.06483669342550491
+    }
+  },
+  "top_two_score_failure_contexts": [
+    "rough_seed_4",
+    "rough_seed_18"
+  ]
+}

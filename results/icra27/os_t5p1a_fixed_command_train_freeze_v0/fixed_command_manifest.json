@@ -5,6 +5,13 @@
     "vx_mps": 0.21208701415730208,
     "yaw_rate_rps": 0.004199298764136668
   },
+  "fixed_policy_action_normalized": {
+    "body_height": -0.02683671731717463,
+    "vx": 0.06043507078651032,
+    "yaw_rate": 0.01049824691034167
+  },
+  "normalized_action_context_count": 9,
+  "normalized_action_source": "mean of TRAIN-only balanced u30 requested normalized policy actions",
   "num_train_contexts": 9,
   "provenance_note": "Fixed baseline command is derived only from TRAIN balanced-policy action means. No held-out evaluation result is used.",
   "schema": "icra27_os_t5p1a_fixed_command_train_freeze_v0",

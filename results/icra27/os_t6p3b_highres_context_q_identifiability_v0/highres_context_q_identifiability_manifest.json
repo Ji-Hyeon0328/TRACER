@@ -1,0 +1,46 @@
+{
+  "aggregate": {
+    "baseline_Q_excess_mean": 0.1998418525268314,
+    "nn_Q_excess_mean": 0.2954333190628253,
+    "nn_Q_excess_median": 0.13896631545034394,
+    "nn_beats_baseline_fraction": 0.3333333333333333,
+    "nn_exact_fraction": 0.16666666666666666,
+    "nn_q_pearson_mean": 0.3336229995285032,
+    "nn_q_spearman_mean": 0.28297258297258293,
+    "nn_top3_fraction": 0.2222222222222222,
+    "nn_top5_fraction": 0.2777777777777778,
+    "nn_true_rank_mean": 8.0,
+    "nn_true_rank_median": 8.0
+  },
+  "context_dim": 193,
+  "controlled_comparison": "T6.2b 8x6 versus T6.3b 16x12; spatial domain, terrain seeds, Q surface, LOCO split and 1-NN algorithm unchanged.",
+  "decision_rule": "A substantial improvement in Q-surface rank correlation and selected-beta Q excess would support insufficient spatial resolution as a major bottleneck. Little or no improvement would argue against resolution as the primary cause and motivate testing richer interaction/state context rather than further terrain-grid resolution tuning.",
+  "distance_metric": "TRAIN-standardized Euclidean distance, identical procedure to T6.2b",
+  "evaluation": "Strict LOCO over the same 18 original rough contexts. For each fold, nearest neighbor is selected from the remaining 17 original + 15 frozen extension TRAIN contexts.",
+  "heldout_used": false,
+  "lowres_vs_highres": {
+    "Q_excess_mean_delta": -0.0017529663565516995,
+    "contexts_with_higher_spearman_highres": 1,
+    "contexts_with_lower_Q_excess_highres": 1,
+    "highres_Q_excess_mean": 0.2954333190628253,
+    "highres_beats_baseline_fraction": 0.3333333333333333,
+    "highres_patch_shape": [
+      16,
+      12
+    ],
+    "highres_spearman_mean": 0.28297258297258293,
+    "highres_top5_fraction": 0.2777777777777778,
+    "lowres_Q_excess_mean": 0.29718628541937697,
+    "lowres_beats_baseline_fraction": 0.3333333333333333,
+    "lowres_patch_shape": [
+      8,
+      6
+    ],
+    "lowres_spearman_mean": 0.2593073593073593,
+    "lowres_top5_fraction": 0.2777777777777778,
+    "spearman_mean_delta": 0.02366522366522361
+  },
+  "schema": "icra27_os_t6p3b_highres_context_q_identifiability_v0",
+  "status": "COMPUTE_PASS",
+  "terrain_context": "friction_mu + frozen 16x12 high-resolution relative-height patch"
+}

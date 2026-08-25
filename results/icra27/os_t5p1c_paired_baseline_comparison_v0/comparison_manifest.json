@@ -1,0 +1,777 @@
+{
+  "beta_source": "/mnt/share/nas/Yoo/Tracer/TRACER-ICRA27/results/icra27/os_t4p9b_v4_primary_heldout_v0/episodes.csv",
+  "comparison_design": {
+    "B0": "TRAIN-only mean fixed command",
+    "B1": "frozen u30 balanced beta",
+    "B2": "same frozen u30 with target objective beta"
+  },
+  "comparisons": {
+    "energy": {
+      "all29": {
+        "Q1_balanced_vs_fixed": {
+          "candidate_mean": 0.5686134692860244,
+          "exact_sign_test_two_sided_p": 0.45825831964612007,
+          "losses": 17,
+          "mean_delta_candidate_minus_reference": -0.0010951954010386246,
+          "mean_delta_pct_reference": -0.19223779958484705,
+          "n": 29,
+          "reference_mean": 0.569708664687063,
+          "ties": 0,
+          "wins_lower_is_better": 12
+        },
+        "Q2_objective_vs_balanced": {
+          "candidate_mean": 0.5623547667071459,
+          "exact_sign_test_two_sided_p": 1.1175870895385742e-07,
+          "losses": 1,
+          "mean_delta_candidate_minus_reference": -0.0062587025788784865,
+          "mean_delta_pct_reference": -1.1006954490081255,
+          "n": 29,
+          "reference_mean": 0.5686134692860244,
+          "ties": 0,
+          "wins_lower_is_better": 28
+        },
+        "Q3_objective_vs_fixed": {
+          "candidate_mean": 0.5623547667071459,
+          "exact_sign_test_two_sided_p": 1.6242265701293945e-06,
+          "losses": 2,
+          "mean_delta_candidate_minus_reference": -0.007353897979917111,
+          "mean_delta_pct_reference": -1.2908172958816688,
+          "n": 29,
+          "reference_mean": 0.569708664687063,
+          "ties": 0,
+          "wins_lower_is_better": 27
+        },
+        "metric": "mean_cost_energy"
+      },
+      "flat10": {
+        "Q1_balanced_vs_fixed": {
+          "candidate_mean": 0.5133582389660732,
+          "exact_sign_test_two_sided_p": 0.001953125,
+          "losses": 10,
+          "mean_delta_candidate_minus_reference": 0.002399482143014331,
+          "mean_delta_pct_reference": 0.4696038791728259,
+          "n": 10,
+          "reference_mean": 0.5109587568230589,
+          "ties": 0,
+          "wins_lower_is_better": 0
+        },
+        "Q2_objective_vs_balanced": {
+          "candidate_mean": 0.5089249401919073,
+          "exact_sign_test_two_sided_p": 0.001953125,
+          "losses": 0,
+          "mean_delta_candidate_minus_reference": -0.0044332987741659835,
+          "mean_delta_pct_reference": -0.8635877322422736,
+          "n": 10,
+          "reference_mean": 0.5133582389660732,
+          "ties": 0,
+          "wins_lower_is_better": 10
+        },
+        "Q3_objective_vs_fixed": {
+          "candidate_mean": 0.5089249401919073,
+          "exact_sign_test_two_sided_p": 0.001953125,
+          "losses": 0,
+          "mean_delta_candidate_minus_reference": -0.0020338166311516526,
+          "mean_delta_pct_reference": -0.398039294560118,
+          "n": 10,
+          "reference_mean": 0.5109587568230589,
+          "ties": 0,
+          "wins_lower_is_better": 10
+        },
+        "metric": "mean_cost_energy"
+      },
+      "low_friction10": {
+        "Q1_balanced_vs_fixed": {
+          "candidate_mean": 0.5549508180488122,
+          "exact_sign_test_two_sided_p": 0.001953125,
+          "losses": 0,
+          "mean_delta_candidate_minus_reference": -0.0072221207217890715,
+          "mean_delta_pct_reference": -1.2846795396418236,
+          "n": 10,
+          "reference_mean": 0.5621729387706013,
+          "ties": 0,
+          "wins_lower_is_better": 10
+        },
+        "Q2_objective_vs_balanced": {
+          "candidate_mean": 0.551314499462821,
+          "exact_sign_test_two_sided_p": 0.001953125,
+          "losses": 0,
+          "mean_delta_candidate_minus_reference": -0.0036363185859912273,
+          "mean_delta_pct_reference": -0.6552506037879892,
+          "n": 10,
+          "reference_mean": 0.5549508180488122,
+          "ties": 0,
+          "wins_lower_is_better": 10
+        },
+        "Q3_objective_vs_fixed": {
+          "candidate_mean": 0.551314499462821,
+          "exact_sign_test_two_sided_p": 0.001953125,
+          "losses": 0,
+          "mean_delta_candidate_minus_reference": -0.010858439307780299,
+          "mean_delta_pct_reference": -1.931512272989569,
+          "n": 10,
+          "reference_mean": 0.5621729387706013,
+          "ties": 0,
+          "wins_lower_is_better": 10
+        },
+        "metric": "mean_cost_energy"
+      },
+      "rough9": {
+        "Q1_balanced_vs_fixed": {
+          "candidate_mean": 0.6451888932384281,
+          "exact_sign_test_two_sided_p": 0.1796875,
+          "losses": 7,
+          "mean_delta_candidate_minus_reference": 0.0018295243508474766,
+          "mean_delta_pct_reference": 0.2843705150374773,
+          "n": 9,
+          "reference_mean": 0.6433593688875806,
+          "ties": 0,
+          "wins_lower_is_better": 2
+        },
+        "Q2_objective_vs_balanced": {
+          "candidate_mean": 0.6339882042177721,
+          "exact_sign_test_two_sided_p": 0.0390625,
+          "losses": 1,
+          "mean_delta_candidate_minus_reference": -0.011200689020656,
+          "mean_delta_pct_reference": -1.7360325228842415,
+          "n": 9,
+          "reference_mean": 0.6451888932384281,
+          "ties": 0,
+          "wins_lower_is_better": 8
+        },
+        "Q3_objective_vs_fixed": {
+          "candidate_mean": 0.6339882042177721,
+          "exact_sign_test_two_sided_p": 0.1796875,
+          "losses": 2,
+          "mean_delta_candidate_minus_reference": -0.009371164669808522,
+          "mean_delta_pct_reference": -1.4565987724733083,
+          "n": 9,
+          "reference_mean": 0.6433593688875806,
+          "ties": 0,
+          "wins_lower_is_better": 7
+        },
+        "metric": "mean_cost_energy"
+      },
+      "rough_test5": {
+        "Q1_balanced_vs_fixed": {
+          "candidate_mean": 0.6539889491747182,
+          "exact_sign_test_two_sided_p": 0.375,
+          "losses": 4,
+          "mean_delta_candidate_minus_reference": 0.0023479893563157273,
+          "mean_delta_pct_reference": 0.3603194858975805,
+          "n": 5,
+          "reference_mean": 0.6516409598184025,
+          "ties": 0,
+          "wins_lower_is_better": 1
+        },
+        "Q2_objective_vs_balanced": {
+          "candidate_mean": 0.6440867709846105,
+          "exact_sign_test_two_sided_p": 0.375,
+          "losses": 1,
+          "mean_delta_candidate_minus_reference": -0.009902178190107724,
+          "mean_delta_pct_reference": -1.5141201090023741,
+          "n": 5,
+          "reference_mean": 0.6539889491747182,
+          "ties": 0,
+          "wins_lower_is_better": 4
+        },
+        "Q3_objective_vs_fixed": {
+          "candidate_mean": 0.6440867709846105,
+          "exact_sign_test_two_sided_p": 1.0,
+          "losses": 2,
+          "mean_delta_candidate_minus_reference": -0.007554188833791997,
+          "mean_delta_pct_reference": -1.1592562928974228,
+          "n": 5,
+          "reference_mean": 0.6516409598184025,
+          "ties": 0,
+          "wins_lower_is_better": 3
+        },
+        "metric": "mean_cost_energy"
+      },
+      "rough_validation4": {
+        "Q1_balanced_vs_fixed": {
+          "candidate_mean": 0.6341888233180654,
+          "exact_sign_test_two_sided_p": 0.625,
+          "losses": 3,
+          "mean_delta_candidate_minus_reference": 0.0011814430940121634,
+          "mean_delta_pct_reference": 0.18663970293584747,
+          "n": 4,
+          "reference_mean": 0.6330073802240532,
+          "ties": 0,
+          "wins_lower_is_better": 1
+        },
+        "Q2_objective_vs_balanced": {
+          "candidate_mean": 0.621364995759224,
+          "exact_sign_test_two_sided_p": 0.125,
+          "losses": 0,
+          "mean_delta_candidate_minus_reference": -0.012823827558841344,
+          "mean_delta_pct_reference": -2.0220835005806777,
+          "n": 4,
+          "reference_mean": 0.6341888233180654,
+          "ties": 0,
+          "wins_lower_is_better": 4
+        },
+        "Q3_objective_vs_fixed": {
+          "candidate_mean": 0.621364995759224,
+          "exact_sign_test_two_sided_p": 0.125,
+          "losses": 0,
+          "mean_delta_candidate_minus_reference": -0.01164238446482918,
+          "mean_delta_pct_reference": -1.8392178082834285,
+          "n": 4,
+          "reference_mean": 0.6330073802240532,
+          "ties": 0,
+          "wins_lower_is_better": 4
+        },
+        "metric": "mean_cost_energy"
+      }
+    },
+    "motion": {
+      "all29": {
+        "Q1_balanced_vs_fixed": {
+          "candidate_mean": 0.22545191155911765,
+          "exact_sign_test_two_sided_p": 1.0,
+          "losses": 14,
+          "mean_delta_candidate_minus_reference": 7.745151120880463e-05,
+          "mean_delta_pct_reference": 0.034365700173986186,
+          "n": 29,
+          "reference_mean": 0.22537446004790884,
+          "ties": 0,
+          "wins_lower_is_better": 15
+        },
+        "Q2_objective_vs_balanced": {
+          "candidate_mean": 0.22357259748813085,
+          "exact_sign_test_two_sided_p": 3.725290298461914e-09,
+          "losses": 0,
+          "mean_delta_candidate_minus_reference": -0.0018793140709867948,
+          "mean_delta_pct_reference": -0.8335764633754298,
+          "n": 29,
+          "reference_mean": 0.22545191155911765,
+          "ties": 0,
+          "wins_lower_is_better": 29
+        },
+        "Q3_objective_vs_fixed": {
+          "candidate_mean": 0.22357259748813085,
+          "exact_sign_test_two_sided_p": 0.26493089646101,
+          "losses": 11,
+          "mean_delta_candidate_minus_reference": -0.00180186255977799,
+          "mean_delta_pct_reference": -0.7994972275895681,
+          "n": 29,
+          "reference_mean": 0.22537446004790884,
+          "ties": 0,
+          "wins_lower_is_better": 18
+        },
+        "metric": "mean_cost_motion"
+      },
+      "flat10": {
+        "Q1_balanced_vs_fixed": {
+          "candidate_mean": 0.22204686327628234,
+          "exact_sign_test_two_sided_p": 0.001953125,
+          "losses": 0,
+          "mean_delta_candidate_minus_reference": -0.0018585529362422637,
+          "mean_delta_pct_reference": -0.8300616249846223,
+          "n": 10,
+          "reference_mean": 0.2239054162125246,
+          "ties": 0,
+          "wins_lower_is_better": 10
+        },
+        "Q2_objective_vs_balanced": {
+          "candidate_mean": 0.22017974704125134,
+          "exact_sign_test_two_sided_p": 0.001953125,
+          "losses": 0,
+          "mean_delta_candidate_minus_reference": -0.0018671162350309967,
+          "mean_delta_pct_reference": -0.840865845831757,
+          "n": 10,
+          "reference_mean": 0.22204686327628234,
+          "ties": 0,
+          "wins_lower_is_better": 10
+        },
+        "Q3_objective_vs_fixed": {
+          "candidate_mean": 0.22017974704125134,
+          "exact_sign_test_two_sided_p": 0.001953125,
+          "losses": 0,
+          "mean_delta_candidate_minus_reference": -0.0037256691712732604,
+          "mean_delta_pct_reference": -1.6639477661125277,
+          "n": 10,
+          "reference_mean": 0.2239054162125246,
+          "ties": 0,
+          "wins_lower_is_better": 10
+        },
+        "metric": "mean_cost_motion"
+      },
+      "low_friction10": {
+        "Q1_balanced_vs_fixed": {
+          "candidate_mean": 0.22654064270826418,
+          "exact_sign_test_two_sided_p": 0.001953125,
+          "losses": 10,
+          "mean_delta_candidate_minus_reference": 0.002148525602456597,
+          "mean_delta_pct_reference": 0.9574871123674559,
+          "n": 10,
+          "reference_mean": 0.22439211710580756,
+          "ties": 0,
+          "wins_lower_is_better": 0
+        },
+        "Q2_objective_vs_balanced": {
+          "candidate_mean": 0.2246225526495675,
+          "exact_sign_test_two_sided_p": 0.001953125,
+          "losses": 0,
+          "mean_delta_candidate_minus_reference": -0.001918090058696642,
+          "mean_delta_pct_reference": -0.8466869501940679,
+          "n": 10,
+          "reference_mean": 0.22654064270826418,
+          "ties": 0,
+          "wins_lower_is_better": 10
+        },
+        "Q3_objective_vs_fixed": {
+          "candidate_mean": 0.2246225526495675,
+          "exact_sign_test_two_sided_p": 0.001953125,
+          "losses": 10,
+          "mean_delta_candidate_minus_reference": 0.00023043554375995479,
+          "mean_delta_pct_reference": 0.10269324374318264,
+          "n": 10,
+          "reference_mean": 0.22439211710580756,
+          "ties": 0,
+          "wins_lower_is_better": 0
+        },
+        "metric": "mean_cost_motion"
+      },
+      "rough9": {
+        "Q1_balanced_vs_fixed": {
+          "candidate_mean": 0.2280255972632163,
+          "exact_sign_test_two_sided_p": 1.0,
+          "losses": 4,
+          "mean_delta_candidate_minus_reference": -7.262587078755527e-05,
+          "mean_delta_pct_reference": -0.03183973543927556,
+          "n": 9,
+          "reference_mean": 0.22809822313400385,
+          "ties": 0,
+          "wins_lower_is_better": 5
+        },
+        "Q2_objective_vs_balanced": {
+          "candidate_mean": 0.22617581447195623,
+          "exact_sign_test_two_sided_p": 0.00390625,
+          "losses": 0,
+          "mean_delta_candidate_minus_reference": -0.0018497827912600734,
+          "mean_delta_pct_reference": -0.8112171674852878,
+          "n": 9,
+          "reference_mean": 0.2280255972632163,
+          "ties": 0,
+          "wins_lower_is_better": 9
+        },
+        "Q3_objective_vs_fixed": {
+          "candidate_mean": 0.22617581447195623,
+          "exact_sign_test_two_sided_p": 0.0390625,
+          "losses": 1,
+          "mean_delta_candidate_minus_reference": -0.0019224086620476285,
+          "mean_delta_pct_reference": -0.8427986135245981,
+          "n": 9,
+          "reference_mean": 0.22809822313400385,
+          "ties": 0,
+          "wins_lower_is_better": 8
+        },
+        "metric": "mean_cost_motion"
+      },
+      "rough_test5": {
+        "Q1_balanced_vs_fixed": {
+          "candidate_mean": 0.2272083105911611,
+          "exact_sign_test_two_sided_p": 0.375,
+          "losses": 1,
+          "mean_delta_candidate_minus_reference": -0.0012891732948100531,
+          "mean_delta_pct_reference": -0.5641958383460358,
+          "n": 5,
+          "reference_mean": 0.22849748388597116,
+          "ties": 0,
+          "wins_lower_is_better": 4
+        },
+        "Q2_objective_vs_balanced": {
+          "candidate_mean": 0.22542677654672824,
+          "exact_sign_test_two_sided_p": 0.0625,
+          "losses": 0,
+          "mean_delta_candidate_minus_reference": -0.0017815340444328697,
+          "mean_delta_pct_reference": -0.784097218890274,
+          "n": 5,
+          "reference_mean": 0.2272083105911611,
+          "ties": 0,
+          "wins_lower_is_better": 5
+        },
+        "Q3_objective_vs_fixed": {
+          "candidate_mean": 0.22542677654672824,
+          "exact_sign_test_two_sided_p": 0.0625,
+          "losses": 0,
+          "mean_delta_candidate_minus_reference": -0.003070707339242923,
+          "mean_delta_pct_reference": -1.3438692133587438,
+          "n": 5,
+          "reference_mean": 0.22849748388597116,
+          "ties": 0,
+          "wins_lower_is_better": 5
+        },
+        "metric": "mean_cost_motion"
+      },
+      "rough_validation4": {
+        "Q1_balanced_vs_fixed": {
+          "candidate_mean": 0.22904720560328531,
+          "exact_sign_test_two_sided_p": 0.625,
+          "losses": 3,
+          "mean_delta_candidate_minus_reference": 0.0014480584092405671,
+          "mean_delta_pct_reference": 0.6362319134728535,
+          "n": 4,
+          "reference_mean": 0.22759914719404473,
+          "ties": 0,
+          "wins_lower_is_better": 1
+        },
+        "Q2_objective_vs_balanced": {
+          "candidate_mean": 0.22711211187849123,
+          "exact_sign_test_two_sided_p": 0.125,
+          "losses": 0,
+          "mean_delta_candidate_minus_reference": -0.0019350937247940778,
+          "mean_delta_pct_reference": -0.844844939145733,
+          "n": 4,
+          "reference_mean": 0.22904720560328531,
+          "ties": 0,
+          "wins_lower_is_better": 4
+        },
+        "Q3_objective_vs_fixed": {
+          "candidate_mean": 0.22711211187849123,
+          "exact_sign_test_two_sided_p": 0.625,
+          "losses": 1,
+          "mean_delta_candidate_minus_reference": -0.00048703531555351065,
+          "mean_delta_pct_reference": -0.21398819879508504,
+          "n": 4,
+          "reference_mean": 0.22759914719404473,
+          "ties": 0,
+          "wins_lower_is_better": 3
+        },
+        "metric": "mean_cost_motion"
+      }
+    },
+    "stability": {
+      "all29": {
+        "Q1_balanced_vs_fixed": {
+          "candidate_mean": 0.28979105374715475,
+          "exact_sign_test_two_sided_p": 0.00010371580719947815,
+          "losses": 4,
+          "mean_delta_candidate_minus_reference": -0.01860003580026991,
+          "mean_delta_pct_reference": -6.031314272914355,
+          "n": 29,
+          "reference_mean": 0.3083910895474246,
+          "ties": 0,
+          "wins_lower_is_better": 25
+        },
+        "Q2_objective_vs_balanced": {
+          "candidate_mean": 0.28762005383272476,
+          "exact_sign_test_two_sided_p": 1.0,
+          "losses": 14,
+          "mean_delta_candidate_minus_reference": -0.0021709999144299886,
+          "mean_delta_pct_reference": -0.7491604334770822,
+          "n": 29,
+          "reference_mean": 0.28979105374715475,
+          "ties": 0,
+          "wins_lower_is_better": 15
+        },
+        "Q3_objective_vs_fixed": {
+          "candidate_mean": 0.28762005383272476,
+          "exact_sign_test_two_sided_p": 0.0005461126565933228,
+          "losses": 5,
+          "mean_delta_candidate_minus_reference": -0.020771035714699897,
+          "mean_delta_pct_reference": -6.735290486240106,
+          "n": 29,
+          "reference_mean": 0.3083910895474246,
+          "ties": 0,
+          "wins_lower_is_better": 24
+        },
+        "metric": "mean_cost_stability"
+      },
+      "flat10": {
+        "Q1_balanced_vs_fixed": {
+          "candidate_mean": 0.01162808929278536,
+          "exact_sign_test_two_sided_p": 0.001953125,
+          "losses": 0,
+          "mean_delta_candidate_minus_reference": -0.00011779039107253676,
+          "mean_delta_pct_reference": -1.0028230685387787,
+          "n": 10,
+          "reference_mean": 0.011745879683857896,
+          "ties": 0,
+          "wins_lower_is_better": 10
+        },
+        "Q2_objective_vs_balanced": {
+          "candidate_mean": 0.011660638384210087,
+          "exact_sign_test_two_sided_p": 0.001953125,
+          "losses": 10,
+          "mean_delta_candidate_minus_reference": 3.2549091424726936e-05,
+          "mean_delta_pct_reference": 0.27991779737124994,
+          "n": 10,
+          "reference_mean": 0.01162808929278536,
+          "ties": 0,
+          "wins_lower_is_better": 0
+        },
+        "Q3_objective_vs_fixed": {
+          "candidate_mean": 0.011660638384210087,
+          "exact_sign_test_two_sided_p": 0.001953125,
+          "losses": 0,
+          "mean_delta_candidate_minus_reference": -8.524129964780983e-05,
+          "mean_delta_pct_reference": -0.7257123514125133,
+          "n": 10,
+          "reference_mean": 0.011745879683857896,
+          "ties": 0,
+          "wins_lower_is_better": 10
+        },
+        "metric": "mean_cost_stability"
+      },
+      "low_friction10": {
+        "Q1_balanced_vs_fixed": {
+          "candidate_mean": 0.729664496323737,
+          "exact_sign_test_two_sided_p": 0.001953125,
+          "losses": 0,
+          "mean_delta_candidate_minus_reference": -0.05382634608819126,
+          "mean_delta_pct_reference": -6.8700670351793995,
+          "n": 10,
+          "reference_mean": 0.7834908424119282,
+          "ties": 0,
+          "wins_lower_is_better": 10
+        },
+        "Q2_objective_vs_balanced": {
+          "candidate_mean": 0.7242182377792927,
+          "exact_sign_test_two_sided_p": 0.001953125,
+          "losses": 0,
+          "mean_delta_candidate_minus_reference": -0.005446258544444249,
+          "mean_delta_pct_reference": -0.7464058580188692,
+          "n": 10,
+          "reference_mean": 0.729664496323737,
+          "ties": 0,
+          "wins_lower_is_better": 10
+        },
+        "Q3_objective_vs_fixed": {
+          "candidate_mean": 0.7242182377792927,
+          "exact_sign_test_two_sided_p": 0.001953125,
+          "losses": 0,
+          "mean_delta_candidate_minus_reference": -0.059272604632635506,
+          "mean_delta_pct_reference": -7.5651943103978665,
+          "n": 10,
+          "reference_mean": 0.7834908424119282,
+          "ties": 0,
+          "wins_lower_is_better": 10
+        },
+        "metric": "mean_cost_stability"
+      },
+      "rough9": {
+        "Q1_balanced_vs_fixed": {
+          "candidate_mean": 0.11011274472247375,
+          "exact_sign_test_two_sided_p": 1.0,
+          "losses": 4,
+          "mean_delta_candidate_minus_reference": 4.4807316456202395e-06,
+          "mean_delta_pct_reference": 0.004069387240537621,
+          "n": 9,
+          "reference_mean": 0.11010826399082813,
+          "ties": 0,
+          "wins_lower_is_better": 5
+        },
+        "Q2_objective_vs_balanced": {
+          "candidate_mean": 0.10913253327933214,
+          "exact_sign_test_two_sided_p": 1.0,
+          "losses": 4,
+          "mean_delta_candidate_minus_reference": -0.000980211443141606,
+          "mean_delta_pct_reference": -0.8901889110221655,
+          "n": 9,
+          "reference_mean": 0.11011274472247375,
+          "ties": 0,
+          "wins_lower_is_better": 5
+        },
+        "Q3_objective_vs_fixed": {
+          "candidate_mean": 0.10913253327933214,
+          "exact_sign_test_two_sided_p": 1.0,
+          "losses": 5,
+          "mean_delta_candidate_minus_reference": -0.0009757307114959859,
+          "mean_delta_pct_reference": -0.8861557490155898,
+          "n": 9,
+          "reference_mean": 0.11010826399082813,
+          "ties": 0,
+          "wins_lower_is_better": 4
+        },
+        "metric": "mean_cost_stability"
+      },
+      "rough_test5": {
+        "Q1_balanced_vs_fixed": {
+          "candidate_mean": 0.1263354943276313,
+          "exact_sign_test_two_sided_p": 1.0,
+          "losses": 2,
+          "mean_delta_candidate_minus_reference": -0.003315241396259175,
+          "mean_delta_pct_reference": -2.557055598449861,
+          "n": 5,
+          "reference_mean": 0.12965073572389046,
+          "ties": 0,
+          "wins_lower_is_better": 3
+        },
+        "Q2_objective_vs_balanced": {
+          "candidate_mean": 0.12768559718965372,
+          "exact_sign_test_two_sided_p": 1.0,
+          "losses": 3,
+          "mean_delta_candidate_minus_reference": 0.0013501028620224037,
+          "mean_delta_pct_reference": 1.0686647241994587,
+          "n": 5,
+          "reference_mean": 0.1263354943276313,
+          "ties": 0,
+          "wins_lower_is_better": 2
+        },
+        "Q3_objective_vs_fixed": {
+          "candidate_mean": 0.12768559718965372,
+          "exact_sign_test_two_sided_p": 1.0,
+          "losses": 3,
+          "mean_delta_candidate_minus_reference": -0.001965138534236771,
+          "mean_delta_pct_reference": -1.515717225409203,
+          "n": 5,
+          "reference_mean": 0.12965073572389046,
+          "ties": 0,
+          "wins_lower_is_better": 2
+        },
+        "metric": "mean_cost_stability"
+      },
+      "rough_validation4": {
+        "Q1_balanced_vs_fixed": {
+          "candidate_mean": 0.08983430771602681,
+          "exact_sign_test_two_sided_p": 1.0,
+          "losses": 2,
+          "mean_delta_candidate_minus_reference": 0.004154133391526614,
+          "mean_delta_pct_reference": 4.8484184635216625,
+          "n": 4,
+          "reference_mean": 0.0856801743245002,
+          "ties": 0,
+          "wins_lower_is_better": 2
+        },
+        "Q2_objective_vs_balanced": {
+          "candidate_mean": 0.08594120339143019,
+          "exact_sign_test_two_sided_p": 0.625,
+          "losses": 1,
+          "mean_delta_candidate_minus_reference": -0.0038931043245966183,
+          "mean_delta_pct_reference": -4.333649831090169,
+          "n": 4,
+          "reference_mean": 0.08983430771602681,
+          "ties": 0,
+          "wins_lower_is_better": 3
+        },
+        "Q3_objective_vs_fixed": {
+          "candidate_mean": 0.08594120339143019,
+          "exact_sign_test_two_sided_p": 1.0,
+          "losses": 2,
+          "mean_delta_candidate_minus_reference": 0.0002610290669299957,
+          "mean_delta_pct_reference": 0.3046551538765422,
+          "n": 4,
+          "reference_mean": 0.0856801743245002,
+          "ties": 0,
+          "wins_lower_is_better": 2
+        },
+        "metric": "mean_cost_stability"
+      }
+    }
+  },
+  "evaluation_reward_mode": "tracer_cost_v4",
+  "feasibility": {
+    "B0_fixed": {
+      "episodes": 29,
+      "m4_interventions": 0,
+      "m4_terminal": 0,
+      "success": 29
+    },
+    "B1_balanced": {
+      "episodes": 29,
+      "m4_interventions": 0,
+      "m4_terminal": 0,
+      "success": 29
+    },
+    "B2_energy": {
+      "episodes": 29,
+      "m4_interventions": 0,
+      "m4_terminal": 0,
+      "success": 29
+    },
+    "B2_motion": {
+      "episodes": 29,
+      "m4_interventions": 0,
+      "m4_terminal": 0,
+      "success": 29
+    },
+    "B2_stability": {
+      "episodes": 29,
+      "m4_interventions": 0,
+      "m4_terminal": 0,
+      "success": 29
+    }
+  },
+  "fixed_source": "/mnt/share/nas/Yoo/Tracer/TRACER-ICRA27/results/icra27/os_t5p1b_fixed_primary_v0/episodes.csv",
+  "primary_inferential_scope": "rough9",
+  "schema": "icra27_os_t5p1c_paired_baseline_comparison_v0",
+  "secondary_physical_diagnostics": {
+    "energy_physical_joules": {
+      "objective_vs_balanced": {
+        "candidate_mean": 217.0447372448794,
+        "exact_sign_test_two_sided_p": 0.5078125,
+        "losses": 6,
+        "mean_delta_candidate_minus_reference": -0.3115976914217053,
+        "mean_delta_pct_reference": -0.14335799852027445,
+        "n": 9,
+        "reference_mean": 217.3563349363011,
+        "ties": 0,
+        "wins_lower_is_better": 3
+      },
+      "objective_vs_fixed": {
+        "candidate_mean": 217.0447372448794,
+        "exact_sign_test_two_sided_p": 0.5078125,
+        "losses": 6,
+        "mean_delta_candidate_minus_reference": -0.3638524064194826,
+        "mean_delta_pct_reference": -0.16735879985379815,
+        "n": 9,
+        "reference_mean": 217.40858965129888,
+        "ties": 0,
+        "wins_lower_is_better": 3
+      }
+    },
+    "motion_completion_time": {
+      "objective_vs_balanced": {
+        "candidate_mean": 7.666666666666667,
+        "exact_sign_test_two_sided_p": 0.5,
+        "losses": 0,
+        "mean_delta_candidate_minus_reference": -0.04444444444444429,
+        "mean_delta_pct_reference": -0.5763688760806895,
+        "n": 9,
+        "reference_mean": 7.711111111111112,
+        "ties": 7,
+        "wins_lower_is_better": 2
+      },
+      "objective_vs_fixed": {
+        "candidate_mean": 7.666666666666667,
+        "exact_sign_test_two_sided_p": 0.25,
+        "losses": 0,
+        "mean_delta_candidate_minus_reference": -0.06666666666666643,
+        "mean_delta_pct_reference": -0.8620689655172384,
+        "n": 9,
+        "reference_mean": 7.7333333333333325,
+        "ties": 6,
+        "wins_lower_is_better": 3
+      }
+    },
+    "stability_pitch_rms": {
+      "objective_vs_balanced": {
+        "candidate_mean": 0.08133711502340904,
+        "exact_sign_test_two_sided_p": 0.0390625,
+        "losses": 8,
+        "mean_delta_candidate_minus_reference": 0.0003496622009856616,
+        "mean_delta_pct_reference": 0.4317486089510016,
+        "n": 9,
+        "reference_mean": 0.08098745282242338,
+        "ties": 0,
+        "wins_lower_is_better": 1
+      }
+    },
+    "stability_roll_rms": {
+      "objective_vs_balanced": {
+        "candidate_mean": 0.008698788072081598,
+        "exact_sign_test_two_sided_p": 1.0,
+        "losses": 5,
+        "mean_delta_candidate_minus_reference": 3.904510446988885e-05,
+        "mean_delta_pct_reference": 0.450880639482273,
+        "n": 9,
+        "reference_mean": 0.008659742967611711,
+        "ties": 0,
+        "wins_lower_is_better": 4
+      }
+    }
+  },
+  "statistical_note": "Flat and low-friction seed repetitions are deterministic in the current setup and are descriptive, not independent statistical replicates."
+}

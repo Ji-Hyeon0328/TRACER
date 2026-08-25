@@ -1,0 +1,1724 @@
+{
+  "beta": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.3333333333333333
+  ],
+  "boundary_candidate": {
+    "candidate_s_unsafe_mps": 0.2,
+    "candidate_s_unsafe_rule": "conservative pooled established-stance Q95 at marginal viable mu",
+    "definition": "smallest tested mu with 3/3 success and at least one lower tested mu without 3/3 success",
+    "marginal_viable_mu": 0.152,
+    "nearest_lower_nonfull_mu": 0.151,
+    "status": "BRACKETED"
+  },
+  "checkpoint": "/mnt/share/nas/Yoo/Tracer/TRACER-ICRA27/results/icra27/phase1a_beta_conditioned_v2_seed27027/phase1_beta_identifiable_selected_u20.pt",
+  "established_stance_gate_s": 0.04,
+  "friction_values": [
+    0.2,
+    0.18,
+    0.17,
+    0.16,
+    0.155,
+    0.152,
+    0.151,
+    0.15,
+    0.148
+  ],
+  "frictions": {
+    "0.148": {
+      "all_success": false,
+      "episodes": 3,
+      "friction_mu": 0.148,
+      "median_applied_vx_mps": 0.21888373737335204,
+      "median_established_rms_mps": 0.26299075922148196,
+      "median_m4_interventions": 1.0,
+      "median_progress_m": 0.03386791114771204,
+      "pooled_fraction_above_deadband": 0.9314928425357875,
+      "pooled_histogram": [
+        {
+          "contact_samples": 30,
+          "contact_time_s": 0.06000000000000005,
+          "high_mps": 0.0005,
+          "low_mps": 0.0,
+          "time_fraction": 0.010224948875255626
+        },
+        {
+          "contact_samples": 66,
+          "contact_time_s": 0.13200000000000012,
+          "high_mps": 0.001,
+          "low_mps": 0.0005,
+          "time_fraction": 0.022494887525562376
+        },
+        {
+          "contact_samples": 54,
+          "contact_time_s": 0.1080000000000001,
+          "high_mps": 0.0015,
+          "low_mps": 0.001,
+          "time_fraction": 0.018404907975460127
+        },
+        {
+          "contact_samples": 51,
+          "contact_time_s": 0.10200000000000001,
+          "high_mps": 0.002,
+          "low_mps": 0.0015,
+          "time_fraction": 0.01738241308793455
+        },
+        {
+          "contact_samples": 468,
+          "contact_time_s": 0.9360000000000006,
+          "high_mps": 0.003,
+          "low_mps": 0.002,
+          "time_fraction": 0.15950920245398773
+        },
+        {
+          "contact_samples": 150,
+          "contact_time_s": 0.30000000000000027,
+          "high_mps": 0.004,
+          "low_mps": 0.003,
+          "time_fraction": 0.05112474437627813
+        },
+        {
+          "contact_samples": 24,
+          "contact_time_s": 0.04800000000000004,
+          "high_mps": 0.005,
+          "low_mps": 0.004,
+          "time_fraction": 0.008179959100204501
+        },
+        {
+          "contact_samples": 12,
+          "contact_time_s": 0.02400000000000002,
+          "high_mps": 0.006,
+          "low_mps": 0.005,
+          "time_fraction": 0.004089979550102251
+        },
+        {
+          "contact_samples": 27,
+          "contact_time_s": 0.05400000000000005,
+          "high_mps": 0.008,
+          "low_mps": 0.006,
+          "time_fraction": 0.009202453987730064
+        },
+        {
+          "contact_samples": 15,
+          "contact_time_s": 0.030000000000000027,
+          "high_mps": 0.01,
+          "low_mps": 0.008,
+          "time_fraction": 0.005112474437627813
+        },
+        {
+          "contact_samples": 12,
+          "contact_time_s": 0.02400000000000002,
+          "high_mps": 0.0125,
+          "low_mps": 0.01,
+          "time_fraction": 0.004089979550102251
+        },
+        {
+          "contact_samples": 12,
+          "contact_time_s": 0.02400000000000002,
+          "high_mps": 0.015,
+          "low_mps": 0.0125,
+          "time_fraction": 0.004089979550102251
+        },
+        {
+          "contact_samples": 51,
+          "contact_time_s": 0.10200000000000009,
+          "high_mps": 0.02,
+          "low_mps": 0.015,
+          "time_fraction": 0.017382413087934565
+        },
+        {
+          "contact_samples": 111,
+          "contact_time_s": 0.2220000000000002,
+          "high_mps": 0.03,
+          "low_mps": 0.02,
+          "time_fraction": 0.037832310838445814
+        },
+        {
+          "contact_samples": 87,
+          "contact_time_s": 0.17400000000000015,
+          "high_mps": 0.04,
+          "low_mps": 0.03,
+          "time_fraction": 0.029652351738241316
+        },
+        {
+          "contact_samples": 66,
+          "contact_time_s": 0.13200000000000012,
+          "high_mps": 0.05,
+          "low_mps": 0.04,
+          "time_fraction": 0.022494887525562376
+        },
+        {
+          "contact_samples": 159,
+          "contact_time_s": 0.3180000000000003,
+          "high_mps": 0.075,
+          "low_mps": 0.05,
+          "time_fraction": 0.05419222903885482
+        },
+        {
+          "contact_samples": 168,
+          "contact_time_s": 0.3360000000000003,
+          "high_mps": 0.1,
+          "low_mps": 0.075,
+          "time_fraction": 0.05725971370143151
+        },
+        {
+          "contact_samples": 171,
+          "contact_time_s": 0.3420000000000003,
+          "high_mps": 0.15,
+          "low_mps": 0.1,
+          "time_fraction": 0.058282208588957066
+        },
+        {
+          "contact_samples": 153,
+          "contact_time_s": 0.30600000000000027,
+          "high_mps": 0.2,
+          "low_mps": 0.15,
+          "time_fraction": 0.05214723926380369
+        },
+        {
+          "contact_samples": 372,
+          "contact_time_s": 0.7440000000000003,
+          "high_mps": 0.3,
+          "low_mps": 0.2,
+          "time_fraction": 0.1267893660531697
+        },
+        {
+          "contact_samples": 506,
+          "contact_time_s": 1.0120000000000005,
+          "high_mps": 0.5,
+          "low_mps": 0.3,
+          "time_fraction": 0.17246080436264483
+        },
+        {
+          "contact_samples": 151,
+          "contact_time_s": 0.30200000000000027,
+          "high_mps": 1.0,
+          "low_mps": 0.5,
+          "time_fraction": 0.05146557600545332
+        },
+        {
+          "contact_samples": 18,
+          "contact_time_s": 0.03600000000000003,
+          "high_mps": null,
+          "low_mps": 1.0,
+          "time_fraction": 0.006134969325153375
+        }
+      ],
+      "pooled_q95": {
+        "bin_high_mps": 1.0,
+        "bin_low_mps": 0.5,
+        "conservative_upper_mps": 1.0,
+        "quantile": 0.95
+      },
+      "success_count": 0
+    },
+    "0.150": {
+      "all_success": false,
+      "episodes": 3,
+      "friction_mu": 0.15,
+      "median_applied_vx_mps": 0.21887869970202448,
+      "median_established_rms_mps": 0.38363351020250724,
+      "median_m4_interventions": 1.0,
+      "median_progress_m": 0.07567692915960489,
+      "pooled_fraction_above_deadband": 0.9245085190039318,
+      "pooled_histogram": [
+        {
+          "contact_samples": 36,
+          "contact_time_s": 0.07200000000000006,
+          "high_mps": 0.0005,
+          "low_mps": 0.0,
+          "time_fraction": 0.00943643512450852
+        },
+        {
+          "contact_samples": 93,
+          "contact_time_s": 0.18600000000000017,
+          "high_mps": 0.001,
+          "low_mps": 0.0005,
+          "time_fraction": 0.024377457404980343
+        },
+        {
+          "contact_samples": 81,
+          "contact_time_s": 0.16200000000000014,
+          "high_mps": 0.0015,
+          "low_mps": 0.001,
+          "time_fraction": 0.02123197903014417
+        },
+        {
+          "contact_samples": 78,
+          "contact_time_s": 0.15600000000000006,
+          "high_mps": 0.002,
+          "low_mps": 0.0015,
+          "time_fraction": 0.020445609436435114
+        },
+        {
+          "contact_samples": 477,
+          "contact_time_s": 0.9540000000000006,
+          "high_mps": 0.003,
+          "low_mps": 0.002,
+          "time_fraction": 0.12503276539973787
+        },
+        {
+          "contact_samples": 83,
+          "contact_time_s": 0.16600000000000015,
+          "high_mps": 0.004,
+          "low_mps": 0.003,
+          "time_fraction": 0.0217562254259502
+        },
+        {
+          "contact_samples": 30,
+          "contact_time_s": 0.06000000000000005,
+          "high_mps": 0.005,
+          "low_mps": 0.004,
+          "time_fraction": 0.007863695937090433
+        },
+        {
+          "contact_samples": 18,
+          "contact_time_s": 0.03600000000000003,
+          "high_mps": 0.006,
+          "low_mps": 0.005,
+          "time_fraction": 0.00471821756225426
+        },
+        {
+          "contact_samples": 46,
+          "contact_time_s": 0.09200000000000008,
+          "high_mps": 0.008,
+          "low_mps": 0.006,
+          "time_fraction": 0.012057667103538665
+        },
+        {
+          "contact_samples": 30,
+          "contact_time_s": 0.06000000000000005,
+          "high_mps": 0.01,
+          "low_mps": 0.008,
+          "time_fraction": 0.007863695937090433
+        },
+        {
+          "contact_samples": 24,
+          "contact_time_s": 0.04800000000000004,
+          "high_mps": 0.0125,
+          "low_mps": 0.01,
+          "time_fraction": 0.006290956749672346
+        },
+        {
+          "contact_samples": 91,
+          "contact_time_s": 0.18200000000000016,
+          "high_mps": 0.015,
+          "low_mps": 0.0125,
+          "time_fraction": 0.023853211009174313
+        },
+        {
+          "contact_samples": 129,
+          "contact_time_s": 0.25800000000000023,
+          "high_mps": 0.02,
+          "low_mps": 0.015,
+          "time_fraction": 0.03381389252948886
+        },
+        {
+          "contact_samples": 168,
+          "contact_time_s": 0.3360000000000003,
+          "high_mps": 0.03,
+          "low_mps": 0.02,
+          "time_fraction": 0.044036697247706424
+        },
+        {
+          "contact_samples": 155,
+          "contact_time_s": 0.3100000000000003,
+          "high_mps": 0.04,
+          "low_mps": 0.03,
+          "time_fraction": 0.04062909567496724
+        },
+        {
+          "contact_samples": 154,
+          "contact_time_s": 0.3080000000000003,
+          "high_mps": 0.05,
+          "low_mps": 0.04,
+          "time_fraction": 0.04036697247706422
+        },
+        {
+          "contact_samples": 140,
+          "contact_time_s": 0.28000000000000025,
+          "high_mps": 0.075,
+          "low_mps": 0.05,
+          "time_fraction": 0.03669724770642202
+        },
+        {
+          "contact_samples": 109,
+          "contact_time_s": 0.2180000000000002,
+          "high_mps": 0.1,
+          "low_mps": 0.075,
+          "time_fraction": 0.028571428571428574
+        },
+        {
+          "contact_samples": 244,
+          "contact_time_s": 0.48800000000000043,
+          "high_mps": 0.15,
+          "low_mps": 0.1,
+          "time_fraction": 0.06395806028833552
+        },
+        {
+          "contact_samples": 155,
+          "contact_time_s": 0.3100000000000003,
+          "high_mps": 0.2,
+          "low_mps": 0.15,
+          "time_fraction": 0.04062909567496724
+        },
+        {
+          "contact_samples": 507,
+          "contact_time_s": 1.0140000000000007,
+          "high_mps": 0.3,
+          "low_mps": 0.2,
+          "time_fraction": 0.13289646133682828
+        },
+        {
+          "contact_samples": 557,
+          "contact_time_s": 1.1140000000000005,
+          "high_mps": 0.5,
+          "low_mps": 0.3,
+          "time_fraction": 0.146002621231979
+        },
+        {
+          "contact_samples": 284,
+          "contact_time_s": 0.5680000000000005,
+          "high_mps": 1.0,
+          "low_mps": 0.5,
+          "time_fraction": 0.0744429882044561
+        },
+        {
+          "contact_samples": 126,
+          "contact_time_s": 0.2520000000000002,
+          "high_mps": null,
+          "low_mps": 1.0,
+          "time_fraction": 0.03302752293577982
+        }
+      ],
+      "pooled_q95": {
+        "bin_high_mps": 1.0,
+        "bin_low_mps": 0.5,
+        "conservative_upper_mps": 1.0,
+        "quantile": 0.95
+      },
+      "success_count": 0
+    },
+    "0.151": {
+      "all_success": false,
+      "episodes": 3,
+      "friction_mu": 0.151,
+      "median_applied_vx_mps": 0.21853412058830263,
+      "median_established_rms_mps": 0.3437620439823737,
+      "median_m4_interventions": 1.0,
+      "median_progress_m": 0.09696705114827409,
+      "pooled_fraction_above_deadband": 0.8938450037378518,
+      "pooled_histogram": [
+        {
+          "contact_samples": 83,
+          "contact_time_s": 0.16600000000000015,
+          "high_mps": 0.0005,
+          "low_mps": 0.0,
+          "time_fraction": 0.02068278096187391
+        },
+        {
+          "contact_samples": 151,
+          "contact_time_s": 0.30200000000000027,
+          "high_mps": 0.001,
+          "low_mps": 0.0005,
+          "time_fraction": 0.03762770994268627
+        },
+        {
+          "contact_samples": 112,
+          "contact_time_s": 0.2240000000000002,
+          "high_mps": 0.0015,
+          "low_mps": 0.001,
+          "time_fraction": 0.02790929479192624
+        },
+        {
+          "contact_samples": 80,
+          "contact_time_s": 0.16000000000000003,
+          "high_mps": 0.002,
+          "low_mps": 0.0015,
+          "time_fraction": 0.019935210565661585
+        },
+        {
+          "contact_samples": 551,
+          "contact_time_s": 1.102000000000001,
+          "high_mps": 0.003,
+          "low_mps": 0.002,
+          "time_fraction": 0.13730376277099426
+        },
+        {
+          "contact_samples": 81,
+          "contact_time_s": 0.16200000000000014,
+          "high_mps": 0.004,
+          "low_mps": 0.003,
+          "time_fraction": 0.02018440069773237
+        },
+        {
+          "contact_samples": 32,
+          "contact_time_s": 0.06400000000000006,
+          "high_mps": 0.005,
+          "low_mps": 0.004,
+          "time_fraction": 0.00797408422626464
+        },
+        {
+          "contact_samples": 26,
+          "contact_time_s": 0.052000000000000046,
+          "high_mps": 0.006,
+          "low_mps": 0.005,
+          "time_fraction": 0.00647894343384002
+        },
+        {
+          "contact_samples": 29,
+          "contact_time_s": 0.05800000000000005,
+          "high_mps": 0.008,
+          "low_mps": 0.006,
+          "time_fraction": 0.00722651383005233
+        },
+        {
+          "contact_samples": 27,
+          "contact_time_s": 0.05400000000000005,
+          "high_mps": 0.01,
+          "low_mps": 0.008,
+          "time_fraction": 0.00672813356591079
+        },
+        {
+          "contact_samples": 40,
+          "contact_time_s": 0.08000000000000007,
+          "high_mps": 0.0125,
+          "low_mps": 0.01,
+          "time_fraction": 0.0099676052828308
+        },
+        {
+          "contact_samples": 24,
+          "contact_time_s": 0.04800000000000004,
+          "high_mps": 0.015,
+          "low_mps": 0.0125,
+          "time_fraction": 0.0059805631696984805
+        },
+        {
+          "contact_samples": 93,
+          "contact_time_s": 0.18600000000000017,
+          "high_mps": 0.02,
+          "low_mps": 0.015,
+          "time_fraction": 0.02317468228258161
+        },
+        {
+          "contact_samples": 213,
+          "contact_time_s": 0.4260000000000004,
+          "high_mps": 0.03,
+          "low_mps": 0.02,
+          "time_fraction": 0.053077498131074013
+        },
+        {
+          "contact_samples": 142,
+          "contact_time_s": 0.28400000000000025,
+          "high_mps": 0.04,
+          "low_mps": 0.03,
+          "time_fraction": 0.03538499875404934
+        },
+        {
+          "contact_samples": 110,
+          "contact_time_s": 0.2200000000000002,
+          "high_mps": 0.05,
+          "low_mps": 0.04,
+          "time_fraction": 0.0274109145277847
+        },
+        {
+          "contact_samples": 296,
+          "contact_time_s": 0.5920000000000005,
+          "high_mps": 0.075,
+          "low_mps": 0.05,
+          "time_fraction": 0.07376027909294793
+        },
+        {
+          "contact_samples": 173,
+          "contact_time_s": 0.3460000000000003,
+          "high_mps": 0.1,
+          "low_mps": 0.075,
+          "time_fraction": 0.04310989284824321
+        },
+        {
+          "contact_samples": 232,
+          "contact_time_s": 0.4640000000000004,
+          "high_mps": 0.15,
+          "low_mps": 0.1,
+          "time_fraction": 0.05781211064041864
+        },
+        {
+          "contact_samples": 160,
+          "contact_time_s": 0.3200000000000003,
+          "high_mps": 0.2,
+          "low_mps": 0.15,
+          "time_fraction": 0.0398704211313232
+        },
+        {
+          "contact_samples": 475,
+          "contact_time_s": 0.9500000000000004,
+          "high_mps": 0.3,
+          "low_mps": 0.2,
+          "time_fraction": 0.1183653127336157
+        },
+        {
+          "contact_samples": 517,
+          "contact_time_s": 1.0340000000000007,
+          "high_mps": 0.5,
+          "low_mps": 0.3,
+          "time_fraction": 0.12883129828058806
+        },
+        {
+          "contact_samples": 310,
+          "contact_time_s": 0.6200000000000006,
+          "high_mps": 1.0,
+          "low_mps": 0.5,
+          "time_fraction": 0.0772489409419387
+        },
+        {
+          "contact_samples": 56,
+          "contact_time_s": 0.1120000000000001,
+          "high_mps": null,
+          "low_mps": 1.0,
+          "time_fraction": 0.01395464739596312
+        }
+      ],
+      "pooled_q95": {
+        "bin_high_mps": 1.0,
+        "bin_low_mps": 0.5,
+        "conservative_upper_mps": 1.0,
+        "quantile": 0.95
+      },
+      "success_count": 0
+    },
+    "0.152": {
+      "all_success": true,
+      "episodes": 3,
+      "friction_mu": 0.152,
+      "median_applied_vx_mps": 0.21891348370734387,
+      "median_established_rms_mps": 0.08222316390753821,
+      "median_m4_interventions": 0.0,
+      "median_progress_m": 1.6407841192686332,
+      "pooled_fraction_above_deadband": 0.3226187070938266,
+      "pooled_histogram": [
+        {
+          "contact_samples": 10371,
+          "contact_time_s": 20.741999999998328,
+          "high_mps": 0.0005,
+          "low_mps": 0.0,
+          "time_fraction": 0.37081664759724786
+        },
+        {
+          "contact_samples": 5684,
+          "contact_time_s": 11.367999999999274,
+          "high_mps": 0.001,
+          "low_mps": 0.0005,
+          "time_fraction": 0.20323226544622428
+        },
+        {
+          "contact_samples": 2117,
+          "contact_time_s": 4.233999999999735,
+          "high_mps": 0.0015,
+          "low_mps": 0.001,
+          "time_fraction": 0.07569364988558364
+        },
+        {
+          "contact_samples": 773,
+          "contact_time_s": 1.5459999999999527,
+          "high_mps": 0.002,
+          "low_mps": 0.0015,
+          "time_fraction": 0.02763872997711763
+        },
+        {
+          "contact_samples": 1222,
+          "contact_time_s": 2.4439999999999023,
+          "high_mps": 0.003,
+          "low_mps": 0.002,
+          "time_fraction": 0.04369279176201478
+        },
+        {
+          "contact_samples": 528,
+          "contact_time_s": 1.05599999999994,
+          "high_mps": 0.004,
+          "low_mps": 0.003,
+          "time_fraction": 0.018878718535469245
+        },
+        {
+          "contact_samples": 335,
+          "contact_time_s": 0.66999999999995,
+          "high_mps": 0.005,
+          "low_mps": 0.004,
+          "time_fraction": 0.011977974828375159
+        },
+        {
+          "contact_samples": 256,
+          "contact_time_s": 0.5119999999999623,
+          "high_mps": 0.006,
+          "low_mps": 0.005,
+          "time_fraction": 0.009153318077803115
+        },
+        {
+          "contact_samples": 445,
+          "contact_time_s": 0.8899999999999384,
+          "high_mps": 0.008,
+          "low_mps": 0.006,
+          "time_fraction": 0.015911041189931266
+        },
+        {
+          "contact_samples": 332,
+          "contact_time_s": 0.6639999999999557,
+          "high_mps": 0.01,
+          "low_mps": 0.008,
+          "time_fraction": 0.011870709382150998
+        },
+        {
+          "contact_samples": 397,
+          "contact_time_s": 0.7939999999999516,
+          "high_mps": 0.0125,
+          "low_mps": 0.01,
+          "time_fraction": 0.014194794050343294
+        },
+        {
+          "contact_samples": 322,
+          "contact_time_s": 0.6439999999999633,
+          "high_mps": 0.015,
+          "low_mps": 0.0125,
+          "time_fraction": 0.011513157894736923
+        },
+        {
+          "contact_samples": 444,
+          "contact_time_s": 0.88799999999994,
+          "high_mps": 0.02,
+          "low_mps": 0.015,
+          "time_fraction": 0.015875286041189873
+        },
+        {
+          "contact_samples": 730,
+          "contact_time_s": 1.4599999999999138,
+          "high_mps": 0.03,
+          "low_mps": 0.02,
+          "time_fraction": 0.02610125858123583
+        },
+        {
+          "contact_samples": 390,
+          "contact_time_s": 0.7799999999999538,
+          "high_mps": 0.04,
+          "low_mps": 0.03,
+          "time_fraction": 0.013944508009153386
+        },
+        {
+          "contact_samples": 228,
+          "contact_time_s": 0.45599999999997687,
+          "high_mps": 0.05,
+          "low_mps": 0.04,
+          "time_fraction": 0.008152173913043587
+        },
+        {
+          "contact_samples": 520,
+          "contact_time_s": 1.0399999999999436,
+          "high_mps": 0.075,
+          "low_mps": 0.05,
+          "time_fraction": 0.01859267734553794
+        },
+        {
+          "contact_samples": 396,
+          "contact_time_s": 0.791999999999966,
+          "high_mps": 0.1,
+          "low_mps": 0.075,
+          "time_fraction": 0.014159038901602129
+        },
+        {
+          "contact_samples": 1034,
+          "contact_time_s": 2.067999999999909,
+          "high_mps": 0.15,
+          "low_mps": 0.1,
+          "time_fraction": 0.03697082379862774
+        },
+        {
+          "contact_samples": 409,
+          "contact_time_s": 0.8179999999999856,
+          "high_mps": 0.2,
+          "low_mps": 0.15,
+          "time_fraction": 0.014623855835240954
+        },
+        {
+          "contact_samples": 468,
+          "contact_time_s": 0.9359999999999845,
+          "high_mps": 0.3,
+          "low_mps": 0.2,
+          "time_fraction": 0.016733409610984778
+        },
+        {
+          "contact_samples": 452,
+          "contact_time_s": 0.9039999999999919,
+          "high_mps": 0.5,
+          "low_mps": 0.3,
+          "time_fraction": 0.016161327231122173
+        },
+        {
+          "contact_samples": 103,
+          "contact_time_s": 0.20600000000000018,
+          "high_mps": 1.0,
+          "low_mps": 0.5,
+          "time_fraction": 0.003682780320366372
+        },
+        {
+          "contact_samples": 12,
+          "contact_time_s": 0.02400000000000002,
+          "high_mps": null,
+          "low_mps": 1.0,
+          "time_fraction": 0.000429061784897053
+        }
+      ],
+      "pooled_q95": {
+        "bin_high_mps": 0.2,
+        "bin_low_mps": 0.15,
+        "conservative_upper_mps": 0.2,
+        "quantile": 0.95
+      },
+      "success_count": 3
+    },
+    "0.155": {
+      "all_success": true,
+      "episodes": 3,
+      "friction_mu": 0.155,
+      "median_applied_vx_mps": 0.21888856037574658,
+      "median_established_rms_mps": 0.07633403698388201,
+      "median_m4_interventions": 0.0,
+      "median_progress_m": 1.6447261673690639,
+      "pooled_fraction_above_deadband": 0.30553489854457044,
+      "pooled_histogram": [
+        {
+          "contact_samples": 11270,
+          "contact_time_s": 22.53999999999826,
+          "high_mps": 0.0005,
+          "low_mps": 0.0,
+          "time_fraction": 0.3990934523177112
+        },
+        {
+          "contact_samples": 5484,
+          "contact_time_s": 10.967999999999288,
+          "high_mps": 0.001,
+          "low_mps": 0.0005,
+          "time_fraction": 0.19419951131413976
+        },
+        {
+          "contact_samples": 2039,
+          "contact_time_s": 4.077999999999774,
+          "high_mps": 0.0015,
+          "low_mps": 0.001,
+          "time_fraction": 0.0722051064131172
+        },
+        {
+          "contact_samples": 818,
+          "contact_time_s": 1.6359999999999302,
+          "high_mps": 0.002,
+          "low_mps": 0.0015,
+          "time_fraction": 0.02896703141046132
+        },
+        {
+          "contact_samples": 1201,
+          "contact_time_s": 2.4019999999998918,
+          "high_mps": 0.003,
+          "low_mps": 0.002,
+          "time_fraction": 0.042529834625872814
+        },
+        {
+          "contact_samples": 482,
+          "contact_time_s": 0.9639999999999382,
+          "high_mps": 0.004,
+          "low_mps": 0.003,
+          "time_fraction": 0.017068593080491513
+        },
+        {
+          "contact_samples": 395,
+          "contact_time_s": 0.7899999999999472,
+          "high_mps": 0.005,
+          "low_mps": 0.004,
+          "time_fraction": 0.013987747441481594
+        },
+        {
+          "contact_samples": 278,
+          "contact_time_s": 0.5559999999999637,
+          "high_mps": 0.006,
+          "low_mps": 0.005,
+          "time_fraction": 0.009844541237295923
+        },
+        {
+          "contact_samples": 402,
+          "contact_time_s": 0.803999999999949,
+          "high_mps": 0.008,
+          "low_mps": 0.006,
+          "time_fraction": 0.014235631573356
+        },
+        {
+          "contact_samples": 344,
+          "contact_time_s": 0.6879999999999558,
+          "high_mps": 0.01,
+          "low_mps": 0.008,
+          "time_fraction": 0.012181734480682736
+        },
+        {
+          "contact_samples": 325,
+          "contact_time_s": 0.649999999999954,
+          "high_mps": 0.0125,
+          "low_mps": 0.01,
+          "time_fraction": 0.011508906122737974
+        },
+        {
+          "contact_samples": 300,
+          "contact_time_s": 0.5999999999999628,
+          "high_mps": 0.015,
+          "low_mps": 0.0125,
+          "time_fraction": 0.010623605651758223
+        },
+        {
+          "contact_samples": 401,
+          "contact_time_s": 0.8019999999999452,
+          "high_mps": 0.02,
+          "low_mps": 0.015,
+          "time_fraction": 0.014200219554516736
+        },
+        {
+          "contact_samples": 623,
+          "contact_time_s": 1.2459999999999147,
+          "high_mps": 0.03,
+          "low_mps": 0.02,
+          "time_fraction": 0.02206168773681777
+        },
+        {
+          "contact_samples": 348,
+          "contact_time_s": 0.695999999999966,
+          "high_mps": 0.04,
+          "low_mps": 0.03,
+          "time_fraction": 0.012323382556039701
+        },
+        {
+          "contact_samples": 275,
+          "contact_time_s": 0.549999999999971,
+          "high_mps": 0.05,
+          "low_mps": 0.04,
+          "time_fraction": 0.00973830518077846
+        },
+        {
+          "contact_samples": 442,
+          "contact_time_s": 0.8839999999999528,
+          "high_mps": 0.075,
+          "low_mps": 0.05,
+          "time_fraction": 0.015652112326923918
+        },
+        {
+          "contact_samples": 453,
+          "contact_time_s": 0.9059999999999575,
+          "high_mps": 0.1,
+          "low_mps": 0.075,
+          "time_fraction": 0.016041644534155162
+        },
+        {
+          "contact_samples": 1058,
+          "contact_time_s": 2.1159999999999144,
+          "high_mps": 0.15,
+          "low_mps": 0.1,
+          "time_fraction": 0.03746591593186814
+        },
+        {
+          "contact_samples": 333,
+          "contact_time_s": 0.6659999999999913,
+          "high_mps": 0.2,
+          "low_mps": 0.15,
+          "time_fraction": 0.011792202273452205
+        },
+        {
+          "contact_samples": 414,
+          "contact_time_s": 0.8279999999999841,
+          "high_mps": 0.3,
+          "low_mps": 0.2,
+          "time_fraction": 0.014660575799426976
+        },
+        {
+          "contact_samples": 438,
+          "contact_time_s": 0.8759999999999935,
+          "high_mps": 0.5,
+          "low_mps": 0.3,
+          "time_fraction": 0.015510464251567853
+        },
+        {
+          "contact_samples": 116,
+          "contact_time_s": 0.2320000000000002,
+          "high_mps": 1.0,
+          "low_mps": 0.5,
+          "time_fraction": 0.0041077941853467715
+        },
+        {
+          "contact_samples": 0,
+          "contact_time_s": 0.0,
+          "high_mps": null,
+          "low_mps": 1.0,
+          "time_fraction": 0.0
+        }
+      ],
+      "pooled_q95": {
+        "bin_high_mps": 0.15,
+        "bin_low_mps": 0.1,
+        "conservative_upper_mps": 0.15,
+        "quantile": 0.95
+      },
+      "success_count": 3
+    },
+    "0.160": {
+      "all_success": true,
+      "episodes": 3,
+      "friction_mu": 0.16,
+      "median_applied_vx_mps": 0.21888803892275868,
+      "median_established_rms_mps": 0.0681728087423362,
+      "median_m4_interventions": 0.0,
+      "median_progress_m": 1.6446052506862336,
+      "pooled_fraction_above_deadband": 0.28742917847025967,
+      "pooled_histogram": [
+        {
+          "contact_samples": 11899,
+          "contact_time_s": 23.79799999999805,
+          "high_mps": 0.0005,
+          "low_mps": 0.0,
+          "time_fraction": 0.42135269121812363
+        },
+        {
+          "contact_samples": 5382,
+          "contact_time_s": 10.763999999999296,
+          "high_mps": 0.001,
+          "low_mps": 0.0005,
+          "time_fraction": 0.19058073654390945
+        },
+        {
+          "contact_samples": 1889,
+          "contact_time_s": 3.777999999999802,
+          "high_mps": 0.0015,
+          "low_mps": 0.001,
+          "time_fraction": 0.06689093484419355
+        },
+        {
+          "contact_samples": 953,
+          "contact_time_s": 1.905999999999928,
+          "high_mps": 0.002,
+          "low_mps": 0.0015,
+          "time_fraction": 0.033746458923513696
+        },
+        {
+          "contact_samples": 1135,
+          "contact_time_s": 2.2699999999998814,
+          "high_mps": 0.003,
+          "low_mps": 0.002,
+          "time_fraction": 0.040191218130312165
+        },
+        {
+          "contact_samples": 460,
+          "contact_time_s": 0.9199999999999404,
+          "high_mps": 0.004,
+          "low_mps": 0.003,
+          "time_fraction": 0.016288951841359794
+        },
+        {
+          "contact_samples": 290,
+          "contact_time_s": 0.5799999999999608,
+          "high_mps": 0.005,
+          "low_mps": 0.004,
+          "time_fraction": 0.010269121813031145
+        },
+        {
+          "contact_samples": 263,
+          "contact_time_s": 0.5259999999999636,
+          "high_mps": 0.006,
+          "low_mps": 0.005,
+          "time_fraction": 0.009313031161473058
+        },
+        {
+          "contact_samples": 389,
+          "contact_time_s": 0.7779999999999501,
+          "high_mps": 0.008,
+          "low_mps": 0.006,
+          "time_fraction": 0.013774787535410789
+        },
+        {
+          "contact_samples": 347,
+          "contact_time_s": 0.6939999999999615,
+          "high_mps": 0.01,
+          "low_mps": 0.008,
+          "time_fraction": 0.012287535410765002
+        },
+        {
+          "contact_samples": 347,
+          "contact_time_s": 0.6939999999999551,
+          "high_mps": 0.0125,
+          "low_mps": 0.01,
+          "time_fraction": 0.012287535410764888
+        },
+        {
+          "contact_samples": 306,
+          "contact_time_s": 0.6119999999999619,
+          "high_mps": 0.015,
+          "low_mps": 0.0125,
+          "time_fraction": 0.010835694050991542
+        },
+        {
+          "contact_samples": 440,
+          "contact_time_s": 0.8799999999999473,
+          "high_mps": 0.02,
+          "low_mps": 0.015,
+          "time_fraction": 0.015580736543909443
+        },
+        {
+          "contact_samples": 567,
+          "contact_time_s": 1.1339999999999197,
+          "high_mps": 0.03,
+          "low_mps": 0.02,
+          "time_fraction": 0.02007790368271945
+        },
+        {
+          "contact_samples": 326,
+          "contact_time_s": 0.6519999999999662,
+          "high_mps": 0.04,
+          "low_mps": 0.03,
+          "time_fraction": 0.01154390934844209
+        },
+        {
+          "contact_samples": 253,
+          "contact_time_s": 0.5059999999999751,
+          "high_mps": 0.05,
+          "low_mps": 0.04,
+          "time_fraction": 0.008958923512748027
+        },
+        {
+          "contact_samples": 448,
+          "contact_time_s": 0.8959999999999586,
+          "high_mps": 0.075,
+          "low_mps": 0.05,
+          "time_fraction": 0.015864022662889832
+        },
+        {
+          "contact_samples": 681,
+          "contact_time_s": 1.3619999999999193,
+          "high_mps": 0.1,
+          "low_mps": 0.075,
+          "time_fraction": 0.02411473087818713
+        },
+        {
+          "contact_samples": 783,
+          "contact_time_s": 1.5659999999999643,
+          "high_mps": 0.15,
+          "low_mps": 0.1,
+          "time_fraction": 0.027726628895185332
+        },
+        {
+          "contact_samples": 298,
+          "contact_time_s": 0.5959999999999905,
+          "high_mps": 0.2,
+          "low_mps": 0.15,
+          "time_fraction": 0.01055240793201186
+        },
+        {
+          "contact_samples": 310,
+          "contact_time_s": 0.6199999999999863,
+          "high_mps": 0.3,
+          "low_mps": 0.2,
+          "time_fraction": 0.010977337110482068
+        },
+        {
+          "contact_samples": 390,
+          "contact_time_s": 0.779999999999996,
+          "high_mps": 0.5,
+          "low_mps": 0.3,
+          "time_fraction": 0.013810198300284127
+        },
+        {
+          "contact_samples": 84,
+          "contact_time_s": 0.16800000000000015,
+          "high_mps": 1.0,
+          "low_mps": 0.5,
+          "time_fraction": 0.0029745042492919835
+        },
+        {
+          "contact_samples": 0,
+          "contact_time_s": 0.0,
+          "high_mps": null,
+          "low_mps": 1.0,
+          "time_fraction": 0.0
+        }
+      ],
+      "pooled_q95": {
+        "bin_high_mps": 0.15,
+        "bin_low_mps": 0.1,
+        "conservative_upper_mps": 0.15,
+        "quantile": 0.95
+      },
+      "success_count": 3
+    },
+    "0.170": {
+      "all_success": true,
+      "episodes": 3,
+      "friction_mu": 0.17,
+      "median_applied_vx_mps": 0.21888367568745334,
+      "median_established_rms_mps": 0.053460510796624644,
+      "median_m4_interventions": 0.0,
+      "median_progress_m": 1.646114695635896,
+      "pooled_fraction_above_deadband": 0.24795255577521175,
+      "pooled_histogram": [
+        {
+          "contact_samples": 13273,
+          "contact_time_s": 26.545999999997086,
+          "high_mps": 0.0005,
+          "low_mps": 0.0,
+          "time_fraction": 0.4685470206156312
+        },
+        {
+          "contact_samples": 5320,
+          "contact_time_s": 10.639999999999386,
+          "high_mps": 0.001,
+          "low_mps": 0.0005,
+          "time_fraction": 0.1878000564812241
+        },
+        {
+          "contact_samples": 1744,
+          "contact_time_s": 3.4879999999998406,
+          "high_mps": 0.0015,
+          "low_mps": 0.001,
+          "time_fraction": 0.061564529793845635
+        },
+        {
+          "contact_samples": 967,
+          "contact_time_s": 1.9339999999999022,
+          "high_mps": 0.002,
+          "low_mps": 0.0015,
+          "time_fraction": 0.03413583733408741
+        },
+        {
+          "contact_samples": 924,
+          "contact_time_s": 1.847999999999884,
+          "high_mps": 0.003,
+          "low_mps": 0.002,
+          "time_fraction": 0.03261790454673876
+        },
+        {
+          "contact_samples": 403,
+          "contact_time_s": 0.8059999999999445,
+          "high_mps": 0.004,
+          "low_mps": 0.003,
+          "time_fraction": 0.014226207286077534
+        },
+        {
+          "contact_samples": 314,
+          "contact_time_s": 0.627999999999959,
+          "high_mps": 0.005,
+          "low_mps": 0.004,
+          "time_fraction": 0.011084439423891717
+        },
+        {
+          "contact_samples": 234,
+          "contact_time_s": 0.46799999999996844,
+          "high_mps": 0.006,
+          "low_mps": 0.005,
+          "time_fraction": 0.008260378424174063
+        },
+        {
+          "contact_samples": 441,
+          "contact_time_s": 0.8819999999999557,
+          "high_mps": 0.008,
+          "low_mps": 0.006,
+          "time_fraction": 0.015567636260943695
+        },
+        {
+          "contact_samples": 339,
+          "contact_time_s": 0.6779999999999637,
+          "high_mps": 0.01,
+          "low_mps": 0.008,
+          "time_fraction": 0.011966958486303617
+        },
+        {
+          "contact_samples": 374,
+          "contact_time_s": 0.7479999999999543,
+          "high_mps": 0.0125,
+          "low_mps": 0.01,
+          "time_fraction": 0.013202485173679996
+        },
+        {
+          "contact_samples": 218,
+          "contact_time_s": 0.43599999999997197,
+          "high_mps": 0.015,
+          "low_mps": 0.0125,
+          "time_fraction": 0.007695566224230561
+        },
+        {
+          "contact_samples": 396,
+          "contact_time_s": 0.7919999999999534,
+          "high_mps": 0.02,
+          "low_mps": 0.015,
+          "time_fraction": 0.013979101948602381
+        },
+        {
+          "contact_samples": 433,
+          "contact_time_s": 0.865999999999951,
+          "high_mps": 0.03,
+          "low_mps": 0.02,
+          "time_fraction": 0.01528523016097183
+        },
+        {
+          "contact_samples": 338,
+          "contact_time_s": 0.6759999999999585,
+          "high_mps": 0.04,
+          "low_mps": 0.03,
+          "time_fraction": 0.011931657723807053
+        },
+        {
+          "contact_samples": 250,
+          "contact_time_s": 0.49999999999996714,
+          "high_mps": 0.05,
+          "low_mps": 0.04,
+          "time_fraction": 0.008825190624117603
+        },
+        {
+          "contact_samples": 724,
+          "contact_time_s": 1.4479999999998814,
+          "high_mps": 0.075,
+          "low_mps": 0.05,
+          "time_fraction": 0.025557752047444166
+        },
+        {
+          "contact_samples": 537,
+          "contact_time_s": 1.0739999999999517,
+          "high_mps": 0.1,
+          "low_mps": 0.075,
+          "time_fraction": 0.018956509460605005
+        },
+        {
+          "contact_samples": 344,
+          "contact_time_s": 0.6880000000000299,
+          "high_mps": 0.15,
+          "low_mps": 0.1,
+          "time_fraction": 0.012143462298787149
+        },
+        {
+          "contact_samples": 171,
+          "contact_time_s": 0.34199999999999275,
+          "high_mps": 0.2,
+          "low_mps": 0.15,
+          "time_fraction": 0.00603643038689671
+        },
+        {
+          "contact_samples": 290,
+          "contact_time_s": 0.5799999999999841,
+          "high_mps": 0.3,
+          "low_mps": 0.2,
+          "time_fraction": 0.010237221123976813
+        },
+        {
+          "contact_samples": 279,
+          "contact_time_s": 0.5580000000000034,
+          "high_mps": 0.5,
+          "low_mps": 0.3,
+          "time_fraction": 0.009848912736515954
+        },
+        {
+          "contact_samples": 15,
+          "contact_time_s": 0.030000000000000027,
+          "high_mps": 1.0,
+          "low_mps": 0.5,
+          "time_fraction": 0.0005295114374470916
+        },
+        {
+          "contact_samples": 0,
+          "contact_time_s": 0.0,
+          "high_mps": null,
+          "low_mps": 1.0,
+          "time_fraction": 0.0
+        }
+      ],
+      "pooled_q95": {
+        "bin_high_mps": 0.1,
+        "bin_low_mps": 0.075,
+        "conservative_upper_mps": 0.1,
+        "quantile": 0.95
+      },
+      "success_count": 3
+    },
+    "0.180": {
+      "all_success": true,
+      "episodes": 3,
+      "friction_mu": 0.18,
+      "median_applied_vx_mps": 0.21887565097388098,
+      "median_established_rms_mps": 0.04580678585895716,
+      "median_m4_interventions": 0.0,
+      "median_progress_m": 1.6471194666026363,
+      "pooled_fraction_above_deadband": 0.22419714619552666,
+      "pooled_histogram": [
+        {
+          "contact_samples": 14161,
+          "contact_time_s": 28.321999999996166,
+          "high_mps": 0.0005,
+          "low_mps": 0.0,
+          "time_fraction": 0.501398576638438
+        },
+        {
+          "contact_samples": 5023,
+          "contact_time_s": 10.04599999999947,
+          "high_mps": 0.001,
+          "low_mps": 0.0005,
+          "time_fraction": 0.1778493786070957
+        },
+        {
+          "contact_samples": 1840,
+          "contact_time_s": 3.679999999999838,
+          "high_mps": 0.0015,
+          "low_mps": 0.001,
+          "time_fraction": 0.06514888644974298
+        },
+        {
+          "contact_samples": 887,
+          "contact_time_s": 1.7739999999999139,
+          "high_mps": 0.002,
+          "low_mps": 0.0015,
+          "time_fraction": 0.03140601210919661
+        },
+        {
+          "contact_samples": 697,
+          "contact_time_s": 1.3939999999999095,
+          "high_mps": 0.003,
+          "low_mps": 0.002,
+          "time_fraction": 0.024678681443190166
+        },
+        {
+          "contact_samples": 391,
+          "contact_time_s": 0.7819999999999514,
+          "high_mps": 0.004,
+          "low_mps": 0.003,
+          "time_fraction": 0.01384413837057013
+        },
+        {
+          "contact_samples": 281,
+          "contact_time_s": 0.5619999999999621,
+          "high_mps": 0.005,
+          "low_mps": 0.004,
+          "time_fraction": 0.00994936798498769
+        },
+        {
+          "contact_samples": 237,
+          "contact_time_s": 0.47399999999996845,
+          "high_mps": 0.006,
+          "low_mps": 0.005,
+          "time_fraction": 0.008391459830754748
+        },
+        {
+          "contact_samples": 428,
+          "contact_time_s": 0.8559999999999506,
+          "high_mps": 0.008,
+          "low_mps": 0.006,
+          "time_fraction": 0.015154197500266094
+        },
+        {
+          "contact_samples": 427,
+          "contact_time_s": 0.8539999999999734,
+          "high_mps": 0.01,
+          "low_mps": 0.008,
+          "time_fraction": 0.015118790496761202
+        },
+        {
+          "contact_samples": 304,
+          "contact_time_s": 0.6079999999999643,
+          "high_mps": 0.0125,
+          "low_mps": 0.01,
+          "time_fraction": 0.010763729065609552
+        },
+        {
+          "contact_samples": 222,
+          "contact_time_s": 0.4439999999999662,
+          "high_mps": 0.015,
+          "low_mps": 0.0125,
+          "time_fraction": 0.007860354778175259
+        },
+        {
+          "contact_samples": 357,
+          "contact_time_s": 0.7139999999999538,
+          "high_mps": 0.02,
+          "low_mps": 0.015,
+          "time_fraction": 0.012640300251390088
+        },
+        {
+          "contact_samples": 552,
+          "contact_time_s": 1.1039999999999317,
+          "high_mps": 0.03,
+          "low_mps": 0.02,
+          "time_fraction": 0.019544665934922545
+        },
+        {
+          "contact_samples": 430,
+          "contact_time_s": 0.8599999999999342,
+          "high_mps": 0.04,
+          "low_mps": 0.03,
+          "time_fraction": 0.015225011507276395
+        },
+        {
+          "contact_samples": 401,
+          "contact_time_s": 0.8019999999999358,
+          "high_mps": 0.05,
+          "low_mps": 0.04,
+          "time_fraction": 0.01419820840562282
+        },
+        {
+          "contact_samples": 563,
+          "contact_time_s": 1.125999999999944,
+          "high_mps": 0.075,
+          "low_mps": 0.05,
+          "time_fraction": 0.019934142973481023
+        },
+        {
+          "contact_samples": 321,
+          "contact_time_s": 0.6420000000000294,
+          "high_mps": 0.1,
+          "low_mps": 0.075,
+          "time_fraction": 0.011365648125200746
+        },
+        {
+          "contact_samples": 124,
+          "contact_time_s": 0.24799999999998956,
+          "high_mps": 0.15,
+          "low_mps": 0.1,
+          "time_fraction": 0.0043904684346566004
+        },
+        {
+          "contact_samples": 117,
+          "contact_time_s": 0.23399999999998844,
+          "high_mps": 0.2,
+          "low_mps": 0.15,
+          "time_fraction": 0.004142619410119504
+        },
+        {
+          "contact_samples": 264,
+          "contact_time_s": 0.5279999999999831,
+          "high_mps": 0.3,
+          "low_mps": 0.2,
+          "time_fraction": 0.009347448925398018
+        },
+        {
+          "contact_samples": 210,
+          "contact_time_s": 0.4200000000000037,
+          "high_mps": 0.5,
+          "low_mps": 0.3,
+          "time_fraction": 0.0074354707361123625
+        },
+        {
+          "contact_samples": 6,
+          "contact_time_s": 0.01200000000000001,
+          "high_mps": 1.0,
+          "low_mps": 0.5,
+          "time_fraction": 0.0002124420210317801
+        },
+        {
+          "contact_samples": 0,
+          "contact_time_s": 0.0,
+          "high_mps": null,
+          "low_mps": 1.0,
+          "time_fraction": 0.0
+        }
+      ],
+      "pooled_q95": {
+        "bin_high_mps": 0.075,
+        "bin_low_mps": 0.05,
+        "conservative_upper_mps": 0.075,
+        "quantile": 0.95
+      },
+      "success_count": 3
+    },
+    "0.200": {
+      "all_success": true,
+      "episodes": 3,
+      "friction_mu": 0.2,
+      "median_applied_vx_mps": 0.21884840959135224,
+      "median_established_rms_mps": 0.037398946901581555,
+      "median_m4_interventions": 0.0,
+      "median_progress_m": 1.6505814659732188,
+      "pooled_fraction_above_deadband": 0.18259045621396286,
+      "pooled_histogram": [
+        {
+          "contact_samples": 16572,
+          "contact_time_s": 33.143999999994016,
+          "high_mps": 0.0005,
+          "low_mps": 0.0,
+          "time_fraction": 0.5793392763502563
+        },
+        {
+          "contact_samples": 4391,
+          "contact_time_s": 8.781999999999563,
+          "high_mps": 0.001,
+          "low_mps": 0.0005,
+          "time_fraction": 0.1535046320573442
+        },
+        {
+          "contact_samples": 1724,
+          "contact_time_s": 3.44799999999983,
+          "high_mps": 0.0015,
+          "low_mps": 0.001,
+          "time_fraction": 0.06026918370914632
+        },
+        {
+          "contact_samples": 695,
+          "contact_time_s": 1.3899999999999288,
+          "high_mps": 0.002,
+          "low_mps": 0.0015,
+          "time_fraction": 0.02429645166929038
+        },
+        {
+          "contact_samples": 584,
+          "contact_time_s": 1.167999999999922,
+          "high_mps": 0.003,
+          "low_mps": 0.002,
+          "time_fraction": 0.020416011186856636
+        },
+        {
+          "contact_samples": 371,
+          "contact_time_s": 0.7419999999999511,
+          "high_mps": 0.004,
+          "low_mps": 0.003,
+          "time_fraction": 0.012969760531376402
+        },
+        {
+          "contact_samples": 345,
+          "contact_time_s": 0.6899999999999633,
+          "high_mps": 0.005,
+          "low_mps": 0.004,
+          "time_fraction": 0.012060828526482251
+        },
+        {
+          "contact_samples": 390,
+          "contact_time_s": 0.7799999999999692,
+          "high_mps": 0.006,
+          "low_mps": 0.005,
+          "time_fraction": 0.013633980073414905
+        },
+        {
+          "contact_samples": 394,
+          "contact_time_s": 0.7879999999999652,
+          "high_mps": 0.008,
+          "low_mps": 0.006,
+          "time_fraction": 0.013773815766475506
+        },
+        {
+          "contact_samples": 244,
+          "contact_time_s": 0.48799999999997123,
+          "high_mps": 0.01,
+          "low_mps": 0.008,
+          "time_fraction": 0.008529977276700441
+        },
+        {
+          "contact_samples": 295,
+          "contact_time_s": 0.5899999999999685,
+          "high_mps": 0.0125,
+          "low_mps": 0.01,
+          "time_fraction": 0.010312882363223953
+        },
+        {
+          "contact_samples": 186,
+          "contact_time_s": 0.37199999999998745,
+          "high_mps": 0.015,
+          "low_mps": 0.0125,
+          "time_fraction": 0.006502359727320993
+        },
+        {
+          "contact_samples": 340,
+          "contact_time_s": 0.6799999999999637,
+          "high_mps": 0.02,
+          "low_mps": 0.015,
+          "time_fraction": 0.01188603391015642
+        },
+        {
+          "contact_samples": 462,
+          "contact_time_s": 0.9239999999999466,
+          "high_mps": 0.03,
+          "low_mps": 0.02,
+          "time_fraction": 0.016151022548506592
+        },
+        {
+          "contact_samples": 360,
+          "contact_time_s": 0.7199999999999671,
+          "high_mps": 0.04,
+          "low_mps": 0.03,
+          "time_fraction": 0.012585212375459835
+        },
+        {
+          "contact_samples": 221,
+          "contact_time_s": 0.4419999999999844,
+          "high_mps": 0.05,
+          "low_mps": 0.04,
+          "time_fraction": 0.007725922041601812
+        },
+        {
+          "contact_samples": 277,
+          "contact_time_s": 0.5539999999999661,
+          "high_mps": 0.075,
+          "low_mps": 0.05,
+          "time_fraction": 0.00968362174445089
+        },
+        {
+          "contact_samples": 122,
+          "contact_time_s": 0.2439999999999931,
+          "high_mps": 0.1,
+          "low_mps": 0.075,
+          "time_fraction": 0.004264988638350352
+        },
+        {
+          "contact_samples": 146,
+          "contact_time_s": 0.2919999999999947,
+          "high_mps": 0.15,
+          "low_mps": 0.1,
+          "time_fraction": 0.005104002796714407
+        },
+        {
+          "contact_samples": 163,
+          "contact_time_s": 0.3259999999999965,
+          "high_mps": 0.2,
+          "low_mps": 0.15,
+          "time_fraction": 0.005698304492222291
+        },
+        {
+          "contact_samples": 194,
+          "contact_time_s": 0.3879999999999999,
+          "high_mps": 0.3,
+          "low_mps": 0.2,
+          "time_fraction": 0.006782031113442552
+        },
+        {
+          "contact_samples": 129,
+          "contact_time_s": 0.25800000000000023,
+          "high_mps": 0.5,
+          "low_mps": 0.3,
+          "time_fraction": 0.004509701101206651
+        },
+        {
+          "contact_samples": 0,
+          "contact_time_s": 0.0,
+          "high_mps": 1.0,
+          "low_mps": 0.5,
+          "time_fraction": 0.0
+        },
+        {
+          "contact_samples": 0,
+          "contact_time_s": 0.0,
+          "high_mps": null,
+          "low_mps": 1.0,
+          "time_fraction": 0.0
+        }
+      ],
+      "pooled_q95": {
+        "bin_high_mps": 0.04,
+        "bin_low_mps": 0.03,
+        "conservative_upper_mps": 0.04,
+        "quantile": 0.95
+      },
+      "success_count": 3
+    }
+  },
+  "nominal_low_friction_mu": 0.152,
+  "scene": "flat",
+  "schema": "icra27_os_t4p1d3_friction_boundary_v0",
+  "scope": "TRAIN-only low-friction-context friction-boundary characterization",
+  "slip_deadband_mps": 0.002,
+  "terrain_preset": "low_friction",
+  "train_seeds": [
+    27200,
+    27201,
+    27202
+  ]
+}

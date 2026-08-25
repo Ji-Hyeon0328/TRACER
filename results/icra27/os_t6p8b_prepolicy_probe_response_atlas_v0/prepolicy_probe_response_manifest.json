@@ -1,0 +1,109 @@
+{
+  "candidate_causal_probe_features": [
+    "probe_progress_m",
+    "delta_vx_mps",
+    "delta_vy_mps",
+    "delta_yaw_rate_rps",
+    "delta_base_z_m",
+    "delta_roll_rad",
+    "delta_pitch_rad"
+  ],
+  "contexts": 33,
+  "decision_dt_s": 0.2,
+  "diagnostic_only_fields": [
+    "safety_state",
+    "override_active",
+    "m4_intervention",
+    "eval_stance_slip",
+    "traction_interval_contact_dt_s",
+    "traction_interval_cost"
+  ],
+  "extension_contexts": 15,
+  "fixed_beta": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.3333333333333333
+  ],
+  "fixed_beta_semantics": "Only required by the beta-conditioned environment wrapper. T6.8a verified that the fixed five-step physical probe is beta-independent on the audited representative TRAIN terrains.",
+  "heldout_used": false,
+  "interpretation": "This atlas freezes the robot response to a fixed nominal-motion probe before beta-conditioned learned-policy action. It is an identifiability diagnostic; it does not establish that active probing is safe or appropriate for the final Objective Selector.",
+  "original_contexts": 18,
+  "probe_horizons_s": [
+    0.0,
+    0.2,
+    0.4,
+    0.6000000000000001,
+    0.8,
+    1.0
+  ],
+  "probe_steps": 5,
+  "recovery": {
+    "performed": true,
+    "reason": "Original T6.8b rollout completed all 33 contexts but failed at the final OUT_DIR.mkdir because environment logging had already created the directory.",
+    "simulation_rerun": false,
+    "source_logs": 33
+  },
+  "safety_by_horizon": {
+    "0": {
+      "counts": {
+        "normal": 33
+      },
+      "time_s": 0.0
+    },
+    "1": {
+      "counts": {
+        "normal": 32,
+        "watch": 1
+      },
+      "time_s": 0.2
+    },
+    "2": {
+      "counts": {
+        "normal": 33
+      },
+      "time_s": 0.4
+    },
+    "3": {
+      "counts": {
+        "normal": 32,
+        "watch": 1
+      },
+      "time_s": 0.6000000000000001
+    },
+    "4": {
+      "counts": {
+        "normal": 32,
+        "watch": 1
+      },
+      "time_s": 0.8
+    },
+    "5": {
+      "counts": {
+        "normal": 27,
+        "watch": 6
+      },
+      "time_s": 1.0
+    }
+  },
+  "schema": "icra27_os_t6p8b_prepolicy_probe_response_atlas_v0",
+  "status": "FREEZE_PASS",
+  "t6p8a_regression": {
+    "available": true,
+    "comparisons": [
+      {
+        "max_abs_diff": 0.0,
+        "seed": 13
+      },
+      {
+        "max_abs_diff": 0.0,
+        "seed": 4
+      },
+      {
+        "max_abs_diff": 0.0,
+        "seed": 22
+      }
+    ],
+    "max_abs_diff": 0.0,
+    "pass": true
+  }
+}

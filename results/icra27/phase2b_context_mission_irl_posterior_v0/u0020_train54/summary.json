@@ -1,0 +1,45 @@
+{
+  "schema": "icra27_phase2b_context_mission_irl_posterior_v0",
+  "latent_preference_unit": "exact context x mission family",
+  "context_mission_count": 162,
+  "unique_signature_count": 760,
+  "selected_kappa": 749.8942093324558,
+  "simplex_step": 0.01,
+  "simplex_grid_count": 5151,
+  "posterior_entropy_normalized": {
+    "mean": 0.8901830213698297,
+    "median": 0.8972328018388446,
+    "min": 0.7632505159800315,
+    "max": 0.9862926963700284
+  },
+  "by_mission": {
+    "fast": {
+      "count": 54,
+      "entropy_mean": 0.878341929258085,
+      "entropy_median": 0.8783220714267462,
+      "entropy_min": 0.7632505159800315,
+      "entropy_max": 0.9862926963700284,
+      "information_gain_mean": 1.03980497929119,
+      "unique_signature_mean": 4.851851851851852
+    },
+    "stable": {
+      "count": 54,
+      "entropy_mean": 0.8777211252826883,
+      "entropy_median": 0.8729281783767006,
+      "entropy_min": 0.7695161693173181,
+      "entropy_max": 0.9813240894972645,
+      "information_gain_mean": 1.0451109574383401,
+      "unique_signature_mean": 5.333333333333333
+    },
+    "efficient": {
+      "count": 54,
+      "entropy_mean": 0.9144860095687167,
+      "entropy_median": 0.9172694405157693,
+      "entropy_min": 0.8040428902387631,
+      "entropy_max": 0.9681104228973185,
+      "information_gain_mean": 0.7308834712506438,
+      "unique_signature_mean": 3.888888888888889
+    }
+  },
+  "interpretation_note": "Posterior width measures reward identifiability under multiple unique synthetic mission-local choice queries. It is not statistical confidence from independent human demonstrations."
+}

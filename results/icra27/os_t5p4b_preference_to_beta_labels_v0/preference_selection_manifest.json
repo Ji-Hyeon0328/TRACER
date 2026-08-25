@@ -1,0 +1,129 @@
+{
+  "context_slots": 9,
+  "deterministic_checks": {
+    "flat": {
+      "context_slots": 3,
+      "selection_maps_identical": true
+    },
+    "low_friction": {
+      "context_slots": 3,
+      "selection_maps_identical": true
+    }
+  },
+  "global_normalization_preserved": "results/icra27/os_t5p3b_physical_atlas_normalization_v0/normalization_stats.json",
+  "global_normalization_role": "Frozen cross-context reporting standardization; not replaced or modified by T5.4b.",
+  "labels": 225,
+  "next_stage": "OS-T5.5 supervised Objective Selector learning: (c,w) -> beta*",
+  "scalarization": {
+    "direction": "lower_is_better",
+    "formula": "max_k(w_k * r_k) + rho * sum_k(w_k * r_k)",
+    "rho": 0.01,
+    "type": "augmented_weighted_tchebycheff"
+  },
+  "schema": "icra27_os_t5p4b_preference_to_beta_labels_v0",
+  "selection_diversity": {
+    "flat/27100": {
+      "selected_beta_names": [
+        "lm100_ls000_le000"
+      ],
+      "unique_selected_betas": 1
+    },
+    "flat/27101": {
+      "selected_beta_names": [
+        "lm100_ls000_le000"
+      ],
+      "unique_selected_betas": 1
+    },
+    "flat/27102": {
+      "selected_beta_names": [
+        "lm100_ls000_le000"
+      ],
+      "unique_selected_betas": 1
+    },
+    "low_friction/27200": {
+      "selected_beta_names": [
+        "lm000_ls080_le020",
+        "lm020_ls080_le000",
+        "lm040_ls060_le000",
+        "lm060_ls040_le000",
+        "lm080_ls020_le000",
+        "lm100_ls000_le000"
+      ],
+      "unique_selected_betas": 6
+    },
+    "low_friction/27201": {
+      "selected_beta_names": [
+        "lm000_ls080_le020",
+        "lm020_ls080_le000",
+        "lm040_ls060_le000",
+        "lm060_ls040_le000",
+        "lm080_ls020_le000",
+        "lm100_ls000_le000"
+      ],
+      "unique_selected_betas": 6
+    },
+    "low_friction/27202": {
+      "selected_beta_names": [
+        "lm000_ls080_le020",
+        "lm020_ls080_le000",
+        "lm040_ls060_le000",
+        "lm060_ls040_le000",
+        "lm080_ls020_le000",
+        "lm100_ls000_le000"
+      ],
+      "unique_selected_betas": 6
+    },
+    "rough/13": {
+      "selected_beta_names": [
+        "lm020_ls000_le080",
+        "lm020_ls060_le020",
+        "lm040_ls000_le060",
+        "lm040_ls020_le040",
+        "lm040_ls060_le000",
+        "lm060_ls000_le040",
+        "lm080_ls020_le000",
+        "lm100_ls000_le000"
+      ],
+      "unique_selected_betas": 8
+    },
+    "rough/15": {
+      "selected_beta_names": [
+        "lm000_ls040_le060",
+        "lm000_ls060_le040",
+        "lm000_ls080_le020",
+        "lm020_ls040_le040",
+        "lm020_ls060_le020",
+        "lm040_ls060_le000",
+        "lm060_ls040_le000",
+        "lm080_ls020_le000"
+      ],
+      "unique_selected_betas": 8
+    },
+    "rough/7": {
+      "selected_beta_names": [
+        "lm000_ls040_le060",
+        "lm000_ls060_le040",
+        "lm000_ls100_le000",
+        "lm020_ls020_le060",
+        "lm020_ls080_le000",
+        "lm040_ls020_le040",
+        "lm040_ls040_le020",
+        "lm080_ls020_le000",
+        "lm100_ls000_le000"
+      ],
+      "unique_selected_betas": 9
+    }
+  },
+  "selection_normalization": {
+    "formula": "(J_k - ideal_k(c)) / (nadir_k(c) - ideal_k(c))",
+    "heldout_used": false,
+    "scope": "TRAIN-only Pareto front",
+    "type": "context_pareto_ideal_nadir_regret",
+    "zero_span_rule": "regret_k = 0"
+  },
+  "source_pareto_front": "results/icra27/os_t5p4a_context_pareto_audit_v0/pareto_front.csv",
+  "source_pareto_sha256": "930fa4f7fe5dcf7703308f973fa73afba5a14ea6f029a21f5fc120d18b060351",
+  "status": "FREEZE_PASS",
+  "w_count": 25,
+  "w_semantics": "w specifies relative mission priority over attainable physical regret. It is distinct from beta, which is the internal planner conditioning variable."
+}

@@ -1,0 +1,111 @@
+{
+  "development_data_policy": {
+    "heldout_policy": "Held-out contexts remain evaluation-only and must not be used to tune metric definitions or normalization.",
+    "heldout_used_for_metric_design": false,
+    "metric_design": "TRAIN-only"
+  },
+  "feasibility_contract": {
+    "requirements": [
+      "successful task completion",
+      "no unsafe/M4 terminal event",
+      "positive task progress"
+    ],
+    "role": "Feasibility is evaluated before preference ranking.",
+    "semantic_note": "Infeasible trajectories are not rescued by favorable motion, stability, or energy trade-offs."
+  },
+  "next_stage": {
+    "id": "OS-T5.3",
+    "name": "TRAIN beta-response atlas",
+    "purpose": "Map context and beta to physical trajectory outcomes (J_M, J_S, J_E) before learning the Objective Selector."
+  },
+  "normalization_contract": {
+    "candidate_formula": "(J_k - median_train(J_k)) / (IQR_train(J_k) + epsilon)",
+    "heldout_leakage_prohibited": true,
+    "method": "TRAIN-only robust centering/scaling using the complete feasible beta-response atlas.",
+    "note": "Metric definitions are frozen before the beta sweep; only normalization constants remain to be estimated.",
+    "statistics_freeze_time": "after OS-T5.3 TRAIN beta-response atlas",
+    "status": "DEFINITION_FROZEN_VALUES_PENDING"
+  },
+  "preference_vector": {
+    "components": [
+      "w_M",
+      "w_S",
+      "w_E"
+    ],
+    "important_distinction": "w is not beta. w specifies what physical outcome is desired; beta is the internal planner/reward conditioning variable used to realize that preference.",
+    "semantic": "External mission preference over normalized physical motion, stability, and energy outcomes.",
+    "simplex_constraint": "w_k >= 0 and w_M + w_S + w_E = 1",
+    "symbol": "w"
+  },
+  "primary_objectives": {
+    "energy": {
+      "direction": "lower_is_better",
+      "formula": "energy_abs_j / progress_m",
+      "note": "Mean mechanical power is retained as a diagnostic but is not the external mission-level energy objective.",
+      "semantic": "absolute mechanical work required per meter of task progress",
+      "symbol": "J_E",
+      "unit": "J/m"
+    },
+    "motion": {
+      "direction": "lower_is_better",
+      "formula": "decision_time_s / progress_m",
+      "semantic": "time required per meter of task progress",
+      "symbol": "J_M",
+      "unit": "s/m"
+    },
+    "stability": {
+      "attitude_component": {
+        "formula": "max(roll_rms_rad/roll_unsafe_rad,pitch_rms_rad/pitch_unsafe_rad)",
+        "pitch_unsafe_rad": 0.2617993877991494,
+        "roll_unsafe_rad": 0.2617993877991494,
+        "semantic": "RMS body-attitude burden relative to the frozen unsafe attitude boundary",
+        "symbol": "J_S_attitude"
+      },
+      "composition_reason": "max composition avoids introducing an arbitrary attitude-vs-slip weight before preference learning and preserves the dominant physical stability burden.",
+      "direction": "lower_is_better",
+      "formula": "max(J_S_attitude,J_S_slip)",
+      "slip_component": {
+        "formula": "established-contact time fraction with |foot slip speed| >= 0.002 m/s",
+        "semantic": "meaningful established-stance slip burden",
+        "symbol": "J_S_slip",
+        "threshold_mps": 0.002
+      },
+      "symbol": "J_S",
+      "unit": "dimensionless"
+    }
+  },
+  "principle": "External mission preference w is defined over physical trajectory outcomes and is intentionally distinct from internal RL reward conditioning beta.",
+  "schema": "icra27_os_t5p2b_physical_preference_contract_v0",
+  "scope": "External physical/task preference semantics for Objective Selector development.",
+  "source": "results/icra27/os_t5p2a2_train_raw_physical_alignment_v0/episode_physical_metrics.csv",
+  "source_sha256": "56ba3cb8ead10f0ab27e031bfd3194338c7d198c3841fc662e83786728b32380",
+  "status": "FROZEN_BEFORE_BETA_RESPONSE_ATLAS",
+  "tail_risk_diagnostics": {
+    "metrics": [
+      {
+        "direction": "lower_is_better",
+        "name": "max_abs_roll_rad"
+      },
+      {
+        "direction": "lower_is_better",
+        "name": "max_abs_pitch_rad"
+      },
+      {
+        "direction": "lower_is_better",
+        "name": "established_slip_fraction_ge_0p05",
+        "threshold_mps": 0.05
+      },
+      {
+        "direction": "lower_is_better",
+        "name": "established_slip_fraction_ge_0p10",
+        "threshold_mps": 0.1
+      }
+    ],
+    "role": "Safety/risk diagnostics are reported separately from nominal J_S and are not silently averaged into the primary preference scalar."
+  },
+  "validation": {
+    "max_J_energy_reconstruction_error": 0.0,
+    "max_J_motion_reconstruction_error": 0.0,
+    "trajectories_checked": 36
+  }
+}

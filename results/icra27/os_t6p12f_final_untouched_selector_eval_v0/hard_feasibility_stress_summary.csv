@@ -1,0 +1,4 @@
+context_id,seed,split_group,beta_candidates,feasible_beta_rows,lattice_feasible,oracle_defined,selector_Q_defined,m4_rows,settling_fail_rows,status_counts_json,interpretation
+rough_seed_9,9,hard,21,0,0,0,0,21,0,"{""m4"": 21}",Frozen policy/controller candidate lattice infeasible; not a beta-selection score.
+rough_seed_23,23,hard,21,0,0,0,0,21,0,"{""m4"": 21}",Frozen policy/controller candidate lattice infeasible; not a beta-selection score.
+rough_seed_24,24,hard,21,0,0,0,0,0,21,"{""settling_fail"": 21}",Frozen policy/controller candidate lattice infeasible; not a beta-selection score.

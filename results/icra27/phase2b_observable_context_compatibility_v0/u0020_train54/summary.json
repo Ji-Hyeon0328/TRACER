@@ -1,0 +1,9 @@
+{
+  "schema": "icra27_phase2b_observable_context_compatibility_v0",
+  "observable_selector_input": "terrain class x mission family",
+  "observable_group_count": 9,
+  "exact_contexts_per_group": 18,
+  "pairwise_comparisons_per_group": 153,
+  "interpretation": "Measures whether exact-context IRL posteriors are mutually compatible when the deployed selector can only observe terrain class and mission.",
+  "important_note": "No scientific PASS threshold is defined post hoc. Results are used to decide whether richer context features are required."
+}

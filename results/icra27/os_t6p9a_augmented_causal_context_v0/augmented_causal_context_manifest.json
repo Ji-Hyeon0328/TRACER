@@ -1,0 +1,84 @@
+{
+  "causal_boundary": "All augmented features are available at or before the end of the fixed 0.4 s beta-independent nominal-motion probe, prior to the first learned beta-conditioned policy action.",
+  "contexts": 33,
+  "explicitly_excluded": [
+    "reward_components",
+    "physical J labels",
+    "Q labels",
+    "selected beta",
+    "post-probe learned-policy trajectory",
+    "future energy",
+    "future stability",
+    "future slip",
+    "terminal success",
+    "M4 future outcome",
+    "safety_state as model feature"
+  ],
+  "extension_rough_train": 15,
+  "feature_group_ranges": {
+    "probe_response": {
+      "max": 0.27564385533332825,
+      "min": -0.19951947033405304
+    },
+    "proprioceptive": {
+      "max": 0.7628955841064453,
+      "min": -0.19951947033405304
+    },
+    "semantic": {
+      "max": 2.8342033898952197,
+      "min": -0.20936120245039697
+    }
+  },
+  "heldout_used": false,
+  "interaction_response_features": [
+    "probe_progress_m",
+    "delta_vx_mps",
+    "delta_vy_mps",
+    "delta_yaw_rate_rps",
+    "delta_base_z_m",
+    "delta_roll_rad",
+    "delta_pitch_rad"
+  ],
+  "nonnormal_at_0p4s": [],
+  "nonnormal_at_0p4s_count": 0,
+  "original_rough_train": 18,
+  "probe_horizon_selection_semantics": "0.4 s was selected from TRAIN-only T6.8c diagnostic results as the short interaction horizon with the best observed selector-quality / safety-exposure tradeoff. It was not predeclared before T6.8c.",
+  "probe_safety_state_used_as_feature": false,
+  "proprioceptive_features": [
+    "vx_mps",
+    "vy_mps",
+    "yaw_rate_rps",
+    "base_z_m",
+    "roll_rad",
+    "pitch_rad"
+  ],
+  "representations": {
+    "semantic_only": {
+      "components": [
+        "semantic terrain descriptor"
+      ],
+      "dim": 74
+    },
+    "semantic_plus_probe": {
+      "components": [
+        "74D semantic terrain descriptor",
+        "7D 0.4 s interaction response"
+      ],
+      "dim": 81
+    },
+    "semantic_plus_prop_probe": {
+      "components": [
+        "74D semantic terrain descriptor",
+        "6D absolute proprioceptive boundary state",
+        "7D 0.4 s interaction response"
+      ],
+      "dim": 87
+    }
+  },
+  "schema": "icra27_os_t6p9a_augmented_causal_context_v0",
+  "scientific_role": "Freeze causal Objective Selector context candidates for controlled comparison of terrain-only, terrain+interaction, and terrain+absolute proprioception+interaction representations.",
+  "selected_probe_step": 2,
+  "selected_probe_time_s": 0.4,
+  "source_probe_regression_pass": true,
+  "status": "FREEZE_PASS"
+}

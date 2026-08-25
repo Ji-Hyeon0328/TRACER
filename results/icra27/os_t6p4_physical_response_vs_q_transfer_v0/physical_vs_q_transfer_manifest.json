@@ -1,0 +1,24 @@
+{
+  "aggregate": {
+    "Q_best_second_gap_max": 0.1603255211117226,
+    "Q_best_second_gap_median": 0.007050000379668284,
+    "Q_best_second_gap_min": 0.00053251138278812,
+    "Q_relative_gap_median": 0.016244037400063274,
+    "contexts_Jmean_above_Q": 13,
+    "rho_J_energy_mean": 0.13953823953823952,
+    "rho_J_motion_mean": 0.9466089466089466,
+    "rho_J_objective_mean": 0.40276575276575277,
+    "rho_J_stability_mean": 0.12215007215007215,
+    "rho_Jmean_minus_Q_mean": 0.11979316979316981,
+    "rho_Q_mean": 0.28297258297258293
+  },
+  "heldout_used": false,
+  "interpretation_rule": {
+    "J_high_Q_low": "Physical response surfaces transfer but Q construction destroys useful ordering; inspect local normalization/Pareto scalarization.",
+    "J_low_Q_low": "Physical beta-response surfaces themselves are weakly transferable between geometrically similar terrains; do not continue terrain-grid resolution or ordinary ranking-model tuning."
+  },
+  "purpose": "Separate physical beta-response transferability from conditioning introduced by context-local balanced Q construction.",
+  "schema": "icra27_os_t6p4_physical_response_vs_q_transfer_v0",
+  "source_nearest_neighbors": "Frozen T6.3b 16x12 terrain-context nearest-neighbor pairs.",
+  "status": "COMPUTE_PASS"
+}

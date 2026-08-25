@@ -1,0 +1,6 @@
+{
+  "schema": "icra27_phase2b_shared_support_semantics_v0",
+  "purpose": "Separate preference-data identifiability from Boltzmann margin-likelihood bias.",
+  "support_definition": "beta dot (C_alternative-C_selected) >= 0",
+  "support_measure": "exact convex polygon area inside the beta simplex"
+}

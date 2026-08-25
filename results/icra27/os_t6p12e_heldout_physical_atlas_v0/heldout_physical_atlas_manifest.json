@@ -1,0 +1,51 @@
+{
+  "artifact_hashes": {
+    "context_feasibility_summary.csv": "5d22b3437a9bb589db3002af0719c4983b055457d836c8b0e4027423bdbb75a6",
+    "episodes.csv": "beb9c0caec00da891426f00840b326b1bc4cd9f02b9ffc44ba1a38ea63869ebb",
+    "heldout_physical_beta_response_atlas.csv": "c7d41e0571aaf1ab6cecbc65f35eb97fa8ccc650e44d6c3317d72a09690e62fd"
+  },
+  "beta_points": 21,
+  "checkpoint": "results/icra27/phase1a_beta_conditioned_v4_seed27027/checkpoint_update_0030.pt",
+  "contexts": 12,
+  "episodes": 252,
+  "feasibility_contract": "success AND no M4 AND positive progress",
+  "feasible_rows": 189,
+  "full_21_beta_feasible_contexts": [
+    "rough_seed_1",
+    "rough_seed_21",
+    "rough_seed_16",
+    "rough_seed_14",
+    "rough_seed_27",
+    "rough_seed_2",
+    "rough_seed_3",
+    "rough_seed_19",
+    "rough_seed_26"
+  ],
+  "full_21_beta_feasible_count": 9,
+  "infeasible_candidate_scoring_contract": "T6.12f assigns true Q=+inf to infeasible beta candidates. A precommitted infeasible selection is retained as selector failure; no post-hoc reselection.",
+  "infeasible_rows": 63,
+  "m4_interventions_total": 42,
+  "next_stage": "T6.12f evaluates the already-precommitted selector and TRAIN-only baselines against this frozen heldout physical atlas.",
+  "partial_beta_feasible_contexts": [],
+  "partial_beta_feasible_count": 0,
+  "physical_contract": "results/icra27/os_t5p2b_physical_preference_contract_v0/physical_preference_contract.json",
+  "policy_horizon": 50,
+  "reward_mode": "tracer_cost_v4",
+  "schema": "icra27_os_t6p12e_heldout_physical_atlas_v0",
+  "scientific_result_interpreted": false,
+  "selector_precommit_sha256": "f47afcb542d279d51d00e4cec1d77945af7becfdb60039a1ad7e7ec91905e1da",
+  "selector_precommitted_before_outcomes": true,
+  "settling_steps": 5,
+  "stability_dominance_feasible_rows": {
+    "attitude": 189
+  },
+  "status": "FREEZE_PASS",
+  "success_rows": 189,
+  "zero_feasible_context_contract": "Oracle/rank undefined; context reported explicitly as lattice infeasible and never replaced.",
+  "zero_feasible_contexts": [
+    "rough_seed_9",
+    "rough_seed_23",
+    "rough_seed_24"
+  ],
+  "zero_feasible_count": 3
+}

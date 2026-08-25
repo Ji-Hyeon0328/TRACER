@@ -1,0 +1,13 @@
+context_id,seed,split_group,beta_rows,feasible_beta_rows,infeasible_beta_rows,success_rows,m4_rows,grid_class
+rough_seed_1,1,val,21,21,0,21,0,full_21_beta_feasible
+rough_seed_21,21,val,21,21,0,21,0,full_21_beta_feasible
+rough_seed_16,16,val,21,21,0,21,0,full_21_beta_feasible
+rough_seed_14,14,val,21,21,0,21,0,full_21_beta_feasible
+rough_seed_27,27,test,21,21,0,21,0,full_21_beta_feasible
+rough_seed_2,2,test,21,21,0,21,0,full_21_beta_feasible
+rough_seed_3,3,test,21,21,0,21,0,full_21_beta_feasible
+rough_seed_19,19,test,21,21,0,21,0,full_21_beta_feasible
+rough_seed_26,26,test,21,21,0,21,0,full_21_beta_feasible
+rough_seed_9,9,hard,21,0,21,0,21,zero_feasible_beta
+rough_seed_23,23,hard,21,0,21,0,21,zero_feasible_beta
+rough_seed_24,24,hard,21,0,21,0,0,zero_feasible_beta

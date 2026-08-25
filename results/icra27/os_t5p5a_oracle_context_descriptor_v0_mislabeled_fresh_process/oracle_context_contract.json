@@ -1,0 +1,35 @@
+{
+  "context_count": 20,
+  "context_vector": [
+    "friction_mu",
+    "height_std_m",
+    "height_relief_p95_p05_m",
+    "slope_rms",
+    "slope_q95"
+  ],
+  "corridor": {
+    "aligned_with": "actual seeded reset yaw",
+    "goal_distance_m": 0.5,
+    "lateral_half_width": "2 * active robot hip height",
+    "longitudinal_margin": "2 * active robot hip height before reset and beyond goal"
+  },
+  "does_not_modify_frozen_ppo_observation": true,
+  "heldout_used": false,
+  "hip_height_m": 0.28,
+  "next_stage": "OS-T5.5b remaining 15 rough TRAIN beta-response atlas expansion",
+  "robot": "go2",
+  "role": "Objective-Selector-only oracle physical terrain context",
+  "rough_train_seeds_only": true,
+  "runtime_semantics_match": "Matches M7 environment behavior where reset(seed) launches a fresh terrain runner subprocess.",
+  "schema": "icra27_os_t5p5a_oracle_context_descriptor_v0",
+  "semantics": {
+    "friction_mu": "terrain tangential friction coefficient",
+    "height_relief_p95_p05_m": "local robust vertical relief Q95(h)-Q05(h)",
+    "height_std_m": "local reset-to-goal corridor height standard deviation",
+    "slope_q95": "local 95th percentile height-gradient magnitude",
+    "slope_rms": "local RMS magnitude of physical height gradient"
+  },
+  "status": "FREEZE_PASS",
+  "terrain_geometry_source": "compiled MuJoCo hfield_data from a fresh Python subprocess per TRAIN seed under the validated seeded Perlin hooks",
+  "unique_physical_contexts": "1 flat + 1 low_friction + 18 rough TRAIN realizations"
+}

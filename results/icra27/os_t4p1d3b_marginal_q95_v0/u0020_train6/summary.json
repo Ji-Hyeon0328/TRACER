@@ -1,0 +1,89 @@
+{
+  "marginal_viable_mu": 0.152,
+  "nearest_failure_mu": 0.151,
+  "results": {
+    "0.151": {
+      "per_episode_q95": [
+        {
+          "bin_high_mps": 1.0,
+          "bin_low_mps": 0.5,
+          "conservative_upper_mps": 1.0,
+          "quantile": 0.95
+        },
+        {
+          "bin_high_mps": 1.0,
+          "bin_low_mps": 0.5,
+          "conservative_upper_mps": 1.0,
+          "quantile": 0.95
+        },
+        {
+          "bin_high_mps": 1.0,
+          "bin_low_mps": 0.5,
+          "conservative_upper_mps": 1.0,
+          "quantile": 0.95
+        }
+      ],
+      "q90": {
+        "bin_high_mps": 1.0,
+        "bin_low_mps": 0.5,
+        "conservative_upper_mps": 1.0,
+        "quantile": 0.9
+      },
+      "q95": {
+        "bin_high_mps": 1.0,
+        "bin_low_mps": 0.5,
+        "conservative_upper_mps": 1.0,
+        "quantile": 0.95
+      },
+      "q975": {
+        "bin_high_mps": 1.0,
+        "bin_low_mps": 0.5,
+        "conservative_upper_mps": 1.0,
+        "quantile": 0.975
+      },
+      "success_count": 0
+    },
+    "0.152": {
+      "per_episode_q95": [
+        {
+          "bin_high_mps": 0.15,
+          "bin_low_mps": 0.125,
+          "conservative_upper_mps": 0.15,
+          "quantile": 0.95
+        },
+        {
+          "bin_high_mps": 0.16,
+          "bin_low_mps": 0.155,
+          "conservative_upper_mps": 0.16,
+          "quantile": 0.95
+        },
+        {
+          "bin_high_mps": 0.15,
+          "bin_low_mps": 0.125,
+          "conservative_upper_mps": 0.15,
+          "quantile": 0.95
+        }
+      ],
+      "q90": {
+        "bin_high_mps": 0.1,
+        "bin_low_mps": 0.075,
+        "conservative_upper_mps": 0.1,
+        "quantile": 0.9
+      },
+      "q95": {
+        "bin_high_mps": 0.15,
+        "bin_low_mps": 0.125,
+        "conservative_upper_mps": 0.15,
+        "quantile": 0.95
+      },
+      "q975": {
+        "bin_high_mps": 0.275,
+        "bin_low_mps": 0.25,
+        "conservative_upper_mps": 0.275,
+        "quantile": 0.975
+      },
+      "success_count": 3
+    }
+  },
+  "schema": "icra27_os_t4p1d3b_marginal_q95_v0"
+}

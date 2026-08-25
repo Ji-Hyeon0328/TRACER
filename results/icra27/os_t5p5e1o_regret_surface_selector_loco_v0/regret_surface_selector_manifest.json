@@ -1,0 +1,42 @@
+{
+  "aggregate": {
+    "held_regret_mae": 4.206344379750319,
+    "held_regret_mae_median": 2.3530714287291183,
+    "held_regret_mae_p95": 14.891109439081996,
+    "selector_exact_accuracy": 0.12444444444444444,
+    "selector_physical_linf_mean_iqr": 0.17624630483525583,
+    "selector_physical_linf_median_iqr": 0.08764722485839466,
+    "selector_physical_linf_p95_iqr": 0.71003458394881,
+    "selector_score_excess_le_0p05_fraction": 0.24222222222222223,
+    "selector_score_excess_max": 5.814404789527853,
+    "selector_score_excess_mean": 0.47177999592109976,
+    "selector_score_excess_median": 0.22519264392316424,
+    "selector_score_excess_p95": 1.9052573003368392
+  },
+  "comparison_reference": {
+    "direct_5d_e1_score_mean": 0.47897,
+    "direct_5d_e1_score_p95": 1.38192,
+    "response_model_e1n_score_mean": 0.593000248248252,
+    "response_model_e1n_score_p95": 2.6268095870497663
+  },
+  "dense_supervision": "19 TRAIN contexts x 21 beta points = 399 context-local normalized regret vectors per fold",
+  "folds": 18,
+  "global_iqr_reporting_only": [
+    0.16126301072742333,
+    0.11078278215759008,
+    12.452713540840207
+  ],
+  "heldout_used": false,
+  "interpretation_guard": "TRAIN rough-context LOCO only. No validation/test/hard terrain is used. Frozen T5.5d labels and scalarization remain unchanged.",
+  "next_stage": "If TRAIN regret fit is good but held regret prediction remains poor, terrain representation is the remaining bottleneck. If TRAIN regret fit is poor, upgrade only the forward response surrogate before considering a richer terrain encoder.",
+  "response_model": {
+    "alpha": 0.01,
+    "feature_map": "[1, c, lambda, c outer lambda, quadratic lambda]",
+    "type": "closed-form ridge"
+  },
+  "schema": "icra27_os_t5p5e1o_regret_surface_selector_loco_v0",
+  "selector": "Predict 21 normalized regret vectors and minimize the original augmented weighted Tchebycheff score for mission preference w.",
+  "status": "COMPUTE_PASS",
+  "target": "Frozen T5.5d normalized response/regret (J - ideal) / Pareto span",
+  "terrain_encoder": "strict fold-local PCA k95 from 17 rough TRAIN patches"
+}

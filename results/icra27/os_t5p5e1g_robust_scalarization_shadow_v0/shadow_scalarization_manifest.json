@@ -1,0 +1,22 @@
+{
+  "baseline_regression": "PASS",
+  "conditioning_metric": "best-vs-second shadow scalarization margin",
+  "floor_definition": "Per-objective quantile of positive context-local Pareto spans over the 20 TRAIN physical contexts.",
+  "frozen_t5p5d_modified": false,
+  "heldout_used": false,
+  "interpretation_guard": "Sensitivity study only. Do not adopt a robust floor or replace frozen T5.5d labels from this artifact alone.",
+  "next_stage": "Inspect whether conditioning and cross-context smoothness can improve without material sacrifice under the original frozen physical preference objective.",
+  "preservation_metric": "score sacrifice of the shadow-selected beta under the original frozen T5.5d scalarization relative to the frozen T5.5d oracle beta",
+  "rho": 0.01,
+  "schema": "icra27_os_t5p5e1g_robust_scalarization_shadow_v0",
+  "selection_domain": "unchanged context-local Pareto front",
+  "shadow_regret": "(J_k - ideal_k) / max(context Pareto span_k, delta_k)",
+  "status": "COMPUTE_PASS",
+  "transfer_metrics": "Existing v1 and v2 TRAIN-only nearest-context mappings are reused; no context descriptor or held-out experiment is recomputed.",
+  "variants": [
+    "baseline",
+    "q10",
+    "q25",
+    "q50"
+  ]
+}

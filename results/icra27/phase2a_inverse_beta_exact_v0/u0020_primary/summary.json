@@ -1,0 +1,34 @@
+{
+  "schema": "icra27_phase2a_inverse_beta_exact_v0",
+  "source_candidates": "results/icra27/phase2a_self_assessment_v0/u0020_primary/self_assessment_candidates.csv",
+  "support_definition": "exact LP over closed beta simplex; maximize minimum scalarized-cost margin",
+  "candidate_count": 116,
+  "pareto_candidate_count": 102,
+  "support_class_counts": {
+    "strict": 82,
+    "unsupported": 34
+  },
+  "pareto_support_class_counts": {
+    "strict": 82,
+    "unsupported": 20
+  },
+  "original_beta_consistency": {
+    "balanced": {
+      "consistent": 6,
+      "total": 29
+    },
+    "motion": {
+      "consistent": 28,
+      "total": 29
+    },
+    "stability": {
+      "consistent": 11,
+      "total": 29
+    },
+    "energy": {
+      "consistent": 10,
+      "total": 29
+    }
+  },
+  "important_note": "beta_hat is a max-margin representative of a possibly non-unique inverse-preference support region. It is not assumed to be the unique true preference."
+}

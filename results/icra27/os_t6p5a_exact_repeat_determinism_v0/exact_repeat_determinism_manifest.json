@@ -1,0 +1,34 @@
+{
+  "aggregate": {
+    "canonical_log_exact_fraction": 1.0,
+    "cases": 12,
+    "episodes": 36,
+    "max_energy_abs_j_range": 0.0,
+    "max_pitch_rms_rad_range": 0.0,
+    "max_roll_rms_rad_range": 0.0,
+    "repeats_per_case": 3,
+    "row_exact_fraction": 1.0
+  },
+  "beta_names": [
+    "lm100_ls000_le000",
+    "lm000_ls100_le000",
+    "lm000_ls000_le100",
+    "lm040_ls040_le020"
+  ],
+  "canonical_log_hash": "SHA256 of the episode JSONL after removing only runner_pid.",
+  "checkpoint": "results/icra27/phase1a_beta_conditioned_v4_seed27027/checkpoint_update_0030.pt",
+  "decision_rule": "If row and canonical episode-log hashes are identical across repeats, single-rollout stochastic/numerical repeatability is not a plausible explanation for the weak cross-terrain J_stability/J_energy transfer observed in T6.4. If exact repeats differ, quantify runtime/contact nondeterminism before modifying the Objective Selector.",
+  "fresh_environment_each_repeat": true,
+  "heldout_used": false,
+  "policy_action": "deterministic tanh(mu)",
+  "repeats_per_case": 3,
+  "schema": "icra27_os_t6p5a_exact_repeat_determinism_v0",
+  "seed_semantics": "The same episode seed is propagated to the terrain-seeded PyMPC runner; terrain geometry is therefore held exactly fixed across repeats.",
+  "status": "COMPUTE_PASS",
+  "terrain": "rough_perlin",
+  "terrain_seeds": [
+    13,
+    4,
+    22
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "all_geometry_hashes_regressed": true,
+  "contexts": 33,
+  "controlled_change": "Sampling resolution only: 8x6 -> 16x12.",
+  "extension_rough_contexts": 15,
+  "extension_seeds": [
+    30,
+    31,
+    32,
+    33,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    44,
+    45,
+    47
+  ],
+  "height_reference": "Each sampled terrain height minus the bilinearly interpolated terrain height at the reset base x-y position.",
+  "heldout_used": false,
+  "next_step": "Strict LOCO 1-NN Q-surface identifiability audit using the 16x12 context.",
+  "original_rough_contexts": 18,
+  "original_seeds": [
+    13,
+    7,
+    15,
+    0,
+    5,
+    11,
+    4,
+    25,
+    12,
+    6,
+    29,
+    18,
+    10,
+    8,
+    22,
+    20,
+    28,
+    17
+  ],
+  "parent_patch_shape": [
+    8,
+    6
+  ],
+  "patch_dim": 192,
+  "patch_shape": [
+    16,
+    12
+  ],
+  "sampling_domain": {
+    "lateral_m": [
+      -0.56,
+      0.56
+    ],
+    "longitudinal_m": [
+      -0.56,
+      1.06
+    ]
+  },
+  "sampling_frame": "Frozen reset body/goal-aligned longitudinal-lateral frame.",
+  "schema": "icra27_os_t6p3a_highres_height_patches_v0",
+  "status": "FREEZE_PASS",
+  "unchanged_semantics": [
+    "same Perlin seed",
+    "same compiled MuJoCo hfield",
+    "same reset semantics",
+    "same reset body/goal-aligned frame",
+    "same longitudinal domain",
+    "same lateral domain",
+    "same bilinear interpolation",
+    "same start-height subtraction"
+  ],
+  "unique_global_hfields": 33
+}

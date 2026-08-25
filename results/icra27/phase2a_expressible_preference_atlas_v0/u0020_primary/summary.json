@@ -1,0 +1,40 @@
+{
+  "schema": "icra27_phase2a_expressible_preference_atlas_v0",
+  "self_assessment_source": "results/icra27/phase2a_self_assessment_v0/u0020_primary/self_assessment_candidates.csv",
+  "inverse_exact_source": "results/icra27/phase2a_inverse_beta_exact_v0/u0020_primary/inverse_beta_exact.csv",
+  "good_candidate_count": 102,
+  "expressible_good_candidate_count": 82,
+  "unsupported_good_candidate_count": 20,
+  "expressible_fraction_of_good": 0.803921568627451,
+  "source_beta_name_counts": {
+    "balanced": 17,
+    "energy": 14,
+    "motion": 29,
+    "stability": 22
+  },
+  "beta_hat_dominant_counts": {
+    "stability": 12,
+    "motion": 44,
+    "energy": 26
+  },
+  "beta_hat_interior_005_count": 0,
+  "max_margin_quantiles": {
+    "min": 2.4226303390519624e-06,
+    "q25": 0.0007233725341212689,
+    "median": 0.0038183022353960316,
+    "q75": 0.005292604546111249,
+    "max": 0.01595913165154217
+  },
+  "beta_hat_vs_generation_l1": {
+    "mean": 0.928707511527373,
+    "median": 0.6351710446440798,
+    "max": 1.7
+  },
+  "group_counts": {
+    "flat": 26,
+    "low_friction": 30,
+    "rough_test": 13,
+    "rough_validation": 13
+  },
+  "training_status": "NOT selector supervision yet: external expert/mission selection evidence is still required."
+}

@@ -1,0 +1,487 @@
+{
+  "checkpoints": {
+    "base_u30": "/mnt/share/nas/Yoo/Tracer/TRACER-ICRA27/results/icra27/phase1a_beta_conditioned_v3_seed27027/checkpoint_update_0030.pt"
+  },
+  "condition_order": [
+    "flat/balanced",
+    "flat/motion",
+    "flat/stability",
+    "flat/energy",
+    "low_friction/balanced",
+    "low_friction/motion",
+    "low_friction/stability",
+    "low_friction/energy",
+    "rough_perlin/balanced",
+    "rough_perlin/motion",
+    "rough_perlin/stability",
+    "rough_perlin/energy"
+  ],
+  "descriptive_conflict_rule": "median cosine < 0 and negative fraction >= 2/3 across repeats",
+  "gradient_definition": "PPO clipped actor surrogate gradient over shared body + mu_head; value_head and fixed exploration log_std excluded.",
+  "repeats": 1,
+  "runs": [
+    {
+      "aggregate_cosine": {
+        "body_only": {
+          "motion__energy": 0.007255211095822038,
+          "motion__stability": 0.238824810758949,
+          "stability__energy": -0.10663484227213417
+        },
+        "full_actor": {
+          "motion__energy": -0.3955446329532931,
+          "motion__stability": 0.46992413277972694,
+          "stability__energy": -0.5141791587418647
+        }
+      },
+      "checkpoint": "/mnt/share/nas/Yoo/Tracer/TRACER-ICRA27/results/icra27/phase1a_beta_conditioned_v3_seed27027/checkpoint_update_0030.pt",
+      "checkpoint_name": "base_u30",
+      "checkpoint_update": 30,
+      "condition_advantage_stats": [
+        {
+          "condition_index": 0,
+          "normalized_adv_mean": -2.9802322387695312e-08,
+          "normalized_adv_std": 0.9999998807907104,
+          "raw_adv_mean": -0.025551164522767067,
+          "raw_adv_std": 0.07080582529306412
+        },
+        {
+          "condition_index": 1,
+          "normalized_adv_mean": -8.940696716308594e-08,
+          "normalized_adv_std": 0.9999997615814209,
+          "raw_adv_mean": -0.0767221748828888,
+          "raw_adv_std": 0.055454280227422714
+        },
+        {
+          "condition_index": 2,
+          "normalized_adv_mean": 2.9802322387695312e-08,
+          "normalized_adv_std": 0.9999998807907104,
+          "raw_adv_mean": 0.16973546147346497,
+          "raw_adv_std": 0.10868041217327118
+        },
+        {
+          "condition_index": 3,
+          "normalized_adv_mean": 0.0,
+          "normalized_adv_std": 0.9999999403953552,
+          "raw_adv_mean": 0.09395650029182434,
+          "raw_adv_std": 0.09790325909852982
+        },
+        {
+          "condition_index": 4,
+          "normalized_adv_mean": -5.960464477539063e-08,
+          "normalized_adv_std": 0.9999999403953552,
+          "raw_adv_mean": -0.1645965576171875,
+          "raw_adv_std": 0.2742271423339844
+        },
+        {
+          "condition_index": 5,
+          "normalized_adv_mean": 0.0,
+          "normalized_adv_std": 0.9999999403953552,
+          "raw_adv_mean": -0.016204817220568657,
+          "raw_adv_std": 0.09272541850805283
+        },
+        {
+          "condition_index": 6,
+          "normalized_adv_mean": 4.470348358154297e-08,
+          "normalized_adv_std": 0.9999999403953552,
+          "raw_adv_mean": -0.222074955701828,
+          "raw_adv_std": 0.4377266466617584
+        },
+        {
+          "condition_index": 7,
+          "normalized_adv_mean": 2.9802322387695312e-08,
+          "normalized_adv_std": 1.0,
+          "raw_adv_mean": -0.0960133969783783,
+          "raw_adv_std": 0.3630857765674591
+        },
+        {
+          "condition_index": 8,
+          "normalized_adv_mean": -1.4901161193847656e-08,
+          "normalized_adv_std": 0.9999998807907104,
+          "raw_adv_mean": -0.32143622636795044,
+          "raw_adv_std": 0.23485738039016724
+        },
+        {
+          "condition_index": 9,
+          "normalized_adv_mean": 0.0,
+          "normalized_adv_std": 0.9999998807907104,
+          "raw_adv_mean": -0.006489843130111694,
+          "raw_adv_std": 0.14186805486679077
+        },
+        {
+          "condition_index": 10,
+          "normalized_adv_mean": -5.21540641784668e-08,
+          "normalized_adv_std": 0.9999999403953552,
+          "raw_adv_mean": -0.7798734903335571,
+          "raw_adv_std": 0.4322625696659088
+        },
+        {
+          "condition_index": 11,
+          "normalized_adv_mean": -2.9802322387695312e-08,
+          "normalized_adv_std": 0.9999999403953552,
+          "raw_adv_mean": -0.5418817400932312,
+          "raw_adv_std": 0.35199108719825745
+        }
+      ],
+      "condition_gradient_diagnostics": {
+        "flat/balanced": {
+          "body_gradient_norm": 1.3750799894332886,
+          "gradient_norm": 30.433103561401367,
+          "policy_loss": 8.940696716308594e-08,
+          "ratio_max_abs_dev": 4.76837158203125e-07
+        },
+        "flat/energy": {
+          "body_gradient_norm": 1.1308475732803345,
+          "gradient_norm": 31.477930068969727,
+          "policy_loss": 8.940696716308594e-08,
+          "ratio_max_abs_dev": 9.5367431640625e-07
+        },
+        "flat/motion": {
+          "body_gradient_norm": 1.173387885093689,
+          "gradient_norm": 29.866947174072266,
+          "policy_loss": 1.341104507446289e-07,
+          "ratio_max_abs_dev": 4.76837158203125e-07
+        },
+        "flat/stability": {
+          "body_gradient_norm": 0.9359727501869202,
+          "gradient_norm": 29.16742515563965,
+          "policy_loss": -2.9802322387695312e-08,
+          "ratio_max_abs_dev": 4.76837158203125e-07
+        },
+        "low_friction/balanced": {
+          "body_gradient_norm": 2.1250691413879395,
+          "gradient_norm": 50.85011291503906,
+          "policy_loss": -4.470348358154297e-08,
+          "ratio_max_abs_dev": 4.76837158203125e-07
+        },
+        "low_friction/energy": {
+          "body_gradient_norm": 1.5360568761825562,
+          "gradient_norm": 46.39448547363281,
+          "policy_loss": -1.1175870895385742e-07,
+          "ratio_max_abs_dev": 4.76837158203125e-07
+        },
+        "low_friction/motion": {
+          "body_gradient_norm": 1.0485066175460815,
+          "gradient_norm": 35.54209899902344,
+          "policy_loss": 2.8312206268310547e-07,
+          "ratio_max_abs_dev": 9.5367431640625e-07
+        },
+        "low_friction/stability": {
+          "body_gradient_norm": 2.7993993759155273,
+          "gradient_norm": 70.44062805175781,
+          "policy_loss": -9.872019290924072e-08,
+          "ratio_max_abs_dev": 4.76837158203125e-07
+        },
+        "rough_perlin/balanced": {
+          "body_gradient_norm": 0.9138770699501038,
+          "gradient_norm": 32.11270523071289,
+          "policy_loss": 8.195638656616211e-08,
+          "ratio_max_abs_dev": 9.5367431640625e-07
+        },
+        "rough_perlin/energy": {
+          "body_gradient_norm": 0.7277539968490601,
+          "gradient_norm": 24.325733184814453,
+          "policy_loss": 1.1920928955078125e-07,
+          "ratio_max_abs_dev": 9.5367431640625e-07
+        },
+        "rough_perlin/motion": {
+          "body_gradient_norm": 1.1552654504776,
+          "gradient_norm": 51.77720642089844,
+          "policy_loss": 2.9802322387695312e-08,
+          "ratio_max_abs_dev": 4.76837158203125e-07
+        },
+        "rough_perlin/stability": {
+          "body_gradient_norm": 1.2811709642410278,
+          "gradient_norm": 43.03729248046875,
+          "policy_loss": 5.960464477539063e-08,
+          "ratio_max_abs_dev": 9.5367431640625e-07
+        }
+      },
+      "condition_rollout_stats": {
+        "flat": {
+          "balanced": {
+            "completed_episodes": 0,
+            "interventions": 0,
+            "m4_episodes": 0,
+            "max_abs_action": 0.22418184578418732,
+            "mean_completed_return": null,
+            "other_terminal_episodes": 0,
+            "reset_attempts": 1,
+            "settling_failures": 0,
+            "steps": 16,
+            "success_episodes": 0,
+            "terrain": "flat",
+            "truncated_episodes": 0
+          },
+          "energy": {
+            "completed_episodes": 0,
+            "interventions": 0,
+            "m4_episodes": 0,
+            "max_abs_action": 0.24280759692192078,
+            "mean_completed_return": null,
+            "other_terminal_episodes": 0,
+            "reset_attempts": 1,
+            "settling_failures": 0,
+            "steps": 16,
+            "success_episodes": 0,
+            "terrain": "flat",
+            "truncated_episodes": 0
+          },
+          "motion": {
+            "completed_episodes": 0,
+            "interventions": 0,
+            "m4_episodes": 0,
+            "max_abs_action": 0.22975386679172516,
+            "mean_completed_return": null,
+            "other_terminal_episodes": 0,
+            "reset_attempts": 1,
+            "settling_failures": 0,
+            "steps": 16,
+            "success_episodes": 0,
+            "terrain": "flat",
+            "truncated_episodes": 0
+          },
+          "stability": {
+            "completed_episodes": 0,
+            "interventions": 0,
+            "m4_episodes": 0,
+            "max_abs_action": 0.19274361431598663,
+            "mean_completed_return": null,
+            "other_terminal_episodes": 0,
+            "reset_attempts": 1,
+            "settling_failures": 0,
+            "steps": 16,
+            "success_episodes": 0,
+            "terrain": "flat",
+            "truncated_episodes": 0
+          }
+        },
+        "low_friction": {
+          "balanced": {
+            "completed_episodes": 0,
+            "interventions": 0,
+            "m4_episodes": 0,
+            "max_abs_action": 0.27576106786727905,
+            "mean_completed_return": null,
+            "other_terminal_episodes": 0,
+            "reset_attempts": 1,
+            "settling_failures": 0,
+            "steps": 16,
+            "success_episodes": 0,
+            "terrain": "low_friction",
+            "truncated_episodes": 0
+          },
+          "energy": {
+            "completed_episodes": 0,
+            "interventions": 0,
+            "m4_episodes": 0,
+            "max_abs_action": 0.29022783041000366,
+            "mean_completed_return": null,
+            "other_terminal_episodes": 0,
+            "reset_attempts": 1,
+            "settling_failures": 0,
+            "steps": 16,
+            "success_episodes": 0,
+            "terrain": "low_friction",
+            "truncated_episodes": 0
+          },
+          "motion": {
+            "completed_episodes": 0,
+            "interventions": 0,
+            "m4_episodes": 0,
+            "max_abs_action": 0.2801770865917206,
+            "mean_completed_return": null,
+            "other_terminal_episodes": 0,
+            "reset_attempts": 1,
+            "settling_failures": 0,
+            "steps": 16,
+            "success_episodes": 0,
+            "terrain": "low_friction",
+            "truncated_episodes": 0
+          },
+          "stability": {
+            "completed_episodes": 0,
+            "interventions": 0,
+            "m4_episodes": 0,
+            "max_abs_action": 0.24501881003379822,
+            "mean_completed_return": null,
+            "other_terminal_episodes": 0,
+            "reset_attempts": 1,
+            "settling_failures": 0,
+            "steps": 16,
+            "success_episodes": 0,
+            "terrain": "low_friction",
+            "truncated_episodes": 0
+          }
+        },
+        "rough_perlin": {
+          "balanced": {
+            "completed_episodes": 0,
+            "interventions": 0,
+            "m4_episodes": 0,
+            "max_abs_action": 0.1843605935573578,
+            "mean_completed_return": null,
+            "other_terminal_episodes": 0,
+            "reset_attempts": 1,
+            "settling_failures": 0,
+            "steps": 16,
+            "success_episodes": 0,
+            "terrain": "rough_perlin",
+            "truncated_episodes": 0
+          },
+          "energy": {
+            "completed_episodes": 0,
+            "interventions": 0,
+            "m4_episodes": 0,
+            "max_abs_action": 0.19347524642944336,
+            "mean_completed_return": null,
+            "other_terminal_episodes": 0,
+            "reset_attempts": 1,
+            "settling_failures": 0,
+            "steps": 16,
+            "success_episodes": 0,
+            "terrain": "rough_perlin",
+            "truncated_episodes": 0
+          },
+          "motion": {
+            "completed_episodes": 0,
+            "interventions": 0,
+            "m4_episodes": 0,
+            "max_abs_action": 0.20293772220611572,
+            "mean_completed_return": null,
+            "other_terminal_episodes": 0,
+            "reset_attempts": 1,
+            "settling_failures": 0,
+            "steps": 16,
+            "success_episodes": 0,
+            "terrain": "rough_perlin",
+            "truncated_episodes": 0
+          },
+          "stability": {
+            "completed_episodes": 0,
+            "interventions": 0,
+            "m4_episodes": 0,
+            "max_abs_action": 0.16756200790405273,
+            "mean_completed_return": null,
+            "other_terminal_episodes": 0,
+            "reset_attempts": 1,
+            "settling_failures": 0,
+            "steps": 16,
+            "success_episodes": 0,
+            "terrain": "rough_perlin",
+            "truncated_episodes": 0
+          }
+        }
+      },
+      "learning_rate": 0.0003,
+      "max_ratio_abs_deviation": 9.5367431640625e-07,
+      "repeat_index": 0,
+      "steps_per_condition": 16,
+      "stored_policy_std": [
+        0.06282050907611847,
+        0.06282050907611847,
+        0.06282050907611847
+      ],
+      "terrain_cosine": {
+        "flat": {
+          "body_only": {
+            "motion__energy": 0.7552431752691714,
+            "motion__stability": 0.951284068565467,
+            "stability__energy": 0.6349679248547091
+          },
+          "full_actor": {
+            "motion__energy": 0.2329044893479544,
+            "motion__stability": 0.9378230015611302,
+            "stability__energy": -0.010181018360541312
+          }
+        },
+        "low_friction": {
+          "body_only": {
+            "motion__energy": 0.7701175117226337,
+            "motion__stability": 0.762182964137199,
+            "stability__energy": 0.8719590167562087
+          },
+          "full_actor": {
+            "motion__energy": 0.6385615779785423,
+            "motion__stability": 0.6631487356109067,
+            "stability__energy": 0.6779201669725455
+          }
+        },
+        "rough_perlin": {
+          "body_only": {
+            "motion__energy": -0.39307503254144616,
+            "motion__stability": -0.016475818108218753,
+            "stability__energy": 0.7924040072806947
+          },
+          "full_actor": {
+            "motion__energy": -0.23966195381644417,
+            "motion__stability": 0.32887394774123974,
+            "stability__energy": 0.4521743479035805
+          }
+        }
+      }
+    }
+  ],
+  "schema": "icra27_os_t4p5g_beta_gradient_interference_v0",
+  "scope": "TRAIN-only read-only actor-gradient diagnostic",
+  "steps_per_condition": 16,
+  "summary": {
+    "base_u30": {
+      "body_only": {
+        "motion__energy": {
+          "mean": 0.007255211095822038,
+          "median": 0.007255211095822038,
+          "negative_fraction": 0.0,
+          "values": [
+            0.007255211095822038
+          ]
+        },
+        "motion__stability": {
+          "mean": 0.238824810758949,
+          "median": 0.238824810758949,
+          "negative_fraction": 0.0,
+          "values": [
+            0.238824810758949
+          ]
+        },
+        "stability__energy": {
+          "mean": -0.10663484227213417,
+          "median": -0.10663484227213417,
+          "negative_fraction": 1.0,
+          "values": [
+            -0.10663484227213417
+          ]
+        }
+      },
+      "full_actor": {
+        "motion__energy": {
+          "mean": -0.3955446329532931,
+          "median": -0.3955446329532931,
+          "negative_fraction": 1.0,
+          "values": [
+            -0.3955446329532931
+          ]
+        },
+        "motion__stability": {
+          "mean": 0.46992413277972694,
+          "median": 0.46992413277972694,
+          "negative_fraction": 0.0,
+          "values": [
+            0.46992413277972694
+          ]
+        },
+        "stability__energy": {
+          "mean": -0.5141791587418647,
+          "median": -0.5141791587418647,
+          "negative_fraction": 1.0,
+          "values": [
+            -0.5141791587418647
+          ]
+        }
+      },
+      "stability_energy_conflict_flag": {
+        "body_only": true,
+        "full_actor": true
+      }
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "combined_original_plus_extension_rough": 36,
+  "combined_unique_global_hfields": 36,
+  "extension_contexts": 18,
+  "extension_seed_contract": "configs/icra27/os_selector_train_extension_v0.json",
+  "extension_seeds": [
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47
+  ],
+  "extension_unique_global_hfields": 18,
+  "extension_unique_local_patches": 18,
+  "external_heldout_used": false,
+  "generation": "Existing frozen probe_os_t5p5a_height_patch_seed_v0.py worker reused unchanged, one fresh process per extension seed.",
+  "interpretation_guard": "TRAIN-only terrain-context coverage extension. No beta response, mission preference, validation/test/hard terrain outcome, or selector performance was used to choose or filter these contexts.",
+  "next_stage": "Generate the frozen 21-beta physical response atlas for these 18 extension terrains: 18 x 21 = 378 episodes.",
+  "original_split_modified": false,
+  "overlap_with_original_global_hfields": 0,
+  "patch_dim": 48,
+  "patch_shape": [
+    8,
+    6
+  ],
+  "representation_parent": "os_t5p5a_oracle_height_patch_v0",
+  "schema": "icra27_os_t5p5f1_selector_train_extension_height_patches_v0",
+  "status": "FREEZE_PASS"
+}

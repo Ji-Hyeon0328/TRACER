@@ -1,0 +1,232 @@
+{
+  "beta_names": [
+    "balanced",
+    "energy",
+    "motion",
+    "stability"
+  ],
+  "checkpoint": "update_0030",
+  "comparison": "same frozen u30 policy; objective-biased beta vs balanced beta",
+  "contexts": 9,
+  "derived_physical_metrics": {
+    "attitude_peak_max": "max(max_abs_pitch_rad, max_abs_roll_rad)",
+    "attitude_rms_norm": "sqrt(pitch_rms_rad^2 + roll_rms_rad^2)",
+    "energy_j_per_meter": "energy_abs_j / progress_m",
+    "seconds_per_meter": "decision_time_s / progress_m"
+  },
+  "development_scope": "TRAIN-only",
+  "heldout_used_for_metric_design": false,
+  "interpretation_contract": {
+    "pearson": "descriptive only; n=9 and not used as a statistical pass/fail gate",
+    "physical_delta": "converted to cost-like orientation; negative always means physically better",
+    "target_delta": "candidate objective-beta cost minus balanced cost; negative is improvement"
+  },
+  "metric_scope_note": "The compact TRAIN checkpoint-sweep CSV does not contain every richer physical trajectory diagnostic. Missing metrics are skipped rather than inferred.",
+  "purpose": "Audit alignment between reward-side objective costs and physical trajectory metrics before defining external preference vector w.",
+  "reward_component_metrics_are_not_independent_physical_evidence": true,
+  "schema": "icra27_os_t5p2a_train_metric_alignment_v0",
+  "skipped_metrics_missing_from_compact_source": {
+    "energy": [
+      {
+        "metric": "energy_j_per_meter",
+        "missing_columns": [
+          "progress_m"
+        ]
+      },
+      {
+        "metric": "energy_power_ratio",
+        "missing_columns": [
+          "mean_energy_power_ratio"
+        ]
+      }
+    ],
+    "motion": [
+      {
+        "metric": "seconds_per_meter",
+        "missing_columns": [
+          "progress_m"
+        ]
+      },
+      {
+        "metric": "progress_rate_mps",
+        "missing_columns": [
+          "mean_progress_rate_mps"
+        ]
+      },
+      {
+        "metric": "final_goal_distance_m",
+        "missing_columns": [
+          "final_goal_distance_m"
+        ]
+      }
+    ],
+    "stability": [
+      {
+        "metric": "pitch_rms_rad",
+        "missing_columns": [
+          "pitch_rms_rad"
+        ]
+      },
+      {
+        "metric": "roll_rms_rad",
+        "missing_columns": [
+          "roll_rms_rad"
+        ]
+      },
+      {
+        "metric": "attitude_rms_norm",
+        "missing_columns": [
+          "pitch_rms_rad",
+          "roll_rms_rad"
+        ]
+      },
+      {
+        "metric": "max_abs_pitch_rad",
+        "missing_columns": [
+          "max_abs_pitch_rad"
+        ]
+      },
+      {
+        "metric": "max_abs_roll_rad",
+        "missing_columns": [
+          "max_abs_roll_rad"
+        ]
+      },
+      {
+        "metric": "attitude_peak_max",
+        "missing_columns": [
+          "max_abs_pitch_rad",
+          "max_abs_roll_rad"
+        ]
+      }
+    ]
+  },
+  "source_csv": "results/icra27/os_t4p8d_v4_lockstep_checkpoint_sweep_v0/train9/episodes.csv",
+  "source_fieldnames": [
+    "update",
+    "checkpoint",
+    "beta_name",
+    "terrain_label",
+    "terrain",
+    "seed",
+    "success",
+    "status",
+    "policy_steps",
+    "decision_time_s",
+    "energy_abs_j",
+    "mean_applied_vx_mps",
+    "aggregation_rule",
+    "reward_steps",
+    "mean_cost_motion",
+    "mean_cost_posture",
+    "mean_cost_traction",
+    "mean_cost_stability",
+    "mean_cost_energy",
+    "mean_objective_cost",
+    "median_cost_posture",
+    "median_cost_traction",
+    "traction_dominant_steps",
+    "traction_dominant_fraction",
+    "posture_dominant_fraction",
+    "tie_fraction",
+    "mean_established_contact_dt_s"
+  ],
+  "source_sha256": "f1d08e897f475e3fb83fa9a5b070d27b22b5433f1d64032d22cf6d7de933a1e2",
+  "stability_component_columns": {
+    "posture": "mean_cost_posture",
+    "traction": "mean_cost_traction"
+  },
+  "summary": {
+    "energy": {
+      "contexts": 9,
+      "mean_delta_target_cost": -0.0069890355358941765,
+      "physical_metrics": {
+        "energy_abs_j": {
+          "both_target_and_physical_improved": 4,
+          "mean_delta_physical_cost_oriented": 1.4162003659834537,
+          "note": "All physical deltas are cost-oriented: negative means physically better.",
+          "pearson_delta_alignment": 0.34442209065147283,
+          "physical_improved": 4,
+          "physical_tied": 0,
+          "physical_worsened": 5,
+          "sign_agreement": 4,
+          "sign_comparable_contexts": 9,
+          "target_improved_but_physical_worsened": 5
+        }
+      },
+      "target_improved": 9,
+      "target_metric": "mean_cost_energy",
+      "target_tied": 0,
+      "target_worsened": 0
+    },
+    "motion": {
+      "contexts": 9,
+      "mean_delta_target_cost": -0.0017966177581650311,
+      "physical_metrics": {
+        "applied_vx_mps": {
+          "both_target_and_physical_improved": 9,
+          "mean_delta_physical_cost_oriented": -0.0017458355701048102,
+          "note": "All physical deltas are cost-oriented: negative means physically better.",
+          "pearson_delta_alignment": 0.010810121157283727,
+          "physical_improved": 9,
+          "physical_tied": 0,
+          "physical_worsened": 0,
+          "sign_agreement": 9,
+          "sign_comparable_contexts": 9,
+          "target_improved_but_physical_worsened": 0
+        },
+        "decision_time_s": {
+          "both_target_and_physical_improved": 0,
+          "mean_delta_physical_cost_oriented": 0.0,
+          "note": "All physical deltas are cost-oriented: negative means physically better.",
+          "pearson_delta_alignment": null,
+          "physical_improved": 0,
+          "physical_tied": 9,
+          "physical_worsened": 0,
+          "sign_agreement": 0,
+          "sign_comparable_contexts": 0,
+          "target_improved_but_physical_worsened": 0
+        }
+      },
+      "target_improved": 9,
+      "target_metric": "mean_cost_motion",
+      "target_tied": 0,
+      "target_worsened": 0
+    },
+    "stability": {
+      "contexts": 9,
+      "mean_delta_target_cost": -0.0028654620619729242,
+      "physical_metrics": {
+        "reward_posture_component": {
+          "both_target_and_physical_improved": 6,
+          "mean_delta_physical_cost_oriented": -0.0013199393138411558,
+          "note": "All physical deltas are cost-oriented: negative means physically better.",
+          "pearson_delta_alignment": 0.43966210662821287,
+          "physical_improved": 6,
+          "physical_tied": 0,
+          "physical_worsened": 3,
+          "sign_agreement": 9,
+          "sign_comparable_contexts": 9,
+          "target_improved_but_physical_worsened": 0
+        },
+        "reward_traction_component": {
+          "both_target_and_physical_improved": 4,
+          "mean_delta_physical_cost_oriented": -0.0015753872098624446,
+          "note": "All physical deltas are cost-oriented: negative means physically better.",
+          "pearson_delta_alignment": 0.580198186288137,
+          "physical_improved": 7,
+          "physical_tied": 0,
+          "physical_worsened": 2,
+          "sign_agreement": 4,
+          "sign_comparable_contexts": 9,
+          "target_improved_but_physical_worsened": 2
+        }
+      },
+      "target_improved": 6,
+      "target_metric": "mean_cost_stability",
+      "target_tied": 0,
+      "target_worsened": 3
+    }
+  },
+  "u30_rows": 36
+}

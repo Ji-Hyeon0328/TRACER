@@ -1,0 +1,54 @@
+{
+  "artifact_hashes": {
+    "context_eta_evaluation.csv": "878e045dc8044f4dee973de79560acbb30b0b04fa3495684cb890682f9ee1987",
+    "hard_feasibility_stress_summary.csv": "135b000d086657abaf822e0f690f19c3e5e912549af2582c9454d3483340c848",
+    "population_eta_summary.csv": "78f1698a0c0e055ce3c1f10597c51afda5b7cec0bdbf137c9a50f36dab7cec7a",
+    "true_eta_quality_surface.csv": "784a2c1fde792c123daf74d09366333c23d275dc59e46031b1a40cd327a3049f"
+  },
+  "canonical_cross_artifact_beta_key": "beta_name",
+  "hard_contexts": [
+    9,
+    23,
+    24
+  ],
+  "hard_evaluation_semantics": "All hard contexts have zero feasible beta candidates under the frozen policy/controller lattice. They are reported as feasibility stress failures and are excluded from selector Q/rank aggregation.",
+  "normalization": "context-local Pareto ideal/nadir computed from feasible beta candidates",
+  "primary_evaluation": {
+    "baseline_Qex_mean": 0.11830470729105994,
+    "beat_tie_worse": [
+      3,
+      0,
+      2
+    ],
+    "comparison": "frozen context-aware selector versus frozen TRAIN-only no-context baseline",
+    "eta": "balanced",
+    "metric": "true context-local Q excess",
+    "n": 5,
+    "population": "TEST",
+    "selector_Qex_mean": 0.1742500302616264
+  },
+  "regret_clipping": false,
+  "schema": "icra27_os_t6p12f_final_untouched_selector_eval_v0",
+  "scientific_guard": "No model, context, beta lattice, eta, baseline, objective, normalization, or selection is changed after opening heldout physical outcomes.",
+  "scientific_interpretation_pending": true,
+  "source_hashes": {
+    "baseline_csv": "5180b9d6a42d9d6d4c72a50b375c43ecd3fe98938585b58e20322ef1c91a169f",
+    "physical_atlas_csv": "c7d41e0571aaf1ab6cecbc65f35eb97fa8ccc650e44d6c3317d72a09690e62fd",
+    "physical_manifest": "aecfc79792c1813e53b2901eac5e0d72135fc2fa09f024aec51b269b9d40f6e9",
+    "precommit_manifest": "f47afcb542d279d51d00e4cec1d77945af7becfdb60039a1ad7e7ec91905e1da",
+    "selection_csv": "83313e8047da8322359d7abb7a2e6693a3de210411ea8a84811daa0512f890b0"
+  },
+  "standard_evaluation_contexts": [
+    1,
+    21,
+    16,
+    14,
+    27,
+    2,
+    3,
+    19,
+    26
+  ],
+  "status": "COMPUTE_PASS",
+  "tcheby_rho": 0.01
+}

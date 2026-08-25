@@ -1,0 +1,111 @@
+{
+  "beta_points_per_context": 21,
+  "combined_contexts": 35,
+  "combined_rows": 735,
+  "context_beta_pairs_unique": true,
+  "context_order": [
+    "flat",
+    "low_friction",
+    "rough_seed_13",
+    "rough_seed_7",
+    "rough_seed_15",
+    "rough_seed_0",
+    "rough_seed_5",
+    "rough_seed_11",
+    "rough_seed_4",
+    "rough_seed_25",
+    "rough_seed_12",
+    "rough_seed_6",
+    "rough_seed_29",
+    "rough_seed_18",
+    "rough_seed_10",
+    "rough_seed_8",
+    "rough_seed_22",
+    "rough_seed_20",
+    "rough_seed_28",
+    "rough_seed_17",
+    "rough_seed_30",
+    "rough_seed_31",
+    "rough_seed_32",
+    "rough_seed_33",
+    "rough_seed_35",
+    "rough_seed_36",
+    "rough_seed_37",
+    "rough_seed_38",
+    "rough_seed_39",
+    "rough_seed_40",
+    "rough_seed_41",
+    "rough_seed_42",
+    "rough_seed_44",
+    "rough_seed_45",
+    "rough_seed_47"
+  ],
+  "extension_evidence_source": "results/icra27/os_t5p5f2r_recovered_selector_extension_atlas_v0/episodes.csv",
+  "extension_rows": 315,
+  "extension_stability_dominance": {
+    "attitude": 315
+  },
+  "full_grid_extension_contexts": 15,
+  "full_grid_extension_seeds": [
+    30,
+    31,
+    32,
+    33,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    44,
+    45,
+    47
+  ],
+  "heldout_used": false,
+  "next_stage": "T5.5f3b: recompute context-wise Pareto fronts and the unchanged 25-preference augmented-Tchebycheff labels for 35 x 25 = 875 TRAIN-only (context,w)->beta* examples.",
+  "normalization_policy": "No global normalization is defined or refrozen. Downstream preference labels must use context-local Pareto ideal/nadir regret.",
+  "objective_direction": "all_lower_is_better",
+  "objective_ranges_descriptive_only": {
+    "J_energy_j_per_m": [
+      100.54988909022944,
+      177.799401932103
+    ],
+    "J_motion_s_per_m": [
+      4.421003718942344,
+      4.98418648696142
+    ],
+    "J_stability": [
+      0.10764727422495432,
+      0.49278800534644407
+    ]
+  },
+  "old_contexts": 20,
+  "old_rows": 420,
+  "old_source": "results/icra27/os_t5p5c_expanded_physical_atlas_v0/physical_beta_response_atlas.csv",
+  "original_split_modified": false,
+  "physical_contract": "Frozen OS-T5.2b physical preference contract",
+  "preserved_non_full_grid_evidence": {
+    "partial_response": [
+      46
+    ],
+    "zero_feasible": [
+      34,
+      43
+    ]
+  },
+  "reconstruction_validation": {
+    "max_energy_error_j": 5.684341886080802e-14,
+    "max_progress_error_m": 0.0,
+    "max_time_error_s": 0.0,
+    "settling_steps": [
+      5
+    ]
+  },
+  "sampled_extension_contexts": 18,
+  "schema": "icra27_os_t5p5f3_expanded_physical_atlas_v0",
+  "selector_row_semantics": "Common physical response schema only: context_id, beta, and frozen physical J_M/J_S/J_E. Terrain representation is joined from frozen oracle height-patch artifacts downstream.",
+  "stability_definition": "max(J_stability_attitude, J_stability_slip)",
+  "status": "FREEZE_PASS"
+}

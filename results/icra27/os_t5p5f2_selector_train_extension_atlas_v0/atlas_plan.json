@@ -1,0 +1,313 @@
+{
+  "balanced_in_hull_but_not_grid_point": true,
+  "beta_points": [
+    {
+      "beta": [
+        0.7,
+        0.15,
+        0.15
+      ],
+      "lambda_energy": 0.0,
+      "lambda_motion": 1.0,
+      "lambda_stability": 0.0,
+      "name": "lm100_ls000_le000"
+    },
+    {
+      "beta": [
+        0.59,
+        0.26,
+        0.15
+      ],
+      "lambda_energy": 0.0,
+      "lambda_motion": 0.8,
+      "lambda_stability": 0.2,
+      "name": "lm080_ls020_le000"
+    },
+    {
+      "beta": [
+        0.59,
+        0.15,
+        0.26
+      ],
+      "lambda_energy": 0.2,
+      "lambda_motion": 0.8,
+      "lambda_stability": 0.0,
+      "name": "lm080_ls000_le020"
+    },
+    {
+      "beta": [
+        0.48,
+        0.37,
+        0.15
+      ],
+      "lambda_energy": 0.0,
+      "lambda_motion": 0.6,
+      "lambda_stability": 0.4,
+      "name": "lm060_ls040_le000"
+    },
+    {
+      "beta": [
+        0.48,
+        0.26,
+        0.26
+      ],
+      "lambda_energy": 0.2,
+      "lambda_motion": 0.6,
+      "lambda_stability": 0.2,
+      "name": "lm060_ls020_le020"
+    },
+    {
+      "beta": [
+        0.48,
+        0.15,
+        0.37
+      ],
+      "lambda_energy": 0.4,
+      "lambda_motion": 0.6,
+      "lambda_stability": 0.0,
+      "name": "lm060_ls000_le040"
+    },
+    {
+      "beta": [
+        0.37,
+        0.48,
+        0.15
+      ],
+      "lambda_energy": 0.0,
+      "lambda_motion": 0.4,
+      "lambda_stability": 0.6,
+      "name": "lm040_ls060_le000"
+    },
+    {
+      "beta": [
+        0.37,
+        0.37,
+        0.26
+      ],
+      "lambda_energy": 0.2,
+      "lambda_motion": 0.4,
+      "lambda_stability": 0.4,
+      "name": "lm040_ls040_le020"
+    },
+    {
+      "beta": [
+        0.36999999999999994,
+        0.26,
+        0.37
+      ],
+      "lambda_energy": 0.4,
+      "lambda_motion": 0.4,
+      "lambda_stability": 0.2,
+      "name": "lm040_ls020_le040"
+    },
+    {
+      "beta": [
+        0.37,
+        0.15,
+        0.48
+      ],
+      "lambda_energy": 0.6,
+      "lambda_motion": 0.4,
+      "lambda_stability": 0.0,
+      "name": "lm040_ls000_le060"
+    },
+    {
+      "beta": [
+        0.26,
+        0.59,
+        0.15
+      ],
+      "lambda_energy": 0.0,
+      "lambda_motion": 0.2,
+      "lambda_stability": 0.8,
+      "name": "lm020_ls080_le000"
+    },
+    {
+      "beta": [
+        0.26,
+        0.48,
+        0.26
+      ],
+      "lambda_energy": 0.2,
+      "lambda_motion": 0.2,
+      "lambda_stability": 0.6,
+      "name": "lm020_ls060_le020"
+    },
+    {
+      "beta": [
+        0.26,
+        0.36999999999999994,
+        0.37
+      ],
+      "lambda_energy": 0.4,
+      "lambda_motion": 0.2,
+      "lambda_stability": 0.4,
+      "name": "lm020_ls040_le040"
+    },
+    {
+      "beta": [
+        0.26,
+        0.26,
+        0.48
+      ],
+      "lambda_energy": 0.6,
+      "lambda_motion": 0.2,
+      "lambda_stability": 0.2,
+      "name": "lm020_ls020_le060"
+    },
+    {
+      "beta": [
+        0.26,
+        0.15,
+        0.59
+      ],
+      "lambda_energy": 0.8,
+      "lambda_motion": 0.2,
+      "lambda_stability": 0.0,
+      "name": "lm020_ls000_le080"
+    },
+    {
+      "beta": [
+        0.15,
+        0.7,
+        0.15
+      ],
+      "lambda_energy": 0.0,
+      "lambda_motion": 0.0,
+      "lambda_stability": 1.0,
+      "name": "lm000_ls100_le000"
+    },
+    {
+      "beta": [
+        0.15,
+        0.59,
+        0.26
+      ],
+      "lambda_energy": 0.2,
+      "lambda_motion": 0.0,
+      "lambda_stability": 0.8,
+      "name": "lm000_ls080_le020"
+    },
+    {
+      "beta": [
+        0.15,
+        0.48,
+        0.37
+      ],
+      "lambda_energy": 0.4,
+      "lambda_motion": 0.0,
+      "lambda_stability": 0.6,
+      "name": "lm000_ls060_le040"
+    },
+    {
+      "beta": [
+        0.15,
+        0.37,
+        0.48
+      ],
+      "lambda_energy": 0.6,
+      "lambda_motion": 0.0,
+      "lambda_stability": 0.4,
+      "name": "lm000_ls040_le060"
+    },
+    {
+      "beta": [
+        0.15,
+        0.26,
+        0.59
+      ],
+      "lambda_energy": 0.8,
+      "lambda_motion": 0.0,
+      "lambda_stability": 0.2,
+      "name": "lm000_ls020_le080"
+    },
+    {
+      "beta": [
+        0.15,
+        0.15,
+        0.7
+      ],
+      "lambda_energy": 1.0,
+      "lambda_motion": 0.0,
+      "lambda_stability": 0.0,
+      "name": "lm000_ls000_le100"
+    }
+  ],
+  "beta_probe_scope": "unseen interpolation inside the convex hull of the three trained biased beta anchors",
+  "checkpoint": "results/icra27/phase1a_beta_conditioned_v4_seed27027/checkpoint_update_0030.pt",
+  "expected_episodes": 378,
+  "extension_height_patch_source": "results/icra27/os_t5p5f1_selector_train_extension_height_patches_v0/extension_height_patches.csv",
+  "extension_rough_train_seeds": [
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47
+  ],
+  "extension_seed_source": "configs/icra27/os_selector_train_extension_v0.json",
+  "heldout_used": false,
+  "lambda_grid_denominator": 5,
+  "metric_contract": "OS-T5.2b physical preference contract is frozen and must not be changed from atlas results.",
+  "original_rough_train_seeds": [
+    13,
+    7,
+    15,
+    0,
+    5,
+    11,
+    4,
+    25,
+    12,
+    6,
+    29,
+    18,
+    10,
+    8,
+    22,
+    20,
+    28,
+    17
+  ],
+  "reward_mode": "tracer_cost_v4",
+  "schema": "icra27_os_t5p5f2_selector_train_extension_atlas_plan_v0",
+  "train_contexts": [
+    {
+      "name": "rough",
+      "seeds": [
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47
+      ],
+      "terrain": "rough_perlin"
+    }
+  ],
+  "transition_contract": "lockstep 100 x 0.002 s = 0.200 s"
+}

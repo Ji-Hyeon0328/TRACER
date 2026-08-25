@@ -1,0 +1,43 @@
+{
+  "full_rank_raw_distance_max_error": 6.938893903907228e-17,
+  "future_interface": "PCA latent z_T may later be replaced by CART/world-model/learned terrain latent without changing the Objective Selector mission-preference interface.",
+  "heldout_used": false,
+  "interpretation_guard": "PCA is a simple deterministic linear terrain encoder baseline. 1-NN remains diagnostic only and is not the Objective Selector.",
+  "k90": 4,
+  "k95": 6,
+  "k95_metrics": {
+    "context_response_pearson": 0.3667040277864754,
+    "cumulative_explained_variance": 0.9600328230021483,
+    "is_full_rank": 0,
+    "is_k90": 0,
+    "is_k95": 1,
+    "is_k99": 0,
+    "nearest_exact_accuracy": 0.1288888888888889,
+    "nearest_score_excess_le_0p05_fraction": 0.20666666666666667,
+    "nearest_score_excess_max": 34.145336136065595,
+    "nearest_score_excess_mean": 0.8705639265108698,
+    "nearest_score_excess_median": 0.2988931633251663,
+    "nearest_score_excess_p95": 2.2448784297677413,
+    "pca_dim": 6
+  },
+  "k99": 11,
+  "loco_guard": "For subsequent rough-context LOCO selector validation, PCA must be fit independently inside each outer fold using TRAIN contexts only. The held-out rough context must not participate in PCA mean or basis estimation.",
+  "next_stage": "Train a small Objective Selector with fold-local PCA(z_T) + friction + w under rough-context LOCO.",
+  "pca_rank": 17,
+  "primary_representation": {
+    "dimension": 6,
+    "mean_centering": true,
+    "name": "patch_pca_k95",
+    "response_outcomes_used_to_choose_dimension": false,
+    "selection_rule": "smallest PCA dimension with >=95% cumulative TRAIN rough-patch variance",
+    "whitening": false
+  },
+  "raw_patch_dim": 48,
+  "raw_patch_reference": {
+    "context_response_pearson": 0.36953510270040724,
+    "nearest_score_excess_mean": 0.8906468218729763
+  },
+  "rough_train_contexts": 18,
+  "schema": "icra27_os_t5p5e1k_height_patch_pca_v0",
+  "status": "COMPUTE_PASS"
+}

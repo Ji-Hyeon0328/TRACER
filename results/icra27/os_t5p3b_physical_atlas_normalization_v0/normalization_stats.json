@@ -1,0 +1,50 @@
+{
+  "context_specific_normalization": false,
+  "formula": "(J_k - median_train(J_k)) / (IQR_train(J_k) + epsilon)",
+  "heldout_used": false,
+  "lower_is_better": true,
+  "method": "global median / IQR",
+  "population_rows": 189,
+  "protocol_weighting_note": "All 189 TRAIN protocol rows are retained. There are 63 rows per terrain group (21 beta x 3 context slots). Flat and low-friction seed slots are deterministic replicates and are not interpreted as independent stochastic trials.",
+  "schema": "icra27_os_t5p3b_train_normalization_v0",
+  "scope": "TRAIN-only beta-response atlas",
+  "statistics": {
+    "energy": {
+      "count": 189,
+      "denominator": 31.87381308206631,
+      "epsilon": 1e-12,
+      "iqr": 31.87381308206531,
+      "maximum": 155.2102565928621,
+      "median": 110.8084137105066,
+      "minimum": 100.54988909022944,
+      "q25": 101.07091951251621,
+      "q75": 132.94473259458152,
+      "source_column": "J_energy_j_per_m"
+    },
+    "motion": {
+      "count": 189,
+      "denominator": 0.07590795186626922,
+      "epsilon": 1e-12,
+      "iqr": 0.07590795186526922,
+      "maximum": 4.626380711988806,
+      "median": 4.5059645884530966,
+      "minimum": 4.425768838781536,
+      "q25": 4.480397345163054,
+      "q75": 4.556305297028323,
+      "source_column": "J_motion_s_per_m"
+    },
+    "stability": {
+      "count": 189,
+      "denominator": 0.21735835654811914,
+      "epsilon": 1e-12,
+      "iqr": 0.21735835654711913,
+      "maximum": 0.49278800534644407,
+      "median": 0.2507302254936805,
+      "minimum": 0.10764727422495432,
+      "q25": 0.10795760810630325,
+      "q75": 0.3253159646534224,
+      "source_column": "J_stability"
+    }
+  },
+  "status": "FROZEN"
+}

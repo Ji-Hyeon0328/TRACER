@@ -1,0 +1,65 @@
+{
+  "artifact_hashes": {
+    "precommitted_eta_selections.csv": "83313e8047da8322359d7abb7a2e6693a3de210411ea8a84811daa0512f890b0",
+    "precommitted_regret_surface.csv": "9c6bf9052cd63634e4696ec808638f64f154d45c7e03142372fd0acac34f2368",
+    "train_only_eta_baselines.csv": "5180b9d6a42d9d6d4c72a50b375c43ecd3fe98938585b58e20322ef1c91a169f"
+  },
+  "beta_candidates": 21,
+  "checkpoint_hashes_verified": {
+    "expected": 9,
+    "pass": true,
+    "verified": 9
+  },
+  "contexts": 12,
+  "diagnostic_only": "probe_safety_state and predicted best-second Q gaps are recorded but do not alter selection or inclusion.",
+  "eta_profiles": {
+    "balanced": [
+      0.3333333333333333,
+      0.3333333333333333,
+      0.3333333333333333
+    ],
+    "energy_biased": [
+      0.15,
+      0.15,
+      0.7
+    ],
+    "motion_biased": [
+      0.7,
+      0.15,
+      0.15
+    ],
+    "stability_biased": [
+      0.15,
+      0.7,
+      0.15
+    ]
+  },
+  "heldout_physical_outcomes_used": false,
+  "next_step": "Generate the frozen heldout 12x21 physical atlas without modifying any precommitted selector output.",
+  "precommitted_selections": 48,
+  "predicted_surface_rows": 252,
+  "role": "HELDOUT_SELECTOR_PRECOMMIT",
+  "schema": "icra27_os_t6p12d_heldout_selector_precommit_v0",
+  "scientific_guard": "All selector predictions, eta-specific beta selections, and TRAIN-only no-context baseline beta selections are frozen before any heldout 21-beta physical outcome atlas is generated.",
+  "selector_contract": {
+    "beta_dim": 3,
+    "context_dim": 87,
+    "ensemble_members_per_objective": 3,
+    "ensemble_semantics": "Average network predictions in log1p-regret space per objective, then expm1 and clamp at zero.",
+    "factorized_objectives": [
+      "motion",
+      "stability",
+      "energy"
+    ],
+    "input_dim": 90,
+    "representation": "semantic_plus_prop_probe",
+    "tcheby_rho": 0.01
+  },
+  "source_hashes": {
+    "final_selector_manifest": "44580dd9820823d7aa47bbc17047a8a9d1c0dcc5e04b937c9d7a78d45d494ff4",
+    "heldout_context_csv": "5d5bc47d4457153157ce640a37dc685d87edf97a03a54684d9ba9db4590a3f63",
+    "protocol_manifest": "66bd3b7577003034dd5101ec4c9a4b2ba69b30ffa268fbff6a19dae264a3b6e7"
+  },
+  "status": "FREEZE_PASS",
+  "train_only_baselines": 4
+}

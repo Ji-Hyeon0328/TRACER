@@ -1,0 +1,50 @@
+{
+  "active_rough_context_dim": 10,
+  "active_rough_context_dimensions": [
+    "height_std_m",
+    "height_relief_p95_p05_m",
+    "slope_rms",
+    "slope_q95",
+    "slope_longitudinal_rms",
+    "slope_lateral_rms",
+    "height_front_minus_rear_mean_m",
+    "height_left_minus_right_mean_m",
+    "height_front_minus_rear_std_m",
+    "height_mid_minus_ends_std_m"
+  ],
+  "beta_points": 21,
+  "context_dim": 11,
+  "context_source": "results/icra27/os_t5p5a_oracle_context_descriptor_v2/oracle_context_descriptors.csv",
+  "heldout_used": false,
+  "interpretation_guard": "Only the TRAIN rough context descriptor representation changed. Frozen physical atlas, Pareto scalarization, oracle labels, and held-out policy evaluation remain unchanged.",
+  "nearest_context_transfer": {
+    "exact_accuracy": 0.11777777777777777,
+    "pearson_distance_correlation": 0.1302568986983385,
+    "score_excess_le_0p05_fraction": 0.2088888888888889,
+    "score_excess_max": 19.23182281033655,
+    "score_excess_mean": 0.7606647259848193,
+    "score_excess_median": 0.24423531283713726,
+    "score_excess_p95": 2.972467945270382
+  },
+  "next_stage": "Compare c_OS_v2 identifiability against v1. Retrain the supervised Objective Selector only if physical context-to-response geometry improves meaningfully.",
+  "pairwise_context_response": {
+    "pairs": 153,
+    "pearson_distance_correlation": 0.1302568986983385
+  },
+  "preferences": 25,
+  "rough_contexts": 18,
+  "schema": "icra27_os_t5p5e1d_context_identifiability_v2_v0",
+  "status": "COMPUTE_PASS",
+  "v1_to_v2_comparison": {
+    "pearson_change_v2_minus_v1": 0.05550752247230327,
+    "pearson_correlation_v1": 0.07474937622603524,
+    "pearson_correlation_v2": 0.1302568986983385,
+    "score_excess_le_0p05_fraction_v1": 0.24444444444444444,
+    "score_excess_le_0p05_fraction_v2": 0.2088888888888889,
+    "score_excess_mean_change_v2_minus_v1": 0.18690170530614536,
+    "score_excess_mean_v1": 0.5737630206786739,
+    "score_excess_mean_v2": 0.7606647259848193,
+    "score_excess_p95_v1": 2.544730912102526,
+    "score_excess_p95_v2": 2.972467945270382
+  }
+}

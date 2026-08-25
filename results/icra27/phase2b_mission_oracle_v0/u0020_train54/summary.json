@@ -1,0 +1,62 @@
+{
+  "schema": "icra27_phase2b_mission_oracle_v0",
+  "mission_definition": {
+    "fast": "minimize decision time subject to stability and CE budgets",
+    "stable": "minimize stability cost subject to time and CE budgets",
+    "efficient": "minimize CE subject to time and stability budgets"
+  },
+  "budget_generation": "exact critical values observed among good candidates in each paired context; no manually chosen global thresholds",
+  "candidate_scope": "all feasible Pareto-nondominated good trajectories; expressibility is checked only after mission selection",
+  "context_count": 54,
+  "resolved_mission_count": 1860,
+  "selected_expressible_count": 1428,
+  "overall_beta_family_coverage": 0.7677419354838709,
+  "by_mission": {
+    "fast": {
+      "critical_budget_grid": 794,
+      "no_feasible": 209,
+      "ambiguous": 3,
+      "resolved": 582,
+      "selected_expressible": 447,
+      "selected_unsupported": 135,
+      "beta_family_coverage": 0.7680412371134021,
+      "selected_source_beta_counts": {
+        "motion": 125,
+        "balanced": 185,
+        "energy": 132,
+        "stability": 140
+      }
+    },
+    "stable": {
+      "critical_budget_grid": 794,
+      "no_feasible": 242,
+      "ambiguous": 0,
+      "resolved": 552,
+      "selected_expressible": 432,
+      "selected_unsupported": 120,
+      "beta_family_coverage": 0.782608695652174,
+      "selected_source_beta_counts": {
+        "balanced": 172,
+        "motion": 147,
+        "energy": 110,
+        "stability": 123
+      }
+    },
+    "efficient": {
+      "critical_budget_grid": 794,
+      "no_feasible": 68,
+      "ambiguous": 0,
+      "resolved": 726,
+      "selected_expressible": 549,
+      "selected_unsupported": 177,
+      "beta_family_coverage": 0.756198347107438,
+      "selected_source_beta_counts": {
+        "balanced": 242,
+        "motion": 232,
+        "energy": 122,
+        "stability": 130
+      }
+    }
+  },
+  "important_note": "These are synthetic counterfactual mission decisions for controlled validation. They are not claimed to be human expert preference demonstrations."
+}

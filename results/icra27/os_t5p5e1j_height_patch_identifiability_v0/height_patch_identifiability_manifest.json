@@ -1,0 +1,34 @@
+{
+  "comparison": {
+    "patch_context_response_pearson": 0.36953510270040724,
+    "patch_nearest_transfer_mean_excess": 0.8906468218729763,
+    "v1_context_response_pearson": 0.07474937622603524,
+    "v1_nearest_transfer_mean_excess": 0.5737630206786739,
+    "v2_context_response_pearson": 0.1302568986983385,
+    "v2_nearest_transfer_mean_excess": 0.7606647259848193
+  },
+  "heldout_used": false,
+  "interpretation_guard": "TRAIN-only representation audit. No selector is trained and no held-out terrain outcome is used.",
+  "nearest_patch_transfer": {
+    "exact_accuracy": 0.12222222222222222,
+    "score_excess_le_0p05_fraction": 0.19333333333333333,
+    "score_excess_max": 34.145336136065595,
+    "score_excess_mean": 0.8906468218729763,
+    "score_excess_median": 0.31526840339367956,
+    "score_excess_p95": 2.2448784297677413
+  },
+  "next_stage": "If the spatial patch materially improves response geometry and/or nearest-context transfer, use the patch as the simple oracle terrain representation for the next Objective Selector LOCO experiment.",
+  "oracle_score_reconstruction_max_error": 0.0,
+  "pair_count": 153,
+  "patch_distance": "RMS cellwise difference in start-height-relative body-aligned local terrain heights; units meters.",
+  "patch_response_pearson": 0.36953510270040724,
+  "patch_shape": [
+    8,
+    6
+  ],
+  "preferences": 25,
+  "response_distance": "Reused unchanged from OS-T5.5e1d for direct v1/v2/patch comparison.",
+  "rough_contexts": 18,
+  "schema": "icra27_os_t5p5e1j_height_patch_identifiability_v0",
+  "status": "COMPUTE_PASS"
+}

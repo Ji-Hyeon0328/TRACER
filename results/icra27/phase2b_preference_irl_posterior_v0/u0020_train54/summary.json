@@ -1,0 +1,50 @@
+{
+  "schema": "icra27_phase2b_preference_irl_posterior_v0",
+  "irl_model": "Bayesian multinomial Boltzmann preference model",
+  "reward_cost": "J_beta = beta^T [Cm, Cs, CE]",
+  "prior": "uniform simplex",
+  "simplex_step": 0.01,
+  "simplex_grid_count": 5151,
+  "raw_informative_decision_count": 1012,
+  "unique_preference_signature_count": 760,
+  "context_mission_group_count": 162,
+  "selected_kappa": 749.8942093324558,
+  "selected_kappa_index": 31,
+  "kappa_search_min": 0.1,
+  "kappa_search_max": 3162.2776601683795,
+  "kappa_search_count": 37,
+  "kappa_at_search_boundary": false,
+  "support_counts": {
+    "strict": 991,
+    "unsupported": 21
+  },
+  "mission_decision_counts": {
+    "fast": 321,
+    "stable": 300,
+    "efficient": 391
+  },
+  "signature_mission_counts": {
+    "fast": 262,
+    "stable": 288,
+    "efficient": 210
+  },
+  "posterior_entropy_by_mission": {
+    "fast": {
+      "count": 262,
+      "mean": 0.9595122881662207,
+      "median": 0.9681265275644173
+    },
+    "stable": {
+      "count": 288,
+      "mean": 0.9627251367337415,
+      "median": 0.9683546596891996
+    },
+    "efficient": {
+      "count": 210,
+      "mean": 0.9708816839931877,
+      "median": 0.970341989219751
+    }
+  },
+  "calibration_weighting": "each context x mission gets total weight 1, divided equally across unique local choice signatures",
+  "important_note": "No source beta name or max-margin beta_hat is used as an IRL target."
+}

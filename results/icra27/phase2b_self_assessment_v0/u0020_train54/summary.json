@@ -1,0 +1,30 @@
+{
+  "schema": "icra27_phase2b_self_assessment_v0",
+  "source_episodes": "results/icra27/phase2b_beta_train_archive_v0/u0020_train54/episodes.csv",
+  "checkpoint": "results/icra27/phase1a_beta_conditioned_v2_seed27027/phase1_beta_identifiable_selected_u20.pt",
+  "trained_reward_mode": "tracer_cost_v2",
+  "context_definition": [
+    "group",
+    "terrain",
+    "seed"
+  ],
+  "objective_definition": [
+    "mean_cost_motion",
+    "mean_cost_stability",
+    "mean_cost_energy"
+  ],
+  "feasibility_definition": "settled AND success AND NOT m4_terminal",
+  "good_candidate_definition": "feasible AND anchor-Pareto-nondominated",
+  "pareto_scope": "four beta-anchor candidates within the exact paired context",
+  "context_count": 54,
+  "candidate_count": 216,
+  "feasible_candidate_count": 216,
+  "strict_feasible_candidate_count": 216,
+  "pareto_candidate_count": 206,
+  "good_candidate_count": 206,
+  "pareto_count_per_context_histogram": {
+    "4": 44,
+    "3": 10
+  },
+  "important_note": "This dataset performs self-assessment only. It does not assign a unique preferred beta. Preference inference requires expert, mission, or other selection evidence among good alternatives."
+}

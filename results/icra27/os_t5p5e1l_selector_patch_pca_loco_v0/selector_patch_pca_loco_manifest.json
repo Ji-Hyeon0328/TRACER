@@ -1,0 +1,62 @@
+{
+  "aggregate": {
+    "beta_mae_mean": 0.2054584747445264,
+    "canonical_exact_accuracy": 0.09722222222222222,
+    "lambda_mae_mean": 0.3735608631718661,
+    "projected_exact_accuracy": 0.1111111111111111,
+    "score_excess_le_0p01_fraction": 0.15333333333333332,
+    "score_excess_le_0p05_fraction": 0.2088888888888889,
+    "score_excess_max": 19.64331281170876,
+    "score_excess_mean": 1.2028453024782069,
+    "score_excess_median": 0.3057360169287732,
+    "score_excess_p95": 6.435215621779648,
+    "train_lambda_mae_mean": 0.026313821372232395,
+    "train_projected_exact_mean": 0.9315789473684212
+  },
+  "cv_test_rows": 450,
+  "evaluation": "18-fold leave-one-rough-TRAIN-context-out selector validation.",
+  "external_heldout_used": false,
+  "folds": 18,
+  "future_interface": "The fold-local PCA terrain latent is a simple encoder baseline and may later be replaced by CART, a world model, or another learned terrain representation without changing w->beta Objective Selector semantics.",
+  "interpretation_guard": "TRAIN-context LOCO only. No validation/test/hard rough seed is used. This is not final selector fitting.",
+  "model": {
+    "activation": "SiLU",
+    "epochs": 2000,
+    "family": "MLP",
+    "hidden_layers": [
+      64,
+      64
+    ],
+    "learning_rate": 0.003,
+    "loss": "MSE(lambda)",
+    "optimizer": "AdamW",
+    "output": "3 logits -> softmax lambda",
+    "seed": 27551,
+    "target": "frozen oracle selected lambda",
+    "weight_decay": 0.0001
+  },
+  "next_stage": "Compare against the original T5.5e1 5D-selector LOCO. Proceed to final TRAIN fit and external held-out validation only if cross-context physical score generalization improves meaningfully.",
+  "physical_evaluation": "Continuous predicted lambda is projected to the nearest frozen 21-point beta lattice, then evaluated using the original frozen T5.5d context-local Pareto scalarization.",
+  "schema": "icra27_os_t5p5e1l_selector_patch_pca_loco_v0",
+  "selector_semantics": "[fold-local terrain latent z_T, friction mu, physical mission preference w] -> lambda -> beta = 0.15 + 0.55 lambda",
+  "status": "COMPUTE_PASS",
+  "terrain_representation": {
+    "encoder": "fold-local PCA",
+    "friction_appended_after_pca": true,
+    "held_context_used_for_pca": false,
+    "k95_distribution": {
+      "5": 1,
+      "6": 17
+    },
+    "k_selection": "smallest fold-local PCA dimension with >=95% explained rough-patch variance",
+    "pca_fit_context_type": "rough TRAIN contexts excluding held rough context",
+    "pca_fit_contexts_per_fold": 17,
+    "pca_threshold": 0.95,
+    "raw_dim": 48,
+    "source": "8x6 start-height-relative body-aligned oracle height patch",
+    "whitening": false
+  },
+  "test_rows_per_fold": 25,
+  "train_contexts_per_fold": 19,
+  "train_rows_per_fold": 475
+}

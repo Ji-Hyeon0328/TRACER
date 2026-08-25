@@ -1,0 +1,929 @@
+{
+  "beta": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.3333333333333333
+  ],
+  "candidate_exceedance": {
+    "0.0010": {
+      "flat": {
+        "episode_fractions_above": [
+          0.08059023836550834,
+          0.08058683748322572,
+          0.08049535603716627
+        ],
+        "max_episode_fraction_above": 0.08059023836550834,
+        "median_episode_fraction_above": 0.08058683748322572,
+        "pooled_time_fraction_above": 0.08055746730903043
+      },
+      "low_friction": {
+        "episode_fractions_above": [
+          0.42887977552342627,
+          0.42895702871950636,
+          0.42906499676096616
+        ],
+        "max_episode_fraction_above": 0.42906499676096616,
+        "median_episode_fraction_above": 0.42895702871950636,
+        "pooled_time_fraction_above": 0.428967254408068
+      },
+      "rough": {
+        "episode_fractions_above": [
+          0.2476158038147183,
+          0.17544609466826075,
+          0.25155486450465886
+        ],
+        "max_episode_fraction_above": 0.25155486450465886,
+        "median_episode_fraction_above": 0.2476158038147183,
+        "pooled_time_fraction_above": 0.22406241949137945
+      }
+    },
+    "0.0015": {
+      "flat": {
+        "episode_fractions_above": [
+          0.0558249922608706,
+          0.055584254571763275,
+          0.055727554179576554
+        ],
+        "max_episode_fraction_above": 0.0558249922608706,
+        "median_episode_fraction_above": 0.055727554179576554,
+        "pooled_time_fraction_above": 0.05571231933930802
+      },
+      "low_friction": {
+        "episode_fractions_above": [
+          0.35301100798619306,
+          0.35294752753185765,
+          0.35327143165623687
+        ],
+        "max_episode_fraction_above": 0.35327143165623687,
+        "median_episode_fraction_above": 0.35301100798619306,
+        "pooled_time_fraction_above": 0.3530766462756459
+      },
+      "rough": {
+        "episode_fractions_above": [
+          0.1572434150772044,
+          0.12116679132387806,
+          0.1685917370057721
+        ],
+        "max_episode_fraction_above": 0.1685917370057721,
+        "median_episode_fraction_above": 0.1572434150772044,
+        "pooled_time_fraction_above": 0.14857752751095585
+      }
+    },
+    "0.0020": {
+      "flat": {
+        "episode_fractions_above": [
+          0.04633164792075943,
+          0.0462857733236987,
+          0.04633642930857375
+        ],
+        "max_episode_fraction_above": 0.04633642930857375,
+        "median_episode_fraction_above": 0.04633164792075943,
+        "pooled_time_fraction_above": 0.04631796283552097
+      },
+      "low_friction": {
+        "episode_fractions_above": [
+          0.3254910425210507,
+          0.3248758367523274,
+          0.3256316130425455
+        ],
+        "max_episode_fraction_above": 0.3256316130425455,
+        "median_episode_fraction_above": 0.3254910425210507,
+        "pooled_time_fraction_above": 0.32533285354444663
+      },
+      "rough": {
+        "episode_fractions_above": [
+          0.11228428701180844,
+          0.09092851800407237,
+          0.11761439360284107
+        ],
+        "max_episode_fraction_above": 0.11761439360284107,
+        "median_episode_fraction_above": 0.11228428701180844,
+        "pooled_time_fraction_above": 0.10669463766516186
+      }
+    },
+    "0.0030": {
+      "flat": {
+        "episode_fractions_above": [
+          0.03529047569910848,
+          0.03523091228433311,
+          0.03529411764706503
+        ],
+        "max_episode_fraction_above": 0.03529411764706503,
+        "median_episode_fraction_above": 0.03529047569910848,
+        "pooled_time_fraction_above": 0.035271851342057146
+      },
+      "low_friction": {
+        "episode_fractions_above": [
+          0.28113533347723335,
+          0.28082487583675714,
+          0.28125674800259604
+        ],
+        "max_episode_fraction_above": 0.28125674800259604,
+        "median_episode_fraction_above": 0.28113533347723335,
+        "pooled_time_fraction_above": 0.2810723281756076
+      },
+      "rough": {
+        "episode_fractions_above": [
+          0.0828792007266135,
+          0.07019980767176819,
+          0.0801865837405588
+        ],
+        "max_episode_fraction_above": 0.0828792007266135,
+        "median_episode_fraction_above": 0.0801865837405588,
+        "pooled_time_fraction_above": 0.07761952081263426
+      }
+    },
+    "0.0040": {
+      "flat": {
+        "episode_fractions_above": [
+          0.03013104942730896,
+          0.030168405827053543,
+          0.03023735810114048
+        ],
+        "max_episode_fraction_above": 0.03023735810114048,
+        "median_episode_fraction_above": 0.030168405827053543,
+        "pooled_time_fraction_above": 0.030178940123886912
+      },
+      "low_friction": {
+        "episode_fractions_above": [
+          0.26203323980142923,
+          0.26160656445692543,
+          0.2622543727056838
+        ],
+        "max_episode_fraction_above": 0.2622543727056838,
+        "median_episode_fraction_above": 0.26203323980142923,
+        "pooled_time_fraction_above": 0.2619647355163775
+      },
+      "rough": {
+        "episode_fractions_above": [
+          0.07163941871026458,
+          0.06186558392991437,
+          0.06597067969791122
+        ],
+        "max_episode_fraction_above": 0.07163941871026458,
+        "median_episode_fraction_above": 0.06597067969791122,
+        "pooled_time_fraction_above": 0.0663943174708356
+      }
+    },
+    "0.0050": {
+      "flat": {
+        "episode_fractions_above": [
+          0.026725828087921295,
+          0.026758962702763234,
+          0.026831785345721917
+        ],
+        "max_episode_fraction_above": 0.026831785345721917,
+        "median_episode_fraction_above": 0.026758962702763234,
+        "pooled_time_fraction_above": 0.02677219545767846
+      },
+      "low_friction": {
+        "episode_fractions_above": [
+          0.25037772501619293,
+          0.24994601597927485,
+          0.25048585618657354
+        ],
+        "max_episode_fraction_above": 0.25048585618657354,
+        "median_episode_fraction_above": 0.25037772501619293,
+        "pooled_time_fraction_above": 0.2502698812522538
+      },
+      "rough": {
+        "episode_fractions_above": [
+          0.06505449591280754,
+          0.0568436798803359,
+          0.05830741892492152
+        ],
+        "max_episode_fraction_above": 0.06505449591280754,
+        "median_episode_fraction_above": 0.05830741892492152,
+        "pooled_time_fraction_above": 0.05999043097420292
+      }
+    },
+    "0.0060": {
+      "flat": {
+        "episode_fractions_above": [
+          0.02404292642658557,
+          0.02396941832834391,
+          0.023942208462336485
+        ],
+        "max_episode_fraction_above": 0.02404292642658557,
+        "median_episode_fraction_above": 0.02396941832834391,
+        "pooled_time_fraction_above": 0.023984858912598835
+      },
+      "low_friction": {
+        "episode_fractions_above": [
+          0.24109648176128262,
+          0.24066076441373838,
+          0.24120060462103704
+        ],
+        "max_episode_fraction_above": 0.24120060462103704,
+        "median_episode_fraction_above": 0.24109648176128262,
+        "pooled_time_fraction_above": 0.24098596617488788
+      },
+      "rough": {
+        "episode_fractions_above": [
+          0.060513169845595884,
+          0.05256971898707763,
+          0.05330964015992825
+        ],
+        "max_episode_fraction_above": 0.060513169845595884,
+        "median_episode_fraction_above": 0.05330964015992825,
+        "pooled_time_fraction_above": 0.05538993780133463
+      }
+    },
+    "0.0080": {
+      "flat": {
+        "episode_fractions_above": [
+          0.021463213290685835,
+          0.021489823328860066,
+          0.021465428276577547
+        ],
+        "max_episode_fraction_above": 0.021489823328860066,
+        "median_episode_fraction_above": 0.021465428276577547,
+        "pooled_time_fraction_above": 0.021472814865798676
+      },
+      "low_friction": {
+        "episode_fractions_above": [
+          0.2250161882149844,
+          0.2244655581947792,
+          0.22511336644353766
+        ],
+        "max_episode_fraction_above": 0.22511336644353766,
+        "median_episode_fraction_above": 0.2250161882149844,
+        "pooled_time_fraction_above": 0.2248650593738804
+      },
+      "rough": {
+        "episode_fractions_above": [
+          0.05301998183469663,
+          0.04647932471418455,
+          0.04597956463793804
+        ],
+        "max_episode_fraction_above": 0.05301998183469663,
+        "median_episode_fraction_above": 0.04647932471418455,
+        "pooled_time_fraction_above": 0.04843399212395776
+      }
+    },
+    "0.0100": {
+      "flat": {
+        "episode_fractions_above": [
+          0.02084408213806985,
+          0.020869924578989056,
+          0.020846233230137765
+        ],
+        "max_episode_fraction_above": 0.020869924578989056,
+        "median_episode_fraction_above": 0.020846233230137765,
+        "pooled_time_fraction_above": 0.02085340674466982
+      },
+      "low_friction": {
+        "episode_fractions_above": [
+          0.21282106626376482,
+          0.2124811055927494,
+          0.21291297775858833
+        ],
+        "max_episode_fraction_above": 0.21291297775858833,
+        "median_episode_fraction_above": 0.21282106626376482,
+        "pooled_time_fraction_above": 0.21273839510615816
+      },
+      "rough": {
+        "episode_fractions_above": [
+          0.04802452316076388,
+          0.04199166577626332,
+          0.040648600621945204
+        ],
+        "max_episode_fraction_above": 0.04802452316076388,
+        "median_episode_fraction_above": 0.04199166577626332,
+        "pooled_time_fraction_above": 0.04350226344264296
+      }
+    }
+  },
+  "checkpoint": "/mnt/share/nas/Yoo/Tracer/TRACER-ICRA27/results/icra27/phase1a_beta_conditioned_v2_seed27027/phase1_beta_identifiable_selected_u20.pt",
+  "deadband_candidates_mps": [
+    0.001,
+    0.0015,
+    0.002,
+    0.003,
+    0.004,
+    0.005,
+    0.006,
+    0.008,
+    0.01
+  ],
+  "established_stance_gate_s": 0.04,
+  "quantiles": [
+    0.9,
+    0.95,
+    0.975,
+    0.99
+  ],
+  "schema": "icra27_os_t4p1d_established_slip_distribution_train9_v0",
+  "scope": "TRAIN-only balanced-beta diagnostic",
+  "terrains": {
+    "flat": {
+      "pooled_histogram": [
+        {
+          "contact_samples": 23747,
+          "contact_time_s": 47.49399999998698,
+          "high_mps": 0.0005,
+          "low_mps": 0.0,
+          "time_fraction": 0.8171713695801439
+        },
+        {
+          "contact_samples": 2972,
+          "contact_time_s": 5.943999999999813,
+          "high_mps": 0.001,
+          "low_mps": 0.0005,
+          "time_fraction": 0.10227116311082567
+        },
+        {
+          "contact_samples": 722,
+          "contact_time_s": 1.4439999999999338,
+          "high_mps": 0.0015,
+          "low_mps": 0.001,
+          "time_fraction": 0.024845147969722432
+        },
+        {
+          "contact_samples": 273,
+          "contact_time_s": 0.545999999999977,
+          "high_mps": 0.002,
+          "low_mps": 0.0015,
+          "time_fraction": 0.009394356503787048
+        },
+        {
+          "contact_samples": 321,
+          "contact_time_s": 0.6419999999999684,
+          "high_mps": 0.003,
+          "low_mps": 0.002,
+          "time_fraction": 0.011046111493463814
+        },
+        {
+          "contact_samples": 148,
+          "contact_time_s": 0.2959999999999856,
+          "high_mps": 0.004,
+          "low_mps": 0.003,
+          "time_fraction": 0.005092911218170235
+        },
+        {
+          "contact_samples": 99,
+          "contact_time_s": 0.19799999999998952,
+          "high_mps": 0.005,
+          "low_mps": 0.004,
+          "time_fraction": 0.003406744666208453
+        },
+        {
+          "contact_samples": 81,
+          "contact_time_s": 0.16199999999999037,
+          "high_mps": 0.006,
+          "low_mps": 0.005,
+          "time_fraction": 0.0027873365450796256
+        },
+        {
+          "contact_samples": 73,
+          "contact_time_s": 0.14599999999999147,
+          "high_mps": 0.008,
+          "low_mps": 0.006,
+          "time_fraction": 0.002512044046800159
+        },
+        {
+          "contact_samples": 18,
+          "contact_time_s": 0.0360000000000007,
+          "high_mps": 0.01,
+          "low_mps": 0.008,
+          "time_fraction": 0.0006194081211288545
+        },
+        {
+          "contact_samples": 68,
+          "contact_time_s": 0.1359999999999908,
+          "high_mps": 0.0125,
+          "low_mps": 0.01,
+          "time_fraction": 0.0023399862353754687
+        },
+        {
+          "contact_samples": 34,
+          "contact_time_s": 0.06799999999999473,
+          "high_mps": 0.015,
+          "low_mps": 0.0125,
+          "time_fraction": 0.0011699931176877229
+        },
+        {
+          "contact_samples": 99,
+          "contact_time_s": 0.1979999999999862,
+          "high_mps": 0.02,
+          "low_mps": 0.015,
+          "time_fraction": 0.003406744666208396
+        },
+        {
+          "contact_samples": 105,
+          "contact_time_s": 0.2099999999999902,
+          "high_mps": 0.03,
+          "low_mps": 0.02,
+          "time_fraction": 0.003613214039918079
+        },
+        {
+          "contact_samples": 129,
+          "contact_time_s": 0.2579999999999829,
+          "high_mps": 0.04,
+          "low_mps": 0.03,
+          "time_fraction": 0.00443909153475641
+        },
+        {
+          "contact_samples": 60,
+          "contact_time_s": 0.11999999999999278,
+          "high_mps": 0.05,
+          "low_mps": 0.04,
+          "time_fraction": 0.0020646937370960173
+        },
+        {
+          "contact_samples": 66,
+          "contact_time_s": 0.13199999999999212,
+          "high_mps": 0.075,
+          "low_mps": 0.05,
+          "time_fraction": 0.0022711631108056204
+        },
+        {
+          "contact_samples": 39,
+          "contact_time_s": 0.07799999999999874,
+          "high_mps": 0.1,
+          "low_mps": 0.075,
+          "time_fraction": 0.0013420509291124704
+        },
+        {
+          "contact_samples": 6,
+          "contact_time_s": 0.012000000000001343,
+          "high_mps": 0.15,
+          "low_mps": 0.1,
+          "time_fraction": 0.00020646937370963727
+        },
+        {
+          "contact_samples": 0,
+          "contact_time_s": 0.0,
+          "high_mps": 0.2,
+          "low_mps": 0.15,
+          "time_fraction": 0.0
+        },
+        {
+          "contact_samples": 0,
+          "contact_time_s": 0.0,
+          "high_mps": 0.3,
+          "low_mps": 0.2,
+          "time_fraction": 0.0
+        },
+        {
+          "contact_samples": 0,
+          "contact_time_s": 0.0,
+          "high_mps": 0.5,
+          "low_mps": 0.3,
+          "time_fraction": 0.0
+        },
+        {
+          "contact_samples": 0,
+          "contact_time_s": 0.0,
+          "high_mps": 1.0,
+          "low_mps": 0.5,
+          "time_fraction": 0.0
+        },
+        {
+          "contact_samples": 0,
+          "contact_time_s": 0.0,
+          "high_mps": null,
+          "low_mps": 1.0,
+          "time_fraction": 0.0
+        }
+      ],
+      "pooled_quantiles": {
+        "0.900": {
+          "bin_high_mps": 0.001,
+          "bin_low_mps": 0.0005,
+          "conservative_upper_mps": 0.001,
+          "quantile": 0.9
+        },
+        "0.950": {
+          "bin_high_mps": 0.002,
+          "bin_low_mps": 0.0015,
+          "conservative_upper_mps": 0.002,
+          "quantile": 0.95
+        },
+        "0.975": {
+          "bin_high_mps": 0.006,
+          "bin_low_mps": 0.005,
+          "conservative_upper_mps": 0.006,
+          "quantile": 0.975
+        },
+        "0.990": {
+          "bin_high_mps": 0.04,
+          "bin_low_mps": 0.03,
+          "conservative_upper_mps": 0.04,
+          "quantile": 0.99
+        }
+      },
+      "seeds": [
+        27100,
+        27101,
+        27102
+      ]
+    },
+    "low_friction": {
+      "pooled_histogram": [
+        {
+          "contact_samples": 10219,
+          "contact_time_s": 20.43799999999822,
+          "high_mps": 0.0005,
+          "low_mps": 0.0,
+          "time_fraction": 0.36772220223101093
+        },
+        {
+          "contact_samples": 5650,
+          "contact_time_s": 11.299999999999246,
+          "high_mps": 0.001,
+          "low_mps": 0.0005,
+          "time_fraction": 0.20331054336092122
+        },
+        {
+          "contact_samples": 2109,
+          "contact_time_s": 4.217999999999735,
+          "high_mps": 0.0015,
+          "low_mps": 0.001,
+          "time_fraction": 0.07589060813242204
+        },
+        {
+          "contact_samples": 771,
+          "contact_time_s": 1.5419999999999534,
+          "high_mps": 0.002,
+          "low_mps": 0.0015,
+          "time_fraction": 0.027743792731199292
+        },
+        {
+          "contact_samples": 1230,
+          "contact_time_s": 2.459999999999904,
+          "high_mps": 0.003,
+          "low_mps": 0.002,
+          "time_fraction": 0.04426052536883895
+        },
+        {
+          "contact_samples": 531,
+          "contact_time_s": 1.0619999999999366,
+          "high_mps": 0.004,
+          "low_mps": 0.003,
+          "time_fraction": 0.019107592659230076
+        },
+        {
+          "contact_samples": 325,
+          "contact_time_s": 0.6499999999999524,
+          "high_mps": 0.005,
+          "low_mps": 0.004,
+          "time_fraction": 0.011694854264123712
+        },
+        {
+          "contact_samples": 258,
+          "contact_time_s": 0.5159999999999625,
+          "high_mps": 0.006,
+          "low_mps": 0.005,
+          "time_fraction": 0.009283915077365906
+        },
+        {
+          "contact_samples": 448,
+          "contact_time_s": 0.8959999999999368,
+          "high_mps": 0.008,
+          "low_mps": 0.006,
+          "time_fraction": 0.016120906801007497
+        },
+        {
+          "contact_samples": 337,
+          "contact_time_s": 0.6739999999999566,
+          "high_mps": 0.01,
+          "low_mps": 0.008,
+          "time_fraction": 0.012126664267722234
+        },
+        {
+          "contact_samples": 393,
+          "contact_time_s": 0.7859999999999514,
+          "high_mps": 0.0125,
+          "low_mps": 0.01,
+          "time_fraction": 0.014141777617848218
+        },
+        {
+          "contact_samples": 324,
+          "contact_time_s": 0.6479999999999635,
+          "high_mps": 0.015,
+          "low_mps": 0.0125,
+          "time_fraction": 0.011658870097157374
+        },
+        {
+          "contact_samples": 449,
+          "contact_time_s": 0.89799999999994,
+          "high_mps": 0.02,
+          "low_mps": 0.015,
+          "time_fraction": 0.016156890967974093
+        },
+        {
+          "contact_samples": 727,
+          "contact_time_s": 1.4539999999999138,
+          "high_mps": 0.03,
+          "low_mps": 0.02,
+          "time_fraction": 0.026160489384670943
+        },
+        {
+          "contact_samples": 391,
+          "contact_time_s": 0.7819999999999536,
+          "high_mps": 0.04,
+          "low_mps": 0.03,
+          "time_fraction": 0.014069809283915184
+        },
+        {
+          "contact_samples": 222,
+          "contact_time_s": 0.4439999999999771,
+          "high_mps": 0.05,
+          "low_mps": 0.04,
+          "time_fraction": 0.00798848506657083
+        },
+        {
+          "contact_samples": 527,
+          "contact_time_s": 1.053999999999943,
+          "high_mps": 0.075,
+          "low_mps": 0.05,
+          "time_fraction": 0.018963655991364042
+        },
+        {
+          "contact_samples": 404,
+          "contact_time_s": 0.8079999999999664,
+          "high_mps": 0.1,
+          "low_mps": 0.075,
+          "time_fraction": 0.014537603454480397
+        },
+        {
+          "contact_samples": 1032,
+          "contact_time_s": 2.0639999999999095,
+          "high_mps": 0.15,
+          "low_mps": 0.1,
+          "time_fraction": 0.03713566030946469
+        },
+        {
+          "contact_samples": 405,
+          "contact_time_s": 0.8099999999999861,
+          "high_mps": 0.2,
+          "low_mps": 0.15,
+          "time_fraction": 0.014573587621447288
+        },
+        {
+          "contact_samples": 471,
+          "contact_time_s": 0.9419999999999845,
+          "high_mps": 0.3,
+          "low_mps": 0.2,
+          "time_fraction": 0.016948542641238712
+        },
+        {
+          "contact_samples": 453,
+          "contact_time_s": 0.9059999999999919,
+          "high_mps": 0.5,
+          "low_mps": 0.3,
+          "time_fraction": 0.016300827635841175
+        },
+        {
+          "contact_samples": 102,
+          "contact_time_s": 0.20400000000000018,
+          "high_mps": 1.0,
+          "low_mps": 0.5,
+          "time_fraction": 0.003670385030586791
+        },
+        {
+          "contact_samples": 12,
+          "contact_time_s": 0.02400000000000002,
+          "high_mps": null,
+          "low_mps": 1.0,
+          "time_fraction": 0.00043181000359844595
+        }
+      ],
+      "pooled_quantiles": {
+        "0.900": {
+          "bin_high_mps": 0.1,
+          "bin_low_mps": 0.075,
+          "conservative_upper_mps": 0.1,
+          "quantile": 0.9
+        },
+        "0.950": {
+          "bin_high_mps": 0.2,
+          "bin_low_mps": 0.15,
+          "conservative_upper_mps": 0.2,
+          "quantile": 0.95
+        },
+        "0.975": {
+          "bin_high_mps": 0.3,
+          "bin_low_mps": 0.2,
+          "conservative_upper_mps": 0.3,
+          "quantile": 0.975
+        },
+        "0.990": {
+          "bin_high_mps": 0.5,
+          "bin_low_mps": 0.3,
+          "conservative_upper_mps": 0.5,
+          "quantile": 0.99
+        }
+      },
+      "seeds": [
+        27200,
+        27201,
+        27202
+      ]
+    },
+    "rough": {
+      "pooled_histogram": [
+        {
+          "contact_samples": 14418,
+          "contact_time_s": 28.835999999996357,
+          "high_mps": 0.0005,
+          "low_mps": 0.0,
+          "time_fraction": 0.530639284531279
+        },
+        {
+          "contact_samples": 6665,
+          "contact_time_s": 13.329999999999584,
+          "high_mps": 0.001,
+          "low_mps": 0.0005,
+          "time_fraction": 0.2452982959773416
+        },
+        {
+          "contact_samples": 2051,
+          "contact_time_s": 4.101999999999835,
+          "high_mps": 0.0015,
+          "low_mps": 0.001,
+          "time_fraction": 0.07548489198042356
+        },
+        {
+          "contact_samples": 1138,
+          "contact_time_s": 2.275999999999945,
+          "high_mps": 0.002,
+          "low_mps": 0.0015,
+          "time_fraction": 0.041882889845793955
+        },
+        {
+          "contact_samples": 790,
+          "contact_time_s": 1.5799999999999221,
+          "high_mps": 0.003,
+          "low_mps": 0.002,
+          "time_fraction": 0.029075116852527585
+        },
+        {
+          "contact_samples": 305,
+          "contact_time_s": 0.609999999999973,
+          "high_mps": 0.004,
+          "low_mps": 0.003,
+          "time_fraction": 0.011225203341798681
+        },
+        {
+          "contact_samples": 174,
+          "contact_time_s": 0.34799999999998404,
+          "high_mps": 0.005,
+          "low_mps": 0.004,
+          "time_fraction": 0.0064038864966326796
+        },
+        {
+          "contact_samples": 125,
+          "contact_time_s": 0.24999999999998732,
+          "high_mps": 0.006,
+          "low_mps": 0.005,
+          "time_fraction": 0.004600493172868282
+        },
+        {
+          "contact_samples": 189,
+          "contact_time_s": 0.37799999999998324,
+          "high_mps": 0.008,
+          "low_mps": 0.006,
+          "time_fraction": 0.006955945677376887
+        },
+        {
+          "contact_samples": 134,
+          "contact_time_s": 0.267999999999986,
+          "high_mps": 0.01,
+          "low_mps": 0.008,
+          "time_fraction": 0.004931728681314792
+        },
+        {
+          "contact_samples": 122,
+          "contact_time_s": 0.2439999999999889,
+          "high_mps": 0.0125,
+          "low_mps": 0.01,
+          "time_fraction": 0.0044900813367194665
+        },
+        {
+          "contact_samples": 102,
+          "contact_time_s": 0.2039999999999913,
+          "high_mps": 0.015,
+          "low_mps": 0.0125,
+          "time_fraction": 0.0037540024290605486
+        },
+        {
+          "contact_samples": 147,
+          "contact_time_s": 0.2939999999999856,
+          "high_mps": 0.02,
+          "low_mps": 0.015,
+          "time_fraction": 0.0054101799712931095
+        },
+        {
+          "contact_samples": 217,
+          "contact_time_s": 0.4339999999999784,
+          "high_mps": 0.03,
+          "low_mps": 0.02,
+          "time_fraction": 0.007986456148099345
+        },
+        {
+          "contact_samples": 132,
+          "contact_time_s": 0.2639999999999869,
+          "high_mps": 0.04,
+          "low_mps": 0.03,
+          "time_fraction": 0.0048581207905489115
+        },
+        {
+          "contact_samples": 99,
+          "contact_time_s": 0.19799999999999307,
+          "high_mps": 0.05,
+          "low_mps": 0.04,
+          "time_fraction": 0.0036435905929117366
+        },
+        {
+          "contact_samples": 182,
+          "contact_time_s": 0.36399999999999144,
+          "high_mps": 0.075,
+          "low_mps": 0.05,
+          "time_fraction": 0.006698318059696401
+        },
+        {
+          "contact_samples": 84,
+          "contact_time_s": 0.16799999999999526,
+          "high_mps": 0.1,
+          "low_mps": 0.075,
+          "time_fraction": 0.003091531412167555
+        },
+        {
+          "contact_samples": 67,
+          "contact_time_s": 0.13399999999999634,
+          "high_mps": 0.15,
+          "low_mps": 0.1,
+          "time_fraction": 0.002465864340657457
+        },
+        {
+          "contact_samples": 13,
+          "contact_time_s": 0.02599999999999958,
+          "high_mps": 0.2,
+          "low_mps": 0.15,
+          "time_fraction": 0.00047845128997831785
+        },
+        {
+          "contact_samples": 15,
+          "contact_time_s": 0.02999999999999979,
+          "high_mps": 0.3,
+          "low_mps": 0.2,
+          "time_fraction": 0.000552059180744218
+        },
+        {
+          "contact_samples": 2,
+          "contact_time_s": 0.0040000000000000036,
+          "high_mps": 0.5,
+          "low_mps": 0.3,
+          "time_fraction": 7.360789076589631e-05
+        },
+        {
+          "contact_samples": 0,
+          "contact_time_s": 0.0,
+          "high_mps": 1.0,
+          "low_mps": 0.5,
+          "time_fraction": 0.0
+        },
+        {
+          "contact_samples": 0,
+          "contact_time_s": 0.0,
+          "high_mps": null,
+          "low_mps": 1.0,
+          "time_fraction": 0.0
+        }
+      ],
+      "pooled_quantiles": {
+        "0.900": {
+          "bin_high_mps": 0.003,
+          "bin_low_mps": 0.002,
+          "conservative_upper_mps": 0.003,
+          "quantile": 0.9
+        },
+        "0.950": {
+          "bin_high_mps": 0.008,
+          "bin_low_mps": 0.006,
+          "conservative_upper_mps": 0.008,
+          "quantile": 0.95
+        },
+        "0.975": {
+          "bin_high_mps": 0.03,
+          "bin_low_mps": 0.02,
+          "conservative_upper_mps": 0.03,
+          "quantile": 0.975
+        },
+        "0.990": {
+          "bin_high_mps": 0.075,
+          "bin_low_mps": 0.05,
+          "conservative_upper_mps": 0.075,
+          "quantile": 0.99
+        }
+      },
+      "seeds": [
+        13,
+        7,
+        15
+      ]
+    }
+  }
+}

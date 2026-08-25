@@ -1,0 +1,28 @@
+{
+  "analysis": "offline_clean_lockstep_closed_loop_trajectory_decomposition",
+  "betas": [
+    "balanced",
+    "stability",
+    "energy"
+  ],
+  "interpretation_note": "Pairwise correlations are descriptive, not causal. Positive delta cost_traction means specialized beta is worse than balanced.",
+  "observation_indices": {
+    "pitch": 12,
+    "roll": 11,
+    "vx": 7,
+    "vy": 8,
+    "yaw_rate": 9,
+    "z": 10
+  },
+  "schema": "icra27_os_t4p5k6_lowfriction_action_mechanism_v0",
+  "seed": 27200,
+  "settling_steps_excluded": 5,
+  "source": "results/icra27/os_t4p5k5_lockstep_checkpoint_sweep_v0/train9",
+  "terrain": "low_friction",
+  "updates": [
+    10,
+    20,
+    30,
+    40
+  ]
+}

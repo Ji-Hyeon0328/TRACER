@@ -1,0 +1,100 @@
+{
+  "active_robot": "go2",
+  "added_v2_features": [
+    "slope_longitudinal_rms",
+    "slope_lateral_rms",
+    "height_front_minus_rear_mean_m",
+    "height_left_minus_right_mean_m",
+    "height_front_minus_rear_std_m",
+    "height_mid_minus_ends_std_m"
+  ],
+  "base_v1_features": [
+    "friction_mu",
+    "height_std_m",
+    "height_relief_p95_p05_m",
+    "slope_rms",
+    "slope_q95"
+  ],
+  "context_dim": 11,
+  "context_feature_order": [
+    "friction_mu",
+    "height_std_m",
+    "height_relief_p95_p05_m",
+    "slope_rms",
+    "slope_q95",
+    "slope_longitudinal_rms",
+    "slope_lateral_rms",
+    "height_front_minus_rear_mean_m",
+    "height_left_minus_right_mean_m",
+    "height_front_minus_rear_std_m",
+    "height_mid_minus_ends_std_m"
+  ],
+  "directional_gradient": "world hfield gradient rotated into reset body/goal frame",
+  "feature_ranges_rough_train": {
+    "friction_mu": [
+      0.8,
+      0.8
+    ],
+    "height_front_minus_rear_mean_m": [
+      -0.12123456541697197,
+      0.118213017199284
+    ],
+    "height_front_minus_rear_std_m": [
+      -0.024098404267705,
+      0.027114450162163697
+    ],
+    "height_left_minus_right_mean_m": [
+      -0.04939779096179536,
+      0.05214574939326236
+    ],
+    "height_mid_minus_ends_std_m": [
+      -0.0181441259265585,
+      0.009243415483302923
+    ],
+    "height_relief_p95_p05_m": [
+      0.0524684572219849,
+      0.17930769038200378
+    ],
+    "height_std_m": [
+      0.01826920683430378,
+      0.05846809056280435
+    ],
+    "slope_lateral_rms": [
+      0.05777579194403241,
+      0.11480033927875906
+    ],
+    "slope_longitudinal_rms": [
+      0.05201356609467828,
+      0.1169661553870319
+    ],
+    "slope_q95": [
+      0.12816551007246907,
+      0.2616771163208163
+    ],
+    "slope_rms": [
+      0.07999057183688178,
+      0.14957532438805252
+    ]
+  },
+  "fresh_process_global_hfields_expected": 18,
+  "fresh_process_global_hfields_unique": 18,
+  "hip_height_m": 0.28,
+  "interpretation_guard": "Oracle physical terrain descriptor. No seed ID, rollout outcome metric, or held-out context is an Objective Selector input feature.",
+  "lateral_partition": "left/right halves at body-frame lateral=0",
+  "longitudinal_partition": "three equal-length thirds of the frozen T5.5a reset-to-goal corridor including margins",
+  "next_stage": "OS-T5.5e1d: rerun TRAIN-only context identifiability diagnostics with c_OS_v2 before retraining the Objective Selector.",
+  "parent_contract": "results/icra27/os_t5p5a_oracle_context_descriptor_v1/oracle_context_contract.json",
+  "rough_train_contexts": 18,
+  "schema": "icra27_os_t5p5a_oracle_context_descriptor_v2",
+  "spatial_frame": "reset body/goal-aligned longitudinal-lateral frame",
+  "status": "FREEZE_PASS",
+  "subregion_minimum_cell_counts": {
+    "front_third_cells": 10,
+    "left_half_cells": 14,
+    "middle_third_cells": 10,
+    "rear_third_cells": 11,
+    "right_half_cells": 17
+  },
+  "total_contexts": 20,
+  "v1_regression_max_abs_error": 0.0
+}

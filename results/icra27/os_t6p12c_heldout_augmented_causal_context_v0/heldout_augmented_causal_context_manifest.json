@@ -1,0 +1,120 @@
+{
+  "causal_boundary": "Every selector feature is available at or before 0.4 s, prior to the first learned beta-conditioned policy action.",
+  "components": {
+    "absolute_proprioceptive_boundary_state": 6,
+    "probe_response": 7,
+    "semantic": 74
+  },
+  "context_dim": 87,
+  "context_ids": [
+    "rough_seed_1",
+    "rough_seed_21",
+    "rough_seed_16",
+    "rough_seed_14",
+    "rough_seed_27",
+    "rough_seed_2",
+    "rough_seed_3",
+    "rough_seed_19",
+    "rough_seed_26",
+    "rough_seed_9",
+    "rough_seed_23",
+    "rough_seed_24"
+  ],
+  "contexts": 12,
+  "explicitly_excluded": [
+    "reward components",
+    "physical J labels",
+    "physical regret labels",
+    "Q labels",
+    "oracle beta",
+    "selected beta",
+    "post-0.4 s learned-policy trajectory",
+    "future energy",
+    "future stability",
+    "future slip",
+    "terminal success",
+    "future M4 outcome",
+    "safety_state as selector feature"
+  ],
+  "feature_group_ranges": {
+    "probe_response": {
+      "max": 0.27645519375801086,
+      "min": -0.17056959867477417
+    },
+    "proprioceptive": {
+      "max": 0.7395564317703247,
+      "min": -0.17056959867477417
+    },
+    "semantic": {
+      "max": 2.563761240572716,
+      "min": -0.12642835619514994
+    }
+  },
+  "heldout_outcomes_used": false,
+  "highres_patch_source": "Frozen T6.3a run_worker(seed), 16x12 resolution.",
+  "next_step": "Apply the already-frozen T6.12a nine-checkpoint selector and precommit all eta-specific beta selections before generating any heldout 21-beta physical response atlas.",
+  "nonnormal_at_0p4s": [
+    "rough_seed_24"
+  ],
+  "nonnormal_at_0p4s_count": 1,
+  "probe": {
+    "decision_dt_s": 0.2,
+    "executed_prefix_only": "reset -> 0.2 s -> 0.4 s -> stop",
+    "no_post_0p4_probe_steps": true,
+    "normalized_action": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "physical_semantics": "Inherited unchanged from the frozen T6.8b beta-independent nominal-motion probe.",
+    "step": 2,
+    "time_s": 0.4
+  },
+  "probe_safety_state_used_as_feature": false,
+  "representation": "semantic_plus_prop_probe",
+  "safety_by_causal_prefix": {
+    "0": {
+      "counts": {
+        "normal": 12
+      },
+      "time_s": 0.0
+    },
+    "1": {
+      "counts": {
+        "normal": 12
+      },
+      "time_s": 0.2
+    },
+    "2": {
+      "counts": {
+        "normal": 11,
+        "watch": 1
+      },
+      "time_s": 0.4
+    }
+  },
+  "schema": "icra27_os_t6p12c_heldout_augmented_causal_context_v0",
+  "semantic_source": "Frozen T6.6a build_representations() semantic_regions output.",
+  "splits": {
+    "hard": [
+      9,
+      23,
+      24
+    ],
+    "test": [
+      27,
+      2,
+      3,
+      19,
+      26
+    ],
+    "val": [
+      1,
+      21,
+      16,
+      14
+    ]
+  },
+  "status": "FREEZE_PASS",
+  "unique_geometry_hashes": 12
+}

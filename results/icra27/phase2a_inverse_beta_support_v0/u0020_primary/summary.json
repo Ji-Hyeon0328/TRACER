@@ -1,0 +1,38 @@
+{
+  "schema": "icra27_phase2a_inverse_beta_support_v0",
+  "source_candidates": "results/icra27/phase2a_self_assessment_v0/u0020_primary/self_assessment_candidates.csv",
+  "grid_step": 0.005,
+  "simplex_grid_points": 20301,
+  "support_definition": "beta dot C_selected <= beta dot C_alternative for every feasible alternative",
+  "canonical_beta_definition": "grid beta maximizing minimum pairwise scalarized-cost margin",
+  "candidate_count": 116,
+  "supported_candidate_count": 80,
+  "pareto_candidate_count": 102,
+  "pareto_supported_count": 80,
+  "pareto_unsupported_count": 22,
+  "support_by_original_beta_name": {
+    "motion": 29,
+    "energy": 14,
+    "balanced": 15,
+    "stability": 22
+  },
+  "pareto_by_original_beta_name": {
+    "balanced": 27,
+    "motion": 29,
+    "energy": 22,
+    "stability": 24
+  },
+  "unsupported_pareto_by_original_beta_name": {
+    "balanced": 12,
+    "energy": 8,
+    "stability": 2
+  },
+  "support_fraction_histogram": {
+    "0": 36,
+    "[0.25,1]": 53,
+    "(0,0.01)": 7,
+    "[0.10,0.25)": 10,
+    "[0.01,0.05)": 10
+  },
+  "important_note": "Original beta_name is provenance only. Inverse preference is inferred from the actual self-assessed objective vector, not from the anchor name."
+}

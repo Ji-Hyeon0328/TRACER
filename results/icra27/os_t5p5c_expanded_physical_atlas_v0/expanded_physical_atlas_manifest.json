@@ -1,0 +1,155 @@
+{
+  "beta_points_per_context": 21,
+  "context_beta_pairs_unique": true,
+  "context_order": [
+    "flat",
+    "low_friction",
+    "rough_seed_13",
+    "rough_seed_7",
+    "rough_seed_15",
+    "rough_seed_0",
+    "rough_seed_5",
+    "rough_seed_11",
+    "rough_seed_4",
+    "rough_seed_25",
+    "rough_seed_12",
+    "rough_seed_6",
+    "rough_seed_29",
+    "rough_seed_18",
+    "rough_seed_10",
+    "rough_seed_8",
+    "rough_seed_22",
+    "rough_seed_20",
+    "rough_seed_28",
+    "rough_seed_17"
+  ],
+  "contexts": 20,
+  "deterministic_replica_validation": {
+    "groups": [
+      "flat",
+      "low_friction"
+    ],
+    "max_physical_metric_spread": 0.0,
+    "representative_policy": "keep seed 27100 for flat and 27200 for low_friction"
+  },
+  "flat_representative_seed": 27100,
+  "heldout_used": false,
+  "low_friction_representative_seed": 27200,
+  "new_reconstructed_rows": 315,
+  "new_reconstruction_validation": {
+    "max_energy_error_j": 2.842170943040401e-14,
+    "max_progress_error_m": 2.220446049250313e-16,
+    "max_time_error_s": 0.0,
+    "settling_steps": [
+      5
+    ]
+  },
+  "new_rough_seeds": [
+    0,
+    5,
+    11,
+    4,
+    25,
+    12,
+    6,
+    29,
+    18,
+    10,
+    8,
+    22,
+    20,
+    28,
+    17
+  ],
+  "next_stage": "OS-T5.5d: compute the 20 context-wise Pareto fronts, context-local ideal/nadir regrets, and 25 mission-preference augmented-Tchebycheff beta labels for 500 (c,w)->beta* examples.",
+  "normalization_policy": "No global normalization is defined or refrozen in OS-T5.5c. Downstream selector labels use context-local ideal/nadir regret over each 21-point Pareto response.",
+  "objective_direction": "all_lower_is_better",
+  "objective_ranges": {
+    "J_energy_j_per_m": [
+      100.54988909022944,
+      155.2102565928621
+    ],
+    "J_motion_s_per_m": [
+      4.425768838781536,
+      4.929041797436157
+    ],
+    "J_stability": [
+      0.10764727422495432,
+      0.49278800534644407
+    ],
+    "J_stability_attitude": [
+      0.10356746206303948,
+      0.49278800534644407
+    ],
+    "J_stability_slip": [
+      0.03934686472389971,
+      0.2546464188577031
+    ]
+  },
+  "old_rough_seeds": [
+    13,
+    7,
+    15
+  ],
+  "old_selected_rows": 105,
+  "physical_objectives": {
+    "energy": "J_energy_j_per_m",
+    "motion": "J_motion_s_per_m",
+    "stability": "J_stability"
+  },
+  "rough_context_feature_ranges": {
+    "context_height_relief_p95_p05_m": [
+      0.0524684572219849,
+      0.17930769038200378
+    ],
+    "context_height_std_m": [
+      0.01826920683430378,
+      0.05846809056280435
+    ],
+    "context_slope_q95": [
+      0.12816551007246907,
+      0.2616771163208163
+    ],
+    "context_slope_rms": [
+      0.07999057183688178,
+      0.14957532438805252
+    ]
+  },
+  "rough_train_seeds": [
+    13,
+    7,
+    15,
+    0,
+    5,
+    11,
+    4,
+    25,
+    12,
+    6,
+    29,
+    18,
+    10,
+    8,
+    22,
+    20,
+    28,
+    17
+  ],
+  "rows": 420,
+  "schema": "icra27_os_t5p5c_expanded_physical_atlas_v0",
+  "selector_row_semantics": "Each atlas row contains the 5D OS physical terrain context, one beta probe, and frozen physical J_M/J_S/J_E outcomes.",
+  "stability_definition": "max(J_stability_attitude, J_stability_slip)",
+  "stability_dominance": {
+    "attitude": 399,
+    "slip": 21
+  },
+  "status": "COMPUTE_PASS",
+  "t5p2b_contract": "results/icra27/os_t5p2b_physical_preference_contract_v0/physical_preference_contract.json",
+  "t5p2b_contract_sha256": "99aca9debae529b0e5e8c55d6dca6ee4a310bbe863fbf31569c102355ce675b4",
+  "t5p3b_physical_sha256": "18b9bb4c2c9959872d11634b6e428d1e7006e486be572538e0a82605bc879f3b",
+  "t5p3b_physical_source": "results/icra27/os_t5p3b_physical_atlas_normalization_v0/physical_beta_response_atlas.csv",
+  "t5p5a_context_sha256": "4b0b7e33042daf763a7aaa02544dbff0ff398e0dc14fc5eb9cc8d191f75903b6",
+  "t5p5a_context_source": "results/icra27/os_t5p5a_oracle_context_descriptor_v1/oracle_context_descriptors.csv",
+  "t5p5b_episode_sha256": "da687eca5ecbdddd1e2cde8327f5045fd9c7fd9474808355a49d1a5ed534be63",
+  "t5p5b_episode_source": "results/icra27/os_t5p5b_remaining_rough_train_atlas_v0/episodes.csv"
+}

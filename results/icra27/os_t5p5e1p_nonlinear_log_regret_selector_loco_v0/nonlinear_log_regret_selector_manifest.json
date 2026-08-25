@@ -1,0 +1,58 @@
+{
+  "aggregate": {
+    "held_log_mae": 0.9995689168491425,
+    "held_log_mae_median": 0.9152898864390401,
+    "held_log_mae_p95": 2.0135105734065637,
+    "held_regret_mae": 5.308577715538997,
+    "held_regret_mae_median": 1.7311979154104704,
+    "held_regret_mae_p95": 21.510337598386222,
+    "selector_exact_accuracy": 0.051111111111111114,
+    "selector_physical_linf_mean_iqr": 0.19048231189417264,
+    "selector_physical_linf_median_iqr": 0.162654113695841,
+    "selector_physical_linf_p95_iqr": 0.4836344943000685,
+    "selector_score_excess_le_0p05_fraction": 0.16,
+    "selector_score_excess_max": 40.057743587585456,
+    "selector_score_excess_mean": 1.349239231595097,
+    "selector_score_excess_median": 0.40218242530092824,
+    "selector_score_excess_p95": 4.658947085262962,
+    "train_log_mae_mean": 0.025581124367367918,
+    "train_regret_mae_mean": 0.09985211111910244
+  },
+  "comparison_reference": {
+    "direct_5d_e1_score_mean": 0.47897,
+    "direct_5d_e1_score_p95": 1.38192,
+    "ridge_regret_e1o_held_regret_mae": 4.206344379750319,
+    "ridge_regret_e1o_score_mean": 0.47177999592109976,
+    "ridge_regret_e1o_score_p95": 1.9052573003368392
+  },
+  "decision_rule": "If nonlinear log-regret training fit becomes strong but LOCO generalization remains poor, the remaining bottleneck is terrain representation / context-to-response generalization. If training fit remains poor, do not change terrain encoding yet.",
+  "folds": 18,
+  "global_iqr_reporting_only": [
+    0.16126301072742333,
+    0.11078278215759008,
+    12.452713540840207
+  ],
+  "heldout_used": false,
+  "interpretation_guard": "TRAIN rough-context LOCO only. No validation/test/hard terrain is used. Frozen T5.5d labels, physical atlas, and scalarization are unchanged.",
+  "model": {
+    "activation": "SiLU",
+    "epochs": 2000,
+    "hidden_layers": [
+      64,
+      64
+    ],
+    "input": "[fold-local PCA terrain latent, friction mu, beta simplex lambda]",
+    "learning_rate": 0.003,
+    "optimizer": "AdamW",
+    "seed": 27552,
+    "type": "MLP",
+    "weight_decay": 0.0001
+  },
+  "schema": "icra27_os_t5p5e1p_nonlinear_log_regret_selector_loco_v0",
+  "selector": "Predict all 21 original-space regret vectors, construct the predicted Pareto front, and minimize the original augmented weighted Tchebycheff score for w.",
+  "status": "COMPUTE_PASS",
+  "supervision": "19 TRAIN contexts x 21 beta points = 399 dense regret-surface samples per fold",
+  "target": "standardized log1p(frozen T5.5d context-local normalized regret)",
+  "target_transform_guard": "log1p is used only to condition the regression loss. Predictions are inverse-transformed back to the original frozen regret space before Pareto filtering, mission scalarization, and beta selection.",
+  "terrain_encoder": "strict fold-local PCA k95 from 17 rough TRAIN patches"
+}

@@ -1,0 +1,40 @@
+{
+  "balanced_reference": "not rerun in T5.3 lattice; reuse frozen T5.2/u30 Balanced reference later",
+  "beta_points": 21,
+  "beta_probe_scope": "convex-hull interpolation of trained biased anchors",
+  "checkpoint": "results/icra27/phase1a_beta_conditioned_v4_seed27027/checkpoint_update_0030.pt",
+  "episodes": 315,
+  "existing_t5p3_rough_seeds": [
+    13,
+    7,
+    15
+  ],
+  "heldout_used": false,
+  "m4_interventions_total": 0,
+  "next_stage": "extract frozen physical J_M/J_S/J_E from T5.3 raw logs and freeze TRAIN-only normalization statistics",
+  "os_context_source": "results/icra27/os_t5p5a_oracle_context_descriptor_v1/oracle_context_descriptors.csv",
+  "perlin_split_source": "configs/icra27/m7_perlin_seed_split_v0.json",
+  "remaining_rough_train_seeds": [
+    0,
+    5,
+    11,
+    4,
+    25,
+    12,
+    6,
+    29,
+    18,
+    10,
+    8,
+    22,
+    20,
+    28,
+    17
+  ],
+  "reward_mode": "tracer_cost_v4",
+  "schema": "icra27_os_t5p5b_remaining_rough_train_atlas_v0",
+  "status": "COMPUTE_PASS",
+  "successes": 315,
+  "terrain": "rough_perlin",
+  "train_contexts": 15
+}

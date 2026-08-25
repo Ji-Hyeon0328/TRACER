@@ -1,0 +1,162 @@
+{
+  "all_success": true,
+  "beta": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.3333333333333333
+  ],
+  "checkpoint": "/mnt/share/nas/Yoo/Tracer/TRACER-ICRA27/results/icra27/phase1a_beta_conditioned_v2_seed27027/phase1_beta_identifiable_selected_u20.pt",
+  "gate_candidates_s": [
+    0.02,
+    0.03,
+    0.04,
+    0.05,
+    0.06,
+    0.08,
+    0.1
+  ],
+  "schema": "icra27_os_t4p1b_contact_age_train9_v0",
+  "terrain_gate_medians": {
+    "flat": {
+      "0.020": {
+        "median_contact_time_s": 20.37999999999546,
+        "median_mean_mps": 0.0022180372109363166,
+        "median_rms_mps": 0.009378561827997052
+      },
+      "0.030": {
+        "median_contact_time_s": 19.87999999999549,
+        "median_mean_mps": 0.0013587542695326176,
+        "median_rms_mps": 0.006175141181056592
+      },
+      "0.040": {
+        "median_contact_time_s": 19.37999999999552,
+        "median_mean_mps": 0.001099693760617146,
+        "median_rms_mps": 0.00581824838456948
+      },
+      "0.050": {
+        "median_contact_time_s": 18.87999999999555,
+        "median_mean_mps": 0.0010332905309059393,
+        "median_rms_mps": 0.005848399043265176
+      },
+      "0.060": {
+        "median_contact_time_s": 18.379999999995583,
+        "median_mean_mps": 0.0010286721023465002,
+        "median_rms_mps": 0.005922085136612722
+      },
+      "0.080": {
+        "median_contact_time_s": 17.379999999995643,
+        "median_mean_mps": 0.0010678406721579352,
+        "median_rms_mps": 0.006089127339200006
+      },
+      "0.100": {
+        "median_contact_time_s": 16.379999999995704,
+        "median_mean_mps": 0.00111022869408063,
+        "median_rms_mps": 0.006271212013209844
+      }
+    },
+    "low_friction": {
+      "0.020": {
+        "median_contact_time_s": 19.717999999995655,
+        "median_mean_mps": 0.03967708890062982,
+        "median_rms_mps": 0.11902628381981945
+      },
+      "0.030": {
+        "median_contact_time_s": 19.103999999995683,
+        "median_mean_mps": 0.030992106880056967,
+        "median_rms_mps": 0.09596600690713862
+      },
+      "0.040": {
+        "median_contact_time_s": 18.523999999995713,
+        "median_mean_mps": 0.02553190741722653,
+        "median_rms_mps": 0.08224310602447953
+      },
+      "0.050": {
+        "median_contact_time_s": 17.969999999995743,
+        "median_mean_mps": 0.022316673946865262,
+        "median_rms_mps": 0.07538224049711864
+      },
+      "0.060": {
+        "median_contact_time_s": 17.443999999995775,
+        "median_mean_mps": 0.020500686409408577,
+        "median_rms_mps": 0.07226011071607971
+      },
+      "0.080": {
+        "median_contact_time_s": 16.403999999995836,
+        "median_mean_mps": 0.01898117701267039,
+        "median_rms_mps": 0.0706615420393302
+      },
+      "0.100": {
+        "median_contact_time_s": 15.383999999995897,
+        "median_mean_mps": 0.01861381190891172,
+        "median_rms_mps": 0.06984732251010622
+      }
+    },
+    "rough": {
+      "0.020": {
+        "median_contact_time_s": 19.4319999999963,
+        "median_mean_mps": 0.005261654307807523,
+        "median_rms_mps": 0.02078245613657584
+      },
+      "0.030": {
+        "median_contact_time_s": 18.713999999996346,
+        "median_mean_mps": 0.003451877587194262,
+        "median_rms_mps": 0.015379411199996319
+      },
+      "0.040": {
+        "median_contact_time_s": 18.073999999996385,
+        "median_mean_mps": 0.002515701439808588,
+        "median_rms_mps": 0.01339570455677433
+      },
+      "0.050": {
+        "median_contact_time_s": 17.471999999996424,
+        "median_mean_mps": 0.0019408459930252773,
+        "median_rms_mps": 0.010413196820892078
+      },
+      "0.060": {
+        "median_contact_time_s": 16.89399999999646,
+        "median_mean_mps": 0.0016152304192174152,
+        "median_rms_mps": 0.008063684380736501
+      },
+      "0.080": {
+        "median_contact_time_s": 15.833999999996529,
+        "median_mean_mps": 0.0014542989209480166,
+        "median_rms_mps": 0.0074858728262474665
+      },
+      "0.100": {
+        "median_contact_time_s": 14.835999999996591,
+        "median_mean_mps": 0.001391294764498161,
+        "median_rms_mps": 0.007712373609339501
+      }
+    }
+  },
+  "terrain_ratios_vs_flat": {
+    "0.020": {
+      "low_over_flat": 12.691315150740921,
+      "rough_over_flat": 2.215953417776239
+    },
+    "0.030": {
+      "low_over_flat": 15.540698438042584,
+      "rough_over_flat": 2.4905359649388354
+    },
+    "0.040": {
+      "low_over_flat": 14.135372123781389,
+      "rough_over_flat": 2.302360379165136
+    },
+    "0.050": {
+      "low_over_flat": 12.889380485062206,
+      "rough_over_flat": 1.7805209158707411
+    },
+    "0.060": {
+      "low_over_flat": 12.201802076322497,
+      "rough_over_flat": 1.3616292563718053
+    },
+    "0.080": {
+      "low_over_flat": 11.604543328307823,
+      "rough_over_flat": 1.2293835239830877
+    },
+    "0.100": {
+      "low_over_flat": 11.137770874749252,
+      "rough_over_flat": 1.2298059120141303
+    }
+  }
+}

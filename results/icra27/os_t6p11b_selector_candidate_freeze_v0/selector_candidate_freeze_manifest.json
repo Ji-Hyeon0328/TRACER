@@ -1,0 +1,101 @@
+{
+  "context_components": [
+    "74D frozen semantic terrain descriptor",
+    "6D absolute proprioceptive state at 0.4 s",
+    "7D beta-independent 0.4 s probe response"
+  ],
+  "context_dim": 87,
+  "frozen_training_pool": {
+    "extension_rough_train": [
+      30,
+      31,
+      32,
+      33,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      44,
+      45,
+      47
+    ],
+    "original_rough_train": [
+      13,
+      7,
+      15,
+      0,
+      5,
+      11,
+      4,
+      25,
+      12,
+      6,
+      29,
+      18,
+      10,
+      8,
+      22,
+      20,
+      28,
+      17
+    ],
+    "total_contexts": 33
+  },
+  "heldout_used": false,
+  "hidden_each": [
+    28,
+    28
+  ],
+  "interpretation_guard": "TRAIN-side evidence shows that the frozen interaction-aware factorized selector can outperform a no-context balanced baseline on strict LOCO. Generalization is not established until untouched evaluation contexts are run.",
+  "outputs": [
+    "r_motion",
+    "r_stability",
+    "r_energy"
+  ],
+  "primary_selection_eta": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.3333333333333333
+  ],
+  "probe_horizon_s": 0.4,
+  "schema": "icra27_os_t6p11b_selector_candidate_freeze_v0",
+  "scientific_guard": "No architecture, representation, probe horizon, model width, target definition, or eta profile may be modified using val/test/hard outcomes.",
+  "selected_representation": "semantic_plus_prop_probe",
+  "selected_surrogate": "three independent scalar regret MLPs",
+  "selection_rationale": {
+    "beat_tie_worse_baseline": "11/0/7",
+    "factorized_Q_excess_mean": 0.16423269747065866,
+    "factorized_minus_baseline": -0.03560915505617274,
+    "no_context_Q_excess_mean": 0.1998418525268314,
+    "primary_metric": "balanced strict-LOCO mean true Q excess",
+    "shared_Q_excess_mean": 0.281895886846194,
+    "top5_fraction": 0.5
+  },
+  "selection_scope": "TRAIN-side architecture selection only",
+  "status": "FREEZE_PASS",
+  "target": "log1p(context-local physical regret)",
+  "untouched_evaluation_contexts": {
+    "hard": [
+      9,
+      23,
+      24
+    ],
+    "test": [
+      27,
+      2,
+      3,
+      19,
+      26
+    ],
+    "val": [
+      1,
+      21,
+      16,
+      14
+    ]
+  }
+}

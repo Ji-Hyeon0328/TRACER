@@ -1,0 +1,154 @@
+{
+  "aggregation_contract": {
+    "attitude": "abs(angle)=fraction_of_unsafe * M4 unsafe threshold; RMS and peak over policy window",
+    "energy": "sum interval energy_abs_j over official policy window",
+    "official_window": "last policy_steps raw step rows",
+    "pre_policy_boundary": "raw row immediately preceding the official policy window",
+    "progress": "boundary goal_distance minus final goal_distance",
+    "slip": "subtract cumulative sufficient statistics at settling boundary from final cumulative statistics"
+  },
+  "contexts": 9,
+  "episodes": 36,
+  "schema": "icra27_os_t5p2a2_train_raw_physical_alignment_v0",
+  "scope": "TRAIN-only u30",
+  "settling_steps_observed": [
+    5
+  ],
+  "source_compact_csv": "results/icra27/os_t4p8d_v4_lockstep_checkpoint_sweep_v0/train9/episodes.csv",
+  "source_raw_root": "results/icra27/os_t4p8d_v4_lockstep_checkpoint_sweep_v0/train9/u30/env_logs",
+  "summary": {
+    "energy": {
+      "physical": {
+        "energy_abs_j": {
+          "both_improved": 4,
+          "physical_improved": 4,
+          "target_improved": 9,
+          "target_improved_physical_worsened": 5
+        },
+        "energy_j_per_meter": {
+          "both_improved": 2,
+          "physical_improved": 2,
+          "target_improved": 9,
+          "target_improved_physical_worsened": 7
+        },
+        "mean_abs_mechanical_power_w": {
+          "both_improved": 9,
+          "physical_improved": 9,
+          "target_improved": 9,
+          "target_improved_physical_worsened": 0
+        }
+      },
+      "target_improved": 9
+    },
+    "motion": {
+      "physical": {
+        "episode_progress_rate_mps": {
+          "both_improved": 9,
+          "physical_improved": 9,
+          "target_improved": 9,
+          "target_improved_physical_worsened": 0
+        },
+        "progress_m": {
+          "both_improved": 9,
+          "physical_improved": 9,
+          "target_improved": 9,
+          "target_improved_physical_worsened": 0
+        },
+        "seconds_per_meter": {
+          "both_improved": 9,
+          "physical_improved": 9,
+          "target_improved": 9,
+          "target_improved_physical_worsened": 0
+        }
+      },
+      "target_improved": 9
+    },
+    "stability": {
+      "physical": {
+        "attitude_peak_max": {
+          "both_improved": 4,
+          "physical_improved": 4,
+          "target_improved": 6,
+          "target_improved_physical_worsened": 2
+        },
+        "attitude_rms_norm": {
+          "both_improved": 6,
+          "physical_improved": 6,
+          "target_improved": 6,
+          "target_improved_physical_worsened": 0
+        },
+        "established_slip_fraction_ge_0p002": {
+          "both_improved": 6,
+          "physical_improved": 9,
+          "target_improved": 6,
+          "target_improved_physical_worsened": 0
+        },
+        "established_slip_fraction_ge_0p01": {
+          "both_improved": 5,
+          "physical_improved": 8,
+          "target_improved": 6,
+          "target_improved_physical_worsened": 1
+        },
+        "established_slip_fraction_ge_0p02": {
+          "both_improved": 5,
+          "physical_improved": 5,
+          "target_improved": 6,
+          "target_improved_physical_worsened": 1
+        },
+        "established_slip_fraction_ge_0p05": {
+          "both_improved": 0,
+          "physical_improved": 3,
+          "target_improved": 6,
+          "target_improved_physical_worsened": 6
+        },
+        "established_slip_fraction_ge_0p1": {
+          "both_improved": 1,
+          "physical_improved": 4,
+          "target_improved": 6,
+          "target_improved_physical_worsened": 5
+        },
+        "max_abs_pitch_rad": {
+          "both_improved": 4,
+          "physical_improved": 4,
+          "target_improved": 6,
+          "target_improved_physical_worsened": 2
+        },
+        "max_abs_roll_rad": {
+          "both_improved": 2,
+          "physical_improved": 2,
+          "target_improved": 6,
+          "target_improved_physical_worsened": 4
+        },
+        "pitch_rms_rad": {
+          "both_improved": 6,
+          "physical_improved": 6,
+          "target_improved": 6,
+          "target_improved_physical_worsened": 0
+        },
+        "roll_rms_rad": {
+          "both_improved": 2,
+          "physical_improved": 2,
+          "target_improved": 6,
+          "target_improved_physical_worsened": 4
+        },
+        "slip_all_contact_mean_mps": {
+          "both_improved": 2,
+          "physical_improved": 5,
+          "target_improved": 6,
+          "target_improved_physical_worsened": 4
+        },
+        "slip_all_contact_rms_mps": {
+          "both_improved": 2,
+          "physical_improved": 5,
+          "target_improved": 6,
+          "target_improved_physical_worsened": 4
+        }
+      },
+      "target_improved": 6
+    }
+  },
+  "validation": {
+    "max_energy_reconstruction_error_j": 2.842170943040401e-14,
+    "max_progress_geometry_vs_integrated_error_m": 0.0
+  }
+}

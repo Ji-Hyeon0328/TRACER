@@ -1,0 +1,410 @@
+{
+  "downstream_action_dim": 4,
+  "fixed_swing_clearance_m": 0.06,
+  "initial_std": 0.15,
+  "obs_dim": 21,
+  "perlin_seed_split": "/mnt/share/nas/Yoo/Tracer/TRACER-ICRA27/configs/icra27/m7_perlin_seed_split_v0.json",
+  "perlin_split_schema": "icra27_m7_perlin_seed_split_v0",
+  "perlin_train_seeds": [
+    13,
+    7,
+    15,
+    0,
+    5,
+    11,
+    4,
+    25,
+    12,
+    6,
+    29,
+    18,
+    10,
+    8,
+    22,
+    20,
+    28,
+    17
+  ],
+  "policy_action_dim": 3,
+  "policy_episode_steps": 50,
+  "ppo": "pure_pytorch_continuous_ppo",
+  "reward_mode": "tracer_cost_v2",
+  "schema": "icra27_m7_ppo_multiterrain_v0",
+  "settling_steps": 5,
+  "steps_per_terrain": 512,
+  "steps_per_update": 1536,
+  "terrain_order": [
+    "flat",
+    "low_friction",
+    "rough_perlin"
+  ],
+  "update_metrics": [
+    {
+      "approx_kl": 0.011112344104427999,
+      "batch_action_shape": [
+        1536,
+        3
+      ],
+      "batch_obs_shape": [
+        1536,
+        21
+      ],
+      "clip_fraction": 0.14436848958333334,
+      "entropy_proxy": -1.4394915563364823,
+      "policy_loss": 0.001858647612001126,
+      "steps": 1536,
+      "terrains": {
+        "flat": {
+          "completed_episodes": 13,
+          "interventions": 0,
+          "m4_episodes": 0,
+          "max_abs_action": 0.4690069556236267,
+          "mean_completed_return": -9.342343029232206,
+          "other_terminal_episodes": 0,
+          "reset_attempts": 14,
+          "settling_failures": 0,
+          "steps": 512,
+          "success_episodes": 13,
+          "terrain": "flat",
+          "truncated_episodes": 0
+        },
+        "low_friction": {
+          "completed_episodes": 13,
+          "interventions": 0,
+          "m4_episodes": 0,
+          "max_abs_action": 0.42472848296165466,
+          "mean_completed_return": -10.27290196609103,
+          "other_terminal_episodes": 0,
+          "reset_attempts": 14,
+          "settling_failures": 0,
+          "steps": 512,
+          "success_episodes": 13,
+          "terrain": "low_friction",
+          "truncated_episodes": 0
+        },
+        "rough_perlin": {
+          "completed_episodes": 13,
+          "interventions": 0,
+          "m4_episodes": 0,
+          "max_abs_action": 0.49452129006385803,
+          "mean_completed_return": -12.258474570861425,
+          "other_terminal_episodes": 0,
+          "reset_attempts": 14,
+          "settling_failures": 0,
+          "steps": 512,
+          "success_episodes": 13,
+          "terrain": "rough_perlin",
+          "truncated_episodes": 0
+        }
+      },
+      "update": 1,
+      "value_loss": 1.3749200087040663
+    },
+    {
+      "approx_kl": 0.02104359857912641,
+      "batch_action_shape": [
+        1536,
+        3
+      ],
+      "batch_obs_shape": [
+        1536,
+        21
+      ],
+      "clip_fraction": 0.21061197916666666,
+      "entropy_proxy": -1.4412124852339427,
+      "policy_loss": -0.0009545305899033943,
+      "steps": 1536,
+      "terrains": {
+        "flat": {
+          "completed_episodes": 13,
+          "interventions": 0,
+          "m4_episodes": 0,
+          "max_abs_action": 0.5021100044250488,
+          "mean_completed_return": -9.44849243390502,
+          "other_terminal_episodes": 0,
+          "reset_attempts": 14,
+          "settling_failures": 0,
+          "steps": 512,
+          "success_episodes": 13,
+          "terrain": "flat",
+          "truncated_episodes": 0
+        },
+        "low_friction": {
+          "completed_episodes": 13,
+          "interventions": 0,
+          "m4_episodes": 0,
+          "max_abs_action": 0.5269346237182617,
+          "mean_completed_return": -11.232823959895995,
+          "other_terminal_episodes": 0,
+          "reset_attempts": 14,
+          "settling_failures": 0,
+          "steps": 512,
+          "success_episodes": 11,
+          "terrain": "low_friction",
+          "truncated_episodes": 2
+        },
+        "rough_perlin": {
+          "completed_episodes": 12,
+          "interventions": 0,
+          "m4_episodes": 0,
+          "max_abs_action": 0.509442925453186,
+          "mean_completed_return": -13.312184943475913,
+          "other_terminal_episodes": 0,
+          "reset_attempts": 13,
+          "settling_failures": 0,
+          "steps": 512,
+          "success_episodes": 9,
+          "terrain": "rough_perlin",
+          "truncated_episodes": 3
+        }
+      },
+      "update": 2,
+      "value_loss": 0.6900398939227065
+    },
+    {
+      "approx_kl": 0.014564314396314634,
+      "batch_action_shape": [
+        1536,
+        3
+      ],
+      "batch_obs_shape": [
+        1536,
+        21
+      ],
+      "clip_fraction": 0.20524088541666666,
+      "entropy_proxy": -1.43143551175793,
+      "policy_loss": 0.002174645875735829,
+      "steps": 1536,
+      "terrains": {
+        "flat": {
+          "completed_episodes": 13,
+          "interventions": 0,
+          "m4_episodes": 0,
+          "max_abs_action": 0.5579814910888672,
+          "mean_completed_return": -9.292531310036821,
+          "other_terminal_episodes": 0,
+          "reset_attempts": 14,
+          "settling_failures": 0,
+          "steps": 512,
+          "success_episodes": 13,
+          "terrain": "flat",
+          "truncated_episodes": 0
+        },
+        "low_friction": {
+          "completed_episodes": 13,
+          "interventions": 0,
+          "m4_episodes": 0,
+          "max_abs_action": 0.4658973515033722,
+          "mean_completed_return": -10.796012149150648,
+          "other_terminal_episodes": 0,
+          "reset_attempts": 14,
+          "settling_failures": 0,
+          "steps": 512,
+          "success_episodes": 12,
+          "terrain": "low_friction",
+          "truncated_episodes": 1
+        },
+        "rough_perlin": {
+          "completed_episodes": 13,
+          "interventions": 0,
+          "m4_episodes": 0,
+          "max_abs_action": 0.44597333669662476,
+          "mean_completed_return": -12.356445067107018,
+          "other_terminal_episodes": 0,
+          "reset_attempts": 14,
+          "settling_failures": 0,
+          "steps": 512,
+          "success_episodes": 13,
+          "terrain": "rough_perlin",
+          "truncated_episodes": 0
+        }
+      },
+      "update": 3,
+      "value_loss": 0.3985696981350581
+    },
+    {
+      "approx_kl": 0.010296568582513524,
+      "batch_action_shape": [
+        1536,
+        3
+      ],
+      "batch_obs_shape": [
+        1536,
+        21
+      ],
+      "clip_fraction": 0.16927083333333334,
+      "entropy_proxy": -1.4174724755187829,
+      "policy_loss": 0.007214970828499645,
+      "steps": 1536,
+      "terrains": {
+        "flat": {
+          "completed_episodes": 13,
+          "interventions": 0,
+          "m4_episodes": 0,
+          "max_abs_action": 0.5245173573493958,
+          "mean_completed_return": -9.504078488148997,
+          "other_terminal_episodes": 0,
+          "reset_attempts": 14,
+          "settling_failures": 0,
+          "steps": 512,
+          "success_episodes": 13,
+          "terrain": "flat",
+          "truncated_episodes": 0
+        },
+        "low_friction": {
+          "completed_episodes": 13,
+          "interventions": 0,
+          "m4_episodes": 0,
+          "max_abs_action": 0.4564265310764313,
+          "mean_completed_return": -10.378171809204277,
+          "other_terminal_episodes": 0,
+          "reset_attempts": 14,
+          "settling_failures": 0,
+          "steps": 512,
+          "success_episodes": 13,
+          "terrain": "low_friction",
+          "truncated_episodes": 0
+        },
+        "rough_perlin": {
+          "completed_episodes": 12,
+          "interventions": 0,
+          "m4_episodes": 0,
+          "max_abs_action": 0.5112717747688293,
+          "mean_completed_return": -13.760085161705275,
+          "other_terminal_episodes": 0,
+          "reset_attempts": 13,
+          "settling_failures": 0,
+          "steps": 512,
+          "success_episodes": 9,
+          "terrain": "rough_perlin",
+          "truncated_episodes": 3
+        }
+      },
+      "update": 4,
+      "value_loss": 0.4580023361680408
+    },
+    {
+      "approx_kl": 0.015646403381348744,
+      "batch_action_shape": [
+        1536,
+        3
+      ],
+      "batch_obs_shape": [
+        1536,
+        21
+      ],
+      "clip_fraction": 0.20149739583333334,
+      "entropy_proxy": -1.4129362193246682,
+      "policy_loss": 0.006167227164648163,
+      "steps": 1536,
+      "terrains": {
+        "flat": {
+          "completed_episodes": 14,
+          "interventions": 0,
+          "m4_episodes": 0,
+          "max_abs_action": 0.4798364043235779,
+          "mean_completed_return": -9.25490957131048,
+          "other_terminal_episodes": 0,
+          "reset_attempts": 15,
+          "settling_failures": 0,
+          "steps": 512,
+          "success_episodes": 14,
+          "terrain": "flat",
+          "truncated_episodes": 0
+        },
+        "low_friction": {
+          "completed_episodes": 14,
+          "interventions": 0,
+          "m4_episodes": 0,
+          "max_abs_action": 0.4786399304866791,
+          "mean_completed_return": -10.190348861748557,
+          "other_terminal_episodes": 0,
+          "reset_attempts": 15,
+          "settling_failures": 0,
+          "steps": 512,
+          "success_episodes": 14,
+          "terrain": "low_friction",
+          "truncated_episodes": 0
+        },
+        "rough_perlin": {
+          "completed_episodes": 13,
+          "interventions": 0,
+          "m4_episodes": 0,
+          "max_abs_action": 0.4471181631088257,
+          "mean_completed_return": -12.349901968257402,
+          "other_terminal_episodes": 0,
+          "reset_attempts": 14,
+          "settling_failures": 0,
+          "steps": 512,
+          "success_episodes": 12,
+          "terrain": "rough_perlin",
+          "truncated_episodes": 1
+        }
+      },
+      "update": 5,
+      "value_loss": 0.3664845180076857
+    },
+    {
+      "approx_kl": 0.008521301579700472,
+      "batch_action_shape": [
+        1536,
+        3
+      ],
+      "batch_obs_shape": [
+        1536,
+        21
+      ],
+      "clip_fraction": 0.13004557291666666,
+      "entropy_proxy": -1.4219968530038993,
+      "policy_loss": 0.004824052011827007,
+      "steps": 1536,
+      "terrains": {
+        "flat": {
+          "completed_episodes": 14,
+          "interventions": 0,
+          "m4_episodes": 0,
+          "max_abs_action": 0.4537699222564697,
+          "mean_completed_return": -9.090977916363938,
+          "other_terminal_episodes": 0,
+          "reset_attempts": 15,
+          "settling_failures": 0,
+          "steps": 512,
+          "success_episodes": 14,
+          "terrain": "flat",
+          "truncated_episodes": 0
+        },
+        "low_friction": {
+          "completed_episodes": 13,
+          "interventions": 0,
+          "m4_episodes": 0,
+          "max_abs_action": 0.4444384276866913,
+          "mean_completed_return": -10.316573923488487,
+          "other_terminal_episodes": 0,
+          "reset_attempts": 14,
+          "settling_failures": 0,
+          "steps": 512,
+          "success_episodes": 13,
+          "terrain": "low_friction",
+          "truncated_episodes": 0
+        },
+        "rough_perlin": {
+          "completed_episodes": 13,
+          "interventions": 0,
+          "m4_episodes": 0,
+          "max_abs_action": 0.4453471004962921,
+          "mean_completed_return": -12.101260255202758,
+          "other_terminal_episodes": 0,
+          "reset_attempts": 14,
+          "settling_failures": 0,
+          "steps": 512,
+          "success_episodes": 12,
+          "terrain": "rough_perlin",
+          "truncated_episodes": 1
+        }
+      },
+      "update": 6,
+      "value_loss": 0.3966886713945617
+    }
+  ],
+  "updates": 10
+}

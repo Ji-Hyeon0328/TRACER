@@ -1,0 +1,260 @@
+{
+  "betas": {
+    "balanced": [
+      0.3333333333333333,
+      0.3333333333333333,
+      0.3333333333333333
+    ],
+    "energy": [
+      0.15,
+      0.15,
+      0.7
+    ],
+    "stability": [
+      0.15,
+      0.7,
+      0.15
+    ]
+  },
+  "checkpoint": "/mnt/share/nas/Yoo/Tracer/TRACER-ICRA27/results/icra27/phase1a_beta_conditioned_v3_seed27027/checkpoint_update_0030.pt",
+  "episode_rows": {
+    "balanced": {
+      "checkpoint": "/mnt/share/nas/Yoo/Tracer/TRACER-ICRA27/results/icra27/phase1a_beta_conditioned_v3_seed27027/checkpoint_update_0030.pt",
+      "decision_time_s": 7.6,
+      "energy_abs_j": 169.8568591713194,
+      "energy_bracket_time_s": 7.6,
+      "eval_reward_mode": "tracer_cost_v3",
+      "final_goal_distance_m": 0.13631772508063814,
+      "group": "flat_u30_k11_trace",
+      "initial_goal_distance_m": 1.806892693656803,
+      "m4_interventions": 0,
+      "m4_terminal": false,
+      "max_abs_pitch_rad": 0.04593021050095558,
+      "max_abs_roll_rad": 0.006151214241981506,
+      "mean_abs_action_yaw_norm": 0.020253638622786018,
+      "mean_abs_applied_yaw_rps": 0.008101455449114406,
+      "mean_abs_requested_yaw_rps": 0.008101455449114406,
+      "mean_action_height_norm": -0.0895646204681773,
+      "mean_action_vx_norm": 0.05690370853009977,
+      "mean_applied_clearance_m": 0.060000000000000005,
+      "mean_applied_height_m": 0.29462612277190936,
+      "mean_applied_vx_mps": 0.21138074170601995,
+      "mean_cost_energy": 0.5115010451738978,
+      "mean_cost_motion": 0.22523438016839395,
+      "mean_cost_stability": 0.012176770999170614,
+      "mean_energy_power_ratio": 1.0230020903477957,
+      "mean_progress_rate_mps": 0.21981249586528487,
+      "mean_requested_clearance_m": 0.060000000000000005,
+      "mean_requested_height_m": 0.29462612277190936,
+      "mean_requested_vx_mps": 0.21138074170601995,
+      "pitch_rms_rad": 0.028889145358604797,
+      "policy": "beta_conditioned",
+      "policy_steps": 38,
+      "progress_m": 1.6705749685761648,
+      "roll_rms_rad": 0.0031450256353333437,
+      "seed": 27200,
+      "settled": true,
+      "settling_steps": 5,
+      "status": "success",
+      "success": true,
+      "sum_cost_energy": 19.43703971660812,
+      "sum_cost_motion": 8.55890644639897,
+      "sum_cost_stability": 0.4627172979684833,
+      "terrain": "flat",
+      "trained_reward_mode": "tracer_cost_v3"
+    },
+    "energy": {
+      "checkpoint": "/mnt/share/nas/Yoo/Tracer/TRACER-ICRA27/results/icra27/phase1a_beta_conditioned_v3_seed27027/checkpoint_update_0030.pt",
+      "decision_time_s": 7.800000000000001,
+      "energy_abs_j": 173.83983570800638,
+      "energy_bracket_time_s": 7.800000000000001,
+      "eval_reward_mode": "tracer_cost_v3",
+      "final_goal_distance_m": 0.12418935395284955,
+      "group": "flat_u30_k11_trace",
+      "initial_goal_distance_m": 1.806892693656803,
+      "m4_interventions": 0,
+      "m4_terminal": false,
+      "max_abs_pitch_rad": 0.04612364619970322,
+      "max_abs_roll_rad": 0.006082314066588879,
+      "mean_abs_action_yaw_norm": 0.0366966081604075,
+      "mean_abs_applied_yaw_rps": 0.014678643264163002,
+      "mean_abs_requested_yaw_rps": 0.014678643264163002,
+      "mean_action_height_norm": -0.10272292649516693,
+      "mean_action_vx_norm": 0.051052028531184755,
+      "mean_applied_clearance_m": 0.060000000000000005,
+      "mean_applied_height_m": 0.2938366244102899,
+      "mean_applied_vx_mps": 0.21021040570623692,
+      "mean_cost_energy": 0.5100722874225624,
+      "mean_cost_motion": 0.23033600325257156,
+      "mean_cost_stability": 0.012301360162457272,
+      "mean_energy_power_ratio": 1.0201445748451246,
+      "mean_progress_rate_mps": 0.21573119739794272,
+      "mean_requested_clearance_m": 0.060000000000000005,
+      "mean_requested_height_m": 0.2938366244102899,
+      "mean_requested_vx_mps": 0.21021040570623692,
+      "pitch_rms_rad": 0.02903656219113535,
+      "policy": "beta_conditioned",
+      "policy_steps": 39,
+      "progress_m": 1.6827033397039535,
+      "roll_rms_rad": 0.0030901511775431162,
+      "seed": 27200,
+      "settled": true,
+      "settling_steps": 5,
+      "status": "success",
+      "success": true,
+      "sum_cost_energy": 19.89281920947993,
+      "sum_cost_motion": 8.983104126850291,
+      "sum_cost_stability": 0.4797530463358336,
+      "terrain": "flat",
+      "trained_reward_mode": "tracer_cost_v3"
+    },
+    "stability": {
+      "checkpoint": "/mnt/share/nas/Yoo/Tracer/TRACER-ICRA27/results/icra27/phase1a_beta_conditioned_v3_seed27027/checkpoint_update_0030.pt",
+      "decision_time_s": 7.800000000000001,
+      "energy_abs_j": 172.03889448929846,
+      "energy_bracket_time_s": 7.800000000000001,
+      "eval_reward_mode": "tracer_cost_v3",
+      "final_goal_distance_m": 0.11685509327417055,
+      "group": "flat_u30_k11_trace",
+      "initial_goal_distance_m": 1.806892693656803,
+      "m4_interventions": 0,
+      "m4_terminal": false,
+      "max_abs_pitch_rad": 0.04543261229991913,
+      "max_abs_roll_rad": 0.005943800322711468,
+      "mean_abs_action_yaw_norm": 0.013732040756179068,
+      "mean_abs_applied_yaw_rps": 0.005492816302471627,
+      "mean_abs_requested_yaw_rps": 0.005492816302471627,
+      "mean_action_height_norm": -0.06083098120796375,
+      "mean_action_vx_norm": 0.03627899340473306,
+      "mean_applied_clearance_m": 0.060000000000000005,
+      "mean_applied_height_m": 0.2963501411275222,
+      "mean_applied_vx_mps": 0.20725579868094662,
+      "mean_cost_energy": 0.5047880543628688,
+      "mean_cost_motion": 0.22916064096432173,
+      "mean_cost_stability": 0.012275641342981295,
+      "mean_energy_power_ratio": 1.0095761087257376,
+      "mean_progress_rate_mps": 0.21667148722854265,
+      "mean_requested_clearance_m": 0.060000000000000005,
+      "mean_requested_height_m": 0.2963501411275222,
+      "mean_requested_vx_mps": 0.20725579868094662,
+      "pitch_rms_rad": 0.02900619253155907,
+      "policy": "beta_conditioned",
+      "policy_steps": 39,
+      "progress_m": 1.6900376003826325,
+      "roll_rms_rad": 0.0030861033968131737,
+      "seed": 27200,
+      "settled": true,
+      "settling_steps": 5,
+      "status": "success",
+      "success": true,
+      "sum_cost_energy": 19.686734120151883,
+      "sum_cost_motion": 8.937264997608548,
+      "sum_cost_stability": 0.47875001237627046,
+      "terrain": "flat",
+      "trained_reward_mode": "tracer_cost_v3"
+    }
+  },
+  "per_foot_summary": {
+    "balanced": {
+      "FL": {
+        "established_dt_s": 0.12399999999998634,
+        "max_speed_mps": 0.00260572840301388,
+        "mean_traction_cost": 2.716403625077677e-07,
+        "tail_ge_0p15_s": 0,
+        "tail_ge_0p30_s": 0
+      },
+      "FR": {
+        "established_dt_s": 0.12999999999998568,
+        "max_speed_mps": 0.04651623414734667,
+        "mean_traction_cost": 0.0030984652572015907,
+        "tail_ge_0p15_s": 0,
+        "tail_ge_0p30_s": 0
+      },
+      "RL": {
+        "established_dt_s": 0.13199999999998546,
+        "max_speed_mps": 0.10481409208334704,
+        "mean_traction_cost": 0.019311792233675015,
+        "tail_ge_0p15_s": 0,
+        "tail_ge_0p30_s": 0
+      },
+      "RR": {
+        "established_dt_s": 0.11599999999998722,
+        "max_speed_mps": 0.005995339151635672,
+        "mean_traction_cost": 2.2215315139417386e-05,
+        "tail_ge_0p15_s": 0,
+        "tail_ge_0p30_s": 0
+      }
+    },
+    "energy": {
+      "FL": {
+        "established_dt_s": 0.12399999999998634,
+        "max_speed_mps": 0.0026133912463671386,
+        "mean_traction_cost": 2.7928874713252425e-07,
+        "tail_ge_0p15_s": 0,
+        "tail_ge_0p30_s": 0
+      },
+      "FR": {
+        "established_dt_s": 0.12999999999998568,
+        "max_speed_mps": 0.046155579749799995,
+        "mean_traction_cost": 0.0030494108962009965,
+        "tail_ge_0p15_s": 0,
+        "tail_ge_0p30_s": 0
+      },
+      "RL": {
+        "established_dt_s": 0.13199999999998546,
+        "max_speed_mps": 0.10421501467227658,
+        "mean_traction_cost": 0.019082932565533527,
+        "tail_ge_0p15_s": 0,
+        "tail_ge_0p30_s": 0
+      },
+      "RR": {
+        "established_dt_s": 0.11599999999998722,
+        "max_speed_mps": 0.005944973509286901,
+        "mean_traction_cost": 2.154533906855366e-05,
+        "tail_ge_0p15_s": 0,
+        "tail_ge_0p30_s": 0
+      }
+    },
+    "stability": {
+      "FL": {
+        "established_dt_s": 0.12399999999998634,
+        "max_speed_mps": 0.002608366775690986,
+        "mean_traction_cost": 2.739102660186706e-07,
+        "tail_ge_0p15_s": 0,
+        "tail_ge_0p30_s": 0
+      },
+      "FR": {
+        "established_dt_s": 0.12999999999998568,
+        "max_speed_mps": 0.045640498019464924,
+        "mean_traction_cost": 0.0029776347458494203,
+        "tail_ge_0p15_s": 0,
+        "tail_ge_0p30_s": 0
+      },
+      "RL": {
+        "established_dt_s": 0.13199999999998546,
+        "max_speed_mps": 0.10331816065270724,
+        "mean_traction_cost": 0.018766384354285633,
+        "tail_ge_0p15_s": 0,
+        "tail_ge_0p30_s": 0
+      },
+      "RR": {
+        "established_dt_s": 0.11599999999998722,
+        "max_speed_mps": 0.006032855339984071,
+        "mean_traction_cost": 2.2709351660455793e-05,
+        "tail_ge_0p15_s": 0,
+        "tail_ge_0p30_s": 0
+      }
+    }
+  },
+  "physics_dt_s": 0.002,
+  "physics_rows_per_beta": 100,
+  "schema": "icra27_os_t4p5k6f_u30_k11_perfoot_trace_v0",
+  "seed": 27200,
+  "terrain": "flat",
+  "top_stability_high_slip_events": [],
+  "trace_window_s": {
+    "lower_open": 3.2,
+    "upper_closed": 3.4
+  },
+  "update": 30
+}

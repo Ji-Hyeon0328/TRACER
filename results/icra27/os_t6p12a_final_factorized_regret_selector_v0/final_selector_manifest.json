@@ -1,0 +1,172 @@
+{
+  "beta_dim": 3,
+  "checkpoints": [
+    {
+      "actual_training_seed": 27027,
+      "base_seed": 27027,
+      "file": "motion_seed_27027.pt",
+      "final_standardized_mse": 0.01225629635155201,
+      "objective": "motion",
+      "sha256": "4a6f3d62b9230eaac6881ba7bb4bb95c4a03bc836478455cd8396f8995f2ea0a"
+    },
+    {
+      "actual_training_seed": 27028,
+      "base_seed": 27028,
+      "file": "motion_seed_27028.pt",
+      "final_standardized_mse": 0.014850331470370293,
+      "objective": "motion",
+      "sha256": "524ec6c0889740f666292e66a37ea3c629cb1513522602613f95495dc82a577d"
+    },
+    {
+      "actual_training_seed": 27029,
+      "base_seed": 27029,
+      "file": "motion_seed_27029.pt",
+      "final_standardized_mse": 0.012295598164200783,
+      "objective": "motion",
+      "sha256": "8a228f72d65d9c32ad1a6d5f78419ea89009c4f54d09a25203810b73e76c5900"
+    },
+    {
+      "actual_training_seed": 127027,
+      "base_seed": 27027,
+      "file": "stability_seed_27027.pt",
+      "final_standardized_mse": 0.02971562184393406,
+      "objective": "stability",
+      "sha256": "f38541ffa7272fc2c08421dbebf1c687a8208aa25158cf4356530a23048d1beb"
+    },
+    {
+      "actual_training_seed": 127028,
+      "base_seed": 27028,
+      "file": "stability_seed_27028.pt",
+      "final_standardized_mse": 0.02652047947049141,
+      "objective": "stability",
+      "sha256": "b24653f62a3d995029c8c56a05c2cc9f39963fd47f0322b022645020957cd1ac"
+    },
+    {
+      "actual_training_seed": 127029,
+      "base_seed": 27029,
+      "file": "stability_seed_27029.pt",
+      "final_standardized_mse": 0.03289413824677467,
+      "objective": "stability",
+      "sha256": "2721d803b4221cbf0673ecac95e9a48c59714fc98fa46a9e1ff36d8cfdf8b218"
+    },
+    {
+      "actual_training_seed": 227027,
+      "base_seed": 27027,
+      "file": "energy_seed_27027.pt",
+      "final_standardized_mse": 0.06490091979503632,
+      "objective": "energy",
+      "sha256": "ab1520b55cd7b8143950fb57432bbe73d56a53d702c88133d7f527ba18240c0d"
+    },
+    {
+      "actual_training_seed": 227028,
+      "base_seed": 27028,
+      "file": "energy_seed_27028.pt",
+      "final_standardized_mse": 0.062474288046360016,
+      "objective": "energy",
+      "sha256": "5482e3653c0ad3d35e01999a73f222038b5b654edeb07a6391f3ef136b1b9fbd"
+    },
+    {
+      "actual_training_seed": 227029,
+      "base_seed": 27029,
+      "file": "energy_seed_27029.pt",
+      "final_standardized_mse": 0.06294948607683182,
+      "objective": "energy",
+      "sha256": "0e227d6053ef0d9c5c129fb9f0b40c28a1906f1605b562689bfa067efe7a58ef"
+    }
+  ],
+  "context_dim": 87,
+  "ensemble_base_seeds": [
+    27027,
+    27028,
+    27029
+  ],
+  "ensemble_inference": "For each objective, average the three network predictions in log1p-regret space. Apply expm1, clamp predicted regret at zero, then compute the augmented-Tchebycheff score.",
+  "heldout_used": false,
+  "hidden_each": [
+    28,
+    28
+  ],
+  "model_input_dim": 90,
+  "objective_training_seed_offsets": {
+    "energy": 200000,
+    "motion": 0,
+    "stability": 100000
+  },
+  "primary_eta": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.3333333333333333
+  ],
+  "probe_horizon_s": 0.4,
+  "representation": "semantic_plus_prop_probe",
+  "schema": "icra27_os_t6p12a_final_factorized_regret_selector_v0",
+  "scientific_guard": "This model is trained only after T6.11b architecture freeze. No model or preprocessing choice may be changed using val/test/hard outcomes.",
+  "source_candidate_freeze": "results/icra27/os_t6p11b_selector_candidate_freeze_v0/selector_candidate_freeze_manifest.json",
+  "status": "FINAL_TRAIN_PASS",
+  "surrogate": "three independent scalar regret MLP ensembles",
+  "target": "log1p(context-local physical regret)",
+  "tcheby_rho": 0.01,
+  "train_fit_sanity_only": {
+    "balanced_Q_excess_mean": 0.02079720005836132,
+    "balanced_Q_excess_median": 0.0,
+    "balanced_exact_fraction": 0.5757575757575758,
+    "warning": "These are in-sample TRAIN-fit diagnostics only and must not be reported as generalization performance."
+  },
+  "training_context_count": 33,
+  "training_contexts": [
+    "rough_seed_13",
+    "rough_seed_7",
+    "rough_seed_15",
+    "rough_seed_0",
+    "rough_seed_5",
+    "rough_seed_11",
+    "rough_seed_4",
+    "rough_seed_25",
+    "rough_seed_12",
+    "rough_seed_6",
+    "rough_seed_29",
+    "rough_seed_18",
+    "rough_seed_10",
+    "rough_seed_8",
+    "rough_seed_22",
+    "rough_seed_20",
+    "rough_seed_28",
+    "rough_seed_17",
+    "rough_seed_30",
+    "rough_seed_31",
+    "rough_seed_32",
+    "rough_seed_33",
+    "rough_seed_35",
+    "rough_seed_36",
+    "rough_seed_37",
+    "rough_seed_38",
+    "rough_seed_39",
+    "rough_seed_40",
+    "rough_seed_41",
+    "rough_seed_42",
+    "rough_seed_44",
+    "rough_seed_45",
+    "rough_seed_47"
+  ],
+  "training_samples": 693,
+  "untouched_evaluation_contexts": {
+    "hard": [
+      9,
+      23,
+      24
+    ],
+    "test": [
+      27,
+      2,
+      3,
+      19,
+      26
+    ],
+    "val": [
+      1,
+      21,
+      16,
+      14
+    ]
+  }
+}

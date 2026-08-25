@@ -1,0 +1,25 @@
+{
+  "active_rough_context_dimensions": [
+    "context_height_std_m",
+    "context_height_relief_p95_p05_m",
+    "context_slope_rms",
+    "context_slope_q95"
+  ],
+  "interpretation": "If nearest-context transfer also has large physical score excess and descriptor distance correlates weakly with beta-response distance, the current 5D c_OS is insufficiently identifying the physical response surface. If NN transfer is strong while the MLP LOCO result is weak, model/training design is the more likely bottleneck.",
+  "nearest_context_transfer": {
+    "exact_accuracy": 0.12,
+    "rows": 450,
+    "score_excess_le_0p05_fraction": 0.24444444444444444,
+    "score_excess_max": 11.130887436028344,
+    "score_excess_mean": 0.5737630206786739,
+    "score_excess_median": 0.23251950881022693,
+    "score_excess_p95": 2.544730912102526
+  },
+  "pairwise_context_response": {
+    "pairs": 153,
+    "pearson_distance_correlation": 0.07474937622603524
+  },
+  "rough_contexts": 18,
+  "schema": "icra27_os_t5p5e1b_context_identifiability_v0",
+  "status": "COMPUTE_PASS"
+}

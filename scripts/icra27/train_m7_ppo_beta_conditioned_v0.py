@@ -1268,6 +1268,23 @@ def main():
             "condition_stats":
                 condition_stats,
 
+            "beta_bank":
+                {
+                    name: [
+                        float(x)
+                        for x in beta
+                    ]
+                    for name, beta
+                    in BETA_BANK
+                },
+
+            "condition_order":
+                [
+                    f"{terrain}/{name}"
+                    for terrain in TERRAINS
+                    for name, _beta in BETA_BANK
+                ],
+
             "perlin_seed_split":
                 str(
                     perlin_split_path
@@ -1336,6 +1353,23 @@ def main():
 
             "updates":
                 int(args.updates),
+
+            "beta_bank":
+                {
+                    name: [
+                        float(x)
+                        for x in beta
+                    ]
+                    for name, beta
+                    in BETA_BANK
+                },
+
+            "condition_order":
+                [
+                    f"{terrain}/{name}"
+                    for terrain in TERRAINS
+                    for name, _beta in BETA_BANK
+                ],
 
             "reward_mode":
                 args.reward_mode,

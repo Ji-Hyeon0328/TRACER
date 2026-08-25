@@ -1,0 +1,158 @@
+{
+  "aggregates": {
+    "slr_hl_v2": {
+      "rough_hard": {
+        "episodes": 3,
+        "horizon_exhausted": 0,
+        "m4": 2,
+        "mean_decision_time_s": 0.7059999999999997,
+        "mean_energy_abs_j": 26.322728045524887,
+        "mean_energy_bracket_time_s": 0.7059999999999771,
+        "mean_max_abs_pitch_rad": 0.2640717774629593,
+        "mean_max_abs_roll_rad": 0.021821326110512018,
+        "mean_mean_abs_action_yaw_norm": 0.0327774312879358,
+        "mean_mean_abs_applied_yaw_rps": 0.009968115372317177,
+        "mean_mean_abs_requested_yaw_rps": 0.01311097251517432,
+        "mean_mean_action_height_norm": 0.0012396859071616617,
+        "mean_mean_action_vx_norm": 0.01389989463080253,
+        "mean_mean_applied_clearance_m": 0.06,
+        "mean_mean_applied_height_m": 0.30005762256466384,
+        "mean_mean_applied_vx_mps": 0.2009233784204083,
+        "mean_mean_cost_energy": 0.7486347941013436,
+        "mean_mean_cost_motion": 0.2996543276466632,
+        "mean_mean_cost_stability": 0.7776894282129747,
+        "mean_mean_energy_power_ratio": 1.8940571493025349,
+        "mean_mean_progress_rate_mps": 0.16027653788266943,
+        "mean_mean_requested_clearance_m": 0.06,
+        "mean_mean_requested_height_m": 0.29994485031081625,
+        "mean_mean_requested_vx_mps": 0.2027799789261605,
+        "mean_pitch_rms_rad": 0.22762351694428867,
+        "mean_policy_steps": 4.0,
+        "mean_progress_m": 0.13778582918873605,
+        "mean_roll_rms_rad": 0.018999958467169842,
+        "mean_success_energy_abs_j": null,
+        "mean_success_time_s": null,
+        "mean_sum_cost_energy": 3.0121592555429286,
+        "mean_sum_cost_motion": 1.0351036873250643,
+        "mean_sum_cost_stability": 2.341706210425716,
+        "settling_fail": 1,
+        "success": 0,
+        "success_rate_all": 0.0,
+        "success_rate_valid": 0.0,
+        "terminal": 0,
+        "time_limit": 0,
+        "valid_episodes": 2
+      }
+    },
+    "tracer_cost_v2": {
+      "rough_hard": {
+        "episodes": 3,
+        "horizon_exhausted": 0,
+        "m4": 2,
+        "mean_decision_time_s": 0.6919999999999998,
+        "mean_energy_abs_j": 25.405399444205155,
+        "mean_energy_bracket_time_s": 0.6919999999999792,
+        "mean_max_abs_pitch_rad": 0.26356174051761627,
+        "mean_max_abs_roll_rad": 0.019567446317523718,
+        "mean_mean_abs_action_yaw_norm": 0.018082003375249248,
+        "mean_mean_abs_applied_yaw_rps": 0.0052328013500997,
+        "mean_mean_abs_requested_yaw_rps": 0.0072328013500997,
+        "mean_mean_action_height_norm": -0.07518748672945158,
+        "mean_mean_action_vx_norm": -0.08509812557271548,
+        "mean_mean_applied_clearance_m": 0.06,
+        "mean_mean_applied_height_m": 0.2955887507962328,
+        "mean_mean_applied_vx_mps": 0.1841803748854569,
+        "mean_mean_cost_energy": 0.7767549928933497,
+        "mean_mean_cost_motion": 0.31630063635653327,
+        "mean_mean_cost_stability": 0.7743815912855125,
+        "mean_mean_energy_power_ratio": 2.057246947794736,
+        "mean_mean_progress_rate_mps": 0.1469594909147734,
+        "mean_mean_requested_clearance_m": 0.06,
+        "mean_mean_requested_height_m": 0.2954887507962328,
+        "mean_mean_requested_vx_mps": 0.1829803748854569,
+        "mean_pitch_rms_rad": 0.22722725294408477,
+        "mean_policy_steps": 4.0,
+        "mean_progress_m": 0.12543357828076573,
+        "mean_roll_rms_rad": 0.016901907491142492,
+        "mean_success_energy_abs_j": null,
+        "mean_success_time_s": null,
+        "mean_sum_cost_energy": 2.907187619166157,
+        "mean_sum_cost_motion": 1.1043748292676139,
+        "mean_sum_cost_stability": 2.341885563369281,
+        "settling_fail": 1,
+        "success": 0,
+        "success_rate_all": 0.0,
+        "success_rate_valid": 0.0,
+        "terminal": 0,
+        "time_limit": 0,
+        "valid_episodes": 2
+      }
+    }
+  },
+  "decision_dt_nominal_s": 0.2,
+  "deterministic_policy": "PPOActorCritic.act(deterministic=True)",
+  "eval_seed_base": 27027,
+  "evaluation_reward_mode": "tracer_cost_v2",
+  "goal_distance_m": 2.0,
+  "groups": [
+    {
+      "name": "rough_hard",
+      "seeds": [
+        9,
+        23,
+        24
+      ],
+      "terrain": "rough_perlin"
+    }
+  ],
+  "mode": "hard",
+  "perlin_seed_split": "/mnt/share/nas/Yoo/Tracer/TRACER-ICRA27/configs/icra27/m7_perlin_seed_split_v0.json",
+  "policies": {
+    "slr_hl_v2": {
+      "act_dim": 3,
+      "checkpoint": "/mnt/share/nas/Yoo/Tracer/TRACER-ICRA27/results/icra27/phase1p5_paired_v3/slr_hl_v2_seed27027/m7_ppo_multiterrain_final.pt",
+      "hidden_sizes": [
+        128,
+        128
+      ],
+      "obs_dim": 21,
+      "ppo_config": {
+        "clip_ratio": 0.2,
+        "entropy_coef": 0.01,
+        "gae_lambda": 0.95,
+        "gamma": 0.97,
+        "learning_rate": 0.0003,
+        "max_grad_norm": 0.5,
+        "minibatch_size": 64,
+        "update_epochs": 4,
+        "value_coef": 0.5
+      },
+      "trained_reward_mode": "slr_hl_v2"
+    },
+    "tracer_cost_v2": {
+      "act_dim": 3,
+      "checkpoint": "/mnt/share/nas/Yoo/Tracer/TRACER-ICRA27/results/icra27/phase1p5_paired_v3/tracer_cost_v2_seed27027/m7_ppo_multiterrain_final.pt",
+      "hidden_sizes": [
+        128,
+        128
+      ],
+      "obs_dim": 21,
+      "ppo_config": {
+        "clip_ratio": 0.2,
+        "entropy_coef": 0.01,
+        "gae_lambda": 0.95,
+        "gamma": 0.97,
+        "learning_rate": 0.0003,
+        "max_grad_norm": 0.5,
+        "minibatch_size": 64,
+        "update_epochs": 4,
+        "value_coef": 0.5
+      },
+      "trained_reward_mode": "tracer_cost_v2"
+    }
+  },
+  "policy_horizon": 50,
+  "schema": "icra27_phase1p5_paired_eval_v0",
+  "settling_steps": 5,
+  "success_radius_m": 0.15
+}

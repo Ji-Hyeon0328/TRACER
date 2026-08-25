@@ -1,0 +1,16 @@
+{
+  "schema": "icra27_os_selector_train_extension_v0",
+  "status": "FREEZE_PASS",
+  "purpose": "Additional TRAIN-only independent rough Perlin contexts for Objective Selector context-coverage scaling.",
+  "original_split_modified": false,
+  "external_heldout_used": false,
+  "rough_train_extension_seeds": [
+    30, 31, 32, 33, 34, 35,
+    36, 37, 38, 39, 40, 41,
+    42, 43, 44, 45, 46, 47
+  ],
+  "seed_count": 18,
+  "selection_rule": "Contiguous previously-unused Perlin seeds immediately above the frozen original 0-29 seed domain; chosen without inspecting terrain geometry or robot outcomes.",
+  "guard": "These seeds are TRAIN-only selector-development contexts. Existing train/validation/test/hard seed assignments remain immutable.",
+  "next_stage": "Generate oracle local height patches and the frozen 21-beta physical response atlas for these contexts."
+}

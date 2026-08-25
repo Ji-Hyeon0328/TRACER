@@ -1,0 +1,119 @@
+{
+  "balanced_quality": {
+    "eta": [
+      0.3333333333333333,
+      0.3333333333333333,
+      0.3333333333333333
+    ],
+    "final_decision_metric": "true held-context Q excess of the beta selected from predicted physical response.",
+    "rho": 0.01,
+    "selection": "argmin predicted augmented Tchebycheff quality over the 21 beta candidates."
+  },
+  "beta_candidates": 21,
+  "beta_conditioning": "Physical reward weights reconstructed from the frozen 21-point lambda lattice.",
+  "evaluation": "Strict outer LOCO over 18 original rough TRAIN contexts. Each fold trains on remaining 17 original + 15 extension TRAIN contexts. No validation/test/hard context is used.",
+  "heldout_used": false,
+  "important_semantics": "The response surrogate is eta-agnostic. Once J(context,beta) is predicted, different physical preference vectors eta can be applied without retraining the surrogate.",
+  "model": {
+    "activation": "SiLU",
+    "device": "CPU",
+    "ensemble_seeds": [
+      27027,
+      27028,
+      27029
+    ],
+    "epochs": 1200,
+    "hidden": [
+      64,
+      64
+    ],
+    "input_standardization": "outer-TRAIN-only per-dimension",
+    "lr": 0.001,
+    "optimizer": "AdamW",
+    "outputs": [
+      "J_motion",
+      "J_stability",
+      "J_energy"
+    ],
+    "target_standardization": "outer-TRAIN-only per-objective",
+    "type": "MLP",
+    "weight_decay": 0.0001
+  },
+  "objective": "Learn a candidate-conditioned physical response surrogate f(context,beta)->[J_motion,J_stability,J_energy].",
+  "probe_horizon_s": 0.4,
+  "representations": [
+    "semantic_only",
+    "semantic_plus_probe",
+    "semantic_plus_prop_probe"
+  ],
+  "schema": "icra27_os_t6p9b_augmented_context_physical_response_loco_v0",
+  "status": "COMPUTE_PASS",
+  "summary": [
+    {
+      "Q_excess_max": 41.66832573678143,
+      "Q_excess_mean": 2.6291676660052907,
+      "Q_excess_median": 0.18450906120563276,
+      "Q_excess_p95": 7.385683779408886,
+      "baseline_Q_excess_mean": 0.1998418525268314,
+      "beats_baseline_fraction": 0.3888888888888889,
+      "context_dim": 74,
+      "exact_fraction": 0.1111111111111111,
+      "held_mae_J_energy_mean": 10.269199096970748,
+      "held_mae_J_motion_mean": 0.11712933073364473,
+      "held_mae_J_stability_mean": 0.09447629816506677,
+      "representation": "semantic_only",
+      "rho_J_energy_mean": 0.08621933621933622,
+      "rho_J_motion_mean": 0.9336219336219336,
+      "rho_J_stability_mean": 0.003102453102453082,
+      "rho_Q_mean": 0.07907647907647908,
+      "top3_fraction": 0.2222222222222222,
+      "top5_fraction": 0.3888888888888889,
+      "true_rank_mean": 10.0,
+      "true_rank_median": 10.5
+    },
+    {
+      "Q_excess_max": 10.634846983014494,
+      "Q_excess_mean": 1.4118350687520922,
+      "Q_excess_median": 0.23010565401060445,
+      "Q_excess_p95": 9.153563526683453,
+      "baseline_Q_excess_mean": 0.1998418525268314,
+      "beats_baseline_fraction": 0.2222222222222222,
+      "context_dim": 81,
+      "exact_fraction": 0.05555555555555555,
+      "held_mae_J_energy_mean": 8.237531649472759,
+      "held_mae_J_motion_mean": 0.10775244057627237,
+      "held_mae_J_stability_mean": 0.09081199031697175,
+      "representation": "semantic_plus_probe",
+      "rho_J_energy_mean": 0.061688311688311695,
+      "rho_J_motion_mean": 0.9105339105339105,
+      "rho_J_stability_mean": -0.17316017316017315,
+      "rho_Q_mean": 0.1158008658008658,
+      "top3_fraction": 0.2777777777777778,
+      "top5_fraction": 0.2777777777777778,
+      "true_rank_mean": 10.277777777777779,
+      "true_rank_median": 11.5
+    },
+    {
+      "Q_excess_max": 9.540166325123312,
+      "Q_excess_mean": 0.8807403418098977,
+      "Q_excess_median": 0.2540678840184944,
+      "Q_excess_p95": 2.3571846742759464,
+      "baseline_Q_excess_mean": 0.1998418525268314,
+      "beats_baseline_fraction": 0.3333333333333333,
+      "context_dim": 87,
+      "exact_fraction": 0.05555555555555555,
+      "held_mae_J_energy_mean": 8.146841737855484,
+      "held_mae_J_motion_mean": 0.10561236050145771,
+      "held_mae_J_stability_mean": 0.09433988267496601,
+      "representation": "semantic_plus_prop_probe",
+      "rho_J_energy_mean": 0.051154401154401175,
+      "rho_J_motion_mean": 0.9455988455988454,
+      "rho_J_stability_mean": 0.0777056277056277,
+      "rho_Q_mean": 0.20396825396825397,
+      "top3_fraction": 0.2777777777777778,
+      "top5_fraction": 0.3888888888888889,
+      "true_rank_mean": 9.722222222222221,
+      "true_rank_median": 9.5
+    }
+  ]
+}

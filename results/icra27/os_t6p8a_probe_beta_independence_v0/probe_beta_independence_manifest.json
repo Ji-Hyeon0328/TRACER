@@ -1,0 +1,26 @@
+{
+  "aggregate": {
+    "all_seeds_beta_independent": true,
+    "beta_points": 4,
+    "episodes_checked": 36,
+    "max_boundary_abs_diff": 0.0,
+    "max_probe_progress_m": 0.20416568645496858,
+    "mean_probe_progress_m": 0.19704965780384362,
+    "per_seed_beta_independent": {
+      "13": true,
+      "22": true,
+      "4": true
+    },
+    "probe_duration_s": 1.0,
+    "probe_steps": 5,
+    "repeats_per_beta": 3,
+    "seeds": 3
+  },
+  "excluded_from_probe_hash": "Reward/objective scalarization fields, which legitimately depend on beta.",
+  "heldout_used": false,
+  "interpretation": "If physical probe trajectories are identical across beta for each terrain seed, probe-derived state is causally available before beta selection. This establishes only an identifiability diagnostic and does not yet justify deploying a one-second active probe.",
+  "probe_definition": "Five fixed zero-normalized-action steps before the first learned-policy action. Because zero normalized action maps to nominal forward locomotion, this is an active nominal-motion probe, not passive settling.",
+  "schema": "icra27_os_t6p8a_probe_beta_independence_v0",
+  "source": "T6.5a exact-repeat TRAIN-only diagnostic episodes.",
+  "status": "COMPUTE_PASS"
+}

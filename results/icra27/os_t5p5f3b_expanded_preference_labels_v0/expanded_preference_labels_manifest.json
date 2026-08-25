@@ -1,0 +1,50 @@
+{
+  "beta_points_per_context": 21,
+  "contexts": 35,
+  "extension_context_ids": [
+    "rough_seed_30",
+    "rough_seed_31",
+    "rough_seed_32",
+    "rough_seed_33",
+    "rough_seed_35",
+    "rough_seed_36",
+    "rough_seed_37",
+    "rough_seed_38",
+    "rough_seed_39",
+    "rough_seed_40",
+    "rough_seed_41",
+    "rough_seed_42",
+    "rough_seed_44",
+    "rough_seed_45",
+    "rough_seed_47"
+  ],
+  "extension_contexts": 15,
+  "frozen_label_regression_source": "results/icra27/os_t5p5d_expanded_preference_labels_v0/preference_to_beta_labels.csv",
+  "heldout_used": false,
+  "interpretation_guard": "TRAIN-only label expansion. The 15 extension contexts are exactly the full-21-beta feasible contexts frozen in T5.5f2r. Seeds 34, 43, 46 remain preserved as feasibility evidence and are not silently resampled.",
+  "labels": 875,
+  "next_stage": "T5.5f4: rerun the identical nonlinear log-regret response selector LOCO on the same 18 original held rough contexts, but train each fold with 17 original rough + 15 extension rough contexts.",
+  "normalization_policy": "No global objective normalization is introduced. Only context-local Pareto ideal/nadir regret is used.",
+  "objective_direction": "all_lower_is_better",
+  "old_contexts": 20,
+  "old_t5p5d_regression": {
+    "exact_selected_beta": 500,
+    "max_scalarization_score_error": 0.0,
+    "rows": 500,
+    "status": "PASS"
+  },
+  "original_split_modified": false,
+  "pareto_count_range": [
+    1,
+    14
+  ],
+  "physical_atlas_source": "results/icra27/os_t5p5f3_expanded_physical_atlas_v0/physical_beta_response_atlas.csv",
+  "preference_bank_source": "Exact ordered 25-preference bank recovered from frozen T5.5d labels; not regenerated or renamed.",
+  "preferences_per_context": 25,
+  "rho": 0.01,
+  "scalarization": "context-local Pareto regret r_k=(J_k-ideal_k)/(nadir_k-ideal_k), zero span -> 0; S=max_k(w_k r_k) + rho * sum_k(w_k r_k)",
+  "schema": "icra27_os_t5p5f3b_expanded_preference_labels_v0",
+  "selection_domain": "context-local Pareto front only",
+  "status": "FREEZE_PASS",
+  "tie_break": "frozen 21-beta atlas order"
+}

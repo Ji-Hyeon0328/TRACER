@@ -1,0 +1,40 @@
+{
+  "aggregate": {
+    "response_linf_mean_iqr": 0.9586937168320244,
+    "response_linf_median_iqr": 0.9058854171993334,
+    "response_linf_p95_iqr": 2.0055978128416387,
+    "selector_exact_accuracy": 0.1711111111111111,
+    "selector_physical_linf_mean_iqr": 0.15233051424968788,
+    "selector_physical_linf_median_iqr": 0.08322802065422995,
+    "selector_physical_linf_p95_iqr": 0.49969853438535183,
+    "selector_score_excess_le_0p05_fraction": 0.28888888888888886,
+    "selector_score_excess_max": 9.935767327926113,
+    "selector_score_excess_mean": 0.593000248248252,
+    "selector_score_excess_median": 0.19170775730850415,
+    "selector_score_excess_p95": 2.6268095870497663
+  },
+  "folds": 18,
+  "future_interface": "Terrain PCA latent may later be replaced by CART/world-model latent without changing the response-model selector logic.",
+  "global_iqr_reporting_only": [
+    0.16126301072742333,
+    0.11078278215759008,
+    12.452713540840207
+  ],
+  "heldout_used": false,
+  "interpretation_guard": "TRAIN rough-context LOCO only. No validation/test/hard terrain is used. The global IQR is reporting scale only.",
+  "response_model": {
+    "alpha": 0.01,
+    "feature_map": "[1, c, lambda, c outer lambda, quadratic lambda]",
+    "supervision_per_fold": "19 TRAIN contexts x 21 beta points = 399 physical response rows",
+    "targets": [
+      "J_motion_s_per_m",
+      "J_stability",
+      "J_energy_j_per_m"
+    ],
+    "type": "closed-form ridge"
+  },
+  "schema": "icra27_os_t5p5e1n_response_model_selector_loco_v0",
+  "selector": "Predict all 21 beta responses, construct predicted Pareto reference, then minimize the same augmented weighted Tchebycheff objective for w.",
+  "status": "COMPUTE_PASS",
+  "terrain_encoder": "strict fold-local PCA k95 from 17 rough TRAIN patches"
+}

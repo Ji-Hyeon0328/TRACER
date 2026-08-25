@@ -1,0 +1,76 @@
+{
+  "schema": "icra27_phase2b_mission_local_inverse_beta_exact_v0",
+  "informative_decision_count": 1012,
+  "support_counts": {
+    "strict": 991,
+    "unsupported": 21
+  },
+  "expressible_count": 991,
+  "expressible_fraction": 0.9792490118577075,
+  "mission_support": {
+    "fast": {
+      "count": 321,
+      "strict": 300,
+      "weak": 0,
+      "unsupported": 21,
+      "expressible": 300,
+      "expressible_fraction": 0.9345794392523364
+    },
+    "stable": {
+      "count": 300,
+      "strict": 300,
+      "weak": 0,
+      "unsupported": 0,
+      "expressible": 300,
+      "expressible_fraction": 1.0
+    },
+    "efficient": {
+      "count": 391,
+      "strict": 391,
+      "weak": 0,
+      "unsupported": 0,
+      "expressible": 391,
+      "expressible_fraction": 1.0
+    }
+  },
+  "terrain_support": {
+    "flat": {
+      "count": 346,
+      "strict": 333,
+      "weak": 0,
+      "unsupported": 13
+    },
+    "low_friction": {
+      "count": 335,
+      "strict": 333,
+      "weak": 0,
+      "unsupported": 2
+    },
+    "rough_perlin": {
+      "count": 331,
+      "strict": 325,
+      "weak": 0,
+      "unsupported": 6
+    }
+  },
+  "source_beta_consistency": {
+    "balanced": {
+      "consistent": 158,
+      "total": 384
+    },
+    "motion": {
+      "consistent": 194,
+      "total": 199
+    },
+    "stability": {
+      "consistent": 140,
+      "total": 215
+    },
+    "energy": {
+      "consistent": 148,
+      "total": 214
+    }
+  },
+  "semantics": "Exact mission-local audit of whether the observed preference comparisons can be rationalized by the frozen linear beta cost family.",
+  "important_note": "beta_hat is only a max-margin representative, not a unique ground-truth reward weight."
+}
